@@ -14,7 +14,7 @@ const PlaceCard = ({ place }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false);
+      // setLoading(false);
     }, 3000);
 
     return () => clearTimeout(timer);
