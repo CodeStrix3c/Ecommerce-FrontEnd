@@ -1,32 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Heart, IndianRupee, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
-import Skeleton from "react-loading-skeleton";
+import PlaceCardSkeletonUi from "./PlaceCardSkeletonUi";
 
-const PlaceCard = ({ place, loading = false }) => {
+const PlaceCard = ({ place }) => {
   const { wishlist, toggleWishlist } = useWishlist();
-
-  if (loading) {
-    return (
-      <div className="h-full">
-        <div className="relative">
-          <Skeleton height={180} className="rounded-xl" />
-        </div>
-        <div className="mt-2">
-          <Skeleton height={20} width="80%" />
-          <Skeleton height={15} width="60%" />
-          <div className="mt-1 flex items-center justify-between">
-            <Skeleton height={15} width={80} />
-            <Skeleton height={15} width={40} />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const { _id, title, address, photos, price, rating } = place;
   const isWishlisted = wishlist.some((item) => item._id === _id);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <PlaceCardSkeletonUi />;
+  }
 
   return (
     <div className="h-full">
