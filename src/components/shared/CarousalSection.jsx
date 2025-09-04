@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
-import Slider from 'react-slick';
-import PlaceCard from '@/features/places/components/PlaceCard';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import useIsMobile from '@/hooks/useInMobile';
-import SectionTitle from './SectionTitle';
+import React, { useRef } from "react";
+import Slider from "react-slick";
+import PlaceCard from "@/features/places/components/PlaceCard";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import useIsMobile from "@/hooks/useInMobile";
+import SectionTitle from "./SectionTitle";
 
-const CarousalSection = ({ title, places }) => {
+const CarousalSection = ({ title, places, loading }) => {
   const sliderRef = useRef(null);
   const isMobile = useIsMobile();
 
@@ -64,9 +64,9 @@ const CarousalSection = ({ title, places }) => {
       </div>
 
       <Slider ref={sliderRef} {...settings}>
-        {places.map((place, index) => (
-          <div key={place._id} className="px-2">
-            <PlaceCard place={place} />
+        {(loading ? Array(6).fill({}) : places).map((place, index) => (
+          <div key={place._id || index} className="px-2">
+            <PlaceCard place={place} loading={true} />
           </div>
         ))}
       </Slider>

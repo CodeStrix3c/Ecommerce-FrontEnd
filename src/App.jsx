@@ -1,36 +1,37 @@
-import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Slide, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import 'leaflet/dist/leaflet.css';
+import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-import IndexPage from './features/IndexPage';
-import LoginPage from './features/auth/pages/LoginPage';
-import RegisterPage from './features/auth/pages/RegisterPage';
-import ProfilePage from './features/auth/pages/ProfilePage';
-import PlacesFormPage from './features/places/pages/PlacesFormPage';
-import PlacePage from './features/places/pages/PlacePage';
-import BookingsPage from './features/bookings/pages/BookingsPage';
-import NotFoundPage from './features/errors/NotFoundPage';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import SingleBookedPlace from './features/bookings/pages/SingleBookedPlace';
-import Layout from './app/Layout';
-import axiosInstance from './utils/axios';
-import { getItemFromLocalStorage } from './utils';
-import PlacesPage from './features/places/pages/PlacesPage';
-import AppProvider from './providers/AppProvider';
-import CompanyDetails from './features/privacy-policies/pages/CompanyDetails';
-import Privacy from './features/privacy-policies/pages/Privacy';
-import Sitemap from './features/privacy-policies/pages/Sitemap';
-import Terms from './features/privacy-policies/pages/Terms';
-import ScrollToTop from './components/shared/ScrollToTop';
+import "leaflet/dist/leaflet.css";
+
+import IndexPage from "./features/IndexPage";
+import LoginPage from "./features/auth/pages/LoginPage";
+import RegisterPage from "./features/auth/pages/RegisterPage";
+import ProfilePage from "./features/auth/pages/ProfilePage";
+import PlacesFormPage from "./features/places/pages/PlacesFormPage";
+import PlacePage from "./features/places/pages/PlacePage";
+import BookingsPage from "./features/bookings/pages/BookingsPage";
+import NotFoundPage from "./features/errors/NotFoundPage";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import SingleBookedPlace from "./features/bookings/pages/SingleBookedPlace";
+import Layout from "./app/Layout";
+import axiosInstance from "./utils/axios";
+import { getItemFromLocalStorage } from "./utils";
+import PlacesPage from "./features/places/pages/PlacesPage";
+import AppProvider from "./providers/AppProvider";
+import CompanyDetails from "./features/privacy-policies/pages/CompanyDetails";
+import Privacy from "./features/privacy-policies/pages/Privacy";
+import Sitemap from "./features/privacy-policies/pages/Sitemap";
+import Terms from "./features/privacy-policies/pages/Terms";
+import ScrollToTop from "./components/shared/ScrollToTop";
 
 function App() {
   useEffect(() => {
-    axiosInstance.defaults.headers.common['Authorization'] =
-      `Bearer ${getItemFromLocalStorage('token')}`;
+    axiosInstance.defaults.headers.common["Authorization"] =
+      `Bearer ${getItemFromLocalStorage("token")}`;
   }, []);
 
   return (

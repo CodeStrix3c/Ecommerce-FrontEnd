@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
-import { toast } from 'react-toastify';
-import { useAuth } from '@/hooks';
-import AuthModal from '../components/AuthModal';
-import { TextField, Button, Divider, Tabs, Tab, Box } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
+import { useAuth } from "@/hooks";
+import AuthModal from "../components/AuthModal";
+import { TextField, Button, Divider, Tabs, Tab, Box } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   emailRegisterSchema,
   phoneRegisterSchema,
-} from '@/schemas/authSchemas';
-import RequiredLabel from '@/components/ui/RequiredLabel';
+} from "@/schemas/authSchemas";
+import RequiredLabel from "@/components/ui/RequiredLabel";
 
 const RegisterPage = () => {
   const [redirect, setRedirect] = useState(false);
-  const [tab, setTab] = useState(0); // 0 = Email, 1 = Phone
+  const [tab, setTab] = useState(0);
   const auth = useAuth();
 
   const schema = tab === 0 ? emailRegisterSchema : phoneRegisterSchema;
@@ -56,9 +56,9 @@ const RegisterPage = () => {
         onChange={(e, val) => setTab(val)}
         centered
         sx={{
-          '& .MuiTab-root': { textTransform: 'none', fontWeight: 500 },
-          '& .Mui-selected': { color: '#ff385c' },
-          '& .MuiTabs-indicator': { backgroundColor: '#ff385c' },
+          "& .MuiTab-root": { textTransform: "none", fontWeight: 500 },
+          "& .Mui-selected": { color: "#ff385c" },
+          "& .MuiTabs-indicator": { backgroundColor: "#ff385c" },
         }}
       >
         <Tab label="Email" />
@@ -77,7 +77,7 @@ const RegisterPage = () => {
                 variant="outlined"
                 error={!!errors.fullName}
                 helperText={errors.fullName?.message}
-                {...register('fullName')}
+                {...register("fullName")}
               />
               <TextField
                 label={<RequiredLabel label="Email" />}
@@ -87,7 +87,7 @@ const RegisterPage = () => {
                 variant="outlined"
                 error={!!errors.email}
                 helperText={errors.email?.message}
-                {...register('email')}
+                {...register("email")}
               />
               <TextField
                 label={<RequiredLabel label="Password" />}
@@ -97,7 +97,7 @@ const RegisterPage = () => {
                 variant="outlined"
                 error={!!errors.password}
                 helperText={errors.password?.message}
-                {...register('password')}
+                {...register("password")}
               />
             </>
           ) : (
@@ -109,7 +109,7 @@ const RegisterPage = () => {
                 variant="outlined"
                 error={!!errors.fullName}
                 helperText={errors.fullName?.message}
-                {...register('fullName')}
+                {...register("fullName")}
               />
               <TextField
                 label={<RequiredLabel label="Phone number" />}
@@ -124,7 +124,7 @@ const RegisterPage = () => {
                     <span className="mr-2 text-gray-500">+91</span>
                   ),
                 }}
-                {...register('phone')}
+                {...register("phone")}
               />
               <TextField
                 label={<RequiredLabel label="Password" />}
@@ -134,7 +134,7 @@ const RegisterPage = () => {
                 variant="outlined"
                 error={!!errors.password}
                 helperText={errors.password?.message}
-                {...register('password')}
+                {...register("password")}
               />
             </>
           )}
@@ -144,11 +144,11 @@ const RegisterPage = () => {
             type="submit"
             variant="contained"
             sx={{
-              backgroundColor: '#ff385c',
-              '&:hover': { backgroundColor: '#e03352' },
-              textTransform: 'none',
-              fontWeight: '600',
-              borderRadius: '12px',
+              backgroundColor: "#ff385c",
+              "&:hover": { backgroundColor: "#e03352" },
+              textTransform: "none",
+              fontWeight: "600",
+              borderRadius: "12px",
               py: 1.5,
             }}
           >
@@ -164,7 +164,7 @@ const RegisterPage = () => {
       <div className="flex flex-col gap-3">
         <GoogleLogin
           onSuccess={(cred) => handleGoogleLogin(cred.credential)}
-          onError={() => console.log('Register failed')}
+          onError={() => console.log("Register failed")}
           text="continue_with"
           width="full"
         />
@@ -172,7 +172,7 @@ const RegisterPage = () => {
 
       {/* Login link */}
       <p className="mt-6 text-center text-sm text-gray-500">
-        Already have an account?{' '}
+        Already have an account?{" "}
         <Link to="/login" className="font-small text-black underline">
           Log in
         </Link>

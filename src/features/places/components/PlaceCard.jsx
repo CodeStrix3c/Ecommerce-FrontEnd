@@ -1,12 +1,31 @@
-import React from 'react';
-import { Heart, IndianRupee, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useWishlist } from '@/providers/WishListProvider';
+import React from "react";
+import { Heart, IndianRupee, Star } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useWishlist } from "@/providers/WishListProvider";
+import Skeleton from "react-loading-skeleton";
 
-const PlaceCard = ({ place }) => {
-  const { _id, title, address, photos, price, rating } = place;
+const PlaceCard = ({ place, loading = false }) => {
   const { wishlist, toggleWishlist } = useWishlist();
 
+  if (loading) {
+    return (
+      <div className="h-full">
+        <div className="relative">
+          <Skeleton height={180} className="rounded-xl" />
+        </div>
+        <div className="mt-2">
+          <Skeleton height={20} width="80%" />
+          <Skeleton height={15} width="60%" />
+          <div className="mt-1 flex items-center justify-between">
+            <Skeleton height={15} width={80} />
+            <Skeleton height={15} width={40} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const { _id, title, address, photos, price, rating } = place;
   const isWishlisted = wishlist.some((item) => item._id === _id);
 
   return (
@@ -35,7 +54,7 @@ const PlaceCard = ({ place }) => {
           >
             <Heart
               className={`h-4 w-4 transition ${
-                isWishlisted ? 'fill-[#ff5a5f] text-[#ff5a5f]' : 'text-gray-700'
+                isWishlisted ? "fill-[#ff5a5f] text-[#ff5a5f]" : "text-gray-700"
               }`}
             />
           </button>
@@ -53,7 +72,7 @@ const PlaceCard = ({ place }) => {
           <div className="mt-1 flex items-center justify-between text-[13px] sm:text-sm">
             <span className="flex items-center font-normal text-[#222]">
               <IndianRupee className="h-3 w-3 text-[#222]" />
-              {price}{' '}
+              {price}{" "}
               <span className="mx-1 min-w-fit text-[12px] text-[#222222]">
                 for 2 nights
               </span>
