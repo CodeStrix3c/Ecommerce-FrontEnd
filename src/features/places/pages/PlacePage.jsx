@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import Spinner from '@/components/ui/Spinner';
-import AddressLink from '@/components/shared/AddressLink';
-import BookingWidget from '@/features/bookings/components/BookingWidget';
-import PlaceGallery from '@/features/places/components/PlaceGallery';
-import PerksWidget from '@/features/perks/components/PerksWidget';
-import { dummyData } from '@/data/dummyData';
-import MapBox from '@/components/ui/MapBox';
-import ListingHeader from '@/components/shared/ListingHeader';
-import RatingSummary from '@/features/reviews/components/Ratings';
-import OverallRating from '@/features/reviews/components/OverallRating';
-import Testimonials from '@/features/reviews/pages/Testimonials';
+import Spinner from "@/components/ui/Spinner";
+import AddressLink from "@/components/shared/AddressLink";
+import BookingWidget from "@/features/bookings/components/BookingWidget";
+import PlaceGallery from "@/features/places/components/PlaceGallery";
+import PerksWidget from "@/features/perks/components/PerksWidget";
+import { dummyData } from "@/data/dummyData";
+import MapBox from "@/components/ui/MapBox";
+import ListingHeader from "@/components/shared/ListingHeader";
+import RatingSummary from "@/features/reviews/components/Ratings";
+import OverallRating from "@/features/reviews/components/OverallRating";
+import Testimonials from "@/features/reviews/pages/Testimonials";
+import HighlightBanner from "@/features/reviews/components/HighlightBanner";
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -46,6 +47,9 @@ const PlacePage = () => {
 
       <AddressLink placeAddress={place.address} />
       <PlaceGallery place={place} />
+      <div className="mt-10">
+        <HighlightBanner />
+      </div>
 
       <div className="mb-8 mt-8 grid grid-cols-1 gap-8 md:grid-cols-[2fr_1fr]">
         <div>
@@ -68,12 +72,6 @@ const PlacePage = () => {
         </div>
       </div>
 
-      <div className="-mx-8 border-t bg-white  py-8">
-        <h2 className="mt-4 text-2xl font-semibold">Extra Info</h2>
-        <div className="mb-4 mt-2 text-sm leading-5 text-gray-700">
-          {place.extraInfo}
-        </div>
-      </div>
       <RatingSummary />
       <OverallRating />
       <Testimonials />
