@@ -1,12 +1,12 @@
-import { X } from 'lucide-react';
-import LeftPanel from './LeftPanel';
-import ReviewCard from './ReviewCard';
+import { X } from "lucide-react";
+import LeftPanel from "./LeftPanel";
+import ReviewCard from "./ReviewCard";
 
 export default function ReviewModal({
   testimonials,
   selectedReview,
   onClose,
-  onShowAll, // function to show all reviews
+  onShowAll,
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
@@ -30,8 +30,8 @@ export default function ReviewModal({
                   key={review.id}
                   className={`border-b pb-4 ${
                     selectedReview?.id === review.id
-                      ? 'rounded-lg bg-gray-50 p-3'
-                      : ''
+                      ? "rounded-lg bg-gray-50 p-3"
+                      : ""
                   }`}
                 >
                   <ReviewCard review={review} onShowMore={onShowAll} />

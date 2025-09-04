@@ -1,6 +1,6 @@
-import { X } from 'lucide-react';
-import LeftPanel from './LeftPanel';
-import ReviewCard from './ReviewCard';
+import { X } from "lucide-react";
+import LeftPanel from "./LeftPanel";
+import ReviewCard from "./ReviewCard";
 
 export default function AllReviewsModal({ testimonials, onClose }) {
   return (
@@ -21,7 +21,6 @@ export default function AllReviewsModal({ testimonials, onClose }) {
             <div className="space-y-6">
               {testimonials.map((review) => (
                 <div key={review.id} className="border-b pb-4">
-                  {/* pass compact={false} so no nested modal */}
                   <ReviewCard review={review} compact={false} />
                 </div>
               ))}
