@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import useIsMobile from '@/hooks/useInMobile';
-import TestimonialsCarousel from '../components/TestimonialsCarousal';
-import TestimonialsGrid from '../components/TestimonialsGrid';
-import ReviewModal from '../components/ReviewModal';
-import AllReviewsModal from '../components/AllReviewModal';
-import { testimonials } from '@/data/testimonialsData';
+import { useState } from "react";
+import useIsMobile from "@/hooks/useInMobile";
+import TestimonialsCarousel from "../components/TestimonialsCarousal";
+import TestimonialsGrid from "../components/TestimonialsGrid";
+import ReviewModal from "../components/ReviewModal";
+import AllReviewsModal from "../components/AllReviewModal";
+import { testimonials } from "@/data/testimonialsData";
 
 export default function Testimonials() {
   const isMobile = useIsMobile();
@@ -31,7 +31,6 @@ export default function Testimonials() {
         />
       )}
 
-      {/* Modal for single review */}
       {selectedReview && (
         <ReviewModal
           testimonials={testimonials}

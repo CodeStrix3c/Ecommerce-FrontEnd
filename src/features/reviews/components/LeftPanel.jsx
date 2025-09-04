@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   SprayCan,
   CheckCircle,
@@ -6,10 +6,10 @@ import {
   MessageCircle,
   Map,
   Tag,
-} from 'lucide-react';
-import leftLeaf from '/assets/images/left-leaf.png';
-import rightLeaf from '/assets/images/right-leaf.png';
-import RatingSummary from './Ratings';
+} from "lucide-react";
+import leftLeaf from "/assets/images/left-leaf.png";
+import rightLeaf from "/assets/images/right-leaf.png";
+import RatingSummary from "./Ratings";
 
 export default function LeftPanel() {
   const overall = 4.96;
@@ -19,32 +19,32 @@ export default function LeftPanel() {
 
   const subRatings = [
     {
-      label: 'Cleanliness',
+      label: "Cleanliness",
       score: 5.0,
       icon: <SprayCan className="h-5 w-5 text-gray-700" />,
     },
     {
-      label: 'Accuracy',
+      label: "Accuracy",
       score: 5.0,
       icon: <CheckCircle className="h-5 w-5 text-gray-700" />,
     },
     {
-      label: 'Check-in',
+      label: "Check-in",
       score: 5.0,
       icon: <Key className="h-5 w-5 text-gray-700" />,
     },
     {
-      label: 'Communication',
+      label: "Communication",
       score: 5.0,
       icon: <MessageCircle className="h-5 w-5 text-gray-700" />,
     },
     {
-      label: 'Location',
+      label: "Location",
       score: 4.9,
       icon: <Map className="h-5 w-5 text-gray-700" />,
     },
     {
-      label: 'Value',
+      label: "Value",
       score: 4.9,
       icon: <Tag className="h-5 w-5 text-gray-700" />,
     },
@@ -53,17 +53,6 @@ export default function LeftPanel() {
   return (
     <>
       <div className="custom-scrollbar hidden overflow-y-auto border-r p-6 md:block">
-        {/* <div className="mb-8 text-center">
-          <div className="flex items-center justify-center gap-3">
-            <img src={leftLeaf} alt="left leaf" className="h-12 w-12 pt-2" />
-            <p className="text-6xl font-bold">{overall}</p>
-            <img src={rightLeaf} alt="right leaf" className="h-12 w-12 pt-2" />
-          </div>
-          <p className="mt-2 font-medium text-gray-700">Guest favourite</p>
-          <p className="text-sm text-gray-500">
-            This home is a guest favourite based on {totalReviews} reviews
-          </p>
-        </div> */}
         <RatingSummary />
 
         <div className="w-70 mx-auto mb-8 space-y-2">
