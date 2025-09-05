@@ -9,11 +9,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { phoneLoginSchema, emailLoginSchema } from "@/schemas/authSchemas";
 import AuthModal from "../components/AuthModal";
 import RequiredLabel from "@/components/ui/RequiredLabel";
+import useIsMobile from "@/hooks/useInMobile";
+import MobileLoginModal from "@/features/auth/mobile/MobileLoginModal";
 
 const LoginPage = () => {
   const [redirect, setRedirect] = useState(false);
   const [tab, setTab] = useState(0);
   const auth = useAuth();
+  const isMobile = useIsMobile();
 
   const schema = tab === 0 ? phoneLoginSchema : emailLoginSchema;
 
@@ -46,107 +49,124 @@ const LoginPage = () => {
   if (redirect) return <Navigate to="/" />;
 
   return (
-    <AuthModal title="Log in or sign up" onClose={() => setRedirect(true)}>
-      <Tabs
-        value={tab}
-        onChange={(e, val) => setTab(val)}
-        centered
-        sx={{
-          "& .MuiTab-root": { textTransform: "none", fontWeight: 500 },
-          "& .Mui-selected": { color: "#ff385c" },
-          "& .MuiTabs-indicator": { backgroundColor: "#ff385c" },
-        }}
-      >
-        <Tab label="Phone" />
-        <Tab label="Email" />
-      </Tabs>
+    <>
+      {isMobile ? (
+        <MobileLoginModal isOpen={true} onClose={() => setRedirect(true)} />
+      ) : (
+        <div className="flex min-h-screen my-20">
+          <div className="hidden md:flex w-1/2 bg-gray-100">
+            <img
+              src="/images/login-banner.jpg"
+              alt="Travel inspiration"
+              className="object-cover w-full h-full"
+            />
+          </div>
 
-      <Box className="mt-6">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          {tab === 0 ? (
-            <>
-              <TextField
-                label={<RequiredLabel label="Phone number" />}
-                type="tel"
-                fullWidth
-                size="small"
-                variant="outlined"
-                error={!!errors.phone}
-                helperText={errors.phone?.message}
-                {...register("phone")}
-              />
-              <TextField
-                label={<RequiredLabel label="Password" />}
-                type="password"
-                fullWidth
-                size="small"
-                variant="outlined"
-                error={!!errors.password}
-                helperText={errors.password?.message}
-                {...register("password")}
-              />
-            </>
-          ) : (
-            <>
-              <TextField
-                label={<RequiredLabel label="Email" />}
-                type="email"
-                fullWidth
-                size="small"
-                variant="outlined"
-                error={!!errors.email}
-                helperText={errors.email?.message}
-                {...register("email")}
-              />
-              <TextField
-                label={<RequiredLabel label="Password" />}
-                type="password"
-                fullWidth
-                size="small"
-                variant="outlined"
-                error={!!errors.password}
-                helperText={errors.password?.message}
-                {...register("password")}
-              />
-            </>
-          )}
+          <div className="flex w-full md:w-1/2 items-center justify-center px-8">
+            <div className="max-w-md w-full">
+              <h1 className="text-3xl font-semibold mb-6">Log in or sign up</h1>
 
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            sx={{
-              backgroundColor: "#ff385c",
-              "&:hover": { backgroundColor: "#e03352" },
-              textTransform: "none",
-              fontWeight: "600",
-              borderRadius: "12px",
-              py: 1.5,
-            }}
-          >
-            Continue
-          </Button>
-        </form>
-      </Box>
+              <Tabs value={tab} onChange={(e, val) => setTab(val)}>
+                <Tab label="Phone" />
+                <Tab label="Email" />
+              </Tabs>
 
-      <Divider sx={{ my: 4 }}>or</Divider>
+              <Box className="mt-6">
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="flex flex-col gap-4"
+                >
+                  {tab === 0 ? (
+                    <>
+                      <TextField
+                        label={<RequiredLabel label="Phone number" />}
+                        type="tel"
+                        fullWidth
+                        size="small"
+                        variant="outlined"
+                        error={!!errors.phone}
+                        helperText={errors.phone?.message}
+                        {...register("phone")}
+                      />
+                      <TextField
+                        label={<RequiredLabel label="Password" />}
+                        type="password"
+                        fullWidth
+                        size="small"
+                        variant="outlined"
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                        {...register("password")}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <TextField
+                        label={<RequiredLabel label="Email" />}
+                        type="email"
+                        fullWidth
+                        size="small"
+                        variant="outlined"
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                        {...register("email")}
+                      />
+                      <TextField
+                        label={<RequiredLabel label="Password" />}
+                        type="password"
+                        fullWidth
+                        size="small"
+                        variant="outlined"
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                        {...register("password")}
+                      />
+                    </>
+                  )}
 
-      <div className="flex flex-col gap-3">
-        <GoogleLogin
-          onSuccess={(cred) => handleGoogleLogin(cred.credential)}
-          onError={() => console.log("Login failed")}
-          text="continue_with"
-          width="full"
-        />
-      </div>
+                  <Button
+                    fullWidth
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#ff385c",
+                      "&:hover": { backgroundColor: "#e03352" },
+                      textTransform: "none",
+                      fontWeight: "600",
+                      borderRadius: "12px",
+                      py: 1.5,
+                    }}
+                  >
+                    Continue
+                  </Button>
+                </form>
+              </Box>
 
-      <p className="mt-6 text-center text-sm text-gray-500">
-        Don’t have an account?{" "}
-        <Link to="/register" className="font-small text-black underline">
-          Sign up
-        </Link>
-      </p>
-    </AuthModal>
+              <Divider sx={{ my: 4 }}>or</Divider>
+
+              <div className="flex flex-col gap-3">
+                <GoogleLogin
+                  onSuccess={(cred) => handleGoogleLogin(cred.credential)}
+                  onError={() => console.log("Login failed")}
+                  text="continue_with"
+                  width="full"
+                />
+              </div>
+
+              <p className="mt-6 text-center text-sm text-gray-500">
+                Don’t have an account?{" "}
+                <Link
+                  to="/register"
+                  className="font-medium text-black underline"
+                >
+                  Sign up
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
