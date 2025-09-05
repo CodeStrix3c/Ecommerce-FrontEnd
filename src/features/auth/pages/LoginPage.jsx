@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
-import { toast } from 'react-toastify';
-import { useAuth } from '@/hooks';
-import { TextField, Button, Divider, Tabs, Tab, Box } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { phoneLoginSchema, emailLoginSchema } from '@/schemas/authSchemas';
-import AuthModal from '../components/AuthModal';
-import RequiredLabel from '@/components/ui/RequiredLabel';
+import React, { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
+import { useAuth } from "@/hooks";
+import { TextField, Button, Divider, Tabs, Tab, Box } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { phoneLoginSchema, emailLoginSchema } from "@/schemas/authSchemas";
+import AuthModal from "../components/AuthModal";
+import RequiredLabel from "@/components/ui/RequiredLabel";
 
 const LoginPage = () => {
   const [redirect, setRedirect] = useState(false);
@@ -52,9 +52,9 @@ const LoginPage = () => {
         onChange={(e, val) => setTab(val)}
         centered
         sx={{
-          '& .MuiTab-root': { textTransform: 'none', fontWeight: 500 },
-          '& .Mui-selected': { color: '#ff385c' },
-          '& .MuiTabs-indicator': { backgroundColor: '#ff385c' },
+          "& .MuiTab-root": { textTransform: "none", fontWeight: 500 },
+          "& .Mui-selected": { color: "#ff385c" },
+          "& .MuiTabs-indicator": { backgroundColor: "#ff385c" },
         }}
       >
         <Tab label="Phone" />
@@ -73,7 +73,7 @@ const LoginPage = () => {
                 variant="outlined"
                 error={!!errors.phone}
                 helperText={errors.phone?.message}
-                {...register('phone')}
+                {...register("phone")}
               />
               <TextField
                 label={<RequiredLabel label="Password" />}
@@ -83,7 +83,7 @@ const LoginPage = () => {
                 variant="outlined"
                 error={!!errors.password}
                 helperText={errors.password?.message}
-                {...register('password')}
+                {...register("password")}
               />
             </>
           ) : (
@@ -96,7 +96,7 @@ const LoginPage = () => {
                 variant="outlined"
                 error={!!errors.email}
                 helperText={errors.email?.message}
-                {...register('email')}
+                {...register("email")}
               />
               <TextField
                 label={<RequiredLabel label="Password" />}
@@ -106,7 +106,7 @@ const LoginPage = () => {
                 variant="outlined"
                 error={!!errors.password}
                 helperText={errors.password?.message}
-                {...register('password')}
+                {...register("password")}
               />
             </>
           )}
@@ -116,11 +116,11 @@ const LoginPage = () => {
             type="submit"
             variant="contained"
             sx={{
-              backgroundColor: '#ff385c',
-              '&:hover': { backgroundColor: '#e03352' },
-              textTransform: 'none',
-              fontWeight: '600',
-              borderRadius: '12px',
+              backgroundColor: "#ff385c",
+              "&:hover": { backgroundColor: "#e03352" },
+              textTransform: "none",
+              fontWeight: "600",
+              borderRadius: "12px",
               py: 1.5,
             }}
           >
@@ -134,14 +134,14 @@ const LoginPage = () => {
       <div className="flex flex-col gap-3">
         <GoogleLogin
           onSuccess={(cred) => handleGoogleLogin(cred.credential)}
-          onError={() => console.log('Login failed')}
+          onError={() => console.log("Login failed")}
           text="continue_with"
           width="full"
         />
       </div>
 
       <p className="mt-6 text-center text-sm text-gray-500">
-        Don’t have an account?{' '}
+        Don’t have an account?{" "}
         <Link to="/register" className="font-small text-black underline">
           Sign up
         </Link>
