@@ -12,7 +12,7 @@ import {
 } from "@/schemas/authSchemas";
 import RequiredLabel from "@/components/ui/RequiredLabel";
 import useIsMobile from "@/hooks/useInMobile";
-import MobileRegisterModal from "../mobile/MobileRegisterModal";
+import MobileRegisterModal from "../components/MobileRegisterModal";
 
 const RegisterPage = () => {
   const [redirect, setRedirect] = useState(false);

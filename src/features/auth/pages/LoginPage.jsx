@@ -7,10 +7,9 @@ import { TextField, Button, Divider, Tabs, Tab, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { phoneLoginSchema, emailLoginSchema } from "@/schemas/authSchemas";
-import AuthModal from "../components/AuthModal";
 import RequiredLabel from "@/components/ui/RequiredLabel";
 import useIsMobile from "@/hooks/useInMobile";
-import MobileLoginModal from "@/features/auth/mobile/MobileLoginModal";
+import MobileLoginModal from "@/features/auth/components/MobileLoginModal";
 
 const LoginPage = () => {
   const [redirect, setRedirect] = useState(false);
