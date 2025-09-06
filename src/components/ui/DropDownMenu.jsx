@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
-import { HelpCircle, Menu, Heart } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useWishlist } from '@/providers/WishListProvider';
+import { useState, useRef, useEffect } from "react";
+import { HelpCircle, Menu, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useWishlist } from "@/providers/WishListProvider";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
@@ -14,15 +14,15 @@ const DropdownMenu = () => {
         setOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
     <div className="relative" ref={menuRef}>
       <div className="flex items-center gap-3">
         <Link
-          to="/sell"
+          to="/supplier-register"
           className="rounded-full bg-gray-100 px-4 py-2 text-sm font-semibold text-[#222222] shadow-sm transition-all duration-200 hover:bg-gray-200 hover:shadow"
         >
           Sell on Ziraat
@@ -34,7 +34,7 @@ const DropdownMenu = () => {
         >
           <Heart
             size={18}
-            className={`transition-colors duration-300 ${'text-gray-600'}`}
+            className={`transition-colors duration-300 ${"text-gray-600"}`}
           />
           <span
             key={wishlist.length}
@@ -57,7 +57,7 @@ const DropdownMenu = () => {
       <div
         className={`absolute right-0 mt-3 w-64 origin-top-right rounded-xl bg-white shadow-lg ring-1 ring-black/5 
         transition-all duration-200 ease-out 
-        ${open ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none -translate-y-1 scale-95 opacity-0'}`}
+        ${open ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-1 scale-95 opacity-0"}`}
       >
         <div className="p-2">
           <Link

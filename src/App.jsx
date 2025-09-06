@@ -4,9 +4,7 @@ import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import "leaflet/dist/leaflet.css";
-
 import IndexPage from "./features/IndexPage";
 import LoginPage from "./features/auth/pages/LoginPage";
 import RegisterPage from "./features/auth/pages/RegisterPage";
@@ -27,6 +25,8 @@ import Privacy from "./features/privacy-policies/pages/Privacy";
 import Sitemap from "./features/privacy-policies/pages/Sitemap";
 import Terms from "./features/privacy-policies/pages/Terms";
 import ScrollToTop from "./components/shared/ScrollToTop";
+import SupplierRegister from "./features/auth/pages/SupplierRegister";
+import SupplierLogin from "./features/auth/pages/SupplierLogin";
 
 function App() {
   useEffect(() => {
@@ -44,6 +44,8 @@ function App() {
               <Route index element={<IndexPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/supplier-register" element={<SupplierRegister />} />
+              <Route path="/supplier-login" element={<SupplierLogin />} />
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/company-details" element={<CompanyDetails />} />
