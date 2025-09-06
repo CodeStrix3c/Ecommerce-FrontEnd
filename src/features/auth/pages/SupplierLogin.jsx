@@ -6,11 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import { Link, Navigate } from "react-router-dom";
 import useIsMobile from "@/hooks/useInMobile";
-import SupplierRegistrationModal from "../components/SupplierRegistrationModal";
 import FormInput from "../../../components/ui/FormInput";
 import CustomButton from "@/components/ui/CustomButton";
 import { supplierLoginSchema } from "@/schemas/authSchemas";
 import { loginCardStyle } from "@/utils/supplierLoginStyles";
+import SupplierLoginModal from "../components/SupplierLoginModal";
 
 export default function SupplierLogin() {
   const isMobile = useIsMobile();
@@ -89,10 +89,7 @@ export default function SupplierLogin() {
   return (
     <>
       {isMobile ? (
-        <SupplierRegistrationModal
-          isOpen={true}
-          onClose={() => setRedirect(true)}
-        />
+        <SupplierLoginModal isOpen={true} onClose={() => setRedirect(true)} />
       ) : (
         <Box sx={containerStyle}>
           <Box sx={loginCardStyle}>

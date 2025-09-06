@@ -238,7 +238,7 @@ const SupplierRegistrationModal = ({ isOpen, onClose }) => {
 
               <div className="flex justify-center">
                 <Link
-                  to="/supplier/login"
+                  to="/supplier-login"
                   className="font-medium text-[var(--color-primary)] hover:underline"
                 >
                   Log in
