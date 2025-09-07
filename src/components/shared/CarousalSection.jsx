@@ -11,24 +11,14 @@ const CarousalSection = ({ title, places, loading }) => {
 
   const settings = {
     dots: false,
-    // infinite: false,
     speed: 500,
     slidesToShow: 7,
     slidesToScroll: 1,
     arrows: false,
     responsive: [
-      {
-        breakpoint: 1300,
-        settings: { slidesToShow: 5 },
-      },
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 4 },
-      },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 3 },
-      },
+      { breakpoint: 1300, settings: { slidesToShow: 5 } },
+      { breakpoint: 1024, settings: { slidesToShow: 4 } },
+      { breakpoint: 768, settings: { slidesToShow: 3 } },
       {
         breakpoint: 480,
         settings: {
@@ -49,15 +39,15 @@ const CarousalSection = ({ title, places, loading }) => {
           <div className="flex gap-2">
             <button
               onClick={() => sliderRef.current.slickPrev()}
-              className="rounded-full bg-white p-2 shadow hover:bg-gray-100"
+              className="rounded-full p-2 shadow bg-[var(--color-white)] hover:bg-[var(--color-white-hover)]"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-5 w-5 text-[var(--color-neutral-dark)]" />
             </button>
             <button
               onClick={() => sliderRef.current.slickNext()}
-              className="rounded-full bg-white p-2 shadow hover:bg-gray-100"
+              className="rounded-full p-2 shadow bg-[var(--color-white)] hover:bg-[var(--color-white-hover)]"
             >
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className="h-5 w-5 text-[var(--color-neutral-dark)]" />
             </button>
           </div>
         )}
