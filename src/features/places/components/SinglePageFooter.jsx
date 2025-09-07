@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 
 const SinglePageFooter = () => {
@@ -17,25 +16,24 @@ const SinglePageFooter = () => {
   return (
     <div className="w-full bg-[#f7f7f7]">
       <div className="max-w-screen-xl mx-auto px-6 py-10">
-        <h2 className="text-xl font-semibold mb-10 text-[25px]">
+        <h2 className="text-xl font-semibold mb-10 text-[25px] ">
           Explore other options in and around Gurugram
         </h2>
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-  {options.map((option, index) => (
-    <li key={index}>
-      <Link to={option.href} className="text-gray-700 cursor-pointer">
-        <div className="flex flex-col leading-tight">
-          <span className="font-semibold text-black">{option.name}</span>
-          <span className="text-sm font-[500] text-gray-600 hover:text-gray-800 text-[15px]">
-            Holiday rentals
-          </span>
-        </div>
-      </Link>
-    </li>
-  ))}
-</ul>
-
+        <ul className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {options.map((option, index) => (
+            <li key={index}>
+              <Link to={option.href} className="text-gray-700 cursor-pointer">
+                <div className="flex flex-col leading-tight">
+                  <span className="font-semibold text-black">{option.name}</span>
+                  <span className="text-sm font-[500] text-gray-600 hover:text-gray-800 text-[15px]">
+                    Holiday rentals
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
