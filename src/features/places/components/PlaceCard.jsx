@@ -26,7 +26,7 @@ const PlaceCard = ({ place }) => {
 
   return (
     <div className="h-full">
-      <Link to={`/product/${_id}`} className="block h-full cursor-pointer">
+      <Link to={`/place/${_id}`} className="block h-full cursor-pointer">
         <div className="relative">
           {/* Image */}
           <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-[var(--color-white-hover)]">
