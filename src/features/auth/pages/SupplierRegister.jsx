@@ -24,7 +24,7 @@ import {
   headerStyle,
   registerCardStyle,
   subHeaderStyle,
-} from "@/utils/supplierLoginStyles";
+} from "@/constants/theme.js";
 
 export default function SupplierRegister() {
   const isMobile = useIsMobile();

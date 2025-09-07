@@ -27,19 +27,22 @@ export default function OverallRating() {
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto mt-6 border-b border-gray-300 pb-6">
+    <div className="w-full max-w-6xl mx-auto mt-6 border-b border-[var(--color-border)] pb-6">
       <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-        
-        {/* Left: Overall rating bars  */}
+        {/* Left: Overall rating bars */}
         <div className="hidden md:block w-full md:w-[22%]">
-          <h3 className="font-bold mb-3 text-[15px]">Overall rating</h3>
+          <h3 className="font-bold mb-3 text-[15px] text-[var(--color-neutral-dark)]">
+            Overall rating
+          </h3>
           <div className="space-y-1">
             {ratingBars.map((bar) => (
               <div key={bar.stars} className="flex items-center gap-2">
-                <span className="w-4 text-[13px]">{bar.stars}</span>
-                <div className="flex-1 bg-gray-200 h-[1px] rounded">
+                <span className="w-4 text-[13px] text-[var(--color-neutral-dark)]">
+                  {bar.stars}
+                </span>
+                <div className="flex-1 bg-[var(--color-border)] h-[1px] rounded">
                   <div
-                    className={`h-[3px] rounded bg-black ${bar.value}`}
+                    className={`h-[3px] rounded bg-[var(--color-neutral-dark)] ${bar.value}`}
                   ></div>
                 </div>
               </div>
@@ -47,19 +50,24 @@ export default function OverallRating() {
           </div>
         </div>
 
-        {/* Right: Categories */}
-        {/* Desktop view */}
+        {/* Right: Categories - Desktop */}
         <div className="hidden md:grid flex-1 grid-cols-6">
           {categories.map((cat, index) => (
             <div
               key={cat.label}
               className={`flex flex-col items-center justify-center gap-1 px-4 py-2 ${
-                index !== 0 ? "border-l border-gray-300" : ""
+                index !== 0 ? "border-l border-[var(--color-border)]" : ""
               }`}
             >
-              <p className="font-bold text-[15px]">{cat.label}</p>
-              <span className="text-[17px] font-bold">{cat.score}</span>
-              <span className="text-gray-700 font-bold mt-2">{cat.icon}</span>
+              <p className="font-bold text-[15px] text-[var(--color-neutral-dark)]">
+                {cat.label}
+              </p>
+              <span className="text-[17px] font-bold text-[var(--color-neutral-dark)]">
+                {cat.score}
+              </span>
+              <span className="text-[var(--color-neutral-dark-hover)] font-bold mt-2">
+                {cat.icon}
+              </span>
             </div>
           ))}
         </div>
@@ -69,11 +77,17 @@ export default function OverallRating() {
           {categories.map((cat) => (
             <div
               key={cat.label}
-              className="flex flex-col items-center justify-center bg-white rounded-2xl shadow-md p-4"
+              className="flex flex-col items-center justify-center bg-[var(--color-bg)] rounded-2xl shadow-md p-4"
             >
-              <span className="text-gray-700 mb-1">{cat.icon}</span>
-              <p className="font-semibold text-sm">{cat.label}</p>
-              <span className="text-lg font-bold">{cat.score}</span>
+              <span className="text-[var(--color-neutral-dark-hover)] mb-1">
+                {cat.icon}
+              </span>
+              <p className="font-semibold text-sm text-[var(--color-neutral-dark)]">
+                {cat.label}
+              </p>
+              <span className="text-lg font-bold text-[var(--color-neutral-dark)]">
+                {cat.score}
+              </span>
             </div>
           ))}
         </div>

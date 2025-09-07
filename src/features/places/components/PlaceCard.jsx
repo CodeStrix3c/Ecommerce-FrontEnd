@@ -36,13 +36,13 @@ const PlaceCard = ({ place }) => {
             />
           </div>
 
-          <div className="absolute left-2 top-2 rounded-full bg-white px-2 py-1 text-[11px] font-semibold text-[#222] shadow-sm sm:text-xs">
+          <div className="absolute left-2 top-2 rounded-full bg-[var(--color-white)] px-2 py-1 text-[11px] font-semibold text-[var(--color-neutral-dark)] shadow-sm sm:text-xs">
             Farmer favourite
           </div>
 
           <button
             type="button"
-            className="absolute right-2 top-2 rounded-full bg-white p-1 shadow-sm transition hover:scale-110"
+            className="absolute right-2 top-2 rounded-full bg-[var(--color-white)] p-1 shadow-sm transition hover:scale-110"
             onClick={(e) => {
               e.preventDefault();
               toggleWishlist(place);
@@ -50,31 +50,35 @@ const PlaceCard = ({ place }) => {
           >
             <Heart
               className={`h-4 w-4 transition ${
-                isWishlisted ? "fill-[#ff5a5f] text-[#ff5a5f]" : "text-gray-700"
+                isWishlisted
+                  ? "fill-current text-[var(--color-accent)]"
+                  : "text-[var(--color-neutral-dark)]"
               }`}
             />
           </button>
         </div>
 
         <div className="mt-2">
-          <h3 className="truncate text-[15px] font-medium text-[#222] sm:text-base">
+          <h3 className="truncate text-[15px] font-medium text-[var(--color-neutral-dark)] sm:text-base">
             {title}
           </h3>
 
-          <p className="truncate text-[13px] text-[#222222] sm:text-sm">
+          <p className="truncate text-[13px] text-[var(--color-neutral-dark)] sm:text-sm">
             {address}
           </p>
 
           <div className="mt-1 flex items-center justify-between text-[13px] sm:text-sm">
-            <span className="flex items-center font-normal text-[#222]">
-              <IndianRupee className="h-3 w-3 text-[#222]" />
+            <span className="flex items-center font-normal text-[var(--color-neutral-dark)]">
+              <IndianRupee className="h-3 w-3 text-[var(--color-neutral-dark)]" />
               {price}{" "}
-              <span className="mx-1 min-w-fit text-[12px] text-[#222222]">
+              <span className="mx-1 min-w-fit text-[12px] text-[var(--color-neutral-dark)]">
                 for 2 nights
               </span>
             </span>
-            <span className="flex items-center gap-1 font-medium text-[#222]">
-              <Star className="h-3 w-3 fill-[#222] text-[#222]" /> {rating}
+
+            <span className="flex items-center gap-1 font-medium text-[var(--color-neutral-dark)]">
+              <Star className="h-3 w-3 fill-current text-[var(--color-neutral-dark)]" />{" "}
+              {rating}
             </span>
           </div>
         </div>

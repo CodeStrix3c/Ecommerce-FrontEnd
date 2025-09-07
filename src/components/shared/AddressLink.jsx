@@ -1,13 +1,14 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const AddressLink = ({ placeAddress, className = null }) => {
   if (!className) {
-    className = 'my-3 block';
+    className = "my-3 block";
   }
 
-  className += ' flex gap-1 font-semibold underline';
+  className += " flex gap-1 font-semibold underline";
   return (
-    <a
+    <Link
       className={className}
       href={`https://maps.google.com/?q=${placeAddress}`}
       target="blank"
@@ -33,7 +34,7 @@ const AddressLink = ({ placeAddress, className = null }) => {
       </svg>
 
       {placeAddress}
-    </a>
+    </Link>
   );
 };
 

@@ -9,8 +9,8 @@ import useIsMobile from "@/hooks/useInMobile";
 import FormInput from "../../../components/ui/FormInput";
 import CustomButton from "@/components/ui/CustomButton";
 import { supplierLoginSchema } from "@/schemas/authSchemas";
-import { loginCardStyle } from "@/utils/supplierLoginStyles";
 import SupplierLoginModal from "../components/SupplierLoginModal";
+import { loginCardStyle } from "@/constants/theme";
 
 export default function SupplierLogin() {
   const isMobile = useIsMobile();

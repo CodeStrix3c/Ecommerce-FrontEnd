@@ -1,48 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const PlaceGallery = ({ place }) => {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
-
   if (showAllPhotos) {
     return (
-      <div className="fixed inset-0 z-20 overflow-auto bg-white text-white">
-        <div className="grid gap-4 bg-white px-2 py-20 md:p-8">
-          <div>
-            <button
-              className="fixed right-2 top-8 flex gap-1 rounded-2xl bg-white py-2 px-4 text-black shadow-sm shadow-gray-500 md:right-12"
-              onClick={() => setShowAllPhotos(false)}
+      <div className="fixed inset-0 z-[9999] bg-[var(--color-white)] text-[var(--color-neutral-dark)] overflow-auto">
+        <div className="px-2 py-20 md:p-8">
+          {/* Close button */}
+          <button
+            className="fixed right-2 top-8 flex gap-1 rounded-2xl bg-[var(--color-white)] py-2 px-4 text-[var(--color-neutral-dark)] shadow-md hover:shadow-lg md:right-12"
+            onClick={() => setShowAllPhotos(false)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="h-6 w-6"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="h-6 w-6"
+              <path
+                fillRule="evenodd"
+                d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Close photos
+          </button>
+
+          {/* Unsplash-style masonry grid */}
+          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
+            {place?.photos?.map((photo, index) => (
+              <div
+                key={index}
+                className="mb-4 break-inside-avoid overflow-hidden rounded-md"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                  clipRule="evenodd"
+                <img
+                  src={photo}
+                  alt={`Place photo ${index + 1}`}
+                  className="w-full h-auto object-cover cursor-pointer"
+                  onClick={() => setShowAllPhotos(false)}
                 />
-              </svg>
-              Close photos
-            </button>
-          </div>
-          {place?.photos?.length > 0 &&
-            place.photos.map((photo, index) => (
-              <div key={index} className="max-w-full">
-                {/* <Image src={photo} /> */}
-                <img src={photo} alt="" />
               </div>
             ))}
+          </div>
         </div>
       </div>
     );
   }
+
   return (
     <div className="relative">
-      {/* Medium devices */}
       <div className="hidden h-[400px] max-h-[450px] grid-cols-4 gap-2 overflow-hidden rounded-[12px] md:grid">
-        {/* column 1 */}
         <div className="col-span-2 overflow-hidden">
           {place.photos?.[0] && (
             <div className="h-full w-full overflow-hidden bg-red-200">
@@ -55,9 +62,7 @@ const PlaceGallery = ({ place }) => {
             </div>
           )}
         </div>
-        {/* column 2 */}
         <div className="col-span-1 overflow-hidden">
-          {/* row grid inside column 2 */}
           <div className="grid h-full grid-rows-2 gap-2">
             {place.photos?.[1] && (
               // row 1

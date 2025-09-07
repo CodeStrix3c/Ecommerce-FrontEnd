@@ -27,6 +27,7 @@ import Terms from "./features/privacy-policies/pages/Terms";
 import ScrollToTop from "./components/shared/ScrollToTop";
 import SupplierRegister from "./features/auth/pages/SupplierRegister";
 import SupplierLogin from "./features/auth/pages/SupplierLogin";
+import Wishlist from "./features/wishlist/pages/WishListPage";
 
 function App() {
   useEffect(() => {
@@ -57,6 +58,7 @@ function App() {
               <Route path="/account/places/:id" element={<PlacesFormPage />} />
               <Route path="/place/:id" element={<PlacePage />} />
               <Route path="/account/bookings" element={<BookingsPage />} />
+              <Route path="/wishlist" element={<Wishlist />} />
               <Route
                 path="/account/bookings/:id"
                 element={<SingleBookedPlace />}

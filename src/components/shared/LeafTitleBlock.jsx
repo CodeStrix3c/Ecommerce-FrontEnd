@@ -1,5 +1,9 @@
-import leftleaf from "/assets/images/left-leaf.png";
-import rightleaf from "/assets/images/right-leaf.png";
+import {
+  leafSizeClasses,
+  titleSizeClasses,
+  getLeafColor,
+} from "@/constants/theme";
+import { Leaf } from "lucide-react";
 
 export default function LeafTitleBlock({
   title = "Guest Favourite",
@@ -7,43 +11,24 @@ export default function LeafTitleBlock({
   leafSize = "md",
   titleSize = "md",
   isGray = false,
-  titleColor = "text-[#222222]",
+  titleColor = "text-[var(--color-neutral-dark)]",
 }) {
-  const leafSizeClasses = {
-    xs: "w-6 h-8 md:w-8 md:h-10",
-    sm: "w-8 h-10 md:w-10 md:h-12",
-    md: "w-12 h-14 md:w-16 md:h-20",
-    lg: "w-14 h-28 md:w-24 md:h-44 opacity-90",
-  };
-
-  const titleSizeClasses = {
-    sm: "text-md md:text-lg",
-    md: "text-2xl md:text-4xl",
-    lg: "text-4xl md:text-8xl",
-  };
+  const leafColor = getLeafColor(isGray);
 
   return (
-    <div className="flex items-center justify-center space-x-2 text-center">
-      <img
-        src={leftleaf}
-        alt="Left Leaf Icon"
-        className={`${leafSizeClasses[leafSize]} ${isGray ? "grayscale" : ""} mt-1 md:mt-2`}
-      />
-
-      <h1 className={`font-bold ${titleSizeClasses[titleSize]} ${titleColor} `}>
-        {title}
-      </h1>
-
-      <img
-        src={rightleaf}
-        alt="Right Leaf Icon"
-        className={`${leafSizeClasses[leafSize]} ${isGray ? "grayscale" : ""} mt-1 md:mt-2`}
-      />
+    <div className="flex flex-col items-center text-center space-y-1">
+      <div className="flex items-center space-x-2">
+        <Leaf className={`${leafSizeClasses[leafSize]} ${leafColor}`} />
+        <h1
+          className={`font-bold ${titleSizeClasses[titleSize]} ${titleColor}`}
+        >
+          {title}
+        </h1>
+        <Leaf className={`${leafSizeClasses[leafSize]} ${leafColor}`} />
+      </div>
 
       {subtitle && (
-        <p className="text-sm text-gray-600 hidden md:inline-block max-w-xs">
-          {subtitle}
-        </p>
+        <p className="text-sm text-[var(--color-neutral)]">{subtitle}</p>
       )}
     </div>
   );
