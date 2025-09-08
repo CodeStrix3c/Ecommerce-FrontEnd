@@ -18,13 +18,19 @@ export default function LeafTitleBlock({
   return (
     <div className="flex flex-col items-center text-center space-y-1">
       <div className="flex items-center space-x-2">
-        <Leaf className={`${leafSizeClasses[leafSize]} ${leafColor}`} />
+        <Leaf
+          className={`${leafSizeClasses[leafSize]} ${leafColor}`}
+          strokeWidth={1}
+        />
         <h1
           className={`font-bold ${titleSizeClasses[titleSize]} ${titleColor}`}
         >
           {title}
         </h1>
-        <Leaf className={`${leafSizeClasses[leafSize]} ${leafColor}`} />
+        <Leaf
+          className={`${leafSizeClasses[leafSize]} ${leafColor}`}
+          strokeWidth={1}
+        />
       </div>
 
       {subtitle && (

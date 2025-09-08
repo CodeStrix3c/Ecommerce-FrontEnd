@@ -6,7 +6,6 @@ const PlaceGallery = ({ place }) => {
     return (
       <div className="fixed inset-0 z-[9999] bg-[var(--color-white)] text-[var(--color-neutral-dark)] overflow-auto">
         <div className="px-2 py-20 md:p-8">
-          {/* Close button */}
           <button
             className="fixed right-2 top-8 flex gap-1 rounded-2xl bg-[var(--color-white)] py-2 px-4 text-[var(--color-neutral-dark)] shadow-md hover:shadow-lg md:right-12"
             onClick={() => setShowAllPhotos(false)}
@@ -52,10 +51,10 @@ const PlaceGallery = ({ place }) => {
       <div className="hidden h-[400px] max-h-[450px] grid-cols-4 gap-2 overflow-hidden rounded-[12px] md:grid">
         <div className="col-span-2 overflow-hidden">
           {place.photos?.[0] && (
-            <div className="h-full w-full overflow-hidden bg-red-200">
+            <div className="h-full w-full overflow-hidden bg-[var(--color-white-hover)]">
               <img
                 onClick={() => setShowAllPhotos(true)}
-                className="h-full w-full cursor-pointer object-cover"
+                className="h-full w-full cursor-pointer object-contain"
                 src={place.photos[0]}
                 alt=""
               />
@@ -66,10 +65,10 @@ const PlaceGallery = ({ place }) => {
           <div className="grid h-full grid-rows-2 gap-2">
             {place.photos?.[1] && (
               // row 1
-              <div className="bg-gray-200">
+              <div className="bg-[var(--color-white-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
-                  className="h-full w-full cursor-pointer object-cover"
+                  className="h-full w-full cursor-pointer object-contain"
                   src={place.photos[1]}
                   alt=""
                 />
@@ -78,10 +77,10 @@ const PlaceGallery = ({ place }) => {
 
             {place.photos?.[2] && (
               // row 2
-              <div className="bg-gray-200">
+              <div className="bg-[var(--color-white-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
-                  className="h-full w-full cursor-pointer object-cover"
+                  className="h-full w-full cursor-pointer object-contain"
                   src={place.photos[2]}
                   alt=""
                 />
@@ -95,10 +94,10 @@ const PlaceGallery = ({ place }) => {
           <div className="grid h-full grid-rows-2 gap-2">
             {place.photos?.[3] && (
               // row 1
-              <div className="h-full bg-gray-200">
+              <div className="h-full bg-[var(--color-white-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
-                  className="h-full w-full cursor-pointer object-cover"
+                  className="h-full w-full cursor-pointer object-contain"
                   src={place.photos[3]}
                   alt=""
                 />
@@ -107,10 +106,10 @@ const PlaceGallery = ({ place }) => {
 
             {place.photos?.[4] && (
               // row 2
-              <div className="h-full bg-gray-200">
+              <div className="h-full bg-[var(--color-white-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
-                  className="h-full w-full cursor-pointer object-cover"
+                  className="h-full w-full cursor-pointer object-contain"
                   src={place.photos[4]}
                   alt=""
                 />
