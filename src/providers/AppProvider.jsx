@@ -1,13 +1,16 @@
-import React from 'react';
-import { UserProvider } from './UserProvider';
-import { PlaceProvider } from './PlaceProvider';
-import { WishListProvider } from './WishListProvider';
+import React from "react";
+import { UserProvider } from "./UserProvider";
+import { PlaceProvider } from "./PlaceProvider";
+import { WishListProvider } from "./WishListProvider";
+import { CartListProvider } from "./CartListProvider";
 
 function AppProvider({ children }) {
   return (
     <UserProvider>
       <PlaceProvider>
-        <WishListProvider>{children}</WishListProvider>
+        <CartListProvider>
+          <WishListProvider>{children}</WishListProvider>
+        </CartListProvider>
       </PlaceProvider>
     </UserProvider>
   );

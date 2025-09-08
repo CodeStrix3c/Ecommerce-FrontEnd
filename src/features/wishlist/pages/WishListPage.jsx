@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { dummyData } from "@/data/dummyData";
 import WishlistItem from "../components/WishlistItem";
 import WishlistActions from "../components/WishlistActions";
+import { useWishlist } from "@/providers/WishListProvider";
 
 const WishlistPage = () => {
-  const [wishlist, setWishlist] = useState(dummyData);
   const [cart, setCart] = useState([]);
+  const { wishlist: wishLists } = useWishlist();
+  const [wishlist, setWishlist] = useState(wishLists);
+
+  console.log(wishLists);
 
   const removeFromWishlist = (id) =>
     setWishlist((prev) => prev.filter((item) => item._id !== id));

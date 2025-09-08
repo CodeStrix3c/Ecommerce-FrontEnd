@@ -1,11 +1,15 @@
+import { useCartList } from "@/providers/CartListProvider";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const BookingWidget = ({ place }) => {
   const [quantity, setQuantity] = useState(1);
+  const { cartList, toggleCartList } = useCartList();
+  const isCartListed = cartList.some((item) => item._id === place._id);
 
   const handleAddToCart = () => {
-    toast.success(`${place.title} added to cart! (${quantity})`);
+    toggleCartList(place);
+    // toast.success(`${place.title} added to cart! (${quantity})`);
   };
 
   const handleBuyNow = () => {
@@ -21,7 +25,6 @@ const BookingWidget = ({ place }) => {
       "
     >
       <div className="flex flex-col gap-3 md:gap-4">
-        {/* Price + Total */}
         <div className="flex items-center justify-between text-sm sm:text-base">
           <div className="font-semibold text-[var(--color-neutral-dark)]">
             ₹{place.price}{" "}
@@ -34,7 +37,6 @@ const BookingWidget = ({ place }) => {
           </div>
         </div>
 
-        {/* Quantity Selector */}
         <div className="flex items-center justify-between rounded-lg border border-[var(--color-neutral-dark-hover)] px-3 py-2">
           <label className="text-sm font-medium text-[var(--color-neutral-dark-hover)]">
             Qty
@@ -58,13 +60,12 @@ const BookingWidget = ({ place }) => {
           </div>
         </div>
 
-        {/* CTA Buttons */}
         <div className="flex gap-2">
           <button
             onClick={handleAddToCart}
             className="flex-1 rounded-md bg-[var(--color-secondary)] py-2 text-sm font-semibold text-[var(--color-white)] transition hover:bg-[var(--color-secondary-hover)] sm:text-base"
           >
-            Add to Cart
+            {isCartListed ? "Remove From Cart" : "Add to Cart"}
           </button>
           <button
             onClick={handleBuyNow}
