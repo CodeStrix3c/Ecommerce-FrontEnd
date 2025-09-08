@@ -1,12 +1,21 @@
 import { useState, useRef, useEffect } from "react";
-import { Sprout, Tractor, FlaskRound, Info, Menu, Heart } from "lucide-react";
+import {
+  FlaskRound,
+  Info,
+  Menu,
+  Heart,
+  Leaf,
+  ShoppingCart,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
+import useIsMobile from "@/hooks/useInMobile";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
   const { wishlist } = useWishlist();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -44,7 +53,22 @@ const DropdownMenu = () => {
           </span>
         </Link>
 
-        {/* Menu Button */}
+        <Link
+          to="/cart"
+          className="relative rounded-full bg-[var(--color-white)] p-2 transition-colors duration-200 hover:bg-[var(--color-white-hover)]"
+        >
+          <ShoppingCart
+            size={18}
+            className="text-[var(--color-primary)] transition-colors duration-300"
+          />
+          <span
+            key={wishlist.length}
+            className="animate-popin absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-cart)] text-[10px] font-bold text-[var(--color-white)]"
+          >
+            {wishlist.length}
+          </span>
+        </Link>
+
         <button
           onClick={() => setOpen(!open)}
           className="rounded-full bg-[var(--color-white)] p-2 transition-colors duration-200 hover:bg-[var(--color-white-hover)]"
@@ -53,7 +77,6 @@ const DropdownMenu = () => {
         </button>
       </div>
 
-      {/* Dropdown Menu */}
       <div
         className={`absolute right-0 mt-3 w-64 origin-top-right rounded-xl bg-[var(--color-white)] shadow-lg ring-1 ring-black/5 transition-all duration-200 ease-out ${
           open
@@ -93,7 +116,7 @@ const DropdownMenu = () => {
             to="/sustainable-farming"
             className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--color-neutral-dark)] transition-colors duration-150 hover:bg-[var(--color-white-hover)]"
           >
-            <Sprout size={18} className="text-[var(--color-primary)]" />
+            <Leaf size={18} className="text-[var(--color-primary)]" />
             <span>Sustainable Farming</span>
           </Link>
 
