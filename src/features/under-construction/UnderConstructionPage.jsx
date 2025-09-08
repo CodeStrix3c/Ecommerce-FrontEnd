@@ -21,7 +21,7 @@ const UnderConstruction = () => {
         </h1>
         
         <h3 className="mt-4 text-2xl max-w-2xl mx-auto text-[var(--color-white-hover)]">
-          Stay tuned! 
+          Stay tuned!
         </h3>
       </div>
     </div>
