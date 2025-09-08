@@ -29,6 +29,7 @@ import SupplierRegister from "./features/auth/pages/SupplierRegister";
 import SupplierLogin from "./features/auth/pages/SupplierLogin";
 import Wishlist from "./features/wishlist/pages/WishListPage";
 import CartPage from "./features/cart/pages/CartPage";
+import UnderConstruction from "./features/under-construction/UnderConstructionPage";
 
 function App() {
   useEffect(() => {
@@ -66,7 +67,7 @@ function App() {
                 element={<SingleBookedPlace />}
               />
 
-              <Route path="*" element={<NotFoundPage />} />
+              <Route path="*" element={<UnderConstruction />} />
             </Route>
           </Routes>
           <ToastContainer autoClose={2000} transition={Slide} />
