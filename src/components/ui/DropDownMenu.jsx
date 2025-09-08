@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { HelpCircle, Menu, Heart } from "lucide-react";
+import { Sprout, Tractor, FlaskRound, Info, Menu, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
 
@@ -23,68 +23,66 @@ const DropdownMenu = () => {
       <div className="flex items-center gap-3">
         <Link
           to="/supplier-register"
-          className="rounded-full bg-gray-100 px-4 py-2 text-sm font-semibold text-[#222222] shadow-sm transition-all duration-200 hover:bg-gray-200 hover:shadow"
+          className="rounded-full bg-[var(--color-white-hover)] px-4 py-2 text-sm font-semibold text-[var(--color-neutral-dark)] shadow-sm transition-all duration-200 hover:bg-[var(--color-white-hover)] hover:shadow"
         >
-          Sell on Ziraat
+          Become a Supplier
         </Link>
 
         <Link
           to="/wishlist"
-          className="relative rounded-full bg-gray-100 p-2 transition-colors duration-200 hover:bg-gray-200"
+          className="relative rounded-full bg-[var(--color-white)] p-2 transition-colors duration-200 hover:bg-[var(--color-white-hover)]"
         >
           <Heart
             size={18}
-            className={`transition-colors duration-300 ${"text-gray-600"}`}
+            className="text-[var(--color-primary)] transition-colors duration-300"
           />
           <span
             key={wishlist.length}
-            className="animate-popin absolute -right-1 -top-1 flex h-4 w-4 items-center 
-               justify-center rounded-full bg-[#ff5a5f] text-[10px] font-bold
-               text-white"
+            className="animate-popin absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-accent)] text-[10px] font-bold text-[var(--color-white)]"
           >
             {wishlist.length}
           </span>
         </Link>
 
+        {/* Menu Button */}
         <button
           onClick={() => setOpen(!open)}
-          className="rounded-full bg-gray-100 p-2 transition-colors duration-200 hover:bg-gray-200"
+          className="rounded-full bg-[var(--color-white)] p-2 transition-colors duration-200 hover:bg-[var(--color-white-hover)]"
         >
-          <Menu size={20} />
+          <Menu size={20} className="text-[var(--color-neutral-dark)]" />
         </button>
       </div>
 
+      {/* Dropdown Menu */}
       <div
-        className={`absolute right-0 mt-3 w-64 origin-top-right rounded-xl bg-white shadow-lg ring-1 ring-black/5 
-        transition-all duration-200 ease-out 
-        ${open ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-1 scale-95 opacity-0"}`}
+        className={`absolute right-0 mt-3 w-64 origin-top-right rounded-xl bg-[var(--color-white)] shadow-lg ring-1 ring-black/5 transition-all duration-200 ease-out ${
+          open
+            ? "translate-y-0 scale-100 opacity-100"
+            : "pointer-events-none -translate-y-1 scale-95 opacity-0"
+        }`}
       >
         <div className="p-2">
           <Link
-            to="/help"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[#222222] transition-colors duration-150 hover:bg-gray-100"
+            to="/about-pesticides"
+            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--color-neutral-dark)] transition-colors duration-150 hover:bg-[var(--color-white-hover)]"
           >
-            <HelpCircle size={18} className="text-gray-600" />
-            <span>Help Centre</span>
+            <Info size={18} className="text-[var(--color-primary)]" />
+            <span>About Pesticides</span>
           </Link>
 
           <hr className="my-2" />
 
           <Link
-            to="/become-host"
-            className="flex items-start gap-3 rounded-lg px-3 py-2 transition-colors duration-150 hover:bg-gray-100"
+            to="/crop-protection"
+            className="flex items-start gap-3 rounded-lg px-3 py-2 transition-colors duration-150 hover:bg-[var(--color-white-hover)]"
           >
-            <img
-              src="https://img.icons8.com/emoji/48/house-with-garden.png"
-              alt="host"
-              className="h-6 w-6"
-            />
+            <FlaskRound size={20} className="text-[var(--color-secondary)]" />
             <div>
-              <p className="text-sm font-semibold text-[#222222]">
-                Become a host
+              <p className="text-sm font-semibold text-[var(--color-neutral-dark)]">
+                Crop Protection
               </p>
               <p className="text-xs text-gray-500">
-                It’s easy to start hosting and earn extra income.
+                Explore solutions for safer and better yield.
               </p>
             </div>
           </Link>
@@ -92,22 +90,18 @@ const DropdownMenu = () => {
           <hr className="my-2" />
 
           <Link
-            to="/refer"
-            className="block rounded-lg px-3 py-2 text-sm text-[#222222] transition-colors duration-150 hover:bg-gray-100"
+            to="/sustainable-farming"
+            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--color-neutral-dark)] transition-colors duration-150 hover:bg-[var(--color-white-hover)]"
           >
-            Refer a host
+            <Sprout size={18} className="text-[var(--color-primary)]" />
+            <span>Sustainable Farming</span>
           </Link>
-          <Link
-            to="/co-host"
-            className="block rounded-lg px-3 py-2 text-sm text-[#222222] transition-colors duration-150 hover:bg-gray-100"
-          >
-            Find a co-host
-          </Link>
+
           <Link
             to="/login"
-            className="block rounded-lg px-3 py-2 text-sm text-[#222222] transition-colors duration-150 hover:bg-gray-100"
+            className="block rounded-lg px-3 py-2 text-sm text-[var(--color-neutral-dark)] transition-colors duration-150 hover:bg-[var(--color-white-hover)]"
           >
-            Log in or sign up
+            Log in / Sign up
           </Link>
         </div>
       </div>
