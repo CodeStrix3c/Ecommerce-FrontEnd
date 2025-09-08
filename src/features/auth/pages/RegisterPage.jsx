@@ -58,7 +58,7 @@ const RegisterPage = () => {
         <div className="flex min-h-screen my-20">
           <div className="hidden md:flex w-1/2 bg-gray-100">
             <img
-              src="/images/register-banner.jpg"
+              src="/assets/images/login.jpg"
               alt="Join Airbnb"
               className="object-cover w-full h-full"
             />

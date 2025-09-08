@@ -55,9 +55,9 @@ const LoginPage = () => {
         <div className="flex min-h-screen my-20">
           <div className="hidden md:flex w-1/2 bg-gray-100">
             <img
-              src="/images/login-banner.jpg"
+              src="/assets/images/login.jpg"
               alt="Travel inspiration"
-              className="object-cover w-full h-full"
+              className="object-cover"
             />
           </div>
 
