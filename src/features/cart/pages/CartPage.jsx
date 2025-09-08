@@ -4,9 +4,12 @@ import useIsMobile from "@/hooks/useInMobile";
 import CartItem from "../components/CartItem";
 import CartSummary from "../components/CartSummary";
 import CartBottomBar from "../components/CartBottomBar";
+import { useCartList } from "@/providers/CartListProvider";
 
 const CartPage = () => {
-  const [cart, setCart] = useState(dummyData);
+  const {cartList} =useCartList();
+  const [cart, setCart] = useState(cartList);
+  
   const isMobile = useIsMobile();
 
   const removeFromCart = (id) =>
