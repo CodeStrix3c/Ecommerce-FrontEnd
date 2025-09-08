@@ -28,6 +28,7 @@ import ScrollToTop from "./components/shared/ScrollToTop";
 import SupplierRegister from "./features/auth/pages/SupplierRegister";
 import SupplierLogin from "./features/auth/pages/SupplierLogin";
 import Wishlist from "./features/wishlist/pages/WishListPage";
+import CartPage from "./features/cart/pages/CartPage";
 
 function App() {
   useEffect(() => {
@@ -59,6 +60,7 @@ function App() {
               <Route path="/place/:id" element={<PlacePage />} />
               <Route path="/account/bookings" element={<BookingsPage />} />
               <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/cart" element={<CartPage />} />
               <Route
                 path="/account/bookings/:id"
                 element={<SingleBookedPlace />}
