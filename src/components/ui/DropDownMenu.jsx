@@ -10,11 +10,13 @@ import {
 import { Link } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
 import useIsMobile from "@/hooks/useInMobile";
+import { useCartList } from "@/providers/CartListProvider";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
   const { wishlist } = useWishlist();
+  const { cartList } = useCartList();
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -62,10 +64,10 @@ const DropdownMenu = () => {
             className="text-[var(--color-primary)] transition-colors duration-300"
           />
           <span
-            key={wishlist.length}
+            key={cartList.length}
             className="animate-popin absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-cart)] text-[10px] font-bold text-[var(--color-white)]"
           >
-            {wishlist.length}
+            {cartList.length}
           </span>
         </Link>
 
