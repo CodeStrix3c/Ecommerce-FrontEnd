@@ -1,5 +1,5 @@
 const CartSummary = ({ cart, subtotal, taxes, total, onCheckout, onClear }) => (
-  <div className="sticky top-48 border rounded-2xl p-6 shadow-md bg-[var(--color-white)] flex flex-col gap-4">
+  <div className="sticky top-36 border rounded-2xl p-6 shadow-md bg-[var(--color-white)] flex flex-col gap-4">
     <h2 className="text-lg font-semibold text-[var(--color-neutral-dark)]">
       Order Summary
     </h2>
