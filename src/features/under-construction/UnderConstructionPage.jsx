@@ -1,29 +1,34 @@
-import { Clock, Construction } from "lucide-react";
+import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 const UnderConstruction = () => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
-    <div
-      className="flex items-center justify-center h-screen text-center relative">
-      
-      <div
-        className="absolute inset-0"
-        style={{ backgroundColor: "var(--color-overlay)" }}
-      ></div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[var(--color-white)] text-center">
+      <NavLink to="/" className="mb-6">
+        <img
+          src="assets/images/ziraat.jpeg"
+          alt="Ziraat Logo"
+          width={80}
+          height={80}
+          className="mx-auto filter grayscale"
+        />
+      </NavLink>
 
-     
-      <div className="relative z-10 text-[var(--color-white)] px-6">
-        <div className="flex items-center justify-center mb-6">
-          <Clock className="w-16 h-16 text-[var(--color-secondary)]" />
-        </div>
+      <h1 className="text-2xl md:text-3xl font-semibold mb-2 text-[var(--color-primary)]">
+        We're Working on It
+      </h1>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-[var(--colo whiter-primary)]">
-          This Page is Under Construction
-        </h1>
-        
-        <h3 className="mt-4 text-2xl max-w-2xl mx-auto text-[var(--color-white-hover)]">
-          Stay tuned
-        </h3>
-      </div>
+      <p className="text-base md:text-lg text-[var(--color-neutral-dark)]">
+        This page is under construction. Check back soon!
+      </p>
     </div>
   );
 };
