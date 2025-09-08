@@ -12,7 +12,6 @@ import ProfilePage from "./features/auth/pages/ProfilePage";
 import PlacesFormPage from "./features/places/pages/PlacesFormPage";
 import PlacePage from "./features/places/pages/PlacePage";
 import BookingsPage from "./features/bookings/pages/BookingsPage";
-import NotFoundPage from "./features/errors/NotFoundPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import SingleBookedPlace from "./features/bookings/pages/SingleBookedPlace";
 import Layout from "./app/Layout";
@@ -29,7 +28,7 @@ import SupplierRegister from "./features/auth/pages/SupplierRegister";
 import SupplierLogin from "./features/auth/pages/SupplierLogin";
 import Wishlist from "./features/wishlist/pages/WishListPage";
 import CartPage from "./features/cart/pages/CartPage";
-import UnderConstruction from "./features/under-construction/UnderConstructionPage";
+import NotFoundPage from "./features/errors/NotFoundPage";
 
 function App() {
   useEffect(() => {
@@ -67,7 +66,7 @@ function App() {
                 element={<SingleBookedPlace />}
               />
 
-              <Route path="*" element={<UnderConstruction />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
           <ToastContainer autoClose={2000} transition={Slide} />
