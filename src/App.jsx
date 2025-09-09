@@ -29,6 +29,7 @@ import SupplierLogin from "./features/auth/pages/SupplierLogin";
 import Wishlist from "./features/wishlist/pages/WishListPage";
 import CartPage from "./features/cart/pages/CartPage";
 import NotFoundPage from "./features/errors/NotFoundPage";
+import EmptyCartPage from "./features/cart/pages/EmptyCartPage";
 
 function App() {
   useEffect(() => {
@@ -61,6 +62,7 @@ function App() {
               <Route path="/account/bookings" element={<BookingsPage />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/cart" element={<CartPage />} />
+              <Route path="/empty-cart" element={<EmptyCartPage />} />
               <Route
                 path="/account/bookings/:id"
                 element={<SingleBookedPlace />}
