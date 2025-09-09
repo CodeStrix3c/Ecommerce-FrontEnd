@@ -7,6 +7,8 @@ import {
   Leaf,
   ShoppingCart,
   User,
+  HelpCircle,
+  UserCheck,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
@@ -78,19 +80,39 @@ const DropdownMenu = () => {
 
       {/* Dropdown */}
       <div
-        className={`absolute right-0 mt-2 w-56 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
+        className={`absolute right-0 mt-2 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
           open
             ? "translate-y-0 scale-100 opacity-100"
             : "pointer-events-none -translate-y-1 scale-95 opacity-0"
         }`}
       >
         <div className="flex flex-col py-2">
+          {/* Top Section: About & Help */}
           <Link
-            to="/about-pesticides"
+            to="/about-us"
             className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
             <Info size={16} className="text-[var(--color-black)]" />
-            <span>About Pesticides</span>
+            <span>About Us</span>
+          </Link>
+
+          <Link
+            to="/help-center"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+          >
+            <HelpCircle size={16} className="text-[var(--color-black)]" />
+            <span>Help Center</span>
+          </Link>
+
+          <hr className="my-1 border-[var(--color-black-hover)]" />
+
+          {/* Agriculture Section */}
+          <Link
+            to="/talk-with-expert"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+          >
+            <UserCheck size={16} className="text-[var(--color-black)]" />
+            <span>Talk with Expert</span>
           </Link>
 
           <Link
@@ -109,8 +131,9 @@ const DropdownMenu = () => {
             <span>Sustainable Farming</span>
           </Link>
 
-          <hr className="my-1" />
+          <hr className="my-1 border-[var(--color-black-hover)]" />
 
+          {/* Bottom Section: Account */}
           <Link
             to="/login"
             className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
