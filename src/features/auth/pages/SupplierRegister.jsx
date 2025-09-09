@@ -1,30 +1,13 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, Grid } from "@mui/material";
-import {
-  Building2,
-  Mail,
-  Lock,
-  Phone,
-  MapPin,
-  User,
-  Landmark,
-} from "lucide-react";
+import { Navigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { supplierRegisterSchema } from "@/schemas/authSchemas";
-import { toast } from "react-toastify";
-import { Link, Navigate } from "react-router-dom";
-import useIsMobile from "@/hooks/useInMobile";
 import SupplierRegistrationModal from "../components/SupplierRegistrationModal";
-import FormInput from "../../../components/ui/FormInput";
+import { toast } from "react-toastify";
+import FormInput from "@/components/ui/FormInput";
 import CustomButton from "@/components/ui/CustomButton";
-import {
-  containerStyle,
-  footerTextStyle,
-  headerStyle,
-  registerCardStyle,
-  subHeaderStyle,
-} from "@/constants/theme.js";
+import { supplierRegisterSchema } from "@/schemas/authSchemas";
+import useIsMobile from "@/hooks/useInMobile";
 
 export default function SupplierRegister() {
   const isMobile = useIsMobile();
@@ -33,8 +16,7 @@ export default function SupplierRegister() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token) setIsLoggedIn(true);
+    if (localStorage.getItem("authToken")) setIsLoggedIn(true);
   }, []);
 
   const {
@@ -46,17 +28,14 @@ export default function SupplierRegister() {
     resolver: zodResolver(supplierRegisterSchema),
   });
 
-  const onSubmit = async (data) => {
-    console.log("Supplier Registration Data:", data);
+  const onSubmit = (data) => {
+    console.log(data);
     toast.success("Supplier registered successfully!");
     setRedirect(true);
   };
 
   const handleUseLocation = () => {
-    if (!navigator.geolocation) {
-      toast.error("Geolocation not supported in your browser");
-      return;
-    }
+    if (!navigator.geolocation) return toast.error("Geolocation not supported");
     setLoadingLocation(true);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -66,174 +45,127 @@ export default function SupplierRegister() {
         toast.info("Location detected");
       },
       () => {
-        toast.error("Unable to fetch location");
         setLoadingLocation(false);
+        toast.error("Unable to fetch location");
       }
     );
   };
 
   if (redirect || isLoggedIn) return <Navigate to="/" />;
 
+  if (isMobile)
+    return (
+      <SupplierRegistrationModal
+        isOpen={true}
+        onClose={() => setRedirect(true)}
+      />
+    );
+
   return (
-    <>
-      {isMobile ? (
-        <SupplierRegistrationModal
-          isOpen={true}
-          onClose={() => setRedirect(true)}
-        />
-      ) : (
-        <Box sx={containerStyle}>
-          <Box sx={registerCardStyle}>
-            <Typography variant="h4" sx={headerStyle}>
-              Supplier Registration
-            </Typography>
-            <Typography variant="body2" sx={subHeaderStyle}>
-              Please fill in the details to create your supplier account.
-            </Typography>
+    <main className="flex justify-center items-start min-h-screen p-8 lg:mt-24 md:mt28">
+      <section
+        aria-labelledby="supplier-registration-heading"
+        className="w-full max-w-4xl bg-[var(--color-white)] rounded-2xl p-8 shadow-lg"
+      >
+        <header className="mb-6 text-center">
+          <h1
+            id="supplier-registration-heading"
+            className="text-3xl font-bold text-[var(--color-neutral-dark)] mb-2"
+          >
+            Supplier Registration
+          </h1>
+          <p className="text-sm text-[var(--color-neutral-dark)]">
+            Fill in the details to create your supplier account.
+          </p>
+        </header>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <FormInput
-                    name="companyName"
-                    label="Company Name"
-                    icon={<Building2 size={18} />}
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormInput
-                    name="contactPerson"
-                    label="Contact Person"
-                    icon={<User size={18} />}
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-6 border-0 p-0 m-0">
+            <legend className="sr-only">Supplier Details</legend>
 
-                {/* Email & Phone */}
-                <Grid item xs={12} sm={6}>
-                  <FormInput
-                    name="email"
-                    label="Email"
-                    type="email"
-                    icon={<Mail size={18} />}
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormInput
-                    name="phone"
-                    label="Phone"
-                    type="tel"
-                    icon={<Phone size={18} />}
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
+            <FormInput
+              name="companyName"
+              label="Company Name"
+              register={register}
+              errors={errors}
+            />
+            <FormInput
+              name="contactPerson"
+              label="Contact Person"
+              register={register}
+              errors={errors}
+            />
+            <FormInput
+              name="email"
+              label="Email"
+              type="email"
+              register={register}
+              errors={errors}
+            />
+            <FormInput
+              name="phone"
+              label="Phone"
+              type="tel"
+              register={register}
+              errors={errors}
+            />
+            <FormInput
+              name="password"
+              label="Password"
+              type="password"
+              register={register}
+              errors={errors}
+            />
+            <FormInput
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              register={register}
+              errors={errors}
+            />
+            <FormInput
+              name="licenseNumber"
+              label="Pesticide License Number"
+              register={register}
+              errors={errors}
+              className="md:col-span-2"
+            />
+            <FormInput
+              name="address"
+              label="Street Address"
+              register={register}
+              errors={errors}
+              className="md:col-span-2"
+            />
 
-                {/* Password */}
-                <Grid item xs={12} sm={6}>
-                  <FormInput
-                    name="password"
-                    label="Password"
-                    type="password"
-                    icon={<Lock size={18} />}
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormInput
-                    name="confirmPassword"
-                    label="Confirm Password"
-                    type="password"
-                    icon={<Lock size={18} />}
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
+            <div className="md:col-span-1">
+              <CustomButton
+                fullWidth
+                text={loadingLocation ? "Detecting..." : "Use Current Location"}
+                variant="text"
+                onClick={handleUseLocation}
+                disabled={loadingLocation}
+              />
+            </div>
+            <div className="md:col-span-1">
+              <CustomButton fullWidth type="submit" text="Register Supplier" />
+            </div>
+          </fieldset>
+        </form>
 
-                {/* License & Address */}
-                <Grid item xs={12}>
-                  <FormInput
-                    name="licenseNumber"
-                    label="Pesticide License Number"
-                    icon={<Landmark size={18} />}
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FormInput
-                    name="address"
-                    label="Street Address"
-                    icon={<MapPin size={18} />}
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-
-                {/* City, State, Country */}
-                <Grid item xs={12} sm={4}>
-                  <FormInput
-                    name="city"
-                    label="City"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <FormInput
-                    name="state"
-                    label="State"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <FormInput
-                    name="country"
-                    label="Country"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-
-                {/* Location & Submit */}
-                <Grid item xs={12} sm={6}>
-                  <CustomButton
-                    fullWidth
-                    variant="text"
-                    onClick={handleUseLocation}
-                    text="Use Current Location"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <CustomButton
-                    fullWidth
-                    type="submit"
-                    text="Register Supplier"
-                  />
-                </Grid>
-              </Grid>
-            </form>
-
-            {/* Login link */}
-            <Typography variant="body2" sx={footerTextStyle}>
-              Already have an account?{" "}
-              <Link
-                to="/supplier-login"
-                style={{ color: "#1976d2", fontWeight: 500 }}
-              >
-                Login here
-              </Link>
-            </Typography>
-          </Box>
-        </Box>
-      )}
-    </>
+        {/* Footer */}
+        <footer className="mt-6 text-center">
+          <p className="text-sm text-[var(--color-neutral-dark)]">
+            Already have an account?{" "}
+            <Link
+              to="/supplier-login"
+              className="text-[var(--color-primary)] font-medium hover:underline"
+            >
+              Login here
+            </Link>
+          </p>
+        </footer>
+      </section>
+    </main>
   );
 }

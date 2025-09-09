@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Link, Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import useIsMobile from "@/hooks/useInMobile";
 import { Mail, Lock } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "react-toastify";
-import { Link, Navigate } from "react-router-dom";
-import useIsMobile from "@/hooks/useInMobile";
-import FormInput from "../../../components/ui/FormInput";
+import FormInput from "@/components/ui/FormInput";
 import CustomButton from "@/components/ui/CustomButton";
-import { supplierLoginSchema } from "@/schemas/authSchemas";
 import SupplierLoginModal from "../components/SupplierLoginModal";
-import { loginCardStyle } from "@/constants/theme";
+import { supplierLoginSchema } from "@/schemas/authSchemas";
 
 export default function SupplierLogin() {
   const isMobile = useIsMobile();
@@ -35,10 +33,9 @@ export default function SupplierLogin() {
     setLoading(true);
     try {
       console.log("Login Data:", data);
-      // Replace with real login API call
       await new Promise((res) => setTimeout(res, 1000));
       toast.success("Logged in successfully!");
-      localStorage.setItem("authToken", "dummyToken"); // replace with real token
+      localStorage.setItem("authToken", "dummyToken");
       setRedirect(true);
     } catch (err) {
       toast.error("Login failed. Please check your credentials.");
@@ -49,99 +46,62 @@ export default function SupplierLogin() {
 
   if (redirect || isLoggedIn) return <Navigate to="/" />;
 
-  const containerStyle = {
-    minHeight: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    px: 2,
-    py: 10,
-  };
-
-  const cardStyle = {
-    width: "100%",
-    maxWidth: 400,
-    borderRadius: 3,
-    border: "1px solid",
-    borderColor: "grey.400",
-    bgcolor: "background.paper",
-    px: 4,
-    py: 6,
-  };
-
-  const headerStyle = {
-    textAlign: "center",
-    color: "primary.main",
-    fontWeight: "bold",
-    mb: 1,
-  };
-  const subHeaderStyle = {
-    textAlign: "center",
-    color: "text.secondary",
-    mb: 3,
-  };
-  const footerTextStyle = {
-    textAlign: "center",
-    color: "text.secondary",
-    mt: 3,
-  };
+  if (isMobile)
+    return (
+      <SupplierLoginModal isOpen={true} onClose={() => setRedirect(true)} />
+    );
 
   return (
-    <>
-      {isMobile ? (
-        <SupplierLoginModal isOpen={true} onClose={() => setRedirect(true)} />
-      ) : (
-        <Box sx={containerStyle}>
-          <Box sx={loginCardStyle}>
-            <Typography variant="h4" sx={headerStyle}>
-              Supplier Login
-            </Typography>
-            <Typography variant="body2" sx={subHeaderStyle}>
-              Enter your credentials to access your supplier account.
-            </Typography>
+    <main className="flex items-center justify-center min-h-screen  p-4">
+      <section className="w-full max-w-md bg-[var(--color-white)] rounded-2xl border border-[var(--color-neutral-medium)] p-8 shadow-lg">
+        {/* Header */}
+        <header className="text-center mb-6">
+          <h1 className="text-3xl font-bold text-[var(--color-neutral-dark)] mb-2">
+            Supplier Login
+          </h1>
+          <p className="text-sm text-[var(--color-neutral-dark)]">
+            Enter your credentials to access your supplier account.
+          </p>
+        </header>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Box mb={2}>
-                <FormInput
-                  name="email"
-                  label="Email"
-                  type="email"
-                  icon={<Mail size={18} />}
-                  register={register}
-                  errors={errors}
-                />
-              </Box>
-              <Box mb={2}>
-                <FormInput
-                  name="password"
-                  label="Password"
-                  type="password"
-                  icon={<Lock size={18} />}
-                  register={register}
-                  errors={errors}
-                />
-              </Box>
+        {/* Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <FormInput
+            name="email"
+            label="Email"
+            type="email"
+            icon={<Mail size={18} />}
+            register={register}
+            errors={errors}
+          />
+          <FormInput
+            name="password"
+            label="Password"
+            type="password"
+            icon={<Lock size={18} />}
+            register={register}
+            errors={errors}
+          />
+          <CustomButton
+            fullWidth
+            type="submit"
+            text="Login"
+            loading={loading}
+            className="bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-[var(--color-white)] font-semibold py-3 rounded-xl"
+          />
+        </form>
 
-              <CustomButton
-                fullWidth
-                type="submit"
-                text="Login"
-                loading={loading}
-              />
-            </form>
-
-            <Typography variant="body2" sx={footerTextStyle}>
-              Don't have an account?{" "}
-              <Link
-                to="/supplier-register"
-                style={{ color: "#1976d2", fontWeight: 500 }}
-              >
-                Register here
-              </Link>
-            </Typography>
-          </Box>
-        </Box>
-      )}
-    </>
+        {/* Footer */}
+        <footer className="mt-6 text-center text-sm text-[var(--color-neutral-dark)]">
+          Don't have an account?{" "}
+          <Link
+            to="/supplier-register"
+            className="text-[var(--color-primary)] font-medium underline"
+          >
+            Register here
+          </Link>
+        </footer>
+      </section>
+    </main>
   );
 }

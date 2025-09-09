@@ -4,15 +4,16 @@ import useIsMobile from "@/hooks/useInMobile";
 import CartItem from "../components/CartItem";
 import CartSummary from "../components/CartSummary";
 import CartBottomBar from "../components/CartBottomBar";
-//hrllooj
+import { useCartList } from "@/providers/CartListProvider";
+import { Navigate } from "react-router-dom";
+import EmptyState from "@/components/shared/EmptyState";
+import { ShoppingCart } from "lucide-react";
+
 const CartPage = () => {
-  const [cart, setCart] = useState(dummyData);
+  const { cartList, removeFromCart, clearCart } = useCartList();
+  const [cart, setCart] = useState(cartList);
+
   const isMobile = useIsMobile();
-
-  const removeFromCart = (id) =>
-    setCart((prev) => prev.filter((item) => item._id !== id));
-
-  const clearCart = () => setCart([]);
 
   const checkoutAll = () => {
     alert("Proceeding to checkout with your cart!");
@@ -22,9 +23,22 @@ const CartPage = () => {
   const taxes = subtotal * 0.1;
   const total = subtotal + taxes;
 
+  if (cartList.length === 0) {
+    return (
+      <EmptyState
+        title="Empty Cart"
+        subTitle="Your cart is empty. Add items you love and come back to checkout!"
+        icon={
+          <ShoppingCart className="w-16 h-16 text-[var(--color-secondary)]" />
+        }
+        btnText="Continue Shopping"
+        redirectTo="/"
+      />
+    );
+  }
+
   return (
-    <div className="py-8 lg:mt-28 md:mt-28 max-w-7xl mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-      {/* Cart Items */}
+    <div className="py-8 lg:mt-28 md:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-8">
       <div
         className={`col-span-2 flex flex-col gap-6 ${
           isMobile ? "pb-24" : "pb-0"
@@ -34,21 +48,15 @@ const CartPage = () => {
           My Cart
         </h1>
 
-        {cart.length === 0 ? (
-          <p className="text-center text-[var(--color-neutral-dark)]">
-            Your cart is empty.
-          </p>
-        ) : (
-          <div className="flex flex-col gap-4">
-            {cart.map((product) => (
-              <CartItem
-                key={product._id}
-                product={product}
-                onRemove={removeFromCart}
-              />
-            ))}
-          </div>
-        )}
+        <div className="flex flex-col gap-4">
+          {cart.map((product) => (
+            <CartItem
+              key={product._id}
+              product={product}
+              onRemove={removeFromCart}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Desktop Summary */}
