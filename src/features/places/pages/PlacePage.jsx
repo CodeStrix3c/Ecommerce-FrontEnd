@@ -36,7 +36,6 @@ const PlacePage = () => {
     if (!id) return;
 
     setLoading(true);
-
     const foundPlace = dummyData.find((p) => p._id === id);
 
     setTimeout(() => {
@@ -45,9 +44,7 @@ const PlacePage = () => {
     }, 500);
   }, [id]);
 
-  if (loading) {
-    return <Spinner />;
-  }
+  if (loading) return <Spinner />;
 
   if (!place) {
     return (
@@ -61,41 +58,46 @@ const PlacePage = () => {
     <div className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36">
       <ListingHeader place={place} />
       <AddressLink placeAddress={place.address} />
+
       <PlaceGallery place={place} />
 
-      <div className="mt-10">
-        <HighlightBanner />
-      </div>
+      <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+        <div className="flex-1 space-y-8">
+          <HighlightBanner />
 
-      <div className="mb-8 mt-8 grid grid-cols-1 gap-8 md:grid-cols-[2fr_1fr]">
-        <div>
-          <div className="my-4">
+          <section>
             <h2 className="text-2xl font-semibold text-[var(--color-neutral-dark)]">
               Description
             </h2>
             <p className="mt-2 text-[var(--color-neutral-dark-hover)]">
               {place.description}
             </p>
-          </div>
 
-          <div className="mt-2">
-            {place.inStock ? (
-              <span className="rounded bg-[var(--color-primary)] px-2 py-1 text-[var(--color-white)]">
-                In Stock
-              </span>
-            ) : (
-              <span className="rounded bg-[var(--color-accent)] px-2 py-1 text-[var(--color-white)]">
-                Out of Stock
-              </span>
-            )}
-          </div>
+            <div className="mt-3">
+              {place.inStock ? (
+                <span className="inline-block rounded-md bg-[var(--color-primary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
+                  In Stock
+                </span>
+              ) : (
+                <span className="inline-block rounded-md bg-[var(--color-accent)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
+                  Out of Stock
+                </span>
+              )}
+            </div>
+          </section>
 
           <PerksWidget perks={place?.perks} />
         </div>
 
-        <div>
-          <BookingWidget place={place} />
-        </div>
+        <aside className="hidden w-1/3 md:block">
+          <div className="sticky top-28">
+            <BookingWidget place={place} />
+          </div>
+        </aside>
+      </div>
+
+      <div className="my-8 md:hidden">
+        <BookingWidget place={place} />
       </div>
 
       <RatingSummary />
@@ -103,6 +105,7 @@ const PlacePage = () => {
       <Testimonials />
 
       <MapBox address={place.address} />
+
       <ExploreNearby
         title="Explore other options in and around Gurugram"
         options={nearbyOptions}

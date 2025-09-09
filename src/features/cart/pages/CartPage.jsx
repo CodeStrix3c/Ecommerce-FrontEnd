@@ -6,6 +6,8 @@ import CartSummary from "../components/CartSummary";
 import CartBottomBar from "../components/CartBottomBar";
 import { useCartList } from "@/providers/CartListProvider";
 import { Navigate } from "react-router-dom";
+import EmptyState from "@/components/shared/EmptyState";
+import { ShoppingCart } from "lucide-react";
 
 const CartPage = () => {
   const { cartList, removeFromCart, clearCart } = useCartList();
@@ -22,7 +24,17 @@ const CartPage = () => {
   const total = subtotal + taxes;
 
   if (cartList.length === 0) {
-    return <Navigate to="/empty-cart" replace />;
+    return (
+      <EmptyState
+        title="Empty Cart"
+        subTitle="Your cart is empty. Add items you love and come back to checkout!"
+        icon={
+          <ShoppingCart className="w-16 h-16 text-[var(--color-secondary)]" />
+        }
+        btnText="Continue Shopping"
+        redirectTo="/"
+      />
+    );
   }
 
   return (
