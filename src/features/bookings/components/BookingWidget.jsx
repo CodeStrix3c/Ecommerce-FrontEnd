@@ -135,11 +135,11 @@ const BookingWidget = ({ place }) => {
             onClick={handleBuyNow}
             className="w-full rounded-md bg-[var(--color-primary)] py-3 text-sm font-semibold text-[var(--color-white)] transition hover:bg-[var(--color-primary-hover)]"
           >
-            Buy Now – ₹{totalPrice}
+            Buy Now
           </button>
           <button
             onClick={handleAddToCart}
-            className="w-full rounded-md py-3 text-sm font-medium text-[var(--color-black)] transition hover:bg-[var(--color-black-hover)]"
+            className="w-full rounded-md py-3 text-sm font-medium text-[var(--color-black)] transition bg-[var(--color-black-hover)]"
           >
             {isCartListed ? "Remove from your cart" : "Add to your cart"}
           </button>
