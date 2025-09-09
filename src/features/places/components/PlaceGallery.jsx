@@ -2,12 +2,13 @@ import React, { useState } from "react";
 
 const PlaceGallery = ({ place }) => {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+
   if (showAllPhotos) {
     return (
-      <div className="fixed inset-0 z-[9999] bg-[var(--color-white)] text-[var(--color-neutral-dark)] overflow-auto">
+      <div className="fixed inset-0 z-[9999] bg-[var(--color-white)] text-[var(--color-black)] overflow-auto">
         <div className="px-2 py-20 md:p-8">
           <button
-            className="fixed right-2 top-8 flex gap-1 rounded-2xl bg-[var(--color-white)] py-2 px-4 text-[var(--color-neutral-dark)] shadow-md hover:shadow-lg md:right-12"
+            className="fixed right-2 top-8 flex gap-1 rounded-2xl bg-[var(--color-white)] py-2 px-4 text-[var(--color-black)] shadow-md hover:shadow-lg md:right-12"
             onClick={() => setShowAllPhotos(false)}
           >
             <svg
@@ -47,10 +48,11 @@ const PlaceGallery = ({ place }) => {
 
   return (
     <div className="relative">
+      {/* Desktop grid */}
       <div className="hidden h-[400px] max-h-[450px] grid-cols-4 gap-2 overflow-hidden rounded-[12px] md:grid">
         <div className="col-span-2 overflow-hidden">
           {place.photos?.[0] && (
-            <div className="h-full w-full overflow-hidden bg-[var(--color-white-hover)]">
+            <div className="h-full w-full overflow-hidden bg-[var(--color-black-hover)]">
               <img
                 onClick={() => setShowAllPhotos(true)}
                 className="h-full w-full cursor-pointer object-contain"
@@ -63,8 +65,7 @@ const PlaceGallery = ({ place }) => {
         <div className="col-span-1 overflow-hidden">
           <div className="grid h-full grid-rows-2 gap-2">
             {place.photos?.[1] && (
-              // row 1
-              <div className="bg-[var(--color-white-hover)]">
+              <div className="bg-[var(--color-black-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
                   className="h-full w-full cursor-pointer object-contain"
@@ -73,10 +74,8 @@ const PlaceGallery = ({ place }) => {
                 />
               </div>
             )}
-
             {place.photos?.[2] && (
-              // row 2
-              <div className="bg-[var(--color-white-hover)]">
+              <div className="bg-[var(--color-black-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
                   className="h-full w-full cursor-pointer object-contain"
@@ -87,12 +86,10 @@ const PlaceGallery = ({ place }) => {
             )}
           </div>
         </div>
-        {/* column 3 */}
         <div className="col-span-1 overflow-hidden">
           <div className="grid h-full grid-rows-2 gap-2">
             {place.photos?.[3] && (
-              // row 1
-              <div className="h-full bg-[var(--color-white-hover)]">
+              <div className="h-full bg-[var(--color-black-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
                   className="h-full w-full cursor-pointer object-contain"
@@ -101,10 +98,8 @@ const PlaceGallery = ({ place }) => {
                 />
               </div>
             )}
-
             {place.photos?.[4] && (
-              // row 2
-              <div className="h-full bg-[var(--color-white-hover)]">
+              <div className="h-full bg-[var(--color-black-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
                   className="h-full w-full cursor-pointer object-contain"
@@ -117,7 +112,7 @@ const PlaceGallery = ({ place }) => {
         </div>
       </div>
 
-      {/* Mobile devices */}
+      {/* Mobile view */}
       <div className="flex overflow-hidden rounded-[12px] md:hidden">
         {place.photos?.[0] && (
           <div className="h-full">
@@ -132,14 +127,14 @@ const PlaceGallery = ({ place }) => {
       </div>
 
       <button
-        className="absolute bottom-2 right-2 flex gap-1 rounded-xl bg-white py-2 px-4 shadow-md shadow-gray-500 "
+        className="absolute bottom-2 right-2 flex gap-1 rounded-xl bg-[var(--color-white)] py-2 px-4 shadow-md shadow-[var(--color-black-hover)]"
         onClick={() => setShowAllPhotos(true)}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="h-6 w-6"
+          className="h-6 w-6 text-[var(--color-black)]"
         >
           <path
             fillRule="evenodd"

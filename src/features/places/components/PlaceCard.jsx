@@ -29,7 +29,7 @@ const PlaceCard = ({ place }) => {
       <Link to={`/place/${_id}`} className="block h-full cursor-pointer">
         <div className="relative">
           {/* Image */}
-          <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-[var(--color-white-hover)]">
+          <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-[var(--color-black-hover)]">
             <img
               src={photos[0]}
               alt={title}
@@ -37,7 +37,8 @@ const PlaceCard = ({ place }) => {
             />
           </div>
 
-          <div className="absolute left-2 top-2 rounded-sm bg-white/80 px-2 py-1 text-xs font-semibold text-[var(--color-neutral-dark)] shadow-md backdrop-blur-sm">
+          {/* Label */}
+          <div className="absolute left-2 top-2 rounded-sm bg-[var(--color-white)]/80 px-2 py-1 text-xs font-semibold text-[var(--color-black)] shadow-md backdrop-blur-sm">
             Farmer Favourite
           </div>
 
@@ -53,8 +54,8 @@ const PlaceCard = ({ place }) => {
             <Heart
               className={`h-4 w-4 transition ${
                 isWishlisted
-                  ? "fill-current text-[var(--color-accent)]"
-                  : "text-[var(--color-neutral-dark)]"
+                  ? "fill-current text-[var(--color-secondary)]"
+                  : "text-[var(--color-black)]"
               }`}
             />
           </button>
@@ -62,27 +63,27 @@ const PlaceCard = ({ place }) => {
 
         {/* Info */}
         <div className="mt-2">
-          <h3 className="truncate text-[15px] font-medium text-[var(--color-neutral-dark)] sm:text-base">
+          <h3 className="truncate text-[15px] font-medium text-[var(--color-black)] sm:text-base">
             {title || "Agricultural Insecticide"}
           </h3>
 
-          <p className="truncate text-[13px] text-[var(--color-neutral-dark)] sm:text-sm">
+          <p className="truncate text-[13px] text-[var(--color-black)] sm:text-sm">
             {address || "Pan-India Supplier"}
           </p>
 
           <div className="mt-1 flex items-center justify-between text-[13px] sm:text-sm">
             {/* Price */}
-            <span className="flex items-center font-normal text-[var(--color-neutral-dark)]">
-              <IndianRupee className="h-3 w-3 text-[var(--color-neutral-dark)]" />
+            <span className="flex items-center font-normal text-[var(--color-black)]">
+              <IndianRupee className="h-3 w-3 text-[var(--color-black)]" />
               {price || 500}{" "}
-              <span className="mx-1 min-w-fit text-[12px] text-[var(--color-neutral-dark)]">
+              <span className="mx-1 min-w-fit text-[12px] text-[var(--color-black)]">
                 per liter
               </span>
             </span>
 
             {/* Rating */}
-            <span className="flex items-center gap-1 font-medium text-[var(--color-neutral-dark)]">
-              <Star className="h-3 w-3 fill-current text-[var(--color-neutral-dark)]" />{" "}
+            <span className="flex items-center gap-1 font-medium text-[var(--color-black)]">
+              <Star className="h-3 w-3 fill-current text-[var(--color-primary)]" />
               {rating || 4.7}
             </span>
           </div>

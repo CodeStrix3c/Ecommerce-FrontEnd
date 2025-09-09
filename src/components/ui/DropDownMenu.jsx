@@ -6,6 +6,7 @@ import {
   Heart,
   Leaf,
   ShoppingCart,
+  User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
@@ -35,7 +36,7 @@ const DropdownMenu = () => {
         {/* Become Supplier */}
         <Link
           to="/supplier-register"
-          className="rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-neutral-dark)] transition-all duration-200 "
+          className="rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
         >
           Become a Supplier
         </Link>
@@ -43,11 +44,11 @@ const DropdownMenu = () => {
         {/* Wishlist */}
         <Link
           to="/wishlist"
-          className="relative rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-neutral-light)] transition-colors duration-200"
+          className="relative rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
         >
-          <Heart size={18} className="text-[var(--color-neutral-dark)]" />
+          <Heart size={18} className="text-[var(--color-black)]" />
           {wishlist.length > 0 && (
-            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-accent)] text-[10px] font-bold text-[var(--color-white)] animate-popin">
+            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-secondary)] text-[10px] font-bold text-[var(--color-white)] animate-popin">
               {wishlist.length}
             </span>
           )}
@@ -56,14 +57,11 @@ const DropdownMenu = () => {
         {/* Cart */}
         <Link
           to="/cart"
-          className="relative rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-neutral-light)] transition-colors duration-200"
+          className="relative rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
         >
-          <ShoppingCart
-            size={18}
-            className="text-[var(--color-neutral-dark)]"
-          />
+          <ShoppingCart size={18} className="text-[var(--color-black)]" />
           {cartList.length > 0 && (
-            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-accent)] text-[10px] font-bold text-[var(--color-white)] animate-popin">
+            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-secondary)] text-[10px] font-bold text-[var(--color-white)] animate-popin">
               {cartList.length}
             </span>
           )}
@@ -72,61 +70,53 @@ const DropdownMenu = () => {
         {/* Menu */}
         <button
           onClick={() => setOpen(!open)}
-          className="rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-neutral-light)] transition-colors duration-200"
+          className="rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
         >
-          <Menu size={20} className="text-[var(--color-neutral-dark)]" />
+          <Menu size={20} className="text-[var(--color-black)]" />
         </button>
       </div>
 
       {/* Dropdown */}
       <div
-        className={`absolute right-0 mt-3 w-64 origin-top-right rounded-xl bg-[var(--color-white)] shadow-lg ring-1 ring-black/5 transition-all duration-200 ease-out ${
+        className={`absolute right-0 mt-2 w-56 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
           open
             ? "translate-y-0 scale-100 opacity-100"
             : "pointer-events-none -translate-y-1 scale-95 opacity-0"
         }`}
       >
-        <div className="p-2">
+        <div className="flex flex-col py-2">
           <Link
             to="/about-pesticides"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--color-neutral-dark)] hover:bg-[var(--color-neutral-light)] transition-colors duration-150"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
-            <Info size={18} className="text-[var(--color-primary)]" />
+            <Info size={16} className="text-[var(--color-black)]" />
             <span>About Pesticides</span>
           </Link>
 
-          <hr className="my-2 border-[var(--color-neutral-medium)]" />
-
           <Link
             to="/crop-protection"
-            className="flex items-start gap-3 rounded-lg px-3 py-2 hover:bg-[var(--color-neutral-light)] transition-colors duration-150"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
-            <FlaskRound size={20} className="text-[var(--color-secondary)]" />
-            <div>
-              <p className="text-sm font-semibold text-[var(--color-neutral-dark)]">
-                Crop Protection
-              </p>
-              <p className="text-xs text-[var(--color-neutral-medium)]">
-                Explore solutions for safer and better yield.
-              </p>
-            </div>
+            <FlaskRound size={16} className="text-[var(--color-black)]" />
+            <span>Crop Protection</span>
           </Link>
-
-          <hr className="my-2 border-[var(--color-neutral-medium)]" />
 
           <Link
             to="/sustainable-farming"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--color-neutral-dark)] hover:bg-[var(--color-neutral-light)] transition-colors duration-150"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
-            <Leaf size={18} className="text-[var(--color-primary)]" />
+            <Leaf size={16} className="text-[var(--color-black)]" />
             <span>Sustainable Farming</span>
           </Link>
 
+          <hr className="my-1" />
+
           <Link
             to="/login"
-            className="block rounded-lg px-3 py-2 text-sm text-[var(--color-neutral-dark)] hover:bg-[var(--color-neutral-light)] transition-colors duration-150"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
-            Log in / Sign up
+            <User size={16} className="text-[var(--color-black)]" />
+            <span>Log in / Sign up</span>
           </Link>
         </div>
       </div>
