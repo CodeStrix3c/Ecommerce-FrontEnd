@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="flex w-full justify-center bg-[var(--color-white-hover)] pb-8">
+    <div className="flex w-full justify-center bg-[var(--color-neutral-light)] pb-8">
       <div className="flex w-full max-w-screen-xl flex-col items-center px-4">
         <div className="grid w-full grid-cols-1 gap-4 pt-8 text-sm md:grid-cols-3">
           <div className="flex flex-col gap-4">
@@ -67,7 +67,7 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="my-4 w-full border-t border-[var(--color-white-hover)]"></div>
+        <div className="my-4 w-full border-t border-[var(--color-neutral-medium)]"></div>
 
         {/* Bottom section */}
         <div className="flex w-full flex-col items-center justify-between gap-4 md:gap-0 lg:flex-row">

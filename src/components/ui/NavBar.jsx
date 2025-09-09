@@ -2,10 +2,10 @@ import { Home, Leaf, SprayCan, FlaskRound } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
 const NavBar = ({ isMobile }) => {
-  const location = useLocation();
-  const { pathname } = location;
+  const { pathname } = useLocation();
 
   if (pathname === "/cart" && isMobile) return null;
+
   const tabs = [
     {
       name: "Home",
@@ -34,12 +34,17 @@ const NavBar = ({ isMobile }) => {
     },
   ];
 
+  const inactiveMobileColor = "text-[var(--color-neutral-dark)]";
+  const inactiveDesktopColor = "text-[var(--color-neutral-dark)]";
+  const hoverMobileColor = "hover:text-[var(--color-black)]";
+  const hoverDesktopColor = "hover:text-[var(--color-black)]";
+
   return (
     <nav
       className={`flex ${
         isMobile
-          ? "fixed bottom-0 z-10 w-full justify-around border-t bg-white py-2 shadow-md"
-          : "items-center gap-8 border-b bg-white px-4"
+          ? "fixed bottom-0 z-10 w-full justify-around border-t bg-[var(--color-white)] py-2 shadow-md"
+          : "items-center gap-8 bg-[var(--color-white)] px-4"
       }`}
     >
       {tabs.map((tab) => (
@@ -50,32 +55,26 @@ const NavBar = ({ isMobile }) => {
           className={({ isActive }) =>
             `relative flex ${
               !isMobile ? "flex-row gap-2" : "flex-col"
-            } items-center ${
-              isMobile ? "text-xs" : "px-3 py-2 text-sm"
-            } font-medium transition-colors duration-300 ${
+            } items-center ${isMobile ? "text-xs" : "px-3 py-2 text-sm"} font-medium transition-colors duration-300 ${
               isMobile
-                ? isActive
-                  ? "text-black"
-                  : "text-gray-500 hover:text-black"
-                : isActive
-                  ? "border-b-2 border-black text-black"
-                  : "border-b-2 border-transparent text-gray-700 hover:text-black"
+                ? `${isActive ? tab.activeColor : inactiveMobileColor} ${hoverMobileColor}`
+                : `${isActive ? `border-b-2 border-[var(--color-black)] ${tab.activeColor}` : `${inactiveDesktopColor} ${hoverDesktopColor}`}`
             }`
           }
         >
           {({ isActive }) => (
             <>
               {tab.badge && !isMobile && (
-                <span className="absolute -top-3 rounded bg-indigo-900 px-2 text-[8px] font-bold text-white">
+                <span className="absolute -top-3 rounded bg-[var(--color-secondary)] px-2 text-[8px] font-bold text-[var(--color-white)]">
                   {tab.badge}
                 </span>
               )}
               <tab.icon
-                className={`${isMobile ? "h-6 w-6" : "h-6 w-6"} ${
+                className={`h-6 w-6 ${
                   isMobile
                     ? isActive
                       ? tab.activeColor
-                      : "text-gray-400"
+                      : inactiveMobileColor
                     : tab.activeColor
                 }`}
               />

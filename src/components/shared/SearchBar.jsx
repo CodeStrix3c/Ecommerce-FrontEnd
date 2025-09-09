@@ -45,7 +45,7 @@ const SearchBar = ({ onSubmit }) => {
   }
 
   return (
-    <div className="flex w-11/12 max-w-4xl items-center justify-between rounded-full border border-gray-200 bg-white px-4 py-2 shadow-md hover:shadow-lg">
+    <div className="flex w-11/12 max-w-4xl items-center justify-between rounded-full border border-gray-200 bg-white px-4 pt-1 shadow-md hover:shadow-lg">
       <div className="flex-1 border-r border-gray-200 px-3">
         <p className="text-xs font-semibold text-[#222222]">What</p>
         <input

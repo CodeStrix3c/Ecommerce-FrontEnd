@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { dummyData } from "@/data/dummyData";
 import WishlistItem from "../components/WishlistItem";
 import WishlistActions from "../components/WishlistActions";
+import { useWishlist } from "@/providers/WishListProvider";
+import EmptyState from "@/components/shared/EmptyState";
+import { Heart } from "lucide-react";
 
 const WishlistPage = () => {
-  const [wishlist, setWishlist] = useState(dummyData);
   const [cart, setCart] = useState([]);
+  const { wishlist: wishLists } = useWishlist();
+  const [wishlist, setWishlist] = useState(wishLists);
+
+  console.log(wishLists);
 
   const removeFromWishlist = (id) =>
     setWishlist((prev) => prev.filter((item) => item._id !== id));
@@ -21,7 +27,17 @@ const WishlistPage = () => {
   };
 
   const removeAllFromWishlist = () => setWishlist([]);
-
+  if (wishLists.length === 0) {
+    return (
+      <EmptyState
+        title="Empty Wishlist"
+        subTitle="Looks like you haven’t saved anything yet. Start exploring and add items to your wishlist!"
+        icon={<Heart className="w-16 h-16 text-[var(--color-secondary)]" />}
+        btnText="Browse Products"
+        redirectTo="/"
+      />
+    );
+  }
   return (
     <div className="py-8 flex flex-col gap-6">
       <div className="flex justify-between items-center lg:mt-28 md:mt-28">
@@ -34,23 +50,16 @@ const WishlistPage = () => {
           removeAllFromWishlist={removeAllFromWishlist}
         />
       </div>
-
-      {wishlist.length === 0 ? (
-        <p className="text-center text-[var(--color-neutral-dark)]">
-          Your wishlist is empty.
-        </p>
-      ) : (
-        <div className="flex flex-col gap-6">
-          {wishlist.map((product) => (
-            <WishlistItem
-              key={product._id}
-              product={product}
-              onRemove={removeFromWishlist}
-              onAddToCart={addToCart}
-            />
-          ))}
-        </div>
-      )}
+      <div className="flex flex-col gap-6">
+        {wishlist.map((product) => (
+          <WishlistItem
+            key={product._id}
+            product={product}
+            onRemove={removeFromWishlist}
+            onAddToCart={addToCart}
+          />
+        ))}
+      </div>
     </div>
   );
 };

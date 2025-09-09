@@ -25,7 +25,6 @@ const PlaceGallery = ({ place }) => {
             Close photos
           </button>
 
-          {/* Unsplash-style masonry grid */}
           <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
             {place?.photos?.map((photo, index) => (
               <div
@@ -90,7 +89,6 @@ const PlaceGallery = ({ place }) => {
         </div>
         {/* column 3 */}
         <div className="col-span-1 overflow-hidden">
-          {/* row grid inside column 3 */}
           <div className="grid h-full grid-rows-2 gap-2">
             {place.photos?.[3] && (
               // row 1

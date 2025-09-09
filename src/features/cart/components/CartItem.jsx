@@ -2,7 +2,7 @@ import { Trash2, Star } from "lucide-react";
 import PlaceGallery from "@/features/places/components/PlaceGallery";
 
 const CartItem = ({ product, onRemove }) => (
-  <div className="flex gap-4 border rounded-2xl p-4 shadow-sm hover:shadow-md transition bg-[var(--color-white)]">
+  <div className="flex gap-4 border rounded-2xl p-4 transition bg-[var(--color-white)]">
     <div className="w-40 h-28 flex-shrink-0 overflow-hidden rounded-xl">
       <PlaceGallery place={product} />
     </div>
