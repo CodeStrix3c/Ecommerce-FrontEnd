@@ -6,13 +6,13 @@ export const phoneLoginSchema = z.object({
 });
 
 export const emailLoginSchema = z.object({
-  email: z.string().email("Invalid email"),
+  email: z.string().z.email("Invalid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 export const emailRegisterSchema = z.object({
   fullName: z.string().min(2, "Name is required"),
-  email: z.string().email("Invalid email"),
+  email: z.string().z.email("Invalid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -28,7 +28,7 @@ export const supplierRegisterSchema = z
   .object({
     companyName: z.string().min(2, "Company name is required"),
     contactPerson: z.string().min(2, "Contact person is required"),
-    email: z.string().email("Invalid email"),
+    email: z.string().z.email("Invalid email"),
     phone: z.string().regex(/^[0-9]{10}$/, "Phone must be 10 digits"),
     password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string().min(6, "Confirm password is required"),
@@ -44,6 +44,6 @@ export const supplierRegisterSchema = z
   });
 
 export const supplierLoginSchema = z.object({
-  email: z.string().email("Invalid email"),
+  email: z.string().z.email("Invalid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
