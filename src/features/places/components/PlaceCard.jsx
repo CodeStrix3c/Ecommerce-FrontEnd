@@ -33,7 +33,7 @@ const PlaceCard = ({ place }) => {
             <img
               src={photos[0]}
               alt={title}
-              className="h-full w-full object-contain object-bottom transition-transform duration-300 hover:scale-95"
+              className="h-full w-full object-cover object-bottom transition-transform duration-300"
             />
           </div>
 

@@ -4,7 +4,7 @@ export const dummyData = [
     title: "Agricultural Insecticides",
     address: "Pan-India",
     photos: [
-      "https://3.imimg.com/data3/SV/PM/MY-4355859/si-1000x1000.jpeg",
+      "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmVkcm9vbXxlbnwwfHwwfHx8MA%3D%3D",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqkAahgtpYF_49aU9fJgimkrS4FksjyC1uiw&s",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcuMJ0qoypA4s-xG8iB2b8MqFYIYcGn-NNeQ&s",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDuWwHD71E5P6F3vgttMpLKq6hOKmDXJ1Uog&s",
