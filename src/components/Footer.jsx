@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="flex w-full justify-center bg-[var(--color-neutral-light)] pb-8">
+    <div className="flex w-full justify-center bg-[var(--color-black-hover)] pb-8">
       <div className="flex w-full max-w-screen-xl flex-col items-center px-4">
         <div className="grid w-full grid-cols-1 gap-4 pt-8 text-sm md:grid-cols-3">
           <div className="flex flex-col gap-4">

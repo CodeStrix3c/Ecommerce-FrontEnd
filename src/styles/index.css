@@ -107,16 +107,12 @@ button.social {
   }
 }
 :root {
-  --color-primary: #ff5a5f;
-  --color-primary-hover: #e14e52;
-  --color-secondary: #00a699;
-  --color-secondary-hover: #008e83;
-  --color-accent: #fc642d;
-  --color-accent-hover: #e05524;
-  --color-neutral-light: #f7f7f7;
-  --color-neutral-medium: #dddddd;
-  --color-neutral-dark: #484848;
+  --color-primary: #2d6b06;
+  --color-primary-hover: #245805;
+  --color-secondary: #c7611f;
+  --color-secondary-hover: #a64f18;
   --color-black: #222222;
+  --color-black-hover: #f7f7f7;
   --color-white: #ffffff;
   --color-overlay: rgba(0, 0, 0, 0.5);
 }

@@ -47,11 +47,7 @@ const PlacePage = () => {
   if (loading) return <Spinner />;
 
   if (!place) {
-    return (
-      <div className="p-8 text-[var(--color-neutral-dark)]">
-        Place not found
-      </div>
-    );
+    return <div className="p-8 text-[var(--color-black)]">Place not found</div>;
   }
 
   return (
@@ -66,10 +62,10 @@ const PlacePage = () => {
           <HighlightBanner />
 
           <section>
-            <h2 className="text-2xl font-semibold text-[var(--color-neutral-dark)]">
+            <h2 className="text-2xl font-semibold text-[var(--color-black)]">
               Description
             </h2>
-            <p className="mt-2 text-[var(--color-neutral-dark-hover)]">
+            <p className="mt-2 text-[var(--color-black)]/70">
               {place.description}
             </p>
 
@@ -79,7 +75,7 @@ const PlacePage = () => {
                   In Stock
                 </span>
               ) : (
-                <span className="inline-block rounded-md bg-[var(--color-accent)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
+                <span className="inline-block rounded-md bg-[var(--color-secondary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
                   Out of Stock
                 </span>
               )}

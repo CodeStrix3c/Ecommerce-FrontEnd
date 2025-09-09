@@ -1,17 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const AddressLink = ({ placeAddress, className = null }) => {
   if (!className) {
     className = "my-3 block";
   }
 
-  className += " flex gap-1 font-semibold underline";
+  className +=
+    " flex gap-1 font-semibold underline text-[var(--color-black)] hover:text-[var(--color-primary)]";
+
   return (
-    <Link
+    <a
       className={className}
-      href={`https://maps.google.com/?q=${placeAddress}`}
-      target="blank"
+      href={`https://maps.google.com/?q=${encodeURIComponent(placeAddress)}`}
+      target="_blank"
+      rel="noopener noreferrer"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +21,7 @@ const AddressLink = ({ placeAddress, className = null }) => {
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="h-6 w-6"
+        className="h-6 w-6 text-[var(--color-primary)]"
       >
         <path
           strokeLinecap="round"
@@ -34,7 +36,7 @@ const AddressLink = ({ placeAddress, className = null }) => {
       </svg>
 
       {placeAddress}
-    </Link>
+    </a>
   );
 };
 

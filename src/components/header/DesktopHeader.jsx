@@ -24,17 +24,18 @@ const DesktopHeader = ({ location }) => {
   }, []);
 
   const headerShadow = {
-    backgroundColor: "#ffffff",
-    boxShadow: hasShadow
-      ? "0 4px 6px rgba(0,0,0,0.1)"
-      : "0 1px 3px rgba(0,0,0,0.05)",
+    backgroundColor: "var(--color-white)",
+    // boxShadow:
+    //  hasShadow
+    //   ? "0 4px 6px var(--color-overlay)"
+    //   : "0 1px 3px var(--color-overlay)",
     transition: "box-shadow 0.3s ease-in-out",
   };
 
   return (
     <header
       style={headerShadow}
-      className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-white"
+      className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)]"
     >
       <div className="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-3">
         <NavLink to="/" className="flex items-center gap-2">
