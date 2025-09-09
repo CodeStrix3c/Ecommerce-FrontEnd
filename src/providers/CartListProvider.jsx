@@ -16,8 +16,16 @@ export const CartListProvider = ({ children }) => {
     });
   };
 
+   const removeFromCart = (id) => {
+    setCartList((prev) => prev.filter((item) => item._id !== id));
+  };
+
+  const clearCart = () => {
+    setCartList([]); 
+  };
+
   return (
-    <CartListContext.Provider value={{ cartList, toggleCartList }}>
+    <CartListContext.Provider value={{ cartList, toggleCartList, removeFromCart, clearCart }}>
       {children}
     </CartListContext.Provider>
   );
