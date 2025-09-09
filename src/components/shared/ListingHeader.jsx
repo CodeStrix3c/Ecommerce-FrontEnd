@@ -31,17 +31,17 @@ export default function ListingHeader({ place, onShare }) {
   };
 
   return (
-    <header className="w-full border-b border-[var(--color-white-hover)] bg-[var(--color-white)]">
+    <header className="w-full border-b border-[var(--color-black-hover)] bg-[var(--color-white)]">
       <div className="mx-auto flex items-center justify-between gap-4 py-5">
-        <h1 className="text-xl font-semibold tracking-tight text-[var(--color-neutral-dark)] sm:text-2xl md:text-3xl">
+        <h1 className="text-xl font-semibold tracking-tight text-[var(--color-black)] sm:text-2xl md:text-3xl">
           {place.title}
         </h1>
 
-        <div className="flex items-center text-[var(--color-neutral-dark)]">
+        <div className="flex items-center text-[var(--color-black)]">
           <button
             type="button"
             onClick={handleShare}
-            className="inline-flex items-center gap-2 rounded-sm px-2 py-1 transition hover:bg-[var(--color-white-hover)] sm:px-3"
+            className="inline-flex items-center gap-2 rounded-sm px-2 py-1 transition hover:bg-[var(--color-black-hover)] sm:px-3"
             aria-label="Share"
           >
             <Share2 className="size-5" aria-hidden="true" />
@@ -49,19 +49,19 @@ export default function ListingHeader({ place, onShare }) {
           </button>
 
           <span
-            className="mx-1 h-5 w-px bg-[var(--color-neutral-dark-hover)] sm:mx-2"
+            className="mx-1 h-5 w-px bg-[var(--color-black-hover)] sm:mx-2"
             aria-hidden="true"
           />
 
           <button
             type="button"
             onClick={handleSave}
-            className="inline-flex items-center gap-2 rounded-sm px-2 py-1 transition hover:bg-[var(--color-white-hover)] sm:px-3"
+            className="inline-flex items-center gap-2 rounded-sm px-2 py-1 transition hover:bg-[var(--color-black-hover)] sm:px-3"
             aria-label="Save"
           >
             <Heart
               className={`size-5 ${
-                isSaved ? "fill-current text-[var(--color-accent)]" : ""
+                isSaved ? "fill-current text-[var(--color-primary)]" : ""
               }`}
               aria-hidden="true"
             />

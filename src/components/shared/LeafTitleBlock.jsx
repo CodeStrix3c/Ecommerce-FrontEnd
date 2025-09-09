@@ -11,7 +11,7 @@ export default function LeafTitleBlock({
   leafSize = "md",
   titleSize = "md",
   isGray = false,
-  titleColor = "text-[var(--color-neutral-dark)]",
+  titleColor = "text-[var(--color-black)]",
 }) {
   const leafColor = getLeafColor(isGray);
 
@@ -34,7 +34,7 @@ export default function LeafTitleBlock({
       </div>
 
       {subtitle && (
-        <p className="text-sm text-[var(--color-neutral)]">{subtitle}</p>
+        <p className="text-sm text-[var(--color-black)]">{subtitle}</p>
       )}
     </div>
   );

@@ -9,7 +9,7 @@ export default function HighlightBanner({
   reviewCount = 26,
 }) {
   return (
-    <div className="flex w-fit flex-col space-y-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-white)] p-4 shadow-sm">
+    <div className="flex w-fit flex-col space-y-4 rounded-2xl border border-[var(--color-black)] bg-[var(--color-white)] p-4 shadow-sm">
       <div className="flex w-full justify-center">
         <LeafTitleBlock
           title={title}
@@ -30,7 +30,7 @@ export default function HighlightBanner({
                 <Star
                   key={i}
                   size={14}
-                  className="fill-current text-[var(--color-neutral-dark)]"
+                  className="fill-current text-[var(--color-black)]"
                 />
               ))}
           </div>
@@ -39,12 +39,12 @@ export default function HighlightBanner({
         <Divider
           orientation="vertical"
           flexItem
-          className="border-[var(--color-border-muted)]"
+          className="border-[var(--color-black-hover)]"
         />
 
         <div className="flex flex-col items-center">
           <p className="text-lg font-semibold">{reviewCount}</p>
-          <p className="text-sm text-[var(--color-neutral)]">Reviews</p>
+          <p className="text-sm text-[var(--color-black)]">Reviews</p>
         </div>
       </div>
     </div>
