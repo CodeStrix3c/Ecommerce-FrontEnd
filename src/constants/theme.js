@@ -46,7 +46,7 @@ export const registerCardStyle = {
 
 export const headerStyle = {
   textAlign: "center",
-  color: "primary.main",
+  color: "primary.secondary",
   fontWeight: "bold",
   mb: 1,
 };
