@@ -12,7 +12,7 @@ export const titleSizeClasses = {
 };
 
 export const getLeafColor = (isGray) =>
-  isGray ? "text-[var(--color-neutral)]" : "text-[var(--color-primary)]";
+  isGray ? "text-[var(--color-black)]" : "text-[var(--color-primary)]";
 
 export const containerStyle = {
   minHeight: "100vh",
@@ -26,39 +26,35 @@ export const containerStyle = {
 export const loginCardStyle = {
   width: "100%",
   maxWidth: 400,
-  borderRadius: 3,
-  border: "1px solid",
-  borderColor: "grey.400",
-  bgcolor: "background.paper",
-  px: 4,
-  py: 6,
+  borderRadius: 12,
+  border: "1px solid var(--color-black-hover)",
+  backgroundColor: "var(--color-white)",
+  padding: "1.5rem",
 };
 
 export const registerCardStyle = {
   width: "100%",
-  borderRadius: 3,
-  border: "1px solid",
-  borderColor: "grey.400",
-  bgcolor: "background.paper",
-  px: 4,
-  py: 6,
+  borderRadius: 12,
+  border: "1px solid var(--color-black-hover)",
+  backgroundColor: "var(--color-white)",
+  padding: "1.5rem",
 };
 
 export const headerStyle = {
   textAlign: "center",
-  color: "primary.secondary",
+  color: "var(--color-primary)",
   fontWeight: "bold",
-  mb: 1,
+  marginBottom: "0.25rem",
 };
 
 export const subHeaderStyle = {
   textAlign: "center",
-  color: "text.secondary",
-  mb: 3,
+  color: "var(--color-black-hover)",
+  marginBottom: "0.75rem",
 };
 
 export const footerTextStyle = {
   textAlign: "center",
-  color: "text.secondary",
-  mt: 3,
+  color: "var(--color-black-hover)",
+  marginTop: "0.75rem",
 };
