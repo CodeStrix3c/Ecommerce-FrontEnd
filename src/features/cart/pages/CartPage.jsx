@@ -4,7 +4,7 @@ import useIsMobile from "@/hooks/useInMobile";
 import CartItem from "../components/CartItem";
 import CartSummary from "../components/CartSummary";
 import CartBottomBar from "../components/CartBottomBar";
-
+//hrllooj
 const CartPage = () => {
   const [cart, setCart] = useState(dummyData);
   const isMobile = useIsMobile();
