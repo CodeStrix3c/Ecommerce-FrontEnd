@@ -1,34 +1,62 @@
 import { z } from "zod";
 
+// ----------------------
+// Reusable validators
+// ----------------------
+export const emailValidator = z.email("Invalid email");
+
+export const passwordValidator = z
+  .string()
+  .min(6, "Password must be at least 6 characters");
+
+export const phoneValidator = z
+  .string()
+  .regex(/^[0-9]{10}$/, "Phone must be 10 digits");
+
+export const nameValidator = z.string().min(2, "Name is required");
+
+export const fullNameValidator = z.string().min(2, "Full name is required");
+
+// ----------------------
+// Login Schemas
+// ----------------------
 export const phoneLoginSchema = z.object({
-  phone: z.string().regex(/^[0-9]{10}$/, "Phone must be 10 digits"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  phone: phoneValidator,
+  password: passwordValidator,
 });
 
 export const emailLoginSchema = z.object({
-  email: z.string().z.email("Invalid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  email: emailValidator,
+  password: passwordValidator,
 });
 
+export const supplierLoginSchema = z.object({
+  email: emailValidator,
+  password: passwordValidator,
+});
+
+// ----------------------
+// Register Schemas
+// ----------------------
 export const emailRegisterSchema = z.object({
-  fullName: z.string().min(2, "Name is required"),
-  email: z.string().z.email("Invalid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  fullName: fullNameValidator,
+  email: emailValidator,
+  password: passwordValidator,
 });
 
 export const phoneRegisterSchema = z.object({
-  fullName: z.string().min(2, "Name is required"),
-  phone: z.string().regex(/^[0-9]{10}$/, "Phone must be 10 digits"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  fullName: fullNameValidator,
+  phone: phoneValidator,
+  password: passwordValidator,
 });
 
 export const supplierRegisterSchema = z
   .object({
     companyName: z.string().min(2, "Company name is required"),
-    contactPerson: z.string().min(2, "Contact person is required"),
-    email: z.string().z.email("Invalid email"),
-    phone: z.string().regex(/^[0-9]{10}$/, "Phone must be 10 digits"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
+    contactPerson: nameValidator,
+    email: emailValidator,
+    phone: phoneValidator,
+    password: passwordValidator,
     confirmPassword: z.string().min(6, "Confirm password is required"),
     licenseNumber: z.string().min(3, "License number is required"),
     address: z.string().min(5, "Address is required"),
@@ -40,8 +68,3 @@ export const supplierRegisterSchema = z
     path: ["confirmPassword"],
     message: "Passwords do not match",
   });
-
-export const supplierLoginSchema = z.object({
-  email: z.string().z.email("Invalid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
