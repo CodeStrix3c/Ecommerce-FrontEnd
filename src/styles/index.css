@@ -108,20 +108,11 @@ button.social {
 }
 :root {
   --color-primary: #2d6b06;
-  --color-primary-hover: #0a7a0a;
-
+  --color-primary-hover: #245805;
   --color-secondary: #c7611f;
-  --color-secondary-hover: #c76500;
-
-  --color-accent: #ff5a5f;
-  --color-accent-hover: #e14e52;
-
-  --color-neutral-dark: #222222;
-  --color-neutral-dark-hover: #333333;
-
-  --color-black: #000000;
-  --color-black-hover: #111111;
-
+  --color-secondary-hover: #a64f18;
+  --color-black: #222222;
+  --color-black-hover: #f7f7f7;
   --color-white: #ffffff;
-  --color-white-hover: #f2f2f2;
+  --color-overlay: rgba(0, 0, 0, 0.5);
 }

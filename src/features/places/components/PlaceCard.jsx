@@ -15,7 +15,7 @@ const PlaceCard = ({ place }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -28,21 +28,21 @@ const PlaceCard = ({ place }) => {
     <div className="h-full">
       <Link to={`/place/${_id}`} className="block h-full cursor-pointer">
         <div className="relative">
-          <div className="aspect-[4/3] w-full overflow-hidden rounded-xl">
+          <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-[var(--color-black-hover)]">
             <img
               src={photos[0]}
               alt={title}
-              className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+              className="h-full w-full object-cover object-bottom transition-transform duration-300"
             />
           </div>
 
-          <div className="absolute left-2 top-2 rounded-full bg-white px-2 py-1 text-[11px] font-semibold text-[#222] shadow-sm sm:text-xs">
-            Farmer favourite
+          <div className="absolute left-2 top-2 rounded-sm px-2 py-1 text-xs font-semibold text-[var(--color-black)] bg-[var(--color-black-hover)]">
+            Farmer Favourite
           </div>
 
           <button
             type="button"
-            className="absolute right-2 top-2 rounded-full bg-white p-1 shadow-sm transition hover:scale-110"
+            className="absolute right-2 top-2 rounded-full bg-[var(--color-white)] p-1 shadow-sm transition hover:scale-110"
             onClick={(e) => {
               e.preventDefault();
               toggleWishlist(place);
@@ -50,31 +50,36 @@ const PlaceCard = ({ place }) => {
           >
             <Heart
               className={`h-4 w-4 transition ${
-                isWishlisted ? "fill-[#ff5a5f] text-[#ff5a5f]" : "text-gray-700"
+                isWishlisted
+                  ? "fill-current text-[var(--color-secondary)]"
+                  : "text-[var(--color-black)]"
               }`}
             />
           </button>
         </div>
 
+        {/* Info */}
         <div className="mt-2">
-          <h3 className="truncate text-[15px] font-medium text-[#222] sm:text-base">
-            {title}
+          <h3 className="truncate text-[15px] font-medium text-[var(--color-black)] sm:text-base">
+            {title || "Agricultural Insecticide"}
           </h3>
 
-          <p className="truncate text-[13px] text-[#222222] sm:text-sm">
-            {address}
+          <p className="truncate text-[13px] text-[var(--color-black)] sm:text-sm">
+            {address || "Pan-India Supplier"}
           </p>
 
           <div className="mt-1 flex items-center justify-between text-[13px] sm:text-sm">
-            <span className="flex items-center font-normal text-[#222]">
-              <IndianRupee className="h-3 w-3 text-[#222]" />
-              {price}{" "}
-              <span className="mx-1 min-w-fit text-[12px] text-[#222222]">
-                for 2 nights
+            <span className="flex items-center font-normal text-[var(--color-black)]">
+              <IndianRupee className="h-3 w-3 text-[var(--color-black)]" />
+              {price || 500}{" "}
+              <span className="mx-1 min-w-fit text-[12px] text-[var(--color-black)]">
+                per liter
               </span>
             </span>
-            <span className="flex items-center gap-1 font-medium text-[#222]">
-              <Star className="h-3 w-3 fill-[#222] text-[#222]" /> {rating}
+
+            <span className="flex items-center gap-1 font-medium text-[var(--color-black)]">
+              <Star className="h-3 w-3 fill-current text-[var(--color-black)]" />
+              {rating || 4.7}
             </span>
           </div>
         </div>

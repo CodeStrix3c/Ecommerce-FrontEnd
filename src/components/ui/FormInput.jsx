@@ -6,7 +6,7 @@ export default function FormInput({
   label,
   type = "text",
   icon = null,
-  size = "medium",
+  size = "small",
   register,
   errors,
 }) {

@@ -1,12 +1,26 @@
 import { useState, useRef, useEffect } from "react";
-import { HelpCircle, Menu, Heart } from "lucide-react";
+import {
+  FlaskRound,
+  Info,
+  Menu,
+  Heart,
+  Leaf,
+  ShoppingCart,
+  User,
+  HelpCircle,
+  UserCheck,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
+import { useCartList } from "@/providers/CartListProvider";
+import useIsMobile from "@/hooks/useInMobile";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
   const { wishlist } = useWishlist();
+  const { cartList } = useCartList();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -21,93 +35,111 @@ const DropdownMenu = () => {
   return (
     <div className="relative" ref={menuRef}>
       <div className="flex items-center gap-3">
+        {/* Become Supplier */}
         <Link
           to="/supplier-register"
-          className="rounded-full bg-gray-100 px-4 py-2 text-sm font-semibold text-[#222222] shadow-sm transition-all duration-200 hover:bg-gray-200 hover:shadow"
+          className="rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
         >
-          Sell on Ziraat
+          Become a Supplier
         </Link>
 
+        {/* Wishlist */}
         <Link
           to="/wishlist"
-          className="relative rounded-full bg-gray-100 p-2 transition-colors duration-200 hover:bg-gray-200"
+          className="relative rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
         >
-          <Heart
-            size={18}
-            className={`transition-colors duration-300 ${"text-gray-600"}`}
-          />
-          <span
-            key={wishlist.length}
-            className="animate-popin absolute -right-1 -top-1 flex h-4 w-4 items-center 
-               justify-center rounded-full bg-[#ff5a5f] text-[10px] font-bold
-               text-white"
-          >
-            {wishlist.length}
-          </span>
+          <Heart size={18} className="text-[var(--color-black)]" />
+          {wishlist.length > 0 && (
+            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-secondary)] text-[10px] font-bold text-[var(--color-white)] animate-popin">
+              {wishlist.length}
+            </span>
+          )}
         </Link>
 
+        {/* Cart */}
+        <Link
+          to="/cart"
+          className="relative rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
+        >
+          <ShoppingCart size={18} className="text-[var(--color-black)]" />
+          {cartList.length > 0 && (
+            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-secondary)] text-[10px] font-bold text-[var(--color-white)] animate-popin">
+              {cartList.length}
+            </span>
+          )}
+        </Link>
+
+        {/* Menu */}
         <button
           onClick={() => setOpen(!open)}
-          className="rounded-full bg-gray-100 p-2 transition-colors duration-200 hover:bg-gray-200"
+          className="rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
         >
-          <Menu size={20} />
+          <Menu size={20} className="text-[var(--color-black)]" />
         </button>
       </div>
 
+      {/* Dropdown */}
       <div
-        className={`absolute right-0 mt-3 w-64 origin-top-right rounded-xl bg-white shadow-lg ring-1 ring-black/5 
-        transition-all duration-200 ease-out 
-        ${open ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-1 scale-95 opacity-0"}`}
+        className={`absolute right-0 mt-2 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
+          open
+            ? "translate-y-0 scale-100 opacity-100"
+            : "pointer-events-none -translate-y-1 scale-95 opacity-0"
+        }`}
       >
-        <div className="p-2">
+        <div className="flex flex-col py-2">
+          {/* Top Section: About & Help */}
           <Link
-            to="/help"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[#222222] transition-colors duration-150 hover:bg-gray-100"
+            to="/about-us"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
-            <HelpCircle size={18} className="text-gray-600" />
-            <span>Help Centre</span>
+            <Info size={16} className="text-[var(--color-black)]" />
+            <span>About Us</span>
           </Link>
 
-          <hr className="my-2" />
-
           <Link
-            to="/become-host"
-            className="flex items-start gap-3 rounded-lg px-3 py-2 transition-colors duration-150 hover:bg-gray-100"
+            to="/help-center"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
-            <img
-              src="https://img.icons8.com/emoji/48/house-with-garden.png"
-              alt="host"
-              className="h-6 w-6"
-            />
-            <div>
-              <p className="text-sm font-semibold text-[#222222]">
-                Become a host
-              </p>
-              <p className="text-xs text-gray-500">
-                It’s easy to start hosting and earn extra income.
-              </p>
-            </div>
+            <HelpCircle size={16} className="text-[var(--color-black)]" />
+            <span>Help Center</span>
           </Link>
 
-          <hr className="my-2" />
+          <hr className="my-1 border-[var(--color-black-hover)]" />
+
+          {/* Agriculture Section */}
+          <Link
+            to="/talk-with-expert"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+          >
+            <UserCheck size={16} className="text-[var(--color-black)]" />
+            <span>Talk with Expert</span>
+          </Link>
 
           <Link
-            to="/refer"
-            className="block rounded-lg px-3 py-2 text-sm text-[#222222] transition-colors duration-150 hover:bg-gray-100"
+            to="/crop-protection"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
-            Refer a host
+            <FlaskRound size={16} className="text-[var(--color-black)]" />
+            <span>Crop Protection</span>
           </Link>
+
           <Link
-            to="/co-host"
-            className="block rounded-lg px-3 py-2 text-sm text-[#222222] transition-colors duration-150 hover:bg-gray-100"
+            to="/sustainable-farming"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
-            Find a co-host
+            <Leaf size={16} className="text-[var(--color-black)]" />
+            <span>Sustainable Farming</span>
           </Link>
+
+          <hr className="my-1 border-[var(--color-black-hover)]" />
+
+          {/* Bottom Section: Account */}
           <Link
             to="/login"
-            className="block rounded-lg px-3 py-2 text-sm text-[#222222] transition-colors duration-150 hover:bg-gray-100"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
-            Log in or sign up
+            <User size={16} className="text-[var(--color-black)]" />
+            <span>Log in / Sign up</span>
           </Link>
         </div>
       </div>
