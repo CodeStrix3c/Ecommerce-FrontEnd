@@ -13,17 +13,29 @@ import RatingSummary from "@/features/reviews/components/Ratings";
 import OverallRating from "@/features/reviews/components/OverallRating";
 import Testimonials from "@/features/reviews/pages/Testimonials";
 import HighlightBanner from "@/features/reviews/components/HighlightBanner";
+import ExploreNearby from "../components/ExploreNearby";
 
 const PlacePage = () => {
   const { id } = useParams();
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const nearbyOptions = [
+    { name: "New Delhi", href: "/new-delhi-india/stays" },
+    { name: "Delhi", href: "/delhi-india/stays" },
+    { name: "Lahore", href: "/lahore-pakistan/stays" },
+    { name: "Jaipur", href: "/jaipur-india/stays" },
+    { name: "Noida", href: "/noida-india/stays" },
+    { name: "Rishikesh", href: "/rishikesh-india/stays" },
+    { name: "Dehradun", href: "/dehradun-india/stays" },
+    { name: "Kullu", href: "/kullu-india/stays" },
+    { name: "Tehri Garhwal", href: "/tehri-garhwal-india/stays" },
+  ];
+
   useEffect(() => {
     if (!id) return;
 
     setLoading(true);
-
     const foundPlace = dummyData.find((p) => p._id === id);
 
     setTimeout(() => {
@@ -32,50 +44,68 @@ const PlacePage = () => {
     }, 500);
   }, [id]);
 
-  if (loading) {
-    return <Spinner />;
-  }
+  if (loading) return <Spinner />;
 
   if (!place) {
-    return <div className="p-8">Place not found</div>;
+    return <div className="p-8 text-[var(--color-black)]">Place not found</div>;
   }
 
   return (
-    <div className="mt-4 overflow-x-hidden">
-      <ListingHeader title={place.title} />
-      {/* <h1 className="text-3xl">{place.title}</h1> */}
-
+    <div className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36">
+      <ListingHeader place={place} />
       <AddressLink placeAddress={place.address} />
-      <PlaceGallery place={place} />
-      <div className="mt-10">
-        <HighlightBanner />
-      </div>
 
-      <div className="mb-8 mt-8 grid grid-cols-1 gap-8 md:grid-cols-[2fr_1fr]">
-        <div>
-          <div className="my-4">
-            <h2 className="text-2xl font-semibold">Description</h2>
-            {place.description}
-          </div>
-          <div className="mt-2">
-            {place.inStock ? (
-              <span className="rounded bg-green-200 px-2 py-1">In Stock</span>
-            ) : (
-              <span className="rounded bg-red-200 px-2 py-1">Out of Stock</span>
-            )}
-          </div>
+      <PlaceGallery place={place} />
+
+      <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+        <div className="flex-1 space-y-8">
+          <HighlightBanner />
+
+          <section>
+            <h2 className="text-2xl font-semibold text-[var(--color-black)]">
+              Description
+            </h2>
+            <p className="mt-2 text-[var(--color-black)]/70">
+              {place.description}
+            </p>
+
+            <div className="mt-3">
+              {place.inStock ? (
+                <span className="inline-block rounded-md bg-[var(--color-primary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
+                  In Stock
+                </span>
+              ) : (
+                <span className="inline-block rounded-md bg-[var(--color-secondary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
+                  Out of Stock
+                </span>
+              )}
+            </div>
+          </section>
 
           <PerksWidget perks={place?.perks} />
         </div>
-        <div>
-          <BookingWidget place={place} />
-        </div>
+
+        <aside className="hidden w-1/3 md:block">
+          <div className="sticky top-28">
+            <BookingWidget place={place} />
+          </div>
+        </aside>
+      </div>
+
+      <div className="my-8 md:hidden">
+        <BookingWidget place={place} />
       </div>
 
       <RatingSummary />
       <OverallRating />
       <Testimonials />
+
       <MapBox address={place.address} />
+
+      <ExploreNearby
+        title="Explore other options in and around Gurugram"
+        options={nearbyOptions}
+      />
     </div>
   );
 };

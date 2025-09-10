@@ -12,7 +12,6 @@ import ProfilePage from "./features/auth/pages/ProfilePage";
 import PlacesFormPage from "./features/places/pages/PlacesFormPage";
 import PlacePage from "./features/places/pages/PlacePage";
 import BookingsPage from "./features/bookings/pages/BookingsPage";
-import NotFoundPage from "./features/errors/NotFoundPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import SingleBookedPlace from "./features/bookings/pages/SingleBookedPlace";
 import Layout from "./app/Layout";
@@ -27,6 +26,10 @@ import Terms from "./features/privacy-policies/pages/Terms";
 import ScrollToTop from "./components/shared/ScrollToTop";
 import SupplierRegister from "./features/auth/pages/SupplierRegister";
 import SupplierLogin from "./features/auth/pages/SupplierLogin";
+import Wishlist from "./features/wishlist/pages/WishListPage";
+import CartPage from "./features/cart/pages/CartPage";
+import NotFoundPage from "./features/errors/NotFoundPage";
+import EmptyState from "./components/shared/EmptyState";
 
 function App() {
   useEffect(() => {
@@ -57,6 +60,8 @@ function App() {
               <Route path="/account/places/:id" element={<PlacesFormPage />} />
               <Route path="/place/:id" element={<PlacePage />} />
               <Route path="/account/bookings" element={<BookingsPage />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/cart" element={<CartPage />} />
               <Route
                 path="/account/bookings/:id"
                 element={<SingleBookedPlace />}
