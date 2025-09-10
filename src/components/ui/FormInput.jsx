@@ -20,10 +20,12 @@ export default function FormInput({
       error={!!errors?.[name]}
       helperText={errors?.[name]?.message}
       {...register(name)}
-      InputProps={{
-        endAdornment: icon ? (
-          <InputAdornment position="end">{icon}</InputAdornment>
-        ) : null,
+      slotProps={{
+        input: {
+          endAdornment: icon ? (
+            <InputAdornment position="end">{icon}</InputAdornment>
+          ) : null,
+        },
       }}
     />
   );
