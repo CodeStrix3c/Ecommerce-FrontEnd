@@ -1,25 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 const NotFoundPage = () => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
-    <div className="px-2 pt-40">
-      <div className="text-center">
-        <p className="text-base font-semibold text-black">404</p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-black sm:text-5xl">
-          We can&apos;t seem to find the page you&apos;re looking for.
-        </h1>
-        <p className="mt-4 text-base leading-7 text-gray-600">
-          Sorry, the page you are looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-4 flex items-center justify-center gap-x-3">
-          <Link to="/">
-            <button className="rounded-[10px] bg-gray-900 p-2 px-20 hover:bg-gray-700">
-              <span className="font-semibold text-white">Home</span>
-            </button>
-          </Link>
-        </div>
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[var(--color-white)] text-center">
+      <NavLink to="/" className="mb-6">
+        <img
+          src="assets/images/ziraat.jpeg"
+          alt="Ziraat Logo"
+          width={80}
+          height={80}
+          className="mx-auto filter grayscale"
+        />
+      </NavLink>
+
+      <h1 className="text-2xl md:text-3xl font-semibold mb-2 text-[var(--color-primary)]">
+        We're Working on It
+      </h1>
+
+      <p className="text-base md:text-lg text-[var(--color-neutral-dark)]">
+        This page is under construction. Check back soon!
+      </p>
     </div>
   );
 };

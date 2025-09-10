@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Truck,
   Leaf,
@@ -12,24 +12,30 @@ import {
   Carrot,
   Heart,
   Droplet,
-} from 'lucide-react';
+} from "lucide-react";
 
 const perkIcons = {
-  'Free delivery': <Truck className="h-6 w-6 text-green-600" />,
-  'Organic certified': <Leaf className="h-6 w-6 text-green-600" />,
-  'COD available': <Wallet className="h-6 w-6 text-yellow-600" />,
-  'Farm fresh': <Carrot className="h-6 w-6 text-orange-600" />,
-  'No chemicals': <Droplet className="h-6 w-6 text-blue-600" />,
-  'Protein-rich': <Nut className="text-brown-600 h-6 w-6" />,
-  'Vacuum packed': <Package className="h-6 w-6 text-gray-600" />,
-  'Zero cholesterol': <Heart className="h-6 w-6 text-red-600" />,
-  'Rich in Vitamin C': <Apple className="h-6 w-6 text-red-500" />,
-  'Vitamin rich': <Apple className="h-6 w-6 text-red-500" />,
-  'Good for heart': <Heart className="h-6 w-6 text-red-500" />,
-  'Good for brain': <ShieldCheck className="h-6 w-6 text-indigo-600" />,
-  'Rich in antioxidants': <Grape className="h-6 w-6 text-purple-600" />,
-  'Fast shipping': <Truck className="h-6 w-6 text-green-600" />,
-  'Ready to eat': <ShoppingCart className="h-6 w-6 text-pink-600" />,
+  "Free delivery": <Truck className="h-6 w-6 text-[var(--color-success)]" />,
+  "Organic certified": <Leaf className="h-6 w-6 text-[var(--color-success)]" />,
+  "COD available": <Wallet className="h-6 w-6 text-[var(--color-warning)]" />,
+  "Farm fresh": (
+    <Carrot className="h-6 w-6 text-[var(--color-accent-orange)]" />
+  ),
+  "No chemicals": <Droplet className="h-6 w-6 text-[var(--color-info)]" />,
+  "Protein-rich": <Nut className="h-6 w-6 text-[var(--color-brown)]" />,
+  "Vacuum packed": <Package className="h-6 w-6 text-[var(--color-neutral)]" />,
+  "Zero cholesterol": <Heart className="h-6 w-6 text-[var(--color-danger)]" />,
+  "Rich in Vitamin C": <Apple className="h-6 w-6 text-[var(--color-danger)]" />,
+  "Vitamin rich": <Apple className="h-6 w-6 text-[var(--color-danger)]" />,
+  "Good for heart": <Heart className="h-6 w-6 text-[var(--color-danger)]" />,
+  "Good for brain": (
+    <ShieldCheck className="h-6 w-6 text-[var(--color-indigo)]" />
+  ),
+  "Rich in antioxidants": (
+    <Grape className="h-6 w-6 text-[var(--color-purple)]" />
+  ),
+  "Fast shipping": <Truck className="h-6 w-6 text-[var(--color-success)]" />,
+  "Ready to eat": <ShoppingCart className="h-6 w-6 text-[var(--color-pink)]" />,
 };
 
 const PerksWidget = ({ perks }) => {
@@ -37,16 +43,20 @@ const PerksWidget = ({ perks }) => {
 
   return (
     <div className="mt-4">
-      <hr className="mb-5 border" />
-      <p className="text-2xl font-semibold">Product Benefits</p>
+      <hr className="mb-5 border-[var(--color-border)]" />
+      <p className="text-2xl font-semibold text-[var(--color-neutral-dark)]">
+        Product Benefits
+      </p>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         {perks.map((perk) => (
           <div key={perk} className="flex items-center gap-4">
             {perkIcons[perk] || (
-              <ShieldCheck className="h-6 w-6 text-gray-600" />
+              <ShieldCheck className="h-6 w-6 text-[var(--color-neutral)]" />
             )}
-            <span className="capitalize">{perk}</span>
+            <span className="capitalize text-[var(--color-neutral-dark)]">
+              {perk}
+            </span>
           </div>
         ))}
       </div>
