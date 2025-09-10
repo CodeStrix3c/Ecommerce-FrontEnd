@@ -1,29 +1,24 @@
-import CarousalSection from '@/components/shared/CarousalSection';
-import { dummyData } from '@/data/dummyData';
+import CarousalSection from "@/components/shared/CarousalSection";
+import { dummyData } from "@/data/dummyData";
 
 const IndexPage = () => {
+  const dummyData1 = dummyData.slice(0, 8);
+  const dummyData2 = dummyData.slice(8, 15);
+  const dummyData3 = dummyData.slice(10);
+
   return (
     <div className="mt-0 flex flex-col gap-8 sm:px-6 lg:mb-20 lg:mt-52 lg:px-8">
       <CarousalSection
         title="Popular Pesticides for Crop Protection"
-        places={dummyData}
+        places={dummyData1}
       />
       <CarousalSection
         title="Upcoming Pesticide Solutions for Next Season"
-        places={dummyData}
+        places={dummyData2}
       />
       <CarousalSection
         title="Herbicides for Effective Weed Control"
-        places={dummyData}
-      />
-      <CarousalSection title="Eco-Friendly Bio-Pesticides" places={dummyData} />
-      <CarousalSection
-        title="Insecticides for Pest Management"
-        places={dummyData}
-      />
-      <CarousalSection
-        title="Fungicides to Safeguard Crops"
-        places={dummyData}
+        places={dummyData3}
       />
     </div>
   );

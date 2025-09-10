@@ -52,16 +52,16 @@ const LoginPage = () => {
       {isMobile ? (
         <MobileLoginModal isOpen={true} onClose={() => setRedirect(true)} />
       ) : (
-        <div className="flex min-h-screen my-20">
-          <div className="hidden md:flex w-1/2 bg-gray-100">
+        <div className="flex lg:my-[85px] md:my-10">
+          <div className="hidden md:flex w-1/2 items-center">
             <img
-              src="/images/login-banner.jpg"
+              src="/assets/images/login.jpg"
               alt="Travel inspiration"
-              className="object-cover w-full h-full"
+              className="object-cover max-h-[90%] w-full"
             />
           </div>
 
-          <div className="flex w-full md:w-1/2 items-center justify-center px-8">
+          <div className="flex w-full md:w-1/2 items-center justify-center">
             <div className="max-w-md w-full">
               <h1 className="text-3xl font-semibold mb-6">Log in or sign up</h1>
 
