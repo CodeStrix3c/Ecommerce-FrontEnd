@@ -9,7 +9,7 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <div className="mx-auto flex min-h-screen max-w-[90vw] flex-col">
+      <div className="mx-auto flex min-h-screen max-w-[85vw] flex-col px-6">
         <Outlet />
       </div>
       <div className={isMobile ? `pb-10` : ""}>

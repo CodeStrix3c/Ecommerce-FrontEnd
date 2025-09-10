@@ -78,7 +78,7 @@ const PlaceCard = ({ place }) => {
             </span>
 
             <span className="flex items-center gap-1 font-medium text-[var(--color-black)]">
-              <Star className="h-3 w-3 fill-current text-[var(--color-primary)]" />
+              <Star className="h-3 w-3 fill-current text-[var(--color-black)]" />
               {rating || 4.7}
             </span>
           </div>
