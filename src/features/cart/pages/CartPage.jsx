@@ -11,7 +11,6 @@ import { ShoppingCart } from "lucide-react";
 
 const CartPage = () => {
   const { cartList, removeFromCart, clearCart } = useCartList();
-  const [cart, setCart] = useState(cartList);
 
   const isMobile = useIsMobile();
 
@@ -19,7 +18,7 @@ const CartPage = () => {
     alert("Proceeding to checkout with your cart!");
   };
 
-  const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+  const subtotal = cartList.reduce((sum, item) => sum + item.price, 0);
   const taxes = subtotal * 0.1;
   const total = subtotal + taxes;
 
@@ -49,7 +48,7 @@ const CartPage = () => {
         </h1>
 
         <div className="flex flex-col gap-4">
-          {cart.map((product) => (
+          {cartList.map((product) => (
             <CartItem
               key={product._id}
               product={product}
@@ -60,10 +59,10 @@ const CartPage = () => {
       </div>
 
       {/* Desktop Summary */}
-      {!isMobile && cart.length > 0 && (
+      {!isMobile && cartList.length > 0 && (
         <div className="col-span-1">
           <CartSummary
-            cart={cart}
+            cart={cartList}
             subtotal={subtotal}
             taxes={taxes}
             total={total}
@@ -74,7 +73,7 @@ const CartPage = () => {
       )}
 
       {/* Mobile Bottom Bar */}
-      {isMobile && cart.length > 0 && (
+      {isMobile && cartList.length > 0 && (
         <CartBottomBar cart={cart} total={total} onCheckout={checkoutAll} />
       )}
     </div>

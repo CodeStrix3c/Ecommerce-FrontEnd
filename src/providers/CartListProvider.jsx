@@ -16,6 +16,14 @@ export const CartListProvider = ({ children }) => {
     });
   };
 
+    const addToCartList = (place) => {
+    setCartList((prev) => {
+      const exists = prev.find((item) => item._id === place._id);
+      if (exists) return prev;
+      return [...prev, place];
+    });
+  };
+
    const removeFromCart = (id) => {
     setCartList((prev) => prev.filter((item) => item._id !== id));
   };
@@ -25,7 +33,7 @@ export const CartListProvider = ({ children }) => {
   };
 
   return (
-    <CartListContext.Provider value={{ cartList, toggleCartList, removeFromCart, clearCart }}>
+    <CartListContext.Provider value={{ cartList, toggleCartList, removeFromCart, clearCart, addToCartList }}>
       {children}
     </CartListContext.Provider>
   );
