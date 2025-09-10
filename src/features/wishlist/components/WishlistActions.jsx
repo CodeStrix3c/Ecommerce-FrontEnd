@@ -5,15 +5,15 @@ const WishlistActions = ({ wishlist, addAllToCart, removeAllFromWishlist }) => {
     <div className="flex gap-3">
       <button
         onClick={addAllToCart}
-        className="px-4 py-2 bg-[var(--color-primary)] text-[var(--color-white)] rounded hover:bg-[var(--color-primary-hover)]"
+        className="px-4 py-2 rounded-lg font-medium bg-[var(--color-primary)] text-[var(--color-white)] hover:bg-[var(--color-primary-hover)] transition"
       >
-        Add All
+        Add All to Cart
       </button>
       <button
         onClick={removeAllFromWishlist}
-        className="px-4 py-2 bg-[var(--color-accent)] text-[var(--color-black)] rounded hover:bg-[var(--color-accent-hover)]"
+        className="px-4 py-2 rounded-lg font-medium border border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary-hover)] hover:text-[var(--color-white)] transition"
       >
-        Remove All
+        Clear Wishlist
       </button>
     </div>
   );

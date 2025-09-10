@@ -28,7 +28,6 @@ const PlaceCard = ({ place }) => {
     <div className="h-full">
       <Link to={`/place/${_id}`} className="block h-full cursor-pointer">
         <div className="relative">
-          {/* Image */}
           <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-[var(--color-black-hover)]">
             <img
               src={photos[0]}
@@ -37,12 +36,10 @@ const PlaceCard = ({ place }) => {
             />
           </div>
 
-          {/* Label */}
-          <div className="absolute left-2 top-2 rounded-sm bg-[var(--color-white)]/80 px-2 py-1 text-xs font-semibold text-[var(--color-black)] shadow-md backdrop-blur-sm">
+          <div className="absolute left-2 top-2 rounded-sm px-2 py-1 text-xs font-semibold text-[var(--color-black)] bg-[var(--color-black-hover)]">
             Farmer Favourite
           </div>
 
-          {/* Heart */}
           <button
             type="button"
             className="absolute right-2 top-2 rounded-full bg-[var(--color-white)] p-1 shadow-sm transition hover:scale-110"
@@ -72,7 +69,6 @@ const PlaceCard = ({ place }) => {
           </p>
 
           <div className="mt-1 flex items-center justify-between text-[13px] sm:text-sm">
-            {/* Price */}
             <span className="flex items-center font-normal text-[var(--color-black)]">
               <IndianRupee className="h-3 w-3 text-[var(--color-black)]" />
               {price || 500}{" "}
@@ -81,7 +77,6 @@ const PlaceCard = ({ place }) => {
               </span>
             </span>
 
-            {/* Rating */}
             <span className="flex items-center gap-1 font-medium text-[var(--color-black)]">
               <Star className="h-3 w-3 fill-current text-[var(--color-primary)]" />
               {rating || 4.7}

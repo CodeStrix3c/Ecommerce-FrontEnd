@@ -1,91 +1,80 @@
-import { Heart, ShoppingCart, Star } from "lucide-react";
-import PlaceGallery from "@/features/places/components/PlaceGallery";
+import { useState } from "react";
+import { ShoppingCart } from "lucide-react";
+import ImageGalleryModal from "@/components/shared/ImageGalleryModal";
 
-const WishlistItem = ({ product, onRemove, onAddToCart }) => (
-  <div className="flex flex-col gap-3 py-4 border-b border-[var(--color-neutral-dark)] last:border-b-0">
-    <PlaceGallery place={product} />
+const WishlistItem = ({ product, onRemove, onAddToCart }) => {
+  const [showGallery, setShowGallery] = useState(false);
 
-    <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center gap-3">
-      <div className="flex flex-col gap-1">
-        <h3 className="text-lg font-semibold text-[var(--color-neutral-dark)]">
-          {product.title}
-        </h3>
-        <p className="text-sm text-[var(--color-neutral-dark)]">
-          {product.address}
-        </p>
-        <p className="text-sm font-medium text-[var(--color-primary)]">
-          ₹{product.price}
-        </p>
+  return (
+    <>
+      <div className="rounded-2xl border border-[var(--color-neutral-light)] bg-[var(--color-white)] shadow-sm p-4 flex flex-col gap-4 hover:shadow-md transition">
+        <div
+          className="relative cursor-pointer"
+          onClick={() => setShowGallery(true)}
+        >
+          <img
+            src={product.photos?.[0] || "/placeholder.jpg"}
+            alt={product.title}
+            className="w-full h-40 object-cover rounded-xl border border-[var(--color-neutral-light)]"
+          />
+          {product.photos?.length > 1 && (
+            <div className="absolute bottom-2 right-2 bg-[var(--color-black)] bg-opacity-70 text-[var(--color-white)] text-xs px-2 py-1 rounded-md">
+              +{product.photos.length - 1} more
+            </div>
+          )}
+        </div>
 
-        <div className="flex items-center gap-2 mt-1">
-          <div className="flex items-center gap-1 text-[var(--color-accent)] font-semibold">
-            <Star size={16} />
-            <span>{product.rating}</span>
-          </div>
-          <span
-            className={`text-sm font-medium ${
+        <div className="flex flex-col gap-1">
+          <h3 className="text-base font-semibold text-[var(--color-black)] line-clamp-1">
+            {product.title}
+          </h3>
+          <p className="text-xs text-[var(--color-neutral-dark)]">
+            {product.category || "Agriculture Product"}
+          </p>
+          <p className="text-sm font-medium text-[var(--color-primary)]">
+            ₹{product.price}
+          </p>
+          <p
+            className={`text-xs ${
               product.inStock
                 ? "text-[var(--color-primary)]"
                 : "text-[var(--color-neutral-dark)]"
             }`}
           >
             {product.inStock ? "In Stock" : "Out of Stock"}
-          </span>
+          </p>
         </div>
 
-        {product.description && (
-          <p className="text-sm text-[var(--color-neutral-dark)] mt-1">
-            {product.description}
-          </p>
-        )}
+        <div className="flex justify-between items-center mt-3">
+          {product.inStock ? (
+            <button
+              onClick={() => onAddToCart(product)}
+              className="flex items-center gap-1 px-3 py-1 rounded-lg bg-[var(--color-primary)] text-[var(--color-white)] hover:bg-[var(--color-primary-hover)] transition"
+            >
+              <ShoppingCart size={16} /> Add to Cart
+            </button>
+          ) : (
+            <span className="text-[var(--color-neutral-dark)] text-sm">
+              Not Available
+            </span>
+          )}
 
-        {product.perks.length > 0 && (
-          <ul className="flex gap-2 mt-2 flex-wrap">
-            {product.perks.map((perk, idx) => (
-              <li
-                key={idx}
-                className="text-xs px-2 py-1 rounded bg-[var(--color-primary)] text-[var(--color-white)]"
-              >
-                {perk}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {product.extraInfo && (
-          <p className="text-xs text-[var(--color-neutral-dark)] mt-1">
-            {product.extraInfo}
-          </p>
-        )}
+          <button
+            onClick={() => onRemove(product._id)}
+            className="text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)] text-sm transition"
+          >
+            Remove
+          </button>
+        </div>
       </div>
 
-      {/* Actions */}
-      <div className="flex gap-2 mt-3 md:mt-0">
-        {product.inStock ? (
-          <button
-            onClick={() => onAddToCart(product)}
-            className="flex items-center gap-1 px-3 py-2 rounded font-medium bg-[var(--color-primary)] text-[var(--color-white)] hover:bg-[var(--color-primary-hover)] transition-colors"
-          >
-            <ShoppingCart size={16} /> Add
-          </button>
-        ) : (
-          <button
-            disabled
-            className="flex items-center gap-1 px-3 py-2 rounded font-medium bg-[var(--color-neutral-dark)] text-[var(--color-white)] cursor-not-allowed"
-          >
-            Out of Stock
-          </button>
-        )}
-
-        <button
-          onClick={() => onRemove(product._id)}
-          className="flex items-center gap-1 px-3 py-2 rounded font-medium bg-[var(--color-accent)] text-[var(--color-black)] hover:bg-[var(--color-accent-hover)] transition-colors"
-        >
-          <Heart size={16} /> Remove
-        </button>
-      </div>
-    </div>
-  </div>
-);
+      <ImageGalleryModal
+        photos={product.photos || []}
+        isOpen={showGallery}
+        onClose={() => setShowGallery(false)}
+      />
+    </>
+  );
+};
 
 export default WishlistItem;
