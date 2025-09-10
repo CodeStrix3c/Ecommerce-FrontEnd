@@ -11,7 +11,7 @@ const WishlistActions = ({ wishlist, addAllToCart, removeAllFromWishlist }) => {
       </button>
       <button
         onClick={removeAllFromWishlist}
-        className="px-4 py-2 bg-[var(--color-accent)] text-[var(--color-white)] rounded hover:bg-[var(--color-accent-hover)]"
+        className="px-4 py-2 bg-[var(--color-accent)] text-[var(--color-black)] rounded hover:bg-[var(--color-accent-hover)]"
       >
         Remove All
       </button>

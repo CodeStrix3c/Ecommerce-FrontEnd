@@ -5,29 +5,31 @@ import WishlistActions from "../components/WishlistActions";
 import { useWishlist } from "@/providers/WishListProvider";
 import EmptyState from "@/components/shared/EmptyState";
 import { Heart } from "lucide-react";
+import { useCartList } from "@/providers/CartListProvider";
 
 const WishlistPage = () => {
-  const [cart, setCart] = useState([]);
-  const { wishlist: wishLists } = useWishlist();
-  const [wishlist, setWishlist] = useState(wishLists);
+const { cartList, addToCartList } = useCartList();
+  const { wishlist, removeFromWishlist, clearWishlist } = useWishlist();
 
-  console.log(wishLists);
+ const handleAddToCart = (product) => {
+  addToCartList(product);
+  removeFromWishlist(product._id);
+};
 
-  const removeFromWishlist = (id) =>
-    setWishlist((prev) => prev.filter((item) => item._id !== id));
 
-  const addToCart = (product) => {
-    setCart((prev) => [...prev, product]);
-    removeFromWishlist(product._id);
+const addAllToCart = () => {
+  const inStockItems = wishlist.filter((p) => p.inStock);
+
+  inStockItems.forEach((p) => {
+    addToCartList(p);       
+    removeFromWishlist(p._id); 
+  });
+};
+  const removeAllFromWishlist = () => {
+    clearWishlist();
   };
 
-  const addAllToCart = () => {
-    setCart((prev) => [...prev, ...wishlist.filter((p) => p.inStock)]);
-    setWishlist((prev) => prev.filter((p) => !p.inStock));
-  };
-
-  const removeAllFromWishlist = () => setWishlist([]);
-  if (wishLists.length === 0) {
+  if (wishlist.length === 0) {
     return (
       <EmptyState
         title="Empty Wishlist"
@@ -56,7 +58,7 @@ const WishlistPage = () => {
             key={product._id}
             product={product}
             onRemove={removeFromWishlist}
-            onAddToCart={addToCart}
+            onAddToCart={handleAddToCart}
           />
         ))}
       </div>

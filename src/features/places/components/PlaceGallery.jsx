@@ -55,7 +55,7 @@ const PlaceGallery = ({ place }) => {
             <div className="h-full w-full overflow-hidden bg-[var(--color-black-hover)]">
               <img
                 onClick={() => setShowAllPhotos(true)}
-                className="h-full w-full cursor-pointer object-contain"
+                className="h-full w-full cursor-pointer object-cover"
                 src={place.photos[0]}
                 alt=""
               />
@@ -68,7 +68,7 @@ const PlaceGallery = ({ place }) => {
               <div className="bg-[var(--color-black-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
-                  className="h-full w-full cursor-pointer object-contain"
+                  className="h-full w-full cursor-pointer object-cover"
                   src={place.photos[1]}
                   alt=""
                 />
@@ -78,7 +78,7 @@ const PlaceGallery = ({ place }) => {
               <div className="bg-[var(--color-black-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
-                  className="h-full w-full cursor-pointer object-contain"
+                  className="h-full w-full cursor-pointer object-cover"
                   src={place.photos[2]}
                   alt=""
                 />
@@ -92,7 +92,7 @@ const PlaceGallery = ({ place }) => {
               <div className="h-full bg-[var(--color-black-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
-                  className="h-full w-full cursor-pointer object-contain"
+                  className="h-full w-full cursor-pointer object-cover"
                   src={place.photos[3]}
                   alt=""
                 />
@@ -102,7 +102,7 @@ const PlaceGallery = ({ place }) => {
               <div className="h-full bg-[var(--color-black-hover)]">
                 <img
                   onClick={() => setShowAllPhotos(true)}
-                  className="h-full w-full cursor-pointer object-contain"
+                  className="h-full w-full cursor-pointer object-cover"
                   src={place.photos[4]}
                   alt=""
                 />

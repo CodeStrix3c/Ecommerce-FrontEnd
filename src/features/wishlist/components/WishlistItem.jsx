@@ -79,7 +79,7 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => (
 
         <button
           onClick={() => onRemove(product._id)}
-          className="flex items-center gap-1 px-3 py-2 rounded font-medium bg-[var(--color-accent)] text-[var(--color-white)] hover:bg-[var(--color-accent-hover)] transition-colors"
+          className="flex items-center gap-1 px-3 py-2 rounded font-medium bg-[var(--color-accent)] text-[var(--color-black)] hover:bg-[var(--color-accent-hover)] transition-colors"
         >
           <Heart size={16} /> Remove
         </button>
