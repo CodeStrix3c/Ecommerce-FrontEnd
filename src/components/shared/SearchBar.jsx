@@ -36,7 +36,7 @@ const SearchBar = ({ onSubmit }) => {
         <input
           type="text"
           placeholder="Search pesticides"
-          className="ml-2 w-full border-none text-sm text-[var(--color-black)] placeholder-[var(--color-black-hover)] focus:outline-none"
+          className="ml-2 w-full border-none text-sm text-[var(--color-black)] placeholder-[var(--color-black)] focus:outline-none"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
