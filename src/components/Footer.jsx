@@ -3,28 +3,46 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="flex w-full justify-center bg-[var(--color-black-hover)] pb-8">
-      <div className="flex w-full max-w-screen-xl flex-col items-center px-2">
-        <div className="grid w-full grid-cols-1 gap-4 pt-8 text-sm md:grid-cols-3">
-          <div className="flex flex-col gap-4">
-            <strong className="font-medium text-[var(--color-neutral-dark)]">
-              Support
-            </strong>
-            {[
-              "Help Center",
-              "Get help with a safety issue",
-              "Air cover",
-              "Anti-discrimination",
-              "Disability support",
-              "Cancellation options",
-              "Report neighbourhood concern",
-            ].map((item, idx) => (
-              <p key={idx}>
-                <span className="cursor-pointer font-normal text-[var(--color-neutral-dark)] decoration-1 underline-offset-1 hover:underline">
-                  {item}
-                </span>
-              </p>
-            ))}
+    <div className="flex  w-full justify-center bg-gray-100 pb-8">
+      <div className="flex w-full max-w-screen-xl flex-col items-center px-6">
+        <div className="grid  w-full grid-cols-1 gap-4 py-8 text-sm md:grid-cols-3 ">
+          <div className="flex flex-col gap-1">
+            <strong className="font-medium">Support</strong>
+            <p>
+              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+                Help Center
+              </span>
+            </p>
+            <p>
+              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+                Get help with a safety issue
+              </span>
+            </p>
+            <p>
+              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+                Air cover
+              </span>
+            </p>
+            <p>
+              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+                Anti-discrimination
+              </span>
+            </p>
+            <p>
+              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+                Disablity support
+              </span>
+            </p>
+            <p>
+              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+                Cancellation options
+              </span>
+            </p>
+            <p>
+              <span className="cursor-pointer font-normal text-gray-700 decoration-1 underline-offset-1 hover:underline">
+                Report neighbourhood concern
+              </span>
+            </p>
           </div>
 
           <div className="flex flex-col gap-4">
