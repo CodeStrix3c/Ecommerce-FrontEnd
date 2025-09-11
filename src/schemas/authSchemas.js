@@ -7,7 +7,11 @@ export const emailValidator = z.email("Invalid email");
 
 export const passwordValidator = z
   .string()
-  .min(6, "Password must be at least 6 characters");
+  .min(7)
+  .regex(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{7,}$/,
+    "Must have upper, lower, number & special (min 7 chars)"
+  );
 
 export const phoneValidator = z
   .string()
@@ -63,6 +67,39 @@ export const supplierRegisterSchema = z
     city: z.string().min(2, "City is required"),
     state: z.string().min(2, "State is required"),
     country: z.string().min(2, "Country is required"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Passwords do not match",
+  });
+
+export const farmerRegisterSchema = z
+  .object({
+    // Personal details
+    fullName: fullNameValidator.min(1, "Full name is required"),
+    phone: phoneValidator.min(1, "Phone number is required"),
+    email: emailValidator.min(1, "Email is required"),
+    password: passwordValidator.min(1, "Password is required"),
+    confirmPassword: z.string().min(1, "Confirm password is required"),
+
+    // Farm details
+    farmName: z.string().min(1, "Farm / Orchard name is required"),
+    farmSize: z
+      .string()
+      .min(1, "Farm size is required")
+      .regex(/^[0-9]+$/, "Farm size must be a number (in acres/hectares)"),
+    mainCrops: z.string().min(1, "Please enter your main crops"),
+
+    // Land details
+    soilType: z.string().min(1, "Soil type is required"),
+    irrigationMethod: z.string().min(1, "Irrigation method is required"),
+    environmentalConditions: z
+      .string()
+      .min(1, "Environmental conditions are required"),
+    farmLocation: z.string().min(1, "Farm location is required"),
+
+    // Optional: file upload (not strictly validated, but can check type/size if needed)
+    farmMedia: z.any().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
