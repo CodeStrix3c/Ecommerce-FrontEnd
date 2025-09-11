@@ -7,8 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "@/components/ui/FormInput";
 import SupplierLoginModal from "../components/SupplierLoginModal";
 import useIsMobile from "@/hooks/useInMobile";
-import { supplierLoginSchema } from "@/schemas/authSchemas";
 import CustomButton from "@/components/ui/CustomButton";
+import { loginPasswordValidator, loginSchema } from "@/schemas/authSchemas";
 
 export default function SupplierLogin() {
   const isMobile = useIsMobile();
@@ -26,7 +26,7 @@ export default function SupplierLogin() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(supplierLoginSchema),
+    resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data) => {
