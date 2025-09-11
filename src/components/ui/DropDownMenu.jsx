@@ -1,19 +1,11 @@
+// DropdownMenu.jsx
 import { useState, useRef, useEffect } from "react";
-import {
-  FlaskRound,
-  Info,
-  Menu,
-  Heart,
-  Leaf,
-  ShoppingCart,
-  User,
-  HelpCircle,
-  UserCheck,
-} from "lucide-react";
+import { Menu, Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
 import { useCartList } from "@/providers/CartListProvider";
 import useIsMobile from "@/hooks/useInMobile";
+import DropdownPanel from "./DropDownPanel";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
@@ -78,71 +70,8 @@ const DropdownMenu = () => {
         </button>
       </div>
 
-      {/* Dropdown */}
-      <div
-        className={`absolute right-0 mt-2 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
-          open
-            ? "translate-y-0 scale-100 opacity-100"
-            : "pointer-events-none -translate-y-1 scale-95 opacity-0"
-        }`}
-      >
-        <div className="flex flex-col py-2">
-          {/* Top Section: About & Help */}
-          <Link
-            to="/about-us"
-            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-          >
-            <Info size={16} className="text-[var(--color-black)]" />
-            <span>About Us</span>
-          </Link>
-
-          <Link
-            to="/help-center"
-            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-          >
-            <HelpCircle size={16} className="text-[var(--color-black)]" />
-            <span>Help Center</span>
-          </Link>
-
-          <hr className="my-1 border-[var(--color-black-hover)]" />
-
-          {/* Agriculture Section */}
-          <Link
-            to="/talk-with-expert"
-            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-          >
-            <UserCheck size={16} className="text-[var(--color-black)]" />
-            <span>Talk with Expert</span>
-          </Link>
-
-          <Link
-            to="/crop-protection"
-            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-          >
-            <FlaskRound size={16} className="text-[var(--color-black)]" />
-            <span>Crop Protection</span>
-          </Link>
-
-          <Link
-            to="/sustainable-farming"
-            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-          >
-            <Leaf size={16} className="text-[var(--color-black)]" />
-            <span>Sustainable Farming</span>
-          </Link>
-
-          <hr className="my-1 border-[var(--color-black-hover)]" />
-
-          {/* Bottom Section: Account */}
-          <Link
-            to="/login"
-            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-          >
-            <User size={16} className="text-[var(--color-black)]" />
-            <span>Log in / Sign up</span>
-          </Link>
-        </div>
-      </div>
+      {/* Dropdown Panel */}
+      <DropdownPanel open={open} onClose={() => setOpen(false)} />
     </div>
   );
 };
