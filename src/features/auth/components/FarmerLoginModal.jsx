@@ -9,7 +9,11 @@ import CustomButton from "@/components/ui/CustomButton";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks";
 import { Link } from "react-router-dom";
-import { emailLoginSchema } from "@/schemas/authSchemas";
+import {
+  emailLoginSchema,
+  loginPasswordValidator,
+  loginSchema,
+} from "@/schemas/authSchemas";
 
 const FarmerLoginModal = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
@@ -20,7 +24,7 @@ const FarmerLoginModal = ({ isOpen, onClose }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(emailLoginSchema), // Use farmerLoginSchema if needed
+    resolver: zodResolver(loginSchema), // Use farmerLoginSchema if needed
   });
 
   const onSubmit = async (data) => {

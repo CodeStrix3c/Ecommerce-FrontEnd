@@ -9,7 +9,7 @@ import CustomButton from "@/components/ui/CustomButton";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks";
 import { Link } from "react-router-dom";
-import { supplierLoginSchema } from "@/schemas/authSchemas";
+import { loginPasswordValidator, loginSchema } from "@/schemas/authSchemas";
 
 const SupplierLoginModal = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ const SupplierLoginModal = ({ isOpen, onClose }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(supplierLoginSchema),
+    resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data) => {

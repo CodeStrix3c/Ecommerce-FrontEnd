@@ -7,7 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "@/components/ui/FormInput";
 import SupplierLoginModal from "../components/SupplierLoginModal";
 import useIsMobile from "@/hooks/useInMobile";
-import { supplierLoginSchema } from "@/schemas/authSchemas";
+import {
+  loginPasswordValidator,
+  loginSchema,
+  supplierLoginSchema,
+} from "@/schemas/authSchemas";
 import CustomButton from "@/components/ui/CustomButton";
 import FarmerLoginModal from "../components/FarmerLoginModal";
 
@@ -27,7 +31,7 @@ export default function FarmerLogin() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(supplierLoginSchema),
+    resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data) => {
