@@ -9,6 +9,7 @@ import FileUploadField from "@/components/ui/FileUploadField";
 import FormInput from "@/components/ui/FormInput";
 import CustomButton from "@/components/ui/CustomButton";
 import { farmerRegisterSchema } from "@/schemas/authSchemas";
+import FarmerRegistrationModal from "../components/FarmerRegistrationModal";
 
 export default function FarmerRegister() {
   const isMobile = useIsMobile();
