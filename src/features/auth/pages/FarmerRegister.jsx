@@ -234,7 +234,7 @@ export default function FarmerRegister() {
           <CustomButton fullWidth type="submit" text="Register Farmer" />
         </form>
 
-        {/* Footer */}
+        {/* Footer//// */}
         <footer className="mt-8 text-center">
           <p className="text-sm text-[var(--color-black)] opacity-70">
             Already have an account?{" "}
