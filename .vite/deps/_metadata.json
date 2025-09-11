@@ -1,0 +1,116 @@
+{
+  "hash": "f4dcc27a",
+  "browserHash": "7e665696",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "840ca146",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "98ff5305",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "44968fda",
+      "needsInterop": false
+    },
+    "react-toastify": {
+      "src": "../../node_modules/react-toastify/dist/react-toastify.esm.mjs",
+      "file": "react-toastify.js",
+      "fileHash": "5bf35732",
+      "needsInterop": false
+    },
+    "@react-oauth/google": {
+      "src": "../../node_modules/@react-oauth/google/dist/index.esm.js",
+      "file": "@react-oauth_google.js",
+      "fileHash": "c5b212ee",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "0fcb1afe",
+      "needsInterop": false
+    },
+    "@mui/material": {
+      "src": "../../node_modules/@mui/material/esm/index.js",
+      "file": "@mui_material.js",
+      "fileHash": "bab9209c",
+      "needsInterop": false
+    },
+    "react-hook-form": {
+      "src": "../../node_modules/react-hook-form/dist/index.esm.mjs",
+      "file": "react-hook-form.js",
+      "fileHash": "f85addff",
+      "needsInterop": false
+    },
+    "@hookform/resolvers/zod": {
+      "src": "../../node_modules/@hookform/resolvers/zod/dist/zod.mjs",
+      "file": "@hookform_resolvers_zod.js",
+      "fileHash": "1e576b02",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "61bab6ff",
+      "needsInterop": false
+    },
+    "date-fns": {
+      "src": "../../node_modules/date-fns/esm/index.js",
+      "file": "date-fns.js",
+      "fileHash": "08be98c6",
+      "needsInterop": false
+    },
+    "react-loader-spinner": {
+      "src": "../../node_modules/react-loader-spinner/dist/module.js",
+      "file": "react-loader-spinner.js",
+      "fileHash": "ef3d3f72",
+      "needsInterop": false
+    },
+    "framer-motion": {
+      "src": "../../node_modules/framer-motion/dist/es/index.mjs",
+      "file": "framer-motion.js",
+      "fileHash": "83dfbf59",
+      "needsInterop": false
+    },
+    "jwt-decode": {
+      "src": "../../node_modules/jwt-decode/build/jwt-decode.esm.js",
+      "file": "jwt-decode.js",
+      "fileHash": "2375fb9f",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-652WSGQN": {
+      "file": "chunk-652WSGQN.js"
+    },
+    "chunk-3GI2E3SY": {
+      "file": "chunk-3GI2E3SY.js"
+    },
+    "chunk-TMCM54B5": {
+      "file": "chunk-TMCM54B5.js"
+    },
+    "chunk-UGND56GF": {
+      "file": "chunk-UGND56GF.js"
+    },
+    "chunk-3XTRAATE": {
+      "file": "chunk-3XTRAATE.js"
+    },
+    "chunk-ZWZNHXYD": {
+      "file": "chunk-ZWZNHXYD.js"
+    },
+    "chunk-ZSN3XFJS": {
+      "file": "chunk-ZSN3XFJS.js"
+    },
+    "chunk-2GTGKKMZ": {
+      "file": "chunk-2GTGKKMZ.js"
+    }
+  }
+}
