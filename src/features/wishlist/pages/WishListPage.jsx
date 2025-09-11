@@ -41,16 +41,19 @@ const WishlistPage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-10">
+    <div className="container  px-4 py-10">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-[var(--color-black)]">
+        {/* <h1 className="text-2xl font-semibold text-[var(--color-black)]">
           My Wishlist
-        </h1>
-        <WishlistActions
+        </h1> */}
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-[var(--color-black)]">
+  My Wishlist
+</h1>
+        {/* <WishlistActions
           wishlist={wishlist}
           addAllToCart={addAllToCart}
           removeAllFromWishlist={removeAllFromWishlist}
-        />
+        /> */}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
