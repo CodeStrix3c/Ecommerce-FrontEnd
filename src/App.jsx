@@ -32,6 +32,7 @@ import NotFoundPage from "./features/errors/NotFoundPage";
 import EmptyState from "./components/shared/EmptyState";
 import FarmerRegister from "./features/auth/pages/FarmerRegister";
 import TalkWithExpert from "./features/talk-with-expert/pages/TalkWithExpert";
+import FarmerLogin from "./features/auth/pages/FarmerLogin";
 
 function App() {
   useEffect(() => {
@@ -52,6 +53,7 @@ function App() {
               <Route path="/supplier-register" element={<SupplierRegister />} />
               <Route path="/supplier-login" element={<SupplierLogin />} />
               <Route path="/farmer-register" element={<FarmerRegister />} />
+              <Route path="/farmer-login" element={<FarmerLogin />} />
 
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/account" element={<ProfilePage />} />

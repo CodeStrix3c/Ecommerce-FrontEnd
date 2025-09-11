@@ -209,24 +209,30 @@ export default function FarmerRegister() {
             multiple={true}
           />
 
-          {/* Location */}
+          {/* Address & Location */}
           <section>
             <h2 className="text-lg font-semibold mb-4 text-[var(--color-black)]">
               Farm Location
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-end">
               <FormInput
-                name="farmLocation"
-                label="Farm Location (Lat, Long)"
+                name="address"
+                label="Village / Farm Address"
                 register={register}
                 errors={errors}
+                className="flex-1"
               />
               <CustomButton
-                fullWidth
                 text={loadingLocation ? "Detecting..." : "Use Current Location"}
                 variant="outlined"
                 onClick={handleUseLocation}
                 disabled={loadingLocation}
+                sx={{
+                  border: "none",
+                  px: 2.5,
+                  minWidth: "200px",
+                  alignSelf: "stretch", // matches input height
+                }}
               />
             </div>
           </section>
@@ -240,7 +246,7 @@ export default function FarmerRegister() {
           <p className="text-sm text-[var(--color-black)] opacity-70">
             Already have an account?{" "}
             <Link
-              to="/login"
+              to="/farmer-login"
               className="text-[var(--color-primary)] font-medium hover:underline"
             >
               Login here
