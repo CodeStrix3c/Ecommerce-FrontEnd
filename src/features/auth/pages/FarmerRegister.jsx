@@ -3,13 +3,12 @@ import { Navigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import FormInput from "@/components/ui/FormInput";
-import CustomButton from "@/components/ui/CustomButton";
-import { farmerRegisterSchema } from "@/schemas/authSchemas";
 import useIsMobile from "@/hooks/useInMobile";
 import SelectField from "@/components/ui/SelectField";
 import FileUploadField from "@/components/ui/FileUploadField";
-import FarmerRegistrationModal from "../components/FarmerRegistrationModal";
+import FormInput from "@/components/ui/FormInput";
+import CustomButton from "@/components/ui/CustomButton";
+import { farmerRegisterSchema } from "@/schemas/authSchemas";
 
 export default function FarmerRegister() {
   const isMobile = useIsMobile();
