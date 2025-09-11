@@ -7,10 +7,9 @@ export const emailValidator = z.email("Invalid email");
 
 export const passwordValidator = z
   .string()
-  .min(7)
   .regex(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{7,}$/,
-    "Must have upper, lower, number & special (min 7 chars)"
+    "Password must be at least 7 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
   );
 
 export const phoneValidator = z

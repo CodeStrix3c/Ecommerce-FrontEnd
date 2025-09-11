@@ -213,7 +213,7 @@ const FarmerRegistrationModal = ({ isOpen, onClose }) => {
                 {useManualLocation ? (
                   <FormInput
                     name="farmLocation"
-                    label="Farm Location (Lat, Long)"
+                    label="Village / Farm Address"
                     icon={<MapPin size={18} />}
                     register={register}
                     errors={errors}
@@ -264,7 +264,7 @@ const FarmerRegistrationModal = ({ isOpen, onClose }) => {
 
               <div className="flex justify-center">
                 <a
-                  href="/login"
+                  href="/farmer-login"
                   className="font-medium text-[var(--color-primary)] hover:underline"
                 >
                   Log in
