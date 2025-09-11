@@ -72,27 +72,27 @@ This project is a full-stack web application developed as a clone of Airbnb usin
 - **User Authentication:** Users can sign up, log in, and log out securely. Passwords are hashed for security.
 - **Google Login:** Users can sign up and log in using their gmail.
 
-  ![Airbnb Logo](client/public/assets/auth.png)
+  (client/public/assets/auth.png)
 
 - **Search Listings:** Users can search for accommodations.
 
-  ![Airbnb Logo](client/public/assets/search.png)
+  (client/public/assets/search.png)
 
 - **View Listings:** Users can view detailed information about each accommodation, including photos, descriptions, amenities.
 
-  ![Airbnb Logo](client/public/assets/view.png)
+  (client/public/assets/view.png)
 
 - **Make Bookings:** Authenticated users can book accommodations for specific dates.
 
-  ![Airbnb Logo](client/public/assets/book.png)
+   (client/public/assets/book.png)
 
 - **Manage Listings:** Hosts can create, edit, and delete their listings.
 
-  ![Airbnb Logo](client/public/assets/manage.png)
+  (client/public/assets/manage.png)
 
 - **Responsive Design:** The application is designed to be responsive and work seamlessly across different devices.
 
-  ![Airbnb Logo](client/public/assets/hero.png)
+  (client/public/assets/hero.png)
 
 ## Technologies Used
 
