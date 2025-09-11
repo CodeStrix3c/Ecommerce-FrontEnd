@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import SupplierRegistrationModal from "../components/SupplierRegistrationModal";
 import { toast } from "react-toastify";
+
+import useIsMobile from "@/hooks/useInMobile";
 import FormInput from "@/components/ui/FormInput";
 import CustomButton from "@/components/ui/CustomButton";
+import FileUploadField from "@/components/ui/FileUploadField";
 import { supplierRegisterSchema } from "@/schemas/authSchemas";
-import useIsMobile from "@/hooks/useInMobile";
+import SupplierRegistrationModal from "../components/SupplierRegistrationModal";
 
 export default function SupplierRegister() {
   const isMobile = useIsMobile();
@@ -62,100 +64,165 @@ export default function SupplierRegister() {
     );
 
   return (
-    <main className="flex justify-center items-start min-h-screen p-8 lg:mt-24 md:mt28">
-      <section
-        aria-labelledby="supplier-registration-heading"
-        className="w-full max-w-4xl bg-[var(--color-white)] rounded-2xl p-8 shadow-lg"
-      >
-        <header className="mb-6 text-center">
-          <h1
-            id="supplier-registration-heading"
-            className="text-3xl font-bold text-[var(--color-neutral-dark)] mb-2"
-          >
+    <main className="flex justify-center items-start min-h-screen p-6 md:p-10 lg:mt-20">
+      <section className="w-full max-w-5xl bg-[var(--color-white)] rounded-xl p-8 shadow-md">
+        {/* Header */}
+        <header className="mb-8 text-center">
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-black)]">
             Supplier Registration
           </h1>
-          <p className="text-sm text-[var(--color-neutral-dark)]">
-            Fill in the details to create your supplier account.
+          <p className="text-sm text-[var(--color-black)] opacity-70">
+            Fill in the details below to create your supplier account.
           </p>
         </header>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-6 border-0 p-0 m-0">
-            <legend className="sr-only">Supplier Details</legend>
-
-            <FormInput
-              name="companyName"
-              label="Company Name"
-              register={register}
-              errors={errors}
-            />
-            <FormInput
-              name="contactPerson"
-              label="Contact Person"
-              register={register}
-              errors={errors}
-            />
-            <FormInput
-              name="email"
-              label="Email"
-              type="email"
-              register={register}
-              errors={errors}
-            />
-            <FormInput
-              name="phone"
-              label="Phone"
-              type="tel"
-              register={register}
-              errors={errors}
-            />
-            <FormInput
-              name="password"
-              label="Password"
-              type="password"
-              register={register}
-              errors={errors}
-            />
-            <FormInput
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              register={register}
-              errors={errors}
-            />
-            <FormInput
-              name="licenseNumber"
-              label="Pesticide License Number"
-              register={register}
-              errors={errors}
-              className="md:col-span-2"
-            />
-            <FormInput
-              name="address"
-              label="Street Address"
-              register={register}
-              errors={errors}
-              className="md:col-span-2"
-            />
-
-            <div className="md:col-span-1">
-              <CustomButton
-                fullWidth
-                text={loadingLocation ? "Detecting..." : "Use Current Location"}
-                variant="text"
-                onClick={handleUseLocation}
-                disabled={loadingLocation}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          {/* Company Details */}
+          <section>
+            <h2 className="text-lg font-semibold mb-4 text-[var(--color-black)]">
+              Company Details
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <FormInput
+                name="companyName"
+                label="Company Name"
+                register={register}
+                errors={errors}
+              />
+              <FormInput
+                name="contactPerson"
+                label="Contact Person"
+                register={register}
+                errors={errors}
+              />
+              <FormInput
+                name="licenseNumber"
+                label="Pesticide License Number"
+                register={register}
+                errors={errors}
               />
             </div>
-            <div className="md:col-span-1">
-              <CustomButton fullWidth type="submit" text="Register Supplier" />
+          </section>
+
+          {/* Contact Details */}
+          <section>
+            <h2 className="text-lg font-semibold mb-4 text-[var(--color-black)]">
+              Contact Information
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <FormInput
+                name="email"
+                label="Email"
+                type="email"
+                register={register}
+                errors={errors}
+              />
+              <FormInput
+                name="phone"
+                label="Phone"
+                type="tel"
+                register={register}
+                errors={errors}
+              />
             </div>
-          </fieldset>
+          </section>
+
+          {/* Security */}
+          <section>
+            <h2 className="text-lg font-semibold mb-4 text-[var(--color-black)]">
+              Security
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormInput
+                name="password"
+                label="Password"
+                type="password"
+                register={register}
+                errors={errors}
+              />
+              <FormInput
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                register={register}
+                errors={errors}
+              />
+            </div>
+          </section>
+
+          {/* Address & Location */}
+          <section>
+            <h2 className="text-lg font-semibold mb-4 text-[var(--color-black)]">
+              Business Location
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <FormInput
+                name="address"
+                label="Shop / Business Address"
+                register={register}
+                errors={errors}
+              />
+              <FormInput
+                name="city"
+                label="Town / City"
+                register={register}
+                errors={errors}
+              />
+              <FormInput
+                name="state"
+                label="State / Province"
+                register={register}
+                errors={errors}
+              />
+              <FormInput
+                name="country"
+                label="Country"
+                register={register}
+                errors={errors}
+              />
+            </div>
+
+            <div className="mt-3">
+              <CustomButton
+                text={loadingLocation ? "Detecting..." : "Use Current Location"}
+                variant="outlined"
+                onClick={handleUseLocation}
+                disabled={loadingLocation}
+                sx={{ border: "none", minWidth: "200px" }}
+              />
+            </div>
+          </section>
+
+          {/* Upload Documents */}
+          <section>
+            <h2 className="text-lg font-semibold mb-4 text-[var(--color-black)]">
+              Upload Documents & Media
+            </h2>
+            <div className="space-y-6">
+              <FileUploadField
+                name="shopPhotos"
+                label="Shop / Store Photos"
+                register={register}
+                errors={errors}
+                multiple={true}
+              />
+              <FileUploadField
+                name="companyDocuments"
+                label="Company Documents (License, Certificates, etc.)"
+                register={register}
+                errors={errors}
+                multiple={true}
+              />
+            </div>
+          </section>
+
+          {/* Submit */}
+          <CustomButton fullWidth type="submit" text="Register Supplier" />
         </form>
 
         {/* Footer */}
-        <footer className="mt-6 text-center">
-          <p className="text-sm text-[var(--color-neutral-dark)]">
+        <footer className="mt-8 text-center">
+          <p className="text-sm text-[var(--color-black)] opacity-70">
             Already have an account?{" "}
             <Link
               to="/supplier-login"
