@@ -48,51 +48,42 @@ const BookingWidget = ({ place }) => {
   const totalPrice = quantity * place.price;
 
   return (
-    <div
-      className="
-        fixed bottom-0 left-0 right-0 z-50 bg-[var(--color-white)] p-4
-        md:static md:rounded-xl md:border md:border-[var(--color-black)] md:p-5
-      "
-    >
+    <div  className="fixed bottom-0 left-0 right-0 z-50 bg-white pt-6 shadow-inner md:static md:rounded-xl md:p-5" style={{ boxShadow: 'inset 0 4px 10px rgba(0, 0, 0, 0.1)'}}>
       <div className="flex flex-col gap-4">
+
         {/* Price summary */}
-        <div className="flex flex-col gap-1">
-          <div className="font-semibold text-[var(--color-black)] text-lg">
-            ₹{place.price}{" "}
-            <span className="font-normal text-[var(--color-black-hover)]">
-              per unit
-            </span>
-          </div>
-          <div className="text-sm text-[var(--color-black-hover)]">
-            You’re booking <span className="font-semibold">{quantity}</span>{" "}
-            {quantity > 1 ? "units" : "unit"}.
-          </div>
-          <div className="text-sm text-[var(--color-black)]">
-            Total price: <span className="font-semibold">₹{totalPrice}</span>
-          </div>
+        <div className="flex px-2 items-center">
+          <span className="font-bold  text-[var(--color-black)] text-l">
+            ₹{place.price}
+          </span>
+          <span className="px-1 text-black text-sm font-bold">per unit</span>
         </div>
 
         {/* Quantity selector */}
-        <div className="flex items-center justify-between px-1">
-          <span className="text-sm text-[var(--color-black-hover)]">
-            Quantity
-          </span>
-          <div className="flex items-center gap-3">
-            <button
-              className="flex h-7 w-7 items-center justify-center rounded-full text-base font-bold text-[var(--color-black)] hover:bg-[var(--color-black-hover)]"
-              onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            >
-              −
-            </button>
-            <span className="text-base font-medium text-[var(--color-black)]">
-              {quantity}
-            </span>
-            <button
-              className="flex h-7 w-7 items-center justify-center rounded-full text-base font-bold text-[var(--color-black)] hover:bg-[var(--color-black-hover)]"
-              onClick={() => setQuantity(quantity + 1)}
-            >
-              +
-            </button>
+
+       
+        <div className="flex items-center justify-between px-2 text-sm text-[var(--color-black)]">
+          <div>
+            Total price : <span className="font-bold">₹{totalPrice}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-black font-sm">Quantity :</span>
+           <div className="flex items-center rounded-lg border border-black shadow-sm bg-white text-[var(--color-black)]">
+  <button
+    className="flex h-6 w-6 items-center justify-center rounded-l-full font-bold hover:bg-[var(--color-black-hover)]"
+    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+  >
+    −
+  </button>
+  <span className="px-2 font-extrabold text-black">{quantity}</span>
+  <button
+    className="flex h-6 w-6 items-center justify-center rounded-r-full font-bold hover:bg-[var(--color-black-hover)]"
+    onClick={() => setQuantity(quantity + 1)}
+  >
+    +
+  </button>
+</div>
+
           </div>
         </div>
 
