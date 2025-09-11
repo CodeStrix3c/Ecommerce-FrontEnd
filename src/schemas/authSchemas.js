@@ -23,6 +23,16 @@ export const fullNameValidator = z.string().min(2, "Full name is required");
 // ----------------------
 // Login Schemas
 // ----------------------
+// ----------------------
+// Login Password Validator
+// ----------------------
+export const loginPasswordValidator = z.string().min(1, "Password is required");
+
+export const loginSchema = z.object({
+  email: emailValidator,
+  password: loginPasswordValidator,
+});
+
 export const phoneLoginSchema = z.object({
   phone: phoneValidator,
   password: passwordValidator,
