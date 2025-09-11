@@ -31,6 +31,7 @@ import CartPage from "./features/cart/pages/CartPage";
 import NotFoundPage from "./features/errors/NotFoundPage";
 import EmptyState from "./components/shared/EmptyState";
 import FarmerRegister from "./features/auth/pages/FarmerRegister";
+import TalkWithExpert from "./features/talk-with-expert/pages/TalkWithExpert";
 
 function App() {
   useEffect(() => {
@@ -64,6 +65,7 @@ function App() {
               <Route path="/place/:id" element={<PlacePage />} />
               <Route path="/account/bookings" element={<BookingsPage />} />
               <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/talk-with-expert" element={<TalkWithExpert />} />
               <Route path="/cart" element={<CartPage />} />
               <Route
                 path="/account/bookings/:id"
