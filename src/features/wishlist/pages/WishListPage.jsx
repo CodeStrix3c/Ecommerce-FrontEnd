@@ -15,19 +15,6 @@ const WishlistPage = () => {
     removeFromWishlist(product._id);
   };
 
-  const addAllToCart = () => {
-    wishlist
-      .filter((p) => p.inStock)
-      .forEach((p) => {
-        addToCartList(p);
-        removeFromWishlist(p._id);
-      });
-  };
-
-  const removeAllFromWishlist = () => {
-    clearWishlist();
-  };
-
   if (wishlist.length === 0) {
     return (
       <EmptyState
@@ -41,19 +28,11 @@ const WishlistPage = () => {
   }
 
   return (
-    <div className="container  px-4 py-10">
+    <div className="container py-10 lg:mt-24 md:mt-24">
       <div className="flex justify-between items-center mb-6">
-        {/* <h1 className="text-2xl font-semibold text-[var(--color-black)]">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-black)] mb-4 sm:mb-0">
           My Wishlist
-        </h1> */}
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-[var(--color-black)]">
-  My Wishlist
-</h1>
-        {/* <WishlistActions
-          wishlist={wishlist}
-          addAllToCart={addAllToCart}
-          removeAllFromWishlist={removeAllFromWishlist}
-        /> */}
+        </h1>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
