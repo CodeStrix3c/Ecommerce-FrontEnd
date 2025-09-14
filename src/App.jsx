@@ -30,6 +30,9 @@ import Wishlist from "./features/wishlist/pages/WishListPage";
 import CartPage from "./features/cart/pages/CartPage";
 import NotFoundPage from "./features/errors/NotFoundPage";
 import EmptyState from "./components/shared/EmptyState";
+import TalkWithExpert from "./features/talk-with-expert/pages/TalkWithExpert";
+import FarmerLogin from "./features/auth/pages/FarmerLogin";
+import FarmerRegister from "./features/farmer-registration/FarmerRegister";
 import SupplierProfilePage from "./features/suppliers/pages/SupplierProfilePage";
 
 function App() {
@@ -50,6 +53,9 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/supplier-register" element={<SupplierRegister />} />
               <Route path="/supplier-login" element={<SupplierLogin />} />
+              <Route path="/farmer-register" element={<FarmerRegister />} />
+              <Route path="/farmer-login" element={<FarmerLogin />} />
+
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/company-details" element={<CompanyDetails />} />
@@ -62,6 +68,7 @@ function App() {
               <Route path="/place/:id" element={<PlacePage />} />
               <Route path="/account/bookings" element={<BookingsPage />} />
               <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/talk-with-expert" element={<TalkWithExpert />} />
               <Route path="/cart" element={<CartPage />} />
                             <Route path="/supplier-profile" element={<SupplierProfilePage />} />
 

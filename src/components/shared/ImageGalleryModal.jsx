@@ -6,7 +6,6 @@ const ImageGalleryModal = ({ photos = [], isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-[9999] bg-[var(--color-white)] text-[var(--color-black)] overflow-auto">
       <div className="px-2 py-20 md:p-8">
-        {/* Close button */}
         <button
           className="fixed right-2 top-8 flex gap-1 rounded-2xl bg-[var(--color-white)] py-2 px-4 text-[var(--color-black)] shadow-md hover:shadow-lg md:right-12"
           onClick={onClose}
@@ -14,7 +13,6 @@ const ImageGalleryModal = ({ photos = [], isOpen, onClose }) => {
           ✕ Close
         </button>
 
-        {/* Masonry grid */}
         <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
           {photos.map((photo, index) => (
             <div

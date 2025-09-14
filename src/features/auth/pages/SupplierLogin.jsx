@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import useIsMobile from "@/hooks/useInMobile";
 import { Mail, Lock } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormInput from "@/components/ui/FormInput";
+import FormInput from "@/features/auth/components/FormInput";
+import useIsMobile from "@/hooks/useInMobile";
 import CustomButton from "@/components/ui/CustomButton";
-import SupplierLoginModal from "../components/SupplierLoginModal";
-import { supplierLoginSchema } from "@/schemas/authSchemas";
+import { loginPasswordValidator, loginSchema } from "@/schemas/authSchemas";
 
 export default function SupplierLogin() {
   const isMobile = useIsMobile();
@@ -26,7 +25,7 @@ export default function SupplierLogin() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(supplierLoginSchema),
+    resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data) => {
@@ -45,11 +44,6 @@ export default function SupplierLogin() {
   };
 
   if (redirect || isLoggedIn) return <Navigate to="/" />;
-
-  if (isMobile)
-    return (
-      <SupplierLoginModal isOpen={true} onClose={() => setRedirect(true)} />
-    );
 
   return (
     <main className="flex items-center justify-center min-h-screen  p-4">
