@@ -6,6 +6,6 @@ export const addressSchema = z.object({
   tehsil: z.string().min(1, "Tehsil is required"),
   district: z.string().min(1, "District is required"),
   state: z.string().min(1, "State is required"),
-  pincode: z.string().regex(/^\d{6}$/, "Enter a valid 6-digit pincode"),
+  pincode: z.string().regex(/^\d{6}$/, "Enter a valid pincode"),
   gps: z.string().optional(),
 });
