@@ -12,14 +12,14 @@ export default function FormNavigation({
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+    <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-5">
       {step > 0 ? (
         <CustomButton
           text="Back"
           onClick={prevStep}
           variant="outlined"
           fullWidth={isMobile}
-          sx={{ minWidth: isMobile ? "100%" : 500 }}
+          sx={{ minWidth: isMobile ? "100%" : 140 }}
         />
       ) : (
         <div style={{ minWidth: isMobile ? "100%" : 100 }} />

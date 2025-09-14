@@ -191,10 +191,7 @@ export default function FarmerRegister() {
             }}
           >
             {step === 0 && (
-              <>
-                <ProfileSection register={register} errors={errors} />
-                {/* <Divider sx={{ my: 3 }}>or</Divider> */}
-              </>
+              <ProfileSection register={register} errors={errors} />
             )}
             {step === 1 && (
               <DemographicsSection register={register} errors={errors} />

@@ -1,4 +1,5 @@
 import FormLayout from "@/components/shared/FormLayout";
+import CustomButton from "@/components/ui/CustomButton";
 import FormInput from "@/features/auth/components/FormInput";
 import FormSection from "@/features/auth/components/FormSection";
 import LockIcon from "@mui/icons-material/Lock";
@@ -10,7 +11,7 @@ export default function OtpVerificationSection({ register, errors, onResend }) {
   return (
     <FormSection title="OTP Verification">
       <p className="text-sm text-[var(--color-secondary)] mb-4">
-        Please enter the 6-digit OTP sent to your registered mobile number.{" "}
+        Please enter the 6-digit OTP sent to your registered mobile number.
         <br />
         OTP expires in <span className="font-medium">5:00</span> minutes.
       </p>
@@ -24,16 +25,12 @@ export default function OtpVerificationSection({ register, errors, onResend }) {
             type="text"
             register={register}
             errors={errors.otp}
-            icon={<LockIcon sx={iconStyle} />}
+            icon={"Resend OTP"}
+            onClick={onResend}
           />
         </div>
 
-        {/* Right Column: Instructions & Resend */}
-        <div className="flex flex-col justify-center items-start space-y-3 text-sm text-[var(--color-secondary)]">
-          <Button variant="outlined" size="small" onClick={onResend}>
-            Resend OTP
-          </Button>
-        </div>
+        <div className="flex flex-col justify-center items-start"></div>
       </FormLayout>
     </FormSection>
   );

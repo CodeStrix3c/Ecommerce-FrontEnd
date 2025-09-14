@@ -55,7 +55,6 @@ export default function ProfileSection({ register, errors }) {
           icon={<LockIcon sx={iconStyle} />}
         />
 
-        {/* File upload */}
         <FileUploadField
           name="profilePic"
           label="Upload Profile"
