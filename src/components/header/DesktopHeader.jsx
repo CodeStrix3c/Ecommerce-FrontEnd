@@ -37,7 +37,7 @@ const DesktopHeader = ({ location }) => {
       style={headerShadow}
       className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)]"
     >
-      <div className="mx-auto flex max-w-screen-xl items-center justify-between py-3">
+      <div className="mx-auto flex max-w-[90vw] items-center justify-between py-3">
         <NavLink to="/" className="flex items-center gap-2">
           <img
             src="assets/images/ziraat.jpeg"

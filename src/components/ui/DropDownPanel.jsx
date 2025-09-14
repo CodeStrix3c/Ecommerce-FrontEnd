@@ -56,23 +56,23 @@ const DropdownPanel = ({ open, onClose }) => {
           <span>Log in / Sign up</span>
         </Link>
 
-        <Link
+        {/* <Link
           to="/farmer-register"
           onClick={onClose}
           className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
         >
           <Leaf size={16} className="text-[var(--color-black)]" />
           <span>Register as Farmer</span>
-        </Link>
+        </Link> */}
 
-        <Link
+        {/* <Link
           to="/supplier-register"
           onClick={onClose}
           className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
         >
           <Store size={16} className="text-[var(--color-black)]" />
           <span>Become a Supplier</span>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

@@ -1,25 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Mail, Lock } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormInput from "@/components/ui/FormInput";
-import SupplierLoginModal from "../components/SupplierLoginModal";
-import useIsMobile from "@/hooks/useInMobile";
-import {
-  loginPasswordValidator,
-  loginSchema,
-  supplierLoginSchema,
-} from "@/schemas/authSchemas";
+import { Email, Lock } from "@mui/icons-material";
+import { loginSchema } from "@/schemas/authSchemas";
 import CustomButton from "@/components/ui/CustomButton";
-import FarmerLoginModal from "../components/FarmerLoginModal";
+import FormInput from "@/features/auth/components/FormInput";
 
 export default function FarmerLogin() {
-  const isMobile = useIsMobile();
   const [redirect, setRedirect] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
+  const iconStyle = { color: "var(--color-secondary)", fontSize: 20 };
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -51,29 +44,47 @@ export default function FarmerLogin() {
 
   if (redirect || isLoggedIn) return <Navigate to="/" />;
 
-  if (isMobile)
-    return <FarmerLoginModal isOpen={true} onClose={() => setRedirect(true)} />;
-
   return (
-    <main className="flex items-center justify-center min-h-screen  p-4">
-      <section className="w-full max-w-md bg-[var(--color-white)] rounded-2xl border border-[var(--color-neutral-medium)] p-8 shadow-lg">
+    <main
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        padding: "1rem",
+        backgroundColor: "var(--color-white)",
+      }}
+    >
+      <section
+        style={{
+          width: "100%",
+          maxWidth: "400px",
+          padding: "2rem",
+          borderRadius: "12px",
+          border: "1px solid var(--color-black)",
+          boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+        }}
+      >
         {/* Header */}
-        <header className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-[var(--color-neutral-dark)] mb-2">
+        <header style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+          <h1 style={{ fontSize: "1.75rem", fontWeight: "bold" }}>
             Farmer Login
           </h1>
-          <p className="text-sm text-[var(--color-neutral-dark)]">
+          <p style={{ fontSize: "0.875rem", color: "var(--color-black)" }}>
             Enter your credentials to access your farmer account.
           </p>
         </header>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+        >
           <FormInput
             name="email"
             label="Email"
             type="email"
-            icon={<Mail size={18} />}
+            icon={<Email sx={iconStyle} />}
             register={register}
             errors={errors}
           />
@@ -81,7 +92,7 @@ export default function FarmerLogin() {
             name="password"
             label="Password"
             type="password"
-            icon={<Lock size={18} />}
+            icon={<Lock sx={iconStyle} />}
             register={register}
             errors={errors}
           />
@@ -90,16 +101,32 @@ export default function FarmerLogin() {
             type="submit"
             text="Login"
             loading={loading}
-            className="bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-[var(--color-white)] font-semibold py-3 rounded-xl"
+            style={{
+              backgroundColor: "var(--color-primary)",
+              color: "var(--color-white)",
+              padding: "0.75rem",
+              borderRadius: "12px",
+              fontWeight: "600",
+            }}
           />
         </form>
 
         {/* Footer */}
-        <footer className="mt-6 text-center text-sm text-[var(--color-neutral-dark)]">
+        <footer
+          style={{
+            textAlign: "center",
+            marginTop: "1.5rem",
+            fontSize: "0.875rem",
+          }}
+        >
           Don't have an account?{" "}
           <Link
-            to="/supplier-register"
-            className="text-[var(--color-primary)] font-medium underline"
+            to="/farmer-register"
+            style={{
+              color: "var(--color-primary)",
+              fontWeight: "500",
+              textDecoration: "underline",
+            }}
           >
             Register here
           </Link>
