@@ -1,11 +1,16 @@
-import React from 'react';
-
-function SectionTitle({ title, className = '' }) {
+export default function SectionTitle({
+  title,
+  className = "",
+  centered = false,
+}) {
   return (
-    <h2 className={`text-left text-lg font-semibold sm:text-xl ${className}`}>
+    <h2
+      className={`
+        ${centered ? "text-center" : "text-left"}
+        text-lg font-semibold sm:text-xl text-[var(--color-black)] ${className}
+      `}
+    >
       {title}
     </h2>
   );
 }
-
-export default SectionTitle;

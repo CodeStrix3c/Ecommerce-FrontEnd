@@ -30,9 +30,9 @@ import Wishlist from "./features/wishlist/pages/WishListPage";
 import CartPage from "./features/cart/pages/CartPage";
 import NotFoundPage from "./features/errors/NotFoundPage";
 import EmptyState from "./components/shared/EmptyState";
-import FarmerRegister from "./features/auth/pages/FarmerRegister";
 import TalkWithExpert from "./features/talk-with-expert/pages/TalkWithExpert";
 import FarmerLogin from "./features/auth/pages/FarmerLogin";
+import FarmerRegister from "./features/farmer-registration/FarmerRegister";
 
 function App() {
   useEffect(() => {

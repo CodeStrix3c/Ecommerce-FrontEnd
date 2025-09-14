@@ -1,6 +1,7 @@
 import React from "react";
 import { TextField, MenuItem } from "@mui/material";
-import RequiredLabel from "./RequiredLabel";
+import RequiredLabel from "../../features/auth/components/RequiredLabel";
+import OptionalLabel from "@/features/auth/components/OptionalLabel";
 
 const SelectField = ({
   name,
@@ -8,21 +9,29 @@ const SelectField = ({
   register,
   errors,
   options,
-  required = false,
+  optional = false,
   size = "small",
 }) => {
+  const isRequired = !optional;
+
   return (
     <TextField
       select
       fullWidth
       size={size}
-      label={<RequiredLabel label={label} required={required} />}
+      label={
+        optional ? (
+          <OptionalLabel label={label} />
+        ) : (
+          <RequiredLabel label={label} required={isRequired} />
+        )
+      }
       defaultValue=""
-      error={!!errors[name]}
-      helperText={errors[name]?.message}
+      error={errors && !!errors[name]}
+      helperText={errors && errors[name]?.message}
       variant="outlined"
       {...register(name, {
-        required: required ? `${label} is required` : false,
+        required: isRequired ? `${label} is required` : false,
       })}
       sx={{
         "& .MuiOutlinedInput-root": {
