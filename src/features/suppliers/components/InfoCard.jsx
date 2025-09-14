@@ -1,8 +1,7 @@
 export default function InfoCard({ supplier }) {
     
   return (
-    <div className="bg-green-200 mt-4  shadow-md rounded-2xl p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
-    <div className="mt-4 bg-white shadow-md rounded-2xl p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+    <div className="bg-green-200 mt-4 shadow-md rounded-2xl p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
       <div className="flex items-center space-x-4">
         <img
           src={supplier.logo}
