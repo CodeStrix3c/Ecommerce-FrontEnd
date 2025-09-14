@@ -9,8 +9,8 @@ export default function HighlightBanner({
   reviewCount = 26,
 }) {
   return (
-    <div className="flex w-fit flex-col space-y-4 rounded-2xl border border-[var(--color-black)] bg-[var(--color-white)] p-4 shadow-sm">
-      <div className="flex w-full justify-center">
+    <div  className="border flex w-fit flex-col space-y-4 rounded-2xl bg-[var(--color-white)] p-4">
+      <div className="flex w-full justify-center pt-3">
         <LeafTitleBlock
           title={title}
           subtitle={subtitle}
@@ -20,7 +20,7 @@ export default function HighlightBanner({
         />
       </div>
 
-      <div className="flex w-full items-center justify-center space-x-6">
+      <div className="flex w-full items-center justify-center space-x-6 ">
         <div className="flex flex-col items-center">
           <p className="text-lg font-semibold">{rating.toFixed(1)}</p>
           <div className="flex mt-1">

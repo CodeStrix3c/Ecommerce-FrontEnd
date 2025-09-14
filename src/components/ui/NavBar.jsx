@@ -40,50 +40,52 @@ const NavBar = ({ isMobile }) => {
   const hoverDesktopColor = "hover:text-[var(--color-black)]";
 
   return (
-    <nav
-      className={`flex ${
-        isMobile
-          ? "fixed bottom-0 z-10 w-full justify-around border-t bg-[var(--color-white)] py-2 shadow-md"
-          : "items-center gap-8 bg-[var(--color-white)] px-4"
-      }`}
-    >
-      {tabs.map((tab) => (
-        <NavLink
-          key={tab.name}
-          to={tab.path}
-          end={tab.path === "/"}
-          className={({ isActive }) =>
-            `relative flex ${
-              !isMobile ? "flex-row gap-2" : "flex-col"
-            } items-center ${isMobile ? "text-xs" : "px-3 py-2 text-sm"} font-medium transition-colors duration-300 ${
-              isMobile
-                ? `${isActive ? tab.activeColor : inactiveMobileColor} ${hoverMobileColor}`
-                : `${isActive ? `border-b-2 border-[var(--color-black)] ${tab.activeColor}` : `${inactiveDesktopColor} ${hoverDesktopColor}`}`
-            }`
-          }
-        >
-          {({ isActive }) => (
-            <>
-              {tab.badge && !isMobile && (
-                <span className="absolute -top-3 rounded bg-[var(--color-secondary)] px-2 text-[8px] font-bold text-[var(--color-white)]">
-                  {tab.badge}
-                </span>
-              )}
-              <tab.icon
-                className={`h-6 w-6 ${
-                  isMobile
-                    ? isActive
-                      ? tab.activeColor
-                      : inactiveMobileColor
-                    : tab.activeColor
-                }`}
-              />
-              <span>{tab.name}</span>
-            </>
-          )}
-        </NavLink>
-      ))}
-    </nav>
+    <div>
+      <nav
+        className={`flex ${
+          isMobile
+            ? "fixed bottom-0 z-10 w-full max-w-[95vw] mx-auto justify-between border-t bg-[var(--color-white)] py-2 shadow-md"
+            : "items-center gap-8 bg-[var(--color-white)] px-4"
+        }`}
+      >
+        {tabs.map((tab) => (
+          <NavLink
+            key={tab.name}
+            to={tab.path}
+            end={tab.path === "/"}
+            className={({ isActive }) =>
+              `relative flex ${
+                !isMobile ? "flex-row gap-2" : "flex-col"
+              } items-center ${isMobile ? "text-xs" : "px-3 py-2 text-sm"} font-medium transition-colors duration-300 ${
+                isMobile
+                  ? `${isActive ? tab.activeColor : inactiveMobileColor} ${hoverMobileColor}`
+                  : `${isActive ? `border-b-2 border-[var(--color-black)] ${tab.activeColor}` : `${inactiveDesktopColor} ${hoverDesktopColor}`}`
+              }`
+            }
+          >
+            {({ isActive }) => (
+              <>
+                {tab.badge && !isMobile && (
+                  <span className="absolute -top-3 rounded bg-[var(--color-secondary)] px-2 text-[8px] font-bold text-[var(--color-white)]">
+                    {tab.badge}
+                  </span>
+                )}
+                <tab.icon
+                  className={`h-6 w-6 ${
+                    isMobile
+                      ? isActive
+                        ? tab.activeColor
+                        : inactiveMobileColor
+                      : tab.activeColor
+                  }`}
+                />
+                <span>{tab.name}</span>
+              </>
+            )}
+          </NavLink>
+        ))}
+      </nav>
+    </div>
   );
 };
 
