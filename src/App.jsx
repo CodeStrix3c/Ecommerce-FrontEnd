@@ -30,6 +30,7 @@ import Wishlist from "./features/wishlist/pages/WishListPage";
 import CartPage from "./features/cart/pages/CartPage";
 import NotFoundPage from "./features/errors/NotFoundPage";
 import EmptyState from "./components/shared/EmptyState";
+import SupplierProfilePage from "./features/suppliers/pages/SupplierProfilePage";
 
 function App() {
   useEffect(() => {
@@ -62,6 +63,8 @@ function App() {
               <Route path="/account/bookings" element={<BookingsPage />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/cart" element={<CartPage />} />
+                            <Route path="/supplier-profile" element={<SupplierProfilePage />} />
+
               <Route
                 path="/account/bookings/:id"
                 element={<SingleBookedPlace />}
