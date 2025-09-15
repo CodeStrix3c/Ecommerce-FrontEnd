@@ -16,7 +16,7 @@ import BookingsPage from "./features/bookings/pages/BookingsPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import SingleBookedPlace from "./features/bookings/pages/SingleBookedPlace";
 import Layout from "./app/Layout";
-import AuthLayout from "./app/AuthLayout"; // 👈 new
+import AuthLayout from "./app/AuthLayout";
 import axiosInstance from "./utils/axios";
 import { getItemFromLocalStorage } from "./utils";
 import PlacesPage from "./features/places/pages/PlacesPage";
@@ -36,6 +36,7 @@ import FarmerLogin from "./features/auth/pages/FarmerLogin";
 import FarmerRegister from "./features/farmer-registration/FarmerRegister";
 import SupplierProfilePage from "./features/suppliers/pages/SupplierProfilePage";
 import DevelopmentPage from "./app/DevelopmentPage";
+import AboutUs from "./features/about-us/pages/AboutUs";
 
 function App() {
   useEffect(() => {
@@ -48,22 +49,23 @@ function App() {
       <AppProvider>
         <ScrollToTop />
         <Routes>
-          {/* AuthLayouts */}
+          {/* Auth pages without header/footer */}
           <Route element={<AuthLayout />}>
             <Route index element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<LoginPage />} />
-            {/* <Route path="/register" element={<RegisterPage />} /> */}
-            <Route path="/farmer-register" element={<FarmerRegister />} />
-          </Route>
-
-          {/* Layouts */}
-          <Route path="/" element={<Layout />}>
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/supplier-register" element={<SupplierRegister />} />
             <Route path="/supplier-login" element={<SupplierLogin />} />
+            <Route path="/farmer-register" element={<FarmerRegister />} />
             <Route path="/farmer-login" element={<FarmerLogin />} />
+          </Route>
+
+          {/* Main app with header/footer */}
+          <Route path="/" element={<Layout />}>
             <Route path="/home" element={<IndexPage />} />
             <Route path="/account" element={<ProfilePage />} />
             <Route path="/company-details" element={<CompanyDetails />} />
+            <Route path="/about-us" element={<AboutUs />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/sitemap" element={<Sitemap />} />
             <Route path="/terms" element={<Terms />} />
