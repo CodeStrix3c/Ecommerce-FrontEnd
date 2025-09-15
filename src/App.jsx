@@ -31,6 +31,7 @@ import CartPage from "./features/cart/pages/CartPage";
 import NotFoundPage from "./features/errors/NotFoundPage";
 import EmptyState from "./components/shared/EmptyState";
 import FarmerRegister from "./features/auth/pages/FarmerRegister";
+import AboutUs from "./features/about-us/pages/AboutUs";
 
 function App() {
   useEffect(() => {
@@ -51,6 +52,7 @@ function App() {
               <Route path="/supplier-register" element={<SupplierRegister />} />
               <Route path="/supplier-login" element={<SupplierLogin />} />
               <Route path="/farmer-register" element={<FarmerRegister />} />
+              <Route path="/about-us" element={<AboutUs />} />
 
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/account" element={<ProfilePage />} />
