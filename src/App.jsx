@@ -39,6 +39,7 @@ import DevelopmentPage from "./app/DevelopmentPage";
 import AboutUs from "./features/about-us/pages/AboutUs";
 import CropProtection from "./features/crop-protection/pages/CropProtection";
 import ProtectedRoute from "./components/shared/ProtectedRoute";
+import FarmerProfilePage from "./features/farmers/pages/FarmerProfilePage";
 
 function App() {
   useEffect(() => {
@@ -68,6 +69,7 @@ function App() {
               <Route path="/home" element={<IndexPage />} />
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/company-details" element={<CompanyDetails />} />
+              <Route path="/farmer-profile" element={<FarmerProfilePage />} />
               <Route path="/crop-protection" element={<CropProtection />} />
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/privacy" element={<Privacy />} />
