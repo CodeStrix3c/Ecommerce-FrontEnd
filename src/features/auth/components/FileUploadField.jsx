@@ -78,7 +78,7 @@ const FileUploadField = ({
   );
 
   return (
-    <FormControl fullWidth error={!!errors[name]} sx={{ mb: 2 }}>
+    <FormControl fullWidth error={!!errors[name]} sx={{ mb: 0 }}>
       <Box
         component="label"
         sx={{
