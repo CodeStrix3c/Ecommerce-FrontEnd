@@ -3,18 +3,9 @@ import { farmerRequiredFields } from "@/constants/farmerRequiredFields";
 import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Box,
-  Divider,
-  Stack,
-  Stepper,
-  Step,
-  StepLabel,
-  Paper,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Stack, useTheme, useMediaQuery, Divider } from "@mui/material";
 import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
 
 import ProfileSection from "./sections/ProfileSection";
 import DemographicsSection from "./sections/DemographicsSection";
@@ -24,8 +15,6 @@ import OtpVerificationSection from "./sections/OtpVerificationSection";
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
 import FormStepper from "@/components/ui/FormStepper";
-import { toast } from "react-toastify";
-
 import { profileSchema } from "@/schemas/profileSchema";
 import { demographicsSchema } from "@/schemas/demographicSchema";
 import { landSchema } from "@/schemas/landHoldingSchema";
@@ -125,6 +114,7 @@ export default function FarmerRegister() {
       () => alert("Unable to retrieve location")
     );
   };
+
   const handleSubmitClick = async () => {
     if (step !== 4) {
       nextStep();
@@ -149,9 +139,10 @@ export default function FarmerRegister() {
         minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
-        bgcolor: "var(--color-white)",
-        py: { xs: 5, lg: 12 },
-        my: { xs: 0, md: 10, lg: 4 },
+        alignItems: "center",
+        bgcolor: "var(--color-gray-light)",
+        px: 2,
+        py: { xs: 6, md: 4 },
       }}
     >
       <FormProvider {...methods}>
@@ -161,33 +152,55 @@ export default function FarmerRegister() {
           sx={{
             borderRadius: 3,
             width: "100%",
-            maxWidth: 800,
-            p: { md: 4, lg: 4 },
-
+            maxWidth: 850,
+            p: { xs: 4, md: 6 },
             bgcolor: "var(--color-white)",
-            boxShadow: isMobile ? 0 : 3,
+            boxShadow: 4,
             display: "flex",
             flexDirection: "column",
-            gap: 0,
+            alignItems: "center",
+            gap: 3,
           }}
         >
-          <SectionTitle title="Farmer Registration" centered />
-          <Stack spacing={2} sx={{ my: 2 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+            <img
+              src="/assets/images/ziraat.jpeg"
+              alt="Ziraat Logo"
+              className="h-16 object-contain"
+            />
+          </Box>
+
+          <SectionTitle title="Registration Form" centered />
+
+          {/* Google Login */}
+          <Stack spacing={2} sx={{ my: 2, width: "100%" }}>
             <GoogleLogin
               onSuccess={(cred) => console.log("Google Login", cred.credential)}
               onError={() => console.log("Register failed")}
               text="continue_with"
+              width="100%"
             />
           </Stack>
 
-          {/* Stepper with progress percentage */}
-          <FormStepper activeStep={step} completion={completion} />
+          <Divider flexItem sx={{ width: "100%", my: 2 }}>
+            or
+          </Divider>
 
+          {/* Stepper */}
+          <FormStepper
+            activeStep={step}
+            completion={completion}
+            type="profile"
+          />
+
+          {/* Sections */}
           <Box
             sx={{
+              width: "100%",
               border: "1px solid var(--color-black-light)",
               borderRadius: 2,
               bgcolor: "var(--color-white)",
+              p: { xs: 2, md: 3 },
             }}
           >
             {step === 0 && (
@@ -209,6 +222,7 @@ export default function FarmerRegister() {
             {step === 4 && (
               <OtpVerificationSection register={register} errors={errors} />
             )}
+
             <FormNavigation
               step={step}
               totalSteps={stepLabels.length}

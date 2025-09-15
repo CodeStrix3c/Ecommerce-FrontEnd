@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
@@ -7,14 +7,19 @@ import { Button, Divider, Tabs, Tab, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { phoneLoginSchema, emailLoginSchema } from "@/schemas/authSchemas";
-import useIsMobile from "@/hooks/useInMobile";
 import FormInput from "../components/FormInput";
 
 const LoginPage = () => {
   const [redirect, setRedirect] = useState(false);
   const [tab, setTab] = useState(0);
   const auth = useAuth();
-  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   const schema = tab === 0 ? phoneLoginSchema : emailLoginSchema;
 
@@ -44,142 +49,135 @@ const LoginPage = () => {
     }
   };
 
-  if (redirect) return <Navigate to="/" />;
+  if (redirect) return <Navigate to="/home" replace />;
 
   return (
-    <>
-      <div className="flex lg:my-[85px] md:my-10 flex-col sm:flex-row">
-        {/* Image visible on sm+ screens, hidden on xs */}
-        <div className="hidden sm:flex md:w-1/2 items-center">
+    <div className="flex items-center justify-center min-h-screen px-4 bg-gray-50">
+      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
           <img
-            src="/assets/images/login.jpg"
-            alt="Travel inspiration"
-            className="object-cover max-h-[90%] w-full"
+            src="/assets/images/ziraat.jpeg"
+            alt="Ziraat Logo"
+            className="h-16 object-contain"
           />
         </div>
 
-        {/* Login form */}
-        <div className="flex w-full md:w-1/2 items-center justify-center">
-          <div className="max-w-md w-full px-4 sm:px-0">
-            <h1
-              className="text-3xl font-semibold mb-6 text-center sm:text-left"
-              style={{ color: "var(--color-black)" }}
-            >
-              Log in or sign up
-            </h1>
+        <h1
+          className="text-2xl font-semibold mb-6 text-center"
+          style={{ color: "var(--color-black)" }}
+        >
+          Log in or sign up
+        </h1>
 
-            <Tabs
-              value={tab}
-              onChange={(e, val) => setTab(val)}
-              textColor="primary"
-              indicatorColor="primary"
-              centered
-            >
-              <Tab label="Phone" />
-              <Tab label="Email" />
-            </Tabs>
+        <Tabs
+          value={tab}
+          onChange={(e, val) => setTab(val)}
+          textColor="primary"
+          indicatorColor="primary"
+          centered
+        >
+          <Tab label="Phone" />
+          <Tab label="Email" />
+        </Tabs>
 
-            <Box className="mt-6">
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col gap-4"
-              >
-                {tab === 0 ? (
-                  <>
-                    <FormInput
-                      name="phone"
-                      label="Phone number"
-                      type="tel"
-                      register={register}
-                      errors={errors.phone}
-                    />
-                    <FormInput
-                      name="password"
-                      label="Password"
-                      type="password"
-                      register={register}
-                      errors={errors.password}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <FormInput
-                      name="email"
-                      label="Email"
-                      type="email"
-                      register={register}
-                      errors={errors.email}
-                    />
-                    <FormInput
-                      name="password"
-                      label="Password"
-                      type="password"
-                      register={register}
-                      errors={errors.password}
-                    />
-                  </>
-                )}
+        <Box className="mt-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-4"
+          >
+            {tab === 0 ? (
+              <>
+                <FormInput
+                  name="phone"
+                  label="Phone number"
+                  type="tel"
+                  register={register}
+                  errors={errors.phone}
+                />
+                <FormInput
+                  name="password"
+                  label="Password"
+                  type="password"
+                  register={register}
+                  errors={errors.password}
+                />
+              </>
+            ) : (
+              <>
+                <FormInput
+                  name="email"
+                  label="Email"
+                  type="email"
+                  register={register}
+                  errors={errors.email}
+                />
+                <FormInput
+                  name="password"
+                  label="Password"
+                  type="password"
+                  register={register}
+                  errors={errors.password}
+                />
+              </>
+            )}
 
-                <Button
-                  fullWidth
-                  type="submit"
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "var(--color-primary)",
-                    "&:hover": {
-                      backgroundColor: "var(--color-primary-hover)",
-                    },
-                    textTransform: "none",
-                    fontWeight: "600",
-                    borderRadius: "12px",
-                    py: 1.5,
-                    color: "var(--color-white)",
-                  }}
-                >
-                  Continue
-                </Button>
-              </form>
-            </Box>
-
-            <Divider
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
               sx={{
-                my: 4,
-                color: "var(--color-black)",
-                "&::before, &::after": { borderColor: "var(--color-black)" },
+                backgroundColor: "var(--color-primary)",
+                "&:hover": { backgroundColor: "var(--color-primary-hover)" },
+                textTransform: "none",
+                fontWeight: "600",
+                borderRadius: "12px",
+                py: 1.5,
+                color: "var(--color-white)",
               }}
             >
-              or
-            </Divider>
+              Continue
+            </Button>
+          </form>
+        </Box>
 
-            <div className="flex flex-col gap-3">
-              <GoogleLogin
-                onSuccess={(cred) => handleGoogleLogin(cred.credential)}
-                onError={() => console.log("Login failed")}
-                text="continue_with"
-                width="100%"
-              />
-            </div>
+        <Divider
+          sx={{
+            my: 4,
+            color: "var(--color-black)",
+            "&::before, &::after": { borderColor: "var(--color-black)" },
+          }}
+        >
+          or
+        </Divider>
 
-            <p
-              className="mt-6 text-center text-sm"
-              style={{ color: "var(--color-black)" }}
-            >
-              Don’t have an account?{" "}
-              <Link
-                to="/farmer-register"
-                style={{
-                  fontWeight: "500",
-                  textDecoration: "underline",
-                  color: "var(--color-black)",
-                }}
-              >
-                Sign up
-              </Link>
-            </p>
-          </div>
+        <div className="flex flex-col gap-3">
+          <GoogleLogin
+            onSuccess={(cred) => handleGoogleLogin(cred.credential)}
+            onError={() => console.log("Login failed")}
+            text="continue_with"
+            width="100%"
+          />
         </div>
+
+        <p
+          className="mt-6 text-center text-sm"
+          style={{ color: "var(--color-black)" }}
+        >
+          Don’t have an account?{" "}
+          <Link
+            to="/farmer-register"
+            style={{
+              fontWeight: "500",
+              textDecoration: "underline",
+              color: "var(--color-black)",
+            }}
+          >
+            Sign up
+          </Link>
+        </p>
       </div>
-    </>
+    </div>
   );
 };
 
