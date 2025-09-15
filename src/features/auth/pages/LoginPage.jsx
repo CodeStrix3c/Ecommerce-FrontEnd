@@ -28,10 +28,16 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
-
   const onSubmit = async (data) => {
-    const response = await auth.login(data);
+    // Fake response for demonstration
+    console.log(data, "login data");
+
+    const response = { success: true, message: "Login successful!" };
+
     if (response.success) {
+      // Set a fake token in localStorage
+      localStorage.setItem("token", "fake-jwt-token-12345");
+
       toast.success(response.message);
       setRedirect(true);
     } else {
@@ -40,8 +46,13 @@ const LoginPage = () => {
   };
 
   const handleGoogleLogin = async (credential) => {
-    const response = await auth.googleLogin(credential);
+    // Fake response for Google login
+    const response = { success: true, message: "Google login successful!" };
+
     if (response.success) {
+      // Set a fake token in localStorage
+      localStorage.setItem("token", "fake-google-token-12345");
+
       toast.success(response.message);
       setRedirect(true);
     } else {
