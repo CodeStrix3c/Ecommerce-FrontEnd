@@ -33,6 +33,7 @@ import EmptyState from "./components/shared/EmptyState";
 import TalkWithExpert from "./features/talk-with-expert/pages/TalkWithExpert";
 import FarmerLogin from "./features/auth/pages/FarmerLogin";
 import FarmerRegister from "./features/farmer-registration/FarmerRegister";
+import SupplierProfilePage from "./features/suppliers/pages/SupplierProfilePage";
 
 function App() {
   useEffect(() => {
@@ -69,6 +70,8 @@ function App() {
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/talk-with-expert" element={<TalkWithExpert />} />
               <Route path="/cart" element={<CartPage />} />
+                            <Route path="/supplier-profile" element={<SupplierProfilePage />} />
+
               <Route
                 path="/account/bookings/:id"
                 element={<SingleBookedPlace />}
