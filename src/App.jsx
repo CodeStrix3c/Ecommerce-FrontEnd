@@ -37,6 +37,7 @@ import FarmerRegister from "./features/farmer-registration/FarmerRegister";
 import SupplierProfilePage from "./features/suppliers/pages/SupplierProfilePage";
 import DevelopmentPage from "./app/DevelopmentPage";
 import AboutUs from "./features/about-us/pages/AboutUs";
+import CropProtection from "./features/crop-protection/pages/CropProtection";
 
 function App() {
   useEffect(() => {
@@ -65,6 +66,7 @@ function App() {
             <Route path="/home" element={<IndexPage />} />
             <Route path="/account" element={<ProfilePage />} />
             <Route path="/company-details" element={<CompanyDetails />} />
+            <Route path="/crop-protection" element={<CropProtection />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/sitemap" element={<Sitemap />} />
