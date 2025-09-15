@@ -60,7 +60,7 @@ function App() {
             <Route path="/farmer-login" element={<FarmerLogin />} />
           </Route>
 
-          {/* Main app with header/footer */}
+          {/* Main app with header/foote000r */}
           <Route path="/" element={<Layout />}>
             <Route path="/home" element={<IndexPage />} />
             <Route path="/account" element={<ProfilePage />} />
