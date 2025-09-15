@@ -38,6 +38,7 @@ import SupplierProfilePage from "./features/suppliers/pages/SupplierProfilePage"
 import DevelopmentPage from "./app/DevelopmentPage";
 import AboutUs from "./features/about-us/pages/AboutUs";
 import CropProtection from "./features/crop-protection/pages/CropProtection";
+import ProtectedRoute from "./components/shared/ProtectedRoute";
 
 function App() {
   useEffect(() => {
@@ -50,7 +51,7 @@ function App() {
       <AppProvider>
         <ScrollToTop />
         <Routes>
-          {/* Auth pages without header/footer */}
+          {/* Auth pages */}
           <Route element={<AuthLayout />}>
             <Route index element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<LoginPage />} />
@@ -61,31 +62,36 @@ function App() {
             <Route path="/farmer-login" element={<FarmerLogin />} />
           </Route>
 
-          {/* Main app with header/foote000r */}
-          <Route path="/" element={<Layout />}>
-            <Route path="/home" element={<IndexPage />} />
-            <Route path="/account" element={<ProfilePage />} />
-            <Route path="/company-details" element={<CompanyDetails />} />
-            <Route path="/crop-protection" element={<CropProtection />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/sitemap" element={<Sitemap />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/account/places" element={<PlacesPage />} />
-            <Route path="/account/places/new" element={<PlacesFormPage />} />
-            <Route path="/account/places/:id" element={<PlacesFormPage />} />
-            <Route path="/place/:id" element={<PlacePage />} />
-            <Route path="/account/bookings" element={<BookingsPage />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/talk-with-expert" element={<TalkWithExpert />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/supplier-profile" element={<SupplierProfilePage />} />
-            <Route
-              path="/account/bookings/:id"
-              element={<SingleBookedPlace />}
-            />
-            <Route path="/dev" element={<DevelopmentPage />} />
-            <Route path="*" element={<NotFoundPage />} />
+          {/* Protected app */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Layout />}>
+              <Route path="/home" element={<IndexPage />} />
+              <Route path="/account" element={<ProfilePage />} />
+              <Route path="/company-details" element={<CompanyDetails />} />
+              <Route path="/crop-protection" element={<CropProtection />} />
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/sitemap" element={<Sitemap />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/account/places" element={<PlacesPage />} />
+              <Route path="/account/places/new" element={<PlacesFormPage />} />
+              <Route path="/account/places/:id" element={<PlacesFormPage />} />
+              <Route path="/place/:id" element={<PlacePage />} />
+              <Route path="/account/bookings" element={<BookingsPage />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/talk-with-expert" element={<TalkWithExpert />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route
+                path="/supplier-profile"
+                element={<SupplierProfilePage />}
+              />
+              <Route
+                path="/account/bookings/:id"
+                element={<SingleBookedPlace />}
+              />
+              <Route path="/dev" element={<DevelopmentPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
           </Route>
         </Routes>
         <ToastContainer autoClose={2000} transition={Slide} />
