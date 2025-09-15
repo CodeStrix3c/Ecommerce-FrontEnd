@@ -10,7 +10,7 @@ import {
   emailRegisterSchema,
   phoneRegisterSchema,
 } from "@/schemas/authSchemas";
-import RequiredLabel from "@/components/ui/RequiredLabel";
+import RequiredLabel from "@/features/auth/components/RequiredLabel";
 import useIsMobile from "@/hooks/useInMobile";
 import MobileRegisterModal from "../components/MobileRegisterModal";
 

@@ -20,23 +20,27 @@ const CustomButton = ({
       disabled={disabled || loading}
       sx={{
         textTransform: "none",
-        fontSize: "0.9rem",
-        py: 1.2,
-        borderRadius: "0.75rem",
-        fontWeight: 500,
+        fontSize: "1rem",
+        py: 1,
+        px: 3,
+        borderRadius: "0.75rem", // consistent with your root comment
+        fontWeight: 600,
+        minWidth: 120,
         color:
           variant === "contained"
             ? "var(--color-white)"
-            : "var(--color-primary)",
+            : "var(--color-primary)", // use root primary color for outlined text
         backgroundColor:
           variant === "contained" ? "var(--color-primary)" : "transparent",
         border:
-          variant === "outlined" ? "1px solid var(--color-primary)" : "none",
+          variant === "outlined" ? "1.5px solid var(--color-primary)" : "none",
         "&:hover": {
           backgroundColor:
             variant === "contained"
               ? "var(--color-primary-hover)"
               : "var(--color-black-hover)",
+          borderColor:
+            variant === "outlined" ? "var(--color-primary-hover)" : "none",
         },
         ...sx,
       }}

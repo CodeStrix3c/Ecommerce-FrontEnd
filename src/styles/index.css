@@ -115,4 +115,5 @@ button.social {
   --color-black-hover: #f7f7f7;
   --color-white: #ffffff;
   --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-error: #f44336;
 }
