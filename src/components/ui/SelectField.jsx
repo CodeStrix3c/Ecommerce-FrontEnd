@@ -11,8 +11,10 @@ const SelectField = ({
   options,
   optional = false,
   size = "small",
+  onChange,
+  value,
 }) => {
-  const isRequired = !optional;
+  const isRequired = optional === false;
 
   return (
     <TextField
@@ -20,39 +22,41 @@ const SelectField = ({
       fullWidth
       size={size}
       label={
-        optional ? (
-          <OptionalLabel label={label} />
-        ) : (
-          <RequiredLabel label={label} required={isRequired} />
-        )
+        optional === true
+          ? <OptionalLabel label={label} />
+          : optional === false
+          ? <RequiredLabel label={label} required />
+          : label
       }
-      defaultValue=""
+      value={value || ""}
+      onChange={onChange}
       error={errors && !!errors[name]}
       helperText={errors && errors[name]?.message}
       variant="outlined"
-      {...register(name, {
-        required: isRequired ? `${label} is required` : false,
-      })}
+      {...(register ? register(name, { required: isRequired ? `${label} is required` : false }) : {})}
+      SelectProps={{
+        MenuProps: {
+          disableScrollLock: true,
+          PaperProps: {
+            sx: {
+              maxHeight: 200,      // set max height
+              overflowY: "auto",   // scroll inside dropdown
+              borderRadius: 2,
+              boxShadow: "0 8px 16px rgba(0,0,0,0.15)",
+            },
+          },
+        },
+      }}
       sx={{
         "& .MuiOutlinedInput-root": {
           backgroundColor: "var(--color-white)",
           borderRadius: "0.5rem",
-          "& fieldset": {
-            borderColor: "var(--color-black)",
-          },
-          "&:hover fieldset": {
-            borderColor: "var(--color-primary)",
-          },
-          "&.Mui-focused fieldset": {
-            borderColor: "var(--color-primary)",
-          },
+          "& fieldset": { borderColor: "var(--color-black)" },
+          "&:hover fieldset": { borderColor: "var(--color-primary)" },
+          "&.Mui-focused fieldset": { borderColor: "var(--color-primary)" },
         },
-        "& .MuiInputLabel-root": {
-          color: "var(--color-black)",
-        },
-        "& .MuiFormHelperText-root": {
-          color: "var(--color-secondary)",
-        },
+        "& .MuiInputLabel-root": { color: "var(--color-black)" },
+        "& .MuiFormHelperText-root": { color: "var(--color-secondary)" },
       }}
     >
       {options.map((opt) => (

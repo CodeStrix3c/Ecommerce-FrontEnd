@@ -1,10 +1,12 @@
 export default function Tabs({ activeTab, setActiveTab }) {
   const tabs = [
-    { id: "profile", label: "Profile" },
+    
     { id: "land", label: "Land Demographics" },
     { id: "holdings", label: "Land Holdings" },
     { id: "address", label: "Address" },
     { id: "media", label: "Gallery & Media" },
+
+
   ];
 
   return (
