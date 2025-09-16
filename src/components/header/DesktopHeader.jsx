@@ -33,7 +33,6 @@ const DesktopHeader = ({ location }) => {
       style={headerShadow}
       className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)]"
     >
-      {/* Animated container */}
       <motion.div
         initial={false}
         animate={{ maxWidth: isPlacePage ? "74vw" : "93vw" }}
