@@ -60,7 +60,6 @@ function App() {
               <Route index element={<Navigate to="/login" replace />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
-              <Route path="/supplier-register" element={<SupplierRegister />} />
               <Route path="/supplier-login" element={<SupplierLogin />} />
               <Route path="/farmer-register" element={<FarmerRegister />} />
               <Route path="/farmer-login" element={<FarmerLogin />} />
@@ -70,6 +69,8 @@ function App() {
           {/* Protected app */}
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Layout />}>
+              {/* <Route path="/supplier-register" element={<SupplierRegister />} /> */}
+
               <Route path="/home" element={<IndexPage />} />
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/company-details" element={<CompanyDetails />} />
