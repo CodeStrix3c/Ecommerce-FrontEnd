@@ -1,7 +1,28 @@
-import { Info, User, HelpCircle, UserCheck, Store, Leaf } from "lucide-react";
-import { Link } from "react-router-dom";
+import {
+  Info,
+  User,
+  HelpCircle,
+  UserCheck,
+  Store,
+  Leaf,
+  LogOut,
+} from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const DropdownPanel = ({ open, onClose }) => {
+  const navigate = useNavigate();
+  const isLoggedIn = !!localStorage.getItem("token"); // Check login state
+  const loginData = JSON.parse(localStorage.getItem("loginData") || "{}");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("loginData");
+    toast.success("Logged out successfully!");
+    navigate("/login");
+    onClose();
+  };
+
   return (
     <div
       className={`absolute right-0 mt-2 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
@@ -47,32 +68,35 @@ const DropdownPanel = ({ open, onClose }) => {
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
-        <Link
-          to="/login"
-          onClick={onClose}
-          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <User size={16} className="text-[var(--color-black)]" />
-          <span>Log in / Sign up</span>
-        </Link>
+        {isLoggedIn ? (
+          <>
+            <Link
+              to="/farmer-profile"
+              onClick={onClose}
+              className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+            >
+              <User size={16} className="text-[var(--color-black)]" />
+              <span>Dashboard</span>
+            </Link>
 
-        {/* <Link
-          to="/farmer-register"
-          onClick={onClose}
-          className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <Leaf size={16} className="text-[var(--color-black)]" />
-          <span>Register as Farmer</span>
-        </Link> */}
-
-        {/* <Link
-          to="/supplier-register"
-          onClick={onClose}
-          className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <Store size={16} className="text-[var(--color-black)]" />
-          <span>Become a Supplier</span>
-        </Link> */}
+            <div
+              onClick={handleLogout}
+              className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+            >
+              <LogOut size={16} className="text-[var(--color-black)]" />
+              <span>Logout</span>
+            </div>
+          </>
+        ) : (
+          <Link
+            to="/login"
+            onClick={onClose}
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+          >
+            <User size={16} className="text-[var(--color-black)]" />
+            <span>Log in / Sign up</span>
+          </Link>
+        )}
       </div>
     </div>
   );

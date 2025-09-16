@@ -80,7 +80,7 @@ const DesktopHeader = ({ location }) => {
         </div>
       </div>
 
-      {location.pathname === "/" && scrollY < 100 && (
+      {location.pathname === "/home" && scrollY < 100 && (
         <div className="flex justify-center py-3">
           <SearchBar />
         </div>
