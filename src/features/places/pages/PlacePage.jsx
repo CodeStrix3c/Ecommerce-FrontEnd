@@ -15,6 +15,7 @@ import OverallRating from "@/features/reviews/components/OverallRating";
 import Testimonials from "@/features/reviews/pages/Testimonials";
 import HighlightBanner from "@/features/reviews/components/HighlightBanner";
 import ExploreNearby from "../components/ExploreNearby";
+import SharePopUp from "@/components/ui/SharePopUp";
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -22,6 +23,7 @@ const PlacePage = () => {
 
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [sharePopUp, setSharePopUp] = useState(false);
 
   const isPlacePage = /^\/place\/\w+/.test(location.pathname);
 
@@ -49,6 +51,7 @@ const PlacePage = () => {
     }, 500);
   }, [id]);
 
+  const handleShare = () => setSharePopUp(true);
   if (loading) return <Spinner />;
 
   if (!place) {
@@ -62,7 +65,7 @@ const PlacePage = () => {
       transition={{ duration: 0.5, ease: "easeInOut" }}
       className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36 mx-auto"
     >
-      <ListingHeader place={place} />
+      <ListingHeader place={place} onShare={handleShare} />
       <AddressLink placeAddress={place.address} />
 
       <PlaceGallery place={place} />
@@ -116,6 +119,7 @@ const PlacePage = () => {
         title="Explore other options in and around Gurugram"
         options={nearbyOptions}
       />
+      {sharePopUp && <SharePopUp onClose={() => setSharePopUp(false)} />}
     </motion.div>
   );
 };
