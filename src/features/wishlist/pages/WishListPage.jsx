@@ -5,6 +5,7 @@ import { useCartList } from "@/providers/CartListProvider";
 import WishlistItem from "../components/WishlistItem";
 import WishlistActions from "../components/WishlistActions";
 import EmptyState from "@/components/shared/EmptyState";
+// lorem
 
 const WishlistPage = () => {
   const { cartList, addToCartList } = useCartList();
