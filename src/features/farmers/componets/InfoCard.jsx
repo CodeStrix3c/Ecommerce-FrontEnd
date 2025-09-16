@@ -1,6 +1,11 @@
+import { Button } from '@/components/ui/button';
+import CustomButton from '@/components/ui/CustomButton';
+import { Style } from '@mui/icons-material';
 import { Phone } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function InfoCard({ farmer }) {
+    const navigate = useNavigate();
   return (
     <div className="bg-[var(--color-black-hover)] mt-4 shadow-md rounded-2xl p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center border border-gray-200 hover:shadow-lg transition">
 
@@ -20,16 +25,18 @@ export default function InfoCard({ farmer }) {
   </p>
 </div>
       </div>
+      <CustomButton
+  varient="contained"
+  text="My Orchards"
+  sx={{
+    fontSize: "0.75rem",  
+    padding: "4px 12px",  
+    borderRadius: "6px",   
+    textTransform: "none", 
+  }}
+  onClick={() => navigate("/my-orchards")}
+/>
 
-      <span
-        className={`mt-4 sm:mt-0 px-5 py-1.5 rounded-full text-sm font-semibold tracking-wide shadow-md ${
-          farmer.status === "Active"
-            ? "bg-[var(--color-primary)] text-[var(--color-white)]"
-            : "bg-[var(--color-secondary)] text-[var(--color-white)]"
-        }`}
-      >
-        {farmer.status}
-      </span>
     </div>
   );
 }
