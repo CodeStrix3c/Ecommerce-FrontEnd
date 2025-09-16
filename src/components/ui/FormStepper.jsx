@@ -1,15 +1,19 @@
 import React from "react";
 import { Stepper, Step, StepLabel, Box, Typography } from "@mui/material";
 
-const stepLabels = [
-  "Profile",
-  "Demographics",
-  "Land Holdings",
-  "Address",
-  "OTP Verification",
-];
-
-const FormStepper = ({ activeStep, completion }) => {
+const FormStepper = ({ activeStep, completion, type }) => {
+  let stepLabels = [];
+  if (type == "orchard") {
+    stepLabels = ["Demographics", "Land Holdings", "Address"];
+  } else if (type == "profile") {
+    stepLabels = [
+      "Profile",
+      "Demographics",
+      "Land Holdings",
+      "Address",
+      "OTP Verification",
+    ];
+  }
   return (
     <Box sx={{ width: "100%", mt: 3, mb: 3 }}>
       <Stepper

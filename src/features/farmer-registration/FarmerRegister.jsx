@@ -3,18 +3,10 @@ import { farmerRequiredFields } from "@/constants/farmerRequiredFields";
 import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Box,
-  Divider,
-  Stack,
-  Stepper,
-  Step,
-  StepLabel,
-  Paper,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Stack, Divider } from "@mui/material";
 import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import ProfileSection from "./sections/ProfileSection";
 import DemographicsSection from "./sections/DemographicsSection";
@@ -24,7 +16,6 @@ import OtpVerificationSection from "./sections/OtpVerificationSection";
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
 import FormStepper from "@/components/ui/FormStepper";
-import { toast } from "react-toastify";
 
 import { profileSchema } from "@/schemas/profileSchema";
 import { demographicsSchema } from "@/schemas/demographicSchema";
@@ -32,8 +23,6 @@ import { landSchema } from "@/schemas/landHoldingSchema";
 import { addressSchema } from "@/schemas/addressSchema";
 import { otpSchema } from "@/schemas/otpSchema";
 import { useProgress } from "@/hooks/useProgress";
-import useIsMobile from "@/hooks/useInMobile";
-import LoginLink from "@/components/shared/LoginLink";
 
 const stepSchemas = [
   profileSchema,
@@ -54,9 +43,8 @@ const stepLabels = [
 export default function FarmerRegister() {
   const [step, setStep] = useState(0);
   const [otpSent, setOtpSent] = useState(false);
+  const navigate = useNavigate();
 
-  const theme = useTheme();
-  const isMobile = useIsMobile();
   const methods = useForm({
     resolver: zodResolver(stepSchemas[step]),
     mode: "onChange",
@@ -64,7 +52,6 @@ export default function FarmerRegister() {
   });
 
   const {
-    handleSubmit,
     watch,
     trigger,
     setValue,
@@ -74,8 +61,6 @@ export default function FarmerRegister() {
 
   const values = watch(farmerRequiredFields);
   const completion = useProgress(values, farmerRequiredFields.length);
-
-  const onSubmit = (data) => console.log("Form Data:", data);
 
   const nextStep = async () => {
     let stepFields = [];
@@ -125,6 +110,7 @@ export default function FarmerRegister() {
       () => alert("Unable to retrieve location")
     );
   };
+
   const handleSubmitClick = async () => {
     if (step !== 4) {
       nextStep();
@@ -132,7 +118,6 @@ export default function FarmerRegister() {
     }
 
     const valid = await trigger(["otp"]);
-
     if (!valid) {
       toast.error("Please enter the OTP");
       return;
@@ -140,7 +125,13 @@ export default function FarmerRegister() {
 
     const data = watch();
     console.log("Form submitted with data:", data);
-    toast.success("Form submitted successfully!");
+
+    // Save fake token and form data
+    localStorage.setItem("signup-token", "fake-jwt-token-12345");
+    localStorage.setItem("farmerData", JSON.stringify(data));
+
+    toast.success("Signup successful!");
+    navigate("/dashboard"); // redirect to dashboard
   };
 
   return (
@@ -149,45 +140,67 @@ export default function FarmerRegister() {
         minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
-        bgcolor: "var(--color-white)",
-        py: { xs: 5, lg: 12 },
-        my: { xs: 0, md: 10, lg: 4 },
+        alignItems: "center",
+        bgcolor: "var(--color-gray-light)",
+        p: { xs: 2, md: 4, lg: 4 },
       }}
     >
       <FormProvider {...methods}>
         <Box
           component="form"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={(e) => e.preventDefault()}
           sx={{
             borderRadius: 3,
             width: "100%",
-            maxWidth: 800,
-            p: { md: 4, lg: 4 },
-
+            maxWidth: 850,
             bgcolor: "var(--color-white)",
-            boxShadow: isMobile ? 0 : 3,
+            boxShadow: { xs: 0, md: 2, lg: 2 },
+            p: { xs: 0, md: 2, lg: 2 },
             display: "flex",
             flexDirection: "column",
-            gap: 0,
+            alignItems: "center",
           }}
         >
+          {/* Logo */}
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+            <img
+              src="/assets/images/ziraat.jpeg"
+              alt="Ziraat Logo"
+              className="h-16 object-contain"
+            />
+          </Box>
+
           <SectionTitle title="Farmer Registration" centered />
-          <Stack spacing={2} sx={{ my: 2 }}>
+
+          {/* Google Login */}
+          <Stack spacing={2} sx={{ my: 2, width: "100%" }}>
             <GoogleLogin
               onSuccess={(cred) => console.log("Google Login", cred.credential)}
               onError={() => console.log("Register failed")}
               text="continue_with"
+              width="100%"
             />
           </Stack>
 
-          {/* Stepper with progress percentage */}
-          <FormStepper activeStep={step} completion={completion} />
+          {/* <Divider flexItem sx={{ width: "100%", my: 2 }}>
+            or
+          </Divider> */}
 
+          {/* Stepper */}
+          <FormStepper
+            activeStep={step}
+            completion={completion}
+            type="profile"
+          />
+
+          {/* Sections */}
           <Box
             sx={{
+              width: "100%",
               border: "1px solid var(--color-black-light)",
               borderRadius: 2,
               bgcolor: "var(--color-white)",
+              p: { xs: 2, md: 3 },
             }}
           >
             {step === 0 && (
@@ -209,6 +222,7 @@ export default function FarmerRegister() {
             {step === 4 && (
               <OtpVerificationSection register={register} errors={errors} />
             )}
+
             <FormNavigation
               step={step}
               totalSteps={stepLabels.length}
@@ -216,7 +230,6 @@ export default function FarmerRegister() {
               prevStep={prevStep}
               handleSubmit={handleSubmitClick}
             />
-            <LoginLink link={"/login"} />
           </Box>
         </Box>
       </FormProvider>
