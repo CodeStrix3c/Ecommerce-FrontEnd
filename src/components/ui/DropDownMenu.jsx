@@ -30,7 +30,7 @@ const DropdownMenu = () => {
         {/* Become Supplier */}
         <Link
           to="/supplier-register"
-          className="rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+          className="rounded-full pr-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
         >
           Become a Supplier
         </Link>
