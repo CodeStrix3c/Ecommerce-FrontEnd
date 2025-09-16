@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import Spinner from "@/components/ui/Spinner";
 import AddressLink from "@/components/shared/AddressLink";
@@ -17,8 +18,12 @@ import ExploreNearby from "../components/ExploreNearby";
 
 const PlacePage = () => {
   const { id } = useParams();
+  const location = useLocation();
+
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const isPlacePage = /^\/place\/\w+/.test(location.pathname);
 
   const nearbyOptions = [
     { name: "New Delhi", href: "/new-delhi-india/stays" },
@@ -51,7 +56,12 @@ const PlacePage = () => {
   }
 
   return (
-    <div className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36">
+    <motion.div
+      initial={false}
+      animate={{ maxWidth: isPlacePage ? "73vw" : "92vw" }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36 mx-auto"
+    >
       <ListingHeader place={place} />
       <AddressLink placeAddress={place.address} />
 
@@ -106,7 +116,7 @@ const PlacePage = () => {
         title="Explore other options in and around Gurugram"
         options={nearbyOptions}
       />
-    </div>
+    </motion.div>
   );
 };
 
