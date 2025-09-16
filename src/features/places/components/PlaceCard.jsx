@@ -28,7 +28,7 @@ const PlaceCard = ({ place }) => {
     <div className="h-full">
       <Link to={`/place/${_id}`} className="block h-full cursor-pointer">
         <div className="relative">
-          <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-[var(--color-black-hover)]">
+          <div className="aspect-[4/4] w-full overflow-hidden rounded-xl bg-[var(--color-black-hover)]">
             <img
               src={photos[0]}
               alt={title}
