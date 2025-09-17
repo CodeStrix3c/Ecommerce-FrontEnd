@@ -1,12 +1,21 @@
-import Card from "./Card";
-
 export default function LandDemographics({ land }) {
+  const fields = [
+    { label: "Orchard Size", value: land.orchardSize },
+    { label: "Farm Size", value: land.farmSize },
+    { label: "Main Crops", value: land.mainCrops },
+    { label: "Ownership Type", value: land.ownershipType },
+  ];
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <Card title="Orchard Size" value={land.orchardSize} />
-      <Card title="Farm Size" value={land.farmSize} />
-      <Card title="Main Crops" value={land.mainCrops} />
-      <Card title="Ownership Type" value={land.ownershipType} />
+      {fields.map((field, index) => (
+        <div key={index}>
+          <p className="text-sm text-gray-600">{field.label}</p>
+          <p className="text-base font-semibold text-[var(--color-primary)]">
+            {field.value}
+          </p>
+        </div>
+      ))}
     </div>
   );
 }
