@@ -42,6 +42,7 @@ import ProtectedRoute from "./components/shared/ProtectedRoute";
 import FarmerProfilePage from "./features/farmers/pages/FarmerProfilePage";
 import AgricultureHelpCenter from "./features/help-center/pages/HelpCenter";
 import PublicRoute from "./components/shared/PublicRoute";
+import Subheader from "./SubHeader/Subheader";
 
 function App() {
   useEffect(() => {
@@ -72,6 +73,7 @@ function App() {
               {/* <Route path="/supplier-register" element={<SupplierRegister />} /> */}
 
               <Route path="/home" element={<IndexPage />} />
+              <Route path="/Subheader" element={<Subheader/>}/>
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/company-details" element={<CompanyDetails />} />
               <Route path="/farmer-profile" element={<FarmerProfilePage />} />
