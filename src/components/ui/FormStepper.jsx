@@ -4,7 +4,13 @@ import { Stepper, Step, StepLabel, Box, Typography } from "@mui/material";
 const FormStepper = ({ activeStep, completion, type }) => {
   let stepLabels = [];
   if (type == "orchard") {
-    stepLabels = ["Demographics", "Land Holdings", "Address"];
+    stepLabels = [
+      "Demographics",
+      "Variety & Planting Details",
+      "Soil and Water Info",
+      "Land Holdings",
+      "Address",
+    ];
   } else if (type == "profile") {
     stepLabels = [
       "Profile",
