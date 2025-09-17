@@ -28,9 +28,7 @@ function SharePopUp({ onClose }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-[var(--color-overlay)] z-50">
-      {/* Card */}
       <div className="w-[90%] md:w-[500px] bg-[var(--color-white)] rounded-2xl shadow-lg relative">
-        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-3 right-3 p-2 rounded-full hover:bg-[var(--color-black-hover)] transition"
@@ -38,13 +36,10 @@ function SharePopUp({ onClose }) {
           <Close className="text-[var(--color-black)]" />
         </button>
 
-        {/* Content */}
         <div className="p-6">
-          {/* Title */}
           <h1 className="text-xl font-semibold text-[var(--color-black)] mb-6">
             Share this place
           </h1>
-          {/* Preview Section */}
           <div className="flex items-center mb-6 gap-4">
             <img
               className="w-20 h-20 rounded-lg object-cover"
@@ -65,7 +60,6 @@ function SharePopUp({ onClose }) {
               </div>
             </div>
           </div>
-          {/* Share Options */}
           <div className="grid grid-cols-3 gap-4">
             {shareOptions.map(({ icon, label }) => (
               <button
