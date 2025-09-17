@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-export default function FarmMedia({ media = { images: [], videos: [] } }) {
+export default function FarmMedia({ 
+  media = { images: [], videos: [] }
+ }) {
   const [activeTab, setActiveTab] = useState("images");
   const [preview, setPreview] = useState(null);
 
@@ -40,7 +42,7 @@ export default function FarmMedia({ media = { images: [], videos: [] } }) {
             media.images.map((img, i) => (
               <div
                 key={i}
-                className="relative group overflow-hidden rounded-xl shadow-md border border-gray-200 cursor-pointer"
+                className="relative group overflow-hidden rounded-xl shadow-md border border-gray-200 cursor-pointer "
                 onClick={() => setPreview({ type: "image", src: img })}
               >
                 <img
