@@ -40,7 +40,7 @@ import AboutUs from "./features/about-us/pages/AboutUs";
 import CropProtection from "./features/crop-protection/pages/CropProtection";
 import ProtectedRoute from "./components/shared/ProtectedRoute";
 import FarmerProfilePage from "./features/farmers/pages/FarmerProfilePage";
-import MyOrchards from "./features/farmers/orchards/MyOrchards";
+
 
 function App() {
   useEffect(() => {
@@ -54,24 +54,28 @@ function App() {
         <ScrollToTop />
         <Routes>
           {/* Auth pages */}
-          <Route element={<AuthLayout />}>
-            <Route index element={<Navigate to="/login" replace />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/supplier-register" element={<SupplierRegister />} />
-            <Route path="/supplier-login" element={<SupplierLogin />} />
-            <Route path="/farmer-register" element={<FarmerRegister />} />
-            <Route path="/farmer-login" element={<FarmerLogin />} />
+          <Route element={<PublicRoute />}>
+            <Route element={<AuthLayout />}>
+              <Route index element={<Navigate to="/login" replace />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/supplier-login" element={<SupplierLogin />} />
+              <Route path="/farmer-register" element={<FarmerRegister />} />
+              <Route path="/farmer-login" element={<FarmerLogin />} />
+            </Route>
           </Route>
 
           {/* Protected app */}
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Layout />}>
+              {/* <Route path="/supplier-register" element={<SupplierRegister />} /> */}
+
               <Route path="/home" element={<IndexPage />} />
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/company-details" element={<CompanyDetails />} />
               <Route path="/farmer-profile" element={<FarmerProfilePage />} />
               <Route path="/crop-protection" element={<CropProtection />} />
+              <Route path="/help-center" element={<AgricultureHelpCenter />} />
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/sitemap" element={<Sitemap />} />

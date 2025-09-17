@@ -7,25 +7,6 @@ export default function ListingHeader({ place, onShare }) {
 
   const isSaved = wishlist?.some((item) => item._id === place._id);
 
-  const handleShare = async () => {
-    if (onShare) return onShare();
-    const shareData = {
-      title: place.title,
-      text: place.title,
-      url: typeof window !== "undefined" ? window.location.href : undefined,
-    };
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else if (navigator.clipboard && shareData.url) {
-        await navigator.clipboard.writeText(shareData.url);
-        alert("Link copied to clipboard");
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   const handleSave = () => {
     toggleWishlist(place);
   };
@@ -40,7 +21,7 @@ export default function ListingHeader({ place, onShare }) {
         <div className="flex items-center text-[var(--color-black)]">
           <button
             type="button"
-            onClick={handleShare}
+            onClick={onShare}
             className="inline-flex items-center gap-2 rounded-sm px-2 py-1 transition hover:bg-[var(--color-black-hover)] sm:px-3"
             aria-label="Share"
           >
