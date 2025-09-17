@@ -70,7 +70,7 @@ const CarousalSection = ({ title, places, loading }) => {
 
       <Slider ref={sliderRef} {...settings}>
         {items.map((place, index) => (
-          <div key={place._id || index} className="px-2">
+          <div key={place._id || index} className="px-1">
             <PlaceCard place={place} loading={loading} />
           </div>
         ))}
