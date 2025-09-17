@@ -43,12 +43,13 @@ export default function AddressSection({ register, errors, detectLocation }) {
         />
         <FormInput
           name="gps"
-          label="GPS Location"
+          label="Orchard Location"
+          value={gpsLocation}
+          readOnly
+          icon={loading ? "Detecting..." : "Detect"}
+          onClick={handleGetLocation}
           register={register}
-          errors={errors}
-          icon={"Detect"}
-          optional
-          onClick={() => alert("detecting...")}
+          errors={errors.gps}
         />
       </FormLayout>
     </FormSection>

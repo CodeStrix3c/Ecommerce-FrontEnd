@@ -14,9 +14,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { GoogleLogin } from "@react-oauth/google";
-
-import ProfileSection from "./sections/ProfileSection";
 import DemographicsSection from "./sections/DemographicsSection";
 import LandHoldingSection from "./sections/LandHoldingSection";
 import AddressSection from "./sections/AddressSection";
@@ -30,14 +27,29 @@ import { landSchema } from "@/schemas/landHoldingSchema";
 import { addressSchema } from "@/schemas/addressSchema";
 import { useProgress } from "@/hooks/useProgress";
 import useIsMobile from "@/hooks/useInMobile";
-import LoginLink from "@/components/shared/LoginLink";
+import VarietyPlantingSection from "./sections/VarietyPlantingSection";
+import { varietyPlantingSchema } from "@/schemas/varietyPlantingSchema";
+import SoilWaterProfileSection from "./sections/SoilWaterProfileSection";
+import { soilWaterStepFields } from "@/constants/orchardRegistrationFields";
+import { soilWaterProfileSchema } from "@/schemas/soilWaterProfileSchema";
 
-const stepSchemas = [demographicsSchema, landSchema, addressSchema];
+const stepSchemas = [
+  demographicsSchema,
+  varietyPlantingSchema,
+  soilWaterProfileSchema,
+  landSchema,
+  addressSchema,
+];
 
-const stepLabels = ["Demographics", "Land Holdings", "Address"];
+const stepLabels = [
+  "Demographics",
+  "Variety & Planting Details",
+  "Land Holdings",
+  "Address",
+];
 
 export default function OrchardRegistration() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(2);
 
   const theme = useTheme();
   const isMobile = useIsMobile();
@@ -56,6 +68,8 @@ export default function OrchardRegistration() {
     formState: { errors },
   } = methods;
 
+  console.log(errors, "errors in orchard");
+
   const values = watch(farmerRequiredFields);
   const completion = useProgress(values, farmerRequiredFields.length);
 
@@ -64,16 +78,39 @@ export default function OrchardRegistration() {
   const nextStep = async () => {
     let stepFields = [];
 
-    if (step === 0) stepFields = ["farmName", "farmSize", "mainCrops"];
-    if (step === 1)
+    if (step === 0)
+      if (step === 0)
+        stepFields = [
+          "orchardName",
+          "orchardSizeKanals",
+          "orchardSizeMarlas",
+          "establishmentYear",
+          "plantationPattern",
+          "ownershipType",
+          "orchardDistrict",
+          "orchardTehsil",
+          "orchardZone",
+          "orchardPincode",
+          "gps",
+          "latitude",
+          "longitude",
+          "boundary",
+        ];
+
+    if (step === 1) {
       stepFields = [
-        "soilType",
-        "irrigationMethod",
-        "environmentalConditions",
-        "farmLocation",
+        "varietiesPlanted",
+        "totalTrees",
+        "treesPerVariety",
+        "rootstock",
+        "plantDensity",
+        "ageUnder5",
+        "age5to10",
+        "ageAbove10",
       ];
-    if (step === 2)
-      stepFields = ["village", "tehsil", "district", "state", "pincode"];
+    }
+
+    if (step === 2) stepFields = soilWaterStepFields;
 
     const valid = await trigger(stepFields);
 
@@ -157,6 +194,12 @@ export default function OrchardRegistration() {
               <DemographicsSection register={register} errors={errors} />
             )}
             {step === 1 && (
+              <VarietyPlantingSection register={register} errors={errors} />
+            )}
+            {step === 2 && (
+              <SoilWaterProfileSection register={register} errors={errors} />
+            )}
+            {/* {step === 1 && (
               <LandHoldingSection register={register} errors={errors} />
             )}
             {step === 2 && (
@@ -165,7 +208,7 @@ export default function OrchardRegistration() {
                 errors={errors}
                 detectLocation={detectLocation}
               />
-            )}
+            )} */}
 
             <FormNavigation
               step={step}
