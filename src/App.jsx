@@ -41,6 +41,7 @@ import CropProtection from "./features/crop-protection/pages/CropProtection";
 import ProtectedRoute from "./components/shared/ProtectedRoute";
 import FarmerProfilePage from "./features/farmers/pages/FarmerProfilePage";
 import AgricultureHelpCenter from "./features/help-center/pages/HelpCenter";
+import WeatherInfo from "./features/weather-info/pages/WeatherInfo";
 
 function App() {
   useEffect(() => {
@@ -84,6 +85,8 @@ function App() {
               <Route path="/account/bookings" element={<BookingsPage />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/talk-with-expert" element={<TalkWithExpert />} />
+              <Route path="/resources/weather" element={<WeatherInfo />} />
+
               <Route path="/cart" element={<CartPage />} />
               <Route
                 path="/supplier-profile"
