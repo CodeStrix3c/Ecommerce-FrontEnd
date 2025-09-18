@@ -42,6 +42,7 @@ import ProtectedRoute from "./components/shared/ProtectedRoute";
 import FarmerProfilePage from "./features/farmers/pages/FarmerProfilePage";
 import AgricultureHelpCenter from "./features/help-center/pages/HelpCenter";
 import PublicRoute from "./components/shared/PublicRoute";
+import MyOrchards from "./features/farmers/orchards/MyOrchards";
 
 function App() {
   useEffect(() => {
@@ -75,6 +76,8 @@ function App() {
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/company-details" element={<CompanyDetails />} />
               <Route path="/farmer-profile" element={<FarmerProfilePage />} />
+               <Route path="/my-orchards" element={<MyOrchards />} />
+
               <Route path="/crop-protection" element={<CropProtection />} />
               <Route path="/help-center" element={<AgricultureHelpCenter />} />
               <Route path="/about-us" element={<AboutUs />} />

@@ -62,7 +62,7 @@ export default function MyOrchards() {
   district: "Anantnag",
   state: "Jammu & Kashmir",
   pinCode: "192101",
-  gps: "33.7312, 75.1487" // 👉 Anantnag coordinates
+  gps: "33.7312, 75.1487" 
 },
       media: {
         images: [
@@ -91,7 +91,7 @@ export default function MyOrchards() {
   const activeTab = activeTabs[selectedOrchard.id] || "land";
 
   return (
-    <div className="w-full md:mt-20 lg:mt-28 px-5 sm:px-6">
+    <div className="w-full md:mt-28 lg:mt-36 px-5 sm:px-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-black)]">
           {" "}

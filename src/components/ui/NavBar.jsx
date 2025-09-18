@@ -45,7 +45,7 @@ const NavBar = ({ isMobile }) => {
         className={`flex ${
           isMobile
             ? "fixed bottom-0 z-10 w-full max-w-[95vw] mx-auto justify-between border-t bg-[var(--color-white)] py-2 shadow-md"
-            : "items-center gap-8 bg-[var(--color-white)] px-4"
+            : "items-center gap-8  px-4"
         }`}
       >
         {tabs.map((tab) => (

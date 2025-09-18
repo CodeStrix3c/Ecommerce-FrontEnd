@@ -38,7 +38,7 @@ const DropdownMenu = () => {
         {/* Wishlist */}
         <Link
           to="/wishlist"
-          className="relative rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
+          className="relative rounded-full  p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
         >
           <Heart size={18} className="text-[var(--color-black)]" />
           {wishlist.length > 0 && (
@@ -51,7 +51,7 @@ const DropdownMenu = () => {
         {/* Cart */}
         <Link
           to="/cart"
-          className="relative rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
+          className="relative rounded-full  p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
         >
           <ShoppingCart size={18} className="text-[var(--color-black)]" />
           {cartList.length > 0 && (
@@ -64,7 +64,7 @@ const DropdownMenu = () => {
         {/* Menu */}
         <button
           onClick={() => setOpen(!open)}
-          className="rounded-full bg-[var(--color-white)] p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
+          className="rounded-full  p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
         >
           <Menu size={20} className="text-[var(--color-black)]" />
         </button>
