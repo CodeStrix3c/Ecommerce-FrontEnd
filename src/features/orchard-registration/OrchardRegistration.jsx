@@ -27,16 +27,20 @@ import { landSchema } from "@/schemas/landHoldingSchema";
 import { addressSchema } from "@/schemas/addressSchema";
 import { useProgress } from "@/hooks/useProgress";
 import useIsMobile from "@/hooks/useInMobile";
-import VarietyPlantingSection from "./sections/VarietyPlantingSection";
 import { varietyPlantingSchema } from "@/schemas/varietyPlantingSchema";
 import SoilWaterProfileSection from "./sections/SoilWaterProfileSection";
-import { soilWaterStepFields } from "@/constants/orchardRegistrationFields";
+
 import { soilWaterProfileSchema } from "@/schemas/soilWaterProfileSchema";
+import CropNutritionManagementSection from "./sections/CropNutritionManagementSection";
+import { cropNutritionSchema } from "@/schemas/cropNutritionSchema";
+import { cropNutritionStepFields } from "@/constants/orchardRegistrationFields";
 
 const stepSchemas = [
   demographicsSchema,
   varietyPlantingSchema,
   soilWaterProfileSchema,
+  cropNutritionSchema,
+
   landSchema,
   addressSchema,
 ];
@@ -49,7 +53,7 @@ const stepLabels = [
 ];
 
 export default function OrchardRegistration() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(3);
 
   const theme = useTheme();
   const isMobile = useIsMobile();
@@ -111,6 +115,7 @@ export default function OrchardRegistration() {
     }
 
     if (step === 2) stepFields = soilWaterStepFields;
+    if (step === 3) stepFields = cropNutritionStepFields;
 
     const valid = await trigger(stepFields);
 
@@ -198,6 +203,12 @@ export default function OrchardRegistration() {
             )}
             {step === 2 && (
               <SoilWaterProfileSection register={register} errors={errors} />
+            )}
+            {step === 3 && (
+              <CropNutritionManagementSection
+                register={register}
+                errors={errors}
+              />
             )}
             {/* {step === 1 && (
               <LandHoldingSection register={register} errors={errors} />

@@ -66,3 +66,11 @@ export const soilWaterStepFields = [
   "waterAvailability",
   "soilTestReport",
 ];
+export const cropNutritionStepFields = [
+  "fertilizerPractices",
+  "fertigationFacilities",
+  "nutritionPlan",
+  "mulching",
+  "lastFertiliserApplicationDate",
+  "fertiliserApplicationMode",
+];
