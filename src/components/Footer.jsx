@@ -5,7 +5,7 @@ import { Globe, Facebook, Instagram, Twitter } from "lucide-react";
 const Footer = () => {
   return (
     <div className="flex w-full justify-center bg-[var(--color-black-hover)] pb-8">
-      <div className="flex w-full mx-auto max-w-[90vw] flex-col items-center">
+      <div className="flex w-full mx-auto max-w-[93vw] flex-col items-center">
         <div className="grid w-full grid-cols-1 gap-4 py-8 text-sm md:grid-cols-3">
           <div className="flex flex-col gap-4">
             <strong className="font-medium text-[var(--color-black)]">
