@@ -22,8 +22,7 @@ function TalkWithExpert() {
         <b>Planting trees</b> helps combat climate change, purify the air, and
         provide shelter for wildlife. Trees improve soil health, conserve water,
         and create a greener, healthier environment for everyone.
-        <br />
-        <br />
+        
         Planting trees cleans the air, supports wildlife, and makes our
         environment greener and healthier.
       </div>
