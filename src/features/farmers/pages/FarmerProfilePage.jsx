@@ -16,7 +16,7 @@ export default function FarmerProfilePage() {
   };
 
   return (
-    <div className="w-full md:mt-20 lg:mt-28 px-4 sm:px-6">
+    <div className="w-full md:mt-28 lg:mt-36 px-4 sm:px-6">
       <div className="max-w-3xl mx-auto bg-[var(--color-white)] rounded-xl shadow-lg p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
         <div className="flex-shrink-0">
           <img
