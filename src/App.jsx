@@ -76,7 +76,10 @@ function App() {
               <Route path="/account" element={<ProfilePage />} />
               <Route path="/company-details" element={<CompanyDetails />} />
               <Route path="/farmer-profile" element={<FarmerProfilePage />} />
-              <Route path="/crop-protection" element={<CropProtection />} />
+              <Route
+                path="/resources/crop-protection"
+                element={<CropProtection />}
+              />
               <Route path="/help-center" element={<AgricultureHelpCenter />} />
               <Route
                 path="/orchard-registration"
