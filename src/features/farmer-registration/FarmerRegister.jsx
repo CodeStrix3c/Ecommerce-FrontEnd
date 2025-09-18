@@ -128,12 +128,11 @@ export default function FarmerRegister() {
     const data = watch();
     console.log("Form submitted with data:", data);
 
-    // Save fake token and form data
     localStorage.setItem("signup-token", "fake-jwt-token-12345");
     localStorage.setItem("farmerData", JSON.stringify(data));
 
     toast.success("Signup successful!");
-    navigate("/dashboard"); // redirect to dashboard
+    navigate("/dashboard");
   };
 
   return (
