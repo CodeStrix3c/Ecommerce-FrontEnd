@@ -13,8 +13,13 @@ const SelectField = ({
   size = "small",
   onChange,
   value,
+  isMultiple = false, // new prop
 }) => {
   const isRequired = optional === false;
+
+  // Determine error message for this field
+  const errorMessage = errors?.[name]?.message || errors?.message || "";
+  console.log(errors);
 
   return (
     <TextField
@@ -22,25 +27,30 @@ const SelectField = ({
       fullWidth
       size={size}
       label={
-        optional === true
-          ? <OptionalLabel label={label} />
-          : optional === false
-          ? <RequiredLabel label={label} required />
-          : label
+        optional ? (
+          <OptionalLabel label={label} />
+        ) : (
+          <RequiredLabel label={label} required />
+        )
       }
-      value={value || ""}
+      value={value || (isMultiple ? [] : "")} // set empty array for multiple
       onChange={onChange}
-      error={errors && !!errors[name]}
-      helperText={errors && errors[name]?.message}
+      error={!!errorMessage}
+      helperText={errorMessage}
       variant="outlined"
-      {...(register ? register(name, { required: isRequired ? `${label} is required` : false }) : {})}
+      {...(register
+        ? register(name, {
+            required: isRequired ? `${label} is required` : false,
+          })
+        : {})}
       SelectProps={{
+        multiple: isMultiple, // enable multi-select
         MenuProps: {
           disableScrollLock: true,
           PaperProps: {
             sx: {
-              maxHeight: 200,      // set max height
-              overflowY: "auto",   // scroll inside dropdown
+              maxHeight: 200,
+              overflowY: "auto",
               borderRadius: 2,
               boxShadow: "0 8px 16px rgba(0,0,0,0.15)",
             },
@@ -56,7 +66,7 @@ const SelectField = ({
           "&.Mui-focused fieldset": { borderColor: "var(--color-primary)" },
         },
         "& .MuiInputLabel-root": { color: "var(--color-black)" },
-        "& .MuiFormHelperText-root": { color: "var(--color-secondary)" },
+        "& .MuiFormHelperText-root": { color: "var(--color-error)" },
       }}
     >
       {options.map((opt) => (
