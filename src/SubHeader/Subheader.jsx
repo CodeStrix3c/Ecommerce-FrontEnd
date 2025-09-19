@@ -39,7 +39,7 @@ function Subheader() {
         />
 
         <div
-          className={`flex items-center bg-[#c7611f] text-white p-3 rounded-3xl cursor-pointer transition-all duration-300 {
+        className={`flex items-center bg-[#c7611f] text-white p-3 rounded-3xl cursor-pointer transition-all duration-300 {
             showText ? "w-28 justify-around" : "w-10 justify-center"
           }`}
           onClick={() => setShowText(!showText)}
