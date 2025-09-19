@@ -1,33 +1,3 @@
-export const orchardRegistrationDefaultFields = [
-  "fullName",
-  "phone",
-  "email",
-  "password",
-  "confirmPassword",
-  "farmName",
-  "farmSize",
-  "mainCrops",
-  "plantationPattern",
-  "ownershipType",
-  "soilType",
-  "irrigationMethod",
-  "environmentalConditions",
-  "village",
-  "tehsil",
-  "district",
-  "state",
-  "pincode",
-  "otp",
-  "varietiesPlanted",
-  "totalTrees",
-  "treesPerVariety",
-  "rootstock",
-  "plantDensity",
-  "ageUnder5",
-  "age5to10",
-  "ageAbove10",
-];
-
 export const demographicsStepFields = [
   "orchardName",
   "orchardSizeKanals",
@@ -40,12 +10,8 @@ export const demographicsStepFields = [
   "orchardZone",
   "orchardPincode",
   "gps",
-  "latitude",
-  "longitude",
-  "boundary",
 ];
 
-// Step 1 → Variety Planting
 export const varietyPlantingStepFields = [
   "varietiesPlanted",
   "totalTrees",
@@ -94,4 +60,12 @@ export const farmInfrastructureStepFields = [
   "storageFacilities",
   "farmLabor",
   "otherTools",
+];
+export const orchardRegistrationDefaultFields = [
+  ...demographicsStepFields,
+  ...varietyPlantingStepFields,
+  ...soilWaterStepFields,
+  ...cropNutritionStepFields,
+  ...plantProtectionStepFields,
+  ...farmInfrastructureStepFields,
 ];

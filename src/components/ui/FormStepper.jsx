@@ -56,9 +56,7 @@ const FormStepper = ({ activeStep, completion, type }) => {
         backgroundColor: "transparent",
       }}
     >
-      {/* Step Title and Info */}
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
-        {/* Title + Description */}
         <Box>
           <Typography
             variant="h6"
@@ -74,7 +72,6 @@ const FormStepper = ({ activeStep, completion, type }) => {
           </Typography>
         </Box>
 
-        {/* Step Info */}
         <Box sx={{ textAlign: "right" }}>
           <Typography
             variant="body2"
@@ -82,17 +79,17 @@ const FormStepper = ({ activeStep, completion, type }) => {
           >
             Step {activeStep + 1} of {totalSteps}
           </Typography>
-          {/* <Typography
+          <Typography
             variant="body2"
             sx={{ fontWeight: "medium", color: "var(--color-primary)" }}
           >
             {Math.round(progress)}%
-          </Typography> */}
+          </Typography>
         </Box>
       </Box>
 
       {/* Progress Bar */}
-      {/* <LinearProgress
+      <LinearProgress
         variant="determinate"
         value={progress}
         sx={{
@@ -104,7 +101,7 @@ const FormStepper = ({ activeStep, completion, type }) => {
             borderRadius: 4,
           },
         }}
-      /> */}
+      />
     </Paper>
   );
 };
