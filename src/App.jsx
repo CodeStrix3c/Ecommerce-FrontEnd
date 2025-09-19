@@ -44,6 +44,7 @@ import AgricultureHelpCenter from "./features/help-center/pages/HelpCenter";
 import PublicRoute from "./components/shared/PublicRoute";
 import MyOrchards from "./features/farmers/orchards/MyOrchards";
 import OrchardRegistration from "./features/orchard-registration/OrchardRegistration";
+import SuccessPopUp from "./components/shared/SuccessPopUp";
 
 function App() {
   useEffect(() => {
@@ -89,6 +90,7 @@ function App() {
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/sitemap" element={<Sitemap />} />
+              <Route path="/SuccessPopUp" element={<SuccessPopUp/>}/>
               <Route path="/terms" element={<Terms />} />
               <Route path="/account/places" element={<PlacesPage />} />
               <Route path="/account/places/new" element={<PlacesFormPage />} />
