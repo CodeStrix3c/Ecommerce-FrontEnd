@@ -28,17 +28,17 @@ import LoginLink from "@/components/shared/LoginLink";
 
 const stepSchemas = [
   profileSchema,
-  demographicsSchema,
-  landSchema,
-  addressSchema,
+  // demographicsSchema,
+  // landSchema,
+  // addressSchema,
   otpSchema,
 ];
 
 const stepLabels = [
   "Profile",
-  "Demographics",
-  "Land Holdings",
-  "Address",
+  // "Demographics",
+  // "Land Holdings",
+  // "Address",
   "OTP Verification",
 ];
 
@@ -75,17 +75,18 @@ export default function FarmerRegister() {
         "password",
         "confirmPassword",
       ];
-    if (step === 1) stepFields = ["farmName", "farmSize", "mainCrops"];
-    if (step === 2)
-      stepFields = [
-        "soilType",
-        "irrigationMethod",
-        "environmentalConditions",
-        "farmLocation",
-      ];
-    if (step === 3)
-      stepFields = ["village", "tehsil", "district", "state", "pincode"];
-    if (step === 4) stepFields = ["otp"];
+    // if (step === 1) stepFields = ["farmName", "farmSize", "mainCrops"];
+    // if (step === 2)
+    //   stepFields = [
+    //     "soilType",
+    //     "irrigationMethod",
+    //     "environmentalConditions",
+    //     "farmLocation",
+    //   ];
+    // if (step === 3)
+    //   stepFields = ["village", "tehsil", "district", "state", "pincode"];
+    // if (step === 4) stepFields = ["otp"];
+    if (step === 1) stepFields = ["otp"];
 
     const valid = await trigger(stepFields);
 
@@ -114,7 +115,7 @@ export default function FarmerRegister() {
   };
 
   const handleSubmitClick = async () => {
-    if (step !== 4) {
+    if (step !== 1) {
       nextStep();
       return;
     }
@@ -210,7 +211,7 @@ export default function FarmerRegister() {
               {step === 0 && (
                 <ProfileSection register={register} errors={errors} />
               )}
-              {step === 1 && (
+              {/* {step === 1 && (
                 <DemographicsSection register={register} errors={errors} />
               )}
               {step === 2 && (
@@ -222,8 +223,8 @@ export default function FarmerRegister() {
                   errors={errors}
                   detectLocation={detectLocation}
                 />
-              )}
-              {step === 4 && (
+              )} */}
+              {step === 1 && (
                 <OtpVerificationSection register={register} errors={errors} />
               )}
 
