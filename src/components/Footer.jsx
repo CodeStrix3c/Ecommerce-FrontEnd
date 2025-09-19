@@ -57,6 +57,7 @@ const Footer = () => {
             </strong>
             {[
               { name: "Crop Information", link: "/resources/crops" },
+              { name: "Crop Protection", link: "/resources/crop-protection" },
               { name: "Weather Updates", link: "/resources/weather" },
               { name: "Market Prices", link: "/resources/market-prices" },
               { name: "Pest Alerts", link: "/resources/pest-alerts" },
@@ -92,7 +93,7 @@ const Footer = () => {
           <div className="flex w-full flex-col gap-2 px-1 font-normal text-[var(--color-black)] md:w-auto md:flex-row md:items-center md:gap-8">
             <p className="text-sm">
               &copy; {new Date().getFullYear()} Ziraat, Inc.
-            </p>
+            </p>  
             <div>
               <ul className="flex gap-6 text-sm">
                 <li className="cursor-pointer text-[var(--color-black)] decoration-1 underline-offset-1 hover:underline md:list-disc">

@@ -6,6 +6,7 @@ import AddressSection from "../componets/AddressSection";
 import FarmMedia from "../componets/FarmMedia";
 import CustomButton from "@/components/ui/CustomButton";
 import SelectField from "@/components/ui/SelectField";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function MyOrchards() {
   const orchards = [
@@ -57,19 +58,19 @@ export default function MyOrchards() {
         environment: "Subtropical",
         topography: "Hilly",
       },
-   address: {
-  village: "Anantnag",
-  district: "Anantnag",
-  state: "Jammu & Kashmir",
-  pinCode: "192101",
-  gps: "33.7312, 75.1487" 
-},
+      address: {
+        village: "Anantnag",
+        district: "Anantnag",
+        state: "Jammu & Kashmir",
+        pinCode: "192101",
+        gps: "33.7312, 75.1487", // 👉 Anantnag coordinates
+      },
       media: {
         images: [
           "https://images.unsplash.com/photo-1569880153113-76e33fc52d5f?w=600",
           "https://images.unsplash.com/photo-1590682680695-43b964a3ae17?w=600",
           "https://images.unsplash.com/photo-1620901433789-1d2f85a93653?w=600",
-          "https://plus.unsplash.com/premium_photo-1686269460898-740cc9281b0f?w=600"
+          "https://plus.unsplash.com/premium_photo-1686269460898-740cc9281b0f?w=600",
         ],
         videos: ["https://samplelib.com/lib/preview/mp4/sample-10s.mp4"],
       },
@@ -78,12 +79,15 @@ export default function MyOrchards() {
 
   const [selectedOrchardId, setSelectedOrchardId] = useState(orchards[0].id);
   const [activeTabs, setActiveTabs] = useState({});
+  const navigate = useNavigate();
 
   const handleTabChange = (orchardId, tab) => {
     setActiveTabs((prev) => ({ ...prev, [orchardId]: tab }));
   };
 
-  const handleAddOrchard = () => alert("Open Add Orchard Form here!");
+  const handleAddOrchard = () => {
+    navigate("/orchard-registration");
+  };
 
   const selectedOrchard = orchards.find(
     (orchard) => orchard.id === selectedOrchardId
@@ -91,7 +95,7 @@ export default function MyOrchards() {
   const activeTab = activeTabs[selectedOrchard.id] || "land";
 
   return (
-    <div className="w-full md:mt-28 lg:mt-36 px-5 sm:px-6">
+    <div className="w-full md:mt-20 lg:mt-28 px-5 sm:px-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-black)]">
           {" "}

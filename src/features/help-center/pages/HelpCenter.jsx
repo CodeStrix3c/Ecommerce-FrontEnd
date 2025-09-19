@@ -1,21 +1,14 @@
 import React from "react";
-import { Search, Sprout, Droplet, Bug, Wheat } from "lucide-react";
+import {  Sprout, Droplet, Bug, Wheat } from "lucide-react";
+import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
+import LoginLink from "@/components/shared/LoginLink";
 
 export default function AgricultureHelpCenter() {
   return (
     <div className="min-h-screen bg-[var(--color-white)] text-[var(--color-black)]">
       <div className="border-b bg-[var(--color-white)] py-20 px-8 text-center mt-20">
         <h1 className="text-4xl font-bold mb-6">Hi, how can we help?</h1>
-        <div className="relative max-w-xl mx-auto">
-          <input
-            type="text"
-            placeholder="Search guides, tips, and more"
-            className="w-full h-20 pl-6 pr-14 rounded-full shadow-sm border border-gray-300 focus:ring-2 focus:ring-[var(--color-primary)] outline-none"
-          />
-          <button className="absolute right-2 top-4 bg-[var(--color-secondary)] hover:bg-[var(--color-secondary-hover)] text-[var(--color-white)] p-3 rounded-full transition">
-            <Search size={20} />
-          </button>
-        </div>
+      <SecondarySearchBar/>
       </div>
 
       <div className="flex justify-center space-x-6 mt-6 border-b">
@@ -32,7 +25,7 @@ export default function AgricultureHelpCenter() {
       <div className="max-w-3xl mx-auto text-center mt-10 px-6">
         <div className=" rounded-xl shadow p-6 flex flex-col items-center">
           <h2 className="font-bold text-lg mb-2">We’re here for you</h2>
-          <p className="text-sm mb-4">
+          <p  className="text-sm mb-4"> <LoginLink/>
             Log in to get help with your queries, resources, and support.
           </p>
           <button className="bg-[var(--color-secondary)] hover:bg-[var(--color-secondary-hover)] text-[var(--color-white)] px-6 py-3 rounded-lg font-medium">
