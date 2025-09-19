@@ -2,78 +2,62 @@ import { z } from "zod";
 
 export const soilWaterProfileSchema = z
   .object({
-    // Soil Type
     soilType: z.preprocess(
-      (val) => (val === undefined || val === null ? "" : val),
+      (val) => (val == null ? "" : val),
       z.string().nonempty("Soil type is required")
     ),
-
-    // Soil Test Records (optional individually, but validated later)
-    pH: z.coerce
-      .number({ invalid_type_error: "Enter a valid number" })
-      .optional(),
-    N: z.coerce
-      .number({ invalid_type_error: "Enter a valid number" })
-      .optional(),
-    P: z.coerce
-      .number({ invalid_type_error: "Enter a valid number" })
-      .optional(),
-    K: z.coerce
-      .number({ invalid_type_error: "Enter a valid number" })
-      .optional(),
-    organicCarbon: z.coerce
-      .number({ invalid_type_error: "Enter a valid number" })
-      .optional(),
+    pH: z.union([z.string(), z.number()]).optional(),
+    N: z.union([z.string(), z.number()]).optional(),
+    P: z.union([z.string(), z.number()]).optional(),
+    K: z.union([z.string(), z.number()]).optional(),
+    organicCarbon: z.union([z.string(), z.number()]).optional(),
     micronutrients: z.string().optional(),
-
-    // Soil Health
     soilHealthStatus: z.preprocess(
-      (val) => (val === undefined || val === null ? "" : val),
+      (val) => (val == null ? "" : val),
       z.string().nonempty("Soil health status is required")
     ),
-
-    // Date
     lastSoilTestDate: z.string().nonempty("Last Soil Test Date is required"),
-
-    // Water Source
     waterSource: z.preprocess(
-      (val) => (val === undefined || val === null ? "" : val),
+      (val) => (val == null ? "" : val),
       z.string().nonempty("Water source is required")
     ),
-
-    // Irrigation
     irrigationMethod: z.preprocess(
-      (val) => (val === undefined || val === null ? "" : val),
+      (val) => (val == null ? "" : val),
       z.string().nonempty("Irrigation method is required")
     ),
-
-    // Water Availability
     waterAvailability: z.preprocess(
-      (val) => (val === undefined || val === null ? "" : val),
+      (val) => (val == null ? "" : val),
       z.string().nonempty("Water availability is required")
     ),
-
-    // File Upload
     soilTestReport: z.any().optional(),
   })
   .refine(
     (data) => {
-      const hasValues =
-        data.pH ||
-        data.N ||
-        data.P ||
-        data.K ||
-        data.organicCarbon ||
-        (data.micronutrients && data.micronutrients.trim() !== "");
+      const numericFields = [
+        data.pH,
+        data.N,
+        data.P,
+        data.K,
+        data.organicCarbon,
+        data.micronutrients,
+      ];
+
+      const anyNumericFilled = numericFields.some(
+        (val) => val !== undefined && val !== null && val !== ""
+      );
+      const allNumericFilled = numericFields.every(
+        (val) => val !== undefined && val !== null && val !== ""
+      );
 
       const hasFile = data.soilTestReport instanceof File;
 
-      return hasValues || hasFile;
+      // Either file uploaded OR all numeric fields filled
+      return hasFile || allNumericFilled || (!anyNumericFilled && !hasFile)
+        ? hasFile || allNumericFilled
+        : false;
     },
     {
-      // message:"
-      // Provide soil test values or upload a report. At least one option is required.",
-      message: " ",
-      path: ["soilTestReport"], // attach error to report field (can also use ["pH"] if you want top inputs to highlight)
+      message: "Either fill all soil test values or upload a soil test report.",
+      path: ["soilTestReport"],
     }
   );

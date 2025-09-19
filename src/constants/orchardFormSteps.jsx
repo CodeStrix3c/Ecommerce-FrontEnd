@@ -27,21 +27,26 @@ export const orchardRegistrationDefaultFields = [
   "age5to10",
   "ageAbove10",
 ];
-export const orchardRegistrationDemographicsFields = [
-  "farmName",
-  "farmSize",
-  "mainCrops",
+
+export const demographicsStepFields = [
+  "orchardName",
+  "orchardSizeKanals",
+  "orchardSizeMarlas",
+  "establishmentYear",
   "plantationPattern",
   "ownershipType",
-  "soilType",
-  "irrigationMethod",
-  "environmentalConditions",
-  "village",
-  "tehsil",
-  "district",
-  "state",
-  "pincode",
-  "otp",
+  "orchardDistrict",
+  "orchardTehsil",
+  "orchardZone",
+  "orchardPincode",
+  "gps",
+  "latitude",
+  "longitude",
+  "boundary",
+];
+
+// Step 1 → Variety Planting
+export const varietyPlantingStepFields = [
   "varietiesPlanted",
   "totalTrees",
   "treesPerVariety",
@@ -51,6 +56,7 @@ export const orchardRegistrationDemographicsFields = [
   "age5to10",
   "ageAbove10",
 ];
+
 export const soilWaterStepFields = [
   "soilType",
   "pH",
@@ -66,6 +72,7 @@ export const soilWaterStepFields = [
   "waterAvailability",
   "soilTestReport",
 ];
+
 export const cropNutritionStepFields = [
   "fertilizerPractices",
   "fertigationFacilities",
@@ -73,4 +80,18 @@ export const cropNutritionStepFields = [
   "mulching",
   "lastFertiliserApplicationDate",
   "fertiliserApplicationMode",
+];
+
+export const plantProtectionStepFields = [
+  "diseaseHistory",
+  "pestHistory",
+  "spraySchedule",
+  "cropInsuranceCoverage",
+];
+
+export const farmInfrastructureStepFields = [
+  "equipmentOwned",
+  "storageFacilities",
+  "farmLabor",
+  "otherTools",
 ];

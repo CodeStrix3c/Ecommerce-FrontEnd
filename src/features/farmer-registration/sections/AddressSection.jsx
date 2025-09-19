@@ -2,7 +2,14 @@ import FormLayout from "@/components/shared/FormLayout";
 import FormInput from "@/features/auth/components/FormInput";
 import FormSection from "@/features/auth/components/FormSection";
 
-export default function AddressSection({ register, errors, detectLocation }) {
+export default function AddressSection({
+  register,
+  errors,
+  detectLocation,
+  gpsLocation,
+  loading,
+  handleGetLocation,
+}) {
   return (
     <FormSection
       title="Address"
@@ -44,7 +51,7 @@ export default function AddressSection({ register, errors, detectLocation }) {
         <FormInput
           name="gps"
           label="Orchard Location"
-          value={gpsLocation}
+          value={gpsLocation ? gpsLocation : ""}
           readOnly
           icon={loading ? "Detecting..." : "Detect"}
           onClick={handleGetLocation}

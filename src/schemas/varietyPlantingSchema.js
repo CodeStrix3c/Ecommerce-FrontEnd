@@ -1,8 +1,10 @@
 import { z } from "zod";
 
 export const varietyPlantingSchema = z.object({
-  varietiesPlanted: z.array(z.string()).min(1, "Select at least one variety"),
-
+  varietiesPlanted: z.preprocess(
+    (val) => val ?? [],
+    z.array(z.string()).nonempty("Select at least one variety")
+  ),
   totalTrees: z.coerce
     .number({ invalid_type_error: "Enter total number of trees" })
     .min(1, "Total number of trees is required"),
@@ -22,14 +24,14 @@ export const varietyPlantingSchema = z.object({
   ),
 
   ageUnder5: z.coerce
-    .number({ invalid_type_error: "Enter number of trees <5 years" })
+    .number({ invalid_type_error: "Enter number of trees per variety" })
     .min(1, "Required Field"),
 
   age5to10: z.coerce
-    .number({ invalid_type_error: "Enter number of trees <5 years" })
+    .number({ invalid_type_error: "Enter number of trees per variety" })
     .min(1, "Required Field"),
 
   ageAbove10: z.coerce
-    .number({ invalid_type_error: "Enter number of trees >10 years" })
+    .number({ invalid_type_error: "Enter number of trees per variety" })
     .min(1, "Required Field"),
 });

@@ -1,106 +1,111 @@
 import React from "react";
-import { Stepper, Step, StepLabel, Box, Typography } from "@mui/material";
+import { Box, LinearProgress, Typography, Paper } from "@mui/material";
 
 const FormStepper = ({ activeStep, completion, type }) => {
   let stepLabels = [];
-  if (type == "orchard") {
+  let stepDescriptions = [];
+
+  if (type === "orchard") {
     stepLabels = [
       "Demographics",
       "Variety & Planting Details",
       "Soil and Water Info",
-      "Land Holdings",
-      "Address",
+      "Crop & Nutrition Details",
+      "Plant Protection & Health",
+      "Farm Infrastructure",
     ];
-  } else if (type == "profile") {
+    stepDescriptions = [
+      "Enter basic farmer and household info",
+      "Specify your orchard's varieties and planting dates",
+      "Provide soil type and water source details",
+      "Add crop nutrition and fertilization info",
+      "Record plant health and protection measures",
+      "Check farm infrastructure and equipment",
+    ];
+  } else if (type === "profile") {
     stepLabels = [
       "Profile",
-      "Demographics",
-      "Land Holdings",
-      "Address",
+      // "Demographics",
+      // "Land Holdings",
+      // "Address",
       "OTP Verification",
     ];
+    stepDescriptions = [
+      "Set up your personal profile",
+      // "Provide demographic details",
+      // "Add your land holding info",
+      // "Enter your current address",
+      "Verify your number via OTP",
+    ];
   }
+
+  const totalSteps = stepLabels.length;
+  const progress =
+    completion !== undefined
+      ? completion
+      : ((activeStep + 1) / totalSteps) * 100;
+
   return (
-    <Box sx={{ width: "100%", mt: 3, mb: 3 }}>
-      <Stepper
-        activeStep={activeStep}
-        alternativeLabel
+    <Paper
+      elevation={0}
+      sx={{
+        width: "100%",
+        p: 2,
+        mb: 4,
+        borderRadius: 3,
+        backgroundColor: "transparent",
+      }}
+    >
+      {/* Step Title and Info */}
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+        {/* Title + Description */}
+        <Box>
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", color: "var(--color-black)" }}
+          >
+            {stepLabels[activeStep] || ""}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{ color: "var(--color-black)", opacity: 0.7 }}
+          >
+            {stepDescriptions[activeStep] || ""}
+          </Typography>
+        </Box>
+
+        {/* Step Info */}
+        <Box sx={{ textAlign: "right" }}>
+          <Typography
+            variant="body2"
+            sx={{ fontWeight: "medium", color: "var(--color-secondary)" }}
+          >
+            Step {activeStep + 1} of {totalSteps}
+          </Typography>
+          {/* <Typography
+            variant="body2"
+            sx={{ fontWeight: "medium", color: "var(--color-primary)" }}
+          >
+            {Math.round(progress)}%
+          </Typography> */}
+        </Box>
+      </Box>
+
+      {/* Progress Bar */}
+      {/* <LinearProgress
+        variant="determinate"
+        value={progress}
         sx={{
-          px: 0,
-          "& .MuiStep-root": {
-            flex: 1,
-            paddingLeft: 0,
-            paddingRight: 0,
-          },
-          "& .MuiStepLabel-root": {
-            px: 0,
-          },
-          "& .MuiStepConnector-root": {
-            mx: 0,
-          },
-          "& .MuiStepIcon-root": {
-            color: "var(--color-black)",
-            borderRadius: "50%",
-            opacity: "20%",
-            border: "2px solid var(--color-black)",
-            width: { xs: 20, sm: 30 },
-            height: { xs: 20, sm: 30 },
-            fontSize: { xs: "0.8rem", sm: "1rem" },
-            fontWeight: "bold",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          },
-          "& .MuiStepIcon-root.Mui-active": {
-            opacity: "70%",
-            color: "var(--color-secondary)",
-            backgroundColor: "var(--color-secondary)",
-            borderColor: "var(--color-secondary)",
-          },
-          "& .MuiStepIcon-root.Mui-completed": {
-            opacity: "100%",
-            color: "var(--color-white)",
+          height: 8,
+          borderRadius: 4,
+          backgroundColor: "var(--color-black-hover)",
+          "& .MuiLinearProgress-bar": {
             backgroundColor: "var(--color-primary)",
-            borderColor: "var(--color-primary)",
-          },
-          "& .MuiStepLabel-label": {
-            fontSize: {
-              xs: "10px",
-              sm: "14px",
-              md: "14px",
-            },
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            color: "var(--color-black)",
+            borderRadius: 4,
           },
         }}
-      >
-        {stepLabels.map((label, index) => (
-          <Step key={label}>
-            <StepLabel>
-              {label}
-              {index === activeStep && (
-                <Typography
-                  variant="caption"
-                  sx={{
-                    mt: 0.5,
-                    fontWeight: "bold",
-                    color: "var(--color-primary)",
-                  }}
-                >
-                  {/* {completion}% */}
-                </Typography>
-              )}
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Box>
+      /> */}
+    </Paper>
   );
 };
 
