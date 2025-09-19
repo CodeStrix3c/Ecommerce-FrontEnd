@@ -2,6 +2,7 @@ import FormLayout from "@/components/shared/FormLayout";
 import SelectField from "@/components/ui/SelectField";
 import FormInput from "@/features/auth/components/FormInput";
 import FormSection from "@/features/auth/components/FormSection";
+import { Controller } from "react-hook-form";
 
 export default function LandHoldingSection({ register, errors }) {
   return (
@@ -27,18 +28,23 @@ export default function LandHoldingSection({ register, errors }) {
         />
 
         {/* Optional Land Topography */}
-        <SelectField
+
+        <Controller
           name="landTopography"
-          label="Land Topography"
-          register={register}
-          optional
-          options={[
-            { value: "", label: "-- Select Topography --" },
-            { value: "flat", label: "Flat / Plain" },
-            { value: "hilly", label: "Hilly / Sloped" },
-            { value: "undulating", label: "Undulating / Mixed" },
-            { value: "terraced", label: "Terraced" },
-          ]}
+          render={({ field }) => (
+            <SelectField
+              {...field}
+              label="Land Topography"
+              errors={errors}
+              options={[
+                { value: "", label: "-- Select Topography --" },
+                { value: "flat", label: "Flat / Plain" },
+                { value: "hilly", label: "Hilly / Sloped" },
+                { value: "undulating", label: "Undulating / Mixed" },
+                { value: "terraced", label: "Terraced" },
+              ]}
+            />
+          )}
         />
       </FormLayout>
     </FormSection>

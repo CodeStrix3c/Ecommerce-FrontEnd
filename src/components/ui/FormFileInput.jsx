@@ -8,7 +8,8 @@ import OptionalLabel from "@/features/auth/components/OptionalLabel";
 export default function FormFileInput({
   name,
   label,
-  register,
+  value,
+  onChange,
   errors,
   optional = false,
   accept = "*",
@@ -16,20 +17,22 @@ export default function FormFileInput({
   showPreview = false,
   width = "100%",
 }) {
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState(value ? [value] : []);
 
   const handleFileChange = (e) => {
     const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
     setFiles(selectedFiles);
+    if (onChange) onChange(multiple ? selectedFiles : selectedFiles[0] ?? null);
   };
 
   const handleRemoveFile = (index) => {
-    setFiles((prev) => prev.filter((_, i) => i !== index));
+    const newFiles = files.filter((_, i) => i !== index);
+    setFiles(newFiles);
+    if (onChange) onChange(multiple ? newFiles : newFiles[0] ?? null);
   };
 
   return (
     <div style={{ marginBottom: "16px", width }}>
-      {/* Label */}
       {optional ? (
         <OptionalLabel label={label} />
       ) : (
@@ -38,7 +41,6 @@ export default function FormFileInput({
 
       {/* Hidden Input */}
       <input
-        {...register(name)}
         type="file"
         accept={accept}
         id={name}
@@ -54,21 +56,12 @@ export default function FormFileInput({
           component="span"
           startIcon={<UploadFileIcon />}
           fullWidth
-          sx={{
-            mt: 1,
-            borderColor: "var(--color-primary)",
-            color: "var(--color-primary)",
-            "&:hover": {
-              borderColor: "var(--color-primary-hover)",
-              backgroundColor: "var(--color-black-hover)",
-            },
-          }}
         >
           {multiple ? "Upload Files" : "Upload File"}
         </Button>
       </label>
 
-      {/* File Previews */}
+      {/* File Preview */}
       {files.length > 0 && (
         <div style={{ marginTop: 12, display: "grid", gap: "8px" }}>
           {files.map((file, index) => (
@@ -78,12 +71,12 @@ export default function FormFileInput({
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
-                border: "1px solid var(--color-black-hover)",
+                border: "1px solid #ccc",
                 borderRadius: 8,
                 padding: "8px",
               }}
             >
-              {showPreview && file.type.startsWith("image/") ? (
+              {showPreview && file.type?.startsWith("image/") ? (
                 <img
                   src={URL.createObjectURL(file)}
                   alt={file.name}
@@ -95,18 +88,15 @@ export default function FormFileInput({
                   }}
                 />
               ) : (
-                <UploadFileIcon style={{ color: "var(--color-secondary)" }} />
+                <UploadFileIcon style={{ color: "#666" }} />
               )}
-              <Typography
-                variant="body2"
-                sx={{ flex: 1, color: "var(--color-black)" }}
-              >
+              <Typography variant="body2" sx={{ flex: 1 }}>
                 {file.name}
               </Typography>
               <IconButton
                 size="small"
                 onClick={() => handleRemoveFile(index)}
-                sx={{ color: "var(--color-error)" }}
+                sx={{ color: "red" }}
               >
                 <CloseIcon fontSize="small" />
               </IconButton>
@@ -116,12 +106,9 @@ export default function FormFileInput({
       )}
 
       {/* Error Message */}
-      {errors?.[name]?.message && (
-        <Typography
-          variant="body2"
-          sx={{ color: "var(--color-error)", mt: 0.5 }}
-        >
-          {errors[name].message}
+      {errors && (
+        <Typography variant="body2" sx={{ color: "red", mt: 0.5 }}>
+          {errors.message}
         </Typography>
       )}
     </div>

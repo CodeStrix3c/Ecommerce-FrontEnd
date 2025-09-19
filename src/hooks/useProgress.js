@@ -2,6 +2,9 @@
 import { useMemo } from "react";
 
 export const useProgress = (values, requiredFieldsLength) => {
+  console.log(values, "values in useProgress");
+  console.log(requiredFieldsLength, "fields length in useProgress");
+
   return useMemo(() => {
     const filledCount = values.reduce((count, value) => {
       if (value === undefined || value === null) return count;
