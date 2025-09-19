@@ -6,6 +6,7 @@ import FormLayout from "@/components/shared/FormLayout";
 import SelectField from "@/components/ui/SelectField";
 import FormInput from "@/features/auth/components/FormInput";
 import FormDateInput from "@/components/ui/FormDateInput";
+import FormTextArea from "@/components/ui/FormTextArea";
 
 export default function CropNutritionManagementSection({
   register,
@@ -52,15 +53,6 @@ export default function CropNutritionManagementSection({
           )}
         />
 
-        {/* 3. Nutrition Plan */}
-        <FormInput
-          name="nutritionPlan"
-          label="Nutrition Plan (if already following)"
-          type="text"
-          register={register}
-          errors={errors.nutritionPlan}
-        />
-
         {/* 4. Mulching */}
         <Controller
           name="mulching"
@@ -85,6 +77,14 @@ export default function CropNutritionManagementSection({
           label="Last Fertiliser Application Date"
           register={register}
           errors={errors.lastFertiliserApplicationDate}
+        />
+        {/* 3. Nutrition Plan */}
+        <FormTextArea
+          name="nutritionPlan"
+          label="Nutrition Plan (if already following)"
+          register={register}
+          errors={errors.nutritionPlan}
+          rows={5} // you can adjust number of rows
         />
 
         {/* 6. Mode of Fertiliser Application */}

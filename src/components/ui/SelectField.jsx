@@ -13,13 +13,12 @@ const SelectField = ({
   size = "small",
   onChange,
   value,
-  isMultiple = false, // new prop
+  isMultiple = false,
 }) => {
   const isRequired = optional === false;
 
   // Determine error message for this field
   const errorMessage = errors?.[name]?.message || errors?.message || "";
-  console.log(errors);
 
   return (
     <TextField
@@ -33,9 +32,9 @@ const SelectField = ({
           <RequiredLabel label={label} required />
         )
       }
-      value={value || (isMultiple ? [] : "")} // set empty array for multiple
+      value={value || (isMultiple ? [] : "")}
       onChange={onChange}
-      error={!!errorMessage}
+      // remove error prop, we will handle color via sx
       helperText={errorMessage}
       variant="outlined"
       {...(register
@@ -44,7 +43,7 @@ const SelectField = ({
           })
         : {})}
       SelectProps={{
-        multiple: isMultiple, // enable multi-select
+        multiple: isMultiple,
         MenuProps: {
           disableScrollLock: true,
           PaperProps: {
@@ -66,7 +65,10 @@ const SelectField = ({
           "&.Mui-focused fieldset": { borderColor: "var(--color-primary)" },
         },
         "& .MuiInputLabel-root": { color: "var(--color-black)" },
-        "& .MuiFormHelperText-root": { color: "var(--color-error)" },
+        "& .MuiFormHelperText-root": {
+          color: "var(--color-error)", // use your CSS variable for error
+          fontWeight: 400, // normal weight
+        },
       }}
     >
       {options.map((opt) => (
