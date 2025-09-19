@@ -161,7 +161,7 @@ export default function OrchardRegistration() {
 
           <FormStepper
             activeStep={step}
-            completion={completion}
+            completion={completion.progress}
             type="orchard"
           />
 
