@@ -68,7 +68,7 @@ export default [
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
       <Route path="/resources/crop-information" element={<CropInformation />} />
       <Route path="/help-center" element={<AgricultureHelpCenter />} />
-      <Route path="/orchard-registration" element={<OrchardRegistration />} />
+      {/* <Route path="/orchard-registration" element={<OrchardRegistration />} /> */}
       <Route path="/my-orchards" element={<MyOrchards />} />
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/privacy" element={<Privacy />} />

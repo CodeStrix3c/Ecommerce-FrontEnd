@@ -30,7 +30,7 @@ export const SUPPLIER_STEPS = {
     "Operational Details",
     "Financial & Payment",
     "Support & Services",
-    "Verification & Ratings",
+    // "Verification & Ratings",
   ],
   descriptions: [
     "Provide shop/business details and contact info",
@@ -39,6 +39,6 @@ export const SUPPLIER_STEPS = {
     "Record years in business, company tie-ups, and service areas",
     "Add bank/UPI details, payout preferences, and credit facility",
     "Indicate advisory, staff availability, after-sales service, and logistics",
-    "Get verified badge, dealer rating, and farmer feedback reviews",
+    // "Get verified badge, dealer rating, and farmer feedback reviews",
   ],
 };
