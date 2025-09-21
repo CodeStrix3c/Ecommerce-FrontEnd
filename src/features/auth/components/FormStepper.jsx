@@ -22,13 +22,31 @@ const FormStepper = ({ activeStep, type }) => {
         <Box>
           <Typography
             variant="h6"
-            sx={{ fontWeight: "bold", color: "var(--color-black)" }}
+            sx={{
+              fontWeight: "bold",
+              color: "var(--color-black)",
+              fontSize: {
+                xs: "1rem", // smaller size on mobile
+                sm: "1.25rem", // default size on tablet and above
+              },
+              fontWeight: {
+                xs: 500,
+                sm: 500,
+              },
+            }}
           >
             {labels[activeStep] || ""}
           </Typography>
           <Typography
             variant="body2"
-            sx={{ color: "var(--color-black)", opacity: 0.7 }}
+            sx={{
+              color: "var(--color-black)",
+              opacity: 0.7,
+              fontSize: {
+                xs: "0.75rem", // smaller size on mobile
+                sm: "0.875rem", // default size on tablet and above
+              },
+            }}
           >
             {descriptions[activeStep] || ""}
           </Typography>
@@ -37,7 +55,14 @@ const FormStepper = ({ activeStep, type }) => {
         <Box sx={{ textAlign: "right" }}>
           <Typography
             variant="body2"
-            sx={{ fontWeight: "medium", color: "var(--color-secondary)" }}
+            sx={{
+              fontWeight: "medium",
+              color: "var(--color-secondary)",
+              fontSize: {
+                xs: "0.75rem",
+                sm: "0.875rem",
+              },
+            }}
           >
             Step {activeStep + 1} of {totalSteps}
           </Typography>

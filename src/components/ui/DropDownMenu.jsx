@@ -1,11 +1,11 @@
-// DropdownMenu.jsx
 import { useState, useRef, useEffect } from "react";
-import { Menu, Heart, ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart, Globe, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
 import { useCartList } from "@/providers/CartListProvider";
 import useIsMobile from "@/hooks/useInMobile";
 import DropdownPanel from "./DropDownPanel";
+import { AccountCircle } from "@mui/icons-material"; // Profile Icon (MUI)
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
@@ -38,7 +38,7 @@ const DropdownMenu = () => {
         {/* Wishlist */}
         <Link
           to="/wishlist"
-          className="relative rounded-full  p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
+          className="relative rounded-full p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
         >
           <Heart size={18} className="text-[var(--color-black)]" />
           {wishlist.length > 0 && (
@@ -51,7 +51,7 @@ const DropdownMenu = () => {
         {/* Cart */}
         <Link
           to="/cart"
-          className="relative rounded-full  p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
+          className="relative rounded-full p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
         >
           <ShoppingCart size={18} className="text-[var(--color-black)]" />
           {cartList.length > 0 && (
@@ -61,13 +61,19 @@ const DropdownMenu = () => {
           )}
         </Link>
 
-        {/* Menu */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="rounded-full  p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
-        >
-          <Menu size={20} className="text-[var(--color-black)]" />
-        </button>
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={() => setOpen(!open)}
+            className="
+    border rounded-2xl px-3 py-1.5 flex items-center space-x-2
+    bg-[var(--color-black-hover)] hover:bg-[var(--color-black-hover)] 
+    transition
+  "
+          >
+            <Menu size={18} className="text-[var(--color-black)]" />
+            <AccountCircle sx={{ fontSize: 22, color: "var(--color-black)" }} />
+          </button>
+        </div>
       </div>
 
       {/* Dropdown Panel */}

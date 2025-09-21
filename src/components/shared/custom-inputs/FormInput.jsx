@@ -9,6 +9,9 @@ export default function FormInput({
   icon = null,
   size = "small",
   register,
+  readOnly = false,
+  inputRef = null,
+  value,
   errors,
   required = true, // true = required, false = optional, null = plain
   onClick,
@@ -24,6 +27,8 @@ export default function FormInput({
     <TextField
       fullWidth
       defaultValue={""}
+      value={value}
+      inputRef={inputRef}
       type={type}
       label={getLabel()}
       variant="outlined"
@@ -33,6 +38,7 @@ export default function FormInput({
         formHelperText: {
           sx: { color: "var(--color-error)" },
         },
+        readOnly,
         input: {
           endAdornment: icon ? (
             <InputAdornment position="end" onClick={onClick}>
