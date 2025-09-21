@@ -7,8 +7,8 @@ const RegisterPage = lazy(() => import("../features/auth/pages/RegisterPage"));
 const SupplierLogin = lazy(
   () => import("../features/auth/pages/SupplierLogin")
 );
-const FarmerRegister = lazy(
-  () => import("../features/farmer-registration/FarmerRegister")
+const FarmerRegistration = lazy(
+  () => import("../features/farmer-registration/FarmerRegistration")
 );
 const FarmerLogin = lazy(() => import("../features/auth/pages/FarmerLogin"));
 
@@ -19,7 +19,7 @@ export default [
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/supplier-login" element={<SupplierLogin />} />
-      <Route path="/farmer-register" element={<FarmerRegister />} />
+      <Route path="/farmer-registration" element={<FarmerRegistration />} />
       <Route path="/farmer-login" element={<FarmerLogin />} />
     </Route>
   </Route>,

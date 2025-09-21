@@ -41,7 +41,7 @@ const stepLabels = [
   "OTP Verification",
 ];
 
-export default function FarmerRegister() {
+export default function FarmerRegistration() {
   const [step, setStep] = useState(0);
   const [otpSent, setOtpSent] = useState(false);
   const navigate = useNavigate();
@@ -199,7 +199,7 @@ export default function FarmerRegister() {
                 border: "1px solid var(--color-black-light)",
                 borderRadius: 2,
                 bgcolor: "var(--color-white)",
-                p: { xs: 2, md: 3 },
+                py: { xs: 2, md: 3 },
               }}
             >
               {step === 0 && (

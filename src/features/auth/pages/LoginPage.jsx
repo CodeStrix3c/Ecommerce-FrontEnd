@@ -182,7 +182,7 @@ const LoginPage = () => {
           >
             Don’t have an account?{" "}
             <Link
-              to="/farmer-register"
+              to="/farmer-registration"
               style={{
                 fontWeight: "500",
                 textDecoration: "underline",
