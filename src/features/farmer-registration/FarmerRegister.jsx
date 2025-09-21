@@ -15,14 +15,13 @@ import AddressSection from "./sections/AddressSection";
 import OtpVerificationSection from "./sections/OtpVerificationSection";
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
-import FormStepper from "@/components/ui/FormStepper";
+import FormStepper from "@/features/auth/components/FormStepper";
 
-import { profileSchema } from "@/schemas/profileSchema";
-import { demographicsSchema } from "@/schemas/demographicSchema";
-import { landSchema } from "@/schemas/landHoldingSchema";
-import { addressSchema } from "@/schemas/addressSchema";
-import { otpSchema } from "@/schemas/otpSchema";
-import { useProgress } from "@/hooks/useProgress";
+import { profileSchema } from "@/features/farmer-registration/schemas/profileSchema";
+import { demographicsSchema } from "@/features/orchard-registration/schemas/demographicSchema";
+import { landSchema } from "@/features/farmer-registration/schemas/landHoldingSchema";
+import { addressSchema } from "@/features/farmer-registration/schemas/addressSchema";
+import { otpSchema } from "@/features/farmer-registration/schemas/otpSchema";
 import PageWrapper from "@/components/ui/PageWrapper";
 import LoginLink from "@/components/shared/LoginLink";
 
@@ -62,7 +61,6 @@ export default function FarmerRegister() {
   } = methods;
 
   const values = watch(farmerRequiredFields);
-  const completion = useProgress(values, farmerRequiredFields.length);
 
   const nextStep = async () => {
     let stepFields = [];
@@ -192,11 +190,7 @@ export default function FarmerRegister() {
           </Divider> */}
 
             {/* Stepper */}
-            <FormStepper
-              activeStep={step}
-              completion={completion}
-              type="profile"
-            />
+            <FormStepper activeStep={step} type="profile" />
 
             {/* Sections */}
             <Box

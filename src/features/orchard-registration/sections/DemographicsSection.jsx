@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import FormLayout from "@/components/shared/FormLayout";
-import SelectField from "@/components/ui/SelectField";
-import FormInput from "@/features/auth/components/FormInput";
+import FormInput from "@/components/shared/custom-inputs/FormInput";
 import { Button } from "@mui/material";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
 
 export default function DemographicsSection({ register, errors }) {
   const [gpsLocation, setGpsLocation] = useState("");

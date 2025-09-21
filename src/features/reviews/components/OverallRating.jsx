@@ -42,7 +42,7 @@ export default function OverallRating() {
                 </span>
                 <div className="flex-1 bg-[var(--color-border)] h-[1px] rounded">
                   <div
-                    className={`h-[3px] rounded bg-[var(--color-neutral-dark)] ${bar.value}`}
+                    className={`h-[3px] rounded bg-[var(--color-black)] ${bar.value}`}
                   ></div>
                 </div>
               </div>

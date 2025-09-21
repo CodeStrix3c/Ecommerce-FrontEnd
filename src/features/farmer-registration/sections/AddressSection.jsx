@@ -1,5 +1,5 @@
 import FormLayout from "@/components/shared/FormLayout";
-import FormInput from "@/features/auth/components/FormInput";
+import FormInput from "@/components/shared/custom-inputs/FormInput";
 import FormSection from "@/features/auth/components/FormSection";
 
 export default function AddressSection({
