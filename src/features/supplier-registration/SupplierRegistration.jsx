@@ -145,7 +145,11 @@ export default function SupplierRegistration() {
             gap: 0,
           }}
         >
-          <SectionTitle title="Supplier Registration" centered />
+          <SectionTitle
+            title="Supplier Registration"
+            centered
+            className="lg:text-2xl sm:text-4xl"
+          />
 
           <FormStepper activeStep={step} type="supplier" />
 
@@ -154,7 +158,7 @@ export default function SupplierRegistration() {
               border: "1px solid var(--color-black-light)",
               borderRadius: 2,
               bgcolor: "var(--color-white)",
-              p: 2,
+              py: 2,
             }}
           >
             {step === 0 && (

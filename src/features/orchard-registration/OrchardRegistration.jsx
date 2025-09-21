@@ -35,6 +35,7 @@ import {
 
 import useIsMobile from "@/hooks/useInMobile";
 import { useNavigate } from "react-router-dom";
+import Popup from "@/components/shared/Popup";
 
 const stepSchemas = [
   demographicsSchema,
@@ -124,12 +125,8 @@ export default function OrchardRegistration() {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
-        bgcolor: "var(--color-white)",
-        py: { xs: 5, lg: 12 },
-        my: { xs: 0, md: 10, lg: 4 },
       }}
     >
       <FormProvider {...methods}>
@@ -142,14 +139,18 @@ export default function OrchardRegistration() {
             maxWidth: 800,
             p: { md: 4, lg: 4 },
             bgcolor: "var(--color-white)",
-            boxShadow: isMobile ? 0 : 3,
             display: "flex",
             flexDirection: "column",
             gap: 0,
           }}
         >
-          <SectionTitle title="Add Orchard/Farm" centered />
-
+          <div className="mb-8">
+            <SectionTitle
+              title="Add Orchard/Farm"
+              centered
+              className="lg:text-2xl sm:text-4xl"
+            />
+          </div>
           <FormStepper activeStep={step} type="orchard" />
 
           <Box
@@ -157,7 +158,7 @@ export default function OrchardRegistration() {
               border: "1px solid var(--color-black-light)",
               borderRadius: 2,
               bgcolor: "var(--color-white)",
-              p: 2,
+              py: 2,
             }}
           >
             {step === 0 && (
