@@ -3,8 +3,8 @@
 import React from "react";
 import { Controller } from "react-hook-form";
 import FormLayout from "@/components/shared/FormLayout";
-import SelectField from "@/components/ui/SelectField";
-import FormTextArea from "@/components/ui/FormTextArea";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
+import FormTextArea from "@/components/shared/custom-inputs/FormTextArea";
 
 export default function PlantProtectionHealthSection({
   register,

@@ -1,6 +1,6 @@
 import FormLayout from "@/components/shared/FormLayout";
 import CustomButton from "@/components/ui/CustomButton";
-import FormInput from "@/features/auth/components/FormInput";
+import FormInput from "@/components/shared/custom-inputs/FormInput";
 import FormSection from "@/features/auth/components/FormSection";
 import LockIcon from "@mui/icons-material/Lock";
 import Button from "@mui/material/Button";

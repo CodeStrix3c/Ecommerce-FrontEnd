@@ -1,6 +1,6 @@
 import FormLayout from "@/components/shared/FormLayout";
-import SelectField from "@/components/ui/SelectField";
-import FormInput from "@/features/auth/components/FormInput";
+import FormInput from "@/components/shared/custom-inputs/FormInput";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
 import FormSection from "@/features/auth/components/FormSection";
 import { Controller } from "react-hook-form";
 
