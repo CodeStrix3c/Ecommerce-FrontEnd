@@ -1,17 +1,14 @@
-import { TextField, InputAdornment } from "@mui/material";
-import RequiredLabel from "@/features/auth/components/RequiredLabel";
-import OptionalLabel from "@/features/auth/components/OptionalLabel";
+import { TextField } from "@mui/material";
+import RequiredLabel from "@/components/ui/RequiredLabel";
+import OptionalLabel from "@/components/ui/OptionalLabel";
 
-export default function FormInput({
+export default function FormTextArea({
   name,
   label,
-  type = "text",
-  icon = null,
-  size = "small",
+  rows = 4,
   register,
   errors,
   required = true, // true = required, false = optional, null = plain
-  onClick,
 }) {
   // Decide which label to render
   const getLabel = () => {
@@ -23,22 +20,16 @@ export default function FormInput({
   return (
     <TextField
       fullWidth
+      multiline
+      rows={rows}
       defaultValue={""}
-      type={type}
       label={getLabel()}
       variant="outlined"
-      size={size}
+      size="small"
       helperText={errors?.message}
       slotProps={{
         formHelperText: {
           sx: { color: "var(--color-error)" },
-        },
-        input: {
-          endAdornment: icon ? (
-            <InputAdornment position="end" onClick={onClick}>
-              {icon}
-            </InputAdornment>
-          ) : null,
         },
       }}
       {...register(name)}

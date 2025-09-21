@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, MenuItem } from "@mui/material";
-import RequiredLabel from "../../features/auth/components/RequiredLabel";
-import OptionalLabel from "@/features/auth/components/OptionalLabel";
+import OptionalLabel from "@/components/ui/OptionalLabel";
+import RequiredLabel from "@/components/ui/RequiredLabel";
 
 const SelectField = ({
   name,

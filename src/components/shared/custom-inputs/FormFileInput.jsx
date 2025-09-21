@@ -1,9 +1,11 @@
+"use client";
+
 import React, { useState } from "react";
-import { Button, Typography, IconButton } from "@mui/material";
+import { Button, Typography, IconButton, Box } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CloseIcon from "@mui/icons-material/Close";
-import RequiredLabel from "@/features/auth/components/RequiredLabel";
-import OptionalLabel from "@/features/auth/components/OptionalLabel";
+import RequiredLabel from "@/components/ui/RequiredLabel";
+import OptionalLabel from "@/components/ui/OptionalLabel";
 
 export default function FormFileInput({
   name,
@@ -16,6 +18,7 @@ export default function FormFileInput({
   multiple = false,
   showPreview = false,
   width = "100%",
+  labelPosition = "outside", // new prop: "inside" | "outside"
 }) {
   const [files, setFiles] = useState(value ? [value] : []);
 
@@ -32,11 +35,16 @@ export default function FormFileInput({
   };
 
   return (
-    <div style={{ marginBottom: "16px", width }}>
-      {optional ? (
-        <OptionalLabel label={label} />
-      ) : (
-        <RequiredLabel label={label} />
+    <Box sx={{ mb: 2, width }}>
+      {/* Outside Label */}
+      {labelPosition === "outside" && (
+        <>
+          {optional ? (
+            <OptionalLabel label={label} />
+          ) : (
+            <RequiredLabel label={label} />
+          )}
+        </>
       )}
 
       {/* Hidden Input */}
@@ -56,24 +64,45 @@ export default function FormFileInput({
           component="span"
           startIcon={<UploadFileIcon />}
           fullWidth
+          sx={{
+            borderColor: "var(--color-black)",
+            color: "var(--color-black)",
+            textTransform: "none",
+            "&:hover": {
+              borderColor: "var(--color-black)",
+              backgroundColor: "var(--color-black-hover)",
+            },
+          }}
         >
-          {multiple ? "Upload Files" : "Upload File"}
+          {labelPosition === "inside"
+            ? label
+            : multiple
+              ? "Upload Files"
+              : "Upload File"}
         </Button>
       </label>
 
       {/* File Preview */}
       {files.length > 0 && (
-        <div style={{ marginTop: 12, display: "grid", gap: "8px" }}>
+        <Box
+          sx={{
+            mt: 2,
+            display: "grid",
+            gap: 1,
+          }}
+        >
           {files.map((file, index) => (
-            <div
+            <Box
               key={index}
-              style={{
+              sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
-                border: "1px solid #ccc",
-                borderRadius: 8,
-                padding: "8px",
+                gap: 1,
+                border: "1px solid var(--color-black-hover)",
+                borderRadius: 2,
+                p: 1,
+                backgroundColor: "var(--color-white)",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
               }}
             >
               {showPreview && file.type?.startsWith("image/") ? (
@@ -88,29 +117,35 @@ export default function FormFileInput({
                   }}
                 />
               ) : (
-                <UploadFileIcon style={{ color: "#666" }} />
+                <UploadFileIcon sx={{ color: "var(--color-secondary)" }} />
               )}
-              <Typography variant="body2" sx={{ flex: 1 }}>
+              <Typography
+                variant="body2"
+                sx={{ flex: 1, color: "var(--color-black)" }}
+              >
                 {file.name}
               </Typography>
               <IconButton
                 size="small"
                 onClick={() => handleRemoveFile(index)}
-                sx={{ color: "red" }}
+                sx={{ color: "var(--color-error)" }}
               >
                 <CloseIcon fontSize="small" />
               </IconButton>
-            </div>
+            </Box>
           ))}
-        </div>
+        </Box>
       )}
 
       {/* Error Message */}
       {errors && (
-        <Typography variant="body2" sx={{ color: "red", mt: 0.5 }}>
+        <Typography
+          variant="body2"
+          sx={{ color: "var(--color-error)", mt: 0.5 }}
+        >
           {errors.message}
         </Typography>
       )}
-    </div>
+    </Box>
   );
 }

@@ -5,8 +5,8 @@ import LandHoldings from "../componets/LandHoldings";
 import AddressSection from "../componets/AddressSection";
 import FarmMedia from "../componets/FarmMedia";
 import CustomButton from "@/components/ui/CustomButton";
-import SelectField from "@/components/ui/SelectField";
 import { Navigate, useNavigate } from "react-router-dom";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
 
 export default function MyOrchards() {
   const orchards = [

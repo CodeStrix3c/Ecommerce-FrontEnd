@@ -1,6 +1,6 @@
 import { TextField, InputAdornment } from "@mui/material";
-import RequiredLabel from "@/features/auth/components/RequiredLabel";
-import OptionalLabel from "@/features/auth/components/OptionalLabel";
+import RequiredLabel from "@/components/ui/RequiredLabel";
+import OptionalLabel from "@/components/ui/OptionalLabel";
 
 export default function FormDateInput({
   name,
