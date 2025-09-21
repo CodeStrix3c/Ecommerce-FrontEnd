@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Email, Lock } from "@mui/icons-material";
-import { loginSchema } from "@/schemas/authSchemas";
+import { loginSchema } from "@/features/farmer-registration/schemas/authSchemas";
 import CustomButton from "@/components/ui/CustomButton";
-import FormInput from "@/features/auth/components/FormInput";
+import FormInput from "@/components/shared/custom-inputs/FormInput";
 
 export default function FarmerLogin() {
   const [redirect, setRedirect] = useState(false);

@@ -11,20 +11,20 @@ import PestAlert from "../components/PestAlert";
 import Timeline from "../components/Timeline";
 import ExpertAdvice from "../components/ExpertAdvice";
 
-export default function CropProtection() {
+export default function CropInformation() {
   const Label = ({ children }) => (
     <div className="text-xs text-[var(--color-black)]">{children}</div>
   );
 
   return (
     <div className="min-h-screen bg-[var(--color-white)] text-[var(--color-black)] lg:mt-36 md:mt-28">
-      
       <header className="max-w-7xl mx-auto ">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
-          
           <div className="flex items-center gap-3">
             <div>
-              <h1 className="text-xl font-semibold text-[var(--color-primary)]">Crop Information</h1>
+              <h1 className="text-xl font-semibold text-[var(--color-primary)]">
+                Crop Information
+              </h1>
               <p className="text-sm text-[var(--color-black)]">
                 Real-time crop & region-specific recommendations
               </p>
@@ -67,7 +67,9 @@ export default function CropProtection() {
                   </p>
                 </div>
                 <div className="text-left sm:text-right">
-                  <div className="text-sm text-[var(--color-black)] ">Status</div>
+                  <div className="text-sm text-[var(--color-black)] ">
+                    Status
+                  </div>
                   <div className="mt-1 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-black-hover)] text-[var(--color-primary)] text-sm">
                     Suitable to sow
                   </div>
@@ -110,7 +112,9 @@ export default function CropProtection() {
               <div className="mt-4 flex items-center gap-6">
                 <div>
                   <div className="text-3xl font-semibold">22°C</div>
-                  <div className="text-sm text-[var(--color-black)]">Partly Cloudy</div>
+                  <div className="text-sm text-[var(--color-black)]">
+                    Partly Cloudy
+                  </div>
                 </div>
                 <div className="flex-1">
                   <div className="text-sm text-[var(--color-black)]">
@@ -150,9 +154,9 @@ export default function CropProtection() {
               </div>
             </div>
           </div>
-           <PestAlert/>
-         <Timeline/>
-            <ExpertAdvice/>
+          <PestAlert />
+          <Timeline />
+          <ExpertAdvice />
         </section>
         <aside className="space-y-4">
           <div className="bg-[var(--color-white)] rounded-2xl shadow-sm p-4">
