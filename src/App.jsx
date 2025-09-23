@@ -44,6 +44,8 @@ import AgricultureHelpCenter from "./features/help-center/pages/HelpCenter";
 import PublicRoute from "./components/shared/PublicRoute";
 import MyOrchards from "./features/farmers/orchards/MyOrchards";
 import OrchardRegistration from "./features/orchard-registration/OrchardRegistration";
+import WeatherPage from "./features/weather-info/pages/WeatherInfo";
+import ProtectionInfo from "./features/Protection-info/pages/ProtectionInfo";
 
 function App() {
   useEffect(() => {
@@ -77,8 +79,12 @@ function App() {
               <Route path="/company-details" element={<CompanyDetails />} />
               <Route path="/farmer-profile" element={<FarmerProfilePage />} />
               <Route
-                path="/resources/crop-protection"
+                path="/crop-protection"
                 element={<CropProtection />}
+              />
+                 <Route
+                path="/protection-info"
+                element={<ProtectionInfo />}
               />
               <Route path="/help-center" element={<AgricultureHelpCenter />} />
               <Route
@@ -93,6 +99,7 @@ function App() {
               <Route path="/account/places" element={<PlacesPage />} />
               <Route path="/account/places/new" element={<PlacesFormPage />} />
               <Route path="/account/places/:id" element={<PlacesFormPage />} />
+              <Route path="/resources/weather" element={<WeatherPage />} />
               <Route path="/place/:id" element={<PlacePage />} />
               <Route path="/account/bookings" element={<BookingsPage />} />
               <Route path="/wishlist" element={<Wishlist />} />
