@@ -6,8 +6,11 @@ import { useAuth } from "@/hooks";
 import { Button, Divider, Tabs, Tab, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { phoneLoginSchema, emailLoginSchema } from "@/schemas/authSchemas";
-import FormInput from "../components/FormInput";
+import {
+  phoneLoginSchema,
+  emailLoginSchema,
+} from "@/features/farmer-registration/schemas/authSchemas";
+import FormInput from "../../../components/shared/custom-inputs/FormInput";
 import PageWrapper from "@/components/ui/PageWrapper";
 
 const LoginPage = () => {
@@ -179,7 +182,7 @@ const LoginPage = () => {
           >
             Don’t have an account?{" "}
             <Link
-              to="/farmer-register"
+              to="/farmer-registration"
               style={{
                 fontWeight: "500",
                 textDecoration: "underline",

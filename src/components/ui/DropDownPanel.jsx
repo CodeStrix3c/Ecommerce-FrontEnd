@@ -76,7 +76,7 @@ const DropdownPanel = ({ open, onClose }) => {
               className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
             >
               <User size={16} className="text-[var(--color-black)]" />
-              <span>Dashboard</span>
+              <span>Profile</span>
             </Link>
 
             <div

@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 import FormLayout from "@/components/shared/FormLayout";
-import SelectField from "@/components/ui/SelectField";
-import FormInput from "@/features/auth/components/FormInput";
-import FormDateInput from "@/components/ui/FormDateInput";
-import FormFileInput from "@/components/ui/FormFileInput";
+import FormInput from "@/components/shared/custom-inputs/FormInput";
+import FormDateInput from "@/components/shared/custom-inputs/FormDateInput";
+import FormFileInput from "@/components/shared/custom-inputs/FormFileInput";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
 
 export default function SoilWaterProfileSection({ register, errors, control }) {
   console.log(errors, "errr");
@@ -20,6 +20,8 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
     micronutrients: "",
     soilTestReport: null,
   });
+
+  const [useFileUpload, setUseFileUpload] = useState(false); // Toggle state
 
   const handleSoilTestChange = (e) => {
     const { name, value, files } = e.target;
@@ -162,103 +164,117 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
         >
           Enter values or upload a report. At least one is required.
         </p>
-        {/* Numeric Inputs: 2 per row using grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "16px 24px",
-            marginTop: 8,
-          }}
-        >
-          <FormInput
-            name="pH"
-            label="pH"
-            type="number"
-            required={null}
-            register={register}
-            errors={errors.pH}
-            value={soilTest.pH}
-            onChange={handleSoilTestChange}
-          />
-          <FormInput
-            name="N"
-            label="Nitrogen (N)"
-            type="number"
-            required={null}
-            register={register}
-            errors={errors.N}
-            value={soilTest.N}
-            onChange={handleSoilTestChange}
-          />
 
-          <FormInput
-            name="P"
-            label="Phosphorus (P)"
-            type="number"
-            required={null}
-            register={register}
-            errors={errors.P}
-            value={soilTest.P}
-            onChange={handleSoilTestChange}
-          />
-          <FormInput
-            name="K"
-            label="Potassium (K)"
-            type="number"
-            required={null}
-            register={register}
-            errors={errors.K}
-            value={soilTest.K}
-            onChange={handleSoilTestChange}
-          />
+        {/* Toggle button/link */}
+        <div style={{ marginBottom: 8 }}>
+          <button
+            type="button"
+            style={{
+              fontSize: 13,
+              color: "#0070f3",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              textDecoration: "underline",
+            }}
+            onClick={() => setUseFileUpload((prev) => !prev)}
+          >
+            {useFileUpload
+              ? "Enter values manually"
+              : "Upload soil test report"}
+          </button>
+        </div>
 
-          <FormInput
-            name="organicCarbon"
-            label="Organic Carbon"
-            type="number"
-            required={null}
-            register={register}
-            errors={errors.organicCarbon}
-            value={soilTest.organicCarbon}
-            onChange={handleSoilTestChange}
+        {useFileUpload ? (
+          // File Upload Input
+          <Controller
+            name="soilTestReport"
+            control={control}
+            render={({ field, fieldState }) => (
+              <FormFileInput
+                name="soilTestReport"
+                label="Upload Soil Test Report"
+                showPreview
+                value={field.value}
+                required={null}
+                onChange={field.onChange}
+                // errors={fieldState.error}
+                optional
+                accept=".pdf,.doc,.docx,.jpg,.png"
+              />
+            )}
           />
-          <FormInput
-            name="micronutrients"
-            label="Micronutrients"
-            register={register}
-            required={null}
-            errors={errors.micronutrients}
-            value={soilTest.micronutrients}
-            onChange={handleSoilTestChange}
-          />
-
-          {/* OR Divider: spans full width */}
+        ) : (
+          // Numeric Inputs Grid
           <div
             style={{
-              gridColumn: "1 / -1",
-              textAlign: "center",
-              margin: "8px 0 4px 0",
-              color: "#666",
-              fontWeight: 500,
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gap: "16px 24px",
+              marginTop: 8,
             }}
           >
-            — OR —
-          </div>
-
-          {/* Upload Soil Test Report (full width) */}
-          <div style={{ gridColumn: "1 / -1" }}>
-            <FormFileInput
-              name="soilTestReport"
-              showPreview
-              label="Upload Soil Test Report"
+            <FormInput
+              name="pH"
+              label="pH"
+              type="number"
               register={register}
-              errors={errors}
-              optional
-              accept=".pdf,.doc,.docx,.jpg,.png"
+              errors={errors.pH}
+              required={null}
+              value={soilTest.pH}
+              onChange={handleSoilTestChange}
+            />
+            <FormInput
+              name="N"
+              label="Nitrogen (N)"
+              type="number"
+              register={register}
+              errors={errors.N}
+              required={null}
+              value={soilTest.N}
+              onChange={handleSoilTestChange}
+            />
+            <FormInput
+              name="P"
+              label="Phosphorus (P)"
+              type="number"
+              register={register}
+              errors={errors.P}
+              required={null}
+              value={soilTest.P}
+              onChange={handleSoilTestChange}
+            />
+            <FormInput
+              name="K"
+              label="Potassium (K)"
+              type="number"
+              register={register}
+              errors={errors.K}
+              required={null}
+              value={soilTest.K}
+              onChange={handleSoilTestChange}
+            />
+            <FormInput
+              name="organicCarbon"
+              label="Organic Carbon"
+              type="number"
+              register={register}
+              required={null}
+              errors={errors.organicCarbon}
+              value={soilTest.organicCarbon}
+              onChange={handleSoilTestChange}
+            />
+            <FormInput
+              name="micronutrients"
+              label="Micronutrients"
+              register={register}
+              required={null}
+              errors={errors.micronutrients}
+              value={soilTest.micronutrients}
+              onChange={handleSoilTestChange}
             />
           </div>
-        </div>
+        )}
       </section>
     </>
   );

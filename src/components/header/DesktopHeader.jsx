@@ -23,15 +23,16 @@ const DesktopHeader = ({ location }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const headerShadow = {
-    backgroundColor: "var(--color-white)",
-    transition: "box-shadow 0.3s ease-in-out",
-  };
-
   return (
     <header
-      style={headerShadow}
-      className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)]"
+      style={{
+        backgroundColor: "var(--color-white)",
+        boxShadow:
+          location.pathname === "/home"
+            ? "inset 0px -60px 60px -10px rgba(0, 0, 0, 0.03)"
+            : "none",
+      }}
+      className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)] border-b border-gray-100"
     >
       <motion.div
         initial={false}
@@ -42,7 +43,7 @@ const DesktopHeader = ({ location }) => {
         {/* Left: Logo */}
         <NavLink to="/" className="flex items-center gap-2">
           <img
-            src="assets/images/ziraat.jpeg"
+            src="assets/images/ziraat.png"
             alt="ziraat"
             width={80}
             height={80}
@@ -86,7 +87,7 @@ const DesktopHeader = ({ location }) => {
 
       {/* Below header row */}
       {location.pathname === "/home" && scrollY < 100 && (
-        <div className="flex justify-center py-3">
+        <div className="flex justify-center py-3 pb-10  ">
           <SearchBar />
         </div>
       )}
@@ -100,7 +101,7 @@ const DesktopHeader = ({ location }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="flex justify-center py-3"
+            className="flex justify-center py-4"
           >
             <SearchBar />
           </motion.div>
