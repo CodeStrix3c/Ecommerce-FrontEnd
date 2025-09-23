@@ -56,8 +56,8 @@ const Footer = () => {
               Farmer Resources
             </strong>
             {[
-              { name: "Crop Information", link: "/resources/crops" },
-              { name: "Crop Protection", link: "/resources/crop-protection" },
+              { name: "Crop Information", link: "/crop-protection" },
+              { name: "Crop Protection", link: "/protection-info" },
               { name: "Weather Updates", link: "/resources/weather" },
               { name: "Market Prices", link: "/resources/market-prices" },
               { name: "Pest Alerts", link: "/resources/pest-alerts" },
