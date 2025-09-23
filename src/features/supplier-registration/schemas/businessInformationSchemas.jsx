@@ -27,5 +27,5 @@ export const businessInformationSchema = z.object({
     .min(100000, "PIN must be 6 digits")
     .max(999999, "PIN must be 6 digits"),
 
-  gps: z.string().min(1, "GPS location is required"),
+  gps: z.string().min(1, "GPS location is required").optional,
 });

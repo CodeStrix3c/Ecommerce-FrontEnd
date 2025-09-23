@@ -23,17 +23,17 @@ const DesktopHeader = ({ location }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const headerShadow = {
-    backgroundColor: "var( --color-black-hover)",
-    transition: "box-shadow 0.3s ease-in-out",
-  };
-
   return (
-   <header
-  style={headerShadow}
-  className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)] border-b border-gray-100"
->
-
+    <header
+      style={{
+        backgroundColor: "var(--color-white)",
+        boxShadow:
+          location.pathname === "/home"
+            ? "inset 0px -60px 60px -10px rgba(0, 0, 0, 0.03)"
+            : "none",
+      }}
+      className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)] border-b border-gray-100"
+    >
       <motion.div
         initial={false}
         animate={{ maxWidth: isPlacePage ? "74vw" : "93vw" }}

@@ -1,97 +1,58 @@
-// FarmerRegister.tsx
-import { farmerRequiredFields } from "@/constants/farmerRequiredFields";
-import React, { useState } from "react";
+// FarmerRegistration.tsx
+import React, { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Stack, Divider } from "@mui/material";
-import { GoogleLogin } from "@react-oauth/google";
+import { Box, Stack } from "@mui/material";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 import ProfileSection from "./sections/ProfileSection";
-import DemographicsSection from "./sections/DemographicsSection";
-import LandHoldingSection from "./sections/LandHoldingSection";
-import AddressSection from "./sections/AddressSection";
 import OtpVerificationSection from "./sections/OtpVerificationSection";
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
 import FormStepper from "@/features/auth/components/FormStepper";
 
 import { profileSchema } from "@/features/farmer-registration/schemas/profileSchema";
-import { demographicsSchema } from "@/features/orchard-registration/schemas/demographicSchema";
-import { landSchema } from "@/features/farmer-registration/schemas/landHoldingSchema";
-import { addressSchema } from "@/features/farmer-registration/schemas/addressSchema";
 import { otpSchema } from "@/features/farmer-registration/schemas/otpSchema";
 import PageWrapper from "@/components/ui/PageWrapper";
-import LoginLink from "@/components/shared/LoginLink";
+import { useFarmer } from "@/providers/FarmerProvider";
+import { OTP_FIELDS, PROFILE_FIELDS } from "../../constants/profileFields";
 
-const stepSchemas = [
-  profileSchema,
-  // demographicsSchema,
-  // landSchema,
-  // addressSchema,
-  otpSchema,
-];
-
-const stepLabels = [
-  "Profile",
-  // "Demographics",
-  // "Land Holdings",
-  // "Address",
-  "OTP Verification",
-];
+const stepSchemas = [profileSchema, otpSchema];
+const stepLabels = ["Profile", "OTP Verification"];
 
 export default function FarmerRegistration() {
   const [step, setStep] = useState(0);
   const [otpSent, setOtpSent] = useState(false);
+  const { setFarmer } = useFarmer();
   const navigate = useNavigate();
 
   const methods = useForm({
     resolver: zodResolver(stepSchemas[step]),
     mode: "onChange",
-    reValidateMode: "onSubmit",
   });
 
   const {
     watch,
     trigger,
-    setValue,
     register,
     formState: { errors },
+    setValue,
   } = methods;
+  const values = watch();
 
-  const values = watch(farmerRequiredFields);
+  useEffect(() => {
+    setFarmer(values);
+  }, [values, setFarmer]);
 
   const nextStep = async () => {
-    let stepFields = [];
-
-    if (step === 0)
-      stepFields = [
-        "fullName",
-        "phone",
-        "email",
-        "password",
-        "confirmPassword",
-      ];
-    // if (step === 1) stepFields = ["farmName", "farmSize", "mainCrops"];
-    // if (step === 2)
-    //   stepFields = [
-    //     "soilType",
-    //     "irrigationMethod",
-    //     "environmentalConditions",
-    //     "farmLocation",
-    //   ];
-    // if (step === 3)
-    //   stepFields = ["village", "tehsil", "district", "state", "pincode"];
-    // if (step === 4) stepFields = ["otp"];
-    if (step === 1) stepFields = ["otp"];
-
+    let stepFields = step === 0 ? PROFILE_FIELDS : OTP_FIELDS;
     const valid = await trigger(stepFields);
 
     if (step === 0 && valid && !otpSent) {
       const phone = watch("phone");
       if (phone) {
-        console.log("OTP generated for phone:", phone);
+        console.log("OTP sent to phone:", phone);
         setOtpSent(true);
       }
     }
@@ -101,22 +62,8 @@ export default function FarmerRegistration() {
 
   const prevStep = () => setStep((s) => Math.max(0, s - 1));
 
-  const detectLocation = () => {
-    if (!navigator.geolocation) return alert("Geolocation is not supported");
-    navigator.geolocation.getCurrentPosition(
-      (pos) =>
-        setValue("gps", `${pos.coords.latitude},${pos.coords.longitude}`, {
-          shouldValidate: true,
-        }),
-      () => alert("Unable to retrieve location")
-    );
-  };
-
   const handleSubmitClick = async () => {
-    if (step !== 1) {
-      nextStep();
-      return;
-    }
+    if (step !== 1) return nextStep();
 
     const valid = await trigger(["otp"]);
     if (!valid) {
@@ -124,14 +71,11 @@ export default function FarmerRegistration() {
       return;
     }
 
-    const data = watch();
-    console.log("Form submitted with data:", data);
-
-    localStorage.setItem("signup-token", "fake-jwt-token-12345");
-    localStorage.setItem("farmerData", JSON.stringify(data));
+    localStorage.setItem("token", "fake-jwt-token-12345");
+    localStorage.setItem("farmerData", JSON.stringify(values));
 
     toast.success("Signup successful!");
-    navigate("/dashboard");
+    navigate("/home");
   };
 
   return (
@@ -141,9 +85,8 @@ export default function FarmerRegistration() {
           minHeight: "100vh",
           display: "flex",
           justifyContent: "center",
-          // alignItems: "center",
           bgcolor: "var(--color-gray-light)",
-          p: { xs: 2, md: 4, lg: 4 },
+          p: 4,
         }}
       >
         <FormProvider {...methods}>
@@ -152,72 +95,29 @@ export default function FarmerRegistration() {
             onSubmit={(e) => e.preventDefault()}
             sx={{
               borderRadius: 3,
-              width: "100%",
               maxWidth: 850,
+              width: "100%",
               bgcolor: "var(--color-white)",
-              boxShadow: { xs: 0, md: 2, lg: 2 },
-              p: { xs: 0, md: 2, lg: 2 },
+              p: 3,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
           >
-            {/* Logo */}
-            {/* <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-              <img
-                src="/assets/images/ziraat.jpeg"
-                alt="Ziraat Logo"
-                className="h-16 object-contain"
-              />
-            </Box> */}
-
             <SectionTitle title="Farmer Registration" centered />
-
-            {/* Google Login */}
-            <Stack spacing={2} sx={{ my: 2, width: "100%" }}>
-              <GoogleLogin
-                onSuccess={(cred) =>
-                  console.log("Google Login", cred.credential)
-                }
-                onError={() => console.log("Register failed")}
-                text="continue_with"
-                width="100%"
-              />
-            </Stack>
-
-            {/* <Divider flexItem sx={{ width: "100%", my: 2 }}>
-            or
-          </Divider> */}
-
-            {/* Stepper */}
             <FormStepper activeStep={step} type="profile" />
 
-            {/* Sections */}
             <Box
               sx={{
                 width: "100%",
                 border: "1px solid var(--color-black-light)",
                 borderRadius: 2,
-                bgcolor: "var(--color-white)",
-                py: { xs: 2, md: 3 },
+                py: 3,
               }}
             >
               {step === 0 && (
                 <ProfileSection register={register} errors={errors} />
               )}
-              {/* {step === 1 && (
-                <DemographicsSection register={register} errors={errors} />
-              )}
-              {step === 2 && (
-                <LandHoldingSection register={register} errors={errors} />
-              )}
-              {step === 3 && (
-                <AddressSection
-                  register={register}
-                  errors={errors}
-                  detectLocation={detectLocation}
-                />
-              )} */}
               {step === 1 && (
                 <OtpVerificationSection register={register} errors={errors} />
               )}
@@ -230,7 +130,6 @@ export default function FarmerRegistration() {
                 handleSubmit={handleSubmitClick}
               />
             </Box>
-            <LoginLink link={"/login"} />
           </Box>
         </FormProvider>
       </Box>
