@@ -8,8 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   phoneRegisterSchema,
   emailRegisterSchema,
-} from "@/schemas/authSchemas"; // ✅ you should define these like login but with confirmPassword
-import RequiredLabel from "@/features/auth/components/RequiredLabel";
+} from "@/features/farmer-registration/schemas/authSchemas"; // ✅ you should define these like login but with confirmPassword
+import RequiredLabel from "@/components/ui/RequiredLabel";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks";
 import { Link } from "react-router-dom";

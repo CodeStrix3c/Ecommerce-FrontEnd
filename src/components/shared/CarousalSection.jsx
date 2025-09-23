@@ -42,7 +42,7 @@ const CarousalSection = ({ title, places, loading }) => {
 
   return (
     <div className="mt-0">
-      <div className="mx-auto mb-4 flex items-center justify-between px-2 sm:px-0">
+      <div className="mx-auto mb-4 flex items-center justify-between px-2 pt-5 sm:px-0">
         <SectionTitle title={title} className="mt-0" />
         {!isMobile && totalSlides > 0 && (
           <div className="flex gap-2">
