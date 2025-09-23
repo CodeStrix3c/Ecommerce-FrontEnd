@@ -90,14 +90,16 @@ const SearchBar = ({ onSubmit }) => {
           {regions.map((region) => (
             <option key={region} value={region}>
               {region}
-            </option>
+            </option> 
           ))}
         </select>
       </div>
 
-      <div className="flex-1 px-3">
-        <p className="text-xs font-semibold text-[var(--color-black)]">When</p>
-        <DatePickerWithRange setDateRange={setDateRange} />
+      <div className="flex-1 px-3 max-h-fit py-3">
+        <p className="text-xs font-semibold text-[var(--color-black)] mb-1">When</p>
+        <span className="text-sm text-[var(--color-black)] ">
+          <DatePickerWithRange setDateRange={setDateRange} />
+        </span>
       </div>
 
       <button
