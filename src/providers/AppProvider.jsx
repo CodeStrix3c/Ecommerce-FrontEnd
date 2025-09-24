@@ -4,17 +4,20 @@ import { PlaceProvider } from "./PlaceProvider";
 import { WishListProvider } from "./WishListProvider";
 import { CartListProvider } from "./CartListProvider";
 import { FarmerProvider } from "./FarmerProvider";
+import { SupplierProvider } from "./SupplierProvider";
 
 function AppProvider({ children }) {
   return (
     <UserProvider>
-      <FarmerProvider>
-        <PlaceProvider>
-          <CartListProvider>
-            <WishListProvider>{children}</WishListProvider>
-          </CartListProvider>
-        </PlaceProvider>
-      </FarmerProvider>
+      <SupplierProvider>
+        <FarmerProvider>
+          <PlaceProvider>
+            <CartListProvider>
+              <WishListProvider>{children}</WishListProvider>
+            </CartListProvider>
+          </PlaceProvider>
+        </FarmerProvider>
+      </SupplierProvider>
     </UserProvider>
   );
 }

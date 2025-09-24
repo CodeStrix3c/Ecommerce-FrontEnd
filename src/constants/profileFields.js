@@ -4,6 +4,8 @@ export const PROFILE_FIELDS = [
   "email",
   "password",
   "confirmPassword",
+  "age",
+  "gender",
 ];
 
 export const OTP_FIELDS = ["otp"];

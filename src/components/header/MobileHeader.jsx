@@ -24,7 +24,7 @@ const MobileHeader = ({ location }) => {
       </div>
 
       {/* Search bar (only homepage) */}
-      {location.pathname === "/" && (
+      {location.pathname === "/home" && (
         <div
           className="sticky top-[52px] z-10 bg-[var(--color-white)] px-4 py-2 "
           onClick={() => setIsSearchOpen(true)}
