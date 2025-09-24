@@ -40,10 +40,11 @@ export default function FarmerRegistration() {
     setValue,
   } = methods;
   const values = watch();
+  console.log(values, "values in farmer registration");
 
-  useEffect(() => {
-    setFarmer(values);
-  }, [values, setFarmer]);
+  // useEffect(() => {
+  //   setFarmer(values);
+  // }, [values, setFarmer]);
 
   const nextStep = async () => {
     let stepFields = step === 0 ? PROFILE_FIELDS : OTP_FIELDS;
@@ -70,7 +71,7 @@ export default function FarmerRegistration() {
       toast.error("Please enter the OTP");
       return;
     }
-
+    setFarmer(values);
     localStorage.setItem("token", "fake-jwt-token-12345");
     localStorage.setItem("farmerData", JSON.stringify(values));
 
