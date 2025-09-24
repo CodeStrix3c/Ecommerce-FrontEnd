@@ -11,7 +11,6 @@ export default function OperationalDetailsSection({
   errors,
   control,
 }) {
-  // Watch deliveryService field to conditionally show Service Area
   const deliveryService = useWatch({
     control,
     name: "deliveryService",
