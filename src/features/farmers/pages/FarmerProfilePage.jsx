@@ -10,11 +10,23 @@ import CustomButton from "@/components/ui/CustomButton";
 import { addressSchema } from "@/features/farmer-registration/schemas/addressSchema";
 import { useFarmer } from "@/providers/FarmerProvider";
 import { ADDRESS_FIELDS } from "@/constants/profileFields";
+import FarmerProfileCompletion from "./FarmerProfileCompletion";
+import { set } from "zod";
 
 export default function FarmerProfilePage() {
   const navigate = useNavigate();
-  const { farmer, setFarmer, progress, isComplete } = useFarmer();
-  const [showAddressSection, setShowAddressSection] = useState(false);
+  const {
+    farmer,
+    setFarmer,
+    sections,
+    progress,
+    isComplete,
+    setEducationComplete,
+    setProfessionComplete,
+    setAddressComplete,
+    setProfileComplete,
+  } = useFarmer();
+  const [showIncompleteSection, setShowIncompleteSection] = useState(false);
   const [gpsLocation, setGpsLocation] = useState("");
   const gpsInputRef = useRef(null);
 
@@ -33,6 +45,7 @@ export default function FarmerProfilePage() {
   const addressValues = watch();
 
   useEffect(() => detectLocation(), []);
+  console.log(progress, "progress in farmer profile");
 
   const detectLocation = () => {
     if (!navigator.geolocation) return alert("Geolocation not supported");
@@ -51,13 +64,14 @@ export default function FarmerProfilePage() {
 
   // Complete address and update farmer
   const handleCompleteProfile = async () => {
-    const valid = await trigger(ADDRESS_FIELDS); // validate only address fields
-    if (!valid) return;
+    setProfileComplete();
+    setEducationComplete();
+    setProfessionComplete();
+    setAddressComplete();
 
-    const updatedFarmer = { ...farmer, ...addressValues };
-    setFarmer(updatedFarmer);
-    localStorage.setItem("farmerData", JSON.stringify(updatedFarmer));
-    setShowAddressSection(false);
+    // const updatedFarmer = { ...farmer, ...addressValues };
+    // localStorage.setItem("farmerData", JSON.stringify(updatedFarmer));
+    setShowIncompleteSection(false);
   };
 
   return (
@@ -85,17 +99,17 @@ export default function FarmerProfilePage() {
           <ProgressBar
             filledFields={progress * 100} // assuming ProgressBar accepts 0–100
             totalFields={100}
-            onClick={() => setShowAddressSection(true)}
+            onClick={() => setShowIncompleteSection(true)}
           />
 
-          {!isComplete && (
+          {/* {!isComplete && (
             <p
-              onClick={() => setShowAddressSection(true)}
+              onClick={() => setShowIncompleteSection(true)}
               className="mt-2 text-sm text-[var(--color-secondary)] hover:underline cursor-pointer"
             >
               Complete your profile
             </p>
-          )}
+          )} */}
         </div>
       </div>
 
@@ -104,19 +118,16 @@ export default function FarmerProfilePage() {
           varient="contained"
           text="My Orchards"
           onClick={() => navigate("/my-orchards")}
-          disabled={!isComplete}
         />
       </div>
 
-      {showAddressSection && (
+      {showIncompleteSection && (
         <Popup
-          onClose={() => setShowAddressSection(false)}
-          title="Add Address"
-          open={showAddressSection}
+          onClose={() => setShowIncompleteSection(false)}
+          title="Complete Farmer Profile"
+          open={showIncompleteSection}
         >
-          <AddressSection
-            register={register}
-            errors={errors}
+          <FarmerProfileCompletion
             value={gpsLocation}
             detectLocation={detectLocation}
             gpsInputRef={gpsInputRef}
