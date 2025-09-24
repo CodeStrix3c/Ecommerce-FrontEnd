@@ -1,4 +1,4 @@
-export const businessInformationStepFields = [
+export const BUSINESS_INFORMATION_FIELDS = [
   "businessName",
   "ownerName",
   "primaryContact",
@@ -12,7 +12,7 @@ export const businessInformationStepFields = [
   "gps",
 ];
 
-export const licensingComplianceStepFields = [
+export const LICENSING_COMPLIANCE_FIELDS = [
   "dealerLicenseNumber",
   "licenseValidityStart",
   "licenseValidityEnd",
@@ -20,14 +20,15 @@ export const licensingComplianceStepFields = [
   "gstNumber",
   "pan",
 ];
-export const productPortfolioStepFields = [
+
+export const PRODUCT_PORTFOLIO_FIELDS = [
   "inputsSold",
   "majorBrands",
   "otherInputs",
   "storageCapacity",
 ];
 
-export const operationalDetailsStepFields = [
+export const OPERATIONAL_DETAILS_FIELDS = [
   "yearsInBusiness",
   "distributorTieUps",
   "deliveryService",
@@ -35,14 +36,14 @@ export const operationalDetailsStepFields = [
   "averageMonthlySales",
 ];
 
-export const financialPaymentStepFields = [
+export const FINANCIAL_PAYMENT_FIELDS = [
   "sellingViaZiraat",
   "bankDetails",
   "upiAvailable",
   "creditFacility",
 ];
 
-export const supportServicesStepFields = [
+export const SUPPORT_SERVICES_FIELDS = [
   "advisorySupport",
   "fieldStaffAvailable",
   "fieldStaffCount",
@@ -52,14 +53,28 @@ export const supportServicesStepFields = [
   "vehicleAvailable",
 ];
 
-export const verificationRatingsStepFields = [];
+export const VERIFICATION_RATINGS_FIELDS = [];
 
-export const supplierRegistrationDefaultFields = [
-  ...businessInformationStepFields,
-  ...licensingComplianceStepFields,
-  ...productPortfolioStepFields,
-  ...operationalDetailsStepFields,
-  ...financialPaymentStepFields,
-  ...supportServicesStepFields,
-  ...verificationRatingsStepFields,
+// All supplier fields combined
+export const ALL_SUPPLIER_PROFILE_FIELDS = [
+  ...BUSINESS_INFORMATION_FIELDS,
+  ...LICENSING_COMPLIANCE_FIELDS,
+  ...PRODUCT_PORTFOLIO_FIELDS,
+  ...OPERATIONAL_DETAILS_FIELDS,
+  ...FINANCIAL_PAYMENT_FIELDS,
+  ...SUPPORT_SERVICES_FIELDS,
+  ...VERIFICATION_RATINGS_FIELDS,
 ];
+
+// Helper functions
+export const getFilledSupplierFieldsCount = (supplier) => {
+  return ALL_SUPPLIER_PROFILE_FIELDS.filter(
+    (field) =>
+      supplier?.[field] !== undefined &&
+      supplier[field] !== null &&
+      supplier[field].toString().trim() !== ""
+  ).length;
+};
+
+export const isSupplierProfileComplete = (supplier) =>
+  getFilledSupplierFieldsCount(supplier) === ALL_SUPPLIER_PROFILE_FIELDS.length;
