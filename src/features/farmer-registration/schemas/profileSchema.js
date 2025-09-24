@@ -7,6 +7,13 @@ export const profileSchema = z
       .string()
       .regex(/^[0-9]{10}$/, "Enter your registered 10-digit phone number"),
     email: z.string().email("Invalid email"),
+    age: z.coerce
+      .number({ invalid_type_error: "Age is required" })
+      .min(1, "Age is required"),
+    gender: z.preprocess(
+      (val) => (val === undefined ? "" : val),
+      z.string().nonempty("Gender is required")
+    ),
     password: z
       .string()
       .regex(

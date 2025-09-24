@@ -1,18 +1,25 @@
 import { useState, useRef, useEffect } from "react";
-import { Heart, ShoppingCart, Globe, Menu } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Heart, ShoppingCart, Menu } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
 import { useCartList } from "@/providers/CartListProvider";
 import useIsMobile from "@/hooks/useInMobile";
 import DropdownPanel from "./DropDownPanel";
-import { AccountCircle } from "@mui/icons-material"; // Profile Icon (MUI)
+import { AccountCircle } from "@mui/icons-material";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
+  const [isSupplierLoggedIn, setIsSupplierLoggedIn] = useState(false);
   const menuRef = useRef(null);
   const { wishlist } = useWishlist();
   const { cartList } = useCartList();
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("supplierToken"); // check if supplier is logged in
+    setIsSupplierLoggedIn(!!token);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -27,13 +34,22 @@ const DropdownMenu = () => {
   return (
     <div className="relative" ref={menuRef}>
       <div className="flex items-center gap-3">
-        {/* Become Supplier */}
-        <Link
-          to="/supplier-register"
-          className="rounded-full pr-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
-        >
-          Become a Supplier
-        </Link>
+        {/* Supplier Link or Dashboard */}
+        {isSupplierLoggedIn ? (
+          <button
+            onClick={() => navigate("/supplier-profile")}
+            className="rounded-full pr-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+          >
+            Dashboard
+          </button>
+        ) : (
+          <Link
+            to="/supplier-register"
+            className="rounded-full pr-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+          >
+            Become a Supplier
+          </Link>
+        )}
 
         {/* Wishlist */}
         <Link
@@ -61,14 +77,15 @@ const DropdownMenu = () => {
           )}
         </Link>
 
+        {/* Account & Menu */}
         <div className="flex items-center space-x-3">
           <button
             onClick={() => setOpen(!open)}
             className="
-    border rounded-2xl px-3 py-1.5 flex items-center space-x-2
-    bg-[var(--color-black-hover)] hover:bg-[var(--color-black-hover)] 
-    transition
-  "
+              border rounded-2xl px-3 py-1.5 flex items-center space-x-2
+              bg-[var(--color-black-hover)] hover:bg-[var(--color-black-hover)] 
+              transition
+            "
           >
             <Menu size={18} className="text-[var(--color-black)]" />
             <AccountCircle sx={{ fontSize: 22, color: "var(--color-black)" }} />
