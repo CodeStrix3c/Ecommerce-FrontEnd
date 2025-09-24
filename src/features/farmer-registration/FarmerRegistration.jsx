@@ -24,7 +24,7 @@ const stepLabels = ["Profile", "OTP Verification"];
 export default function FarmerRegistration() {
   const [step, setStep] = useState(0);
   const [otpSent, setOtpSent] = useState(false);
-  const { setFarmer } = useFarmer();
+  const { setProfileComplete, setOtpComplete } = useFarmer();
   const navigate = useNavigate();
 
   const methods = useForm({
@@ -71,7 +71,8 @@ export default function FarmerRegistration() {
       toast.error("Please enter the OTP");
       return;
     }
-    setFarmer(values);
+    setProfileComplete();
+    setOtpComplete();
     localStorage.setItem("token", "fake-jwt-token-12345");
     localStorage.setItem("farmerData", JSON.stringify(values));
 
