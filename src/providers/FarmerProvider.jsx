@@ -1,65 +1,35 @@
+// context/FarmerContext.tsx
 import { createContext, useContext, useState, useEffect } from "react";
+import {
+  ALL_PROFILE_FIELDS,
+  getFilledFieldsCount,
+} from "@/constants/profileFields";
 
 const FarmerContext = createContext(null);
 
-export function SupplierProvider({ children }) {
-  const [supplier, setSupplier] = useState(null);
-
-  const [sections, setSections] = useState({
-    business: false,
-    otp: false,
-    licensing: false,
-    productPortfolio: false,
-    operationalDetails: false,
-    financialPayment: false,
-    supportServices: false,
-  });
-
+export function FarmerProvider({ children }) {
+  const [farmer, setFarmer] = useState(null);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    const totalSections = Object.keys(sections).length;
-    const completedSections = Object.values(sections).filter(Boolean).length;
+    if (!farmer) {
+      setProgress(0);
+      setIsComplete(false);
+      return;
+    }
 
-    setProgress(completedSections / totalSections);
-    setIsComplete(completedSections === totalSections);
-  }, [sections]);
-
-  const setBusinessComplete = () =>
-    setSections((prev) => ({ ...prev, business: true }));
-  const setOtpComplete = () => setSections((prev) => ({ ...prev, otp: true }));
-  const setLicensingComplete = () =>
-    setSections((prev) => ({ ...prev, licensing: true }));
-  const setProductPortfolioComplete = () =>
-    setSections((prev) => ({ ...prev, productPortfolio: true }));
-  const setOperationalDetailsComplete = () =>
-    setSections((prev) => ({ ...prev, operationalDetails: true }));
-  const setFinancialPaymentComplete = () =>
-    setSections((prev) => ({ ...prev, financialPayment: true }));
-  const setSupportServicesComplete = () =>
-    setSections((prev) => ({ ...prev, supportServices: true }));
+    const filled = getFilledFieldsCount(farmer);
+    const total = ALL_PROFILE_FIELDS.length;
+    setProgress(filled / total);
+    setIsComplete(filled === total);
+  }, [farmer]);
 
   return (
-    <FarmerContext.Provider
-      value={{
-        supplier,
-        setSupplier,
-        sections,
-        progress,
-        isComplete,
-        setBusinessComplete,
-        setOtpComplete,
-        setLicensingComplete,
-        setProductPortfolioComplete,
-        setOperationalDetailsComplete,
-        setFinancialPaymentComplete,
-        setSupportServicesComplete,
-      }}
-    >
+    <FarmerContext.Provider value={{ farmer, setFarmer, progress, isComplete }}>
       {children}
     </FarmerContext.Provider>
   );
 }
 
-export const useSupplier = () => useContext(FarmerContext);
+export const useFarmer = () => useContext(FarmerContext);
