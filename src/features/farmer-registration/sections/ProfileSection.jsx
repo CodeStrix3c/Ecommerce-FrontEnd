@@ -7,8 +7,10 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import FormLayout from "@/components/shared/FormLayout";
+import { Controller } from "react-hook-form";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
 
-export default function ProfileSection({ register, errors }) {
+export default function ProfileSection({ register, errors, control }) {
   const iconStyle = { color: "var(--color-secondary)", fontSize: 20 };
   console.log(errors);
 
@@ -39,6 +41,44 @@ export default function ProfileSection({ register, errors }) {
           icon={<PhoneIcon sx={iconStyle} />}
         />
         <FormInput
+          name="age"
+          label="Age"
+          type="number"
+          register={register}
+          errors={errors.age}
+        />
+
+        {/* ✅ Gender dropdown */}
+        <Controller
+          name="gender"
+          control={control}
+          render={({ field, fieldState }) => (
+            <SelectField
+              {...field}
+              label="Gender"
+              errors={
+                fieldState.error ? { [field.name]: fieldState.error } : {}
+              }
+              options={[
+                { value: "", label: "Select Gender" },
+                { value: "male", label: "Male" },
+                { value: "female", label: "Female" },
+                { value: "other", label: "Other" },
+              ]}
+            />
+          )}
+        />
+        <FileUploadField
+          name="profilePic"
+          label="Upload Profile"
+          register={register}
+          variant="profile"
+          errors={errors}
+          showPreview={false}
+          optional
+        />
+
+        <FormInput
           name="password"
           label="Password"
           type="password"
@@ -53,16 +93,6 @@ export default function ProfileSection({ register, errors }) {
           register={register}
           errors={errors.confirmPassword}
           icon={<LockIcon sx={iconStyle} />}
-        />
-
-        <FileUploadField
-          name="profilePic"
-          label="Upload Profile"
-          register={register}
-          variant="profile"
-          errors={errors}
-          showPreview={false}
-          optional
         />
       </FormLayout>
     </FormSection>

@@ -1,4 +1,3 @@
-// components/ui/ProgressBar.tsx
 import { Box, LinearProgress, Typography, Button } from "@mui/material";
 
 export default function ProgressBar({ filledFields, totalFields, onClick }) {
@@ -29,7 +28,6 @@ export default function ProgressBar({ filledFields, totalFields, onClick }) {
         }}
       />
 
-      {/* Render complete button only if onClick is provided and not 100% */}
       {onClick && percentage < 100 && (
         <Box sx={{ mt: 2 }}>
           <Button
