@@ -22,14 +22,18 @@ import { financialPaymentSchema } from "@/features/supplier-registration/schemas
 import { supportServicesSchema } from "@/features/supplier-registration/schemas/supportServicesSchema";
 
 import {
+  BUSINESS_INFORMATION_FIELDS,
   FINANCIAL_PAYMENT_FIELDS,
   LICENSING_COMPLIANCE_FIELDS,
   OPERATIONAL_DETAILS_FIELDS,
   PRODUCT_PORTFOLIO_FIELDS,
   SUPPORT_SERVICES_FIELDS,
 } from "@/constants/supplierFormSteps";
+import BusinessInformationSection from "@/features/supplier-registration/sections/BusinessInformationSection";
+import { businessInformationSchema } from "@/features/supplier-registration/schemas/businessInformationSchemas";
 
 const stepSchemas = [
+  businessInformationSchema,
   licensingComplianceSchema,
   productPortfolioSchema,
   operationalDetailsSchema,
@@ -37,8 +41,8 @@ const stepSchemas = [
   supportServicesSchema,
 ];
 
-export default function InCompleteSupplierProfileSection({ onComplete }) {
-  const [step, setStep] = useState(0);
+export default function SupplierProfileCompletion({ onComplete }) {
+  const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
   const isMobile = useIsMobile();
@@ -67,11 +71,12 @@ export default function InCompleteSupplierProfileSection({ onComplete }) {
   const nextStep = async () => {
     let stepFields = [];
 
-    if (step === 0) stepFields = LICENSING_COMPLIANCE_FIELDS;
-    if (step === 1) stepFields = PRODUCT_PORTFOLIO_FIELDS;
-    if (step === 2) stepFields = OPERATIONAL_DETAILS_FIELDS;
-    if (step === 3) stepFields = FINANCIAL_PAYMENT_FIELDS;
-    if (step === 4) stepFields = SUPPORT_SERVICES_FIELDS;
+    if (step === 0) stepFields = BUSINESS_INFORMATION_FIELDS;
+    if (step === 1) stepFields = LICENSING_COMPLIANCE_FIELDS;
+    if (step === 2) stepFields = PRODUCT_PORTFOLIO_FIELDS;
+    if (step === 3) stepFields = OPERATIONAL_DETAILS_FIELDS;
+    if (step === 4) stepFields = FINANCIAL_PAYMENT_FIELDS;
+    if (step === 5) stepFields = SUPPORT_SERVICES_FIELDS;
 
     const valid = await trigger(stepFields);
 
@@ -154,18 +159,21 @@ export default function InCompleteSupplierProfileSection({ onComplete }) {
             }}
           >
             {step === 0 && (
-              <LicensingComplianceSection register={register} errors={errors} />
+              <BusinessInformationSection register={register} errors={errors} />
             )}
             {step === 1 && (
-              <ProductPortfolioSection register={register} errors={errors} />
+              <LicensingComplianceSection register={register} errors={errors} />
             )}
             {step === 2 && (
-              <OperationalDetailsSection register={register} errors={errors} />
+              <ProductPortfolioSection register={register} errors={errors} />
             )}
             {step === 3 && (
-              <FinancialPaymentSection register={register} errors={errors} />
+              <OperationalDetailsSection register={register} errors={errors} />
             )}
             {step === 4 && (
+              <FinancialPaymentSection register={register} errors={errors} />
+            )}
+            {step === 5 && (
               <SupportServicesSection register={register} errors={errors} />
             )}
             <FormNavigation
