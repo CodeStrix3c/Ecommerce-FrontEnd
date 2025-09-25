@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { Heart, ShoppingCart, Menu } from "lucide-react";
+import { Heart, ShoppingCart, Menu, Sidebar } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
 import { useCartList } from "@/providers/CartListProvider";
 import useIsMobile from "@/hooks/useInMobile";
 import DropdownPanel from "./DropDownPanel";
 import { AccountCircle } from "@mui/icons-material";
+import SidebarMobile from "./SidebarMobile";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
@@ -13,7 +14,8 @@ const DropdownMenu = () => {
   const menuRef = useRef(null);
   const { wishlist } = useWishlist();
   const { cartList } = useCartList();
-  const isMobile = useIsMobile();
+  const isBelow920 = useIsMobile(920); // for SidebarMobile
+  const isBelow1000 = useIsMobile(1100);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,12 +45,14 @@ const DropdownMenu = () => {
             Dashboard
           </button>
         ) : (
-          <Link
-            to="/supplier-register"
-            className="rounded-full pr-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
-          >
-            Become a Supplier
-          </Link>
+          !isBelow1000 && (
+            <Link
+              to="/supplier-register"
+              className="rounded-full px-3 py-1 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+            >
+              Become a Supplier
+            </Link>
+          )
         )}
 
         {/* Wishlist */}
@@ -94,7 +98,11 @@ const DropdownMenu = () => {
       </div>
 
       {/* Dropdown Panel */}
-      <DropdownPanel open={open} onClose={() => setOpen(false)} />
+      {isBelow920 ? (
+        <SidebarMobile open={open} onClose={() => setOpen(false)} />
+      ) : (
+        <DropdownPanel open={open} onClose={() => setOpen(false)} />
+      )}
     </div>
   );
 };

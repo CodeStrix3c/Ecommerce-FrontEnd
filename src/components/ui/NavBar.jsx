@@ -1,38 +1,51 @@
-import { Home, Leaf, SprayCan, FlaskRound } from "lucide-react";
+import useIsMobile from "@/hooks/useInMobile";
+import { Home, Wheat, Droplets, Trees } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
-const NavBar = ({ isMobile }) => {
+const NavBar = ({ isMobile: onMobile }) => {
   const { pathname } = useLocation();
+  const isMobile = useIsMobile(1000);
 
-  if (pathname === "/cart" && isMobile) return null;
+  if (pathname === "/cart" && onMobile) return null;
 
   const tabs = [
     {
       name: "Home",
-      path: "/",
+      path: "/home",
       icon: Home,
       activeColor: "text-[var(--color-secondary)]",
     },
     {
-      name: "Pesticides",
-      path: "/pesticides",
-      icon: SprayCan,
+      name: "Orchards",
+      path: "/orchards",
+      icon: Trees,
       activeColor: "text-[var(--color-secondary)]",
     },
     {
-      name: "Crops",
-      path: "/crops",
-      icon: Leaf,
+      name: "Harvest",
+      path: "/harvest",
+      icon: Wheat,
       activeColor: "text-[var(--color-secondary)]",
       badge: "NEW",
     },
-    {
-      name: "Fertilizers",
-      path: "/fertilizers",
-      icon: FlaskRound,
-      activeColor: "text-[var(--color-secondary)]",
-    },
   ];
+
+  if (!isMobile) {
+    tabs.push({
+      name: "Spray",
+      path: "/spray",
+      icon: Droplets,
+      activeColor: "text-[var(--color-secondary)]",
+    });
+  }
+  if (onMobile) {
+    tabs.push({
+      name: "Spray",
+      path: "/spray",
+      icon: Droplets,
+      activeColor: "text-[var(--color-secondary)]",
+    });
+  }
 
   const inactiveMobileColor = "text-[var(--color-neutral-dark)]";
   const inactiveDesktopColor = "text-[var(--color-neutral-dark)]";
@@ -43,9 +56,9 @@ const NavBar = ({ isMobile }) => {
     <div>
       <nav
         className={`flex ${
-          isMobile
-            ? "fixed bottom-0 z-10 w-full max-w-[95vw] mx-auto justify-between border-t bg-[var(--color-white)] py-2 shadow-md"
-            : "items-center gap-8  px-4"
+          onMobile
+            ? "fixed bottom-0 z-10 w-full mx-auto justify-between border-t bg-[var(--color-white)] py-2 px-6"
+            : "items-center gap-8"
         }`}
       >
         {tabs.map((tab) => (
@@ -55,9 +68,9 @@ const NavBar = ({ isMobile }) => {
             end={tab.path === "/"}
             className={({ isActive }) =>
               `relative flex ${
-                !isMobile ? "flex-row gap-2" : "flex-col"
-              } items-center ${isMobile ? "text-xs" : "px-3 py-2 text-sm"} font-medium transition-colors duration-300 ${
-                isMobile
+                !onMobile ? "flex-row gap-2" : "flex-col"
+              } items-center ${onMobile ? "text-xs" : "px-3 py-2 text-sm"} font-medium transition-colors duration-300 ${
+                onMobile
                   ? `${isActive ? tab.activeColor : inactiveMobileColor} ${hoverMobileColor}`
                   : `${isActive ? `border-b-2 border-[var(--color-black)] ${tab.activeColor}` : `${inactiveDesktopColor} ${hoverDesktopColor}`}`
               }`
@@ -65,14 +78,14 @@ const NavBar = ({ isMobile }) => {
           >
             {({ isActive }) => (
               <>
-                {tab.badge && !isMobile && (
+                {tab.badge && !onMobile && (
                   <span className="absolute -top-3 rounded bg-[var(--color-secondary)] px-2 text-[8px] font-bold text-[var(--color-white)]">
                     {tab.badge}
                   </span>
                 )}
                 <tab.icon
                   className={`h-6 w-6 ${
-                    isMobile
+                    onMobile
                       ? isActive
                         ? tab.activeColor
                         : inactiveMobileColor
