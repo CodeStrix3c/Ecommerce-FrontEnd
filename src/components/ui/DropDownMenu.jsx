@@ -14,7 +14,8 @@ const DropdownMenu = () => {
   const menuRef = useRef(null);
   const { wishlist } = useWishlist();
   const { cartList } = useCartList();
-  const isMobile = useIsMobile();
+  const isBelow920 = useIsMobile(920); // for SidebarMobile
+  const isBelow1000 = useIsMobile(1100);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,12 +45,14 @@ const DropdownMenu = () => {
             Dashboard
           </button>
         ) : (
-          <Link
-            to="/supplier-register"
-            className="rounded-full px-3 py-1 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
-          >
-            Become a Supplier
-          </Link>
+          !isBelow1000 && (
+            <Link
+              to="/supplier-register"
+              className="rounded-full px-3 py-1 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+            >
+              Become a Supplier
+            </Link>
+          )
         )}
 
         {/* Wishlist */}
@@ -95,7 +98,7 @@ const DropdownMenu = () => {
       </div>
 
       {/* Dropdown Panel */}
-      {isMobile ? (
+      {isBelow920 ? (
         <SidebarMobile open={open} onClose={() => setOpen(false)} />
       ) : (
         <DropdownPanel open={open} onClose={() => setOpen(false)} />
