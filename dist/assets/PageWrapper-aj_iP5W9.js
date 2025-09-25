@@ -1,0 +1,1 @@
+import{j as e,U as a}from"./index-ZRLfgc1f.js";function i({children:s}){return e.jsxs("div",{className:"min-h-screen flex flex-col max-w-[73vw] mx-auto",children:[e.jsx(a,{to:"/",className:"flex items-center gap-2 pt-6",children:e.jsx("img",{src:"assets/images/ziraat.jpeg",alt:"ziraat",width:80,height:80})}),e.jsx("div",{children:s})]})}export{i as P};
