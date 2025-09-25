@@ -6,14 +6,14 @@ import {
   Store,
   Leaf,
   LogOut,
+  Package, // for My Orders
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const DropdownPanel = ({ open, onClose }) => {
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem("token"); // Check login state
-  const loginData = JSON.parse(localStorage.getItem("loginData") || "{}");
+  const isLoggedIn = !!localStorage.getItem("token");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -25,66 +25,96 @@ const DropdownPanel = ({ open, onClose }) => {
 
   return (
     <div
-      className={`absolute right-0 mt-2 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
+      className={`absolute right-0 mt-4 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
         open
           ? "translate-y-0 scale-100 opacity-100"
           : "pointer-events-none -translate-y-1 scale-95 opacity-0"
       }`}
     >
       <div className="flex flex-col py-2">
+        {/* About Us */}
         <Link
           to="/about-us"
           onClick={onClose}
           className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
         >
-          <Info size={16} className="text-[var(--color-black)]" />
-          <span>About Us</span>
+          <Info size={16} /> <span>About Us</span>
         </Link>
 
+        {/* Help Center */}
         <Link
           to="/help-center"
           onClick={onClose}
           className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
         >
-          <HelpCircle size={16} className="text-[var(--color-black)]" />
-          <span>Help Center</span>
+          <HelpCircle size={16} /> <span>Help Center</span>
         </Link>
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
+        {/* Talk with Expert */}
         <Link
           to="/talk-with-expert"
           onClick={onClose}
           className="flex flex-col gap-1 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
         >
           <div className="flex items-center gap-3">
-            <UserCheck size={16} className="text-[var(--color-black)]" />
+            <UserCheck size={16} />
             <span>Talk with Expert</span>
           </div>
-          <p className="ml-7 text-xs text-[var(--color-black)] opacity-80">
+          <p className="ml-7 text-xs opacity-80">
             Get advice from agricultural experts to boost your farming success.
           </p>
         </Link>
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
+        {/* My Orders */}
+        <Link
+          to="/my-orders"
+          onClick={onClose}
+          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <Package size={16} /> <span>My Orders</span>
+        </Link>
+
+        {/* My Store */}
+        <Link
+          to="/my-store"
+          onClick={onClose}
+          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <Store size={16} /> <span>My Store</span>
+        </Link>
+
+        {/* Farming Resources */}
+        <Link
+          to="/farming-resources"
+          onClick={onClose}
+          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <Leaf size={16} /> <span>Farming Resources</span>
+        </Link>
+
+        <hr className="my-1 border-[var(--color-black-hover)]" />
+
         {isLoggedIn ? (
           <>
+            {/* Profile */}
             <Link
               to="/farmer-profile"
               onClick={onClose}
               className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
             >
-              <User size={16} className="text-[var(--color-black)]" />
-              <span>Profile</span>
+              <User size={16} /> <span>Profile</span>
             </Link>
 
+            {/* Logout */}
             <div
               onClick={handleLogout}
               className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
             >
-              <LogOut size={16} className="text-[var(--color-black)]" />
-              <span>Logout</span>
+              <LogOut size={16} /> <span>Logout</span>
             </div>
           </>
         ) : (
@@ -93,8 +123,7 @@ const DropdownPanel = ({ open, onClose }) => {
             onClick={onClose}
             className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
           >
-            <User size={16} className="text-[var(--color-black)]" />
-            <span>Log in / Sign up</span>
+            <User size={16} /> <span>Log in / Sign up</span>
           </Link>
         )}
       </div>

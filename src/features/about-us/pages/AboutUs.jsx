@@ -14,18 +14,15 @@
 //   return (
 //     <div className="bg-[var(--color-white)] text-[var(--color-black)] md:mt-28 lg:mt-36">
 // <section
-//   className="relative flex items-center justify-center 
+//   className="relative flex items-center justify-center
 //              min-h-[60vh] md:min-h-[70vh] bg-cover bg-center"
 //   style={{
 //     backgroundImage:
 //       "url('https://plus.unsplash.com/premium_photo-1682436526302-516ec782f22e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fG9yY2hhcmR8ZW58MHx8MHx8fDA%3D')",
 //   }}
 // >
-  
 
-  
 // </section>
-
 
 // <section className="py-12 md:py-16 px-6 text-center bg-[var(--color-white)] text-[var(--color-black)]">
 //   <div className="max-w-3xl mx-auto">
@@ -43,21 +40,14 @@
 //   </div>
 // </section>
 
-
-
-
-
-
-      
 //       {/* <section className="py-12 md:py-16 px-4 md:px-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
-  
+
 //   <img
 //     src="https://plus.unsplash.com/premium_photo-1682436526302-516ec782f22e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fG9yY2hhcmR8ZW58MHx8MHx8fDA%3D"
 //     className="hidden md:block rounded-2xl shadow-lg w-full object-cover"
 //     alt="Our Story"
 //   />
 
-  
 //   <div className="text-center md:text-left">
 //     <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Our Story</h2>
 //     <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4">
@@ -75,8 +65,6 @@
 //   </div>
 // </section> */}
 
-
-     
 //       <section className="py-12 md:py-16 px-4 md:px-20 text-center">
 //         <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-12">
 //           Our Mission & Values
@@ -125,7 +113,6 @@
 //         </div>
 //       </section>
 
-      
 //       <section className="py-12 md:py-16 px-4 md:px-20 text-center">
 //         <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-12">
 //           Why Choose Us?
@@ -166,7 +153,6 @@
 //         </div>
 //       </section>
 
-     
 //       <section className="py-12 md:py-16 px-4 md:px-20 ">
 //         <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8 md:mb-12">
 //           Frequently Asked Questions
@@ -221,9 +207,6 @@
 //   );
 // }
 
-
-
-
 import React from "react";
 import {
   Leaf,
@@ -249,7 +232,6 @@ export default function AboutUs() {
   ];
   return (
     <div className="bg-[var(--color-white)] text-[var(--color-black)] md:mt-28 lg:mt-36">
-      
       <section
         className="relative flex items-center justify-center 
              min-h-[60vh] md:min-h-[70vh] bg-cover bg-center"
@@ -257,9 +239,8 @@ export default function AboutUs() {
           backgroundImage:
             "url('https://plus.unsplash.com/premium_photo-1682436526302-516ec782f22e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fG9yY2hhcmR8ZW58MHx8MHx8fDA%3D')",
         }}
-      ></section> 
+      ></section>
 
-      
       <section className="py-12 md:py-16 px-6 text-center bg-[var(--color-white)] text-[var(--color-black)]">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-1xl  sm:text-3xl md:text-4xl font-medium mb-6">
@@ -271,9 +252,9 @@ export default function AboutUs() {
             your table. Our journey began with a small group of farmers who
             believed in preserving traditional farming methods while embracing
             modern sustainable practices. Over the years, we have grown into a
-            trusted community that values quality, transparency, and care for the
-            land. Every seed we plant and every harvest we collect is done with
-            love, ensuring you get the purest produce.
+            trusted community that values quality, transparency, and care for
+            the land. Every seed we plant and every harvest we collect is done
+            with love, ensuring you get the purest produce.
           </p>
         </div>
       </section>
@@ -289,7 +270,9 @@ export default function AboutUs() {
               className="mx-auto mb-4 text-[var(--color-secondary)]"
               size={36}
             />
-            <h3 className="font-bold text-lg md:text-xl mb-2">Sustainability</h3>
+            <h3 className="font-bold text-lg md:text-xl mb-2">
+              Sustainability
+            </h3>
             <p className="text-sm sm:text-base">
               Protecting the soil and environment through eco-friendly methods.
             </p>
@@ -299,7 +282,9 @@ export default function AboutUs() {
               className="mx-auto mb-4 text-[var(--color-secondary)]"
               size={36}
             />
-            <h3 className="font-bold text-lg md:text-xl mb-2">Quality Harvest</h3>
+            <h3 className="font-bold text-lg md:text-xl mb-2">
+              Quality Harvest
+            </h3>
             <p className="text-sm sm:text-base">
               Delivering farm-fresh produce, rich in taste and nutrients.
             </p>
@@ -326,21 +311,22 @@ export default function AboutUs() {
           </div>
         </div>
       </section>
-<section className="bg-[var(--color-white)] py-16 px-6 md:px-20">
-      <h2 className="text-3xl font-semibold text-center mb-12">Fast Facts</h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((item, i) => (
-          <div
-            key={i}
-            className="bg-[var(--color-white)] p-6 rounded-2xl shadow hover:shadow-xl transition text-center"
-          >
-            <h3 className="text-3xl font-bold text-[var(--color-primary)]">{item.value}</h3>
-            <p className="mt-2 text-[var(--color-black)]">{item.label}</p>
-          </div>
-        ))}
-      </div>
-      
-    </section>
+      <section className="bg-[var(--color-white)] py-16 px-6 md:px-20">
+        <h2 className="text-3xl font-semibold text-center mb-12">Fast Facts</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((item, i) => (
+            <div
+              key={i}
+              className="bg-[var(--color-white)] p-6 rounded-2xl shadow hover:shadow-xl transition text-center"
+            >
+              <h3 className="text-3xl font-bold text-[var(--color-primary)]">
+                {item.value}
+              </h3>
+              <p className="mt-2 text-[var(--color-black)]">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
       {/* Why Choose Us */}
       <section className="py-12 md:py-16 px-4 md:px-20 text-center">
         <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-12">
@@ -420,9 +406,7 @@ export default function AboutUs() {
       </section>
 
       {/* Testimonials Section */}
-      
 
-     
       <section className="py-16 md:py-20  text-[var(--color-primary)] text-center">
         <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
           Join Our Farming Journey
