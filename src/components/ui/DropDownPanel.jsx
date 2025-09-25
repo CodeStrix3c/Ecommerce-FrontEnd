@@ -1,3 +1,5 @@
+import useIsMobile from "@/hooks/useInMobile";
+import { FlakySharp, Handshake, HandshakeOutlined } from "@mui/icons-material";
 import {
   Info,
   User,
@@ -6,7 +8,9 @@ import {
   Store,
   Leaf,
   LogOut,
-  Package, // for My Orders
+  Package,
+  FlaskConical,
+  FlaskRoundIcon, // for My Orders
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -14,6 +18,7 @@ import { toast } from "react-toastify";
 const DropdownPanel = ({ open, onClose }) => {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem("token");
+  const isMobile = useIsMobile(1100);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -78,23 +83,25 @@ const DropdownPanel = ({ open, onClose }) => {
           <Package size={16} /> <span>My Orders</span>
         </Link>
 
-        {/* My Store */}
-        <Link
-          to="/my-store"
-          onClick={onClose}
-          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <Store size={16} /> <span>My Store</span>
-        </Link>
-
         {/* Farming Resources */}
-        <Link
-          to="/farming-resources"
-          onClick={onClose}
-          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <Leaf size={16} /> <span>Farming Resources</span>
-        </Link>
+        {isMobile && (
+          <Link
+            to="/supplier-registration"
+            onClick={onClose}
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+          >
+            <HandshakeOutlined size={16} /> <span>Become a Supplier</span>
+          </Link>
+        )}
+        {isMobile && (
+          <Link
+            to="/fertilizers"
+            onClick={onClose}
+            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+          >
+            <FlaskRoundIcon size={16} /> <span>Fertilizers</span>
+          </Link>
+        )}
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
