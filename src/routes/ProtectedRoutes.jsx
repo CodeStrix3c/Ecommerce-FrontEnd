@@ -55,7 +55,6 @@ const SupplierProfilePage = lazy(
 const SingleBookedPlace = lazy(
   () => import("../features/bookings/pages/SingleBookedPlace")
 );
-const DevelopmentPage = lazy(() => import("../app/DevelopmentPage"));
 const NotFoundPage = lazy(() => import("../features/errors/NotFoundPage"));
 
 export default [
@@ -85,7 +84,6 @@ export default [
       <Route path="/cart" element={<CartPage />} />
       <Route path="/supplier-profile" element={<SupplierProfilePage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
-      <Route path="/dev" element={<DevelopmentPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   </Route>,
