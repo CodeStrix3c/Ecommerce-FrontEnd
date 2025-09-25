@@ -37,7 +37,7 @@ const SidebarMobile = ({ open, onClose }) => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-72 bg-[var(--color-white)] shadow-xl rounded-r-2xl z-50 transform transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-72 bg-[var(--color-white)] shadow-xl z-50 transform transition-transform duration-300 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -104,23 +104,15 @@ const SidebarMobile = ({ open, onClose }) => {
             <Package size={18} /> My Orders
           </Link>
 
-          {/* My Store */}
           <Link
-            to="/my-store"
+            to="/supplier-register"
             onClick={onClose}
             className="flex items-center gap-3 px-2 py-2 rounded-lg text-[var(--color-black)] hover:bg-[var(--color-black-hover)] hover:text-[var(--color-primary)]"
           >
-            <Store size={18} /> My Store
+            <Store size={18} /> Become a Supplier
           </Link>
 
-          {/* Farming Resources */}
-          <Link
-            to="/farming-resources"
-            onClick={onClose}
-            className="flex items-center gap-3 px-2 py-2 rounded-lg text-[var(--color-black)] hover:bg-[var(--color-black-hover)] hover:text-[var(--color-primary)]"
-          >
-            <Leaf size={18} /> Farming Resources
-          </Link>
+          <hr className="my-2 border-[var(--color-black-hover)]" />
 
           <hr className="my-2 border-[var(--color-black-hover)]" />
 
