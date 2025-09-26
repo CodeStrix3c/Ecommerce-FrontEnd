@@ -11,7 +11,7 @@ const MobileHeader = ({ location }) => {
   return (
     <>
       {/* Top Header */}
-      <div className="sticky top-0 z-50 flex items-center justify-between px-4 py-2 bg-[var(--color-black-hover)]">
+      <div className="sticky top-0 z-50 flex items-center justify-between px-4 py-2 bg-[var(--color-white)]">
         <NavLink to="/" className="flex items-center gap-2">
           <img
             src="assets/images/ziraat.jpeg"

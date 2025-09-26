@@ -44,7 +44,7 @@ const NavBar = ({ isMobile }) => {
       <nav
         className={`flex ${
           isMobile
-            ? "fixed bottom-0 z-10 w-full max-w-[95vw] mx-auto justify-between border-t bg-[var(--color-white)] py-2 shadow-md"
+            ? "fixed bottom-0 z-10 px-4 w-full max-w-[100vw] mx-auto justify-between border-t bg-[var(--color-white)] py-2 shadow-md"
             : "items-center gap-8  px-4"
         }`}
       >
