@@ -5,8 +5,11 @@ import { TextField, Button, Tabs, Tab, Divider, Box } from "@mui/material";
 import { GoogleLogin } from "@react-oauth/google";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { phoneLoginSchema, emailLoginSchema } from "@/schemas/authSchemas";
-import RequiredLabel from "@/features/auth/components/RequiredLabel";
+import {
+  phoneLoginSchema,
+  emailLoginSchema,
+} from "@/features/farmer-registration/schemas/authSchemas";
+import RequiredLabel from "@/components/ui/RequiredLabel";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks";
 import { Link } from "react-router-dom";

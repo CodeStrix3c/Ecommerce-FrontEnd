@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 import FormLayout from "@/components/shared/FormLayout";
-import SelectField from "@/components/ui/SelectField";
-import FormInput from "@/features/auth/components/FormInput";
-import FormDateInput from "@/components/ui/FormDateInput";
-import FormFileInput from "@/components/ui/FormFileInput";
+import FormInput from "@/components/shared/custom-inputs/FormInput";
+import FormDateInput from "@/components/shared/custom-inputs/FormDateInput";
+import FormFileInput from "@/components/shared/custom-inputs/FormFileInput";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
 
 export default function SoilWaterProfileSection({ register, errors, control }) {
   console.log(errors, "errr");

@@ -1,0 +1,1 @@
+const a=()=>new Promise((e,o)=>{if(!navigator.geolocation){o(new Error("Geolocation not supported"));return}navigator.geolocation.getCurrentPosition(t=>{const n=t.coords.latitude,r=t.coords.longitude,i=`${n}, ${r}`;e({gpsString:i,latitude:n,longitude:r})},()=>{o(new Error("Unable to fetch location. Try again outdoors."))})});export{a as g};
