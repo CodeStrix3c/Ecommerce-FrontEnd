@@ -14,7 +14,7 @@ const NotFoundPage = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-[var(--color-white)] text-center">
       <NavLink to="/" className="mb-6">
         <img
-          src="assets/images/ziraat.jpeg"
+          src="/assets/images/ziraat.jpeg"
           alt="Ziraat Logo"
           width={80}
           height={80}
