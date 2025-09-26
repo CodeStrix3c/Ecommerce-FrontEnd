@@ -121,7 +121,64 @@
 import React from "react";
 
 function SupplierRegister() {
-  return <div>SupplierRegister</div>;
+  return (
+    <div>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum laudantium
+      culpa explicabo tempore ratione deserunt libero eligendi quos, expedita
+      nesciunt omnis fugiat ipsa fugit porro inventore dolores ut. Tempore,{" "}
+      <velit className="lorem">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eum
+        inventore ut? Ratione mollitia iste atque quisquam. Cupiditate placeat
+        illo, mollitia, ratione velit fugiat culpa eos veniam repellat,
+        aspernatur magni?
+      </velit>{" "}
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum laudantium
+      culpa explicabo tempore ratione deserunt libero eligendi quos, expedita
+      nesciunt omnis fugiat ipsa fugit porro inventore dolores ut. Tempore,{" "}
+      <velit className="lorem">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eum
+        inventore ut? Ratione mollitia iste atque quisquam. Cupiditate placeat
+        illo, mollitia, ratione velit fugiat culpa eos veniam repellat,
+        aspernatur magni?
+      </velit>{" "}
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum laudantium
+      culpa explicabo tempore ratione deserunt libero eligendi quos, expedita
+      nesciunt omnis fugiat ipsa fugit porro inventore dolores ut. Tempore,{" "}
+      <velit className="lorem">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eum
+        inventore ut? Ratione mollitia iste atque quisquam. Cupiditate placeat
+        illo, mollitia, ratione velit fugiat culpa eos veniam repellat,
+        aspernatur magni?
+      </velit>{" "}
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum laudantium
+      culpa explicabo tempore ratione deserunt libero eligendi quos, expedita
+      nesciunt omnis fugiat ipsa fugit porro inventore dolores ut. Tempore,{" "}
+      <velit className="lorem">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eum
+        inventore ut? Ratione mollitia iste atque quisquam. Cupiditate placeat
+        illo, mollitia, ratione velit fugiat culpa eos veniam repellat,
+        aspernatur magni?
+      </velit>{" "}
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum laudantium
+      culpa explicabo tempore ratione deserunt libero eligendi quos, expedita
+      nesciunt omnis fugiat ipsa fugit porro inventore dolores ut. Tempore,{" "}
+      <velit className="lorem">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eum
+        inventore ut? Ratione mollitia iste atque quisquam. Cupiditate placeat
+        illo, mollitia, ratione velit fugiat culpa eos veniam repellat,
+        aspernatur magni?
+      </velit>{" "}
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum laudantium
+      culpa explicabo tempore ratione deserunt libero eligendi quos, expedita
+      nesciunt omnis fugiat ipsa fugit porro inventore dolores ut. Tempore,{" "}
+      <velit className="lorem">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eum
+        inventore ut? Ratione mollitia iste atque quisquam. Cupiditate placeat
+        illo, mollitia, ratione velit fugiat culpa eos veniam repellat,
+        aspernatur magni?
+      </velit>
+    </div>
+  );
 }
 
 export default SupplierRegister;

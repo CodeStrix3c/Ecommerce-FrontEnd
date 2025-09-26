@@ -26,35 +26,37 @@ const PlaceCard = ({ place }) => {
 
   return (
     <div className="h-full">
-      <Link to={`/place/${_id}`} className="block h-full cursor-pointer">
+      <Link to={`/place/${_id}`} className="block h-full cursor-pointer ">
         <div className="relative">
-          <div className="aspect-[4/4] w-full overflow-hidden rounded-xl bg-[var(--color-black-hover)]">
+          <div className="aspect-[5/5] w-full overflow-hidden rounded-2xl bg-[var(--color-black-hover)] border border-sm ">
             <img
               src={photos[0]}
               alt={title}
-              className="h-full w-full object-cover object-bottom transition-transform duration-300"
+              className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
             />
           </div>
 
-          <div className="absolute left-2 top-2 rounded-sm px-2 py-1 text-xs font-semibold text-[var(--color-black)] bg-[var(--color-black-hover)]">
+          <div className="absolute left-2 top-2 rounded-lg px-2 py-1 text-xs font-medium text-[var(--color-black)] bg-[var(--color-black-hover)]">
             Farmer Favourite
           </div>
 
           <button
             type="button"
-            className="absolute right-2 top-2 rounded-full bg-[var(--color-white)] p-1 shadow-sm transition hover:scale-110"
+            className="absolute right-2 top-2 rounded-full  p-1 transition hover:scale-110"
             onClick={(e) => {
               e.preventDefault();
               toggleWishlist(place);
             }}
           >
+            
+
             <Heart
-              className={`h-4 w-4 transition ${
-                isWishlisted
-                  ? "fill-current text-[var(--color-secondary)]"
-                  : "text-[var(--color-black)]"
-              }`}
-            />
+            className={`h-6 w-6 transition-all duration-300
+           ${isWishlisted 
+          ? "fill-current text-[var(--color-secondary)] stroke-white stroke-1" 
+          : "fill-[rgba(0,0,0,0.5)] stroke-white stroke-1"} 
+  `}
+/>
           </button>
         </div>
 
@@ -68,18 +70,22 @@ const PlaceCard = ({ place }) => {
             {address || "Pan-India Supplier"}
           </p>
 
-          <div className="mt-1 flex items-center justify-between text-[13px] sm:text-sm">
+          <div className="mt-1 flex  text-[13px] sm:text-sm">
             <span className="flex items-center font-normal text-[var(--color-black)]">
-              <IndianRupee className="h-3 w-3 text-[var(--color-black)]" />
-              {price || 500}{" "}
-              <span className="mx-1 min-w-fit text-[12px] text-[var(--color-black)]">
-                per liter
+              <IndianRupee className="h-3 w-3  text-[var(--color-black)] font-medium" />
+              <span className="text-xs font-medium">
+                {price || 500}{" "}
+              </span>
+              <span className="mx-1 min-w-fit text-[12px] text-[var(--color-black)] font-medium">
+                per liter.
               </span>
             </span>
 
-            <span className="flex items-center gap-1 font-medium text-[var(--color-black)]">
-              <Star className="h-3 w-3 fill-current text-[var(--color-black)]" />
-              {rating || 4.7}
+            <span className="flex items-center gap-1 font-normal text-[var(--color-black)]">
+              <Star className="h-2 w-2 fill-current text-[var(--color-black)]" />
+              <span className="text-xs font-medium">
+                {rating || 4.7}
+              </span>
             </span>
           </div>
         </div>
@@ -89,3 +95,7 @@ const PlaceCard = ({ place }) => {
 };
 
 export default PlaceCard;
+
+
+
+

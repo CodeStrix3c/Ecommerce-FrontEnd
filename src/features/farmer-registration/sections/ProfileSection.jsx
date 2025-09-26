@@ -1,14 +1,16 @@
 import { Divider, Stack } from "@mui/material";
-import FileUploadField from "@/features/auth/components/FileUploadField";
-import FormInput from "@/features/auth/components/FormInput";
+import FileUploadField from "@/components/shared/custom-inputs/FileUploadField";
+import FormInput from "@/components/shared/custom-inputs/FormInput";
 import FormSection from "@/features/auth/components/FormSection";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import FormLayout from "@/components/shared/FormLayout";
+import { Controller } from "react-hook-form";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
 
-export default function ProfileSection({ register, errors }) {
+export default function ProfileSection({ register, errors, control }) {
   const iconStyle = { color: "var(--color-secondary)", fontSize: 20 };
   console.log(errors);
 
@@ -39,6 +41,44 @@ export default function ProfileSection({ register, errors }) {
           icon={<PhoneIcon sx={iconStyle} />}
         />
         <FormInput
+          name="age"
+          label="Age"
+          type="number"
+          register={register}
+          errors={errors.age}
+        />
+
+        {/* ✅ Gender dropdown */}
+        <Controller
+          name="gender"
+          control={control}
+          render={({ field, fieldState }) => (
+            <SelectField
+              {...field}
+              label="Gender"
+              errors={
+                fieldState.error ? { [field.name]: fieldState.error } : {}
+              }
+              options={[
+                { value: "", label: "Select Gender" },
+                { value: "male", label: "Male" },
+                { value: "female", label: "Female" },
+                { value: "other", label: "Other" },
+              ]}
+            />
+          )}
+        />
+        <FileUploadField
+          name="profilePic"
+          label="Upload Profile"
+          register={register}
+          variant="profile"
+          errors={errors}
+          showPreview={false}
+          optional
+        />
+
+        <FormInput
           name="password"
           label="Password"
           type="password"
@@ -53,16 +93,6 @@ export default function ProfileSection({ register, errors }) {
           register={register}
           errors={errors.confirmPassword}
           icon={<LockIcon sx={iconStyle} />}
-        />
-
-        <FileUploadField
-          name="profilePic"
-          label="Upload Profile"
-          register={register}
-          variant="profile"
-          errors={errors}
-          showPreview={false}
-          optional
         />
       </FormLayout>
     </FormSection>
