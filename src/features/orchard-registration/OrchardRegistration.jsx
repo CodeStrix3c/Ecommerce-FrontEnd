@@ -1,4 +1,3 @@
-import { farmerRequiredFields } from "@/constants/farmerRequiredFields";
 import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,15 +13,15 @@ import AddressSection from "./sections/AddressSection";
 
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
-import FormStepper from "@/components/ui/FormStepper";
+import FormStepper from "@/features/auth/components/FormStepper";
 import { toast } from "react-toastify";
 
-import { demographicsSchema } from "@/schemas/demographicSchema";
-import { varietyPlantingSchema } from "@/schemas/varietyPlantingSchema";
-import { soilWaterProfileSchema } from "@/schemas/soilWaterProfileSchema";
-import { cropNutritionSchema } from "@/schemas/cropNutritionSchema";
-import { plantProtectionSchema } from "@/schemas/plantProtectionSchema";
-import { farmInfrastructureSchema } from "@/schemas/farmInfrastructureSchema";
+import { demographicsSchema } from "@/features/orchard-registration/schemas/demographicSchema";
+import { varietyPlantingSchema } from "@/features/orchard-registration/schemas/varietyPlantingSchema";
+import { soilWaterProfileSchema } from "@/features/orchard-registration/schemas/soilWaterProfileSchema";
+import { cropNutritionSchema } from "@/features/orchard-registration/schemas/cropNutritionSchema";
+import { plantProtectionSchema } from "@/features/orchard-registration/schemas/plantProtectionSchema";
+import { farmInfrastructureSchema } from "@/features/orchard-registration/schemas/farmInfrastructureSchema";
 
 import {
   soilWaterStepFields,
@@ -34,9 +33,9 @@ import {
   orchardRegistrationDefaultFields,
 } from "@/constants/orchardFormSteps";
 
-import { useProgress } from "@/hooks/useProgress";
 import useIsMobile from "@/hooks/useInMobile";
 import { useNavigate } from "react-router-dom";
+import Popup from "@/components/shared/Popup";
 
 const stepSchemas = [
   demographicsSchema,
@@ -66,12 +65,6 @@ export default function OrchardRegistration() {
     register,
     formState: { errors },
   } = methods;
-
-  const values = watch(orchardRegistrationDefaultFields);
-  const completion = useProgress(
-    values,
-    orchardRegistrationDefaultFields.length
-  );
 
   const onSubmit = (data) => {
     console.log("Final Form Data:", data);
@@ -128,17 +121,12 @@ export default function OrchardRegistration() {
     onSubmit(data);
     navigate("/dashboard");
   };
-  console.log(completion, "completion");
 
   return (
     <Box
       sx={{
-        minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
-        bgcolor: "var(--color-white)",
-        py: { xs: 5, lg: 12 },
-        my: { xs: 0, md: 10, lg: 4 },
       }}
     >
       <FormProvider {...methods}>
@@ -151,26 +139,26 @@ export default function OrchardRegistration() {
             maxWidth: 800,
             p: { md: 4, lg: 4 },
             bgcolor: "var(--color-white)",
-            boxShadow: isMobile ? 0 : 3,
             display: "flex",
             flexDirection: "column",
             gap: 0,
           }}
         >
-          <SectionTitle title="Add Orchard/Farm" centered />
-
-          <FormStepper
-            activeStep={step}
-            completion={completion}
-            type="orchard"
-          />
+          <div className="mb-8">
+            <SectionTitle
+              title="Add Orchard/Farm"
+              centered
+              className="lg:text-2xl sm:text-4xl"
+            />
+          </div>
+          <FormStepper activeStep={step} type="orchard" />
 
           <Box
             sx={{
               border: "1px solid var(--color-black-light)",
               borderRadius: 2,
               bgcolor: "var(--color-white)",
-              p: 2,
+              py: 2,
             }}
           >
             {step === 0 && (

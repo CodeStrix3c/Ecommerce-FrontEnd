@@ -3,7 +3,7 @@
 import React from "react";
 import { Controller } from "react-hook-form";
 import FormLayout from "@/components/shared/FormLayout";
-import SelectField from "@/components/ui/SelectField";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
 
 export default function FarmInfrastructureSection({ control, errors }) {
   return (
@@ -74,7 +74,7 @@ export default function FarmInfrastructureSection({ control, errors }) {
         render={({ field, fieldState }) => (
           <SelectField
             {...field}
-            label="Other Tools (Optional)"
+            label="Other Tools"
             isMultiple
             options={[
               { value: "pruningShear", label: "Pruning Shear" },

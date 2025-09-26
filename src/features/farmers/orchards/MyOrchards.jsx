@@ -5,10 +5,14 @@ import LandHoldings from "../componets/LandHoldings";
 import AddressSection from "../componets/AddressSection";
 import FarmMedia from "../componets/FarmMedia";
 import CustomButton from "@/components/ui/CustomButton";
-import SelectField from "@/components/ui/SelectField";
 import { Navigate, useNavigate } from "react-router-dom";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
+import { set } from "zod";
+import Popup from "@/components/shared/Popup";
+import OrchardRegistration from "@/features/orchard-registration/OrchardRegistration";
 
 export default function MyOrchards() {
+  const [orchardPopupOpen, setOrchardPopupOpen] = useState(false);
   const orchards = [
     {
       id: 1,
@@ -85,40 +89,37 @@ export default function MyOrchards() {
     setActiveTabs((prev) => ({ ...prev, [orchardId]: tab }));
   };
 
-  const handleAddOrchard = () => {
-    navigate("/orchard-registration");
-  };
-
   const selectedOrchard = orchards.find(
     (orchard) => orchard.id === selectedOrchardId
   );
   const activeTab = activeTabs[selectedOrchard.id] || "land";
 
   return (
-    <div className="w-full md:mt-20 lg:mt-28 px-5 sm:px-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-black)]">
-          {" "}
-          My Orchards
-        </h1>
+    <>
+      <div className="w-full md:mt-20 lg:mt-28 px-5 sm:px-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-black)]">
+            {" "}
+            My Orchards
+          </h1>
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
-          <div className="flex-1 min-w-[150px]">
-            <SelectField
-              name="orchardSelect"
-              label="Select Orchard"
-              options={orchards.map((o) => ({ label: o.name, value: o.id }))}
-              value={selectedOrchardId}
-              onChange={(e) => setSelectedOrchardId(Number(e.target.value))}
-              optional={null}
-            />
-          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
+            <div className="flex-1 min-w-[150px]">
+              <SelectField
+                name="orchardSelect"
+                label="Select Orchard"
+                options={orchards.map((o) => ({ label: o.name, value: o.id }))}
+                value={selectedOrchardId}
+                onChange={(e) => setSelectedOrchardId(Number(e.target.value))}
+                optional={null}
+              />
+            </div>
 
-          <CustomButton
-            varient="contained"
-            text="Add Orchard"
-            onClick={handleAddOrchard}
-            className="
+            <CustomButton
+              varient="contained"
+              text="Add Orchard"
+              onClick={() => setOrchardPopupOpen(true)}
+              className="
               mt-2 sm:mt-0
               px-3 py-1.5
               rounded-md
@@ -130,44 +131,49 @@ export default function MyOrchards() {
               transition-colors duration-200
               flex-shrink-0
             "
-          />
-        </div>
-      </div>
-
-      {selectedOrchard && (
-        <div className="rounded-xl shadow-lg bg-[var(--color-white)] transition-all duration-300 hover:shadow-2xl">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl md:text-2xl font-semibold text-[var(--color-black)]">
-              {selectedOrchard.name}
-            </h2>
-            <p className="text-sm md:text-base text-gray-600 mt-1">
-              {selectedOrchard.landDemographics.mainCrops}
-            </p>
-          </div>
-
-          <div className="px-4 sm:px-6 pt-4">
-            <Tabs
-              activeTab={activeTab}
-              setActiveTab={(tab) => handleTabChange(selectedOrchard.id, tab)}
             />
           </div>
-
-          <div className="px-4 sm:px-6 py-6 mb-5">
-            {activeTab === "land" && (
-              <LandDemographics land={selectedOrchard.landDemographics} />
-            )}
-            {activeTab === "holdings" && (
-              <LandHoldings holdings={selectedOrchard.landHoldings} />
-            )}
-            {activeTab === "address" && (
-              <AddressSection address={selectedOrchard.address} />
-            )}
-            {activeTab === "media" && (
-              <FarmMedia media={selectedOrchard.media} />
-            )}
-          </div>
         </div>
-      )}
-    </div>
+
+        {selectedOrchard && (
+          <div className="rounded-xl shadow-lg bg-[var(--color-white)] transition-all duration-300 hover:shadow-2xl">
+            <div className="p-6 border-b border-gray-200">
+              <h2 className="text-xl md:text-2xl font-semibold text-[var(--color-black)]">
+                {selectedOrchard.name}
+              </h2>
+              <p className="text-sm md:text-base text-gray-600 mt-1">
+                {selectedOrchard.landDemographics.mainCrops}
+              </p>
+            </div>
+
+            <div className="px-4 sm:px-6 pt-4">
+              <Tabs
+                activeTab={activeTab}
+                setActiveTab={(tab) => handleTabChange(selectedOrchard.id, tab)}
+              />
+            </div>
+
+            <div className="px-4 sm:px-6 py-6 mb-5">
+              {activeTab === "land" && (
+                <LandDemographics land={selectedOrchard.landDemographics} />
+              )}
+              {activeTab === "holdings" && (
+                <LandHoldings holdings={selectedOrchard.landHoldings} />
+              )}
+              {activeTab === "address" && (
+                <AddressSection address={selectedOrchard.address} />
+              )}
+              {activeTab === "media" && (
+                <FarmMedia media={selectedOrchard.media} />
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+      <Popup open={orchardPopupOpen} onClose={() => setOrchardPopupOpen(false)}>
+        <OrchardRegistration />
+      </Popup>
+      ;
+    </>
   );
 }
