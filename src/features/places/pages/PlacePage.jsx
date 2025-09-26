@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import Spinner from "@/components/ui/Spinner";
 import AddressLink from "@/components/shared/AddressLink";
@@ -14,11 +15,19 @@ import OverallRating from "@/features/reviews/components/OverallRating";
 import Testimonials from "@/features/reviews/pages/Testimonials";
 import HighlightBanner from "@/features/reviews/components/HighlightBanner";
 import ExploreNearby from "../components/ExploreNearby";
+import SharePopUp from "@/components/ui/SharePopUp";
+import useIsMobile from "@/hooks/useInMobile";
 
 const PlacePage = () => {
   const { id } = useParams();
+  const location = useLocation();
+
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [sharePopUp, setSharePopUp] = useState(false);
+  const isMobile = useIsMobile();
+
+  const isPlacePage = /^\/place\/\w+/.test(location.pathname);
 
   const nearbyOptions = [
     { name: "New Delhi", href: "/new-delhi-india/stays" },
@@ -44,6 +53,7 @@ const PlacePage = () => {
     }, 500);
   }, [id]);
 
+  const handleShare = () => setSharePopUp(true);
   if (loading) return <Spinner />;
 
   if (!place) {
@@ -51,8 +61,13 @@ const PlacePage = () => {
   }
 
   return (
-    <div className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36">
-      <ListingHeader place={place} />
+    <motion.div
+      initial={false}
+      animate={{ maxWidth: isPlacePage && !isMobile ? "73vw" : "92vw" }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36 mx-auto"
+    >
+      <ListingHeader place={place} onShare={handleShare} />
       <AddressLink placeAddress={place.address} />
 
       <PlaceGallery place={place} />
@@ -92,7 +107,7 @@ const PlacePage = () => {
         </aside>
       </div>
 
-      <div className="my-8 md:hidden">
+      <div className="my-8 md:hidden z-40 absolute left-0 w-full px-4 ">
         <BookingWidget place={place} />
       </div>
 
@@ -106,7 +121,8 @@ const PlacePage = () => {
         title="Explore other options in and around Gurugram"
         options={nearbyOptions}
       />
-    </div>
+      {sharePopUp && <SharePopUp onClose={() => setSharePopUp(false)} />}
+    </motion.div>
   );
 };
 

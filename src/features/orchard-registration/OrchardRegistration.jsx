@@ -1,45 +1,55 @@
-// OrchardRegistration.tsx
-import { farmerRequiredFields } from "@/constants/farmerRequiredFields";
 import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Box,
-  Divider,
-  Stack,
-  Stepper,
-  Step,
-  StepLabel,
-  Paper,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import { GoogleLogin } from "@react-oauth/google";
-
-import ProfileSection from "./sections/ProfileSection";
+import { Box } from "@mui/material";
 import DemographicsSection from "./sections/DemographicsSection";
+import VarietyPlantingSection from "./sections/VarietyPlantingSection";
+import SoilWaterProfileSection from "./sections/SoilWaterProfileSection";
+import CropNutritionManagementSection from "./sections/CropNutritionManagementSection";
+import PlantProtectionHealthSection from "./sections/PlantProtectionHealthSection";
+import FarmInfrastructureSection from "./sections/FarmInfrastructureSection";
 import LandHoldingSection from "./sections/LandHoldingSection";
 import AddressSection from "./sections/AddressSection";
+
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
-import FormStepper from "@/components/ui/FormStepper";
+import FormStepper from "@/features/auth/components/FormStepper";
 import { toast } from "react-toastify";
 
-import { demographicsSchema } from "@/schemas/demographicSchema";
-import { landSchema } from "@/schemas/landHoldingSchema";
-import { addressSchema } from "@/schemas/addressSchema";
-import { useProgress } from "@/hooks/useProgress";
+import { demographicsSchema } from "@/features/orchard-registration/schemas/demographicSchema";
+import { varietyPlantingSchema } from "@/features/orchard-registration/schemas/varietyPlantingSchema";
+import { soilWaterProfileSchema } from "@/features/orchard-registration/schemas/soilWaterProfileSchema";
+import { cropNutritionSchema } from "@/features/orchard-registration/schemas/cropNutritionSchema";
+import { plantProtectionSchema } from "@/features/orchard-registration/schemas/plantProtectionSchema";
+import { farmInfrastructureSchema } from "@/features/orchard-registration/schemas/farmInfrastructureSchema";
+
+import {
+  soilWaterStepFields,
+  cropNutritionStepFields,
+  plantProtectionStepFields,
+  farmInfrastructureStepFields,
+  demographicsStepFields,
+  varietyPlantingStepFields,
+  orchardRegistrationDefaultFields,
+} from "@/constants/orchardFormSteps";
+
 import useIsMobile from "@/hooks/useInMobile";
-import LoginLink from "@/components/shared/LoginLink";
+import { useNavigate } from "react-router-dom";
+import Popup from "@/components/shared/Popup";
 
-const stepSchemas = [demographicsSchema, landSchema, addressSchema];
-
-const stepLabels = ["Demographics", "Land Holdings", "Address"];
+const stepSchemas = [
+  demographicsSchema,
+  varietyPlantingSchema,
+  soilWaterProfileSchema,
+  cropNutritionSchema,
+  plantProtectionSchema,
+  farmInfrastructureSchema,
+];
 
 export default function OrchardRegistration() {
   const [step, setStep] = useState(0);
+  const navigate = useNavigate();
 
-  const theme = useTheme();
   const isMobile = useIsMobile();
   const methods = useForm({
     resolver: zodResolver(stepSchemas[step]),
@@ -56,28 +66,30 @@ export default function OrchardRegistration() {
     formState: { errors },
   } = methods;
 
-  const values = watch(farmerRequiredFields);
-  const completion = useProgress(values, farmerRequiredFields.length);
-
-  const onSubmit = (data) => console.log("Form Data:", data);
+  const onSubmit = (data) => {
+    console.log("Final Form Data:", data);
+    toast.success("Form submitted successfully!");
+  };
 
   const nextStep = async () => {
     let stepFields = [];
 
-    if (step === 0) stepFields = ["farmName", "farmSize", "mainCrops"];
-    if (step === 1)
-      stepFields = [
-        "soilType",
-        "irrigationMethod",
-        "environmentalConditions",
-        "farmLocation",
-      ];
-    if (step === 2)
-      stepFields = ["village", "tehsil", "district", "state", "pincode"];
+    if (step === 0) {
+      stepFields = demographicsStepFields;
+    }
+
+    if (step === 1) {
+      stepFields = varietyPlantingStepFields;
+    }
+
+    if (step === 2) stepFields = soilWaterStepFields;
+    if (step === 3) stepFields = cropNutritionStepFields;
+    if (step === 4) stepFields = plantProtectionStepFields;
+    if (step === 5) stepFields = farmInfrastructureStepFields;
 
     const valid = await trigger(stepFields);
 
-    if (valid) setStep((s) => Math.min(stepLabels.length - 1, s + 1));
+    if (valid) setStep((s) => Math.min(stepSchemas.length - 1, s + 1));
   };
 
   const prevStep = () => setStep((s) => Math.max(0, s - 1));
@@ -92,33 +104,29 @@ export default function OrchardRegistration() {
       () => alert("Unable to retrieve location")
     );
   };
+
   const handleSubmitClick = async () => {
-    if (step !== 4) {
+    if (step < stepSchemas.length - 1) {
       nextStep();
       return;
     }
 
-    const valid = await trigger(["otp"]);
-
+    const valid = await trigger();
     if (!valid) {
-      toast.error("Please enter the OTP");
+      toast.error("Please fix the errors before submitting");
       return;
     }
 
     const data = watch();
-    console.log("Form submitted with data:", data);
-    toast.success("Form submitted successfully!");
+    onSubmit(data);
+    navigate("/dashboard");
   };
 
   return (
     <Box
       sx={{
-        minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
-        bgcolor: "var(--color-white)",
-        py: { xs: 5, lg: 12 },
-        my: { xs: 0, md: 10, lg: 4 },
       }}
     >
       <FormProvider {...methods}>
@@ -130,36 +138,57 @@ export default function OrchardRegistration() {
             width: "100%",
             maxWidth: 800,
             p: { md: 4, lg: 4 },
-
             bgcolor: "var(--color-white)",
-            boxShadow: isMobile ? 0 : 3,
             display: "flex",
             flexDirection: "column",
             gap: 0,
           }}
         >
-          <SectionTitle title="Add Orchard/Farm" centered />
-
-          <FormStepper
-            activeStep={step}
-            completion={completion}
-            type="orchard"
-          />
+          <div className="mb-8">
+            <SectionTitle
+              title="Add Orchard/Farm"
+              centered
+              className="lg:text-2xl sm:text-4xl"
+            />
+          </div>
+          <FormStepper activeStep={step} type="orchard" />
 
           <Box
             sx={{
               border: "1px solid var(--color-black-light)",
               borderRadius: 2,
               bgcolor: "var(--color-white)",
+              py: 2,
             }}
           >
             {step === 0 && (
               <DemographicsSection register={register} errors={errors} />
             )}
             {step === 1 && (
-              <LandHoldingSection register={register} errors={errors} />
+              <VarietyPlantingSection register={register} errors={errors} />
             )}
             {step === 2 && (
+              <SoilWaterProfileSection register={register} errors={errors} />
+            )}
+            {step === 3 && (
+              <CropNutritionManagementSection
+                register={register}
+                errors={errors}
+              />
+            )}
+            {step === 4 && (
+              <PlantProtectionHealthSection
+                register={register}
+                errors={errors}
+              />
+            )}
+            {step === 5 && (
+              <FarmInfrastructureSection register={register} errors={errors} />
+            )}
+            {step === 6 && (
+              <LandHoldingSection register={register} errors={errors} />
+            )}
+            {step === 7 && (
               <AddressSection
                 register={register}
                 errors={errors}
@@ -169,7 +198,7 @@ export default function OrchardRegistration() {
 
             <FormNavigation
               step={step}
-              totalSteps={stepLabels.length}
+              totalSteps={stepSchemas.length}
               nextStep={nextStep}
               prevStep={prevStep}
               handleSubmit={handleSubmitClick}

@@ -4,10 +4,13 @@ import { toast } from "react-toastify";
 import { Mail, Lock } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormInput from "@/features/auth/components/FormInput";
+import FormInput from "@/components/shared/custom-inputs/FormInput";
 import useIsMobile from "@/hooks/useInMobile";
 import CustomButton from "@/components/ui/CustomButton";
-import { loginPasswordValidator, loginSchema } from "@/schemas/authSchemas";
+import {
+  loginPasswordValidator,
+  loginSchema,
+} from "@/features/farmer-registration/schemas/authSchemas";
 
 export default function SupplierLogin() {
   const isMobile = useIsMobile();

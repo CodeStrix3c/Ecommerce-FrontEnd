@@ -31,7 +31,7 @@ const SearchBar = ({ onSubmit }) => {
   // ✅ Mobile
   if (isMobile) {
     return (
-      <div className="flex w-full max-w-md items-center rounded-full border border-[var(--color-black-hover)] bg-[var(--color-white)] px-3 py-2 shadow-md hover:shadow-lg">
+      <div className="flex w-full max-w-md items-center rounded-full border-2 border-black bg-[var(--color-white)] px-3 py-2 shadow-md hover:shadow-lg">
         <Search className="h-5 w-5 text-[var(--color-black)]/70" />
         <input
           type="text"
@@ -46,7 +46,10 @@ const SearchBar = ({ onSubmit }) => {
   }
 
   return (
-    <div className="flex w-11/12 max-w-4xl items-center justify-between rounded-full border border-[var(--color-black-hover)] bg-[var(--color-white)] px-4 pt-1 shadow-md hover:shadow-lg">
+    <div
+      className="flex w-11/12 max-w-4xl items-center justify-between rounded-full border border-gray-300 bg-[var(--color-white)] px-4 pt-1 
+    shadow-[0_2px_4px_rgba(0,0,0,0.08)] hover:shadow-md transition-shadow duration-200"
+    >
       <div className="flex-1 border-r border-[var(--color-black-hover)] px-3">
         <p className="text-xs font-semibold text-[var(--color-black)]">What</p>
         <input

@@ -1,97 +1,140 @@
-import { useState } from "react";
-import InfoCard from "../componets/InfoCard";
-import Tabs from "../componets/Tabs";
-import FarmerDetails from "../componets/FarmerDetails";
-import LandDemographics from "../componets/LandDemographics";
-import LandHoldings from "../componets/LandHoldings";
-import AddressSection from "../componets/AddressSection";
-import FarmMedia from "../componets/FarmMedia";
+import React, { useEffect, useState, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+
+import AddressSection from "@/features/farmer-registration/sections/AddressSection";
+import Popup from "@/components/shared/Popup";
+import ProgressBar from "@/components/shared/ProgressBar";
+import CustomButton from "@/components/ui/CustomButton";
+import { addressSchema } from "@/features/farmer-registration/schemas/addressSchema";
+import { useFarmer } from "@/providers/FarmerProvider";
+import { ADDRESS_FIELDS } from "@/constants/profileFields";
+import FarmerProfileCompletion from "./FarmerProfileCompletion";
+import { set } from "zod";
 
 export default function FarmerProfilePage() {
-  const [activeTab, setActiveTab] = useState("profile");
+  const navigate = useNavigate();
+  const {
+    farmer,
+    setFarmer,
+    sections,
+    progress,
+    isComplete,
+    setEducationComplete,
+    setProfessionComplete,
+    setAddressComplete,
+    setProfileComplete,
+  } = useFarmer();
+  const [showIncompleteSection, setShowIncompleteSection] = useState(false);
+  const [gpsLocation, setGpsLocation] = useState("");
+  const gpsInputRef = useRef(null);
 
-  const farmer = {
-    fullName: "Rahul Sharma",
-    email: "rahul@example.com",
-    phone: "+91 9876543210",
-    photo: "/assets/images/farmer.jpeg",
-    status: "Active",
+  const methods = useForm({
+    resolver: zodResolver(addressSchema),
+    mode: "onChange",
+  });
 
-    media: {
-      images: [
-        "https://images.unsplash.com/photo-1527847263472-aa5338d178b8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmFybWVyfGVufDB8fDB8fHww",
-        "https://images.unsplash.com/photo-1590682680695-43b964a3ae17?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGZhcm1lcnxlbnwwfHwwfHx8MA%3D%3D",
-        "https://images.unsplash.com/photo-1569880153113-76e33fc52d5f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZmFybWVyfGVufDB8fDB8fHww",
-      ],
-      videos: [
-        "https://www.w3schools.com/html/mov_bbb.mp4",
-        "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
-      ],
-    },
+  const {
+    watch,
+    setValue,
+    trigger,
+    register,
+    formState: { errors },
+  } = methods;
+  const addressValues = watch();
 
-    landDemographics: {
-      orchardSize: "5 Acres",
-      farmSize: "25 Kanals",
-      mainCrops: "Apples, Maize, Wheat",
-      ownershipType: "Owned",
-    },
+  useEffect(() => detectLocation(), []);
+  console.log(progress, "progress in farmer profile");
 
-    landHoldings: {
-      soilType: "Loamy Soil",
-      irrigation: "Drip Irrigation",
-      environment: "Temperate (20-28°C)",
-      topography: "Plain",
-    },
+  const detectLocation = () => {
+    if (!navigator.geolocation) return alert("Geolocation not supported");
 
-    address: {
-      village: "Rampur",
-      tehsil: "Karnal Tehsil",
-      district: "Karnal",
-      state: "Haryana",
-      pinCode: "132001",
-      gps: "29.6857° N, 76.9905° E",
-    },
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const gpsString = `${pos.coords.latitude},${pos.coords.longitude}`;
+        setGpsLocation(gpsString);
+        setValue("gps", gpsString, { shouldValidate: true });
+        gpsInputRef.current?.focus();
+      },
+      () => alert("Unable to retrieve location"),
+      { enableHighAccuracy: true }
+    );
+  };
+
+  // Complete address and update farmer
+  const handleCompleteProfile = async () => {
+    setProfileComplete();
+    setEducationComplete();
+    setProfessionComplete();
+    setAddressComplete();
+
+    // const updatedFarmer = { ...farmer, ...addressValues };
+    // localStorage.setItem("farmerData", JSON.stringify(updatedFarmer));
+    setShowIncompleteSection(false);
   };
 
   return (
-    <div className="w-full md:mt-20 lg:mt-28">
-      <InfoCard farmer={farmer} />
+    <div className="w-full md:mt-28 lg:mt-36 px-4 sm:px-6">
+      {/* Profile Card */}
+      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+        <div className="flex-shrink-0">
+          <img
+            src={farmer?.profilePic || "/assets/images/farmer.jpeg"}
+            alt={farmer?.fullName || "Farmer"}
+            className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-2 border-[var(--color-primary)]"
+          />
+        </div>
+        <div className="flex-1 text-center md:text-left">
+          <h2 className="text-xl md:text-2xl font-semibold">
+            {farmer?.fullName || "Full Name"}
+          </h2>
+          <p className="text-sm md:text-base">
+            {farmer?.email || "Email not provided"}
+          </p>
+          <p className="text-sm md:text-base">
+            {farmer?.phone || "Phone not provided"}
+          </p>
 
-      <div className="pt-8">
-        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+          <ProgressBar
+            filledFields={progress * 100} // assuming ProgressBar accepts 0–100
+            totalFields={100}
+            onClick={() => setShowIncompleteSection(true)}
+          />
 
-        <div className="mt-6">
-          {activeTab === "profile" && (
-            <div className="bg-[var(--color-white)] rounded-2xl p-6 shadow-md">
-              <FarmerDetails farmer={farmer} />
-            </div>
-          )}
-
-          {activeTab === "land" && (
-            <div className="bg-[var(--color-white)] rounded-2xl p-6 shadow-md">
-              <LandDemographics land={farmer.landDemographics} />
-            </div>
-          )}
-
-          {activeTab === "holdings" && (
-            <div className="bg-[var(--color-white)] rounded-2xl p-6 shadow-md">
-              <LandHoldings holdings={farmer.landHoldings} />
-            </div>
-          )}
-
-          {activeTab === "address" && (
-            <div className="bg-[var(--color-white)] rounded-2xl p-6 shadow-md mb-5">
-              <AddressSection address={farmer.address} />
-            </div>
-          )}
-
-          {activeTab === "media" && (
-            <div className="bg-[var(--color-white)] rounded-2xl p-6 shadow-md">
-              <FarmMedia media={farmer.media} />
-            </div>
-          )}
+          {/* {!isComplete && (
+            <p
+              onClick={() => setShowIncompleteSection(true)}
+              className="mt-2 text-sm text-[var(--color-secondary)] hover:underline cursor-pointer"
+            >
+              Complete your profile
+            </p>
+          )} */}
         </div>
       </div>
+
+      <div className="flex justify-center mt-6">
+        <CustomButton
+          varient="contained"
+          text="My Orchards"
+          onClick={() => navigate("/my-orchards")}
+        />
+      </div>
+
+      {showIncompleteSection && (
+        <Popup
+          onClose={() => setShowIncompleteSection(false)}
+          title="Complete Farmer Profile"
+          open={showIncompleteSection}
+        >
+          <FarmerProfileCompletion
+            value={gpsLocation}
+            detectLocation={detectLocation}
+            gpsInputRef={gpsInputRef}
+            onComplete={handleCompleteProfile}
+          />
+        </Popup>
+      )}
     </div>
   );
 }

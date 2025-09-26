@@ -9,8 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   emailRegisterSchema,
   phoneRegisterSchema,
-} from "@/schemas/authSchemas";
-import RequiredLabel from "@/features/auth/components/RequiredLabel";
+} from "@/features/farmer-registration/schemas/authSchemas";
+import RequiredLabel from "@/components/ui/RequiredLabel";
 import useIsMobile from "@/hooks/useInMobile";
 import MobileRegisterModal from "../components/MobileRegisterModal";
 

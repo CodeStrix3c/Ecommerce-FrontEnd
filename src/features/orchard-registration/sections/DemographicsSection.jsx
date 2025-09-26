@@ -1,49 +1,152 @@
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
+import { Controller } from "react-hook-form";
 import FormLayout from "@/components/shared/FormLayout";
-import SelectField from "@/components/ui/SelectField";
-import FormInput from "@/features/auth/components/FormInput";
-import FormSection from "@/features/auth/components/FormSection";
+import FormInput from "@/components/shared/custom-inputs/FormInput";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
+import { GpsFixed } from "@mui/icons-material";
+import { getCurrentLocation } from "@/utils/location/getCurrentLocation";
 
 export default function DemographicsSection({ register, errors }) {
+  const [gpsLocation, setGpsLocation] = useState("");
+  const [loading, setLoading] = useState(false);
+  const gpsInputRef = useRef(null);
+  console.log(errors, "errors");
+  useEffect(() => {
+    fetchLocation();
+  }, []);
+
+  const fetchLocation = async () => {
+    setLoading(true);
+    try {
+      const { gpsString } = await getCurrentLocation();
+      setGpsLocation(gpsString);
+
+      setTimeout(() => {
+        gpsInputRef.current?.focus();
+      }, 100);
+    } catch (err) {
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <FormSection title="Farm Details">
+    <>
       <FormLayout>
         <FormInput
-          name="farmName"
-          label="Farm / Orchard Name"
+          name="orchardName"
+          label="Orchard Name"
           register={register}
-          errors={errors.farmName}
-        />
-        <FormInput
-          name="farmSize"
-          label="Enter Farm Size (Kanals)"
-          type="number"
-          register={register}
-          errors={errors.farmSize}
-        />
-        <FormInput
-          name="mainCrops"
-          label="Main Crops"
-          register={register}
-          errors={errors.mainCrops}
+          errors={errors.orchardName}
         />
 
-        {/* Ownership Type (Optional) */}
-        <SelectField
-          name="ownershipType"
-          label="Ownership Type"
+        <FormInput
+          name="orchardSizeKanals"
+          label="Orchard Size (Kanals)"
+          type="number"
           register={register}
-          errors={errors}
-          optional
-          options={[
-            { value: "", label: "Select Ownership Type" },
-            { value: "owned", label: "Owned" },
-            { value: "leased", label: "Leased / Rented" },
-            { value: "shared", label: "Shared / Partnership" },
-            { value: "community", label: "Community / Institutional" },
-            { value: "other", label: "Other" },
-          ]}
+          errors={errors.orchardSizeKanals}
+        />
+        <FormInput
+          name="orchardSizeMarlas"
+          label="Orchard Size (Marlas)"
+          type="number"
+          register={register}
+          errors={errors.orchardSizeMarlas}
+        />
+
+        <FormInput
+          name="establishmentYear"
+          label="Establishment Year"
+          type="number"
+          register={register}
+          errors={errors.establishmentYear}
+        />
+
+        <Controller
+          name="plantationPattern"
+          render={({ field }) => (
+            <SelectField
+              {...field}
+              errors={errors.plantationPattern}
+              label="Plantation Pattern"
+              options={[
+                { value: "", label: "Select Plantation Pattern" },
+                { value: "traditional", label: "Traditional" },
+                { value: "highDensity", label: "High Density" },
+              ]}
+            />
+          )}
+        />
+
+        <Controller
+          name="ownershipType"
+          render={({ field, fieldState }) => (
+            <SelectField
+              {...field}
+              label="Ownership Type"
+              errors={
+                fieldState.error ? { [field.name]: fieldState.error } : {}
+              }
+              options={[
+                { value: "", label: "Select Ownership Type" },
+                { value: "owned", label: "Owned" },
+                { value: "leased", label: "Leased / Rented" },
+                { value: "ancestral", label: "Ancestral" },
+              ]}
+            />
+          )}
+        />
+
+        <FormInput
+          name="orchardDistrict"
+          label="District"
+          register={register}
+          errors={errors.orchardDistrict}
+        />
+        <FormInput
+          name="orchardTehsil"
+          label="Tehsil"
+          register={register}
+          errors={errors.orchardTehsil}
+        />
+        <FormInput
+          name="orchardZone"
+          label="Zone"
+          register={register}
+          errors={errors.orchardZone}
+        />
+        <FormInput
+          name="orchardPincode"
+          label="PIN Code"
+          type="number"
+          register={register}
+          errors={errors.orchardPincode}
         />
       </FormLayout>
-    </FormSection>
+      <div className="mt-4 cursor-auto">
+        <FormInput
+          name="gps"
+          label="Orchard Location"
+          value={gpsLocation}
+          icon={
+            <GpsFixed
+              sx={{
+                color: loading
+                  ? "var(--color-black)"
+                  : "var(--color-secondary)",
+              }}
+            />
+          }
+          onClick={fetchLocation}
+          readOnly
+          register={register}
+          errors={errors.gps}
+          inputRef={gpsInputRef}
+        />
+      </div>
+    </>
   );
 }

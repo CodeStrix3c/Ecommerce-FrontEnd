@@ -5,7 +5,7 @@ function PlaceCardSkeletonUi() {
   return (
     <div className="h-full">
       <div className="relative">
-        <div className="aspect-[4/3] w-full overflow-hidden rounded-xl">
+        <div className="aspect-[4/4] w-full overflow-hidden rounded-xl">
           <Skeleton className="h-full w-full" />
         </div>
 
