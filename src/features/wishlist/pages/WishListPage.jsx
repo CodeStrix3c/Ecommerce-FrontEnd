@@ -29,14 +29,14 @@ const WishlistPage = () => {
   }
 
   return (
-    <div className="container py-10 lg:mt-24 md:mt-24">
+    <div className="py-10 lg:mt-24 md:mt-24">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-black)] mb-4 sm:mb-0">
           My Wishlist
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {wishlist.map((product) => (
           <WishlistItem
             key={product._id}

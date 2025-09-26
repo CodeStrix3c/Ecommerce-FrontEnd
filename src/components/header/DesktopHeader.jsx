@@ -29,7 +29,7 @@ const DesktopHeader = ({ location }) => {
         backgroundColor: "var(--color-white)",
         boxShadow:
           location.pathname === "/home"
-            ? "inset 0px -60px 60px -10px rgba(0, 0, 0, 0.03)"
+            ? "inset 0px -60px 60px -10px rgba(0, 0, 0, 0.05)"
             : "none",
       }}
       className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)] border-b border-gray-100"
