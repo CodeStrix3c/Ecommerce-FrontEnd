@@ -172,8 +172,35 @@ const BookingWidget = ({ place }) => {
           </div>
         </div>
 
+        {/* Mobile Payment Options */}
+        <div className="mt-3">
+          <button
+            onClick={() => setShowPayment(!showPayment)}
+            className="flex w-full items-center justify-between rounded-md border border-[var(--color-black)] bg-[var(--color-white)] px-3 py-2 text-sm font-medium text-[var(--color-black)] hover:bg-[var(--color-black-hover)]"
+          >
+            <span>{getPaymentLabel(selectedPayment)}</span>
+            {showPayment ? (
+              <ChevronUp size={18} className="text-black" />
+            ) : (
+              <ChevronDown size={18} className="text-black" />
+            )}
+          </button>
+
+          {showPayment && (
+            <div className="mt-3">
+              <PaymentOptions
+                selected={selectedPayment}
+                onChange={(method) => {
+                  setSelectedPayment(method);
+                  setShowPayment(false);
+                }}
+              />
+            </div>
+          )}
+        </div>
+
         {/* Responsive buttons */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 mt-3">
           <button
             onClick={handleBuyNow}
             className="w-full rounded-md bg-[var(--color-primary)] py-2 md:py-3 mb-2 text-sm md:text-base font-semibold text-[var(--color-white)] transition hover:bg-[var(--color-primary-hover)]"
