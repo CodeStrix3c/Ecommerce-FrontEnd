@@ -8,7 +8,6 @@ import "leaflet/dist/leaflet.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import axiosInstance from "./utils/axios";
 import { getItemFromLocalStorage } from "./utils";
-import AppProvider from "./providers/AppProvider";
 import ScrollToTop from "./components/shared/ScrollToTop";
 import Spinner from "./components/ui/Spinner";
 import publicRoutes from "./routes/PublicRoutes";
@@ -22,16 +21,14 @@ function App() {
 
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-      <AppProvider>
-        <ScrollToTop />
-        <Suspense fallback={<Spinner />}>
-          <Routes>
-            {publicRoutes}
-            {protectedRoutes}
-          </Routes>
-        </Suspense>
-        <ToastContainer autoClose={2000} transition={Slide} />
-      </AppProvider>
+      <ScrollToTop />
+      <Suspense fallback={<Spinner />}>
+        <Routes>
+          {publicRoutes}
+          {protectedRoutes}
+        </Routes>
+      </Suspense>
+      <ToastContainer autoClose={2000} transition={Slide} />
     </GoogleOAuthProvider>
   );
 }

@@ -3,18 +3,27 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 
-import AddressSection from "@/features/farmer-registration/sections/AddressSection";
 import Popup from "@/components/shared/Popup";
-import ProgressBar from "@/components/shared/ProgressBar";
-import CustomButton from "@/components/ui/CustomButton";
 import { addressSchema } from "@/features/farmer-registration/schemas/addressSchema";
 import { useFarmer } from "@/providers/FarmerProvider";
-import { ADDRESS_FIELDS } from "@/constants/profileFields";
+import FarmerProfileCompletion from "./FarmerProfileCompletion";
+import { AccountBalance, Person, TripOrigin } from "@mui/icons-material";
+import { Edit2, TreePine } from "lucide-react";
+import { User, Calendar, Mail, Phone, Book, Briefcase } from "lucide-react";
+import ProfileDetail from "../components/ProfileDetail";
+import SidebarItem from "../components/SideBarItem";
 
 export default function FarmerProfilePage() {
   const navigate = useNavigate();
-  const { farmer, setFarmer, progress, isComplete } = useFarmer();
-  const [showAddressSection, setShowAddressSection] = useState(false);
+  const {
+    farmer,
+    progress,
+    setEducationComplete,
+    setProfessionComplete,
+    setAddressComplete,
+    setProfileComplete,
+  } = useFarmer();
+  const [showIncompleteSection, setShowIncompleteSection] = useState(false);
   const [gpsLocation, setGpsLocation] = useState("");
   const gpsInputRef = useRef(null);
 
@@ -23,13 +32,7 @@ export default function FarmerProfilePage() {
     mode: "onChange",
   });
 
-  const {
-    watch,
-    setValue,
-    trigger,
-    register,
-    formState: { errors },
-  } = methods;
+  const { watch, setValue } = methods;
   const addressValues = watch();
 
   useEffect(() => detectLocation(), []);
@@ -49,74 +52,149 @@ export default function FarmerProfilePage() {
     );
   };
 
-  // Complete address and update farmer
-  const handleCompleteProfile = async () => {
-    const valid = await trigger(ADDRESS_FIELDS); // validate only address fields
-    if (!valid) return;
-
-    const updatedFarmer = { ...farmer, ...addressValues };
-    setFarmer(updatedFarmer);
-    localStorage.setItem("farmerData", JSON.stringify(updatedFarmer));
-    setShowAddressSection(false);
+  const handleCompleteProfile = () => {
+    setProfileComplete();
+    setEducationComplete();
+    setProfessionComplete();
+    setAddressComplete();
+    setShowIncompleteSection(false);
   };
 
   return (
-    <div className="w-full md:mt-28 lg:mt-36 px-4 sm:px-6">
-      {/* Profile Card */}
-      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
-        <div className="flex-shrink-0">
+    <div className="flex flex-col lg:flex-row w-full lg:mt-32 mt-16 px-4 sm:px-6 gap-8">
+      {/* Sidebar */}
+      <aside className="p-6 w-full lg:w-64 bg-[var(--color-white)] rounded-2xl shadow-lg border border-[var(--color-black-hover)] flex flex-col gap-6">
+        <h1 className="font-bold text-2xl mb-4 text-[var(--color-black)] border-b pb-2">
+          Profile
+        </h1>
+        <div className="flex flex-col justify-between h-full gap-3">
+          <div className="flex flex-col gap-3">
+            <SidebarItem
+              icon={
+                <AccountBalance className="w-6 h-6 text-[var(--color-secondary)]" />
+              }
+              label="About Me"
+            />
+            <SidebarItem
+              icon={
+                <TripOrigin className="w-6 h-6 text-[var(--color-secondary)]" />
+              }
+              label="Past Orders"
+            />
+            <SidebarItem
+              icon={
+                <Person className="w-6 h-6 text-[var(--color-secondary)]" />
+              }
+              label="Suppliers"
+            />
+            <SidebarItem
+              icon={
+                <TreePine className="w-6 h-6 text-[var(--color-secondary)]" />
+              }
+              label="My Orchards"
+              onClick={() => navigate("/my-orchards")}
+            />
+          </div>
+        </div>
+      </aside>
+
+      <main className="flex-1 bg-[var(--color-white)] rounded-2xl shadow-lg border border-[var(--color-black-hover)] p-8 flex flex-col gap-6">
+        <div className="flex">
+          <h1 className="font-bold text-2xl md:text-3xl text-[var(--color-black)]">
+            About Me
+          </h1>
+          <button
+            onClick={() => setShowIncompleteSection(true)}
+            className="px-6"
+          >
+            <Edit2 className="w-6 h-6 text-[var(--color-secondary)]" />
+          </button>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
           <img
             src={farmer?.profilePic || "/assets/images/farmer.jpeg"}
-            alt={farmer?.fullName || "Farmer"}
-            className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-2 border-[var(--color-primary)]"
+            alt={farmer?.fullName || ""}
+            className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-2 border-[var(--color-black)]"
           />
+          <div className="flex-1 flex flex-col gap-3 text-center md:text-left">
+            <h2 className="text-xl md:text-3xl font-bold">
+              {farmer?.fullName || "Quarat"}
+            </h2>
+
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 text-sm md:text-base">
+              <ProfileDetail
+                icon={<User />}
+                label="Gender"
+                value={farmer?.gender || "Female"}
+              />
+              <ProfileDetail
+                icon={<Calendar />}
+                label="Age"
+                value={farmer?.age || "28"}
+              />
+              <ProfileDetail
+                icon={<Mail />}
+                label="Email"
+                value={farmer?.email || "anjuqadir14848@gmail.com"}
+              />
+              <ProfileDetail
+                icon={<Phone />}
+                label="Phone"
+                value={farmer?.phone || "7051059559"}
+              />
+              <ProfileDetail
+                icon={<Book />}
+                label="Education"
+                value={farmer?.education || "Graduate"}
+              />
+              <ProfileDetail
+                icon={<Briefcase />}
+                label="Profession"
+                value={farmer?.profession || "Mazdoor"}
+              />
+            </div>
+
+            <div className="mt-5">
+              <div className="flex justify-between items-center mb-2">
+                <div className="text-lg font-semibold flex items-center gap-2">
+                  <h2>Profile Completion</h2>
+                  <span className="text-[var(--color-secondary)] text-sm">
+                    ({Math.round(progress * 100)}%)
+                  </span>
+                </div>
+
+                <span
+                  className="text-sm p-2 font-medium text-[var(--color-secondary)] hover:cursor-pointer"
+                  onClick={() => setShowIncompleteSection(true)}
+                >
+                  Complete Profile
+                </span>
+              </div>
+
+              <div className="relative w-full cursor-pointer">
+                <div className="h-2 w-full bg-[var(--color-black-hover)] rounded-full overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+                  <div
+                    className="h-1 rounded-full transition-all duration-500"
+                    style={{
+                      width: `${progress * 100}%`,
+                      backgroundColor: "var(--color-primary)",
+                    }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex-1 text-center md:text-left">
-          <h2 className="text-xl md:text-2xl font-semibold">
-            {farmer?.fullName || "Full Name"}
-          </h2>
-          <p className="text-sm md:text-base">
-            {farmer?.email || "Email not provided"}
-          </p>
-          <p className="text-sm md:text-base">
-            {farmer?.phone || "Phone not provided"}
-          </p>
+      </main>
 
-          <ProgressBar
-            filledFields={progress * 100} // assuming ProgressBar accepts 0–100
-            totalFields={100}
-            onClick={() => setShowAddressSection(true)}
-          />
-
-          {!isComplete && (
-            <p
-              onClick={() => setShowAddressSection(true)}
-              className="mt-2 text-sm text-[var(--color-secondary)] hover:underline cursor-pointer"
-            >
-              Complete your profile
-            </p>
-          )}
-        </div>
-      </div>
-
-      <div className="flex justify-center mt-6">
-        <CustomButton
-          varient="contained"
-          text="My Orchards"
-          onClick={() => navigate("/my-orchards")}
-          disabled={!isComplete}
-        />
-      </div>
-
-      {showAddressSection && (
+      {showIncompleteSection && (
         <Popup
-          onClose={() => setShowAddressSection(false)}
-          title="Add Address"
-          open={showAddressSection}
+          onClose={() => setShowIncompleteSection(false)}
+          title="Complete Farmer Profile"
+          open={showIncompleteSection}
         >
-          <AddressSection
-            register={register}
-            errors={errors}
+          <FarmerProfileCompletion
             value={gpsLocation}
             detectLocation={detectLocation}
             gpsInputRef={gpsInputRef}
