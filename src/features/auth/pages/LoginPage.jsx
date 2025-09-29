@@ -69,7 +69,7 @@ const LoginPage = () => {
   return (
     <PageWrapper>
       <div className="flex justify-center min-h-screen">
-        <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+        <div className="w-full max-w-md bg-var(--color-white) rounded-xl mt-20 lg:mt10">
           {/* Logo */}
           {/* <div className="flex justify-center mb-6">
             <img
