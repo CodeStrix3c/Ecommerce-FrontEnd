@@ -28,10 +28,9 @@ const SearchBar = ({ onSubmit }) => {
     });
   };
 
-  
   if (isMobile) {
     return (
-      <div className="flex w-full max-w-md items-center rounded-full border-2 border-black bg-[var(--color-white)] px-3 py-2 shadow-md hover:shadow-lg">
+      <div className="flex w-full max-w-md items-center rounded-full border-2 px-3 py-2">
         <Search className="h-5 w-5 text-[var(--color-black)]/70" />
         <input
           type="text"
@@ -90,13 +89,15 @@ const SearchBar = ({ onSubmit }) => {
           {regions.map((region) => (
             <option key={region} value={region}>
               {region}
-            </option> 
+            </option>
           ))}
         </select>
       </div>
 
       <div className="flex-1 px-3 max-h-fit py-3">
-        <p className="text-xs font-semibold text-[var(--color-black)] mb-1">When</p>
+        <p className="text-xs font-semibold text-[var(--color-black)] mb-1">
+          When
+        </p>
         <span className="text-sm text-[var(--color-black)] ">
           <DatePickerWithRange setDateRange={setDateRange} />
         </span>

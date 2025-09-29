@@ -3,6 +3,8 @@ import { lazy } from "react";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import FarmerProfilePage from "@/features/farmers/pages/FarmerProfilePage";
 import { SupplierProduct } from "@/features/suppliers/components/SupplierProduct";
+import OrchardsPage from "@/features/orchards/pages/MyOrchards";
+import SingleOrchardPage from "@/features/orchards/pages/SingleOrchardPage";
 
 const Layout = lazy(() => import("../app/Layout"));
 const SupplierRegistration = lazy(
@@ -23,9 +25,7 @@ const AgricultureHelpCenter = lazy(
 const OrchardRegistration = lazy(
   () => import("../features/orchard-registration/OrchardRegistration")
 );
-const MyOrchards = lazy(
-  () => import("../features/farmers/orchards/MyOrchards")
-);
+const MyOrchards = lazy(() => import("../features/orchards/pages/MyOrchards"));
 const AboutUs = lazy(() => import("../features/about-us/pages/AboutUs"));
 const Privacy = lazy(
   () => import("../features/privacy-policies/pages/Privacy")
@@ -69,7 +69,9 @@ export default [
       <Route path="/resources/crop-information" element={<CropInformation />} />
       <Route path="/help-center" element={<AgricultureHelpCenter />} />
       {/* <Route path="/orchard-registration" element={<OrchardRegistration />} /> */}
-      <Route path="/my-orchards" element={<MyOrchards />} />
+      <Route path="/my-orchards" element={<OrchardsPage />} />
+      <Route path="/orchards/:id" element={<SingleOrchardPage />} />
+
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/sitemap" element={<Sitemap />} />
@@ -84,7 +86,7 @@ export default [
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/supplier-profile" element={<SupplierProfilePage />} />
-            <Route path="/supplier-Product" element={<SupplierProduct />} />
+      <Route path="/supplier-Product" element={<SupplierProduct />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
