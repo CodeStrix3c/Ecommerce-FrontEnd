@@ -74,7 +74,7 @@ const CartPage = () => {
 
       {/* Mobile Bottom Bar */}
       {isMobile && cartList.length > 0 && (
-        <CartBottomBar cart={cart} total={total} onCheckout={checkoutAll} />
+        <CartBottomBar cart={cartList} total={total} onCheckout={checkoutAll} />
       )}
     </div>
   );

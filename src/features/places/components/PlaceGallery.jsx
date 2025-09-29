@@ -70,21 +70,28 @@ const PlaceGallery = ({ place }) => {
         </div>
       </div>
 
-      {/* Mobile view */}
-      <div className="flex overflow-hidden rounded-[12px] md:hidden">
-        {place.photos?.[0] && (
-          <div className="h-full">
+      <div className="flex gap-2 overflow-x-auto rounded-[12px] md:hidden scroll-smooth snap-x snap-mandatory">
+        {place.photos?.slice(0, 5).map((photo, index) => (
+          <div
+            key={index}
+            className="relative min-w-[85%] snap-start flex-shrink-0 overflow-hidden rounded-[10px] bg-[var(--color-black-hover)]"
+            onClick={() => setShowGallery(true)}
+          >
             <img
-              onClick={() => setShowGallery(true)}
-              className="h-full cursor-pointer object-cover"
-              src={place.photos[0]}
-              alt=""
+              src={photo}
+              alt={`Photo ${index + 1}`}
+              className="h-52 w-full cursor-pointer object-cover"
             />
+
+            {index === 4 && place.photos.length > 5 && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white text-lg font-medium">
+                +{place.photos.length - 5} more
+              </div>
+            )}
           </div>
-        )}
+        ))}
       </div>
 
-      {/* Show all button */}
       {place.photos?.length > 0 && (
         <button
           className="absolute bottom-2 right-2 flex gap-1 rounded-xl bg-[var(--color-white)] py-2 px-4 shadow-md shadow-[var(--color-black-hover)]"
@@ -106,7 +113,6 @@ const PlaceGallery = ({ place }) => {
         </button>
       )}
 
-      {/* Reusable gallery modal */}
       <ImageGalleryModal
         photos={place.photos || []}
         isOpen={showGallery}
