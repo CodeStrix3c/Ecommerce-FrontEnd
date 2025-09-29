@@ -16,6 +16,7 @@ import Testimonials from "@/features/reviews/pages/Testimonials";
 import HighlightBanner from "@/features/reviews/components/HighlightBanner";
 import ExploreNearby from "../components/ExploreNearby";
 import SharePopUp from "@/components/ui/SharePopUp";
+import useIsMobile from "@/hooks/useInMobile";
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -24,6 +25,7 @@ const PlacePage = () => {
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sharePopUp, setSharePopUp] = useState(false);
+  const isMobile = useIsMobile();
 
   const isPlacePage = /^\/place\/\w+/.test(location.pathname);
 
@@ -61,7 +63,7 @@ const PlacePage = () => {
   return (
     <motion.div
       initial={false}
-      animate={{ maxWidth: isPlacePage ? "73vw" : "92vw" }}
+      animate={{ maxWidth: isPlacePage && !isMobile ? "73vw" : "92vw" }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
       className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36 mx-auto"
     >
@@ -105,7 +107,7 @@ const PlacePage = () => {
         </aside>
       </div>
 
-      <div className="my-8 md:hidden">
+      <div className="my-8 md:hidden z-40 absolute left-0 w-full px-4 ">
         <BookingWidget place={place} />
       </div>
 

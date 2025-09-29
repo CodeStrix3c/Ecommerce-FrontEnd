@@ -82,12 +82,11 @@
 
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Tabs from "../components/Tabs";
 import InfoCard from "../components/InfoCard";
 import Popup from "@/components/shared/Popup";
-import InCompleteSupplierProfileSection from "./InCompleteSupplierProfileSection";
 import { useSupplier } from "@/providers/SupplierProvider";
 import ProgressBar from "@/components/shared/ProgressBar";
+import SupplierProfileCompletion from "./SupplierProfileCompletion";
 
 export default function SupplierProfilePage() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -105,16 +104,22 @@ export default function SupplierProfilePage() {
     setOperationalDetailsComplete,
     setFinancialPaymentComplete,
     setSupportServicesComplete,
+    setBusinessComplete,
   } = useSupplier();
 
   const supplierData = supplier || {};
 
-  const handleCompleteProfile = () => {
+  const handleCompleteProfile = (formData) => {
+    // const updatedSupplier = { ...supplierData, ...formData, gps: gpsLocation };
+    // setSupplier(updatedSupplier);
+    // localStorage.setItem("supplierData", JSON.stringify(updatedSupplier));
+    setBusinessComplete();
     setLicensingComplete();
     setProductPortfolioComplete();
     setOperationalDetailsComplete();
     setFinancialPaymentComplete();
     setSupportServicesComplete();
+
     setShowIncompleteSection(false);
   };
 
@@ -167,7 +172,7 @@ export default function SupplierProfilePage() {
           onClose={() => setShowIncompleteSection(false)}
           title="Complete Supplier Profile"
         >
-          <InCompleteSupplierProfileSection
+          <SupplierProfileCompletion
             gpsLocation={gpsLocation}
             gpsInputRef={gpsInputRef}
             onComplete={handleCompleteProfile}

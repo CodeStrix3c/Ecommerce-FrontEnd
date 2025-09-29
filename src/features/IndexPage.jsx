@@ -1,4 +1,5 @@
 import CarousalSection from "@/components/shared/CarousalSection";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 import { dummyData } from "@/data/dummyData";
 
 const IndexPage = () => {
@@ -7,20 +8,22 @@ const IndexPage = () => {
   const dummyData3 = dummyData.slice(10);
 
   return (
-    <div className="mt-0 flex flex-col gap-8 sm:px-6 lg:mb-20 lg:mt-52 lg:px-8">
-      <CarousalSection
-        title="Popular Pesticides for Crop Protection"
-        places={dummyData1}
-      />
-      <CarousalSection
-        title="Upcoming Pesticide Solutions for Next Season"
-        places={dummyData2}
-      />
-      <CarousalSection
-        title="Herbicides for Effective Weed Control"
-        places={dummyData3}
-      />
-    </div>
+    <ContentWrapper>
+      <div className="mt-6 flex flex-col gap-8 lg:mb-20 lg:mt-60 md:mt-52">
+        <CarousalSection
+          title="Popular Pesticides for Crop Protection"
+          places={dummyData1}
+        />
+        <CarousalSection
+          title="Upcoming Pesticide Solutions for Next Season"
+          places={dummyData2}
+        />
+        <CarousalSection
+          title="Herbicides for Effective Weed Control"
+          places={dummyData3}
+        />
+      </div>
+    </ContentWrapper>
   );
 };
 
