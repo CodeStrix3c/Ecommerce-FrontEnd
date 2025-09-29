@@ -80,7 +80,7 @@ const BookingWidget = ({ place }) => {
               >
                 −
               </button>
-              <span className="px-2 font-semibold text-black text-sm md:text-base">
+              <span className="px-2 font-semibold text-[var(--color-black)] text-sm md:text-base">
                 {quantity}
               </span>
               <button
