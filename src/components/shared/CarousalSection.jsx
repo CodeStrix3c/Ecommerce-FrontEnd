@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import Slider from "react-slick";
 import PlaceCard from "@/features/places/components/PlaceCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -13,29 +13,33 @@ const CarousalSection = ({ title, places, loading }) => {
   const items = loading ? Array(6).fill({}) : places;
   const totalSlides = items.length;
 
-  const settings = {
-    dots: false,
-    speed: 500,
-    slidesToShow: 7,
-    slidesToScroll: 1,
-    arrows: false,
-    infinite: false,
-    beforeChange: (_, next) => setCurrentSlide(next),
-    responsive: [
-      { breakpoint: 1300, settings: { slidesToShow: 5 } },
-      { breakpoint: 1024, settings: { slidesToShow: 4 } },
-      { breakpoint: 768, settings: { slidesToShow: 3 } },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2.1,
-          slidesToScroll: 1,
-          infinite: false,
-          centerMode: false,
+  // 👇 recompute settings when isMobile changes
+  const settings = useMemo(
+    () => ({
+      dots: false,
+      speed: 500,
+      slidesToShow: isMobile ? 2.1 : 7,
+      slidesToScroll: 1,
+      arrows: false,
+      infinite: false,
+      beforeChange: (_, next) => setCurrentSlide(next),
+      responsive: [
+        { breakpoint: 1300, settings: { slidesToShow: 5 } },
+        { breakpoint: 1024, settings: { slidesToShow: 4 } },
+        { breakpoint: 768, settings: { slidesToShow: 3 } },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2.1,
+            slidesToScroll: 1,
+            infinite: false,
+            centerMode: false,
+          },
         },
-      },
-    ],
-  };
+      ],
+    }),
+    [isMobile]
+  );
 
   const disablePrev = currentSlide === 0;
   const disableNext = currentSlide >= totalSlides - settings.slidesToShow;
@@ -68,7 +72,11 @@ const CarousalSection = ({ title, places, loading }) => {
         )}
       </div>
 
-      <Slider ref={sliderRef} {...settings}>
+      <Slider
+        key={isMobile ? "mobile" : "desktop"}
+        ref={sliderRef}
+        {...settings}
+      >
         {items.map((place, index) => (
           <div key={place._id || index} className="px-1">
             <PlaceCard place={place} loading={loading} />
