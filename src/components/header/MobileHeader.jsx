@@ -24,7 +24,7 @@ const MobileHeader = ({ location }) => {
       </div>
 
       {/* Search bar (only homepage) */}
-      {location.pathname === "/" && (
+      {location.pathname === "/home" && (
         <div
           className="sticky top-[52px] z-10 bg-[var(--color-white)] px-4 py-2 "
           onClick={() => setIsSearchOpen(true)}
@@ -34,7 +34,7 @@ const MobileHeader = ({ location }) => {
       )}
 
       {/* Bottom Nav */}
-      <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-[var(--color-overlay)] bg-[var(--color-white)]">
+      <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-[var(--color-overlay)] bg-[var(--color-white)] ">
         <NavBar isMobile />
       </div>
 

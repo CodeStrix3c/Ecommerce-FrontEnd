@@ -11,7 +11,7 @@ const InfoCard = ({ place }) => {
     >
       <div className="flex w-full shrink-0 bg-gray-300 sm:h-32 sm:w-32 ">
         <PlaceImg place={place} />
-      </div>
+      </div> 
       <div className="">
         <h2 className="text-lg md:text-xl">{place.title}</h2>
         <p className="mt-2 line-clamp-3 text-sm">{place.description}</p>
