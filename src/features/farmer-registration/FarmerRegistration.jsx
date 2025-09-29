@@ -88,7 +88,6 @@ export default function FarmerRegistration() {
           display: "flex",
           justifyContent: "center",
           bgcolor: "var(--color-gray-light)",
-          p: 4,
         }}
       >
         <FormProvider {...methods}>
@@ -97,16 +96,16 @@ export default function FarmerRegistration() {
             onSubmit={(e) => e.preventDefault()}
             sx={{
               borderRadius: 3,
-              maxWidth: 850,
               width: "100%",
               bgcolor: "var(--color-white)",
-              p: 3,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
           >
-            <SectionTitle title="Farmer Registration" centered />
+            <div className="py-10">
+              <SectionTitle title="Farmer Registration" centered />
+            </div>
             <FormStepper activeStep={step} type="profile" />
 
             <Box

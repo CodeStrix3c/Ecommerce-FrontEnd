@@ -17,7 +17,7 @@ const NavBar = ({ isMobile: onMobile }) => {
     },
     {
       name: "Orchards",
-      path: "/orchards",
+      path: "/my-orchards",
       icon: Trees,
       activeColor: "text-[var(--color-secondary)]",
     },

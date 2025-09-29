@@ -14,12 +14,12 @@ const DropdownMenu = () => {
   const menuRef = useRef(null);
   const { wishlist } = useWishlist();
   const { cartList } = useCartList();
-  const isBelow920 = useIsMobile(920); // for SidebarMobile
+  const isBelow920 = useIsMobile(920);
   const isBelow1000 = useIsMobile(1100);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("supplierToken"); // check if supplier is logged in
+    const token = localStorage.getItem("SRT");
     setIsSupplierLoggedIn(!!token);
   }, []);
 
@@ -36,11 +36,10 @@ const DropdownMenu = () => {
   return (
     <div className="relative" ref={menuRef}>
       <div className="flex items-center gap-3">
-        {/* Supplier Link or Dashboard */}
         {isSupplierLoggedIn ? (
           <button
             onClick={() => navigate("/supplier-profile")}
-            className="rounded-full pr-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+            className="rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
           >
             Dashboard
           </button>
@@ -55,7 +54,6 @@ const DropdownMenu = () => {
           )
         )}
 
-        {/* Wishlist */}
         <Link
           to="/wishlist"
           className="relative rounded-full p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
@@ -68,7 +66,6 @@ const DropdownMenu = () => {
           )}
         </Link>
 
-        {/* Cart */}
         <Link
           to="/cart"
           className="relative rounded-full p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
@@ -81,7 +78,6 @@ const DropdownMenu = () => {
           )}
         </Link>
 
-        {/* Account & Menu */}
         <div className="flex items-center space-x-3">
           <button
             onClick={() => setOpen(!open)}
@@ -97,7 +93,6 @@ const DropdownMenu = () => {
         </div>
       </div>
 
-      {/* Dropdown Panel */}
       {isBelow920 ? (
         <SidebarMobile open={open} onClose={() => setOpen(false)} />
       ) : (
