@@ -42,7 +42,7 @@ const PlaceCard = ({ place }) => {
 
           <button
             type="button"
-            className="absolute right-2 top-2 rounded-full  p-1 transition hover:scale-110"
+            className="absolute right-2 top-2 rounded-full  transition hover:scale-110"
             onClick={(e) => {
               e.preventDefault();
               toggleWishlist(place);
