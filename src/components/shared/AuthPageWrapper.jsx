@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
-import ContentWrapper from "../shared/ContentWrapper";
+import ContentWrapper from "./ContentWrapper";
 
-export default function PageWrapper({ children }) {
+export default function AuthPageWrapper({ children }) {
   return (
     <ContentWrapper>
       <div className="min-h-screen flex flex-col lg:px-60 md:px-40">
