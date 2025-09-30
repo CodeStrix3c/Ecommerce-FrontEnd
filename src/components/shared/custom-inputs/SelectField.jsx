@@ -3,6 +3,22 @@ import { TextField, MenuItem } from "@mui/material";
 import OptionalLabel from "@/components/ui/OptionalLabel";
 import RequiredLabel from "@/components/ui/RequiredLabel";
 
+/**
+ * SelectField - A reusable select/dropdown field using MUI.
+ *
+ * Props:
+ * - name: string - field name
+ * - label: string - label text
+ * - register: function - from react-hook-form
+ * - errors: object - error object from react-hook-form
+ * - options: array - list of { label, value } objects
+ * - optional: boolean - whether the field is optional
+ * - showOptionalLabel: boolean - if false, hides "(Optional)" on optional fields
+ * - size: "small" | "medium"
+ * - value: selected value
+ * - onChange: function
+ * - isMultiple: boolean - support multiple selection
+ */
 const SelectField = ({
   name,
   label,
@@ -10,6 +26,7 @@ const SelectField = ({
   errors,
   options,
   optional = false,
+  showOptionalLabel = true,
   size = "small",
   onChange,
   value,
@@ -17,24 +34,30 @@ const SelectField = ({
 }) => {
   const isRequired = optional === false;
 
-  // Determine error message for this field
   const errorMessage = errors?.[name]?.message || errors?.message || "";
+
+  // Handle null/undefined value safely
+  const safeValue = value ?? (isMultiple ? [] : "");
+
+  // Handle dynamic label rendering
+  const renderLabel = () => {
+    if (isRequired) {
+      return <RequiredLabel label={label} required />;
+    }
+    if (optional && showOptionalLabel) {
+      return <OptionalLabel label={label} />;
+    }
+    return label;
+  };
 
   return (
     <TextField
       select
       fullWidth
       size={size}
-      label={
-        optional ? (
-          <OptionalLabel label={label} />
-        ) : (
-          <RequiredLabel label={label} required />
-        )
-      }
-      value={value || (isMultiple ? [] : "")}
+      label={renderLabel()}
+      value={safeValue}
       onChange={onChange}
-      // remove error prop, we will handle color via sx
       helperText={errorMessage}
       variant="outlined"
       {...(register
@@ -66,8 +89,8 @@ const SelectField = ({
         },
         "& .MuiInputLabel-root": { color: "var(--color-black)" },
         "& .MuiFormHelperText-root": {
-          color: "var(--color-error)", // use your CSS variable for error
-          fontWeight: 400, // normal weight
+          color: "var(--color-error)",
+          fontWeight: 400,
         },
       }}
     >
