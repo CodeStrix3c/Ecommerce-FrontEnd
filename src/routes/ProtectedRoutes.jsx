@@ -57,6 +57,9 @@ const SingleBookedPlace = lazy(
   () => import("../features/bookings/pages/SingleBookedPlace")
 );
 const NotFoundPage = lazy(() => import("../features/errors/NotFoundPage"));
+const SupplierLogin = lazy(
+  () => import("../features/auth/pages/SupplierLogin")
+);
 
 export default [
   <Route element={<ProtectedRoute />} key={"protected"}>
@@ -71,6 +74,7 @@ export default [
       {/* <Route path="/orchard-registration" element={<OrchardRegistration />} /> */}
       <Route path="/my-orchards" element={<OrchardsPage />} />
       <Route path="/orchards/:id" element={<SingleOrchardPage />} />
+      <Route path="/supplier-login" element={<SupplierLogin />} />
 
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/privacy" element={<Privacy />} />
