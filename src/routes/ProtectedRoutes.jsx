@@ -6,6 +6,7 @@ import { SupplierProduct } from "@/features/suppliers/components/SupplierProduct
 import OrchardsPage from "@/features/orchards/pages/MyOrchards";
 import SingleOrchardPage from "@/features/orchards/pages/SingleOrchardPage";
 import { SprayPage } from "@/features/spray/pages/SprayPage";
+import SupplierInfo from "@/features/supplier-info/pages/SupplierInfo";
 
 const Layout = lazy(() => import("../app/Layout"));
 const SupplierRegistration = lazy(
@@ -88,7 +89,7 @@ export default [
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
       <Route path="/cart" element={<CartPage />} />
-      <Route path="/supplier-profile" element={<SupplierProfilePage />} />
+      <Route path="/supplier-profile" element={<SupplierInfo />} />
       <Route path="/spray" element={<SprayPage />} />
       <Route path="/supplier-Product" element={<SupplierProduct />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
