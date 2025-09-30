@@ -71,7 +71,7 @@ export default function ProgressBar({ filledFields, totalFields, onClick }) {
         p: 2.5,
         borderRadius: 3,
         bgcolor: "background.paper",
-        boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
+        // boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
       }}
     >
      
@@ -98,7 +98,7 @@ export default function ProgressBar({ filledFields, totalFields, onClick }) {
           "& .MuiLinearProgress-bar": {
             borderRadius: 5,
             background: `linear-gradient(90deg, var(--color-primary), #6a11cb)`,
-            boxShadow: "0 0 6px rgba(106,17,203,0.4)",
+           
           },
         }}
       />
