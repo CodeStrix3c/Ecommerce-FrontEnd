@@ -3,6 +3,7 @@ import { lazy } from "react";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import FarmerProfilePage from "@/features/farmers/pages/FarmerProfilePage";
 import { SupplierProduct } from "@/features/suppliers/components/SupplierProduct";
+import { SprayPage } from "@/features/spray/pages/SprayPage";
 
 const Layout = lazy(() => import("../app/Layout"));
 const SupplierRegistration = lazy(
@@ -58,6 +59,8 @@ const SingleBookedPlace = lazy(
 );
 const NotFoundPage = lazy(() => import("../features/errors/NotFoundPage"));
 
+const SupplierInfo = lazy(() => import("../features/supplier-info/pages/SupplierInfo"));
+
 export default [
   <Route element={<ProtectedRoute />} key={"protected"}>
     <Route path="/" element={<Layout />}>
@@ -82,9 +85,11 @@ export default [
       <Route path="/account/bookings" element={<BookingsPage />} />
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
+        <Route path="/spray" element={<SprayPage />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/supplier-profile" element={<SupplierProfilePage />} />
-            <Route path="/supplier-Product" element={<SupplierProduct />} />
+       <Route path="/supplier-info" element={<SupplierInfo/>} />
+            <Route path="/supplier-product" element={<SupplierProduct/>} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
