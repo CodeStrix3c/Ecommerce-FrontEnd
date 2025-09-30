@@ -11,7 +11,6 @@ const SupplierRegistration = lazy(
   () => import("../features/supplier-registration/SupplierRegistration")
 );
 const IndexPage = lazy(() => import("../features/IndexPage"));
-const ProfilePage = lazy(() => import("../features/auth/pages/ProfilePage"));
 const CompanyDetails = lazy(
   () => import("../features/privacy-policies/pages/CompanyDetails")
 );
@@ -57,13 +56,15 @@ const SingleBookedPlace = lazy(
   () => import("../features/bookings/pages/SingleBookedPlace")
 );
 const NotFoundPage = lazy(() => import("../features/errors/NotFoundPage"));
+const SupplierLogin = lazy(
+  () => import("../features/auth/pages/SupplierLogin")
+);
 
 export default [
   <Route element={<ProtectedRoute />} key={"protected"}>
     <Route path="/" element={<Layout />}>
       <Route path="/supplier-register" element={<SupplierRegistration />} />
       <Route path="/home" element={<IndexPage />} />
-      <Route path="/account" element={<ProfilePage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
       <Route path="/resources/crop-information" element={<CropInformation />} />
@@ -71,6 +72,7 @@ export default [
       {/* <Route path="/orchard-registration" element={<OrchardRegistration />} /> */}
       <Route path="/my-orchards" element={<OrchardsPage />} />
       <Route path="/orchards/:id" element={<SingleOrchardPage />} />
+      <Route path="/supplier-login" element={<SupplierLogin />} />
 
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/privacy" element={<Privacy />} />
