@@ -13,6 +13,7 @@ import { OTP_FIELDS } from "@/constants/profileFields";
 import { businessInformationSchema } from "./schemas/businessInformationSchemas";
 import { otpSchema } from "../farmer-registration/schemas/otpSchema";
 import { useSupplier } from "@/providers/SupplierProvider";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 const stepSchemas = [businessInformationSchema, otpSchema];
 
@@ -26,7 +27,12 @@ export default function SupplierRegistration() {
     mode: "onChange",
   });
 
-  const { handleSubmit, trigger, register, formState: { errors } } = methods;
+  const {
+    handleSubmit,
+    trigger,
+    register,
+    formState: { errors },
+  } = methods;
 
   const nextStep = async () => {
     const stepFields = step === 0 ? BUSINESS_INFORMATION_FIELDS : OTP_FIELDS;
@@ -47,70 +53,61 @@ export default function SupplierRegistration() {
 
     setBusinessComplete();
     setOtpComplete();
+    localStorage.setItem("SRT", "dummy data");
 
     toast.success("Business and OTP completed!");
     navigate("/supplier-profile");
   };
 
   return (
-    <div className="mt-10 min-h-screen flex items-center justify-center p-4 ">
-      <div className="flex flex-col lg:flex-row w-full max-w-5xl overflow-hidden ">
-        
-        {/* Image Section */}
-        <div className="relative w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-6">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBAYJBKvwVdjVkNVfmObqXwa0V5wNbkTW8nAchGHbXQ7XOKhFX7VL3vCrtm9YQT5BuKAI&usqp=CAU"
-            alt="Illustration"
-            className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-cover rounded-2xl"
-          />
-          <div className="absolute inset-0  flex flex-col justify-center items-center text-center p-4 rounded-2xl">
-            <h2 className=" text-[var(--color-black)] text-xl sm:text-2xl md:text-3xl font-bold mb-2">
-              Welcome Crop Suppliers!
-            </h2>
-            <p className="text-[var(--color-black)] text-sm sm:text-base md:text-xl">
-              Register your business to supply high-quality crops to farmers and
-              distributors. Ensure timely deliveries, maintain quality standards,
-              and expand your market reach.
-            </p>
+    <ContentWrapper>
+      <div className="lg:mt-10 min-h-screen flex items-center justify-center">
+        <div className="flex flex-col lg:flex-row w-full overflow-hidden ">
+          <div className="w-full lg:px-64 md:px-20 flex flex-col justify-center">
+            <div className="flex justify-center space-x-4 mb-6 sm:mb-8">
+              <div className={`  ${step === 0 ? "" : ""}`}></div>
+              <div className={` ${step === 1 ? "" : ""}`}></div>
+            </div>
+
+            <Box className="rounded-2xl">
+              <FormProvider {...methods}>
+                <form
+                  onSubmit={handleSubmit(handleSubmitClick)}
+                  className="space-y-6"
+                >
+                  <SectionTitle
+                    title="Supplier Registration"
+                    className="lg:text-4xl text-2xl font-bold text-center mb-6 text-[var(--color-black)]"
+                    centered
+                  />
+
+                  {step === 0 && (
+                    <BusinessInformationSection
+                      register={register}
+                      errors={errors}
+                    />
+                  )}
+
+                  {step === 1 && (
+                    <OtpVerificationSection
+                      register={register}
+                      errors={errors}
+                    />
+                  )}
+
+                  <FormNavigation
+                    step={step}
+                    totalSteps={stepSchemas.length}
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                    handleSubmit={handleSubmitClick}
+                  />
+                </form>
+              </FormProvider>
+            </Box>
           </div>
-        </div>
-
-        
-        <div className="w-full lg:w-1/2 p-4 sm:p-6 md:p-8 flex flex-col justify-center">
-          <div className="flex justify-center space-x-4 mb-6 sm:mb-8">
-            <div className={`  ${step === 0 ? "" : ""}`}></div>
-            <div className={` ${step === 1 ? "" : ""}`}></div>
-          </div>
-
-          <Box className="rounded-2xl">
-            <FormProvider {...methods}>
-              <form onSubmit={handleSubmit(handleSubmitClick)} className="space-y-6">
-                <SectionTitle
-                  title="Supplier Registration"
-                  className="lg:text-4xl text-2xl font-bold text-center mb-6 text-[var(--color-black)]"
-                  centered
-                />
-
-                {step === 0 && (
-                  <BusinessInformationSection register={register} errors={errors} />
-                )}
-
-                {step === 1 && (
-                  <OtpVerificationSection register={register} errors={errors} />
-                )}
-
-                <FormNavigation
-                  step={step}
-                  totalSteps={stepSchemas.length}
-                  nextStep={nextStep}
-                  prevStep={prevStep}
-                  handleSubmit={handleSubmitClick}
-                />
-              </form>
-            </FormProvider>
-          </Box>
         </div>
       </div>
-    </div>
+    </ContentWrapper>
   );
 }
