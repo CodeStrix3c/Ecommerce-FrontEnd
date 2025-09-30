@@ -1,4 +1,3 @@
-// ProtectedRoute.tsx
 import { getItemFromLocalStorage } from "@/utils/localStorage";
 import { Navigate, Outlet } from "react-router-dom";
 

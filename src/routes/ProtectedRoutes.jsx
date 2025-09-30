@@ -11,7 +11,6 @@ const SupplierRegistration = lazy(
   () => import("../features/supplier-registration/SupplierRegistration")
 );
 const IndexPage = lazy(() => import("../features/IndexPage"));
-const ProfilePage = lazy(() => import("../features/auth/pages/ProfilePage"));
 const CompanyDetails = lazy(
   () => import("../features/privacy-policies/pages/CompanyDetails")
 );
@@ -66,7 +65,6 @@ export default [
     <Route path="/" element={<Layout />}>
       <Route path="/supplier-register" element={<SupplierRegistration />} />
       <Route path="/home" element={<IndexPage />} />
-      <Route path="/account" element={<ProfilePage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
       <Route path="/resources/crop-information" element={<CropInformation />} />
