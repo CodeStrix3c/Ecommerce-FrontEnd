@@ -5,7 +5,7 @@ import { useCartList } from "@/providers/CartListProvider";
 import WishlistItem from "../components/WishlistItem";
 import WishlistActions from "../components/WishlistActions";
 import EmptyState from "@/components/shared/EmptyState";
-// lorem
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 
 const WishlistPage = () => {
   const { cartList, addToCartList } = useCartList();
@@ -19,11 +19,13 @@ const WishlistPage = () => {
   if (wishlist.length === 0) {
     return (
       <EmptyState
-        title="Your Wishlist is Empty"
-        subTitle="Save your favorite pesticides and agriculture products here for quick access later."
-        icon={<Heart className="w-14 h-14 text-[var(--color-secondary)]" />}
+        title="Oops! Your cart is empty"
+        subTitle=" Looks like you haven't added anything to your cart yet."
+        icon={<Heart className="w-12 h-12 text-[var(--color-secondary)]" />}
+        
         btnText="Browse Products"
         redirectTo="/"
+        type="wishlist"
       />
     );
   }
