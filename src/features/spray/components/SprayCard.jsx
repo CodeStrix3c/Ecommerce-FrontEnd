@@ -36,16 +36,16 @@ const sprayHistoryData = [
 
 export default function SprayHistory() {
   return (
-    <div className="bg-[var(--color-white)] border border-[var(--color-gray)] rounded-xl overflow-hidden mx-auto">
-      <h2 className="text-[var(--color-black)] font-bold text-xl sm:text-2xl p-4 border-b">
+    <div className="mx-4 sm:mx-auto sm:max-w-3xl">
+      <h2 className="text-[var(--color-black)] font-bold text-xl sm:text-2xl mb-4">
         Spray History
       </h2>
 
-      <div className="divide-y divide-[var(--color-gray)]">
+      <div className="flex flex-col gap-4">
         {sprayHistoryData.map((item) => (
           <div
             key={item.id}
-            className="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-3 sm:gap-4"
+            className="bg-[var(--color-white)] rounded-xl shadow-sm p-4 flex flex-col sm:flex-row sm:items-center gap-4"
           >
             {/* Info Left */}
             <div className="flex items-center gap-3 flex-1 min-w-[120px]">
@@ -53,7 +53,7 @@ export default function SprayHistory() {
                 size={20}
                 className="text-[var(--color-secondary)] flex-shrink-0"
               />
-              <div>
+              <div className="flex gap-1">
                 <p className="font-semibold text-sm sm:text-base">
                   {item.name}
                 </p>
@@ -64,7 +64,7 @@ export default function SprayHistory() {
             </div>
 
             {/* Spray Details Center */}
-            <div className="flex-1 text-sm sm:text-base mt-2 sm:mt-0 flex flex-col sm:flex-row sm:gap-6">
+            <div className="flex-1 flex flex-col sm:flex-row sm:gap-6 text-sm sm:text-base">
               <p>Qty: {item.quantity}</p>
               <p>Water: {item.waterUsed}</p>
               <p className="flex items-center gap-1">
@@ -72,8 +72,8 @@ export default function SprayHistory() {
               </p>
             </div>
 
-            {/* Date & Cost Right */}
-            <div className="flex-1 text-sm sm:text-base mt-2 sm:mt-0 flex flex-col sm:items-end">
+            {/* Date & Cost */}
+            <div className="flex flex-col sm:items-end text-sm sm:text-base">
               <p>{item.date}</p>
               <p className="font-semibold text-[var(--color-primary)]">
                 ₹{item.cost}
@@ -81,7 +81,7 @@ export default function SprayHistory() {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-3 mt-2 sm:mt-0 sm:ml-4">
+            <div className="flex gap-3 mt-2 sm:mt-0 ml-auto">
               <Edit2
                 size={20}
                 className="text-[var(--color-primary)] cursor-pointer hover:text-[var(--color-black)]"
