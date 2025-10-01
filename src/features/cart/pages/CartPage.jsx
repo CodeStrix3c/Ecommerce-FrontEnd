@@ -7,7 +7,9 @@ import CartBottomBar from "../components/CartBottomBar";
 import { useCartList } from "@/providers/CartListProvider";
 import { Navigate } from "react-router-dom";
 import EmptyState from "@/components/shared/EmptyState";
-import { ShoppingCart } from "lucide-react";
+import { ChevronDown, ChevronUp, ShoppingCart } from "lucide-react";
+import ContentWrapper from "@/components/shared/ContentWrapper";
+import PaymentOptions from "@/features/places/components/PaymentOptions";
 
 const CartPage = () => {
   const { cartList, removeFromCart, clearCart } = useCartList();
@@ -37,46 +39,50 @@ const CartPage = () => {
   }
 
   return (
-    <div className="py-8 lg:mt-28 md:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div
-        className={`col-span-2 flex flex-col gap-6 ${
-          isMobile ? "pb-24" : "pb-0"
-        }`}
-      >
-        <h1 className="text-2xl font-semibold text-[var(--color-neutral-dark)]">
-          My Cart
-        </h1>
+    <ContentWrapper variant={isMobile ? "default" : "place"}>
+      <div className="py-8 lg:mt-28 md:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div
+          className={`col-span-2 flex flex-col gap-6 ${
+            isMobile ? "pb-24" : "pb-0"
+          }`}
+        >
+          <h1 className="text-2xl font-semibold text-[var(--color-neutral-dark)]">
+            My Cart
+          </h1>
 
-        <div className="flex flex-col gap-4">
-          {cartList.map((product) => (
-            <CartItem
-              key={product._id}
-              product={product}
-              onRemove={removeFromCart}
-            />
-          ))}
+          <div className="flex flex-col gap-4">
+            {cartList.map((product) => (
+              <CartItem
+                key={product._id}
+                product={product}
+                onRemove={removeFromCart}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Desktop Summary */}
-      {!isMobile && cartList.length > 0 && (
-        <div className="col-span-1">
-          <CartSummary
+        {!isMobile && cartList.length > 0 && (
+          <div className="col-span-1">
+            <CartSummary
+              cart={cartList}
+              subtotal={subtotal}
+              taxes={taxes}
+              total={total}
+              onCheckout={checkoutAll}
+              onClear={clearCart}
+            />
+          </div>
+        )}
+
+        {isMobile && cartList.length > 0 && (
+          <CartBottomBar
             cart={cartList}
-            subtotal={subtotal}
-            taxes={taxes}
             total={total}
             onCheckout={checkoutAll}
-            onClear={clearCart}
           />
-        </div>
-      )}
-
-      {/* Mobile Bottom Bar */}
-      {isMobile && cartList.length > 0 && (
-        <CartBottomBar cart={cartList} total={total} onCheckout={checkoutAll} />
-      )}
-    </div>
+        )}
+      </div>
+    </ContentWrapper>
   );
 };
 

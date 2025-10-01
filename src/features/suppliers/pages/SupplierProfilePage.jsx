@@ -87,6 +87,7 @@ import Popup from "@/components/shared/Popup";
 import { useSupplier } from "@/providers/SupplierProvider";
 import ProgressBar from "@/components/shared/ProgressBar";
 import SupplierProfileCompletion from "./SupplierProfileCompletion";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 export default function SupplierProfilePage() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -124,49 +125,49 @@ export default function SupplierProfilePage() {
   };
 
   return (
-    <div className="w-full px-4 sm:px-6 md:mt-28 lg:mt-32 max-w-5xl mx-auto border transition-transform duration-300 hover:scale-[1.02] shadow-lg rounded-2xl">
-      
-      {/* Header with My Products Button */}
-      <div className="flex items-center justify-between p-6 border-b">
-        <h1 className="font-bold text-xl text-center">Supplier Profile</h1>
-        <button
-          onClick={() => navigate("/Supplier-Product")}
-          className="bg-[var(--color-secondary)] text-[var(--color-white)] px-4 py-2 rounded-lg shadow hover:opacity-90 transition"
-        >
-          My Products
-        </button>
-      </div>
+    
+   <>
+   
+     <div className="w-full px-4 sm:px-6 md:mt-28 lg:mt-8 max-w-5xl mx-auto border p-4 sm:p-6 rounded-xl">
+  
+  <div className="flex flex-col sm:flex-row items-center justify-between mb-4 sm:mb-6">
+    <h3 className="text-lg sm:text-lg font-semibold text-[var(--color-black)] ">
+      Profile Completion
+    </h3>
 
-      {/* InfoCard */}
-      <div className="rounded-2xl p-6">
-        <InfoCard supplier={supplierData} />
-      </div>
+    {!isComplete && (
+      <button
+        onClick={() => setShowIncompleteSection(true)}
+        className="text-sm sm:text-base text-[var(--color-secondary)] font-medium mt-2 sm:mt-0"
+      >
+        Complete your profile
+      </button>
+    )}
+  </div>
 
-      {/* Progress Section */}
-      <div className="mt-6 p-6">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-semibold text-[var(--color-black)]">
-            Profile Completion
-          </h2>
-          {!isComplete && (
-            <button
-              onClick={() => setShowIncompleteSection(true)}
-              className="text-sm text-[var(--color-secondary)] font-medium hover:underline"
-            >
-              Complete your profile
-            </button>
-          )}
-        </div>
+ 
+  <div className="flex items-center gap-3 mb-5">
+    <div
+      className="flex-1 h-3 bg-[var(--color-gray)] rounded-full overflow-hidden cursor-pointer"
+      onClick={() => setShowIncompleteSection(true)}
+    >
+      <div
+        className="h-3 bg-[var(--color-secondary)] rounded-full transition-all duration-500"
+        style={{ width: `${progress * 100}%` }}
+      ></div>
+    </div>
 
-        <ProgressBar
-          filledFields={progress * 100}
-          totalFields={100}
-          onClick={() => setShowIncompleteSection(true)}
-        />
-      </div>
+    <span className="text-xs sm:text-sm font-semibold text-[var(--color-black)] w-10 text-right">
+      {Math.round(progress * 100)}%
+    </span>
+  </div>
 
-      {/* Incomplete Profile Popup */}
-      {showIncompleteSection && (
+ 
+</div>
+
+    
+    
+        {showIncompleteSection && (
         <Popup
           open={showIncompleteSection}
           onClose={() => setShowIncompleteSection(false)}
@@ -179,6 +180,9 @@ export default function SupplierProfilePage() {
           />
         </Popup>
       )}
-    </div>
+    </>
+    
+
+
   );
 }
