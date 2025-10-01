@@ -52,6 +52,7 @@ export function SupplierProduct() {
       discountPrice: 500,
       images: [
         "https://plus.unsplash.com/premium_photo-1661490237999-683317e04531?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHBlc3RpY2lkZSUyMG1lZGljaW5lfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1606788075761-6b9a5a7c1d73?auto=format&fit=crop&w=400&q=60",
         
       ],
       description:
@@ -102,7 +103,7 @@ export function SupplierProduct() {
   return (
    
     <ContentWrapper>
-  <div className="mt-4 md:mt-8 lg:mt-32 mx-auto  px-2 sm:px-4 lg:px-8 lg:mb-6 ">
+  <div className="mt-4 md:mt-32 lg:mt-32 mx-auto  sm:px-4 lg:px-8 lg:mb-6 ">
     <h2 className="text-xl sm:text-2xl font-bold mb-6 text-[var(--color-black)]">
       Supplier Products
     </h2>
@@ -111,7 +112,7 @@ export function SupplierProduct() {
       {products.map((product, idx) => (
         <div
           key={idx}
-          className="flex flex-col bg-[var(--color-white)] border  hover:shadow-xl transition relative h-full"
+          className="flex flex-col bg-[var(--color-white)] border transition relative h-full"
         >
           {/* Header */}
           <div className="flex justify-between items-start px-4 pt-4">
@@ -146,7 +147,7 @@ export function SupplierProduct() {
             />
             {product.images.length > 1 && (
               <div
-                className="absolute bottom-2 right-2 flex items-center justify-center px-2 py-1 bg-[vara(--color-white)] bg-opacity-90 text-[var(--color-black)] text-xs rounded-full shadow-md cursor-pointer"
+                className="absolute bottom-2 right-2 flex items-center justify-center px-2 py-1 bg-[var(--color-white)] bg-opacity-90 text-[var(--color-black)] text-xs rounded-full cursor-pointer mr-4"
                 onClick={() => handleOpenGallery(product.images)}
               >
                 <Plus size={14} className="mr-1" /> {product.images.length}
