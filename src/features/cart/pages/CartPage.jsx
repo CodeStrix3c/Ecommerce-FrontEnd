@@ -7,8 +7,9 @@ import CartBottomBar from "../components/CartBottomBar";
 import { useCartList } from "@/providers/CartListProvider";
 import { Navigate } from "react-router-dom";
 import EmptyState from "@/components/shared/EmptyState";
-import { ShoppingCart } from "lucide-react";
+import { ChevronDown, ChevronUp, ShoppingCart } from "lucide-react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import PaymentOptions from "@/features/places/components/PaymentOptions";
 
 const CartPage = () => {
   const { cartList, removeFromCart, clearCart } = useCartList();
