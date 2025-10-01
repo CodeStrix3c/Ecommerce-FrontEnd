@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import FormLayout from "@/components/shared/FormLayout";
 import FormInput from "@/components/shared/custom-inputs/FormInput";
 import { GpsFixed } from "@mui/icons-material";
-import { getCurrentLocation } from "@/utils/location/getCurrentLocation";
+import { getCurrentLocation } from "@/utils/getCurrentLocation";
 
 export default function BusinessInformationSection({
   register,
