@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
-import DatePickerWithRange from "../ui/DatePickerWithRange"; // ✅ use your range picker
+import DatePickerWithRange from "../ui/DatePickerWithRange";
 
 const crops = ["Wheat", "Rice", "Cotton", "Maize", "Sugarcane"];
 const regions = ["Punjab", "Bihar", "Maharashtra", "Haryana", "UP"];
@@ -28,10 +28,9 @@ const SearchBar = ({ onSubmit }) => {
     });
   };
 
-  // ✅ Mobile
   if (isMobile) {
     return (
-      <div className="flex w-full max-w-md items-center rounded-full border-2 border-black bg-[var(--color-white)] px-3 py-2 shadow-md hover:shadow-lg">
+      <div className="flex w-full max-w-md items-center rounded-full border-2 px-3 py-2">
         <Search className="h-5 w-5 text-[var(--color-black)]/70" />
         <input
           type="text"
@@ -95,9 +94,13 @@ const SearchBar = ({ onSubmit }) => {
         </select>
       </div>
 
-      <div className="flex-1 px-3">
-        <p className="text-xs font-semibold text-[var(--color-black)]">When</p>
-        <DatePickerWithRange setDateRange={setDateRange} />
+      <div className="flex-1 px-3 max-h-fit py-3">
+        <p className="text-xs font-semibold text-[var(--color-black)] mb-1">
+          When
+        </p>
+        <span className="text-sm text-[var(--color-black)] ">
+          <DatePickerWithRange setDateRange={setDateRange} />
+        </span>
       </div>
 
       <button
