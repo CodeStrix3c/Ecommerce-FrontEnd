@@ -1,3 +1,4 @@
+import ContentWrapper from "@/components/shared/ContentWrapper";
 import HarvestCard from "@/components/shared/HarvestCard";
 
 
@@ -36,7 +37,8 @@ function Harvest() {
   ];
 
   return (
-   <div className="px-2 py-16 md:py-24 lg:py-28">
+<ContentWrapper>
+     <div className="py-16 md:py-24 lg:py-28">
   <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[var(--color-black)]">
     Harvest
   </h2>
@@ -50,6 +52,7 @@ function Harvest() {
   
   <HarvestCard cardsData={cardsData} />
 </div>
+</ContentWrapper>
 
     
   );
