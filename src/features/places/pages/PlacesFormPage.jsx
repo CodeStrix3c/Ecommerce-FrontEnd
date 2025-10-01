@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import axiosInstance from '@/utils/axios';
-
-import AccountNav from '@/components/ui/AccountNav';
-import Perks from '@/features/perks/components/Perks';
-import PhotosUploader from '@/features/places/components/PhotosUploader';
-import Spinner from '@/components/ui/Spinner';
+import AccountNav from "@/components/ui/AccountNav";
+import Perks from "@/features/perks/components/Perks";
+import PhotosUploader from "@/features/places/components/PhotosUploader";
+import Spinner from "@/components/ui/Spinner";
+import axiosInstance from "@/api/axiosInstance";
 
 const PlacesFormPage = () => {
   const { id } = useParams();
@@ -16,13 +15,13 @@ const PlacesFormPage = () => {
   const [addedPhotos, setAddedPhotos] = useState([]);
 
   const [formData, setFormData] = useState({
-    title: '',
-    address: '',
-    description: '',
+    title: "",
+    address: "",
+    description: "",
     perks: [],
-    extraInfo: '',
-    checkIn: '',
-    checkOut: '',
+    extraInfo: "",
+    checkIn: "",
+    checkOut: "",
     maxGuests: 10,
     price: 500,
   });
@@ -40,20 +39,20 @@ const PlacesFormPage = () => {
   } = formData;
 
   const isValidPlaceData = () => {
-    if (title.trim() === '') {
+    if (title.trim() === "") {
       toast.error("Title can't be empty!");
       return false;
-    } else if (address.trim() === '') {
+    } else if (address.trim() === "") {
       toast.error("Address can't be empty!");
       return false;
     } else if (addedPhotos.length < 5) {
-      toast.error('Upload at least 5 photos!');
+      toast.error("Upload at least 5 photos!");
       return false;
-    } else if (description.trim() === '') {
+    } else if (description.trim() === "") {
       toast.error("Description can't be empty!");
       return false;
     } else if (maxGuests < 1) {
-      toast.error('At least one guests is required!');
+      toast.error("At least one guests is required!");
       return false;
     } else if (maxGuests > 10) {
       toast.error("Max. guests can't be greater than 10");
@@ -66,13 +65,13 @@ const PlacesFormPage = () => {
   const handleFormData = (e) => {
     const { name, value, type } = e.target;
     // If the input is not a checkbox, update 'formData' directly
-    if (type !== 'checkbox') {
+    if (type !== "checkbox") {
       setFormData({ ...formData, [name]: value });
       return;
     }
 
     // If type is checkbox (perks)
-    if (type === 'checkbox') {
+    if (type === "checkbox") {
       const currentPerks = [...perks];
       let updatedPerks = [];
 
@@ -130,15 +129,15 @@ const PlacesFormPage = () => {
     if (formDataIsValid) {
       if (id) {
         // update existing place
-        const { data } = await axiosInstance.put('/places/update-place', {
+        const { data } = await axiosInstance.put("/places/update-place", {
           id,
           ...placeData,
         });
       } else {
         // new place
         const { data } = await axiosInstance.post(
-          '/places/add-places',
-          placeData,
+          "/places/add-places",
+          placeData
         );
       }
       setRedirect(true);
@@ -146,7 +145,7 @@ const PlacesFormPage = () => {
   };
 
   if (redirect) {
-    return <Navigate to={'/account/places'} />;
+    return <Navigate to={"/account/places"} />;
   }
 
   if (loading) {
@@ -158,8 +157,8 @@ const PlacesFormPage = () => {
       <AccountNav />
       <form onSubmit={savePlace}>
         {preInput(
-          'Title',
-          'title for your place. Should be short and catchy as in advertisement',
+          "Title",
+          "title for your place. Should be short and catchy as in advertisement"
         )}
         <input
           type="text"
@@ -169,7 +168,7 @@ const PlacesFormPage = () => {
           placeholder="title, for example: My lovely apt"
         />
 
-        {preInput('Address', 'address to this place')}
+        {preInput("Address", "address to this place")}
         <input
           type="text"
           name="address"
@@ -178,24 +177,24 @@ const PlacesFormPage = () => {
           placeholder="address"
         />
 
-        {preInput('Photos', 'more = better')}
+        {preInput("Photos", "more = better")}
 
         <PhotosUploader
           addedPhotos={addedPhotos}
           setAddedPhotos={setAddedPhotos}
         />
 
-        {preInput('Description', 'discription of the place')}
+        {preInput("Description", "discription of the place")}
         <textarea
           value={description}
           name="description"
           onChange={handleFormData}
         />
 
-        {preInput('Perks', ' select all the perks of your place')}
+        {preInput("Perks", " select all the perks of your place")}
         <Perks selected={perks} handleFormData={handleFormData} />
 
-        {preInput('Extra info', 'house rules, etc ')}
+        {preInput("Extra info", "house rules, etc ")}
         <textarea
           value={extraInfo}
           name="extraInfo"
@@ -203,9 +202,9 @@ const PlacesFormPage = () => {
         />
 
         {preInput(
-          'Number of guests & Price',
+          "Number of guests & Price",
           // 'add check in and out times, remember to have some time window forcleaning the room between guests. '
-          'Specify the maximum number of guests so that the client stays within the limit.',
+          "Specify the maximum number of guests so that the client stays within the limit."
         )}
         <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4">
           <div>
