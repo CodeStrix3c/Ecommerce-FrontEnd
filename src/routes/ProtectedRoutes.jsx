@@ -2,14 +2,21 @@ import { Route } from "react-router-dom";
 import { lazy } from "react";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import FarmerProfilePage from "@/features/farmers/pages/FarmerProfilePage";
+<<<<<<< HEAD
 import Harvest from "@/features/Harvest/Harvest";
+=======
+import { SupplierProduct } from "@/features/suppliers/components/SupplierProduct";
+import OrchardsPage from "@/features/orchards/pages/MyOrchards";
+import SingleOrchardPage from "@/features/orchards/pages/SingleOrchardPage";
+import { SprayPage } from "@/features/spray/pages/SprayPage";
+import SupplierInfo from "@/features/supplier-info/pages/SupplierInfo";
+>>>>>>> 17d6639c42985a71f2a80e7dddead19cafc8f54e
 
 const Layout = lazy(() => import("../app/Layout"));
 const SupplierRegistration = lazy(
   () => import("../features/supplier-registration/SupplierRegistration")
 );
 const IndexPage = lazy(() => import("../features/IndexPage"));
-const ProfilePage = lazy(() => import("../features/auth/pages/ProfilePage"));
 const CompanyDetails = lazy(
   () => import("../features/privacy-policies/pages/CompanyDetails")
 );
@@ -23,9 +30,7 @@ const AgricultureHelpCenter = lazy(
 const OrchardRegistration = lazy(
   () => import("../features/orchard-registration/OrchardRegistration")
 );
-const MyOrchards = lazy(
-  () => import("../features/farmers/orchards/MyOrchards")
-);
+const MyOrchards = lazy(() => import("../features/orchards/pages/MyOrchards"));
 const AboutUs = lazy(() => import("../features/about-us/pages/AboutUs"));
 const Privacy = lazy(
   () => import("../features/privacy-policies/pages/Privacy")
@@ -57,6 +62,9 @@ const SingleBookedPlace = lazy(
   () => import("../features/bookings/pages/SingleBookedPlace")
 );
 const NotFoundPage = lazy(() => import("../features/errors/NotFoundPage"));
+const SupplierLogin = lazy(
+  () => import("../features/auth/pages/SupplierLogin")
+);
 
 export default [
   <Route element={<ProtectedRoute />} key={"protected"}>
@@ -64,13 +72,15 @@ export default [
       <Route path="/supplier-register" element={<SupplierRegistration />} />
       <Route path="/harvest" element={<Harvest/>}/>
       <Route path="/home" element={<IndexPage />} />
-      <Route path="/account" element={<ProfilePage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
       <Route path="/resources/crop-information" element={<CropInformation />} />
       <Route path="/help-center" element={<AgricultureHelpCenter />} />
       {/* <Route path="/orchard-registration" element={<OrchardRegistration />} /> */}
-      <Route path="/my-orchards" element={<MyOrchards />} />
+      <Route path="/my-orchards" element={<OrchardsPage />} />
+      <Route path="/orchards/:id" element={<SingleOrchardPage />} />
+      <Route path="/supplier-login" element={<SupplierLogin />} />
+
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/sitemap" element={<Sitemap />} />
@@ -84,7 +94,9 @@ export default [
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
       <Route path="/cart" element={<CartPage />} />
-      <Route path="/supplier-profile" element={<SupplierProfilePage />} />
+      <Route path="/supplier-profile" element={<SupplierInfo />} />
+      <Route path="/spray" element={<SprayPage />} />
+      <Route path="/supplier-Product" element={<SupplierProduct />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>

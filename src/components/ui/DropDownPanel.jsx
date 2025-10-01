@@ -1,16 +1,15 @@
 import useIsMobile from "@/hooks/useInMobile";
+import { removeItemFromLocalStorage } from "@/utils/localStorage";
 import { FlakySharp, Handshake, HandshakeOutlined } from "@mui/icons-material";
 import {
   Info,
   User,
   HelpCircle,
   UserCheck,
-  Store,
-  Leaf,
   LogOut,
   Package,
   FlaskConical,
-  FlaskRoundIcon, // for My Orders
+  FlaskRoundIcon,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -21,8 +20,8 @@ const DropdownPanel = ({ open, onClose }) => {
   const isMobile = useIsMobile(1100);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("loginData");
+    removeItemFromLocalStorage("token");
+    removeItemFromLocalStorage("loginData");
     toast.success("Logged out successfully!");
     navigate("/login");
     onClose();
@@ -37,7 +36,6 @@ const DropdownPanel = ({ open, onClose }) => {
       }`}
     >
       <div className="flex flex-col py-2">
-        {/* About Us */}
         <Link
           to="/about-us"
           onClick={onClose}
@@ -46,7 +44,6 @@ const DropdownPanel = ({ open, onClose }) => {
           <Info size={16} /> <span>About Us</span>
         </Link>
 
-        {/* Help Center */}
         <Link
           to="/help-center"
           onClick={onClose}
@@ -57,7 +54,6 @@ const DropdownPanel = ({ open, onClose }) => {
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
-        {/* Talk with Expert */}
         <Link
           to="/talk-with-expert"
           onClick={onClose}
@@ -74,7 +70,6 @@ const DropdownPanel = ({ open, onClose }) => {
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
-        {/* My Orders */}
         <Link
           to="/my-orders"
           onClick={onClose}
@@ -83,7 +78,6 @@ const DropdownPanel = ({ open, onClose }) => {
           <Package size={16} /> <span>My Orders</span>
         </Link>
 
-        {/* Farming Resources */}
         {isMobile && (
           <Link
             to="/supplier-registration"
@@ -107,7 +101,6 @@ const DropdownPanel = ({ open, onClose }) => {
 
         {isLoggedIn ? (
           <>
-            {/* Profile */}
             <Link
               to="/farmer-profile"
               onClick={onClose}
@@ -116,7 +109,6 @@ const DropdownPanel = ({ open, onClose }) => {
               <User size={16} /> <span>Profile</span>
             </Link>
 
-            {/* Logout */}
             <div
               onClick={handleLogout}
               className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
