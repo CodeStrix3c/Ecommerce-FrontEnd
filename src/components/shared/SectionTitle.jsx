@@ -6,8 +6,8 @@ export default function SectionTitle({
   return (
     <h2
       className={`
-        ${centered ? "text-center" : "text-left"}
-        text-lg font-semibold sm:text-xl text-[var(--color-black)] ${className}
+        ${centered ? "text-center" : "text-left"} sm:text-xl
+         font-semibold text-[var(--color-black)] ${className}
       `}
     >
       {title}

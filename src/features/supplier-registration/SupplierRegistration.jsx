@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box } from "@mui/material";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { toast } from "react-toastify";
-
 import { useNavigate } from "react-router-dom";
 import BusinessInformationSection from "./sections/BusinessInformationSection";
 import OtpVerificationSection from "../farmer-registration/sections/OtpVerificationSection";
@@ -14,6 +13,7 @@ import { OTP_FIELDS } from "@/constants/profileFields";
 import { businessInformationSchema } from "./schemas/businessInformationSchemas";
 import { otpSchema } from "../farmer-registration/schemas/otpSchema";
 import { useSupplier } from "@/providers/SupplierProvider";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 const stepSchemas = [businessInformationSchema, otpSchema];
 
@@ -29,14 +29,13 @@ export default function SupplierRegistration() {
 
   const {
     handleSubmit,
-    watch,
     trigger,
     register,
     formState: { errors },
   } = methods;
 
   const nextStep = async () => {
-    let stepFields = step === 0 ? BUSINESS_INFORMATION_FIELDS : OTP_FIELDS;
+    const stepFields = step === 0 ? BUSINESS_INFORMATION_FIELDS : OTP_FIELDS;
     const valid = await trigger(stepFields);
     if (valid) setStep((s) => Math.min(stepSchemas.length - 1, s + 1));
   };
@@ -54,43 +53,61 @@ export default function SupplierRegistration() {
 
     setBusinessComplete();
     setOtpComplete();
+    localStorage.setItem("SRT", "dummy data");
 
     toast.success("Business and OTP completed!");
     navigate("/supplier-profile");
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        py: 5,
-        marginTop: "100px",
-      }}
-    >
-      <FormProvider {...methods}>
-        <Box
-          component="form"
-          onSubmit={handleSubmit(handleSubmitClick)}
-          sx={{ width: 600 }}
-        >
-          <SectionTitle title="Supplier Registration" centered />
-          {step === 0 && (
-            <BusinessInformationSection register={register} errors={errors} />
-          )}
-          {step === 1 && (
-            <OtpVerificationSection register={register} errors={errors} />
-          )}
+    <ContentWrapper>
+      <div className="lg:mt-10 min-h-screen flex items-center justify-center">
+        <div className="flex flex-col lg:flex-row w-full overflow-hidden ">
+          <div className="w-full lg:px-64 md:px-20 flex flex-col justify-center">
+            <div className="flex justify-center space-x-4 mb-6 sm:mb-8">
+              <div className={`  ${step === 0 ? "" : ""}`}></div>
+              <div className={` ${step === 1 ? "" : ""}`}></div>
+            </div>
 
-          <FormNavigation
-            step={step}
-            totalSteps={stepSchemas.length}
-            nextStep={nextStep}
-            prevStep={prevStep}
-            handleSubmit={handleSubmitClick}
-          />
-        </Box>
-      </FormProvider>
-    </Box>
+            <Box className="rounded-2xl">
+              <FormProvider {...methods}>
+                <form
+                  onSubmit={handleSubmit(handleSubmitClick)}
+                  className="space-y-6"
+                >
+                  <SectionTitle
+                    title="Supplier Registration"
+                    className="lg:text-4xl text-2xl font-bold text-center mb-6 text-[var(--color-black)]"
+                    centered
+                  />
+
+                  {step === 0 && (
+                    <BusinessInformationSection
+                      register={register}
+                      errors={errors}
+                    />
+                  )}
+
+                  {step === 1 && (
+                    <OtpVerificationSection
+                      register={register}
+                      errors={errors}
+                    />
+                  )}
+
+                  <FormNavigation
+                    step={step}
+                    totalSteps={stepSchemas.length}
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                    handleSubmit={handleSubmitClick}
+                  />
+                </form>
+              </FormProvider>
+            </Box>
+          </div>
+        </div>
+      </div>
+    </ContentWrapper>
   );
 }
