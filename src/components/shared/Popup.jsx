@@ -13,26 +13,25 @@ export default function Popup({ open, onClose, children }) {
         left: 0,
         width: "100%",
         height: "100%",
-        backgroundColor: "var(--color-overlay)", // backdrop
+        backgroundColor: "var(--color-overlay)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         zIndex: 1300,
       }}
-      onClick={onClose} // close on backdrop click
+      onClick={onClose}
     >
       <div
         style={{
-          position: "relative", // to position the close button
+          position: "relative",
           background: "var(--color-white)",
           borderRadius: "12px",
           padding: "20px",
           maxHeight: "90vh",
           overflowY: "auto",
         }}
-        onClick={(e) => e.stopPropagation()} // prevent backdrop close
+        onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
         <IconButton
           aria-label="close"
           onClick={onClose}
@@ -46,7 +45,6 @@ export default function Popup({ open, onClose, children }) {
           <CloseIcon />
         </IconButton>
 
-        {/* Content */}
         {children}
       </div>
     </div>

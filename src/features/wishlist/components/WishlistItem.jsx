@@ -7,9 +7,9 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
 
   return (
     <>
-      <div className="group rounded-lg border border-[var(--color-black-hover)] bg-[var(--color-white)] shadow-md hover:shadow-xl transition relative overflow-hidden">
+      <div className="group border border-[var(--color-black-hover)] bg-[var(--color-white)] shadow-md hover:shadow-xl transition relative overflow-hidden">
         <div
-          className="relative w-full cursor-pointer overflow-hidden rounded-t-lg bg-[var(--color-black-hover)]"
+          className="relative w-full cursor-pointer overflow-hidden bg-[var(--color-black-hover)]"
           onClick={() => setShowGallery(true)}
         >
           <img
@@ -21,7 +21,7 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
           />
 
           {product.photos?.length > 1 && (
-            <div className="absolute bottom-2 right-2 bg-[var(--color-black)] bg-opacity-70 text-[var(--color-white)] text-xs px-2 py-0.5 rounded-md shadow-sm">
+            <div className="absolute bottom-2 right-2 bg-[var(--color-black)] bg-opacity-70 text-[var(--color-white)] text-xs px-2 py-0.5 shadow-sm">
               +{product.photos.length - 1} more
             </div>
           )}
@@ -46,7 +46,7 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
           <h3 className="text-sm font-semibold text-[var(--color-black)] line-clamp-1 group-hover:text-[var(--color-secondary)] transition">
             {product.title}
           </h3>
-          <p className="text-xs text-[var(--color-black-hover)]">
+          <p className="text-xs text-[var(--color-black)]">
             {product.category || "Agriculture Product"}
           </p>
 
