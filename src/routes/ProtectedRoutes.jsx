@@ -2,15 +2,12 @@ import { Route } from "react-router-dom";
 import { lazy } from "react";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import FarmerProfilePage from "@/features/farmers/pages/FarmerProfilePage";
-<<<<<<< HEAD
-import Harvest from "@/features/Harvest/Harvest";
-=======
 import { SupplierProduct } from "@/features/suppliers/components/SupplierProduct";
 import OrchardsPage from "@/features/orchards/pages/MyOrchards";
 import SingleOrchardPage from "@/features/orchards/pages/SingleOrchardPage";
 import { SprayPage } from "@/features/spray/pages/SprayPage";
 import SupplierInfo from "@/features/supplier-info/pages/SupplierInfo";
->>>>>>> 17d6639c42985a71f2a80e7dddead19cafc8f54e
+import Harvest from "@/features/Harvest/Harvest";
 
 const Layout = lazy(() => import("../app/Layout"));
 const SupplierRegistration = lazy(
