@@ -13,7 +13,6 @@ const CarousalSection = ({ title, places, loading }) => {
   const items = loading ? Array(6).fill({}) : places;
   const totalSlides = items.length;
 
-  // 👇 recompute settings when isMobile changes
   const settings = useMemo(
     () => ({
       dots: false,
@@ -24,18 +23,12 @@ const CarousalSection = ({ title, places, loading }) => {
       infinite: false,
       beforeChange: (_, next) => setCurrentSlide(next),
       responsive: [
-        { breakpoint: 1300, settings: { slidesToShow: 5 } },
-        { breakpoint: 1024, settings: { slidesToShow: 4 } },
+        { breakpoint: 400, settings: { slidesToShow: 1.1 } },
+        { breakpoint: 480, settings: { slidesToShow: 2.1 } },
         { breakpoint: 768, settings: { slidesToShow: 3 } },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 2.1,
-            slidesToScroll: 1,
-            infinite: false,
-            centerMode: false,
-          },
-        },
+        { breakpoint: 1024, settings: { slidesToShow: 4 } },
+        { breakpoint: 1300, settings: { slidesToShow: 5 } },
+        { breakpoint: 1600, settings: { slidesToShow: 7 } },
       ],
     }),
     [isMobile]
@@ -46,7 +39,7 @@ const CarousalSection = ({ title, places, loading }) => {
 
   return (
     <div className="mt-0">
-      <div className="mx-auto mb-4 flex items-center justify-between px-2 pt-5 sm:px-0">
+      <div className="mb-4 flex items-center justify-between">
         <SectionTitle title={title} className="mt-0" />
         {!isMobile && totalSlides > 0 && (
           <div className="flex gap-2">
