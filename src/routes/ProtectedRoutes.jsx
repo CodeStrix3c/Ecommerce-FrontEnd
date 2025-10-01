@@ -7,6 +7,7 @@ import OrchardsPage from "@/features/orchards/pages/MyOrchards";
 import SingleOrchardPage from "@/features/orchards/pages/SingleOrchardPage";
 import { SprayPage } from "@/features/spray/pages/SprayPage";
 import SupplierInfo from "@/features/supplier-info/pages/SupplierInfo";
+import Harvest from "@/features/Harvest/Harvest";
 
 const Layout = lazy(() => import("../app/Layout"));
 const SupplierRegistration = lazy(
@@ -66,6 +67,7 @@ export default [
   <Route element={<ProtectedRoute />} key={"protected"}>
     <Route path="/" element={<Layout />}>
       <Route path="/supplier-register" element={<SupplierRegistration />} />
+      <Route path="/harvest" element={<Harvest/>}/>
       <Route path="/home" element={<IndexPage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
