@@ -6,7 +6,7 @@ export default function SupplierProfile({ imageUrl, onEdit }) {
     <div className="relative w-24 h-24 sm:w-36 sm:h-36  sm:mx-0 md:mt-28 lg:mt-8 ">
       
       <img
-        src="https://plus.unsplash.com/premium_photo-1690407617686-d449aa2aad3c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="https://images.unsplash.com/photo-1718900109613-457f76a456b2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODd8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D"
         alt="Profile"
         className="w-full h-full object-cover rounded-full border-2 border-[var(--color-gray)] shadow-md"
       />

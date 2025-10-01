@@ -131,7 +131,7 @@ export default function SupplierProfilePage() {
      <div className="w-full px-4 sm:px-6 md:mt-28 lg:mt-8 max-w-5xl mx-auto border p-4 sm:p-6 rounded-xl">
   
   <div className="flex flex-col sm:flex-row items-center justify-between mb-4 sm:mb-6">
-    <h3 className="text-lg sm:text-lg font-semibold text-[var(--color-black)]">
+    <h3 className="text-lg sm:text-lg font-semibold text-[var(--color-black)] ">
       Profile Completion
     </h3>
 
