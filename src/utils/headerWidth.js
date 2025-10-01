@@ -4,8 +4,9 @@ const headerWidthMap = {
   sprayPage: "74vw",
 };
 
-export const getHeaderWidth = (pathname) => {
-  if (/^\/place\/\d+/.test(pathname)) return headerWidthMap.placePage;
-  if (pathname === "/spray") return headerWidthMap.sprayPage;
+export const getHeaderWidth = (p) => {
+  const pathname = p.split("/")[1];
+  if (pathname === "place") return headerWidthMap.placePage;
+  if (pathname === "spray") return headerWidthMap.sprayPage;
   return headerWidthMap.default;
 };
