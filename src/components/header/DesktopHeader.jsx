@@ -6,11 +6,12 @@ import DropdownMenu from "../ui/DropDownMenu";
 import SearchBar from "../shared/SearchBar";
 import NavBar from "../ui/NavBar";
 import SubSearchModal from "../ui/SubSearchModal";
+import { getHeaderWidth } from "@/utils/headerWidth";
 
 const DesktopHeader = ({ location, onHeightChange }) => {
   const [openSearchBar, setOpenSearchBar] = useState(false);
   const scrollY = useOnScroll();
-  const isPlacePage = /^\/place\/\d+/.test(location.pathname);
+  const headerWidth = getHeaderWidth(location.pathname);
 
   const headerRef = useRef();
 
@@ -43,7 +44,7 @@ const DesktopHeader = ({ location, onHeightChange }) => {
     >
       <motion.div
         initial={false}
-        animate={{ width: isPlacePage ? "74vw" : "93vw" }}
+        animate={{ width: headerWidth }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
         className="mx-auto py-3 grid grid-cols-[auto_1fr_auto] items-center gap-6"
       >
