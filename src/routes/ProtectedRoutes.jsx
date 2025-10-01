@@ -2,6 +2,7 @@ import { Route } from "react-router-dom";
 import { lazy } from "react";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import FarmerProfilePage from "@/features/farmers/pages/FarmerProfilePage";
+import Harvest from "@/features/Harvest/Harvest";
 
 const Layout = lazy(() => import("../app/Layout"));
 const SupplierRegistration = lazy(
@@ -61,6 +62,7 @@ export default [
   <Route element={<ProtectedRoute />} key={"protected"}>
     <Route path="/" element={<Layout />}>
       <Route path="/supplier-register" element={<SupplierRegistration />} />
+      <Route path="/harvest" element={<Harvest/>}/>
       <Route path="/home" element={<IndexPage />} />
       <Route path="/account" element={<ProfilePage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
