@@ -9,11 +9,7 @@ import {
   LogOut,
   Package,
   FlaskConical,
-<<<<<<< HEAD
-  FlaskRoundIcon, 
-=======
   FlaskRoundIcon,
->>>>>>> b93a0ad1b249cb7a2214ca294c107b1d568e9524
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
