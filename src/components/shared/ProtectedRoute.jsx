@@ -1,5 +1,4 @@
-// ProtectedRoute.tsx
-import { getItemFromLocalStorage } from "@/utils";
+import { getItemFromLocalStorage } from "@/utils/localStorage";
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = () => {
