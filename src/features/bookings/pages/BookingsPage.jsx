@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-import AccountNav from '@/components/ui/AccountNav';
-import PlaceImg from '@/features/places/components/PlaceImg';
-import BookingDates from '@/features/bookings/components/BookingDates';
-import Spinner from '@/components/ui/Spinner';
-import axiosInstance from '@/utils/axios';
+import AccountNav from "@/components/ui/AccountNav";
+import PlaceImg from "@/features/places/components/PlaceImg";
+import BookingDates from "@/features/bookings/components/BookingDates";
+import Spinner from "@/components/ui/Spinner";
+import axiosInstance from "@/api/axiosInstance";
 
 const BookingsPage = () => {
   const [bookings, setBookings] = useState([]);
@@ -14,11 +14,11 @@ const BookingsPage = () => {
   useEffect(() => {
     const getBookings = async () => {
       try {
-        const { data } = await axiosInstance.get('/bookings');
+        const { data } = await axiosInstance.get("/bookings");
         setBookings(data.booking);
         setLoading(false);
       } catch (error) {
-        console.log('Error: ', error);
+        console.log("Error: ", error);
         setLoading(false);
       }
     };
@@ -42,7 +42,7 @@ const BookingsPage = () => {
                 {booking?.place?.photos[0] && (
                   <PlaceImg
                     place={booking?.place}
-                    className={'h-full w-full object-cover'}
+                    className={"h-full w-full object-cover"}
                   />
                 )}
               </div>

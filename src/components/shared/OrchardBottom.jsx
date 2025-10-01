@@ -1,23 +1,25 @@
-import React from 'react'
+import React from 'react';
 
-function OrchardBottom() {
+function OrchardBottom({ title = "Summary", details = [] }) {
   return (
-   <div className="px-3 py-2 border rounded-lg my-6">
-  {/* Row 1: Summary */}
-  <div>
-    <h1 className="text-[var(--color-black)] text-2xl font-bold pb-2 ms-9">
-      Summary
-    </h1>
-  </div>
+    <div className="px-3 py-2 border rounded-lg my-6 bg-white shadow-sm">
+      {/* Row 1: Title */}
+      <div>
+        <h1 className="text-[var(--color-black)] text-2xl font-bold pb-2 ms-3">
+          {title}
+        </h1>
+      </div>
 
-  {/* Row 2: Left + Right */}
-  <div className="flex justify-between">
-    <div className='ms-9'>100 Total Trees</div>
-    <div className='me-9'>100 Total Acres</div>
-  </div>
-</div>
-
-  )
+      {/* Row 2: Details */}
+      <div className="flex justify-between px-3">
+        {details.map((item, index) => (
+          <div key={index} className={`text-[var(--color-black)]`}>
+            {item.label}: {item.value}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default OrchardBottom
+export default OrchardBottom;

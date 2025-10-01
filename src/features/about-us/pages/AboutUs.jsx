@@ -1,15 +1,10 @@
 import React from "react";
-import {
-  Leaf,
-  Sprout,
-  Users,
-  Heart,
-  Star,
-  Map,
-  Award,
-  HelpCircle,
-} from "lucide-react";
+import { Leaf, Sprout, Users, Heart, Star, Map, Award } from "lucide-react";
+
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import StatCard from "../components/StatCard";
+import FeatureCard from "../components/FeatureCard";
+import FaqCard from "../components/FaqCard";
 
 export default function AboutUs() {
   const stats = [
@@ -22,205 +17,148 @@ export default function AboutUs() {
     { value: "15+", label: "years of building farmer-first solutions" },
     { value: "25+", label: "partner organizations & cooperatives" },
   ];
+
+  const mission = [
+    {
+      Icon: Leaf,
+      title: "Sustainability",
+      description:
+        "Protecting the soil and environment through eco-friendly methods.",
+    },
+    {
+      Icon: Sprout,
+      title: "Quality Harvest",
+      description:
+        "Delivering farm-fresh produce, rich in taste and nutrients.",
+    },
+    {
+      Icon: Users,
+      title: "Community",
+      description: "Empowering local farmers and supporting rural livelihoods.",
+    },
+    {
+      Icon: Heart,
+      title: "Trust",
+      description:
+        "Building strong bonds with customers through honesty & care.",
+    },
+  ];
+
+  const whyChoose = [
+    {
+      Icon: Star,
+      title: "Farm Fresh",
+      description: "Harvested daily to bring you the freshest produce.",
+    },
+    {
+      Icon: Map,
+      title: "Local Support",
+      description: "Directly supporting farmers in your community.",
+    },
+    {
+      Icon: Award,
+      title: "Certified Organic",
+      description: "Trusted produce grown without chemicals or pesticides.",
+    },
+  ];
+
+  const faqs = [
+    {
+      question: "Are your products 100% organic?",
+      answer:
+        "Yes, all our produce is grown naturally without harmful pesticides or chemicals.",
+    },
+    {
+      question: "Do you deliver to my city?",
+      answer:
+        "We deliver to most major cities and towns. You can check delivery availability at checkout.",
+    },
+    {
+      question: "How do I trust your farming practices?",
+      answer:
+        "We are certified organic and open our farms for visits to ensure full transparency.",
+    },
+  ];
+
   return (
     <div className="bg-[var(--color-white)] text-[var(--color-black)]">
       <section
-        className="relative flex items-center justify-center 
-             min-h-[60vh] md:min-h-[70vh] bg-cover bg-center"
-        style={{
-          backgroundImage: 'url("/assets/images/aboutUsBg.jpg")',
-        }}
-      ></section>
-      <ContentWrapper>
-        <section className="py-12 md:py-16 text-center bg-[var(--color-white)] text-[var(--color-black)]">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-1xl  sm:text-3xl md:text-4xl font-medium mb-6">
-              About Us
-            </h2>
-            <p className="text-base  sm:text-lg md:text-xl leading-relaxed text-justify">
-              We are a community of passionate farmers dedicated to bringing
-              fresh, organic, and sustainable produce directly from our fields
-              to your table. Our journey began with a small group of farmers who
-              believed in preserving traditional farming methods while embracing
-              modern sustainable practices. Over the years, we have grown into a
-              trusted community that values quality, transparency, and care for
-              the land. Every seed we plant and every harvest we collect is done
-              with love, ensuring you get the purest produce.
-            </p>
-          </div>
-        </section>
-      </ContentWrapper>
+        className="relative flex items-center justify-center min-h-[50vh] bg-cover bg-center"
+        style={{ backgroundImage: 'url("/assets/images/aboutUsBg.jpg")' }}
+      />
 
       <ContentWrapper>
-        <section className="py-12 md:py-16 px-4 md:px-20 text-center">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-12">
+        <div className="py-10">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 text-center">
+            About Us
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed text-justify">
+            We are a community of passionate farmers dedicated to bringing
+            fresh, organic, and sustainable produce directly from our fields to
+            your table. Our journey began with a small group of farmers who
+            believed in preserving traditional farming methods while embracing
+            modern sustainable practices. Over the years, we have grown into a
+            trusted community that values quality, transparency, and care for
+            the land.
+          </p>
+        </div>
+
+        <div className="py-10">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">
             Our Mission & Values
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            <div className="p-6 rounded-2xl bg-green-50 shadow hover:shadow-lg transition">
-              <Leaf
-                className="mx-auto mb-4 text-[var(--color-secondary)]"
-                size={36}
-              />
-              <h3 className="font-bold text-lg md:text-xl mb-2">
-                Sustainability
-              </h3>
-              <p className="text-sm sm:text-base">
-                Protecting the soil and environment through eco-friendly
-                methods.
-              </p>
-            </div>
-            <div className="p-6 rounded-2xl bg-green-50 shadow hover:shadow-lg transition">
-              <Sprout
-                className="mx-auto mb-4 text-[var(--color-secondary)]"
-                size={36}
-              />
-              <h3 className="font-bold text-lg md:text-xl mb-2">
-                Quality Harvest
-              </h3>
-              <p className="text-sm sm:text-base">
-                Delivering farm-fresh produce, rich in taste and nutrients.
-              </p>
-            </div>
-            <div className="p-6 rounded-2xl bg-green-50 shadow hover:shadow-lg transition">
-              <Users
-                className="mx-auto mb-4 text-[var(--color-secondary)]"
-                size={36}
-              />
-              <h3 className="font-bold text-lg md:text-xl mb-2">Community</h3>
-              <p className="text-sm sm:text-base">
-                Empowering local farmers and supporting rural livelihoods.
-              </p>
-            </div>
-            <div className="p-6 rounded-2xl bg-green-50 shadow hover:shadow-lg transition">
-              <Heart
-                className="mx-auto mb-4 text-[var(--color-secondary)]"
-                size={36}
-              />
-              <h3 className="font-bold text-lg md:text-xl mb-2">Trust</h3>
-              <p className="text-sm sm:text-base">
-                Building strong bonds with customers through honesty & care.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+            {mission.map((m, i) => (
+              <FeatureCard key={i} {...m} />
+            ))}
           </div>
-        </section>
-      </ContentWrapper>
-      <ContentWrapper>
-        <section className="bg-[var(--color-white)] py-16 px-6 md:px-20">
-          <h2 className="text-3xl font-semibold text-center mb-12">
+        </div>
+
+        <div className="py-10">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">
             Fast Facts
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((item, i) => (
-              <div
-                key={i}
-                className="bg-[var(--color-white)] p-6 rounded-2xl shadow hover:shadow-xl transition text-center"
-              >
-                <h3 className="text-3xl font-bold text-[var(--color-primary)]">
-                  {item.value}
-                </h3>
-                <p className="mt-2 text-[var(--color-black)]">{item.label}</p>
-              </div>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {stats.map((s, i) => (
+              <StatCard key={i} {...s} />
             ))}
           </div>
-        </section>
-      </ContentWrapper>
-      <ContentWrapper>
-        <section className="py-12 md:py-16 px-4 md:px-20 text-center">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-12">
+        </div>
+
+        <div className="py-10">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">
             Why Choose Us?
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            <div className="p-6 bg-green-50 rounded-2xl shadow hover:shadow-lg transition">
-              <Star
-                className="mx-auto mb-4 text-[var(--color-secondary)]"
-                size={36}
-              />
-              <h3 className="font-bold text-lg md:text-xl mb-2">Farm Fresh</h3>
-              <p className="text-sm sm:text-base">
-                Harvested daily to bring you the freshest produce.
-              </p>
-            </div>
-            <div className="p-6 bg-green-50 rounded-2xl shadow hover:shadow-lg transition">
-              <Map
-                className="mx-auto mb-4 text-[var(--color-secondary)]"
-                size={36}
-              />
-              <h3 className="font-bold text-lg md:text-xl mb-2">
-                Local Support
-              </h3>
-              <p className="text-sm sm:text-base">
-                Directly supporting farmers in your community.
-              </p>
-            </div>
-            <div className="p-6 bg-green-50  rounded-2xl shadow hover:shadow-lg transition">
-              <Award
-                className="mx-auto mb-4 text-[var(--color-secondary)]"
-                size={36}
-              />
-              <h3 className="font-bold text-lg md:text-xl mb-2">
-                Certified Organic
-              </h3>
-              <p className="text-sm sm:text-base">
-                Trusted produce grown without chemicals or pesticides.
-              </p>
-            </div>
-          </div>
-        </section>
-      </ContentWrapper>
-
-      <ContentWrapper>
-        <section className="py-12 md:py-16 px-4 md:px-20 ">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8 md:mb-12">
-            Frequently Asked Questions
-          </h2>
-          <div className="max-w-3xl mx-auto space-y-6">
-            {[
-              {
-                q: "Are your products 100% organic?",
-                a: "Yes, all our produce is grown naturally without harmful pesticides or chemicals.",
-              },
-              {
-                q: "Do you deliver to my city?",
-                a: "We deliver to most major cities and towns. You can check delivery availability at checkout.",
-              },
-              {
-                q: "How do I trust your farming practices?",
-                a: "We are certified organic and open our farms for visits to ensure full transparency.",
-              },
-            ].map((faq, i) => (
-              <div
-                key={i}
-                className="p-5 md:p-6 border rounded-xl shadow-sm hover:shadow-md transition"
-              >
-                <div className="flex items-center mb-2 gap-2">
-                  <HelpCircle
-                    className="text-[var(--color-secondary)]"
-                    size={20}
-                  />
-                  <h3 className="font-semibold text-base md:text-lg">
-                    {faq.q}
-                  </h3>
-                </div>
-                <p className="text-gray-600 text-sm sm:text-base">{faq.a}</p>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {whyChoose.map((item, i) => (
+              <FeatureCard key={i} {...item} />
             ))}
           </div>
-        </section>
-      </ContentWrapper>
-      <ContentWrapper>
-        <section className="py-16 md:py-20  text-[var(--color-primary)] text-center">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
+        </div>
+
+        <div className="py-10">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="max-w-2xl mx-auto space-y-4">
+            {faqs.map((faq, i) => (
+              <FaqCard key={i} {...faq} />
+            ))}
+          </div>
+        </div>
+
+        <div className="py-10 text-center">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-3">
             Join Our Farming Journey
           </h2>
-          <p className="max-w-2xl mx-auto mb-6 text-sm sm:text-base md:text-lg">
+          <p className="max-w-xl mx-auto mb-5 text-sm sm:text-base">
             Together, we can build a healthier future by choosing natural,
             sustainable, and farmer-friendly produce.
           </p>
-          <button className="bg-[var(--color-primary)] text-[var(--color-white)] px-5 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold hover:bg-[var(--color-primary-hover)] transition text-sm sm:text-base">
+          <button className="bg-[var(--color-primary)] text-[var(--color-white)] px-4 py-2 rounded-lg font-medium hover:bg-[var(--color-primary-hover)] transition text-sm sm:text-base">
             Contact Us
           </button>
-        </section>
+        </div>
       </ContentWrapper>
     </div>
   );

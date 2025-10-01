@@ -5,13 +5,15 @@ import FarmerProfilePage from "@/features/farmers/pages/FarmerProfilePage";
 import { SupplierProduct } from "@/features/suppliers/components/SupplierProduct";
 import OrchardsPage from "@/features/orchards/pages/MyOrchards";
 import SingleOrchardPage from "@/features/orchards/pages/SingleOrchardPage";
+import { SprayPage } from "@/features/spray/pages/SprayPage";
+import SupplierInfo from "@/features/supplier-info/pages/SupplierInfo";
+import Harvest from "@/features/Harvest/Harvest";
 
 const Layout = lazy(() => import("../app/Layout"));
 const SupplierRegistration = lazy(
   () => import("../features/supplier-registration/SupplierRegistration")
 );
 const IndexPage = lazy(() => import("../features/IndexPage"));
-const ProfilePage = lazy(() => import("../features/auth/pages/ProfilePage"));
 const CompanyDetails = lazy(
   () => import("../features/privacy-policies/pages/CompanyDetails")
 );
@@ -57,13 +59,16 @@ const SingleBookedPlace = lazy(
   () => import("../features/bookings/pages/SingleBookedPlace")
 );
 const NotFoundPage = lazy(() => import("../features/errors/NotFoundPage"));
+const SupplierLogin = lazy(
+  () => import("../features/auth/pages/SupplierLogin")
+);
 
 export default [
   <Route element={<ProtectedRoute />} key={"protected"}>
     <Route path="/" element={<Layout />}>
       <Route path="/supplier-register" element={<SupplierRegistration />} />
+      <Route path="/harvest" element={<Harvest/>}/>
       <Route path="/home" element={<IndexPage />} />
-      <Route path="/account" element={<ProfilePage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
       <Route path="/resources/crop-information" element={<CropInformation />} />
@@ -71,6 +76,7 @@ export default [
       {/* <Route path="/orchard-registration" element={<OrchardRegistration />} /> */}
       <Route path="/my-orchards" element={<OrchardsPage />} />
       <Route path="/orchards/:id" element={<SingleOrchardPage />} />
+      <Route path="/supplier-login" element={<SupplierLogin />} />
 
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/privacy" element={<Privacy />} />
@@ -85,7 +91,8 @@ export default [
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
       <Route path="/cart" element={<CartPage />} />
-      <Route path="/supplier-profile" element={<SupplierProfilePage />} />
+      <Route path="/supplier-profile" element={<SupplierInfo />} />
+      <Route path="/spray" element={<SprayPage />} />
       <Route path="/supplier-Product" element={<SupplierProduct />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="*" element={<NotFoundPage />} />

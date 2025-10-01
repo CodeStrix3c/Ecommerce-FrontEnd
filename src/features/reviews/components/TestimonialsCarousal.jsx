@@ -1,5 +1,5 @@
-import Slider from 'react-slick';
-import ReviewCard from './ReviewCard';
+import Slider from "react-slick";
+import ReviewCard from "./ReviewCard";
 
 export default function TestimonialsCarousel({ testimonials, onShowMore }) {
   const sliderSettings = {
@@ -15,7 +15,7 @@ export default function TestimonialsCarousel({ testimonials, onShowMore }) {
   return (
     <Slider {...sliderSettings}>
       {testimonials.map((review) => (
-        <div key={review.id} className="pr-2">
+        <div key={review.id} className="pr-2 pb-2">
           <ReviewCard review={review} compact={false} onShowMore={onShowMore} />
         </div>
       ))}
