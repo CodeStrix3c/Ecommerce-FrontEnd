@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import AccountNav from '../../../components/ui/AccountNav';
-import AddressLink from '../../../components/shared/AddressLink';
-import BookingDates from '../components/BookingDates';
-import PlaceGallery from '../../places/components/PlaceGallery';
-import Spinner from '../../../components/ui/Spinner';
-import axiosInstance from '../../../utils/axios';
+import AccountNav from "../../../components/ui/AccountNav";
+import AddressLink from "../../../components/shared/AddressLink";
+import BookingDates from "../components/BookingDates";
+import PlaceGallery from "../../places/components/PlaceGallery";
+import Spinner from "../../../components/ui/Spinner";
+import axiosInstance from "@/api/axiosInstance";
 
 const SingleBookedPlace = () => {
   const { id } = useParams();
@@ -16,16 +16,16 @@ const SingleBookedPlace = () => {
   const getBookings = async () => {
     try {
       setLoading(true);
-      const { data } = await axiosInstance.get('/bookings');
+      const { data } = await axiosInstance.get("/bookings");
 
       // filter the data to get current booking
       const filteredBooking = data.booking.filter(
-        (booking) => booking._id === id,
+        (booking) => booking._id === id
       );
 
       setBooking(filteredBooking[0]);
     } catch (error) {
-      console.log('Error: ', error);
+      console.log("Error: ", error);
     } finally {
       setLoading(false);
     }
