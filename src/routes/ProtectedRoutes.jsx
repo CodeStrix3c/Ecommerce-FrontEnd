@@ -2,6 +2,7 @@ import { Route } from "react-router-dom";
 import { lazy } from "react";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import FarmerProfilePage from "@/features/farmers/pages/FarmerProfilePage";
+import UserOrderPage from "@/features/orders/userOrders/pages/UserOrdersPage";
 
 const Layout = lazy(() => import("../app/Layout"));
 const SupplierRegistration = lazy(
@@ -57,6 +58,15 @@ const SingleBookedPlace = lazy(
 );
 const NotFoundPage = lazy(() => import("../features/errors/NotFoundPage"));
 
+const OrderHistoryPage = lazy(
+  () => import("../features/orders/orderHistory/pages/orderHistoryPage")
+)
+
+const OrderDetailsPage = lazy(
+  () => import("../features/orders/orderDetails/pages/orderDetailsPage")
+)
+
+
 export default [
   <Route element={<ProtectedRoute />} key={"protected"}>
     <Route path="/" element={<Layout />}>
@@ -85,6 +95,11 @@ export default [
       <Route path="/supplier-profile" element={<SupplierProfilePage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="*" element={<NotFoundPage />} />
+            <Route path="/orders" element={<OrderHistoryPage />} />                  
+      <Route path="/user-orders/:id" element={<UserOrderPage />} />          
+      <Route path="/order-details/:id" element={<OrderDetailsPage />} />
+
+      
     </Route>
   </Route>,
 ];

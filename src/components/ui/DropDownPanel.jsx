@@ -10,7 +10,7 @@ import {
   LogOut,
   Package,
   FlaskConical,
-  FlaskRoundIcon, // for My Orders
+  FlaskRoundIcon, 
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -76,7 +76,7 @@ const DropdownPanel = ({ open, onClose }) => {
 
         {/* My Orders */}
         <Link
-          to="/my-orders"
+          to="/orders"
           onClick={onClose}
           className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
         >
