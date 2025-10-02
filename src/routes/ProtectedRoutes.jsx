@@ -2,12 +2,11 @@ import { Route } from "react-router-dom";
 import { lazy } from "react";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import FarmerProfilePage from "@/features/farmers/pages/FarmerProfilePage";
-import { SupplierProduct } from "@/features/suppliers/components/SupplierProduct";
-import OrchardsPage from "@/features/orchards/pages/MyOrchards";
+import OrchardsPage from "@/features/orchards/pages/OrchardsPage";
 import SingleOrchardPage from "@/features/orchards/pages/SingleOrchardPage";
 import { SprayPage } from "@/features/spray/pages/SprayPage";
-import SupplierInfo from "@/features/supplier-info/pages/SupplierInfo";
 import Harvest from "@/features/Harvest/Harvest";
+import { SupplierProductPage } from "@/features/suppliers/pages/SupplierProductPage";
 
 const Layout = lazy(() => import("../app/Layout"));
 const SupplierRegistration = lazy(
@@ -27,7 +26,9 @@ const AgricultureHelpCenter = lazy(
 const OrchardRegistration = lazy(
   () => import("../features/orchard-registration/OrchardRegistration")
 );
-const MyOrchards = lazy(() => import("../features/orchards/pages/MyOrchards"));
+const MyOrchards = lazy(
+  () => import("../features/orchards/pages/OrchardsPage")
+);
 const AboutUs = lazy(() => import("../features/about-us/pages/AboutUs"));
 const Privacy = lazy(
   () => import("../features/privacy-policies/pages/Privacy")
@@ -67,14 +68,14 @@ export default [
   <Route element={<ProtectedRoute />} key={"protected"}>
     <Route path="/" element={<Layout />}>
       <Route path="/supplier-register" element={<SupplierRegistration />} />
-      <Route path="/harvest" element={<Harvest/>}/>
+      <Route path="/harvest" element={<Harvest />} />
       <Route path="/home" element={<IndexPage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
       <Route path="/resources/crop-information" element={<CropInformation />} />
       <Route path="/help-center" element={<AgricultureHelpCenter />} />
       {/* <Route path="/orchard-registration" element={<OrchardRegistration />} /> */}
-      <Route path="/my-orchards" element={<OrchardsPage />} />
+      <Route path="/orchards" element={<OrchardsPage />} />
       <Route path="/orchards/:id" element={<SingleOrchardPage />} />
       <Route path="/supplier-login" element={<SupplierLogin />} />
 
@@ -91,9 +92,9 @@ export default [
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
       <Route path="/cart" element={<CartPage />} />
-      <Route path="/supplier-profile" element={<SupplierInfo />} />
+      <Route path="/supplier-profile" element={<SupplierProfilePage />} />
       <Route path="/spray" element={<SprayPage />} />
-      <Route path="/supplier-Product" element={<SupplierProduct />} />
+      <Route path="/supplier-product" element={<SupplierProductPage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
