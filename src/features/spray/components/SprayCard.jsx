@@ -67,7 +67,7 @@ export default function SprayHistory() {
 
             <div className="flex items-center justify-between sm:justify-end gap-4">
               <span
-                className="font-semibold text-xs lg:text-xs sm:text-base px-4 py-1 rounded-lg"
+                className="font-semibold text-xs lg:text-xs sm:text-xs px-4 py-1 rounded-lg"
                 style={{
                   backgroundColor: "var(--color-black-hover)",
                   color: "var(--color-black)",
