@@ -1,27 +1,16 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import PaymentOptions from "@/features/places/components/PaymentOptions";
 
-const CartSummary = ({ cart, subtotal, taxes, total, onCheckout, onClear }) => {
-  const [showPayment, setShowPayment] = useState(false);
+const CartSummary = ({
+  cart,
+  subtotal,
+  taxes,
+  total,
+  onCheckout,
+  onClear,
+  onPaymentChange,
+}) => {
   const [selectedPayment, setSelectedPayment] = useState("");
-
-  const getPaymentLabel = (method) => {
-    switch (method) {
-      case "cod":
-        return "Cash on Delivery";
-      case "upi":
-        return "UPI";
-      case "netbanking":
-        return "Net Banking";
-      case "card":
-        return "Credit/Debit Card";
-      case "wallet":
-        return "Wallet";
-      default:
-        return "Choose Payment Method";
-    }
-  };
 
   return (
     <div className="sticky top-36 border rounded-2xl p-6 shadow-md bg-[var(--color-white)] flex flex-col gap-4">
@@ -48,30 +37,16 @@ const CartSummary = ({ cart, subtotal, taxes, total, onCheckout, onClear }) => {
         <span className="text-[var(--color-primary)]">₹{total.toFixed(2)}</span>
       </div>
 
-      {/* Payment Method Dropdown */}
-      <div className="mt-4">
-        <button
-          onClick={() => setShowPayment(!showPayment)}
-          className="flex w-full items-center justify-between rounded-md border border-[var(--color-black)] bg-[var(--color-white)] px-3 py-2 text-sm font-medium text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition"
-        >
-          <span>{getPaymentLabel(selectedPayment)}</span>
-          {showPayment ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-        </button>
-
-        {showPayment && (
-          <div className="mt-3 rounded-lg border-[var(--color-black)] p-2">
-            <PaymentOptions
-              selected={selectedPayment}
-              onChange={(method) => {
-                setSelectedPayment(method);
-                setShowPayment(false);
-              }}
-            />
-          </div>
-        )}
+      <div className=" rounded-lg border-[var(--color-black)] py-2">
+        <PaymentOptions
+          selected={selectedPayment}
+          onChange={(method) => {
+            onPaymentChange(method);
+            setSelectedPayment(method);
+          }}
+        />
       </div>
 
-      {/* Checkout Button */}
       <button
         onClick={onCheckout}
         className="w-full px-4 py-3 bg-[var(--color-primary)] text-[var(--color-white)] rounded-full font-medium shadow-md hover:bg-[var(--color-primary-hover)] transition"
@@ -79,7 +54,6 @@ const CartSummary = ({ cart, subtotal, taxes, total, onCheckout, onClear }) => {
         Checkout
       </button>
 
-      {/* Clear Cart Button */}
       <button
         onClick={onClear}
         className="w-full px-4 py-2 text-sm text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)] transition"

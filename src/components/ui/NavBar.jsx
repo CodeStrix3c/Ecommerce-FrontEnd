@@ -16,7 +16,7 @@ const NavBar = ({ isMobile: onMobile }) => {
   if (onMobile) {
     return (
       <nav className="fixed bottom-0 z-10 w-full border-t bg-[var(--color-white)] py-2">
-        <ContentWrapper variant="default">
+        <ContentWrapper>
           <div className="flex justify-between">
             {BASE_TABS?.map((tab) => (
               <NavLink

@@ -6,21 +6,22 @@ import DropdownMenu from "../ui/DropDownMenu";
 import SearchBar from "../shared/SearchBar";
 import NavBar from "../ui/NavBar";
 import SubSearchModal from "../ui/SubSearchModal";
-import { getHeaderWidth } from "@/utils/headerWidth";
+import { getHeaderWidthByPath } from "@/utils/headerWidth";
 
 const DesktopHeader = ({ location, onHeightChange }) => {
   const [openSearchBar, setOpenSearchBar] = useState(false);
+  const [headerWidth, setHeaderWidth] = useState();
   const scrollY = useOnScroll();
-  const headerWidth = getHeaderWidth(location.pathname);
 
   const headerRef = useRef();
 
   useLayoutEffect(() => {
-    if (headerRef.current) {
-      const height = headerRef.current.offsetHeight;
-      onHeightChange?.(height);
-    }
-  }, [location.pathname]);
+    // if (headerRef.current) {
+    //   const height = headerRef.current.offsetHeight;
+    //   onHeightChange?.(height);
+    // }
+    setHeaderWidth(getHeaderWidthByPath(location.pathname));
+  }, [location.pathname, headerWidth]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,7 +59,6 @@ const DesktopHeader = ({ location, onHeightChange }) => {
           />
         </NavLink>
 
-        {/* Center: Navbar / SubSearch */}
         <AnimatePresence mode="wait">
           {scrollY < 100 ? (
             <motion.div
@@ -87,20 +87,17 @@ const DesktopHeader = ({ location, onHeightChange }) => {
           )}
         </AnimatePresence>
 
-        {/* Right: Dropdown / Actions */}
         <div className="flex items-center gap-4 justify-start">
           <DropdownMenu />
         </div>
       </motion.div>
 
-      {/* Below header row (only on /home) */}
       {location.pathname === "/home" && scrollY < 100 && (
         <div className="flex justify-center py-3 pb-10">
           <SearchBar />
         </div>
       )}
 
-      {/* Animated search bar */}
       <AnimatePresence>
         {openSearchBar && (
           <motion.div
