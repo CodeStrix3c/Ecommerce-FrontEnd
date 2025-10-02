@@ -6,10 +6,9 @@ import WishlistItem from "../components/WishlistItem";
 import WishlistActions from "../components/WishlistActions";
 import EmptyState from "@/components/shared/EmptyState";
 
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 
 import ContentWrapper from "@/components/shared/ContentWrapper";
-
 
 const WishlistPage = () => {
   const { cartList, addToCartList } = useCartList();
@@ -26,7 +25,6 @@ const WishlistPage = () => {
         title="Oops! Your cart is empty"
         subTitle=" Looks like you haven't added anything to your cart yet."
         icon={<Heart className="w-12 h-12 text-[var(--color-secondary)]" />}
-        
         btnText="Browse Products"
         redirectTo="/"
         type="wishlist"
@@ -35,7 +33,7 @@ const WishlistPage = () => {
   }
 
   return (
-    <ContentWrapper variant="place">
+    <ContentWrapper isCompact>
       <div className="py-10 lg:mt-24 md:mt-24">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-black)] mb-4 sm:mb-0">

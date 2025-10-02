@@ -9,7 +9,7 @@ export const BASE_TABS = [
   },
   {
     name: "Orchards",
-    path: "/my-orchards",
+    path: "/orchards",
     icon: Trees,
     activeColor: "text-[var(--color-secondary)]",
   },

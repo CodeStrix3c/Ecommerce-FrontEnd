@@ -7,15 +7,12 @@ const CartItem = ({ product, onRemove }) => {
 
   return (
     <>
-      {/* Card */}
-      <div className="border rounded-2xl p-4 transition bg-[var(--color-white)] hover:shadow-md">
-        {/* Title (Full Width) */}
+      <div className="md:border rounded-2xl py-4 transition bg-[var(--color-white)] hover:shadow-md">
         <h3 className="text-lg font-semibold text-[var(--color-neutral-dark)] mb-3">
           {product.title}
         </h3>
 
         <div className="flex gap-4">
-          {/* Thumbnail */}
           <div className="w-40 flex-shrink-0 relative">
             <div
               className="h-28 overflow-hidden rounded-xl cursor-pointer"
