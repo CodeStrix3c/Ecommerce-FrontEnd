@@ -1,5 +1,5 @@
 import React from "react";
-import { Droplet, Edit2, Trash2, TreeDeciduous } from "lucide-react";
+import { Edit2, Trash2 } from "lucide-react";
 
 const sprayHistoryData = [
   {
@@ -35,64 +35,75 @@ const sprayHistoryData = [
 ];
 
 export default function SprayHistory() {
-  return (
-    <div className="mx-4 sm:mx-auto sm:max-w-3xl">
-      <h2 className="text-[var(--color-black)] font-bold text-xl sm:text-2xl mb-4">
-        Spray History
-      </h2>
+  const totalCost = sprayHistoryData.reduce((sum, item) => sum + item.cost, 0);
 
-      <div className="flex flex-col gap-4">
+  return (
+    <div className="">
+      <ul
+        className="divide-y"
+        style={{ borderColor: "var(--color-black-hover)" }}
+      >
         {sprayHistoryData.map((item) => (
-          <div
+          <li
             key={item.id}
-            className="bg-[var(--color-white)] rounded-xl shadow-sm p-4 flex flex-col sm:flex-row sm:items-center gap-4"
+            className="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
           >
-            {/* Info Left */}
-            <div className="flex items-center gap-3 flex-1 min-w-[120px]">
-              <Droplet
-                size={20}
-                className="text-[var(--color-secondary)] flex-shrink-0"
-              />
-              <div className="flex gap-1">
-                <p className="font-semibold text-sm sm:text-base">
-                  {item.name}
-                </p>
-                <span className="bg-[var(--color-black-hover)] text-[var(--color-primary)] text-xs sm:text-sm px-2 py-0.5 rounded-full">
+            {/* Left Info */}
+            <div className="flex flex-col">
+              <span className="font-semibold text-[var(--color-black)] text-sm sm:text-base">
+                {item.name}
+                <span className="ml-2 text-[var(--color-secondary)] text-xs sm:text-sm">
                   {item.type}
                 </span>
+              </span>
+              <span className="text-[var(--color-gray)] text-xs sm:text-sm">
+                Qty: {item.quantity} | Water: {item.waterUsed} | Trees:{" "}
+                {item.totalTrees}
+              </span>
+              <span className="text-[var(--color-gray)] text-xs sm:text-sm">
+                {item.date}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between sm:justify-end gap-4">
+              <span
+                className="font-semibold text-xs lg:text-xs sm:text-base px-4 py-1 rounded-lg"
+                style={{
+                  backgroundColor: "var(--color-black-hover)",
+                  color: "var(--color-black)",
+                  opacity: 0.8,
+                }}
+              >
+                Spray Cost ₹{item.cost.toLocaleString()}
+              </span>
+
+              {/* Actions */}
+              <div className="flex gap-2">
+                <Edit2
+                  size={18}
+                  className="cursor-pointer text-[var(--color-primary)] hover:text-[var(--color-primary-hover)]"
+                />
+                <Trash2
+                  size={18}
+                  className="cursor-pointer text-[var(--color-error)] hover:text-[var(--color-black)]"
+                />
               </div>
             </div>
-
-            {/* Spray Details Center */}
-            <div className="flex-1 flex flex-col sm:flex-row sm:gap-6 text-sm sm:text-base">
-              <p>Qty: {item.quantity}</p>
-              <p>Water: {item.waterUsed}</p>
-              <p className="flex items-center gap-1">
-                <TreeDeciduous size={14} /> {item.totalTrees} Trees
-              </p>
-            </div>
-
-            {/* Date & Cost */}
-            <div className="flex flex-col sm:items-end text-sm sm:text-base">
-              <p>{item.date}</p>
-              <p className="font-semibold text-[var(--color-primary)]">
-                ₹{item.cost}
-              </p>
-            </div>
-
-            {/* Actions */}
-            <div className="flex gap-3 mt-2 sm:mt-0 ml-auto">
-              <Edit2
-                size={20}
-                className="text-[var(--color-primary)] cursor-pointer hover:text-[var(--color-black)]"
-              />
-              <Trash2
-                size={20}
-                className="text-[var(--color-secondary)] cursor-pointer hover:text-[var(--color-black)]"
-              />
-            </div>
-          </div>
+          </li>
         ))}
+      </ul>
+
+      {/* Total Cost Summary */}
+      <div
+        className="flex justify-between items-center mt-4 py-3 border-t"
+        style={{ borderColor: "var(--color-black-hover)" }}
+      >
+        <span className="font-bold text-[var(--color-black)] text-base sm:text-lg">
+          Total Cost
+        </span>
+        <span className="font-bold text-[var(--color-primary)] text-base sm:text-lg">
+          ₹{totalCost.toLocaleString()}
+        </span>
       </div>
     </div>
   );

@@ -1,103 +1,31 @@
-// import { useState, useRef, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-// import Tabs from "../components/Tabs";
-// import InfoCard from "../components/InfoCard";
-// import CustomButton from "@/components/ui/CustomButton";
-// import Popup from "@/components/shared/Popup";
-// import InCompleteSupplierProfileSection from "./InCompleteSupplierProfileSection";
-// import { useSupplier } from "@/providers/SupplierProvider";
-// import ProgressBar from "@/components/shared/ProgressBar";
-
-// export default function SupplierProfilePage() {
-//   const [activeTab, setActiveTab] = useState("overview");
-//   const [showIncompleteSection, setShowIncompleteSection] = useState(false);
-//   const [gpsLocation, setGpsLocation] = useState("");
-//   const gpsInputRef = useRef(null);
-
-//   const navigate = useNavigate();
-//   const {
-//     supplier,
-//     setSupplier,  
-//     progress,
-//     isComplete,
-//     setLicensingComplete,
-//     setProductPortfolioComplete,
-//     setOperationalDetailsComplete,
-//     setFinancialPaymentComplete,
-//     setSupportServicesComplete,
-//   } = useSupplier();
-
-//   console.log("supplier data:", supplier);
-
-//   const supplierData = supplier || {};
-
-//   const handleCompleteProfile = (formData) => {
-//     // const updatedSupplier = { ...supplierData, ...formData, gps: gpsLocation };
-//     // setSupplier(updatedSupplier);
-//     // localStorage.setItem("supplierData", JSON.stringify(updatedSupplier));
-
-//     setLicensingComplete();
-//     setProductPortfolioComplete();
-//     setOperationalDetailsComplete();
-//     setFinancialPaymentComplete();
-//     setSupportServicesComplete();
-
-//     setShowIncompleteSection(false);
-//   };
-
-//   return (
-//     <div className="w-full px-4 sm:px-6 md:mt-28 lg:mt-32 ">
-//       <InfoCard supplier={supplierData} />
-//       <ProgressBar
-//         filledFields={progress * 100}
-//         totalFields={100}
-//         onClick={() => setShowIncompleteSection(true)}
-//       />
-
-//       {!isComplete && (
-//         <p
-//           onClick={() => setShowIncompleteSection(true)}
-//           className="mt-2 text-sm text-[var(--color-secondary)] hover:underline cursor-pointer"
-//         >
-//           Complete your profile
-//         </p>
-//       )}
-
-//       {showIncompleteSection && (
-//         <Popup
-//           open={showIncompleteSection}
-//           onClose={() => setShowIncompleteSection(false)}
-//           title="Complete Supplier Profile"
-//         >
-//           <InCompleteSupplierProfileSection
-//             gpsLocation={gpsLocation}
-//             gpsInputRef={gpsInputRef}
-//             onComplete={handleCompleteProfile}
-//           />
-//         </Popup>
-//       )}
-//     </div>
-//   );
-// }
-
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import InfoCard from "../components/InfoCard";
-import Popup from "@/components/shared/Popup";
+import React, { useState, useRef } from "react";
 import { useSupplier } from "@/providers/SupplierProvider";
-import ProgressBar from "@/components/shared/ProgressBar";
+import ProfileCompletion from "../components/ProfileCompletion";
 import SupplierProfileCompletion from "./SupplierProfileCompletion";
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import Popup from "@/components/shared/Popup";
+import ProfileDetail from "@/features/farmers/components/ProfileDetail";
+import { Phone, Mail, MapPin, User, Factory, Leaf } from "lucide-react";
+import ProfileAvatar from "@/components/shared/ProfileAvatar";
+import { Link } from "react-router-dom";
 
 export default function SupplierProfilePage() {
-  const [activeTab, setActiveTab] = useState("overview");
   const [showIncompleteSection, setShowIncompleteSection] = useState(false);
   const [gpsLocation, setGpsLocation] = useState("");
   const gpsInputRef = useRef(null);
 
-  const navigate = useNavigate();
+  const supplier = {
+    name: "Umar Mukhtar",
+    phone: "+91 9876543210",
+    email: "info@umar.com",
+    location: "Pulwama, India",
+    company: "umarcodes Pvt Ltd",
+    specialization: "Coding",
+    avatar:
+      "https://images.unsplash.com/photo-1718900109613-457f76a456b2?w=600&auto=format&fit=crop&q=60",
+  };
+
   const {
-    supplier,
     progress,
     isComplete,
     setLicensingComplete,
@@ -108,66 +36,81 @@ export default function SupplierProfilePage() {
     setBusinessComplete,
   } = useSupplier();
 
-  const supplierData = supplier || {};
-
-  const handleCompleteProfile = (formData) => {
-    // const updatedSupplier = { ...supplierData, ...formData, gps: gpsLocation };
-    // setSupplier(updatedSupplier);
-    // localStorage.setItem("supplierData", JSON.stringify(updatedSupplier));
+  const handleCompleteProfile = () => {
     setBusinessComplete();
     setLicensingComplete();
     setProductPortfolioComplete();
     setOperationalDetailsComplete();
     setFinancialPaymentComplete();
     setSupportServicesComplete();
-
     setShowIncompleteSection(false);
   };
 
   return (
-    
-   <>
-   
-     <div className="w-full px-4 sm:px-6 md:mt-28 lg:mt-8 max-w-5xl mx-auto border p-4 sm:p-6 rounded-xl">
-  
-  <div className="flex flex-col sm:flex-row items-center justify-between mb-4 sm:mb-6">
-    <h3 className="text-lg sm:text-lg font-semibold text-[var(--color-black)] ">
-      Profile Completion
-    </h3>
+    <>
+      <ContentWrapper isCompact>
+        <div className="space-y-8 lg:space-y-12 lg:py-36">
+          <div className="flex flex-col sm:flex-row items-start gap-6">
+            <ProfileAvatar
+              avatar={supplier.avatar}
+              onEdit={() => setShowIncompleteSection(true)}
+            />
 
-    {!isComplete && (
-      <button
-        onClick={() => setShowIncompleteSection(true)}
-        className="text-sm sm:text-base text-[var(--color-secondary)] font-medium mt-2 sm:mt-0"
-      >
-        Complete your profile
-      </button>
-    )}
-  </div>
+            <div className="flex-1 flex flex-col gap-4">
+              <div className="flex justify-end">
+                <Link
+                  to={"/supplier-product"}
+                  className="text-[var(--color-secondary)] font-medium text-sm sm:text-base hover:text-[var(--color-secondary-hover)]"
+                >
+                  View Products
+                </Link>
+              </div>
 
- 
-  <div className="flex items-center gap-3 mb-5">
-    <div
-      className="flex-1 h-3 bg-[var(--color-gray)] rounded-full overflow-hidden cursor-pointer"
-      onClick={() => setShowIncompleteSection(true)}
-    >
-      <div
-        className="h-3 bg-[var(--color-secondary)] rounded-full transition-all duration-500"
-        style={{ width: `${progress * 100}%` }}
-      ></div>
-    </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
+                <ProfileDetail
+                  icon={<User />}
+                  label="Name"
+                  value={supplier.name}
+                />
+                <ProfileDetail
+                  icon={<Phone />}
+                  label="Phone"
+                  value={supplier.phone}
+                />
+                <ProfileDetail
+                  icon={<Mail />}
+                  label="Email"
+                  value={supplier.email}
+                />
+                <ProfileDetail
+                  icon={<MapPin />}
+                  label="Location"
+                  value={supplier.location}
+                />
+                <ProfileDetail
+                  icon={<Factory />}
+                  label="Company"
+                  value={supplier.company}
+                />
+                <ProfileDetail
+                  icon={<Leaf />}
+                  label="Specialization"
+                  value={supplier.specialization}
+                />
+              </div>
+              <ProfileCompletion
+                progress={progress}
+                isComplete={isComplete}
+                onCompleteClick={() => setShowIncompleteSection(true)}
+                showPopup={showIncompleteSection}
+                onClosePopup={() => setShowIncompleteSection(false)}
+              />
+            </div>
+          </div>
+        </div>
+      </ContentWrapper>
 
-    <span className="text-xs sm:text-sm font-semibold text-[var(--color-black)] w-10 text-right">
-      {Math.round(progress * 100)}%
-    </span>
-  </div>
-
- 
-</div>
-
-    
-    
-        {showIncompleteSection && (
+      {showIncompleteSection && (
         <Popup
           open={showIncompleteSection}
           onClose={() => setShowIncompleteSection(false)}
@@ -181,8 +124,5 @@ export default function SupplierProfilePage() {
         </Popup>
       )}
     </>
-    
-
-
   );
 }

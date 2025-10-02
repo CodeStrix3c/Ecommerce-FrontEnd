@@ -56,10 +56,8 @@ const OrchardsPage = () => {
   ];
 
   return (
-    <ContentWrapper>
-
+    <ContentWrapper isCompact>
       <div className="pt-16 md:pt-40">
-
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 w-full">
           <div className="grid grid-cols-2 gap-4">
             <SelectField
@@ -129,7 +127,6 @@ const OrchardsPage = () => {
               </div>
 
               <div className="p-4">
-               
                 <div className="flex flex-col">
                   <div className="flex items-center gap-2 flex-wrap">
                     <h3 className="text-lg font-semibold text-[var(--color-black)]">
@@ -144,7 +141,6 @@ const OrchardsPage = () => {
                   </p>
                 </div>
 
-            
                 <div className="flex justify-between items-center mt-2">
                   <p className="text-sm text-[var(--color-black)]">
                     {card.Acres}
@@ -157,7 +153,6 @@ const OrchardsPage = () => {
                   </Link>
                 </div>
 
-                
                 <div className="flex justify-center mt-2">
                   <p className="text-sm text-gray-600">{card.Trees}</p>
                 </div>
