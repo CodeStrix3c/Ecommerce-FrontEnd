@@ -14,7 +14,7 @@ function HarvestCard({ cardsData }) {
       {cardsData.map((card, index) => (
         <div
           key={index}
-          className="bg-[var(--color-white)] rounded-2xl shadow-lg overflow-hidden flex flex-col hover:scale-[1.01] transition-transform duration-200"
+          className="bg-[var(--color-white)] rounded-2xl border overflow-hidden flex flex-col hover:scale-[1.01] transition-transform duration-100"
         >
           {/* Image with responsive aspect ratio */}
           <div className="w-full aspect-[16/9] overflow-hidden rounded-t-2xl">

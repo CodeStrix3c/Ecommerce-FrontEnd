@@ -1,6 +1,6 @@
 import { Home, Wheat, Droplets, Trees } from "lucide-react";
 
-export const BASE_TABS = [
+export const NAVBAR_TABS = [
   {
     name: "Home",
     path: "/home",
@@ -9,7 +9,7 @@ export const BASE_TABS = [
   },
   {
     name: "Orchards",
-    path: "/my-orchards",
+    path: "/orchards",
     icon: Trees,
     activeColor: "text-[var(--color-secondary)]",
   },
@@ -25,5 +25,23 @@ export const BASE_TABS = [
     path: "/spray",
     icon: Droplets,
     activeColor: "text-[var(--color-secondary)]",
+  },
+];
+
+export const SIDEBAR_TABS = [
+  {
+    name: "Orchards",
+    path: "/orchards",
+    icon: Trees,
+  },
+  {
+    name: "Harvest",
+    path: "/harvest",
+    icon: Wheat,
+  },
+  {
+    name: "Spray",
+    path: "/spray",
+    icon: Droplets,
   },
 ];

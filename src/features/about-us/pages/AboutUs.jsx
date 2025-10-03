@@ -83,11 +83,11 @@ export default function AboutUs() {
   return (
     <div className="bg-[var(--color-white)] text-[var(--color-black)]">
       <section
-        className="relative flex items-center justify-center min-h-[50vh] bg-cover bg-center"
+        className="relative flex items-center justify-center min-h-[70vh] bg-cover bg-center"
         style={{ backgroundImage: 'url("/assets/images/aboutUsBg.jpg")' }}
       />
 
-      <ContentWrapper>
+      <ContentWrapper compactScreen>
         <div className="py-10">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 text-center">
             About Us
