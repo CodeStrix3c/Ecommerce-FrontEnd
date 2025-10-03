@@ -5,7 +5,7 @@ import DesktopHeader from "./DesktopHeader";
 
 const Header = () => {
   const location = useLocation();
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(900);
 
   return isMobile ? (
     <MobileHeader location={location} />
