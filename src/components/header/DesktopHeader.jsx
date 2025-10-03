@@ -6,21 +6,22 @@ import DropdownMenu from "../ui/DropDownMenu";
 import SearchBar from "../shared/SearchBar";
 import NavBar from "../ui/NavBar";
 import SubSearchModal from "../ui/SubSearchModal";
-import { getHeaderWidth } from "@/utils/headerWidth";
+import { getHeaderWidthByPath } from "@/utils/headerWidth";
 
 const DesktopHeader = ({ location, onHeightChange }) => {
   const [openSearchBar, setOpenSearchBar] = useState(false);
+  const [headerWidth, setHeaderWidth] = useState();
   const scrollY = useOnScroll();
-  const headerWidth = getHeaderWidth(location.pathname);
 
   const headerRef = useRef();
 
   useLayoutEffect(() => {
-    if (headerRef.current) {
-      const height = headerRef.current.offsetHeight;
-      onHeightChange?.(height);
-    }
-  }, [location.pathname]);
+    // if (headerRef.current) {
+    //   const height = headerRef.current.offsetHeight;
+    //   onHeightChange?.(height);
+    // }
+    setHeaderWidth(getHeaderWidthByPath(location.pathname));
+  }, [location.pathname, headerWidth]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,7 +38,7 @@ const DesktopHeader = ({ location, onHeightChange }) => {
         backgroundColor: "var(--color-white)",
         boxShadow:
           location.pathname === "/home"
-            ? "inset 0px -60px 60px -10px rgba(0, 0, 0, 0.05)"
+            ? "inset 0px -60px 60px -10px rgba(0, 0, 0, 0.03)"
             : "none",
       }}
       className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)] border-b border-gray-100"
@@ -48,7 +49,6 @@ const DesktopHeader = ({ location, onHeightChange }) => {
         transition={{ duration: 0.4, ease: "easeInOut" }}
         className="mx-auto py-3 grid grid-cols-[auto_1fr_auto] items-center gap-6"
       >
-        {/* Left: Logo */}
         <NavLink to="/" className="flex items-center gap-2">
           <img
             src="/assets/images/ziraat.png"
@@ -58,7 +58,6 @@ const DesktopHeader = ({ location, onHeightChange }) => {
           />
         </NavLink>
 
-        {/* Center: Navbar / SubSearch */}
         <AnimatePresence mode="wait">
           {scrollY < 100 ? (
             <motion.div

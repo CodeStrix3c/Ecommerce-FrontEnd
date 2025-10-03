@@ -1,11 +1,11 @@
 import useIsMobile from "@/hooks/useInMobile";
 import { NavLink, useLocation } from "react-router-dom";
 import ContentWrapper from "../shared/ContentWrapper";
-import { BASE_TABS } from "@/constants/navTabs";
+import { NAVBAR_TABS } from "@/constants/navTabs";
 
 const NavBar = ({ isMobile: onMobile }) => {
   const { pathname } = useLocation();
-  // const isMobile = useIsMobile(1000);
+  const below1024 = useIsMobile(1024);
 
   if (pathname === "/cart" && onMobile) return null;
 
@@ -16,9 +16,9 @@ const NavBar = ({ isMobile: onMobile }) => {
   if (onMobile) {
     return (
       <nav className="fixed bottom-0 z-10 w-full border-t bg-[var(--color-white)] py-2">
-        <ContentWrapper variant="default">
+        <ContentWrapper>
           <div className="flex justify-between">
-            {BASE_TABS?.map((tab) => (
+            {NAVBAR_TABS?.map((tab) => (
               <NavLink
                 key={tab.name}
                 to={tab.path}
@@ -45,40 +45,42 @@ const NavBar = ({ isMobile: onMobile }) => {
     );
   }
 
-  return (
-    <div>
-      <nav className="flex items-center gap-8">
-        {BASE_TABS?.map((tab) => (
-          <NavLink
-            key={tab.name}
-            to={tab.path}
-            end={tab.path === "/"}
-            className={({ isActive }) =>
-              `relative flex flex-row gap-2 items-center px-3 py-2 text-sm font-medium transition-colors duration-300 ${
-                isActive
-                  ? `border-b-2 border-[var(--color-black)] ${tab.activeColor}`
-                  : `${inactiveDesktopColor} ${hoverDesktopColor}`
-              }`
-            }
-          >
-            {({ isActive }) => (
-              <>
-                {tab.badge && (
-                  <span className="absolute -top-3 rounded bg-[var(--color-secondary)] px-2 text-[8px] font-bold text-[var(--color-white)]">
-                    {tab.badge}
-                  </span>
-                )}
-                <tab.icon
-                  className={`h-6 w-6 ${isActive ? tab.activeColor : inactiveDesktopColor}`}
-                />
-                <span>{tab.name}</span>
-              </>
-            )}
-          </NavLink>
-        ))}
-      </nav>
-    </div>
-  );
+  if (!below1024) {
+    return (
+      <div>
+        <nav className="flex items-center gap-8">
+          {NAVBAR_TABS?.map((tab) => (
+            <NavLink
+              key={tab.name}
+              to={tab.path}
+              end={tab.path === "/"}
+              className={({ isActive }) =>
+                `relative flex flex-row gap-2 items-center px-3 py-2 text-sm font-medium transition-colors duration-300 ${
+                  isActive
+                    ? `border-b-2 border-[var(--color-black)] ${tab.activeColor}`
+                    : `${inactiveDesktopColor} ${hoverDesktopColor}`
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  {tab.badge && (
+                    <span className="absolute -top-3 rounded bg-[var(--color-secondary)] px-2 text-[8px] font-bold text-[var(--color-white)]">
+                      {tab.badge}
+                    </span>
+                  )}
+                  <tab.icon
+                    className={`h-6 w-6 ${isActive ? tab.activeColor : inactiveDesktopColor}`}
+                  />
+                  <span>{tab.name}</span>
+                </>
+              )}
+            </NavLink>
+          ))}
+        </nav>
+      </div>
+    );
+  }
 };
 
 export default NavBar;
