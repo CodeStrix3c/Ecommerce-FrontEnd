@@ -100,7 +100,7 @@ export function SupplierProductPage() {
     Math.round(((price - discountPrice) / price) * 100);
 
   return (
-    <ContentWrapper isCompact>
+    <ContentWrapper compactScreen>
       <div className="md:mt-32 lg:py-6 ">
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-[var(--color-black)]">
           Supplier Products

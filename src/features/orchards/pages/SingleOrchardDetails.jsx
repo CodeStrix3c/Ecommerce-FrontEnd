@@ -4,7 +4,7 @@ import { MapPin } from "lucide-react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import useIsMobile from "@/hooks/useInMobile";
 
-const SingleOrchardPage = () => {
+const SingleOrchardDetails = () => {
   const isMobile = useIsMobile();
   const orchardCards = [
     {
@@ -20,7 +20,7 @@ const SingleOrchardPage = () => {
   ];
 
   return (
-    <ContentWrapper isCompact>
+    <ContentWrapper compactScreen>
       <div className="lg:py-28 sm:mt-[-6px] w-full min-h-screen bg-[var(--color-white)] flex flex-col items-center">
         <div className="w-full sm:px-4 lg:px-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 mt-10">
           {orchardCards.map((card, index) => (
@@ -186,4 +186,4 @@ const Section = ({ title, icon, children }) => (
   </div>
 );
 
-export default SingleOrchardPage;
+export default SingleOrchardDetails;
