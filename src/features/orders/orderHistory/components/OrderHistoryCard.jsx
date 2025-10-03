@@ -17,10 +17,9 @@ export default function OrderCard({
 
   return (
     <div
-      className="border p-4  bg-white shadow-sm cursor-pointer hover:shadow-md transition"
+      className="border p-4  bg-white shadow-sm cursor-pointer hover:shadow-md transition rounded-sm"
       onClick={onViewDetails}
     >
-      {/* Status */}
       <p className={`${statusColor} font-medium`}>{status}</p>
      {refunded && (
          
@@ -32,7 +31,6 @@ export default function OrderCard({
      )}
 
 
-      {/* Products Preview */}
       <div className="flex items-center space-x-3 mb-2">
         <img
           src={`/${firstProduct.image}`}
@@ -50,7 +48,6 @@ export default function OrderCard({
         </div>
       </div>
 
-      {/* Review Section */}
       
     </div>
   );
