@@ -11,8 +11,10 @@ import {
   X,
 } from "lucide-react";
 import { toast } from "react-toastify";
+
 import useIsMobile from "@/hooks/useInMobile";
 import { NAVBAR_TABS, SIDEBAR_TABS } from "@/constants/navTabs";
+
 
 const SidebarMobile = ({ open, onClose }) => {
   const navigate = useNavigate();
@@ -123,7 +125,7 @@ const SidebarMobile = ({ open, onClose }) => {
 
           {/* My Orders */}
           <Link
-            to="/my-orders"
+            to="/orders"
             onClick={onClose}
             className="flex items-center gap-3 px-2 py-2 rounded-lg text-[var(--color-black)] hover:bg-[var(--color-black-hover)] hover:text-[var(--color-primary)]"
           >
@@ -170,6 +172,7 @@ const SidebarMobile = ({ open, onClose }) => {
             </Link>
           )}
         </nav>
+      
       </div>
     </>
   );
