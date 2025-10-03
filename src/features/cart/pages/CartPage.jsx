@@ -41,7 +41,7 @@ const CartPage = () => {
   }
 
   return (
-    <ContentWrapper isCompact>
+    <ContentWrapper compactScreen>
       <div className="py-8 lg:mt-28 md:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div
           className={`col-span-2 flex flex-col gap-6 ${isMobile ? "pb-24" : "pb-0"}`}

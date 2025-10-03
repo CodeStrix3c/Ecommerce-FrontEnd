@@ -5,7 +5,7 @@ import ContentWrapper from "./shared/ContentWrapper";
 
 const Footer = () => {
   return (
-    <div className="flex w-full justify-center bg-[var(--color-black-hover)] pb-8">
+    <div className="flex w-full justify-center bg-[var(--color-black-hover)] pb-8 mt-10">
       <ContentWrapper>
         <div className="flex w-full flex-col items-center">
           <div className="grid w-full grid-cols-1 gap-4 py-8 text-sm md:grid-cols-3">
