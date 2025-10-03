@@ -12,7 +12,7 @@ const IndexPage = () => {
 
   return (
     <ContentWrapper>
-      <div className="mt-6 flex flex-col gap-8 lg:mb-20 lg:mt-60 md:mt-52">
+      <div className="pt-8 sm:pt-10 md:pt-10 lg:pt-60 flex flex-col gap-8">
         <CarousalSection
           title="Popular Pesticides for Crop Protection"
           places={dummyData1}

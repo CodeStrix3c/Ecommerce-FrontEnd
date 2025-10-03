@@ -49,7 +49,7 @@ export default function FarmerProfilePage() {
   };
 
   return (
-    <ContentWrapper isCompact>
+    <ContentWrapper compactScreen>
       <div className="space-y-8 lg:space-y-12 lg:py-36">
         {/* Avatar + Details + Link */}
         <div className="flex flex-col sm:flex-row sm:items-start gap-6">
