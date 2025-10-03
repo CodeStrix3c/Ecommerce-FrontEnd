@@ -71,7 +71,7 @@ const DropdownPanel = ({ open, onClose }) => {
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
         <Link
-          to="/my-orders"
+          to="/orders"
           onClick={onClose}
           className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
         >
