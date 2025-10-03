@@ -7,6 +7,7 @@ import {
   Map,
   Tag,
 } from "lucide-react";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 export default function OverallRating() {
   const ratingBars = [
@@ -27,7 +28,8 @@ export default function OverallRating() {
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto mt-6 border-b border-[var(--color-border)] pb-6">
+  <ContentWrapper>
+      <div className="w-full max-w-6xl mx-auto mt-6 border-b border-[var(--color-border)] pb-6">
       <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
         {/* Left: Overall rating bars */}
         <div className="hidden md:block w-full md:w-[22%]">
@@ -93,5 +95,6 @@ export default function OverallRating() {
         </div>
       </div>
     </div>
+  </ContentWrapper>
   );
 }
