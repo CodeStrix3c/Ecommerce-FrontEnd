@@ -26,7 +26,7 @@ export default function OrderDetailsPage() {
   const steps = ["Ordered", "Shipped", "Out for Delivery", "Delivered"];
 
   return (
-    <div className=" md:pt-24 lg:pt-28 mb-3 sm:px-6 md:px-12 lg:mx-48 min-h-screen bg-[var(--color-black-hover)]">
+    <div className=" md:pt-24 lg:pt-28 mb-3 lg:mx-48 min-h-screen bg-[var(--color-black-hover)]">
       <HelpButton />
       <ProductCard order={order} />
       <OrderStatus order={order} steps={steps} />
