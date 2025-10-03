@@ -11,58 +11,61 @@ import { SprayPage } from "@/features/spray/pages/SprayPage";
 import SupplierInfo from "@/features/supplier-info/pages/SupplierInfo";
 import Harvest from "@/features/Harvest/Harvest";
 
-const Layout = lazy(() => import("../app/Layout"));
+const Layout = lazy(() => import("@/app/Layout"));
 const SupplierRegistration = lazy(
-  () => import("../features/supplier-registration/SupplierRegistration")
+  () => import("@/features/supplier-registration/SupplierRegistration")
 );
-const IndexPage = lazy(() => import("../features/IndexPage"));
+const IndexPage = lazy(() => import("@/features/IndexPage"));
 const CompanyDetails = lazy(
-  () => import("../features/privacy-policies/pages/CompanyDetails")
+  () => import("@/features/privacy-policies/pages/CompanyDetails")
 );
-
 const CropInformation = lazy(
-  () => import("../features/crop-information/pages/CropInformation")
+  () => import("@/features/crop-information/pages/CropInformation")
 );
 const AgricultureHelpCenter = lazy(
-  () => import("../features/help-center/pages/HelpCenter")
+  () => import("@/features/help-center/pages/HelpCenter")
 );
-const OrchardRegistration = lazy(
-  () => import("../features/orchard-registration/OrchardRegistration")
-);
-const MyOrchards = lazy(() => import("../features/orchards/pages/MyOrchards"));
-const AboutUs = lazy(() => import("../features/about-us/pages/AboutUs"));
-const Privacy = lazy(
-  () => import("../features/privacy-policies/pages/Privacy")
-);
-const Sitemap = lazy(
-  () => import("../features/privacy-policies/pages/Sitemap")
-);
-const Terms = lazy(() => import("../features/privacy-policies/pages/Terms"));
+const AboutUs = lazy(() => import("@/features/about-us/pages/AboutUs"));
+const Privacy = lazy(() => import("@/features/privacy-policies/pages/Privacy"));
+const Sitemap = lazy(() => import("@/features/privacy-policies/pages/Sitemap"));
+const Terms = lazy(() => import("@/features/privacy-policies/pages/Terms"));
 const WeatherPage = lazy(
-  () => import("../features/weather-info/pages/WeatherPage")
+  () => import("@/features/weather-info/pages/WeatherPage")
 );
-const PlacesPage = lazy(() => import("../features/places/pages/PlacesPage"));
+const PlacesPage = lazy(() => import("@/features/places/pages/PlacesPage"));
 const PlacesFormPage = lazy(
-  () => import("../features/places/pages/PlacesFormPage")
+  () => import("@/features/places/pages/PlacesFormPage")
 );
-const PlacePage = lazy(() => import("../features/places/pages/PlacePage"));
+const PlacePage = lazy(() => import("@/features/places/pages/PlacePage"));
 const BookingsPage = lazy(
-  () => import("../features/bookings/pages/BookingsPage")
+  () => import("@/features/bookings/pages/BookingsPage")
 );
-const Wishlist = lazy(() => import("../features/wishlist/pages/WishListPage"));
+const Wishlist = lazy(() => import("@/features/wishlist/pages/WishListPage"));
 const TalkWithExpert = lazy(
-  () => import("../features/talk-with-expert/pages/TalkWithExpert")
+  () => import("@/features/talk-with-expert/pages/TalkWithExpert")
 );
-const CartPage = lazy(() => import("../features/cart/pages/CartPage"));
+const CartPage = lazy(() => import("@/features/cart/pages/CartPage"));
 const SupplierProfilePage = lazy(
-  () => import("../features/suppliers/pages/SupplierProfilePage")
+  () => import("@/features/suppliers/pages/SupplierProfilePage")
 );
 const SingleBookedPlace = lazy(
-  () => import("../features/bookings/pages/SingleBookedPlace")
+  () => import("@/features/bookings/pages/SingleBookedPlace")
 );
-const NotFoundPage = lazy(() => import("../features/errors/NotFoundPage"));
-const SupplierLogin = lazy(
-  () => import("../features/auth/pages/SupplierLogin")
+const NotFoundPage = lazy(() => import("@/features/errors/NotFoundPage"));
+const SupplierLogin = lazy(() => import("@/features/auth/pages/SupplierLogin"));
+const FarmerProfilePage = lazy(
+  () => import("@/features/farmers/pages/FarmerProfilePage")
+);
+const OrchardsPage = lazy(
+  () => import("@/features/orchards/pages/OrchardsPage")
+);
+const SingleOrchardDetails = lazy(
+  () => import("@/features/orchards/pages/SingleOrchardDetails")
+);
+const SprayPage = lazy(() => import("@/features/spray/pages/SprayPage"));
+const Harvest = lazy(() => import("@/features/Harvest/Harvest"));
+const SupplierProductPage = lazy(
+  () => import("@/features/suppliers/pages/SupplierProductPage")
 );
 
 const OrderHistoryPage = lazy(
@@ -75,18 +78,18 @@ const OrderDetailsPage = lazy(
 
 
 export default [
-  <Route element={<ProtectedRoute />} key={"protected"}>
+  <Route element={<ProtectedRoute />} key="protected">
     <Route path="/" element={<Layout />}>
       <Route path="/supplier-register" element={<SupplierRegistration />} />
-      <Route path="/harvest" element={<Harvest/>}/>
+      <Route path="/harvest" element={<Harvest />} />
       <Route path="/home" element={<IndexPage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
       <Route path="/resources/crop-information" element={<CropInformation />} />
       <Route path="/help-center" element={<AgricultureHelpCenter />} />
       {/* <Route path="/orchard-registration" element={<OrchardRegistration />} /> */}
-      <Route path="/my-orchards" element={<OrchardsPage />} />
-      <Route path="/orchards/:id" element={<SingleOrchardPage />} />
+      <Route path="/orchards" element={<OrchardsPage />} />
+      <Route path="/orchards/:id" element={<SingleOrchardDetails />} />
       <Route path="/supplier-login" element={<SupplierLogin />} />
 
       <Route path="/about-us" element={<AboutUs />} />
@@ -102,9 +105,9 @@ export default [
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
       <Route path="/cart" element={<CartPage />} />
-      <Route path="/supplier-profile" element={<SupplierInfo />} />
+      <Route path="/supplier-profile" element={<SupplierProfilePage />} />
       <Route path="/spray" element={<SprayPage />} />
-      <Route path="/supplier-Product" element={<SupplierProduct />} />
+      <Route path="/supplier-product" element={<SupplierProductPage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="*" element={<NotFoundPage />} />
             <Route path="/orders" element={<OrderHistoryPage />} />                  

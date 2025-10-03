@@ -23,7 +23,6 @@ const FormStepper = ({ activeStep, type }) => {
           <Typography
             variant="h6"
             sx={{
-              fontWeight: "bold",
               color: "var(--color-black)",
               fontSize: {
                 xs: "1rem", // smaller size on mobile
