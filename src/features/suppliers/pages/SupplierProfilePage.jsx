@@ -48,7 +48,7 @@ export default function SupplierProfilePage() {
 
   return (
     <>
-      <ContentWrapper isCompact>
+      <ContentWrapper compactScreen>
         <div className="space-y-8 lg:space-y-12 lg:py-36">
           <div className="flex flex-col sm:flex-row items-start gap-6">
             <ProfileAvatar
@@ -98,15 +98,15 @@ export default function SupplierProfilePage() {
                   value={supplier.specialization}
                 />
               </div>
-              <ProfileCompletion
-                progress={progress}
-                isComplete={isComplete}
-                onCompleteClick={() => setShowIncompleteSection(true)}
-                showPopup={showIncompleteSection}
-                onClosePopup={() => setShowIncompleteSection(false)}
-              />
             </div>
           </div>
+          <ProfileCompletion
+            progress={progress}
+            isComplete={isComplete}
+            onCompleteClick={() => setShowIncompleteSection(true)}
+            showPopup={showIncompleteSection}
+            onClosePopup={() => setShowIncompleteSection(false)}
+          />
         </div>
       </ContentWrapper>
 
