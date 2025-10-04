@@ -7,93 +7,96 @@ export default function HighlightBanner({
   rating = 5.0,
   reviewCount = 26,
 }) {
-  return (
+  // ⭐ Dynamic star rendering
+  const renderStars = () =>
+    Array(5)
+      .fill(0)
+      .map((_, i) => {
+        const filled = i < Math.floor(rating);
+        const half = i === Math.floor(rating) && rating % 1 >= 0.5;
 
-<div className="border flex flex-col sm:flex-row items-center w-full sm:w-fit justify-between sm:space-x-8 rounded-2xl bg-[var(--color-white)] py-2 px-3 sm:py-1.5 sm:px-5 text-[12px] sm:text-[14px]">
-
- {/* Mobile */}
-<div className="flex sm:hidden flex-row items-center w-full justify-center">
-
-  <div className="flex flex-col items-center gap-0.5 px-2">
-    <p className="font-semibold text-xs">{rating.toFixed(1)}</p>
-    <div className="flex items-center">
-      {Array(5)
-        .fill(0)
-        .map((_, i) => (
+        return (
           <Star
             key={i}
             size={14}
-            className="fill-current text-[var(--color-black)]"
+            className={`${
+              filled
+                ? "fill-current text-[var(--color-black)]"
+                : half
+                ? "fill-current text-[var(--color-black)] opacity-50"
+                : "text-[var(--color-black-hover)]"
+            }`}
           />
-        ))}
-    </div>
-  </div>
+        );
+      });
 
- 
-  <Divider
-    orientation="vertical"
-    flexItem
-    className="border-[var(--color-black-hover)] h-8 mx-6" 
-  />
+  return (
+    <div className="border flex flex-col sm:flex-row items-center w-full sm:w-fit justify-between sm:space-x-6 md:space-x-8 rounded-2xl bg-[var(--color-white)] py-2 px-3 sm:py-1.5 sm:px-5 text-[12px] sm:text-[13px] md:text-[14px]">
+      
+      {/* ================= Mobile ================= */}
+      <div className="flex sm:hidden flex-row items-center w-full justify-center">
+        {/* Rating */}
+        <div className="flex flex-col items-center gap-0.5 px-2">
+          <p className="font-semibold text-xs">{rating.toFixed(1)}</p>
+          <div className="flex items-center">{renderStars()}</div>
+        </div>
 
-  <div className="px-2">  
-    <LeafTitleBlock
-      title={title}
-      isGray
-      leafSize="sm"
-      titleSize="bold"
-    />
-  </div>
+        <Divider
+          orientation="vertical"
+          flexItem
+          className="border-[var(--color-black-hover)] h-8 mx-3"
+        />
 
- 
-  <Divider
-    orientation="vertical"
-    flexItem
-    className="border-[var(--color-black-hover)] h-8 mx-6"
-  />
-  <div className="flex flex-col items-center gap-0.5 px-2">
-    <p className="font-semibold text-sm">{reviewCount}</p>
-    <p className="text-[var(--color-black)] font-bold text-[13px]">Reviews</p>
-  </div>
-</div>
+        {/* Title */}
+        <div className="px-2">
+          <LeafTitleBlock title={title} isGray leafSize="sm" titleSize="bold" />
+        </div>
 
-  {/* Desktop */}
-  <div className="hidden sm:flex flex-row items-center sm:space-x-8 w-full sm:w-auto">
-<div className="">
-      <LeafTitleBlock
-        title={title}
-        isGray
-        leafSize="sm"
-        titleSize="bold"
-      />
-    </div>
-    
-    <div className="flex flex-col items-center gap-0.5">
-      <p className="font-semibold text-sm">{rating.toFixed(1)}</p>
-      <div className="flex items-center">
-        {Array(5)
-          .fill(0)
-          .map((_, i) => (
-            <Star
-              key={i}
-              size={14}
-              className="fill-current text-[var(--color-black)]"
-            />
-          ))}
+        <Divider
+          orientation="vertical"
+          flexItem
+          className="border-[var(--color-black-hover)] h-8 mx-3"
+        />
+
+        {/* Reviews */}
+        <div className="flex flex-col items-center gap-0.5 px-2">
+          <p className="font-semibold text-sm">{reviewCount}</p>
+          <p className="text-[var(--color-black)] font-bold text-[13px]">
+            Reviews
+          </p>
+        </div>
+      </div>
+
+      {/* ================= medium & Desktop ================= */}
+      <div className="hidden sm:flex flex-row items-center w-full sm:w-auto sm:space-x-4 md:space-x-6 lg:space-x-8">
+        
+        {/* Title */}
+        <div>
+          <LeafTitleBlock title={title} isGray leafSize="sm" titleSize="bold" />
+        </div>
+
+        {/* Rating */}
+        <div className="flex flex-col items-center gap-0.5">
+          <p className="font-semibold text-xs md:text-sm">
+            {rating.toFixed(1)}
+          </p>
+          <div className="flex items-center">{renderStars()}</div>
+        </div>
+
+        <Divider
+          orientation="vertical"
+          flexItem
+          className="border-[var(--color-black-hover)]"
+        />
+
+        {/* Reviews */}
+        <div className="flex flex-col items-center gap-0.5">
+          <p className="font-semibold text-xs md:text-sm">{reviewCount}</p>
+          <p className="text-[var(--color-black)] text-[12px] md:text-[14px]">
+            Reviews
+          </p>
+        </div>
       </div>
     </div>
-
-    <Divider
-      orientation="vertical"
-      flexItem
-      className="border-[var(--color-black-hover)]"
-    />
-
-    <div className="flex flex-col items-center gap-0.5">
-      <p className="font-semibold text-sm">{reviewCount}</p>
-      <p className="text-[var(--color-black)] text-[14px]">Reviews</p>
-    </div>
-  </div>
-</div>
   );
 }
