@@ -1,15 +1,8 @@
 import { Route } from "react-router-dom";
 import { lazy } from "react";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
-import FarmerProfilePage from "@/features/farmers/pages/FarmerProfilePage";
 import UserOrderPage from "@/features/orders/userOrders/pages/UserOrdersPage";
-
-import { SupplierProduct } from "@/features/suppliers/components/SupplierProduct";
-import OrchardsPage from "@/features/orchards/pages/MyOrchards";
-import SingleOrchardPage from "@/features/orchards/pages/SingleOrchardPage";
-import { SprayPage } from "@/features/spray/pages/SprayPage";
-import SupplierInfo from "@/features/supplier-info/pages/SupplierInfo";
-import Harvest from "@/features/Harvest/Harvest";
+import OrderDetailsPage from "@/features/orders/orderDetails/pages/OrderDetailsPage";
 
 const Layout = lazy(() => import("@/app/Layout"));
 const SupplierRegistration = lazy(
@@ -70,12 +63,7 @@ const SupplierProductPage = lazy(
 
 const OrderHistoryPage = lazy(
   () => import("../features/orders/orderHistory/pages/orderHistoryPage")
-)
-
-const OrderDetailsPage = lazy(
-  () => import("../features/orders/orderDetails/pages/orderDetailsPage")
-)
-
+);
 
 export default [
   <Route element={<ProtectedRoute />} key="protected">
@@ -110,11 +98,9 @@ export default [
       <Route path="/supplier-product" element={<SupplierProductPage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="*" element={<NotFoundPage />} />
-            <Route path="/orders" element={<OrderHistoryPage />} />                  
-      <Route path="/user-orders/:id" element={<UserOrderPage />} />          
+      <Route path="/orders" element={<OrderHistoryPage />} />
+      <Route path="/user-orders/:id" element={<UserOrderPage />} />
       <Route path="/order-details/:id" element={<OrderDetailsPage />} />
-
-      
     </Route>
   </Route>,
 ];
