@@ -15,7 +15,7 @@ function Sitemap() {
   return (
     <ContentWrapper compactScreen>
       <div className="py-8 text-[var(--color-black)] lg:mt-32">
-        <h1 className="pb-6 text-2xl font-bold sm:text-3xl md:text-4xl">
+        <h1 className="pb-6 text-2xl font-bold sm:text-3xl">
           Top Destinations
         </h1>
 
