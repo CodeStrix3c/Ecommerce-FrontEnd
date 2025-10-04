@@ -72,40 +72,41 @@ const PlacePage = () => {
 
       <PlaceGallery place={place} />
 
-      <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-        <div className="flex-1 space-y-8">
-          <HighlightBanner />
+     <div className="mt-10 flex flex-col gap-8 md:flex-col lg:flex-row lg:items-start lg:justify-between lg:w-full">
+  <div className="flex-1 space-y-8">
+    <HighlightBanner />
 
-          <section>
-            <h2 className="text-2xl font-semibold text-[var(--color-black)]">
-              Description
-            </h2>
-            <p className="mt-2 text-[var(--color-black)]/70">
-              {place.description}
-            </p>
+    <section>
+      <h2 className="text-2xl font-semibold text-[var(--color-black)]">
+        Description
+      </h2>
+      <p className="mt-2 text-[var(--color-black)]/70">
+        {place.description}
+      </p>
 
-            <div className="mt-3">
-              {place.inStock ? (
-                <span className="inline-block rounded-md bg-[var(--color-primary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
-                  In Stock
-                </span>
-              ) : (
-                <span className="inline-block rounded-md bg-[var(--color-secondary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
-                  Out of Stock
-                </span>
-              )}
-            </div>
-          </section>
-
-          <PerksWidget perks={place?.perks} />
-        </div>
-
-        <aside className="hidden w-1/3 md:block">
-          <div className="sticky top-28">
-            <BookingWidget place={place} />
-          </div>
-        </aside>
+      <div className="mt-3">
+        {place.inStock ? (
+          <span className="inline-block rounded-md bg-[var(--color-primary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
+            In Stock
+          </span>
+        ) : (
+          <span className="inline-block rounded-md bg-[var(--color-secondary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
+            Out of Stock
+          </span>
+        )}
       </div>
+    </section>
+
+    <PerksWidget perks={place?.perks} />
+  </div>
+
+  <aside className="block w-full lg:w-1/3">
+    <div className="sticky top-28">
+      <BookingWidget place={place} />
+    </div>
+  </aside>
+</div>
+
 
       <div className="my-8 md:hidden z-40 absolute left-0 w-full px-4 ">
         <BookingWidget place={place} />
