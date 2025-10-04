@@ -32,7 +32,7 @@ const MobileHeader = ({ location }) => {
       )}
 
       <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-[var(--color-overlay)] bg-[var(--color-white)] ">
-        <NavBar isMobile />
+        <NavBar />
       </div>
 
       <MobileSearchModal

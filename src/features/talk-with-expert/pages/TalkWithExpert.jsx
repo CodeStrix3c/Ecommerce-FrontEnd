@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Phone, Mail, MessageCircle, Bot, Video } from "lucide-react";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 // Expanded expert list
 const sampleExperts = [
@@ -131,7 +132,7 @@ function ChatPanel({ openChatWith, onClose }) {
   }
 
   return (
-    <div className=" bg-white fixed right-4 bottom-4 z-50 w-full max-w-md">
+    <div className="fixed right-4 bottom-4 z-50">
       <div className="  rounded-2xl shadow-xl flex flex-col h-96">
         <div className="p-3 border-b flex justify-between">
           <div className="flex items-center gap-2">
@@ -189,57 +190,65 @@ export default function TalkWithExpert() {
   const [openChatWith, setOpenChatWith] = useState(null);
 
   return (
-    <div className=" lg:mt-28 p-6 min-h-screen">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <h1 className="text-2xl font-bold">Talk with an Expert</h1>
+    <ContentWrapper compactScreen>
+      <div className=" lg:mt-28 py-6 min-h-screen">
+        <div className=" space-y-6">
+          <h1 className="text-2xl font-bold">Talk with an Expert</h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {experts.map((ex) => (
-            <ExpertCard key={ex.id} expert={ex} onOpenChat={setOpenChatWith} />
-          ))}
-        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {experts.map((ex) => (
+              <ExpertCard
+                key={ex.id}
+                expert={ex}
+                onOpenChat={setOpenChatWith}
+              />
+            ))}
+          </div>
 
-        <div className=" border border-sm rounded-2xl p-6 mt-8 text-center">
-          <h2 className="text-xl font-semibold flex items-center justify-center gap-2">
-            <Video className="text-[var(--color-secondary)]" /> Join Our Webinar
-          </h2>
-          <p className="mt-2 text-[var(--color-black)]">
-            Would you like to join our upcoming webinar? Contact us below:
-          </p>
-          <div className="mt-4 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-            <button className="px-4 py-2 rounded-lg  text-[var(--color-black)] border border-lg flex items-center gap-2">
-              <Phone className="text-[var(--color-secondary)]" size={20} /> Call
-            </button>
-            <button className="px-4 py-2 rounded-lg text-[var(--color-black)] border border-lg flex items-center gap-2">
-              <MessageCircle
-                className="text-[var(--color-secondary)]"
-                size={20}
-              />{" "}
-              WhatsApp
-            </button>
-            <button className="px-4 py-2 rounded-lg text-[var(--color-black)] border border-lg flex items-center gap-2 ">
-              <Mail className="text-[var(--color-secondary)]" size={20} />{" "}
-              Message
-            </button>
+          <div className=" border border-sm rounded-2xl p-6 mt-8 text-center">
+            <h2 className="text-xl font-semibold flex items-center justify-center gap-2">
+              <Video className="text-[var(--color-secondary)]" /> Join Our
+              Webinar
+            </h2>
+            <p className="mt-2 text-[var(--color-black)]">
+              Would you like to join our upcoming webinar? Contact us below:
+            </p>
+            <div className="mt-4 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
+              <button className="px-4 py-2 rounded-lg  text-[var(--color-black)] border border-lg flex items-center gap-2">
+                <Phone className="text-[var(--color-secondary)]" size={20} />{" "}
+                Call
+              </button>
+              <button className="px-4 py-2 rounded-lg text-[var(--color-black)] border border-lg flex items-center gap-2">
+                <MessageCircle
+                  className="text-[var(--color-secondary)]"
+                  size={20}
+                />{" "}
+                WhatsApp
+              </button>
+              <button className="px-4 py-2 rounded-lg text-[var(--color-black)] border border-lg flex items-center gap-2 ">
+                <Mail className="text-[var(--color-secondary)]" size={20} />{" "}
+                Message
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className=" fixed right-4 bottom-10 z-50 ">
-        <button
-          onClick={() =>
-            setOpenChatWith({ name: "AI Assistant", title: "Virtual Helper" })
-          }
-          className="w-14 h-14 rounded-full text-[var(--color-black)]  bg-[var(--color-secondary)] flex items-center justify-center"
-        >
-          <Bot className="w-6 h-6" />
-        </button>
-      </div>
+        <div className=" fixed right-4 bottom-24 z-50 ">
+          <button
+            onClick={() =>
+              setOpenChatWith({ name: "AI Assistant", title: "Virtual Helper" })
+            }
+            className="w-14 h-14 rounded-full text-[var(--color-white)]  bg-[var(--color-secondary)] flex items-center justify-center"
+          >
+            <Bot className="w-6 h-6" />
+          </button>
+        </div>
 
-      <ChatPanel
-        openChatWith={openChatWith}
-        onClose={() => setOpenChatWith(null)}
-      />
-    </div>
+        <ChatPanel
+          openChatWith={openChatWith}
+          onClose={() => setOpenChatWith(null)}
+        />
+      </div>
+    </ContentWrapper>
   );
 }
