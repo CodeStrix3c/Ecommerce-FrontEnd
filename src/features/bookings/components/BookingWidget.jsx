@@ -6,16 +6,16 @@ import { ChevronDown, ChevronUp, Tag } from "lucide-react";
 
 // Quantity selector component
 const QuantitySelector = ({ quantity, setQuantity }) => (
-  <div className="flex items-center rounded-lg border border-black bg-white text-black">
+  <div className="flex items-center rounded-lg border border-black bg-[var(--color-white)] text-[var(--color-black)]">
     <button
-      className="flex h-7 w-7 items-center justify-center rounded-l-full font-bold hover:bg-gray-200"
+      className="flex h-7 w-7 items-center justify-center rounded-l-full font-bold hover:bg-[var(--color-black-hover)]"
       onClick={() => setQuantity(Math.max(1, quantity - 1))}
     >
       −
     </button>
     <span className="px-2 font-semibold">{quantity}</span>
     <button
-      className="flex h-7 w-7 items-center justify-center rounded-r-full font-bold hover:bg-gray-200"
+      className="flex h-7 w-7 items-center justify-center rounded-r-full font-bold hover:bg-[var(--color-black-hover)]"
       onClick={() => setQuantity(quantity + 1)}
     >
       +
@@ -24,11 +24,17 @@ const QuantitySelector = ({ quantity, setQuantity }) => (
 );
 
 // Payment dropdown component
-const PaymentDropdown = ({ selectedPayment, setSelectedPayment, showPayment, setShowPayment, getPaymentLabel }) => (
+const PaymentDropdown = ({
+  selectedPayment,
+  setSelectedPayment,
+  showPayment,
+  setShowPayment,
+  getPaymentLabel,
+}) => (
   <div className="mt-3">
     <button
       onClick={() => setShowPayment(!showPayment)}
-      className="flex w-full items-center justify-between rounded-md border border-black bg-white px-3 py-2 text-sm font-medium hover:bg-gray-100"
+      className="flex w-full items-center justify-between rounded-md border border-black bg-[var(--color-white)] px-3 py-2 text-sm font-medium hover:bg-[var(--color-black-hover)]"
     >
       <span>{getPaymentLabel(selectedPayment)}</span>
       {showPayment ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
@@ -69,7 +75,9 @@ const BookingWidget = ({ place }) => {
       return;
     }
     toast.success(
-      `Proceeding to checkout for ${quantity} × ${place.title} via ${getPaymentLabel(selectedPayment)}`
+      `Proceeding to checkout for ${quantity} × ${place.title} via ${getPaymentLabel(
+        selectedPayment
+      )}`
     );
   };
 
@@ -95,23 +103,25 @@ const BookingWidget = ({ place }) => {
   return (
     <div className="mx-auto max-w-2xl w-full">
       {/* Info box */}
-      <div className="hidden md:flex border rounded-lg mb-4 p-4">
+      <div className="hidden md:flex border rounded-lg mb-4 p-4 items-center">
         <Tag color="red" />
         <p className="ms-4 font-semibold">Prices include all fees</p>
       </div>
 
-      {/* Desktop widget */}
-      <div className="hidden md:block border rounded-xl p-5 bg-white shadow-lg max-w-md mx-auto">
+      {/* Desktop & medium widget */}
+      <div className="hidden md:flex flex-col border rounded-xl p-5 bg-[var(--color-white)] shadow-lg max-w-xl mx-auto">
         {/* Price */}
         <div className="flex px-2 items-center">
-          <span className="font-bold text-[var(--color-black)] text-xl">₹{place.price}</span>
-          <span className="px-1 text-black text-sm font-bold">per unit</span>
+          <span className="font-bold text-[var(--color-black)] text-xl">
+            ₹{place.price}
+          </span>
+          <span className="px-1 text-[var(--color-black)] text-sm font-bold">per unit</span>
         </div>
 
         {/* Quantity + Total */}
         <div className="items-center justify-between px-2 text-sm text-[var(--color-black)] mt-3">
           <div className="flex items-center mb-4">
-            <p className="text-black text-[14px] font-semibold">Quantity :</p>
+            <p className="text-[var(--color-black)] text-[14px] font-semibold">Quantity :</p>
             <div className="flex ms-3 items-center">
               <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
             </div>
@@ -131,7 +141,7 @@ const BookingWidget = ({ place }) => {
           getPaymentLabel={getPaymentLabel}
         />
 
-        {/* Desktop action buttons - stacked */}
+        {/* Action buttons */}
         <div className="flex flex-col gap-2 mt-4">
           <button
             onClick={handleBuyNow}
@@ -149,12 +159,12 @@ const BookingWidget = ({ place }) => {
       </div>
 
       {/* Mobile view - Sticky Bottom Sheet */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t bg-white p-4 shadow-lg max-h-[80vh] overflow-y-auto">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t bg-[var(--color-white)] p-4 shadow-lg max-h-[80vh] overflow-y-auto">
         {/* Price & Qty */}
         <div className="flex items-center justify-between mb-3">
           <div>
-            <p className="text-lg font-bold text-black">₹{totalPrice}</p>
-            <p className="text-xs text-gray-600">
+            <p className="text-lg font-bold text-[var(--color-black)]">₹{totalPrice}</p>
+            <p className="text-xs text-[var(--color-black)]">
               {quantity} × ₹{place.price} per unit
             </p>
           </div>
@@ -174,7 +184,7 @@ const BookingWidget = ({ place }) => {
         <div className="flex gap-2 mt-3">
           <button
             onClick={handleBuyNow}
-            className="flex-1 rounded-md bg-[var(--color-primary)] py-2 text-sm font-semibold text-white transition hover:bg-[var(--color-primary-hover)]"
+            className="flex-1 rounded-md bg-[var(--color-primary)] py-2 text-sm font-semibold text-[var(--color-white)] transition hover:bg-[var(--color-primary-hover)]"
           >
             Buy Now
           </button>

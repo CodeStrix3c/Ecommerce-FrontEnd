@@ -3,17 +3,18 @@ import { NavLink, useLocation } from "react-router-dom";
 import ContentWrapper from "../shared/ContentWrapper";
 import { NAVBAR_TABS } from "@/constants/navTabs";
 
-const NavBar = ({ isMobile: onMobile }) => {
+const NavBar = ({}) => {
   const { pathname } = useLocation();
   const below1024 = useIsMobile(1024);
+  const below600 = useIsMobile(600);
 
-  if (pathname === "/cart" && onMobile) return null;
+  if (pathname === "/cart" && below600) return null;
 
   const inactiveMobileColor = "text-[var(--color-neutral-dark)]";
   const inactiveDesktopColor = "text-[var(--color-neutral-dark)]";
   const hoverMobileColor = "hover:text-[var(--color-black)]";
   const hoverDesktopColor = "hover:text-[var(--color-black)]";
-  if (onMobile) {
+  if (below600) {
     return (
       <nav className="fixed bottom-0 z-10 w-full border-t bg-[var(--color-white)] py-2">
         <ContentWrapper>
