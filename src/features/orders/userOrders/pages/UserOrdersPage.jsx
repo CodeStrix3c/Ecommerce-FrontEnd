@@ -3,6 +3,7 @@ import OrderHeader from "../components/OrderHeader";
 import ProductCard from "../components/ProductCard";
 import OrderActions from "../components/OrderActions";
 import orders from "../../DemoData";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 export default function UserOrderDetailsPage() {
   const { id } = useParams();
@@ -12,7 +13,9 @@ export default function UserOrderDetailsPage() {
 
   if (!filteredOrders.length) {
     return (
-      <div className=" pt-36 text-center">
+    <ContentWrapper compactScreen={true}>
+
+        <div className=" pt-36 text-center">
         <p className="text-gray-500">Order not found</p>
         <button
           className="mt-4 px-4 py-2 bg-[var(--color-secondary)] text-white rounded"
@@ -21,11 +24,14 @@ export default function UserOrderDetailsPage() {
           Go Back
         </button>
       </div>
+    </ContentWrapper>
     );
   }
 
   return (
-    <div className="bg-[var(--color-white)] lg:pt-40 shadow-sm min-h-screen w-full sm:px-4 md:px-6 lg:px-48 py-4">
+    <ContentWrapper compactScreen={true}>
+
+      <div className="bg-[var(--color-white)] lg:pt-40 shadow-sm min-h-screen w-full  py-4">
       <h2 className="text-lg sm:text-xl font-semibold mb-6 text-center sm:text-left pt-5">
         Order ID: {id}
       </h2>
@@ -52,5 +58,6 @@ export default function UserOrderDetailsPage() {
 
       <OrderActions navigate={navigate} />
     </div>
+    </ContentWrapper>
   );
 }
