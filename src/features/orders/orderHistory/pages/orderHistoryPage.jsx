@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import OrderCard from "../components/OrderHistoryCard";
 import orders from "../../DemoData";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 export default function OrderHistoryPage() {
   const navigate = useNavigate();
@@ -10,10 +11,11 @@ export default function OrderHistoryPage() {
   );
 
   return (
-    <div className=" pt-8 lg:pt-36">
-      <h2 className="text-lg font-semibold">All Orders</h2>
+<ContentWrapper compactScreen={true}>
+      <div className=" pt-8 lg:pt-36">
+      <h2 className="text-lg font-semibold pb-5">All Orders</h2>
 
-      <div className="space-y-4 p-4">
+      <div>
         {uniqueOrders.map((order) => (
           <OrderCard
             key={order.orderId}
@@ -31,6 +33,7 @@ export default function OrderHistoryPage() {
           />
         ))}
       </div>
-    </div>
+    </div> 
+  </ContentWrapper>
   );
 }
