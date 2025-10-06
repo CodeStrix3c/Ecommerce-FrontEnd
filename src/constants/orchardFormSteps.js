@@ -61,6 +61,24 @@ export const farmInfrastructureStepFields = [
   "farmLabor",
   "otherTools",
 ];
+export const productionMarketingStepFields = [
+  "averageAnnualYield",
+  "peakHarvestSeason",
+  "sellingPreference",
+  "buyerDetails",
+];
+export const inputCostDetailsStepFields = [
+  "pesticideSupplierLocation",
+  "paymentType",
+  "creditPeriod",
+];
+export const optionalFutureFieldsStepFields = [
+  "governmentSchemes",
+  "fpoMembership",
+  "certification",
+  "digitalToolsUsed",
+];
+
 export const orchardRegistrationDefaultFields = [
   ...demographicsStepFields,
   ...varietyPlantingStepFields,
@@ -68,4 +86,7 @@ export const orchardRegistrationDefaultFields = [
   ...cropNutritionStepFields,
   ...plantProtectionStepFields,
   ...farmInfrastructureStepFields,
+  ...productionMarketingStepFields,
+  ...inputCostDetailsStepFields,
+  ...optionalFutureFieldsStepFields,
 ];
