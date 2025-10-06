@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import FormLayout from "@/components/shared/FormLayout";
 import FormInput from "@/components/shared/custom-inputs/FormInput";
