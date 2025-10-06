@@ -1,3 +1,4 @@
+import ContentWrapper from "@/components/shared/ContentWrapper";
 import HelpButton from "../components/HelpButton";
 import OrderIdSection from "../components/OrderIdSection";
 import OrderStatus from "../components/OrderStatus";
@@ -26,7 +27,8 @@ export default function OrderDetailsPage() {
   const steps = ["Ordered", "Shipped", "Out for Delivery", "Delivered"];
 
   return (
-    <div className=" md:pt-24 lg:pt-28 mb-3 lg:mx-48 min-h-screen bg-[var(--color-black-hover)]">
+    <ContentWrapper compactScreen={true} >
+      <div className=" md:pt-24 lg:pt-28 mb-3  bg-[var(--color-black-hover)]">
       <HelpButton />
       <ProductCard order={order} />
       <OrderStatus order={order} steps={steps} />
@@ -35,5 +37,6 @@ export default function OrderDetailsPage() {
       <UpdatesSection order={order} />
       <OrderIdSection order={order} />
     </div>
+    </ContentWrapper>
   );
 }
