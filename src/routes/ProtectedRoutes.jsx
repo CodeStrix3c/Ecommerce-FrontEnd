@@ -14,6 +14,7 @@ import WeatherPanel from "@/features/dashboard/farmer-dashboard/pages/WeatherPan
 import FarmerOverview from "@/features/dashboard/farmer-dashboard/pages/FarmerOverview";
 import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
 import ResourcesPanel from "@/features/dashboard/farmer-dashboard/pages/ResourcesPanel";
+import OrchardRegistration from "@/features/orchard-registration/OrchardRegistration";
 
 const SupplierRegistration = lazy(
   () => import("@/features/supplier-registration/SupplierRegistration")
@@ -85,7 +86,7 @@ export default [
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
       <Route path="/resources/crop-information" element={<CropInformation />} />
       <Route path="/help-center" element={<AgricultureHelpCenter />} />
-      {/* <Route path="/orchard-registration" element={<OrchardRegistration />} /> */}
+      <Route path="/orchard-registration" element={<OrchardRegistration />} />
       <Route path="/orchards" element={<OrchardsPage />} />
       <Route path="/orchards/:id" element={<SingleOrchardDetails />} />
       <Route path="/supplier-login" element={<SupplierLogin />} />
