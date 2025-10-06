@@ -1,7 +1,7 @@
 import AuthPageWrapper from "@/components/shared/AuthPageWrapper";
 import { Outlet } from "react-router-dom";
 
-const AuthLayout = () => {
+const PublicLayout = () => {
   return (
     <>
       <AuthPageWrapper>
@@ -11,4 +11,4 @@ const AuthLayout = () => {
   );
 };
 
-export default AuthLayout;
+export default PublicLayout;
