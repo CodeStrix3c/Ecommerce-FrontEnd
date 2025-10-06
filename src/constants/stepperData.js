@@ -6,6 +6,9 @@ export const ORCHARD_STEPS = {
     "Crop & Nutrition Details",
     "Plant Protection & Health",
     "Farm Infrastructure",
+    "Production & Marketing",
+    "Input Cost Details",
+    "Future-Proof Fields",
   ],
   descriptions: [
     "Enter basic farmer and household info",
@@ -14,6 +17,9 @@ export const ORCHARD_STEPS = {
     "Add crop nutrition and fertilization info",
     "Record plant health and protection measures",
     "Check farm infrastructure and equipment",
+    "Enter production and marketing information such as yield, harvest season, and selling preferences",
+    "Add details about pesticide supplier locations, payment type, and credit period",
+    "Provide information on government schemes, memberships, certifications, and digital tools",
   ],
 };
 

@@ -28,7 +28,6 @@ export default function OperationalDetailsSection({
 
   return (
     <FormLayout>
-      {/* Years in Business (required) */}
       <FormInput
         name="yearsInBusiness"
         label="Years in Business"
@@ -37,7 +36,6 @@ export default function OperationalDetailsSection({
         errors={errors.yearsInBusiness}
       />
 
-      {/* Distributor / Company Tie-ups (required) */}
       <FormInput
         name="distributorTieUps"
         label="Distributor / Company Tie-ups"
@@ -45,7 +43,6 @@ export default function OperationalDetailsSection({
         errors={errors.distributorTieUps}
       />
 
-      {/* Delivery Service Available (required) */}
       <Controller
         name="deliveryService"
         control={control}
@@ -79,7 +76,6 @@ export default function OperationalDetailsSection({
         />
       )}
 
-      {/* Average Monthly Sales Volume (optional) */}
       <FormInput
         name="averageMonthlySales"
         label="Average Monthly Sales Volume (optional)"
