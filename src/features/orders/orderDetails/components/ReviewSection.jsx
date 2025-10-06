@@ -1,18 +1,31 @@
+import { useState } from "react";
 import { Star } from "lucide-react";
+import ReviewPopup from "../../review/pages/ReviewPopup";
 
-export default function ReviewSection() {
+export default function ReviewSection({ order }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  if (!order || order.status !== "Delivered") return null;
+
   return (
-    <div className="bg-[var(--color-black-hover)] shadow-sm w-full p-4  sm:p-5">
-      <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-3">
-        <div className="flex text-[var(--color-primary)]">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} size={18} fill="currentColor" />
-          ))}
-        </div>
-        <button className="text-[var(--color-black)] font-medium text-sm sm:text-base">
-          Write Review
-        </button>
+    <div className="flex w-full justify-between items-center md:justify-start md:w-auto gap-1">
+      <div className="flex items-center gap-1">
+        {[...Array(5)].map((_, i) => (
+          <Star key={i} size={12} className="text-[var(--color-secondary)]" />
+        ))}
       </div>
+
+      <span
+        onClick={() => setIsModalOpen(true)}
+        className="text-[var(--color-secondary)] text-sm cursor-pointer hover:underline"
+      >
+        Write Review
+      </span>
+
+      <ReviewPopup
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
