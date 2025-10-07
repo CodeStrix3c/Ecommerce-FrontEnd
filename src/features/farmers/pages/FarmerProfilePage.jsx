@@ -66,6 +66,12 @@ export default function FarmerProfilePage() {
                 className="text-[var(--color-secondary)] font-medium text-sm sm:text-base hover:text-[var(--color-secondary-hover)]"
               >
                 View Orchards
+              </Link>{" "}
+              <Link
+                to={"/orchard-registration"}
+                className="text-[var(--color-secondary)] font-medium text-sm sm:text-base hover:text-[var(--color-secondary-hover)]"
+              >
+                Add Orchards
               </Link>
             </div>
 
