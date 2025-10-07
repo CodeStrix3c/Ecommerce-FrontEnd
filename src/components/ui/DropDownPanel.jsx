@@ -1,6 +1,6 @@
 import useIsMobile from "@/hooks/useInMobile";
 import { removeItemFromLocalStorage } from "@/utils/localStorage";
-import { FlakySharp, Handshake, HandshakeOutlined } from "@mui/icons-material";
+import { HandshakeOutlined } from "@mui/icons-material";
 import {
   Info,
   User,
@@ -8,9 +8,10 @@ import {
   UserCheck,
   LogOut,
   Package,
-  FlaskConical,
   FlaskRoundIcon,
+  LayoutDashboard,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -18,6 +19,12 @@ const DropdownPanel = ({ open, onClose }) => {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem("token");
   const isMobile = useIsMobile(1100);
+  const [isSupplierLoggedIn, setIsSupplierLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("SRT");
+    setIsSupplierLoggedIn(!!token);
+  }, []);
 
   const handleLogout = () => {
     removeItemFromLocalStorage("token");
@@ -36,6 +43,7 @@ const DropdownPanel = ({ open, onClose }) => {
       }`}
     >
       <div className="flex flex-col py-2">
+        {/* About & Help */}
         <Link
           to="/about-us"
           onClick={onClose}
@@ -54,6 +62,7 @@ const DropdownPanel = ({ open, onClose }) => {
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
+        {/* Talk with Expert */}
         <Link
           to="/talk-with-expert"
           onClick={onClose}
@@ -70,6 +79,7 @@ const DropdownPanel = ({ open, onClose }) => {
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
+        {/* Orders */}
         <Link
           to="/orders"
           onClick={onClose}
@@ -78,27 +88,51 @@ const DropdownPanel = ({ open, onClose }) => {
           <Package size={16} /> <span>My Orders</span>
         </Link>
 
+        {/* Mobile-specific links */}
         {isMobile && (
-          <Link
-            to="/supplier-registration"
-            onClick={onClose}
-            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-          >
-            <HandshakeOutlined size={16} /> <span>Become a Supplier</span>
-          </Link>
-        )}
-        {isMobile && (
-          <Link
-            to="/fertilizers"
-            onClick={onClose}
-            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-          >
-            <FlaskRoundIcon size={16} /> <span>Fertilizers</span>
-          </Link>
+          <>
+            {isSupplierLoggedIn ? (
+              <>
+                <Link
+                  to="/dashboard/overview"
+                  onClick={onClose}
+                  className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+                >
+                  <LayoutDashboard size={16} /> <span>Dashboard</span>
+                </Link>
+
+                <Link
+                  to="/supplier-profile"
+                  onClick={onClose}
+                  className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+                >
+                  <User size={16} /> <span>Supplier Profile</span>
+                </Link>
+              </>
+            ) : (
+              <Link
+                to="/supplier-register"
+                onClick={onClose}
+                className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+              >
+                <HandshakeOutlined fontSize="small" />{" "}
+                <span>Become a Supplier</span>
+              </Link>
+            )}
+
+            <Link
+              to="/fertilizers"
+              onClick={onClose}
+              className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+            >
+              <FlaskRoundIcon size={16} /> <span>Fertilizers</span>
+            </Link>
+          </>
         )}
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
+        {/* Account Links */}
         {isLoggedIn ? (
           <>
             <Link

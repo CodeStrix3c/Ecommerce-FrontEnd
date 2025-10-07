@@ -5,16 +5,18 @@ import UserOrderPage from "@/features/orders/userOrders/pages/UserOrdersPage";
 import OrderDetailsPage from "@/features/orders/orderDetails/pages/OrderDetailsPage";
 import DashboardLayout from "@/app/layouts/DashboardLayout";
 import ProtectedLayout from "@/app/layouts/ProtectedLayout";
-import SoilPanel from "@/features/dashboard/farmer-dashboard/pages/SoilPanel";
+import SoilPanel from "@/features/dashboard/farmer-dashboard/pages/SoilWaterNutrientPanel";
 import PestPanel from "@/features/dashboard/farmer-dashboard/pages/PestPanel";
 import FinancialPanel from "@/features/dashboard/farmer-dashboard/pages/FinancialPanel";
 import KnowledgePanel from "@/features/dashboard/farmer-dashboard/pages/KnowledgePanel";
 import AlertPanel from "@/features/dashboard/farmer-dashboard/pages/AlertPanel";
 import WeatherPanel from "@/features/dashboard/farmer-dashboard/pages/WeatherPanel";
 import FarmerOverview from "@/features/dashboard/farmer-dashboard/pages/FarmerOverview";
-import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
 import ResourcesPanel from "@/features/dashboard/farmer-dashboard/pages/ResourcesPanel";
 import OrchardRegistration from "@/features/orchard-registration/OrchardRegistration";
+import SoilWaterNutrientPanel from "@/features/dashboard/farmer-dashboard/pages/SoilWaterNutrientPanel";
+import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
+
 
 const SupplierRegistration = lazy(
   () => import("@/features/supplier-registration/SupplierRegistration")
@@ -118,7 +120,7 @@ export default [
     <Route path="overview" element={<FarmerOverview />} />
     <Route path="orchard" element={<OrchardPanel />} />
     <Route path="weather" element={<WeatherPanel />} />
-    <Route path="soil" element={<SoilPanel />} />
+    <Route path="soil" element={<SoilWaterNutrientPanel />} />
     <Route path="pest" element={<PestPanel />} />
     <Route path="resources" element={<ResourcesPanel />} />
     <Route path="financial" element={<FinancialPanel />} />
