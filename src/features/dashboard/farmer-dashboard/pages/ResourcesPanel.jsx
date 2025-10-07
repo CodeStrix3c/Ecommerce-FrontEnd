@@ -1,8 +1,14 @@
 import React from "react";
 import ChartCard from "../components/ChartCard";
-import { BarChart3, Droplet, Clock, CreditCard, Wrench, } from "lucide-react";
+import { BarChart3, Droplet, Clock, CreditCard, Wrench, Shovel } from "lucide-react";
+import CustomLineChart from "@/components/charts/CustomLineChart";
 
 export default function ResourcePanel() {
+  const chartData = [
+    { month: "Jan", fertilizer: 100, pesticide: 2, labor: 40 },
+    { month: "Feb", fertilizer: 120, pesticide: 3, labor: 45 },
+    { month: "Mar", fertilizer: 110, pesticide: 2, labor: 50 },
+  ];
   const resourceMetrics = [
     {
       label: "Fertilizer Consumption (kg/ha)",
@@ -32,7 +38,7 @@ export default function ResourcePanel() {
     {
       label: "Equipment/Machinery Utilization Rate (%)",
       value: "75%",
-      icon: Wrench,
+      icon: Shovel,
     },
   ];
 
@@ -47,7 +53,7 @@ export default function ResourcePanel() {
               className="  p-4 rounded-2xl shadow-md flex items-start space-x-3"
             >
               <div className="p-2 rounded-full shadow-sm bg-[var(--color-white)]">
-                <Icon className="text-[var(--color-black)] w-5 h-5" />
+                <Icon className="text-[var(--color-secondary)] w-5 h-5" />
               </div>
               <div className="flex flex-col">
                 <span className="text-sm text-[var(--color-black)]">
@@ -60,7 +66,16 @@ export default function ResourcePanel() {
             </div>
           );
         })}
+
+       
       </div>
+       <div className=" mt-6 pt-20 rounded-xl shadow-inner text-[color:var(--color-black)] ">
+          <CustomLineChart
+            data={chartData}
+            dataKey="fertilizer"
+            xKey="month"
+          ></CustomLineChart>
+        </div>
     </ChartCard>
   );
 }
