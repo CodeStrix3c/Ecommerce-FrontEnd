@@ -1,6 +1,9 @@
 import React from "react";
 import { TrendingUp, ArrowUpCircle, BarChart3, LineChart } from "lucide-react";
 import ChartCard from "../components/ChartCard";
+import CustomLineChart from "@/components/charts/CustomLineChart";
+import CustomBarChart from "@/components/charts/CustomBarChart";
+import CustomAreaChart from "@/components/charts/CustomAreaChart";
 
 export default function FinancialPanel() {
   const financialMetrics = [
@@ -17,6 +20,12 @@ export default function FinancialPanel() {
     },
   ];
 
+  const chartData = [
+  { month: "Jan", fertilizer: 100, pesticide: 2, labor: 40 },
+  { month: "Feb", fertilizer: 120, pesticide: 3, labor: 45 },
+  { month: "Mar", fertilizer: 110, pesticide: 2, labor: 50 },
+];
+
   return (
     <ChartCard title="Financial & Yield Performance">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -28,7 +37,7 @@ export default function FinancialPanel() {
               className=" p-4 rounded-2xl shadow-md flex items-start space-x-3"
             >
               <div className="p-2 rounded-full shadow-sm bg-[color:var(--color-white)]">
-                <Icon className="text-[color:var(--color-black)] w-5 h-5" />
+                <Icon className="text-[color:var(--color-secondary)] w-5 h-5" />
               </div>
               <div className="flex flex-col">
                 <span className="text-sm text-[color:var(--color-black)]">
@@ -44,8 +53,11 @@ export default function FinancialPanel() {
       </div>
 
       {/* Chart Placeholder */}
-      <div className="mt-6 h-40 bg-[color:var(--color-secondary)]/20 rounded-xl shadow-inner flex flex-col items-center justify-center text-[color:var(--color-black)] animate-pulse">
-        📊 Financial Trend / Yield Graph Loading...
+      <div className="mt-6 pt-20 h-40 rounded-xl shadow-inner  text-[color:var(--color-black)] ">
+      <CustomLineChart data={chartData} dataKey="fertilizer" xKey="month">
+
+
+      </CustomLineChart>
       </div>
     </ChartCard>
   );
