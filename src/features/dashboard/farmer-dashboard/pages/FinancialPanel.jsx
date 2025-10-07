@@ -34,7 +34,7 @@ export default function FinancialPanel() {
           return (
             <div
               key={i}
-              className=" p-4 rounded-2xl shadow-md flex items-start space-x-3"
+              className=" bg-[var(--color-white)] p-4 rounded-sm  flex items-start space-x-3"
             >
               <div className="p-2 rounded-full shadow-sm bg-[color:var(--color-white)]">
                 <Icon className="text-[color:var(--color-secondary)] w-5 h-5" />
@@ -53,7 +53,7 @@ export default function FinancialPanel() {
       </div>
 
       {/* Chart Placeholder */}
-      <div className="mt-6 pt-20 h-40 rounded-xl shadow-inner  text-[color:var(--color-black)] ">
+      <div className=" bg-[var(--color-white)] mt-6 pt-20 px-5 h-40 rounded-sm shadow-inner  text-[color:var(--color-black)] ">
       <CustomLineChart data={chartData} dataKey="fertilizer" xKey="month">
 
 
