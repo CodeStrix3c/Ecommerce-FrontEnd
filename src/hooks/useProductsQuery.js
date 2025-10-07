@@ -1,4 +1,4 @@
-import { getProducts } from "@/services/productService";
+import { getProductById, getProducts } from "@/services/productService";
 import { useQuery } from "@tanstack/react-query";
 
 export const useProductsQuery = () => {
@@ -8,10 +8,10 @@ export const useProductsQuery = () => {
   });
 };
 
-// export const useUserQuery = (id) => {
-//   return useQuery({
-//     queryKey: ["user", id],
-//     queryFn: () => getUserById(id),
-//     enabled: !!id, // prevents fetching when id is null
-//   });
-// };
+export const useProductQuery = (id) => {
+  return useQuery({
+    queryKey: ["products", id],
+    queryFn: () => getProductById(id),
+    enabled: !!id,
+  });
+};

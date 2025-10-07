@@ -1,5 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { Heart, ShoppingCart, Menu, Sidebar } from "lucide-react";
+import {
+  Heart,
+  ShoppingCart,
+  Menu,
+  LayoutDashboard,
+  UserCircle2,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
 import { useCartList } from "@/providers/CartListProvider";
@@ -7,6 +13,7 @@ import useIsMobile from "@/hooks/useInMobile";
 import DropdownPanel from "./DropDownPanel";
 import { AccountCircle } from "@mui/icons-material";
 import SidebarMobile from "./SidebarMobile";
+import Tooltip from "@mui/material/Tooltip";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
@@ -36,22 +43,27 @@ const DropdownMenu = () => {
   return (
     <div className="relative" ref={menuRef}>
       <div className="flex items-center gap-3">
-        {isSupplierLoggedIn ? (
-          <button
-            onClick={() => navigate("/supplier-profile")}
-            className="rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
-          >
-            Dashboard
-          </button>
-        ) : (
-          !isBelow1000 && (
-            <Link
-              to="/supplier-register"
-              className="rounded-full px-3 py-1 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
-            >
-              Become a Supplier
-            </Link>
-          )
+        {!isBelow1000 && (
+          <>
+            {isSupplierLoggedIn ? (
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => navigate("/dashboard/overview")}
+                  className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+                >
+                  <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/supplier-register"
+                className="rounded-full px-3 py-1 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+              >
+                Become a Supplier
+              </Link>
+            )}
+          </>
         )}
 
         <Link
@@ -81,11 +93,7 @@ const DropdownMenu = () => {
         <div className="flex items-center space-x-3">
           <button
             onClick={() => setOpen(!open)}
-            className="
-              border rounded-2xl px-3 py-1.5 flex items-center space-x-2
-              bg-[var(--color-black-hover)] hover:bg-[var(--color-black-hover)] 
-              transition
-            "
+            className="border rounded-2xl px-3 py-1.5 flex items-center space-x-2 bg-[var(--color-black-hover)] hover:bg-[var(--color-black-hover)] transition"
           >
             <Menu size={18} className="text-[var(--color-black)]" />
             <AccountCircle sx={{ fontSize: 22, color: "var(--color-black)" }} />
