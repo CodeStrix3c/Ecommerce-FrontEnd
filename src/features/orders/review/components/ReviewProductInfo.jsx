@@ -1,4 +1,3 @@
-// components/review/ReviewProductInfo.jsx
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { Star } from "lucide-react";
