@@ -17,6 +17,7 @@ import HighlightBanner from "@/features/reviews/components/HighlightBanner";
 import ExploreNearby from "../components/ExploreNearby";
 import SharePopUp from "@/components/ui/SharePopUp";
 import useIsMobile from "@/hooks/useInMobile";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -61,68 +62,70 @@ const PlacePage = () => {
   }
 
   return (
-    <motion.div
-      initial={false}
-      animate={{ maxWidth: isPlacePage && !isMobile ? "73vw" : "92vw" }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36 mx-auto"
-    >
-      <ListingHeader place={place} onShare={handleShare} />
-      <AddressLink placeAddress={place.address} />
+    <ContentWrapper compactScreen>
+      <motion.div
+        initial={false}
+        // animate={{ maxWidth: isPlacePage && !isMobile ? "73vw" : "92vw" }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36"
+      >
+        <ListingHeader place={place} onShare={handleShare} />
+        <AddressLink placeAddress={place.address} />
 
-      <PlaceGallery place={place} />
+        <PlaceGallery place={place} />
 
-      <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-        <div className="flex-1 space-y-8">
-          <HighlightBanner />
+        <div className="mt-10 flex flex-col gap-8 md:flex-col lg:flex-row lg:items-start lg:justify-between lg:w-full">
+          <div className="flex-1 space-y-8">
+            <HighlightBanner />
 
-          <section>
-            <h2 className="text-2xl font-semibold text-[var(--color-black)]">
-              Description
-            </h2>
-            <p className="mt-2 text-[var(--color-black)]/70">
-              {place.description}
-            </p>
+            <section>
+              <h2 className="text-2xl font-semibold text-[var(--color-black)]">
+                Description
+              </h2>
+              <p className="mt-2 text-[var(--color-black)]/70">
+                {place.description}
+              </p>
 
-            <div className="mt-3">
-              {place.inStock ? (
-                <span className="inline-block rounded-md bg-[var(--color-primary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
-                  In Stock
-                </span>
-              ) : (
-                <span className="inline-block rounded-md bg-[var(--color-secondary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
-                  Out of Stock
-                </span>
-              )}
+              <div className="mt-3">
+                {place.inStock ? (
+                  <span className="inline-block rounded-md bg-[var(--color-primary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
+                    In Stock
+                  </span>
+                ) : (
+                  <span className="inline-block rounded-md bg-[var(--color-secondary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
+                    Out of Stock
+                  </span>
+                )}
+              </div>
+            </section>
+
+            <PerksWidget perks={place?.perks} />
+          </div>
+
+          <aside className="block w-full lg:w-1/3">
+            <div className="sticky top-28">
+              <BookingWidget place={place} />
             </div>
-          </section>
-
-          <PerksWidget perks={place?.perks} />
+          </aside>
         </div>
 
-        <aside className="hidden w-1/3 md:block">
-          <div className="sticky top-28">
-            <BookingWidget place={place} />
-          </div>
-        </aside>
-      </div>
+        <div className="my-8 md:hidden z-40 absolute left-0 w-full px-4 ">
+          <BookingWidget place={place} />
+        </div>
 
-      <div className="my-8 md:hidden z-40 absolute left-0 w-full px-4 ">
-        <BookingWidget place={place} />
-      </div>
+        <RatingSummary />
+        <OverallRating />
+        <Testimonials />
 
-      <RatingSummary />
-      <OverallRating />
-      <Testimonials />
+        <MapBox address={place.address} />
 
-      <MapBox address={place.address} />
-
-      <ExploreNearby
-        title="Explore other options in and around Gurugram"
-        options={nearbyOptions}
-      />
-      {sharePopUp && <SharePopUp onClose={() => setSharePopUp(false)} />}
-    </motion.div>
+        <ExploreNearby
+          title="Explore other options in and around Gurugram"
+          options={nearbyOptions}
+        />
+        {sharePopUp && <SharePopUp onClose={() => setSharePopUp(false)} />}
+      </motion.div>
+    </ContentWrapper>
   );
 };
 

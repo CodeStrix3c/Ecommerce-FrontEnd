@@ -1,24 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
-
-import AddressSection from "@/features/farmer-registration/sections/AddressSection";
-import Popup from "@/components/shared/Popup";
-import ProgressBar from "@/components/shared/ProgressBar";
-import CustomButton from "@/components/ui/CustomButton";
-import { addressSchema } from "@/features/farmer-registration/schemas/addressSchema";
 import { useFarmer } from "@/providers/FarmerProvider";
-import { ADDRESS_FIELDS } from "@/constants/profileFields";
+import ContentWrapper from "@/components/shared/ContentWrapper";
+import Popup from "@/components/shared/Popup";
 import FarmerProfileCompletion from "./FarmerProfileCompletion";
-import { set } from "zod";
+import ProfileAvatar from "@/components/shared/ProfileAvatar";
+import ProfileDetail from "../components/ProfileDetail";
+import { User, Calendar, Mail, Phone, Book, Briefcase } from "lucide-react";
+import ProfileCompletion from "@/features/suppliers/components/ProfileCompletion";
+import { Link } from "react-router-dom";
 
 export default function FarmerProfilePage() {
-  const navigate = useNavigate();
   const {
     farmer,
-    setFarmer,
-    sections,
     progress,
     isComplete,
     setEducationComplete,
@@ -26,26 +19,12 @@ export default function FarmerProfilePage() {
     setAddressComplete,
     setProfileComplete,
   } = useFarmer();
+
   const [showIncompleteSection, setShowIncompleteSection] = useState(false);
   const [gpsLocation, setGpsLocation] = useState("");
   const gpsInputRef = useRef(null);
 
-  const methods = useForm({
-    resolver: zodResolver(addressSchema),
-    mode: "onChange",
-  });
-
-  const {
-    watch,
-    setValue,
-    trigger,
-    register,
-    formState: { errors },
-  } = methods;
-  const addressValues = watch();
-
   useEffect(() => detectLocation(), []);
-  console.log(progress, "progress in farmer profile");
 
   const detectLocation = () => {
     if (!navigator.geolocation) return alert("Geolocation not supported");
@@ -54,7 +33,6 @@ export default function FarmerProfilePage() {
       (pos) => {
         const gpsString = `${pos.coords.latitude},${pos.coords.longitude}`;
         setGpsLocation(gpsString);
-        setValue("gps", gpsString, { shouldValidate: true });
         gpsInputRef.current?.focus();
       },
       () => alert("Unable to retrieve location"),
@@ -62,79 +40,111 @@ export default function FarmerProfilePage() {
     );
   };
 
-  // Complete address and update farmer
-  const handleCompleteProfile = async () => {
+  const handleCompleteProfile = () => {
     setProfileComplete();
     setEducationComplete();
     setProfessionComplete();
     setAddressComplete();
-
-    // const updatedFarmer = { ...farmer, ...addressValues };
-    // localStorage.setItem("farmerData", JSON.stringify(updatedFarmer));
     setShowIncompleteSection(false);
   };
 
   return (
-    <div className="w-full md:mt-28 lg:mt-36 px-4 sm:px-6">
-      {/* Profile Card */}
-      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
-        <div className="flex-shrink-0">
-          <img
-            src={farmer?.profilePic || "/assets/images/farmer.jpeg"}
-            alt={farmer?.fullName || "Farmer"}
-            className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-2 border-[var(--color-primary)]"
-          />
+    <>
+      <ContentWrapper compactScreen>
+        <div className="space-y-8 lg:space-y-12 lg:py-36">
+          {/* Avatar + Details + Links */}
+          <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+            {/* Left: Avatar */}
+            <ProfileAvatar
+              avatar={farmer?.profilePic || "/assets/images/farmer.jpeg"}
+              onEdit={() => setShowIncompleteSection(true)}
+            />
+
+            <div className="flex-1 flex flex-col gap-4">
+              {/* Simple Links */}
+              <div className="flex justify-end gap-3">
+                <Link
+                  to="/orchards"
+                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-gray-300 hover:bg-gray-100 transition"
+                >
+                  View Orchards
+                </Link>
+                <Link
+                  to="/orchard-registration"
+                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-gray-300 hover:bg-gray-100 transition"
+                >
+                  Add Orchard
+                </Link>
+              </div>
+
+              {/* Profile Details */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
+                <ProfileDetail
+                  icon={<User />}
+                  label="Name"
+                  value={farmer?.fullName || "Quarat"}
+                />
+                <ProfileDetail
+                  icon={<Calendar />}
+                  label="Age"
+                  value={farmer?.age || "28"}
+                />
+                <ProfileDetail
+                  icon={<Mail />}
+                  label="Email"
+                  value={farmer?.email || "anjuqadir14848@gmail.com"}
+                />
+                <ProfileDetail
+                  icon={<Phone />}
+                  label="Phone"
+                  value={farmer?.phone || "7051059559"}
+                />
+                <ProfileDetail
+                  icon={<Book />}
+                  label="Education"
+                  value={farmer?.education || "Graduate"}
+                />
+                <ProfileDetail
+                  icon={<Briefcase />}
+                  label="Profession"
+                  value={farmer?.profession || "Mazdoor"}
+                />
+              </div>
+
+              {/* Profile Completion */}
+              <ProfileCompletion
+                progress={progress}
+                isComplete={isComplete}
+                onCompleteClick={() => setShowIncompleteSection(true)}
+                showPopup={showIncompleteSection}
+                onClosePopup={() => setShowIncompleteSection(false)}
+              >
+                <FarmerProfileCompletion
+                  gpsLocation={gpsLocation}
+                  gpsInputRef={gpsInputRef}
+                  onComplete={handleCompleteProfile}
+                  detectLocation={detectLocation}
+                />
+              </ProfileCompletion>
+            </div>
+          </div>
         </div>
-        <div className="flex-1 text-center md:text-left">
-          <h2 className="text-xl md:text-2xl font-semibold">
-            {farmer?.fullName || "Full Name"}
-          </h2>
-          <p className="text-sm md:text-base">
-            {farmer?.email || "Email not provided"}
-          </p>
-          <p className="text-sm md:text-base">
-            {farmer?.phone || "Phone not provided"}
-          </p>
-
-          <ProgressBar
-            filledFields={progress * 100} // assuming ProgressBar accepts 0–100
-            totalFields={100}
-            onClick={() => setShowIncompleteSection(true)}
-          />
-
-          {/* {!isComplete && (
-            <p
-              onClick={() => setShowIncompleteSection(true)}
-              className="mt-2 text-sm text-[var(--color-secondary)] hover:underline cursor-pointer"
-            >
-              Complete your profile
-            </p>
-          )} */}
-        </div>
-      </div>
-
-      <div className="flex justify-center mt-6">
-        <CustomButton
-          varient="contained"
-          text="My Orchards"
-          onClick={() => navigate("/my-orchards")}
-        />
-      </div>
+      </ContentWrapper>
 
       {showIncompleteSection && (
         <Popup
+          open={showIncompleteSection}
           onClose={() => setShowIncompleteSection(false)}
           title="Complete Farmer Profile"
-          open={showIncompleteSection}
         >
           <FarmerProfileCompletion
-            value={gpsLocation}
-            detectLocation={detectLocation}
+            gpsLocation={gpsLocation}
             gpsInputRef={gpsInputRef}
             onComplete={handleCompleteProfile}
+            detectLocation={detectLocation}
           />
         </Popup>
       )}
-    </div>
+    </>
   );
 }

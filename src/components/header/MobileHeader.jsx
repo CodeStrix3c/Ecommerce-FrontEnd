@@ -10,11 +10,10 @@ const MobileHeader = ({ location }) => {
 
   return (
     <>
-      {/* Top Header */}
       <div className="sticky top-0 z-50 flex items-center justify-between px-4 py-2 bg-[var(--color-white)]">
         <NavLink to="/" className="flex items-center gap-2">
           <img
-            src="assets/images/ziraat.jpeg"
+            src="/assets/images/ziraat.jpeg"
             alt="ziraat"
             width={60}
             height={60}
@@ -23,8 +22,7 @@ const MobileHeader = ({ location }) => {
         <DropdownMenu />
       </div>
 
-      {/* Search bar (only homepage) */}
-      {location.pathname === "/" && (
+      {location.pathname === "/home" && (
         <div
           className="sticky top-[52px] z-10 bg-[var(--color-white)] px-4 py-2 "
           onClick={() => setIsSearchOpen(true)}
@@ -33,12 +31,10 @@ const MobileHeader = ({ location }) => {
         </div>
       )}
 
-      {/* Bottom Nav */}
-      <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-[var(--color-overlay)] bg-[var(--color-white)]">
-        <NavBar isMobile />
+      <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-[var(--color-overlay)] bg-[var(--color-white)] ">
+        <NavBar />
       </div>
 
-      {/* Search Modal */}
       <MobileSearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
