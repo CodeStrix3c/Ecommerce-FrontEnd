@@ -23,6 +23,7 @@ import AddressSection from "@/features/farmer-registration/sections/AddressSecti
 import { addressSchema } from "@/features/farmer-registration/schemas/addressSchema";
 import ProfileSection from "@/features/farmer-registration/sections/ProfileSection";
 import { profileSchema } from "@/features/farmer-registration/schemas/profileSchema";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 const stepSchemas = [
   profileSchema,
@@ -106,66 +107,68 @@ export default function FarmerProfileCompletion({ onComplete }) {
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        bgcolor: "var(--color-white)",
-        py: { xs: 5, lg: 4 },
-        my: { xs: 0, md: 10, lg: 4 },
-      }}
-    >
-      <FormProvider {...methods}>
-        <Box
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          sx={{
-            borderRadius: 3,
-            width: "100%",
-            maxWidth: 800,
-            p: { md: 4, lg: 4 },
-            bgcolor: "var(--color-white)",
-            boxShadow: isMobile ? 0 : 0,
-            display: "flex",
-            flexDirection: "column",
-            gap: 0,
-          }}
-        >
-          <SectionTitle title="Farmer Completion" centered />
-
-          {/* <FormStepper activeStep={step} type="profile" /> */}
-
+    <ContentWrapper compactScreen>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          bgcolor: "var(--color-white)",
+          // py: { xs: 5, lg: 4 },
+          // my: { xs: 0, md: 10, lg: 4 },
+        }}
+      >
+        <FormProvider {...methods}>
           <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
             sx={{
-              border: "1px solid var(--color-black-light)",
-              borderRadius: 2,
+              borderRadius: 3,
+              width: "100%",
+              maxWidth: 800,
+              // p: { md: 4, lg: 4 },
               bgcolor: "var(--color-white)",
-              p: 0,
+              boxShadow: isMobile ? 0 : 0,
+              display: "flex",
+              flexDirection: "column",
+              gap: 0,
             }}
           >
-            {step === 0 && (
-              <ProfileSection register={register} errors={errors} />
-            )}{" "}
-            {step === 1 && (
-              <AddressSection register={register} errors={errors} />
-            )}{" "}
-            {step === 2 && (
-              <EducationSection register={register} errors={errors} />
-            )}
-            {step === 3 && (
-              <ProfessionSection register={register} errors={errors} />
-            )}
-            <FormNavigation
-              step={step}
-              totalSteps={stepSchemas.length}
-              nextStep={nextStep}
-              prevStep={prevStep}
-              handleSubmit={handleSubmitClick}
-            />
+            <SectionTitle title="Farmer Completion" centered />
+
+            {/* <FormStepper activeStep={step} type="profile" /> */}
+
+            <Box
+              sx={{
+                border: "1px solid var(--color-black-light)",
+                borderRadius: 2,
+                bgcolor: "var(--color-white)",
+                p: 0,
+              }}
+            >
+              {step === 0 && (
+                <ProfileSection register={register} errors={errors} />
+              )}{" "}
+              {step === 1 && (
+                <AddressSection register={register} errors={errors} />
+              )}{" "}
+              {step === 2 && (
+                <EducationSection register={register} errors={errors} />
+              )}
+              {step === 3 && (
+                <ProfessionSection register={register} errors={errors} />
+              )}
+              <FormNavigation
+                step={step}
+                totalSteps={stepSchemas.length}
+                nextStep={nextStep}
+                prevStep={prevStep}
+                handleSubmit={handleSubmitClick}
+              />
+            </Box>
           </Box>
-        </Box>
-      </FormProvider>
-    </Box>
+        </FormProvider>
+      </Box>
+    </ContentWrapper>
   );
 }
