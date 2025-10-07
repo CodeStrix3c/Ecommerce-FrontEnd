@@ -6,12 +6,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "leaflet/dist/leaflet.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import axiosInstance from "./utils/axios";
-import { getItemFromLocalStorage } from "./utils";
+import { getItemFromLocalStorage } from "./utils/localStorage";
 import ScrollToTop from "./components/shared/ScrollToTop";
 import Spinner from "./components/ui/Spinner";
 import publicRoutes from "./routes/PublicRoutes";
 import protectedRoutes from "./routes/ProtectedRoutes";
+import axiosInstance from "./api/axiosInstance";
+
 
 function App() {
   useEffect(() => {
