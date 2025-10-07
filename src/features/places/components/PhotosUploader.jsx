@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Image from '../../../components/shared/Image';
-import axiosInstance from '../../../utils/axios';
+import Image from "../../../components/shared/Image";
+import axiosInstance from "@/api/axiosInstance";
 
 const PhotosUploader = ({ addedPhotos, setAddedPhotos }) => {
-  const [photoLink, setphotoLink] = useState('');
+  const [photoLink, setphotoLink] = useState("");
 
   const addPhotoByLink = async (e) => {
     e.preventDefault();
-    const { data: filename } = await axiosInstance.post('/upload-by-link', {
+    const { data: filename } = await axiosInstance.post("/upload-by-link", {
       link: photoLink,
     });
     setAddedPhotos((prev) => {
       return [...prev, filename];
     });
-    setphotoLink('');
+    setphotoLink("");
   };
 
   const uploadPhoto = async (e) => {
     const files = e.target.files;
     const data = new FormData(); // creating new form data
     for (let i = 0; i < files.length; i++) {
-      data.append('photos', files[i]); // adding all the photos to data one by one
+      data.append("photos", files[i]); // adding all the photos to data one by one
     }
-    const { data: filenames } = await axiosInstance.post('/upload', data, {
-      headers: { 'Content-type': 'multipart/form-data' },
+    const { data: filenames } = await axiosInstance.post("/upload", data, {
+      headers: { "Content-type": "multipart/form-data" },
     });
     setAddedPhotos((prev) => {
       return [...prev, ...filenames];

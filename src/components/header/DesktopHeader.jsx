@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useLayoutEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import useOnScroll from "@/hooks/useOnScroll";
@@ -6,17 +6,25 @@ import DropdownMenu from "../ui/DropDownMenu";
 import SearchBar from "../shared/SearchBar";
 import NavBar from "../ui/NavBar";
 import SubSearchModal from "../ui/SubSearchModal";
+import { getHeaderWidthByPath } from "@/utils/headerWidth";
 
-const DesktopHeader = ({ location }) => {
-  const [hasShadow, setHasShadow] = useState(false);
+const DesktopHeader = ({ location, onHeightChange }) => {
   const [openSearchBar, setOpenSearchBar] = useState(false);
-
+  const [headerWidth, setHeaderWidth] = useState();
   const scrollY = useOnScroll();
-  const isPlacePage = /^\/place\/\d+/.test(location.pathname);
+
+  const headerRef = useRef();
+
+  useLayoutEffect(() => {
+    // if (headerRef.current) {
+    //   const height = headerRef.current.offsetHeight;
+    //   onHeightChange?.(height);
+    // }
+    setHeaderWidth(getHeaderWidthByPath(location.pathname));
+  }, [location.pathname, headerWidth]);
 
   useEffect(() => {
     const handleScroll = () => {
-      setHasShadow(window.scrollY > 0);
       setOpenSearchBar(false);
     };
     window.addEventListener("scroll", handleScroll);
@@ -25,6 +33,7 @@ const DesktopHeader = ({ location }) => {
 
   return (
     <header
+      ref={headerRef}
       style={{
         backgroundColor: "var(--color-white)",
         boxShadow:
@@ -36,21 +45,19 @@ const DesktopHeader = ({ location }) => {
     >
       <motion.div
         initial={false}
-        animate={{ maxWidth: isPlacePage ? "74vw" : "93vw" }}
+        animate={{ width: headerWidth }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="mx-auto py-3 grid grid-cols-[auto_1fr_auto] items-center gap-6 w-full"
+        className="mx-auto py-3 grid grid-cols-[auto_1fr_auto] items-center gap-6"
       >
-        {/* Left: Logo */}
         <NavLink to="/" className="flex items-center gap-2">
           <img
-            src="assets/images/ziraat.png"
+            src="/assets/images/ziraat.png"
             alt="ziraat"
             width={80}
             height={80}
           />
         </NavLink>
 
-        {/* Center: Navbar / SubSearch */}
         <AnimatePresence mode="wait">
           {scrollY < 100 ? (
             <motion.div
@@ -85,9 +92,9 @@ const DesktopHeader = ({ location }) => {
         </div>
       </motion.div>
 
-      {/* Below header row */}
+      {/* Below header row (only on /home) */}
       {location.pathname === "/home" && scrollY < 100 && (
-        <div className="flex justify-center py-3 pb-10  ">
+        <div className="flex justify-center py-3 pb-10">
           <SearchBar />
         </div>
       )}
@@ -100,7 +107,7 @@ const DesktopHeader = ({ location }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}git
             className="flex justify-center py-4"
           >
             <SearchBar />

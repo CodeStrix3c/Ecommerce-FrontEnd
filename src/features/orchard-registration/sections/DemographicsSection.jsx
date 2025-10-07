@@ -6,7 +6,7 @@ import FormLayout from "@/components/shared/FormLayout";
 import FormInput from "@/components/shared/custom-inputs/FormInput";
 import SelectField from "@/components/shared/custom-inputs/SelectField";
 import { GpsFixed } from "@mui/icons-material";
-import { getCurrentLocation } from "@/utils/location/getCurrentLocation";
+import { getCurrentLocation } from "@/utils/getCurrentLocation";
 
 export default function DemographicsSection({ register, errors }) {
   const [gpsLocation, setGpsLocation] = useState("");
