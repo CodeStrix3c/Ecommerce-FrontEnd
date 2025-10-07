@@ -15,9 +15,8 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import logo from "/assets/images/ziraat.jpeg";
 
-export default function Sidebar() {
+export default function Sidebar({ collapsed, setCollapsed }) {
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
 
   const navItems = [
     { label: "Overview", icon: <BarChart />, to: "/dashboard/overview" },
