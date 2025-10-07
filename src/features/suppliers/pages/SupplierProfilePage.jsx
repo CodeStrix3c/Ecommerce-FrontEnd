@@ -49,7 +49,7 @@ export default function SupplierProfilePage() {
   return (
     <>
       <ContentWrapper compactScreen>
-        <div className="space-y-8 lg:space-y-12 lg:py-36">
+        <div className="space-y-8 lg:space-y-12 lg:py-36 md:pt-36">
           <div className="flex flex-col sm:flex-row items-start gap-6">
             <ProfileAvatar
               avatar={supplier.avatar}
