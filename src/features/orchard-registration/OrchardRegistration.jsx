@@ -139,8 +139,8 @@ export default function OrchardRegistration() {
   };
 
   return (
-    <ContentWrapper>
-      <div className="mt-10">
+    <ContentWrapper compactScreen>
+      <div className="mt-10 lg:mt-36 md:mt-20">
         <Box
           sx={{
             display: "flex",

@@ -15,7 +15,7 @@ const DropdownMenu = () => {
   const { wishlist } = useWishlist();
   const { cartList } = useCartList();
   const isBelow920 = useIsMobile(920);
-  const isBelow500 = useIsMobile(500);
+  const isBelow500 = useIsMobile(620);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,11 +39,11 @@ const DropdownMenu = () => {
         {!isBelow500 &&
           (isSupplierLoggedIn ? (
             <button
-              onClick={() => navigate("/dashboard/overview")}
+              onClick={() => navigate("/dashboard/supplier")}
               className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
             >
               <LayoutDashboard className="h-4 w-4" />
-              Dashboard
+              Supplier Dashboard
             </button>
           ) : (
             <Link
