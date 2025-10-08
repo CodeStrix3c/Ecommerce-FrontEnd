@@ -8,7 +8,8 @@ const IndexPage = () => {
   const dummyData2 = dummyData.slice(8, 15);
   const dummyData3 = dummyData.slice(10);
 
-  const { data, isLoading, error } = useProductsQuery();
+  const { data, isLoading, error } = useProductsQuery("jeans");
+  console.log(data, "data from index page");
 
   return (
     <ContentWrapper>
