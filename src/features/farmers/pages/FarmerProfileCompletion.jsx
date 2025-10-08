@@ -111,7 +111,7 @@ export default function FarmerProfileCompletion({ onComplete }) {
       <Box
         sx={{
           // minHeight: "100vh",
-          padding:8,
+          padding:4,
           display: "flex",
           justifyContent: "center",
           bgcolor: "var(--color-white)",
@@ -126,7 +126,7 @@ export default function FarmerProfileCompletion({ onComplete }) {
             sx={{
               borderRadius: 3,
               width: "100%",
-              maxWidth: 800,
+              maxWidth: 1000,
               // p: { md: 4, lg: 4 },
               bgcolor: "var(--color-white)",
               boxShadow: isMobile ? 0 : 0,
@@ -145,6 +145,7 @@ export default function FarmerProfileCompletion({ onComplete }) {
                 borderRadius: 2,
                 bgcolor: "var(--color-white)",
                 p: 0,
+                width:"100%"
               }}
             >
               {step === 0 && (
