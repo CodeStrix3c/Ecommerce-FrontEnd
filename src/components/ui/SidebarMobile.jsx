@@ -1,11 +1,10 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   Info,
   HelpCircle,
   UserCheck,
   Store,
-  Leaf,
   LogOut,
   User,
   Package,
@@ -13,9 +12,15 @@ import {
 } from "lucide-react";
 import { toast } from "react-toastify";
 
+import useIsMobile from "@/hooks/useInMobile";
+import { NAVBAR_TABS, SIDEBAR_TABS } from "@/constants/navTabs";
+
+
 const SidebarMobile = ({ open, onClose }) => {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem("token");
+  const below1024 = useIsMobile(1024);
+  const below600 = useIsMobile(600);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -24,6 +29,8 @@ const SidebarMobile = ({ open, onClose }) => {
     navigate("/login");
     onClose();
   };
+
+  const inactiveDesktopColor = "text-[var(--color-black)]";
 
   return (
     <>
@@ -93,17 +100,39 @@ const SidebarMobile = ({ open, onClose }) => {
             </p>
           </Link>
 
-          <hr className="my-2 border-[var(--color-black-hover)]" />
+          {below1024 && !below600 && (
+            <>
+              {SIDEBAR_TABS?.map((tab) => (
+                <Link
+                  key={tab.name}
+                  to={tab.path}
+                  end={tab.path === "/"}
+                  onClick={onClose}
+                  className="flex items-center gap-3 px-2 py-2 rounded-lg text-[var(--color-black)] hover:bg-[var(--color-black-hover)] hover:text-[var(--color-primary)] relative"
+                >
+                  {tab.badge && (
+                    <span className="absolute -top-2 left-7 rounded bg-[var(--color-secondary)] px-2 text-[8px] font-bold text-[var(--color-white)]">
+                      {tab.badge}
+                    </span>
+                  )}
+                  <tab.icon size={18} />
+                  <span>{tab.name}</span>
+                </Link>
+              ))}
+              <hr className="my-2 border-[var(--color-black-hover)]" />
+            </>
+          )}
 
           {/* My Orders */}
           <Link
-            to="/my-orders"
+            to="/orders"
             onClick={onClose}
             className="flex items-center gap-3 px-2 py-2 rounded-lg text-[var(--color-black)] hover:bg-[var(--color-black-hover)] hover:text-[var(--color-primary)]"
           >
             <Package size={18} /> My Orders
           </Link>
 
+          {/* Become Supplier */}
           <Link
             to="/supplier-register"
             onClick={onClose}
@@ -111,8 +140,6 @@ const SidebarMobile = ({ open, onClose }) => {
           >
             <Store size={18} /> Become a Supplier
           </Link>
-
-          <hr className="my-2 border-[var(--color-black-hover)]" />
 
           <hr className="my-2 border-[var(--color-black-hover)]" />
 
@@ -145,6 +172,7 @@ const SidebarMobile = ({ open, onClose }) => {
             </Link>
           )}
         </nav>
+      
       </div>
     </>
   );
