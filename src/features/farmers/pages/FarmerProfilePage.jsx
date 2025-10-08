@@ -48,6 +48,16 @@ export default function FarmerProfilePage() {
     setShowIncompleteSection(false);
   };
 
+  const handleLogout = () => {
+    console.log("Logout clicked");
+
+  };
+
+  const handleDelete = () => {
+    console.log("Delete clicked");
+    
+  };
+
   return (
     <>
       <ContentWrapper compactScreen>
@@ -65,13 +75,13 @@ export default function FarmerProfilePage() {
               <div className="flex justify-end gap-3">
                 <Link
                   to="/orchards"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-gray-300 hover:bg-gray-100 transition"
+                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-[var(--color-black)]"
                 >
                   View Orchards
                 </Link>
                 <Link
                   to="/orchard-registration"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-gray-300 hover:bg-gray-100 transition"
+                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-[var(--color-black)]"
                 >
                   Add Orchard
                 </Link>
@@ -126,6 +136,22 @@ export default function FarmerProfilePage() {
                   detectLocation={detectLocation}
                 />
               </ProfileCompletion>
+
+              
+              <div className="flex justify-between items-center mt-6">
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 text-sm font-medium rounded-md border bg-[var(--color-primary)] text-[var(--color-white)] "
+                >
+                  Logout
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className=" me-7 px-4 py-2 text-sm font-medium rounded-md  bg-[var(--color-secondary)] text-[var(--color-white)] "
+                >
+                  Delete Account
+                </button>
+              </div>
             </div>
           </div>
         </div>

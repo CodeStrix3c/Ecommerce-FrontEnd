@@ -49,25 +49,25 @@ export default function SprayHistory() {
             className="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
           >
             {/* Left Info */}
-            <div className="flex flex-col">
-              <span className="font-semibold text-[var(--color-black)] text-sm sm:text-base">
+            <div className="flex flex-col ">
+              <span className="font-semibold mb-3 text-[var(--color-black)] text-xl sm:text-l">
                 {item.name}
-                <span className="ml-2 text-[var(--color-secondary)] text-xs sm:text-sm">
+                <span className="ml-2 text-[var(--color-secondary)] text-l sm:text-l">
                   {item.type}
                 </span>
               </span>
-              <span className="text-[var(--color-gray)] text-xs sm:text-sm">
+              <span className="text-[var(--color-black)] text-l sm:text-l">
                 Qty: {item.quantity} | Water: {item.waterUsed} | Trees:{" "}
                 {item.totalTrees}
               </span>
-              <span className="text-[var(--color-gray)] text-xs sm:text-sm">
+              <span className="text-[var(--color-black)] text-l sm:text-l">
                 {item.date}
               </span>
             </div>
 
             <div className="flex items-center justify-between sm:justify-end gap-4">
               <span
-                className="font-semibold text-xs lg:text-xs sm:text-xs px-4 py-1 rounded-lg"
+                className="font-semibold text-sm lg:text-xs sm:text-xs px-4 py-1 rounded-lg"
                 style={{
                   backgroundColor: "var(--color-black-hover)",
                   color: "var(--color-black)",
