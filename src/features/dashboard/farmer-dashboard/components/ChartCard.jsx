@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ChartCard({ title, children }) {
   return (
-    <div className="bg-[var(--color-white)] p-4 rounded-2xl shadow flex flex-col gap-3">
+    <div className="bg-[var(--color-hover)] p-4 rounded-2xl  flex flex-col gap-3">
       <h3 className="py-5 text-lg font-semibold text-[var(--color-black)] ">
         {title}
       </h3>

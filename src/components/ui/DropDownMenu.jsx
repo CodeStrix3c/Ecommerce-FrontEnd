@@ -4,7 +4,6 @@ import {
   ShoppingCart,
   Menu,
   LayoutDashboard,
-  UserCircle2,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
@@ -13,7 +12,6 @@ import useIsMobile from "@/hooks/useInMobile";
 import DropdownPanel from "./DropDownPanel";
 import { AccountCircle } from "@mui/icons-material";
 import SidebarMobile from "./SidebarMobile";
-import Tooltip from "@mui/material/Tooltip";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
@@ -22,7 +20,7 @@ const DropdownMenu = () => {
   const { wishlist } = useWishlist();
   const { cartList } = useCartList();
   const isBelow920 = useIsMobile(920);
-  const isBelow1000 = useIsMobile(1100);
+  const isBelow500 = useIsMobile(500);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,29 +41,27 @@ const DropdownMenu = () => {
   return (
     <div className="relative" ref={menuRef}>
       <div className="flex items-center gap-3">
-        {!isBelow1000 && (
-          <>
-            {isSupplierLoggedIn ? (
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => navigate("/dashboard/overview")}
-                  className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
-                >
-                  <LayoutDashboard className="h-4 w-4" />
-                  Dashboard
-                </button>
-              </div>
-            ) : (
-              <Link
-                to="/supplier-register"
-                className="rounded-full px-3 py-1 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
-              >
-                Become a Supplier
-              </Link>
-            )}
-          </>
+
+        {!isBelow500 && (
+          isSupplierLoggedIn ? (
+            <button
+              onClick={() => navigate("/dashboard/overview")}
+              className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+            >
+              <LayoutDashboard className="h-4 w-4" />
+              Dashboard
+            </button>
+          ) : (
+            <Link
+              to="/supplier-register"
+              className="rounded-full px-3 py-1 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+            >
+              Become a Supplier
+            </Link>
+          )
         )}
 
+        {/* Wishlist */}
         <Link
           to="/wishlist"
           className="relative rounded-full p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
@@ -78,6 +74,7 @@ const DropdownMenu = () => {
           )}
         </Link>
 
+        {/* Cart */}
         <Link
           to="/cart"
           className="relative rounded-full p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
@@ -90,6 +87,7 @@ const DropdownMenu = () => {
           )}
         </Link>
 
+        {/* Dropdown Button */}
         <div className="flex items-center space-x-3">
           <button
             onClick={() => setOpen(!open)}
@@ -102,9 +100,17 @@ const DropdownMenu = () => {
       </div>
 
       {isBelow920 ? (
-        <SidebarMobile open={open} onClose={() => setOpen(false)} />
+        <SidebarMobile
+          open={open}
+          onClose={() => setOpen(false)}
+          isSupplierLoggedIn={isSupplierLoggedIn}
+        />
       ) : (
-        <DropdownPanel open={open} onClose={() => setOpen(false)} />
+        <DropdownPanel
+          open={open}
+          onClose={() => setOpen(false)}
+          isSupplierLoggedIn={isSupplierLoggedIn}
+        />
       )}
     </div>
   );
