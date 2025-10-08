@@ -10,6 +10,7 @@ import {
   Package,
   FlaskRoundIcon,
   LayoutDashboard,
+  UserPlusIcon,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -80,6 +81,13 @@ const DropdownPanel = ({ open, onClose, isSupplierLoggedIn }) => {
         >
           <Package size={16} /> <span>My Orders</span>
         </Link>
+        <Link
+          to="/supplier-profile"
+          onClick={onClose}
+          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <UserPlusIcon size={16} /> <span>Supplier Profile</span>
+        </Link>
 
         {/* Mobile-specific links */}
         {isMobile && (
@@ -91,7 +99,7 @@ const DropdownPanel = ({ open, onClose, isSupplierLoggedIn }) => {
                   onClick={onClose}
                   className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
                 >
-                  <LayoutDashboard size={16} /> <span>Dashboard</span>
+                  <LayoutDashboard size={16} /> <span>Supplier Dashboard</span>
                 </Link>
 
                 <Link
@@ -122,7 +130,6 @@ const DropdownPanel = ({ open, onClose, isSupplierLoggedIn }) => {
             </Link>
           </>
         )}
-        
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
