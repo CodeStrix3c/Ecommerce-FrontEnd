@@ -59,7 +59,7 @@ export default function SupplierProfilePage() {
             <div className="flex-1 flex flex-col gap-4">
               <div className="flex justify-end">
                 <Link
-                  to={"/supplier-product"}
+                  to={"/home"}
                   className="text-[var(--color-secondary)] font-medium text-sm sm:text-base hover:text-[var(--color-secondary-hover)]"
                 >
                   View Products
