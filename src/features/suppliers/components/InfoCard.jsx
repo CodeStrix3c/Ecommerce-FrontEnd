@@ -150,63 +150,63 @@ export default function InfoCard({ supplier }) {
   const [showProducts, setShowProducts] = useState(false);
 
   return (
-    <div className="bg-white  p-6 sm:p-8 mt-6 w-full max-w-4xl mx-auto transition-transform hover:scale-[1.01]">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-        {/* Profile Image + Edit Button */}
-        <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0">
-          <img
-            src={supplier.logo}
-            alt="Supplier Logo"
-            className="w-full h-full rounded-full border-2 border-black shadow-md object-cover transition-transform hover:scale-105"
-          />
-          <button
-            onClick={() => setIsEditing(!isEditing)}
-            className="absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200 transition-transform hover:bg-[var(--color-secondary)] hover:scale-110"
-          >
-            <Pencil className="w-4 h-4 text-[var(--color-secondary)] transition-colors hover:text-white" />
-          </button>
-        </div>
- 
-        {/* Info Fields */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-5 w-full">
-          <Field
-            icon={<User className="w-5 h-5 text-[var(--color-secondary)]" />}
-            label="Name"
-            value={supplier.names}
-          />
-          <Field
-            icon={<Phone className="w-5 h-5 text-[var(--color-secondary)]" />}
-            label="Contact"
-            value={supplier.contactPerson}
-            link={`tel:${supplier.contactPerson}`}
-          />
-          <Field
-            icon={<Mail className="w-5 h-5 text-[var(--color-secondary)]" />}
-            label="Email"
-            value={supplier.email}
-            link={`mailto:${supplier.email}`}
-          />
-          <Field
-            icon={<MapPin className="w-5 h-5 text-[var(--color-secondary)]" />}
-            label="Location"
-            value={supplier.address}
-          />
-          <Field
-            icon={<Factory className="w-5 h-5 text-[var(--color-secondary)]" />}
-            label="Company"
-            value={supplier.companyName}
-          />
-          <Field
-            icon={<Leaf className="w-5 h-5 text-[var(--color-secondary)]" />}
-            label="Category"
-            value={supplier.category}
-          />
-        </div>
-      </div>
-
-      {/* Show Products Button */}
-   
+    
+    <div className="bg-[var(--color-white)] p-6 sm:p-8 mt-6 w-full max-w-4xl mx-auto transition-transform hover:scale-[1.01]">
+  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+    
+  
+    <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0">
+      <img
+        src={supplier.logo}
+        alt="Supplier Logo"
+        className="w-full h-full rounded-full border-2 border-[var(--color-black)] shadow-md object-cover transition-transform hover:scale-105"
+      />
+      <button
+        onClick={() => setIsEditing(!isEditing)}
+        className="absolute bottom-0 right-0 w-8 h-8 bg-[var(--color-white)] rounded-full flex items-center justify-center shadow-md border transition-transform hover:bg-[var(--color-secondary)] hover:scale-110"
+      >
+        <Pencil className="w-4 h-4 text-[var(--color-black)] transition-colors hover:text-white" />
+      </button>
     </div>
+
+    {/* Info Fields */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-x-6 sm:gap-x-12 gap-y-5 w-full">
+      <Field
+        icon={<User className="w-5 h-5 text-[var(--color-secondary)]" />}
+        label="Name"
+        value={supplier.names}
+      />
+      <Field
+        icon={<Phone className="w-5 h-5 text-[var(--color-secondary)]" />}
+        label="Contact"
+        value={supplier.contactPerson}
+        link={`tel:${supplier.contactPerson}`}
+      />
+      <Field
+        icon={<Mail className="w-5 h-5 text-[var(--color-secondary)]" />}
+        label="Email"
+        value={supplier.email}
+        link={`mailto:${supplier.email}`}
+      />
+      <Field
+        icon={<MapPin className="w-5 h-5 text-[var(--color-secondary)]" />}
+        label="Location"
+        value={supplier.address}
+      />
+      <Field
+        icon={<Factory className="w-5 h-5 text-[var(--color-secondary)]" />}
+        label="Company"
+        value={supplier.companyName}
+      />
+      <Field
+        icon={<Leaf className="w-5 h-5 text-[var(--color-secondary)]" />}
+        label="Category"
+        value={supplier.category}
+      />
+    </div>
+  </div>
+</div>
+
   );
 }
 
