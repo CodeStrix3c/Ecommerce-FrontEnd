@@ -1,40 +1,28 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
-
-import Popup from "@/components/shared/Popup";
-import { addressSchema } from "@/features/farmer-registration/schemas/addressSchema";
 import { useFarmer } from "@/providers/FarmerProvider";
-import FarmerProfileCompletion from "./FarmerProfileCompletion";
-import { AccountBalance, Person, TripOrigin } from "@mui/icons-material";
-import { Edit2, TreePine } from "lucide-react";
-import { User, Calendar, Mail, Phone, Book, Briefcase } from "lucide-react";
-import ProfileDetail from "../components/ProfileDetail";
-import SidebarItem from "../components/SideBarItem";
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import Popup from "@/components/shared/Popup";
+import FarmerProfileCompletion from "./FarmerProfileCompletion";
+import ProfileAvatar from "@/components/shared/ProfileAvatar";
+import ProfileDetail from "../components/ProfileDetail";
+import { User, Calendar, Mail, Phone, Book, Briefcase } from "lucide-react";
+import ProfileCompletion from "@/features/suppliers/components/ProfileCompletion";
+import { Link } from "react-router-dom";
 
 export default function FarmerProfilePage() {
-  const navigate = useNavigate();
   const {
     farmer,
     progress,
+    isComplete,
     setEducationComplete,
     setProfessionComplete,
     setAddressComplete,
     setProfileComplete,
   } = useFarmer();
+
   const [showIncompleteSection, setShowIncompleteSection] = useState(false);
   const [gpsLocation, setGpsLocation] = useState("");
   const gpsInputRef = useRef(null);
-
-  const methods = useForm({
-    resolver: zodResolver(addressSchema),
-    mode: "onChange",
-  });
-
-  const { watch, setValue } = methods;
-  const addressValues = watch();
 
   useEffect(() => detectLocation(), []);
 
@@ -45,7 +33,6 @@ export default function FarmerProfilePage() {
       (pos) => {
         const gpsString = `${pos.coords.latitude},${pos.coords.longitude}`;
         setGpsLocation(gpsString);
-        setValue("gps", gpsString, { shouldValidate: true });
         gpsInputRef.current?.focus();
       },
       () => alert("Unable to retrieve location"),
@@ -62,156 +49,97 @@ export default function FarmerProfilePage() {
   };
 
   return (
-    <ContentWrapper>
-      <div className="flex flex-col-reverse lg:flex-row w-full lg:mt-32 mt-16 gap-8">
-        {/* Sidebar */}
-        <aside className="w-full lg:w-64 bg-[var(--color-white)] rounded-2xl border border-[var(--color-black-hover)] flex flex-col gap-6">
-          <h1 className="font-bold text-2xl text-[var(--color-black)] border-b pb-2">
-            Profile
-          </h1>
-          <div className="flex flex-col justify-between h-full gap-3">
-            <div className="flex flex-col gap-3">
-              <SidebarItem
-                icon={
-                  <AccountBalance className="w-6 h-6 text-[var(--color-secondary)]" />
-                }
-                label="About Me"
+    <ContentWrapper compactScreen>
+      <div className="space-y-8 lg:space-y-12 lg:py-36">
+        {/* Avatar + Details + Link */}
+        <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+          {/* Left: Avatar */}
+          <ProfileAvatar
+            avatar={farmer?.profilePic || "/assets/images/farmer.jpeg"}
+            onEdit={() => setShowIncompleteSection(true)}
+          />
+
+          <div className="flex-1 flex flex-col gap-4">
+            <div className="flex justify-end">
+              <Link
+                to={"/orchards"}
+                className="text-[var(--color-secondary)] font-medium text-sm sm:text-base hover:text-[var(--color-secondary-hover)]"
+              >
+                View Orchards
+              </Link>{" "}
+              <Link
+                to={"/orchard-registration"}
+                className="text-[var(--color-secondary)] font-medium text-sm sm:text-base hover:text-[var(--color-secondary-hover)]"
+              >
+                Add Orchards
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
+              <ProfileDetail
+                icon={<User />}
+                label="Name"
+                value={farmer?.fullName || "Quarat"}
               />
-              <SidebarItem
-                icon={
-                  <TripOrigin className="w-6 h-6 text-[var(--color-secondary)]" />
-                }
-                label="Past Orders"
+              <ProfileDetail
+                icon={<Calendar />}
+                label="Age"
+                value={farmer?.age || "28"}
               />
-              <SidebarItem
-                icon={
-                  <Person className="w-6 h-6 text-[var(--color-secondary)]" />
-                }
-                label="Suppliers"
+              <ProfileDetail
+                icon={<Mail />}
+                label="Email"
+                value={farmer?.email || "anjuqadir14848@gmail.com"}
               />
-              <SidebarItem
-                icon={
-                  <TreePine className="w-6 h-6 text-[var(--color-secondary)]" />
-                }
-                label="My Orchards"
-                onClick={() => navigate("/my-orchards")}
+              <ProfileDetail
+                icon={<Phone />}
+                label="Phone"
+                value={farmer?.phone || "7051059559"}
+              />
+              <ProfileDetail
+                icon={<Book />}
+                label="Education"
+                value={farmer?.education || "Graduate"}
+              />
+              <ProfileDetail
+                icon={<Briefcase />}
+                label="Profession"
+                value={farmer?.profession || "Mazdoor"}
               />
             </div>
-          </div>
-        </aside>
 
-        <main className="flex-1 bg-[var(--color-white)] rounded-2xl border border-[var(--color-black-hover)] flex flex-col gap-6">
-          <div className="flex">
-            <h1 className="font-bold text-2xl md:text-3xl text-[var(--color-black)]">
-              About Me
-            </h1>
-            <button
-              onClick={() => setShowIncompleteSection(true)}
-              className="px-6"
+            <ProfileCompletion
+              progress={progress}
+              isComplete={isComplete}
+              onCompleteClick={() => setShowIncompleteSection(true)}
+              showPopup={showIncompleteSection}
+              onClosePopup={() => setShowIncompleteSection(false)}
             >
-              <Edit2 className="w-6 h-6 text-[var(--color-secondary)]" />
-            </button>
-          </div>
-
-          <div className="flex flex-col md:flex-row md:items-start gap-8">
-            <div className="flex justify-center md:block">
-              <img
-                src={farmer?.profilePic || "/assets/images/farmer.jpeg"}
-                alt={farmer?.fullName || ""}
-                className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-2 border-[var(--color-black)]"
+              <FarmerProfileCompletion
+                gpsLocation={gpsLocation}
+                gpsInputRef={gpsInputRef}
+                onComplete={handleCompleteProfile}
+                detectLocation={detectLocation}
               />
-            </div>
-            <div className="flex-1 flex flex-col gap-3 md:text-left">
-              <h2 className="text-xl md:text-3xl font-bold">
-                {farmer?.fullName || "Quarat"}
-              </h2>
-
-              <div className="grid grid-cols-1 items-start md:grid-cols-2 gap-3 text-sm md:text-base">
-                <ProfileDetail
-                  icon={<User />}
-                  label="Gender"
-                  value={farmer?.gender || "Female"}
-                />
-                <ProfileDetail
-                  icon={<Calendar />}
-                  label="Age"
-                  value={farmer?.age || "28"}
-                />
-                <ProfileDetail
-                  icon={<Mail />}
-                  label="Email"
-                  value={farmer?.email || "anjuqadir14848@gmail.com"}
-                />
-                <ProfileDetail
-                  icon={<Phone />}
-                  label="Phone"
-                  value={farmer?.phone || "7051059559"}
-                />
-                <ProfileDetail
-                  icon={<Book />}
-                  label="Education"
-                  value={farmer?.education || "Graduate"}
-                />
-                <ProfileDetail
-                  icon={<Briefcase />}
-                  label="Profession"
-                  value={farmer?.profession || "Mazdoor"}
-                />
-              </div>
-
-              <div className="mt-5">
-                <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-3 gap-2">
-                  {/* title + percentage always together */}
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-lg md:text-xl font-semibold">
-                      Profile Completion
-                    </h2>
-                    <span className="text-[var(--color-secondary)] text-sm">
-                      ({Math.round(progress * 100)}%)
-                    </span>
-                  </div>
-
-                  {/* call-to-action becomes a button for clarity */}
-                  <button
-                    type="button"
-                    onClick={() => setShowIncompleteSection(true)}
-                    className="text-sm md:text-base font-medium text-[var(--color-white)] bg-[var(--color-secondary)] hover:bg-[var(--color-secondary-hover)] rounded-full px-4 py-1 transition-colors"
-                  >
-                    Complete Profile
-                  </button>
-                </div>
-
-                <div className="relative w-full cursor-pointer">
-                  <div className="h-2 w-full bg-[var(--color-black-hover)] rounded-full overflow-hidden">
-                    <div
-                      className="h-1 rounded-full transition-all duration-500"
-                      style={{
-                        width: `${progress * 100}%`,
-                        backgroundColor: "var(--color-primary)",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </ProfileCompletion>
           </div>
-        </main>
-
-        {showIncompleteSection && (
-          <Popup
-            onClose={() => setShowIncompleteSection(false)}
-            title="Complete Farmer Profile"
-            open={showIncompleteSection}
-          >
-            <FarmerProfileCompletion
-              value={gpsLocation}
-              detectLocation={detectLocation}
-              gpsInputRef={gpsInputRef}
-              onComplete={handleCompleteProfile}
-            />
-          </Popup>
-        )}
+        </div>
       </div>
+
+      {showIncompleteSection && (
+        <Popup
+          open={showIncompleteSection}
+          onClose={() => setShowIncompleteSection(false)}
+          title="Complete Farmer Profile"
+        >
+          <FarmerProfileCompletion
+            gpsLocation={gpsLocation}
+            gpsInputRef={gpsInputRef}
+            onComplete={handleCompleteProfile}
+            detectLocation={detectLocation}
+          />
+        </Popup>
+      )}
     </ContentWrapper>
   );
 }
