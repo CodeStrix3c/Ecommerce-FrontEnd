@@ -110,7 +110,8 @@ export default function FarmerProfileCompletion({ onComplete }) {
     <ContentWrapper compactScreen>
       <Box
         sx={{
-          minHeight: "100vh",
+          // minHeight: "100vh",
+          padding:8,
           display: "flex",
           justifyContent: "center",
           bgcolor: "var(--color-white)",

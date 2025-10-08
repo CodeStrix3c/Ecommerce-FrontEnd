@@ -24,11 +24,11 @@ export default function Popup({ open, onClose, children }) {
       <div
         style={{
           position: "relative",
-          background: "var(--color-white)",
+          // background: "var(--color-white)",
           borderRadius: "12px",
           padding: "20px",
-          maxHeight: "90vh",
-          overflowY: "auto",
+          Height: "30%",
+          // overflowY: "auto",
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -37,8 +37,9 @@ export default function Popup({ open, onClose, children }) {
           onClick={onClose}
           sx={{
             position: "absolute",
-            top: 8,
-            right: 8,
+            top: 30,
+            right:25,
+
             color: "var(--color-black)",
           }}
         >
