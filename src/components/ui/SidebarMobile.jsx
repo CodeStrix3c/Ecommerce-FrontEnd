@@ -9,18 +9,23 @@ import {
   User,
   Package,
   X,
+  LayoutDashboard,
+  FlaskRoundIcon,
 } from "lucide-react";
 import { toast } from "react-toastify";
 
 import useIsMobile from "@/hooks/useInMobile";
 import { NAVBAR_TABS, SIDEBAR_TABS } from "@/constants/navTabs";
+import { HandshakeOutlined } from "@mui/icons-material";
 
 
-const SidebarMobile = ({ open, onClose }) => {
+const SidebarMobile = ({ open, onClose, isSupplierLoggedIn }) => {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem("token");
   const below1024 = useIsMobile(1024);
   const below600 = useIsMobile(600);
+  const below500 = useIsMobile(500);
+
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -133,13 +138,48 @@ const SidebarMobile = ({ open, onClose }) => {
           </Link>
 
           {/* Become Supplier */}
-          <Link
-            to="/supplier-register"
-            onClick={onClose}
+
+          {below500 && (
+          <>
+            {isSupplierLoggedIn ? (
+              <>
+                <Link
+                  to="/dashboard/overview"
+                  onClick={onClose}
+                  className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+                >
+                  <LayoutDashboard size={16} /> <span>Dashboard</span>
+                </Link>
+
+                <Link
+                  to="/supplier-profile"
+                  onClick={onClose}
+                  className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+                >
+                  <User size={16} /> <span>Supplier Profile</span>
+                </Link>
+              </>
+            ) : (
+              <Link
+                to="/supplier-register"
+                onClick={onClose}
             className="flex items-center gap-3 px-2 py-2 rounded-lg text-[var(--color-black)] hover:bg-[var(--color-black-hover)] hover:text-[var(--color-primary)]"
-          >
-            <Store size={18} /> Become a Supplier
-          </Link>
+              >
+                <HandshakeOutlined fontSize="small" />{" "}
+                <span>Become a Supplier</span>
+              </Link>
+            )}
+
+            <Link
+              to="/fertilizers"
+              onClick={onClose}
+            className="flex items-center gap-3 px-2 py-2 rounded-lg text-[var(--color-black)] hover:bg-[var(--color-black-hover)] hover:text-[var(--color-primary)]"
+            >
+              <FlaskRoundIcon size={16} /> <span>Fertilizers</span>
+            </Link>
+          </>
+        )}
+          
 
           <hr className="my-2 border-[var(--color-black-hover)]" />
 
