@@ -11,20 +11,13 @@ import {
   FlaskRoundIcon,
   LayoutDashboard,
 } from "lucide-react";
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const DropdownPanel = ({ open, onClose }) => {
+const DropdownPanel = ({ open, onClose, isSupplierLoggedIn }) => {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem("token");
   const isMobile = useIsMobile(1100);
-  const [isSupplierLoggedIn, setIsSupplierLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("SRT");
-    setIsSupplierLoggedIn(!!token);
-  }, []);
 
   const handleLogout = () => {
     removeItemFromLocalStorage("token");
@@ -129,6 +122,7 @@ const DropdownPanel = ({ open, onClose }) => {
             </Link>
           </>
         )}
+        
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
