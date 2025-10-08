@@ -3,13 +3,13 @@ import { Sun, CloudSun, CloudRain, Cloud } from "lucide-react";
 
 export default function WeatherWeeklyForecast() {
   const weeklyForecast = [
-    { day: "Wed", icon: <CloudSun className="text-[var(--color-secondary)]" size={28} />, min: 18, max: 27 },
-    { day: "Thu", icon: <Cloud className="text-[var(--color-secondary)]" size={28} />, min: 17, max: 24 },
-    { day: "Fri", icon: <CloudRain className="text-[var(--color-secondary)]" size={28} />, min: 16, max: 22 },
-    { day: "Sat", icon: <Sun className="text-[var(--color-secondary)]" size={28} />, min: 19, max: 29 },
-    { day: "Sun", icon: <CloudSun className="text-[var(--color-secondary)]" size={28} />, min: 20, max: 28 },
-    { day: "Mon", icon: <CloudRain className="text-[var(--color-secondary)]" size={28} />, min: 18, max: 25 },
-    { day: "Tue", icon: <Sun className="text-[var(--color-secondary)]" size={28} />, min: 21, max: 30 },
+    { day: "Mon", icon: <CloudSun className="text-[var(--color-secondary)]" size={28} />, min: 18, max: 27 },
+    { day: "Tue", icon: <Cloud className="text-[var(--color-secondary)]" size={28} />, min: 17, max: 24 },
+    { day: "Wed", icon: <CloudRain className="text-[var(--color-secondary)]" size={28} />, min: 16, max: 22 },
+    { day: "Thu", icon: <Sun className="text-[var(--color-secondary)]" size={28} />, min: 19, max: 29 },
+    { day: "Fri", icon: <CloudSun className="text-[var(--color-secondary)]" size={28} />, min: 20, max: 28 },
+    { day: "Sat", icon: <CloudRain className="text-[var(--color-secondary)]" size={28} />, min: 18, max: 25 },
+    { day: "Sun", icon: <Sun className="text-[var(--color-secondary)]" size={28} />, min: 21, max: 30 },
   ];
 
   return (
