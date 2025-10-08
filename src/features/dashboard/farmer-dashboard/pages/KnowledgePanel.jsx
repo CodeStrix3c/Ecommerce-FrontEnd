@@ -21,6 +21,8 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
+import CustomBarChart from "@/components/charts/CustomBarChart";
+import CustomLineChart from "@/components/charts/CustomLineChart";
 
 const metrics = [
   {
@@ -107,7 +109,7 @@ const KnowledgePanel = () => {
           (data, idx) => (
             <div key={idx} className="bg-[var(--color-white)] p-4 rounded-lg shadow">
               <h3 className="font-semibold mb-2">{data[0].metric}</h3>
-              <ResponsiveContainer width="100%" height={200}>
+              {/* <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={data}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="metric" />
@@ -115,7 +117,8 @@ const KnowledgePanel = () => {
                   <Tooltip />
                   <Bar dataKey="value" fill="#3B82F6" />
                 </BarChart>
-              </ResponsiveContainer>
+              </ResponsiveContainer> */}
+              <CustomBarChart data={data}/>
             </div>
           )
         )}
@@ -123,7 +126,7 @@ const KnowledgePanel = () => {
        
         <div className="bg-[var(--color-white)] p-4 rounded-lg shadow">
           <h3 className="font-semibold mb-2">Seasonal Compliance (%)</h3>
-          <ResponsiveContainer width="100%" height={250}>
+          {/* <ResponsiveContainer width="100%" height={250}>
             <LineChart data={graphData.seasonalCompliance}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="season" />
@@ -131,7 +134,8 @@ const KnowledgePanel = () => {
               <Tooltip />
               <Line type="monotone" dataKey="value" stroke="#10B981" strokeWidth={3} />
             </LineChart>
-          </ResponsiveContainer>
+          </ResponsiveContainer> */}
+          <CustomLineChart data={graphData.seasonalCompliance}/>
         </div>
 
         
