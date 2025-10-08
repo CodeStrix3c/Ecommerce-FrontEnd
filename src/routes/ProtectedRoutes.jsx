@@ -12,10 +12,11 @@ import KnowledgePanel from "@/features/dashboard/farmer-dashboard/pages/Knowledg
 import AlertPanel from "@/features/dashboard/farmer-dashboard/pages/AlertPanel";
 import WeatherPanel from "@/features/dashboard/farmer-dashboard/pages/WeatherPanel";
 import FarmerOverview from "@/features/dashboard/farmer-dashboard/pages/FarmerOverview";
-import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
 import ResourcesPanel from "@/features/dashboard/farmer-dashboard/pages/ResourcesPanel";
 import OrchardRegistration from "@/features/orchard-registration/OrchardRegistration";
 import SoilWaterNutrientPanel from "@/features/dashboard/farmer-dashboard/pages/SoilWaterNutrientPanel";
+import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
+
 
 const SupplierRegistration = lazy(
   () => import("@/features/supplier-registration/SupplierRegistration")
