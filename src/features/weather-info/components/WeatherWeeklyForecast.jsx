@@ -13,22 +13,28 @@ export default function WeatherWeeklyForecast() {
   ];
 
   return (
-    <div className="mt-10 sm:mt-12">
-      <h3 className="text-lg sm:text-xl font-bold text-[var(--color-black)] mb-3 sm:mb-4">7-Day Forecast</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3 sm:gap-4">
-        {weeklyForecast.map((day, idx) => (
-          <div
-            key={idx}
-            className="flex flex-col items-center bg-[var(--color-white)] backdrop-blur-md rounded-xl shadow-sm p-3 sm:p-4"
-          >
-            <span className="text-xs sm:text-sm font-medium text-[var(--color-black)]">{day.day}</span>
-            <div className="mt-2">{day.icon}</div>
-            <div className="flex gap-1 sm:gap-2 mt-2 text-xs sm:text-sm text-[var(--color-black)]">
-              <span className="font-semibold">{day.max}°</span>
-              <span className="text-[var(--color-black)]">{day.min}°</span>
+    <div className="mt-8 sm:mt-10 w-full px-2 sm:px-4">
+      <h3 className="text-base sm:text-xl font-bold text-[var(--color-black)] mb-3 sm:mb-5 text-center sm:text-left">
+        7-Day Forecast
+      </h3>
+
+    
+      <div className="overflow-x-auto scrollbar-hide">
+        <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-7 gap-3 sm:gap-4 min-w-[600px] sm:min-w-0">
+          {weeklyForecast.map((day, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col items-center justify-center bg-[var(--color-white)] backdrop-blur-md rounded-xl shadow-sm p-3 sm:p-4 flex-shrink-0 w-[80px] sm:w-auto"
+            >
+              <span className="text-xs sm:text-sm font-medium text-[var(--color-black)]">{day.day}</span>
+              <div className="mt-2">{day.icon}</div>
+              <div className="flex gap-1 sm:gap-2 mt-2 text-xs sm:text-sm text-[var(--color-black)]">
+                <span className="font-semibold">{day.max}°</span>
+                <span className="text-[var(--color-black)] opacity-70">{day.min}°</span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
