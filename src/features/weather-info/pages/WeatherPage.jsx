@@ -47,7 +47,7 @@ export default function WeatherPage() {
                 Srinagar
               </h2>
               <p className="text-base sm:text-lg text-[var(--color-black)] mt-1">
-                Tuesday, 16 Sep 2025
+                Wednesday, 08 Oct 2025
               </p>
               <div className="flex items-center justify-center md:justify-start gap-3 sm:gap-4 mt-4 sm:mt-6">
                 <Sun
@@ -62,10 +62,10 @@ export default function WeatherPage() {
 
             <div className="text-center md:text-right">
               <h3 className="text-4xl sm:text-5xl font-bolder text-[var(--color-black)]">
-                22°C
+                20°C
               </h3>
               <p className="text-sm sm:text-md text-[var(--color-black)] mt-2 sm:mt-3">
-                Feels like 25°C
+                Feels like 22°C
               </p>
               <div className="flex justify-center md:justify-end gap-4 sm:gap-6 mt-3 sm:mt-4 text-[var(--color-black)]">
                 <div className="flex flex-col items-center">
