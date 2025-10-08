@@ -4,13 +4,13 @@ import {
   CloudRain,
   CloudSun,
   Droplet,
+  Thermometer,
   Wind,
   Eye,
   Gauge,
   Sunrise,
   Sunset,
-  Zap,
-  Cloud,
+  Moon,
 } from "lucide-react";
 import WeatherHighlights from "../components/WeatherHighligts";
 import WeatherHourlyForecast from "../components/WeatherHourlyForecast";
@@ -39,7 +39,7 @@ export default function WeatherPage() {
           </p>
           <SecondarySearchBar />
         </header>
-
+    
         <div className="p-4 sm:p-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-10">
             <div className="text-center md:text-left">
