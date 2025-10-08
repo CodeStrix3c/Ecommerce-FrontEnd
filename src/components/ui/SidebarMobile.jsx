@@ -146,7 +146,7 @@ const SidebarMobile = ({ open, onClose, isSupplierLoggedIn }) => {
                 <Link
                   to="/dashboard/overview"
                   onClick={onClose}
-                  className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+            className="flex items-center gap-3 px-2 py-2 rounded-lg text-[var(--color-black)] hover:bg-[var(--color-black-hover)] hover:text-[var(--color-primary)]"
                 >
                   <LayoutDashboard size={16} /> <span>Dashboard</span>
                 </Link>
@@ -154,7 +154,7 @@ const SidebarMobile = ({ open, onClose, isSupplierLoggedIn }) => {
                 <Link
                   to="/supplier-profile"
                   onClick={onClose}
-                  className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+            className="flex items-center gap-3 px-2 py-2 rounded-lg text-[var(--color-black)] hover:bg-[var(--color-black-hover)] hover:text-[var(--color-primary)]"
                 >
                   <User size={16} /> <span>Supplier Profile</span>
                 </Link>
