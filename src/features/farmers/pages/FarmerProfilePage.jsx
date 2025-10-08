@@ -48,15 +48,13 @@ export default function FarmerProfilePage() {
     setShowIncompleteSection(false);
   };
 
-  const handleLogout = () => {
-    console.log("Logout clicked");
+  // const handleLogout = () => {
+  //   console.log("Logout clicked");
+  // };
 
-  };
-
-  const handleDelete = () => {
-    console.log("Delete clicked");
-    
-  };
+  // const handleDelete = () => {
+  //   console.log("Delete clicked");
+  // };
 
   return (
     <>
@@ -71,17 +69,22 @@ export default function FarmerProfilePage() {
             />
 
             <div className="flex-1 flex flex-col gap-4">
-              {/* Simple Links */}
               <div className="flex justify-end gap-3">
                 <Link
+                  to="/dashboard/overview"
+                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
+                >
+                  Dashboard
+                </Link>
+                <Link
                   to="/orchards"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-[var(--color-black)]"
+                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
                 >
                   View Orchards
                 </Link>
                 <Link
                   to="/orchard-registration"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-[var(--color-black)]"
+                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
                 >
                   Add Orchard
                 </Link>
@@ -137,8 +140,7 @@ export default function FarmerProfilePage() {
                 />
               </ProfileCompletion>
 
-              
-              <div className="flex justify-between items-center mt-6">
+              {/* <div className="flex justify-between items-center mt-6">
                 <button
                   onClick={handleLogout}
                   className="px-4 py-2 text-sm font-medium rounded-md border bg-[var(--color-primary)] text-[var(--color-white)] "
@@ -151,7 +153,7 @@ export default function FarmerProfilePage() {
                 >
                   Delete Account
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
