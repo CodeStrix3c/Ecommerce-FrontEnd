@@ -7,7 +7,7 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
 
   return (
     <>
-      <div className="group border border-[var(--color-black-hover)] bg-[var(--color-white)] shadow-md hover:shadow-xl transition relative overflow-hidden">
+      <div className="group border border-[var(--color-black-hover)] bg-[var(--color-white)] shadow-md hover:shadow-xl transition relative overflow-hidden ">
         <div
           className="relative w-full cursor-pointer overflow-hidden bg-[var(--color-black-hover)]"
           onClick={() => setShowGallery(true)}
