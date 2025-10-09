@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box } from "@mui/material";
+import { Box, Step, StepLabel, Stepper } from "@mui/material";
 import SectionTitle from "@/components/shared/SectionTitle";
-import FormStepper from "@/features/auth/components/FormStepper";
 import { toast } from "react-toastify";
 import useIsMobile from "@/hooks/useInMobile";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +30,10 @@ import {
 } from "@/constants/supplierFormSteps";
 import BusinessInformationSection from "@/features/supplier-registration/sections/BusinessInformationSection";
 import { businessInformationSchema } from "@/features/supplier-registration/schemas/businessInformationSchemas";
+import ContentWrapper from "@/components/shared/ContentWrapper";
+import { SUPPLIER_STEPS } from "@/constants/stepperData";
+import StepHeader from "@/features/auth/components/StepHeader";
+import FormStepper from "@/components/shared/FormStepper";
 
 const stepSchemas = [
   businessInformationSchema,
@@ -42,6 +45,8 @@ const stepSchemas = [
 ];
 
 export default function SupplierProfileCompletion({ onComplete }) {
+  const { labels, descriptions } = SUPPLIER_STEPS || {};
+  const totalSteps = labels.length;
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
@@ -102,12 +107,11 @@ export default function SupplierProfileCompletion({ onComplete }) {
       return;
     }
 
-    const valid = await trigger(); // validate all fields
+    const valid = await trigger();
     if (!valid) return;
 
     const data = watch();
 
-    // ✅ Collect completed sections
     const completedSections = [];
     if (step >= 0) completedSections.push("licensing");
     if (step >= 1) completedSections.push("productPortfolio");
@@ -120,44 +124,33 @@ export default function SupplierProfileCompletion({ onComplete }) {
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        bgcolor: "var(--color-white)",
-        py: { xs: 5, lg: 4 },
-        my: { xs: 0, md: 10, lg: 4 },
-      }}
-    >
+    <ContentWrapper compactScreen topSpacing>
       <FormProvider {...methods}>
         <Box
           component="form"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(handleSubmitClick)}
           sx={{
-            borderRadius: 3,
-            width: "100%",
-            maxWidth: 800,
-            p: { md: 4, lg: 4 },
+            // maxWidth: 800,
+            // mx: "auto",
+            // p: { xs: 2, sm: 3, md: 4 },
+            borderRadius: 2,
             bgcolor: "var(--color-white)",
-            boxShadow: isMobile ? 0 : 0,
             display: "flex",
             flexDirection: "column",
-            gap: 0,
+            gap: 2,
           }}
         >
-          <SectionTitle title="Supplier Registration" centered />
+          <SectionTitle
+            title="Supplier Registration"
+            centered
+            className="text-xl sm:text-xl md:text-2xl lg:text-3xl"
+          />
 
-          <FormStepper activeStep={step} type="supplier" />
+          <FormStepper activeStep={step} steps={labels} />
 
-          <Box
-            sx={{
-              border: "1px solid var(--color-black-light)",
-              borderRadius: 2,
-              bgcolor: "var(--color-white)",
-              p: 0,
-            }}
-          >
+          <StepHeader activeStep={step} type="supplier" />
+
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
             {step === 0 && (
               <BusinessInformationSection register={register} errors={errors} />
             )}
@@ -176,16 +169,17 @@ export default function SupplierProfileCompletion({ onComplete }) {
             {step === 5 && (
               <SupportServicesSection register={register} errors={errors} />
             )}
-            <FormNavigation
-              step={step}
-              totalSteps={stepSchemas.length}
-              nextStep={nextStep}
-              prevStep={prevStep}
-              handleSubmit={handleSubmitClick}
-            />
           </Box>
+
+          <FormNavigation
+            step={step}
+            totalSteps={stepSchemas.length}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            handleSubmit={handleSubmitClick}
+          />
         </Box>
       </FormProvider>
-    </Box>
+    </ContentWrapper>
   );
 }
