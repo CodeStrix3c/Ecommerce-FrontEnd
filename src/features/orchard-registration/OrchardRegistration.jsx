@@ -13,7 +13,7 @@ import AddressSection from "./sections/AddressSection";
 
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
-import FormStepper from "@/features/auth/components/FormStepper";
+import FormStepper from "@/features/auth/components/StepHeader";
 import { toast } from "react-toastify";
 
 import { demographicsSchema } from "@/features/orchard-registration/schemas/demographicSchema";
