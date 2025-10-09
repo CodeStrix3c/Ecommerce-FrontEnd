@@ -34,22 +34,22 @@ function OrchardCards({ cardsData }) {
           <div className="absolute top-3 right-3">
             <button
               onClick={() => toggleMenu(index)}
-              className="p-2 rounded-full bg-[var(--color-black-hover)] text-black shadow"
+              className="p-2 rounded-full bg-[var(--color-black-hover)] text-[var(--color-black)] shadow"
             >
               <MoreVertical size={20} />
             </button>
 
             {menuOpen === index && (
-              <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg border z-10">
-                <button className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-black)] hover:bg-gray-100">
+              <div className="absolute right-0 mt-2 w-40 bg-[var(--color-white)] shadow-lg rounded-lg border z-10">
+                <button className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-black)] ">
                   <Edit size={18} /> Edit
                 </button>
-                <button className="flex items-center gap-2 w-full px-4 py-2 text-red-600 hover:bg-gray-100">
+                <button className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-primary)] hover:bg-gray-100">
                   <Trash2 size={18} /> Delete
                 </button>
                 <button
                   onClick={() => setMenuOpen(null)}
-                  className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-black)] hover:bg-gray-100"
+                  className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-black)] "
                 >
                   <X size={18} /> Cancel
                 </button>

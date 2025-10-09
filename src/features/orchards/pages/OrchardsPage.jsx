@@ -81,7 +81,7 @@ const OrchardsPage = () => {
           </div>
 
           {/* Right side: Search bar */}
-          <div className="w-full justify-self-end">
+          <div className="w-full justify-end">
             <SecondarySearchBar className="flex w-full justify-end" />
           </div>
         </div>
