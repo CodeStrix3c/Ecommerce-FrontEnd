@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useFarmer } from "@/providers/FarmerProvider";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import Popup from "@/components/shared/Popup";
 import FarmerProfileCompletion from "./FarmerProfileCompletion";
 import ProfileAvatar from "@/components/shared/ProfileAvatar";
 import ProfileDetail from "../components/ProfileDetail";
@@ -48,21 +47,11 @@ export default function FarmerProfilePage() {
     setShowIncompleteSection(false);
   };
 
-  // const handleLogout = () => {
-  //   console.log("Logout clicked");
-  // };
-
-  // const handleDelete = () => {
-  //   console.log("Delete clicked");
-  // };
-
   return (
     <>
       <ContentWrapper compactScreen>
         <div className="space-y-8 lg:space-y-12 lg:py-36">
-          {/* Avatar + Details + Links */}
           <div className="flex flex-col sm:flex-row sm:items-start gap-6">
-            {/* Left: Avatar */}
             <ProfileAvatar
               avatar={farmer?.profilePic || "/assets/images/farmer.jpeg"}
               onEdit={() => setShowIncompleteSection(true)}
@@ -90,7 +79,6 @@ export default function FarmerProfilePage() {
                 </Link>
               </div>
 
-              {/* Profile Details */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
                 <ProfileDetail
                   icon={<User />}
@@ -124,11 +112,10 @@ export default function FarmerProfilePage() {
                 />
               </div>
 
-              {/* Profile Completion */}
               <ProfileCompletion
                 progress={progress}
                 isComplete={isComplete}
-                onCompleteClick={() => setShowIncompleteSection(true)}
+                profileCompletionLink={"/farmer-profile-completion"}
                 showPopup={showIncompleteSection}
                 onClosePopup={() => setShowIncompleteSection(false)}
               >
@@ -139,40 +126,10 @@ export default function FarmerProfilePage() {
                   detectLocation={detectLocation}
                 />
               </ProfileCompletion>
-
-              {/* <div className="flex justify-between items-center mt-6">
-                <button
-                  onClick={handleLogout}
-                  className="px-4 py-2 text-sm font-medium rounded-md border bg-[var(--color-primary)] text-[var(--color-white)] "
-                >
-                  Logout
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className=" me-7 px-4 py-2 text-sm font-medium rounded-md  bg-[var(--color-secondary)] text-[var(--color-white)] "
-                >
-                  Delete Account
-                </button>
-              </div> */}
             </div>
           </div>
         </div>
       </ContentWrapper>
-
-      {showIncompleteSection && (
-        <Popup
-          open={showIncompleteSection}
-          onClose={() => setShowIncompleteSection(false)}
-          title="Complete Farmer Profile"
-        >
-          <FarmerProfileCompletion
-            gpsLocation={gpsLocation}
-            gpsInputRef={gpsInputRef}
-            onComplete={handleCompleteProfile}
-            detectLocation={detectLocation}
-          />
-        </Popup>
-      )}
     </>
   );
 }

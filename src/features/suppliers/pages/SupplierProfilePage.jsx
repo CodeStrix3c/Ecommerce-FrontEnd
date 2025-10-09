@@ -1,9 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useSupplier } from "@/providers/SupplierProvider";
 import ProfileCompletion from "../components/ProfileCompletion";
-import SupplierProfileCompletion from "./SupplierProfileCompletion";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import Popup from "@/components/shared/Popup";
 import ProfileDetail from "@/features/farmers/components/ProfileDetail";
 import { Phone, Mail, MapPin, User, Factory, Leaf } from "lucide-react";
 import ProfileAvatar from "@/components/shared/ProfileAvatar";
@@ -11,8 +9,6 @@ import { Link } from "react-router-dom";
 
 export default function SupplierProfilePage() {
   const [showIncompleteSection, setShowIncompleteSection] = useState(false);
-  const [gpsLocation, setGpsLocation] = useState("");
-  const gpsInputRef = useRef(null);
 
   const supplier = {
     name: "Umar Mukhtar",
@@ -103,26 +99,12 @@ export default function SupplierProfilePage() {
           <ProfileCompletion
             progress={progress}
             isComplete={isComplete}
-            onCompleteClick={() => setShowIncompleteSection(true)}
+            profileCompletionLink={"/supplier-profile-completion"}
             showPopup={showIncompleteSection}
             onClosePopup={() => setShowIncompleteSection(false)}
           />
         </div>
       </ContentWrapper>
-
-      {showIncompleteSection && (
-        <Popup
-          open={showIncompleteSection}
-          onClose={() => setShowIncompleteSection(false)}
-          title="Complete Supplier Profile"
-        >
-          <SupplierProfileCompletion
-            gpsLocation={gpsLocation}
-            gpsInputRef={gpsInputRef}
-            onComplete={handleCompleteProfile}
-          />
-        </Popup>
-      )}
     </>
   );
 }

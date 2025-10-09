@@ -12,9 +12,9 @@ const stepDataMap = {
   supplier: SUPPLIER_STEPS,
 };
 
-const FormStepper = ({ activeStep, type }) => {
+const StepHeader = ({ activeStep, type }) => {
   const { labels, descriptions } = stepDataMap[type] || {};
-  const totalSteps = labels.length;
+  const totalSteps = labels?.length || 0;
 
   return (
     <Paper elevation={0} sx={{ width: "100%", backgroundColor: "transparent" }}>
@@ -24,30 +24,21 @@ const FormStepper = ({ activeStep, type }) => {
             variant="h6"
             sx={{
               color: "var(--color-black)",
-              fontSize: {
-                xs: "1rem", // smaller size on mobile
-                sm: "1.25rem", // default size on tablet and above
-              },
-              fontWeight: {
-                xs: 500,
-                sm: 500,
-              },
+              fontSize: { xs: "1rem", sm: "1.25rem" },
+              fontWeight: 500,
             }}
           >
-            {labels[activeStep] || ""}
+            {labels?.[activeStep] || ""}
           </Typography>
           <Typography
             variant="body2"
             sx={{
               color: "var(--color-black)",
               opacity: 0.7,
-              fontSize: {
-                xs: "0.75rem", // smaller size on mobile
-                sm: "0.875rem", // default size on tablet and above
-              },
+              fontSize: { xs: "0.75rem", sm: "0.875rem" },
             }}
           >
-            {descriptions[activeStep] || ""}
+            {descriptions?.[activeStep] || ""}
           </Typography>
         </Box>
 
@@ -57,10 +48,7 @@ const FormStepper = ({ activeStep, type }) => {
             sx={{
               fontWeight: "medium",
               color: "var(--color-secondary)",
-              fontSize: {
-                xs: "0.75rem",
-                sm: "0.875rem",
-              },
+              fontSize: { xs: "0.75rem", sm: "0.875rem" },
             }}
           >
             Step {activeStep + 1} of {totalSteps}
@@ -71,4 +59,4 @@ const FormStepper = ({ activeStep, type }) => {
   );
 };
 
-export default FormStepper;
+export default StepHeader;
