@@ -1,3 +1,4 @@
+import ContentWrapper from '@/components/shared/ContentWrapper';
 import React, { useState } from 'react'
 
 export default function PendingAction({ initialTasks }) {
@@ -46,7 +47,8 @@ export default function PendingAction({ initialTasks }) {
   }
 
   return (
-    <div className="max-w-6xl mx-auto bg-[var(--color-white)]">
+    <ContentWrapper>
+      <div className="max-w-7xl mx-auto ">
       <h2 className="text-3xl font-bold text-center m-6 text-[var(--color-black)]">Pending Actions</h2>
       {tasks.length === 0 ? (
         <div className="text-center text-sm text-[var(--color-gray)] py-6">No pending actions.</div>
@@ -89,5 +91,6 @@ export default function PendingAction({ initialTasks }) {
         </div>
       )}
     </div>
+    </ContentWrapper>
   );
 }
