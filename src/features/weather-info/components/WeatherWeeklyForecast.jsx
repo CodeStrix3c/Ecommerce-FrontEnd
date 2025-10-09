@@ -1,40 +1,76 @@
-import React from "react";
-import { Sun, CloudSun, CloudRain, Cloud } from "lucide-react";
+import { Sun, CloudSun, CloudRain, Cloud, Search, MapPin } from "lucide-react";
 
-export default function WeatherWeeklyForecast() {
+export default function WeeklyForecastPage() {
   const weeklyForecast = [
-    { day: "Mon", icon: <CloudSun className="text-[var(--color-secondary)]" size={28} />, min: 18, max: 27 },
-    { day: "Tue", icon: <Cloud className="text-[var(--color-secondary)]" size={28} />, min: 17, max: 24 },
-    { day: "Wed", icon: <CloudRain className="text-[var(--color-secondary)]" size={28} />, min: 16, max: 22 },
-    { day: "Thu", icon: <Sun className="text-[var(--color-secondary)]" size={28} />, min: 19, max: 29 },
-    { day: "Fri", icon: <CloudSun className="text-[var(--color-secondary)]" size={28} />, min: 20, max: 28 },
-    { day: "Sat", icon: <CloudRain className="text-[var(--color-secondary)]" size={28} />, min: 18, max: 25 },
-    { day: "Sun", icon: <Sun className="text-[var(--color-secondary)]" size={28} />, min: 21, max: 30 },
+    { day: "Mon", icon: <CloudSun size={32} />, min: 18, max: 27, desc: "Partly Cloudy" },
+    { day: "Tue", icon: <Cloud size={32} />, min: 17, max: 24, desc: "Overcast" },
+    { day: "Wed", icon: <CloudRain size={32} />, min: 16, max: 22, desc: "Rain Showers" },
+    { day: "Thu", icon: <Sun size={32} />, min: 19, max: 29, desc: "Sunny" },
+    { day: "Fri", icon: <CloudSun size={32} />, min: 20, max: 28, desc: "Mostly Sunny" },
+    { day: "Sat", icon: <CloudRain size={32} />, min: 18, max: 25, desc: "Light Rain" },
+    { day: "Sun", icon: <Sun size={32} />, min: 21, max: 30, desc: "Clear Sky" },
   ];
 
   return (
-    <div className="mt-8 sm:mt-10 w-full px-2 sm:px-4">
-      <h3 className="text-base sm:text-xl font-bold text-[var(--color-black)] mb-3 sm:mb-5 text-center sm:text-left">
-        7-Day Forecast
-      </h3>
+    <div className="min-h-screen text-[var(--color-black)] flex flex-col items-center px-4 sm:px-8">
 
-    
-      <div className="overflow-x-auto scrollbar-hide">
-        <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-7 gap-3 sm:gap-4 min-w-[600px] sm:min-w-0">
+      <div className="w-full max-w-5xl mt-8 sm:mt-12">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-center sm:text-left mb-6">
+          7-Day Weather Forecast
+        </h2>
+
+        
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
           {weeklyForecast.map((day, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center justify-center bg-[var(--color-white)] backdrop-blur-md rounded-xl shadow-sm p-3 sm:p-4 flex-shrink-0 w-[80px] sm:w-auto"
+              className="flex flex-col items-center bg-[var(--color-white)] backdrop-blur-lg rounded-2xl shadow-sm p-4 sm:p-5 
+                         hover:scale-105 transition-transform text-[var(--color-black)]"
             >
-              <span className="text-xs sm:text-sm font-medium text-[var(--color-black)]">{day.day}</span>
-              <div className="mt-2">{day.icon}</div>
-              <div className="flex gap-1 sm:gap-2 mt-2 text-xs sm:text-sm text-[var(--color-black)]">
+             
+              <span className="text-sm sm:text-base font-semibold">
+                {day.day}
+              </span>
+
+             
+              <div className="mt-3 text-[var(--color-secondary)]">
+                {day.icon}
+              </div>
+
+         
+              <p className="mt-2 text-xs sm:text-sm italic">{day.desc}</p>
+
+        
+              <div className="flex gap-1 sm:gap-2 mt-3 text-sm sm:text-base">
                 <span className="font-semibold">{day.max}°</span>
-                <span className="text-[var(--color-black)] opacity-70">{day.min}°</span>
+                <span className="opacity-75">{day.min}°</span>
               </div>
             </div>
           ))}
         </div>
+      </div>
+
+
+      <div className="w-full max-w-4xl mt-10 sm:mt-12">
+        <div className="backdrop-blur-lg rounded-2xl p-6 text-center sm:text-left">
+          <h3 className="text-lg sm:text-xl font-semibold mb-2">
+            Weekly Temperature Overview
+          </h3>
+          <p className="text-sm sm:text-base">
+            Expect mostly warm conditions this week with a mix of sunny and cloudy days. 
+            The highest temperature will reach around <span className="font-bold">30°C</span> on Sunday, 
+            while the coolest night will be about <span className="font-bold">16°C</span> midweek.
+          </p>
+          <br />
+          <p className="text-sm sm:text-base">
+            Rain showers are likely on Wednesday and Saturday, so keep an umbrella handy on those days. 
+            Overall, a pleasant week ahead with comfortable temperatures and moderate humidity levels.
+          </p>
+        </div>
+        <br />
+        <p className="text-center text-sm sm:text-base italic">
+          * Weekly Humidity and Wind Summary / Learn more about weekly weather data.
+        </p>
       </div>
     </div>
   );
