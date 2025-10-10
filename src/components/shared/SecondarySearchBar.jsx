@@ -8,7 +8,8 @@ function SecondarySearchBar({ className = "" }) {
         <input
           type="text"
           placeholder="Search for a city..."
-          className="flex-1 px-4 py-2.5 sm:py-3 text-sm sm:text-base outline-none bg-transparent text-[var(--color-black)] placeholder-gray"
+          className="flex-1 px-4 py-2.5 sm:py-3
+           text-sm sm:text-base outline-none bg-transparent text-[var(--color-black)] placeholder-gray"
         />
         <button
           className="bg-[var(--color-secondary)] text-[var(--color-white)] p-2 sm:p-2.5 hover:bg-[var(--color-secondary-hover)] transition-all duration-300 rounded-full flex items-center justify-center"

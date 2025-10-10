@@ -12,7 +12,7 @@ export default function WeeklyForecastPage() {
   ];
 
   return (
-    <div className="min-h-screen text-[var(--color-black)] flex flex-col items-center px-4 sm:px-8">
+    <div className="min-h-screen text-[var(--color-black)] flex flex-col items-center px-4 sm:px-8 justify-end">
 
       <div className="w-full max-w-5xl mt-8 sm:mt-12">
         <h2 className="text-2xl sm:text-3xl font-semibold text-center sm:text-left mb-6">
@@ -52,17 +52,17 @@ export default function WeeklyForecastPage() {
 
 
       <div className="w-full max-w-4xl mt-10 sm:mt-12">
-        <div className="backdrop-blur-lg rounded-2xl p-6 text-center sm:text-left">
+        <div className="backdrop-blur-lg rounded-2xl text-center sm:text-left">
           <h3 className="text-lg sm:text-xl font-semibold mb-2">
             Weekly Temperature Overview
           </h3>
-          <p className="text-sm sm:text-base">
+          <p className="text-sm sm:text-base text-justify">
             Expect mostly warm conditions this week with a mix of sunny and cloudy days. 
             The highest temperature will reach around <span className="font-bold">30°C</span> on Sunday, 
             while the coolest night will be about <span className="font-bold">16°C</span> midweek.
           </p>
           <br />
-          <p className="text-sm sm:text-base">
+          <p className="text-sm sm:text-base text-justify">
             Rain showers are likely on Wednesday and Saturday, so keep an umbrella handy on those days. 
             Overall, a pleasant week ahead with comfortable temperatures and moderate humidity levels.
           </p>
