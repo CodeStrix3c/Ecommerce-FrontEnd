@@ -27,16 +27,16 @@ export default function OrderDetailsPage() {
   const steps = ["Ordered", "Shipped", "Out for Delivery", "Delivered"];
 
   return (
-    <ContentWrapper compactScreen={true} >
+    <ContentWrapper compactScreen={true}>
       <div className=" md:pt-24 lg:pt-28 mb-3  bg-[var(--color-black-hover)]">
-      <HelpButton />
-      <ProductCard order={order} />
-      <OrderStatus order={order} steps={steps} />
-      <ReviewSection />
-      <PriceSection order={order} />
-      <UpdatesSection order={order} />
-      <OrderIdSection order={order} />
-    </div>
+        <HelpButton />
+        <ProductCard order={order} />
+        <OrderStatus order={order} steps={steps} />
+        <ReviewSection />
+        <PriceSection order={order} />
+        <UpdatesSection order={order} />
+        <OrderIdSection order={order} />
+      </div>
     </ContentWrapper>
   );
 }

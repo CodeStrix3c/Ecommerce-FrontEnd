@@ -1,3 +1,4 @@
+import ContentWrapper from '@/components/shared/ContentWrapper';
 import React, { useState } from 'react';
 
 function ServiceBooking() {
@@ -21,7 +22,8 @@ function ServiceBooking() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <ContentWrapper>
+      <div className="max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold m-6 text-center text-[var(--color-black)]">Service Booking</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -43,6 +45,7 @@ function ServiceBooking() {
         ))}
       </div>
     </div>
+    </ContentWrapper>
   );
 }
 

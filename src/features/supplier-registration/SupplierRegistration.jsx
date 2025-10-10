@@ -60,10 +60,10 @@ export default function SupplierRegistration() {
   };
 
   return (
-    <ContentWrapper>
-      <div className="lg:mt-10 min-h-screen flex items-center justify-center">
+    <ContentWrapper compactScreen>
+      <div className="mt-10 lg:mt-36 md:mt-20 flex items-center justify-center">
         <div className="flex flex-col lg:flex-row w-full overflow-hidden ">
-          <div className="w-full lg:px-64 md:px-20 flex flex-col justify-center">
+          <div className="w-full flex flex-col justify-center ">
             <div className="flex justify-center space-x-4 mb-6 sm:mb-8">
               <div className={`  ${step === 0 ? "" : ""}`}></div>
               <div className={` ${step === 1 ? "" : ""}`}></div>

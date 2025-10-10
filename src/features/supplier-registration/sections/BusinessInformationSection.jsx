@@ -21,7 +21,7 @@ export default function BusinessInformationSection({
   const fetchLocation = async () => {
     setLoading(true);
     try {
-      const { gpsString } = await getCurrentLocation(); // ✅ wait for result
+      const { gpsString } = await getCurrentLocation();
       setGpsLocation(gpsString);
 
       setTimeout(() => {
