@@ -5,16 +5,19 @@ import UserOrderPage from "@/features/orders/userOrders/pages/UserOrdersPage";
 import OrderDetailsPage from "@/features/orders/orderDetails/pages/OrderDetailsPage";
 import DashboardLayout from "@/app/layouts/DashboardLayout";
 import ProtectedLayout from "@/app/layouts/ProtectedLayout";
-import SoilPanel from "@/features/dashboard/farmer-dashboard/pages/SoilPanel";
+import SoilPanel from "@/features/dashboard/farmer-dashboard/pages/SoilWaterNutrientPanel";
 import PestPanel from "@/features/dashboard/farmer-dashboard/pages/PestPanel";
 import FinancialPanel from "@/features/dashboard/farmer-dashboard/pages/FinancialPanel";
 import KnowledgePanel from "@/features/dashboard/farmer-dashboard/pages/KnowledgePanel";
 import AlertPanel from "@/features/dashboard/farmer-dashboard/pages/AlertPanel";
 import WeatherPanel from "@/features/dashboard/farmer-dashboard/pages/WeatherPanel";
 import FarmerOverview from "@/features/dashboard/farmer-dashboard/pages/FarmerOverview";
-import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
 import ResourcesPanel from "@/features/dashboard/farmer-dashboard/pages/ResourcesPanel";
 import OrchardRegistration from "@/features/orchard-registration/OrchardRegistration";
+import SoilWaterNutrientPanel from "@/features/dashboard/farmer-dashboard/pages/SoilWaterNutrientPanel";
+import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
+import SupplierProfileCompletion from "@/features/suppliers/pages/SupplierProfileCompletion";
+import FarmerProfileCompletion from "@/features/farmers/pages/FarmerProfileCompletion";
 
 const SupplierRegistration = lazy(
   () => import("@/features/supplier-registration/SupplierRegistration")
@@ -84,6 +87,10 @@ export default [
       <Route path="/home" element={<IndexPage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
+      <Route
+        path="/farmer-profile-completion"
+        element={<FarmerProfileCompletion />}
+      />
       <Route path="/resources/crop-information" element={<CropInformation />} />
       <Route path="/help-center" element={<AgricultureHelpCenter />} />
       <Route path="/orchard-registration" element={<OrchardRegistration />} />
@@ -105,6 +112,10 @@ export default [
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/supplier-profile" element={<SupplierProfilePage />} />
+      <Route
+        path="/supplier-profile-completion"
+        element={<SupplierProfileCompletion />}
+      />
       <Route path="/spray" element={<SprayPage />} />
       <Route path="/supplier-product" element={<SupplierProductPage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
@@ -118,7 +129,7 @@ export default [
     <Route path="overview" element={<FarmerOverview />} />
     <Route path="orchard" element={<OrchardPanel />} />
     <Route path="weather" element={<WeatherPanel />} />
-    <Route path="soil" element={<SoilPanel />} />
+    <Route path="soil" element={<SoilWaterNutrientPanel />} />
     <Route path="pest" element={<PestPanel />} />
     <Route path="resources" element={<ResourcesPanel />} />
     <Route path="financial" element={<FinancialPanel />} />
