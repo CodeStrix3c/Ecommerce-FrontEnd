@@ -2,13 +2,15 @@ import { useState } from "react";
 import { ShoppingCart, X } from "lucide-react";
 import ImageGalleryModal from "@/components/shared/ImageGalleryModal";
 
+
 const WishlistItem = ({ product, onRemove, onAddToCart }) => {
   const [showGallery, setShowGallery] = useState(false);
 
   return (
     <>
-<div className="group border border-[var(--color-black-hover)] bg-[var(--color-white)] shadow-md hover:shadow-xl transition relative overflow-hidden 
-  rounded-xl sm:rounded-2xl w-full max-w-[320px] mx-auto sm:max-w-none">
+
+  <div className="group border border-[var(--color-black-hover)] bg-[var(--color-white)] shadow-md hover:shadow-xl transition relative overflow-hidden
+  rounded-xl sm:rounded-2xl w-full mx-auto sm:max-w-none">
 
   <div
     className="relative w-full cursor-pointer overflow-hidden bg-[var(--color-black-hover)]"
