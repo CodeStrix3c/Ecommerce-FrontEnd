@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function ProfileCompletion({
   progress,
   isComplete,
-  onCompleteClick,
+  profileCompletionLink,
 }) {
   return (
     <>
@@ -14,20 +15,17 @@ export default function ProfileCompletion({
           </h3>
 
           {!isComplete && (
-            <button
-              onClick={onCompleteClick}
+            <Link
+              to={profileCompletionLink}
               className="text-sm sm:text-base text-[var(--color-secondary)] font-medium mt-2 sm:mt-0 hover:text-[var(--color-secondary-hover)] transition"
             >
               Complete your profile
-            </button>
+            </Link>
           )}
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <div
-            className="flex-1 h-2 bg-[var(--color-gray)] rounded-full overflow-hidden cursor-pointer"
-            onClick={onCompleteClick}
-          >
+          <div className="flex-1 h-2 bg-[var(--color-gray)] rounded-full overflow-hidden cursor-pointer">
             <div
               className="h-2 bg-[var(--color-secondary)] rounded-full transition-all duration-500"
               style={{ width: `${progress * 100}%` }}

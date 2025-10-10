@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useFarmer } from "@/providers/FarmerProvider";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import Popup from "@/components/shared/Popup";
 import FarmerProfileCompletion from "./FarmerProfileCompletion";
 import ProfileAvatar from "@/components/shared/ProfileAvatar";
 import ProfileDetail from "../components/ProfileDetail";
@@ -52,32 +51,34 @@ export default function FarmerProfilePage() {
     <>
       <ContentWrapper compactScreen>
         <div className="space-y-8 lg:space-y-12 lg:py-36">
-          {/* Avatar + Details + Links */}
           <div className="flex flex-col sm:flex-row sm:items-start gap-6">
-            {/* Left: Avatar */}
             <ProfileAvatar
               avatar={farmer?.profilePic || "/assets/images/farmer.jpeg"}
               onEdit={() => setShowIncompleteSection(true)}
             />
 
             <div className="flex-1 flex flex-col gap-4">
-              {/* Simple Links */}
               <div className="flex justify-end gap-3">
                 <Link
+                  to="/dashboard/overview"
+                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
+                >
+                  Dashboard
+                </Link>
+                <Link
                   to="/orchards"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-gray-300 hover:bg-gray-100 transition"
+                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
                 >
                   View Orchards
                 </Link>
                 <Link
                   to="/orchard-registration"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-gray-300 hover:bg-gray-100 transition"
+                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
                 >
                   Add Orchard
                 </Link>
               </div>
 
-              {/* Profile Details */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
                 <ProfileDetail
                   icon={<User />}
@@ -111,11 +112,10 @@ export default function FarmerProfilePage() {
                 />
               </div>
 
-              {/* Profile Completion */}
               <ProfileCompletion
                 progress={progress}
                 isComplete={isComplete}
-                onCompleteClick={() => setShowIncompleteSection(true)}
+                profileCompletionLink={"/farmer-profile-completion"}
                 showPopup={showIncompleteSection}
                 onClosePopup={() => setShowIncompleteSection(false)}
               >
@@ -130,21 +130,6 @@ export default function FarmerProfilePage() {
           </div>
         </div>
       </ContentWrapper>
-
-      {showIncompleteSection && (
-        <Popup
-          open={showIncompleteSection}
-          onClose={() => setShowIncompleteSection(false)}
-          title="Complete Farmer Profile"
-        >
-          <FarmerProfileCompletion
-            gpsLocation={gpsLocation}
-            gpsInputRef={gpsInputRef}
-            onComplete={handleCompleteProfile}
-            detectLocation={detectLocation}
-          />
-        </Popup>
-      )}
     </>
   );
 }
