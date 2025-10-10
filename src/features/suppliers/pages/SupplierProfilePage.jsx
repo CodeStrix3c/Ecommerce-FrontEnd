@@ -1,9 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useSupplier } from "@/providers/SupplierProvider";
 import ProfileCompletion from "../components/ProfileCompletion";
-import SupplierProfileCompletion from "./SupplierProfileCompletion";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import Popup from "@/components/shared/Popup";
 import ProfileDetail from "@/features/farmers/components/ProfileDetail";
 import { Phone, Mail, MapPin, User, Factory, Leaf } from "lucide-react";
 import ProfileAvatar from "@/components/shared/ProfileAvatar";
@@ -11,8 +9,6 @@ import { Link } from "react-router-dom";
 
 export default function SupplierProfilePage() {
   const [showIncompleteSection, setShowIncompleteSection] = useState(false);
-  const [gpsLocation, setGpsLocation] = useState("");
-  const gpsInputRef = useRef(null);
 
   const supplier = {
     name: "Umar Mukhtar",
@@ -49,7 +45,7 @@ export default function SupplierProfilePage() {
   return (
     <>
       <ContentWrapper compactScreen>
-        <div className="space-y-8 lg:space-y-12 lg:py-36">
+        <div className="space-y-8 lg:space-y-12 lg:py-36 md:pt-36">
           <div className="flex flex-col sm:flex-row items-start gap-6">
             <ProfileAvatar
               avatar={supplier.avatar}
@@ -59,7 +55,7 @@ export default function SupplierProfilePage() {
             <div className="flex-1 flex flex-col gap-4">
               <div className="flex justify-end">
                 <Link
-                  to={"/supplier-product"}
+                  to={"/home"}
                   className="text-[var(--color-secondary)] font-medium text-sm sm:text-base hover:text-[var(--color-secondary-hover)]"
                 >
                   View Products
@@ -103,26 +99,12 @@ export default function SupplierProfilePage() {
           <ProfileCompletion
             progress={progress}
             isComplete={isComplete}
-            onCompleteClick={() => setShowIncompleteSection(true)}
+            profileCompletionLink={"/supplier-profile-completion"}
             showPopup={showIncompleteSection}
             onClosePopup={() => setShowIncompleteSection(false)}
           />
         </div>
       </ContentWrapper>
-
-      {showIncompleteSection && (
-        <Popup
-          open={showIncompleteSection}
-          onClose={() => setShowIncompleteSection(false)}
-          title="Complete Supplier Profile"
-        >
-          <SupplierProfileCompletion
-            gpsLocation={gpsLocation}
-            gpsInputRef={gpsInputRef}
-            onComplete={handleCompleteProfile}
-          />
-        </Popup>
-      )}
     </>
   );
 }

@@ -32,15 +32,9 @@ const PaymentDropdown = ({
   getPaymentLabel,
 }) => (
   <div className="mt-3">
-    <button
-      onClick={() => setShowPayment(!showPayment)}
-      className="flex w-full items-center justify-between rounded-md border border-black bg-[var(--color-white)] px-3 py-2 text-sm font-medium hover:bg-[var(--color-black-hover)]"
-    >
-      <span>{getPaymentLabel(selectedPayment)}</span>
-      {showPayment ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-    </button>
-    {showPayment && (
-      <div className="mt-3">
+
+    {(
+      <div className="mt-3 ">
         <PaymentOptions
           selected={selectedPayment}
           onChange={(method) => {

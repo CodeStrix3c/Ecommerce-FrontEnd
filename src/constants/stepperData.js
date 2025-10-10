@@ -24,8 +24,20 @@ export const ORCHARD_STEPS = {
 };
 
 export const PROFILE_STEPS = {
-  labels: ["Profile", "OTP Verification"],
-  descriptions: ["Set up your personal profile", "Verify your number via OTP"],
+  labels: [
+    "Profile Information",
+    "Address Details",
+    "Education Details",
+    "Profession Details",
+    "OTP Verification",
+  ],
+  descriptions: [
+    "Set up your personal profile with basic details like name and contact info.",
+    "Provide your current residential or business address.",
+    "Add your educational background or relevant qualifications.",
+    "Enter your current profession, job role, or business occupation.",
+    "Verify your identity by entering the OTP sent to your registered mobile number.",
+  ],
 };
 
 export const SUPPLIER_STEPS = {

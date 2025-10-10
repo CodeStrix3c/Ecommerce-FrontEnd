@@ -9,7 +9,7 @@ import ProfileSection from "./sections/ProfileSection";
 import OtpVerificationSection from "./sections/OtpVerificationSection";
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
-import FormStepper from "@/features/auth/components/FormStepper";
+import FormStepper from "@/features/auth/components/StepHeader";
 
 import { profileSchema } from "@/features/farmer-registration/schemas/profileSchema";
 import { otpSchema } from "@/features/farmer-registration/schemas/otpSchema";
