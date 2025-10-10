@@ -1,20 +1,40 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import FormLayout from "@/components/shared/FormLayout";
 import FormInput from "@/components/shared/custom-inputs/FormInput";
 import FormSection from "@/features/auth/components/FormSection";
 import CustomButton from "@/components/ui/CustomButton";
 import { GpsFixed } from "@mui/icons-material";
+import { getCurrentLocation } from "@/utils/getCurrentLocation";
 
 export default function AddressSection({
   register,
   errors,
   detectLocation,
-  loading,
   onClick,
-  gpsInputRef,
   value,
   onComplete,
 }) {
+  const [gpsLocation, setGpsLocation] = useState("");
+  const [loading, setLoading] = useState(false);
+  const gpsInputRef = useRef(null);
+  useEffect(() => {
+    fetchLocation();
+  }, []);
+
+  const fetchLocation = async () => {
+    setLoading(true);
+    try {
+      const { gpsString } = await getCurrentLocation();
+      setGpsLocation(gpsString);
+
+      setTimeout(() => {
+        gpsInputRef.current?.focus();
+      }, 100);
+    } catch (err) {
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <FormSection title="Address" actionText="Use Current Location">
       <FormLayout>
@@ -52,7 +72,7 @@ export default function AddressSection({
         <FormInput
           name="gps"
           label="Orchard Location"
-          value={value}
+          value={gpsLocation}
           icon={
             <GpsFixed
               sx={{
@@ -62,7 +82,7 @@ export default function AddressSection({
               }}
             />
           }
-          onClick={onClick || detectLocation}
+          onClick={fetchLocation}
           readOnly
           register={register}
           errors={errors.gps}
@@ -70,7 +90,6 @@ export default function AddressSection({
         />
       </FormLayout>
 
-      {/* Complete Profile Button */}
       {onComplete && (
         <div className="mt-4 flex justify-center">
           <CustomButton

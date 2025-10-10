@@ -44,13 +44,13 @@ export default function ResourcePanel() {
 
   return (
     <ChartCard title="Input & Resource Usage">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {resourceMetrics.map((metric, i) => {
           const Icon = metric.icon;
           return (
             <div
               key={i}
-              className="  p-4 rounded-2xl shadow-md flex items-start space-x-3"
+              className="bg-[var(--color-white)]  p-4 rounded-sm flex items-start space-x-3"
             >
               <div className="p-2 rounded-full shadow-sm bg-[var(--color-white)]">
                 <Icon className="text-[var(--color-secondary)] w-5 h-5" />
@@ -69,7 +69,7 @@ export default function ResourcePanel() {
 
        
       </div>
-       <div className=" mt-6 pt-20 rounded-xl shadow-inner text-[color:var(--color-black)] ">
+       <div className="bg-[var(--color-white)] mt-6 pt-20 px-5 rounded-sm  text-[color:var(--color-black)] ">
           <CustomLineChart
             data={chartData}
             dataKey="fertilizer"

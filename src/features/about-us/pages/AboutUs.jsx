@@ -85,7 +85,7 @@ export default function AboutUs() {
       <section
         className="relative flex items-center justify-center min-h-[70vh] bg-cover bg-center"
         style={{ backgroundImage: 'url("/assets/images/aboutUsBg.jpg")' }}
-      />
+      /> */}
 
       <ContentWrapper compactScreen>
         <div className="py-10">
