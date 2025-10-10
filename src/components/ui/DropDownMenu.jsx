@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Heart, ShoppingCart, Menu, Sidebar } from "lucide-react";
+import { Heart, ShoppingCart, Menu, LayoutDashboard } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
 import { useCartList } from "@/providers/CartListProvider";
@@ -15,7 +15,7 @@ const DropdownMenu = () => {
   const { wishlist } = useWishlist();
   const { cartList } = useCartList();
   const isBelow920 = useIsMobile(920);
-  const isBelow1000 = useIsMobile(1100);
+  const isBelow500 = useIsMobile(620);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,25 +35,26 @@ const DropdownMenu = () => {
 
   return (
     <div className="relative" ref={menuRef}>
-      <div className="flex items-center gap-3">
-        {isSupplierLoggedIn ? (
-          <button
-            onClick={() => navigate("/supplier-profile")}
-            className="rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
-          >
-            Dashboard
-          </button>
-        ) : (
-          !isBelow1000 && (
+      <div className="flex items-center gap-2">
+        {!isBelow500 &&
+          (isSupplierLoggedIn ? (
+            <button
+              onClick={() => navigate("/dashboard/supplier")}
+              className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
+            >
+              <LayoutDashboard className="h-4 w-4" />
+              Supplier Dashboard
+            </button>
+          ) : (
             <Link
               to="/supplier-register"
               className="rounded-full px-3 py-1 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
             >
               Become a Supplier
             </Link>
-          )
-        )}
+          ))}
 
+        {/* Wishlist */}
         <Link
           to="/wishlist"
           className="relative rounded-full p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
@@ -66,6 +67,7 @@ const DropdownMenu = () => {
           )}
         </Link>
 
+        {/* Cart */}
         <Link
           to="/cart"
           className="relative rounded-full p-2 hover:bg-[var(--color-black-hover)] transition-colors duration-200"
@@ -78,14 +80,11 @@ const DropdownMenu = () => {
           )}
         </Link>
 
+        {/* Dropdown Button */}
         <div className="flex items-center space-x-3">
           <button
             onClick={() => setOpen(!open)}
-            className="
-              border rounded-2xl px-3 py-1.5 flex items-center space-x-2
-              bg-[var(--color-black-hover)] hover:bg-[var(--color-black-hover)] 
-              transition
-            "
+            className="border rounded-2xl px-3 py-1.5 flex items-center space-x-2 bg-[var(--color-black-hover)] hover:bg-[var(--color-black-hover)] transition"
           >
             <Menu size={18} className="text-[var(--color-black)]" />
             <AccountCircle sx={{ fontSize: 22, color: "var(--color-black)" }} />
@@ -94,9 +93,17 @@ const DropdownMenu = () => {
       </div>
 
       {isBelow920 ? (
-        <SidebarMobile open={open} onClose={() => setOpen(false)} />
+        <SidebarMobile
+          open={open}
+          onClose={() => setOpen(false)}
+          isSupplierLoggedIn={isSupplierLoggedIn}
+        />
       ) : (
-        <DropdownPanel open={open} onClose={() => setOpen(false)} />
+        <DropdownPanel
+          open={open}
+          onClose={() => setOpen(false)}
+          isSupplierLoggedIn={isSupplierLoggedIn}
+        />
       )}
     </div>
   );

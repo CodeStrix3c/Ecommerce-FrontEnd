@@ -1,4 +1,3 @@
-// components/review/ReviewActions.jsx
 import React from "react";
 import { Box } from "@mui/material";
 import CustomButton from "@/components/ui/CustomButton";

@@ -3,7 +3,7 @@ import DashboardHeader from "../components/DashboardHeader";
 import KPIGrid from "../components/KPIGrid";
 import ChartCard from "../components/ChartCard";
 import WeatherPanel from "./WeatherPanel";
-import SoilPanel from "./SoilPanel";
+import SoilPanel from "./SoilWaterNutrientPanel";
 import PestPanel from "./PestPanel";
 import FinancialPanel from "./FinancialPanel";
 import KnowledgePanel from "./KnowledgePanel";
