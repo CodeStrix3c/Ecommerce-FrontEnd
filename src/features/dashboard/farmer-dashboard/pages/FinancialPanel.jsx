@@ -4,6 +4,7 @@ import ChartCard from "../components/ChartCard";
 import CustomLineChart from "@/components/charts/CustomLineChart";
 import CustomBarChart from "@/components/charts/CustomBarChart";
 import CustomAreaChart from "@/components/charts/CustomAreaChart";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 export default function FinancialPanel() {
   const financialMetrics = [
@@ -27,7 +28,8 @@ export default function FinancialPanel() {
 ];
 
   return (
-    <ChartCard title="Financial & Yield Performance">
+    <ContentWrapper>
+      <ChartCard title="Financial & Yield Performance">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {financialMetrics.map((metric, i) => {
           const Icon = metric.icon;
@@ -60,5 +62,6 @@ export default function FinancialPanel() {
       </CustomLineChart>
       </div>
     </ChartCard>
+    </ContentWrapper>
   );
 }
