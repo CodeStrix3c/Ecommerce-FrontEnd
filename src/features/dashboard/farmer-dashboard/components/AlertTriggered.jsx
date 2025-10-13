@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CloudRain, Bug, Leaf } from "lucide-react";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 export default function AlertTriggered() {
   const [weatherAlerts, setWeatherAlerts] = useState([]);
@@ -9,13 +10,14 @@ export default function AlertTriggered() {
 
   useEffect(() => {
     async function fetchData() {
-      const weatherData = [
-        {
-          title: "Heavy Rainfall Warning",
-          description: "Expected 60mm rainfall in 24h. Avoid irrigation.",
-          source: "IMD",
-        },
-      ];
+      try {
+        const weatherData = [
+          {
+            title: "Heavy Rainfall Warning",
+            description: "Expected 60mm rainfall in 24h. Avoid irrigation.",
+            source: "IMD",
+          },
+        ];
 
       const pestData = [
         {
@@ -55,36 +57,38 @@ export default function AlertTriggered() {
 
   if (loading)
     return (
-      <div className="text-center py-8 text-[var(--color-gray)]">
+      <div className="text-center py-8 text-gray-500">
         Fetching alerts...
       </div>
     );
 
   return (
-    <contentWrapper>
-      <div className="p-4">
-      <h1 className="text-3xl font-bold mb-4 text-center">Major Alert's</h1>
+  
 
-      {/* Responsive layout: column on mobile, row on desktop */}
-      <div className="flex flex-col md:flex-row gap-3 max-w-7xl mx-auto">
+      <div className="h-fit  bg-gray-50">
+      <h1 className=" text-xl font-semibold mb-8  text-gray-800">
+        Major Alerts
+      </h1>
 
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Weather Alerts */}
-        <div className="w-full md:flex-1 border border-[var(--color-black)] rounded-xl">
-          <div className="p-4 flex items-center">
-            <CloudRain className="mr-2 text-[var(--color-primary)]" />
-            <h2 className="font-bold text-lg text-[var(--color-primary)]">
+        <div className="bg-white shadow-md rounded-xl border border-gray-200 flex flex-col overflow-hidden">
+          <div className="flex items-center px-5 py-4 border-b border-gray-200">
+            <CloudRain className="text-blue-600 w-6 h-6 mr-3"/>
+            <h2 className="font-semibold text-lg text-blue-600">
               Weather Alerts
             </h2>
           </div>
-          <div className="p-4 pt-0">
+          <div className="p-5 space-y-4">
             {weatherAlerts.map((alert, i) => (
-              <div key={i} className="p-3 mb-2 rounded-lg shadow-sm bg-[var(--color-white)]">
-                <h3 className="font-medium text-[var(--color-primary)]">{alert.title}</h3>
-                <p className="text-sm text-[var(--color-black)]">{alert.description}</p>
+              <div
+                key={i}
+                className="p-4 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100 transition"
+              >
+                <h3 className="font-medium text-blue-600 mb-1">{alert.title}</h3>
+                <p className="text-sm text-gray-700">{alert.description}</p>
                 {alert.source && (
-                  <p className="text-xs text-[var(--color-black)] mt-1">
-                    Source: {alert.source}
-                  </p>
+                  <p className="text-xs text-gray-500 mt-1">Source: {alert.source}</p>
                 )}
               </div>
             ))}
@@ -92,43 +96,54 @@ export default function AlertTriggered() {
         </div>
 
         {/* Pest Alerts */}
-        <div className="w-full md:flex-1 border border-[var(--color-black)] rounded-xl">
-          <div className="p-4 flex items-center">
-            <Bug className="mr-2 text-[var(--color-secondary)]" />
-            <h2 className="font-bold text-lg text-[var(--color-secondary)]">Pest Alerts</h2>
+        <div className="bg-white shadow-md rounded-xl border border-gray-200 flex flex-col overflow-hidden">
+          <div className="flex items-center px-5 py-4 border-b border-gray-200">
+            <Bug className="text-red-500 w-6 h-6 mr-3" />
+            <h2 className="font-semibold text-lg text-red-500">Pest Alerts</h2>
           </div>
-          <div className="p-4 pt-0">
+          <div className="p-5 space-y-4">
             {pestAlerts.map((alert, i) => (
-              <div key={i} className="p-3 mb-2 rounded-lg shadow-sm bg-[var(--color-white)]">
-                <h3 className="font-medium text-[var(--color-secondary)]">{alert.type}</h3>
-                <p className="text-sm text-[var(--color-black)]"><strong>Severity:</strong> {alert.severity}</p>
-                <p className="text-sm text-[var(--color-black)]"><strong>Area:</strong> {alert.area}</p>
-                <p className="text-sm text-[var(--color-black)] mt-1">{alert.recommendation}</p>
+              <div
+                key={i}
+                className="p-4 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100 transition"
+              >
+                <h3 className="font-medium text-red-500 mb-1">{alert.type}</h3>
+                <p className="text-sm text-gray-700">
+                  <strong>Severity:</strong> {alert.severity}
+                </p>
+                <p className="text-sm text-gray-700">
+                  <strong>Area:</strong> {alert.area}
+                </p>
+                <p className="text-sm text-gray-700 mt-1">{alert.recommendation}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Nutrient Alerts */}
-        <div className="w-full md:flex-1 border border-[var(--color-black)] rounded-xl">
-          <div className="p-4 flex items-center">
-            <Leaf className="mr-2 text-[var(--color-black)]" />
-            <h2 className="font-bold text-lg text-[var(--color-black)]">Nutrient Alerts</h2>
+        <div className="bg-white shadow-md rounded-xl border border-gray-200 flex flex-col overflow-hidden">
+          <div className="flex items-center px-5 py-4 border-b border-gray-200">
+            <Leaf className="text-green-600 w-6 h-6 mr-3" />
+            <h2 className="font-semibold text-lg text-green-600">Nutrient Alerts</h2>
           </div>
-          <div className="p-4 pt-0">
+          <div className="p-5 space-y-4">
             {nutrientAlerts.map((alert, i) => (
-              <div key={i} className="p-3 mb-2 rounded-lg shadow-sm bg-[var(--color-white)]">
-                <h3 className="font-medium text-[var(--color-black)]">
+              <div
+                key={i}
+                className="p-4 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100 transition"
+              >
+                <h3 className="font-medium text-green-600 mb-1">
                   {alert.nutrient} - {alert.level}
                 </h3>
-                <p className="text-sm text-[var(--color-black)]">{alert.action}</p>
+                <p className="text-sm text-gray-700 mt-1">{alert.action}</p>
               </div>
             ))}
           </div>
         </div>
-
       </div>
     </div>
-    </contentWrapper>
+
+
+    
   );
 }
