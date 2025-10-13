@@ -19,42 +19,38 @@ export default function AlertTriggered() {
           },
         ];
 
-        const pestData = [
-          {
-            type: "Locust Risk",
-            severity: "High",
-            area: "North Field",
-            recommendation: "Deploy pheromone traps immediately.",
-          },
-          {
-            type: "Aphid Population Rise",
-            severity: "Moderate",
-            area: "South Farm",
-            recommendation: "Spray neem-based biopesticide.",
-          },
-        ];
+      const pestData = [
+        {
+          type: "Locust Risk",
+          severity: "High",
+          area: "North Field",
+          recommendation: "Deploy pheromone traps immediately.",
+        },
+        {
+          type: "Aphid Population Rise",
+          severity: "Moderate",
+          area: "South Farm",
+          recommendation: "Spray neem-based biopesticide.",
+        },
+      ];
 
-        const nutrientData = [
-          {
-            nutrient: "Nitrogen (N)",
-            level: "Low",
-            action: "Apply urea fertilizer (46% N).",
-          },
-          {
-            nutrient: "Potassium (K)",
-            level: "Deficient",
-            action: "Apply MOP fertilizer (60% K₂O).",
-          },
-        ];
+      const nutrientData = [
+        {
+          nutrient: "Nitrogen (N)",
+          level: "Low",
+          action: "Apply urea fertilizer (46% N).",
+        },
+        {
+          nutrient: "Potassium (K)",
+          level: "Deficient",
+          action: "Apply MOP fertilizer (60% K₂O).",
+        },
+      ];
 
-        setWeatherAlerts(weatherData);
-        setPestAlerts(pestData);
-        setNutrientAlerts(nutrientData);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+      setWeatherAlerts(weatherData);
+      setPestAlerts(pestData);
+      setNutrientAlerts(nutrientData);
+      setLoading(false);
     }
     fetchData();
   }, []);

@@ -13,7 +13,7 @@ import AddressSection from "./sections/AddressSection";
 
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
-import FormStepper from "@/features/auth/components/FormStepper";
+import FormStepper from "@/features/auth/components/StepHeader";
 import { toast } from "react-toastify";
 
 import { demographicsSchema } from "@/features/orchard-registration/schemas/demographicSchema";
@@ -139,8 +139,8 @@ export default function OrchardRegistration() {
   };
 
   return (
-    <ContentWrapper>
-      <div className="mt-10">
+    <ContentWrapper compactScreen>
+      <div className="mt-10 lg:mt-36 md:mt-20">
         <Box
           sx={{
             display: "flex",

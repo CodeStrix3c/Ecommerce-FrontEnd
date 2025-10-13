@@ -1,10 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import {
-  Heart,
-  ShoppingCart,
-  Menu,
-  LayoutDashboard,
-} from "lucide-react";
+import { Heart, ShoppingCart, Menu, LayoutDashboard } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
 import { useCartList } from "@/providers/CartListProvider";
@@ -20,7 +15,7 @@ const DropdownMenu = () => {
   const { wishlist } = useWishlist();
   const { cartList } = useCartList();
   const isBelow920 = useIsMobile(920);
-  const isBelow500 = useIsMobile(500);
+  const isBelow500 = useIsMobile(620);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,16 +35,15 @@ const DropdownMenu = () => {
 
   return (
     <div className="relative" ref={menuRef}>
-      <div className="flex items-center gap-3">
-
-        {!isBelow500 && (
-          isSupplierLoggedIn ? (
+      <div className="flex items-center gap-2">
+        {!isBelow500 &&
+          (isSupplierLoggedIn ? (
             <button
               onClick={() => navigate("/dashboard/orchard")}
               className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] transition-all duration-200 hover:bg-[var(--color-black-hover)]"
             >
               <LayoutDashboard className="h-4 w-4" />
-              Dashboard
+              Supplier Dashboard
             </button>
           ) : (
             <Link
@@ -58,8 +52,7 @@ const DropdownMenu = () => {
             >
               Become a Supplier
             </Link>
-          )
-        )}
+          ))}
 
         {/* Wishlist */}
         <Link
