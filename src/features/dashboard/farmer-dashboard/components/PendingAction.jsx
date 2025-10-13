@@ -1,3 +1,4 @@
+import ContentWrapper from '@/components/shared/ContentWrapper';
 import React, { useState } from 'react'
 
 export default function PendingAction({ initialTasks }) {

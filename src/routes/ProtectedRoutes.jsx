@@ -16,7 +16,8 @@ import ResourcesPanel from "@/features/dashboard/farmer-dashboard/pages/Resource
 import OrchardRegistration from "@/features/orchard-registration/OrchardRegistration";
 import SoilWaterNutrientPanel from "@/features/dashboard/farmer-dashboard/pages/SoilWaterNutrientPanel";
 import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
-
+import SupplierProfileCompletion from "@/features/suppliers/pages/SupplierProfileCompletion";
+import FarmerProfileCompletion from "@/features/farmers/pages/FarmerProfileCompletion";
 
 const SupplierRegistration = lazy(
   () => import("@/features/supplier-registration/SupplierRegistration")
@@ -86,6 +87,10 @@ export default [
       <Route path="/home" element={<IndexPage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
+      <Route
+        path="/farmer-profile-completion"
+        element={<FarmerProfileCompletion />}
+      />
       <Route path="/resources/crop-information" element={<CropInformation />} />
       <Route path="/help-center" element={<AgricultureHelpCenter />} />
       <Route path="/orchard-registration" element={<OrchardRegistration />} />
@@ -107,6 +112,10 @@ export default [
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/supplier-profile" element={<SupplierProfilePage />} />
+      <Route
+        path="/supplier-profile-completion"
+        element={<SupplierProfileCompletion />}
+      />
       <Route path="/spray" element={<SprayPage />} />
       <Route path="/supplier-product" element={<SupplierProductPage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
