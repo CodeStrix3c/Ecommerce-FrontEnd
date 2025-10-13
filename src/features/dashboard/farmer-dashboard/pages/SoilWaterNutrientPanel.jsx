@@ -8,19 +8,11 @@ import {
   BarChart3,
   AlertTriangle,
 } from "lucide-react";
-import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
 import CustomLineChart from "@/components/charts/CustomLineChart";
 import CustomBarChart from "@/components/charts/CustomBarChart";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
+import ContentWrapper from "@/components/shared/ContentWrapper";
+import ChartCard from "../components/ChartCard";
 
 const SoilWaterNutrientPanel = () => {
   const pHData = [
@@ -41,9 +33,9 @@ const SoilWaterNutrientPanel = () => {
     { name: "K", value: 50 },
   ];
   const fertigationData = [
-    { week: "W1", actual: 80, planned: 100 },
-    { week: "W2", actual: 90, planned: 100 },
-    { week: "W3", actual: 85, planned: 100 },
+    { week: "W1", actual: 80 },
+    { week: "W2", actual: 90 },
+    { week: "W3", actual: 85 },
   ];
   const irrigationData = [
     { month: "Jan", liters: 1200 },
@@ -103,9 +95,7 @@ const SoilWaterNutrientPanel = () => {
       icon: <Leaf size={22} color="var(--color-primary)" />,
       value: "1.4%",
       numericValue: 1.4,
-      chart: (
-        <CustomLineChart data={organicData} dataKey="value" xKey="month" />
-      ),
+      chart: <CustomLineChart data={organicData} dataKey="value" xKey="month" />,
     },
     {
       title: "N-P-K Nutrient Levels",
@@ -133,18 +123,14 @@ const SoilWaterNutrientPanel = () => {
       icon: <Droplet size={22} color="var(--color-primary)" />,
       value: "1,250 L/ha",
       numericValue: 1250,
-      chart: (
-        <CustomLineChart data={irrigationData} dataKey="liters" xKey="month" />
-      ),
+      chart: <CustomLineChart data={irrigationData} dataKey="liters" xKey="month" />,
     },
     {
       title: "Water Use Efficiency (%)",
       icon: <Thermometer size={22} color="var(--color-primary)" />,
       value: "80%",
       numericValue: 80,
-      chart: (
-        <CustomBarChart data={efficiencyData} dataKey="eff" xKey="season" />
-      ),
+      chart: <CustomBarChart data={efficiencyData} dataKey="eff" xKey="season" />,
     },
     {
       title: "Deficiency Symptoms Detected (Count/Season)",
@@ -161,40 +147,46 @@ const SoilWaterNutrientPanel = () => {
       ),
     },
   ];
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-[var(--color-black-hover)]">
-      {cards.map((card, index) => {
-        const status = getStatus(card.title, card.numericValue);
-        return (
-          <Card
-            key={index}
-            className="bg-[var(--color-white)] text-[var(--color-black)] rounded-2xl shadow-md hover:shadow-lg transition"
-          >
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                {card.icon}
-                {card.title}
-              </CardTitle>
-              <span
-                className="text-xs font-bold px-2 py-1 rounded-full"
-                style={{
-                  backgroundColor: `${status.color}20`,
-                  color: status.color,
-                }}
+    <ContentWrapper>
+      <ChartCard title="Soil & Nutrient Management">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-5 bg-[var(--color-black-hover)] rounded-xl">
+          {cards.map((card, index) => {
+            const status = getStatus(card.title, card.numericValue);
+            return (
+              <Card
+                key={index}
+                className="bg-[var(--color-white)] text-[var(--color-black)] rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out border border-[var(--color-gray-light)]"
               >
-                {status.text}
-              </span>
-            </CardHeader>
-            <CardContent>
-              <p className="text-lg font-bold text-[var(--color-secondary)]">
-                {card.value}
-              </p>
-              <div className="mt-2">{card.chart}</div>
-            </CardContent>
-          </Card>
-        );
-      })}
-    </div>
+                <CardHeader className="flex flex-row items-center justify-between border-b border-[var(--color-gray-light)] pb-2">
+                  <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                    {card.icon}
+                    <span>{card.title}</span>
+                  </CardTitle>
+                  <span
+                    className="text-xs font-semibold px-2 py-1 rounded-full"
+                    style={{
+                      backgroundColor: `${status.color}25`,
+                      color: status.color,
+                    }}
+                  >
+                    {status.text}
+                  </span>
+                </CardHeader>
+
+                <CardContent className="pt-3">
+                  <p className="text-lg font-bold text-[var(--color-secondary)] mb-2">
+                    {card.value}
+                  </p>
+                  <div className="h-24 md:h-28 lg:h-32">{card.chart}</div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </ChartCard>
+    </ContentWrapper>
   );
 };
 

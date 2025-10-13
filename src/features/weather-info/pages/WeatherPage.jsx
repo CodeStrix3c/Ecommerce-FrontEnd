@@ -29,19 +29,16 @@ export default function WeatherPage() {
 
   return (
     <ContentWrapper compactScreen>
-    <div className="mt-10 lg:mt-36 px-4 sm:px-6 lg:px-32 sm:mt-28">
-  <header className="text-center">
-    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-black)]">
-      Weather Update
-    </h1>
-    <p className=" italic text-base sm:text-lg md:text-xl text-[var(--color-black)] mt-4 sm:mt-6 pb-4 sm:pb-6">
-      Stay ahead with the latest weather forecast
-    </p>
-    <div className="mt-3 sm:mt-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 mx-auto">
-      <SecondarySearchBar />
-    </div>
-  </header>
-</div>
+      <div className="lg:mt-20">
+        <header className="ptmb-10 text-center">
+          <h1 className="lg:mt-24 text-3xl sm:text-4xl font-bold text-[var(--color-black)]">
+             Weather Update
+          </h1>
+          <p className="text-[var(--color-black)] mt-6 text-xl pb-5">
+            Stay ahead with the latest weather forecast
+          </p>
+          <SecondarySearchBar />
+        </header>
 
     
         
