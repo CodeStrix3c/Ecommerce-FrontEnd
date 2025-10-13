@@ -4,6 +4,7 @@ import AlertTriggered from "../components/AlertTriggered";
 import PendingAction from "../components/PendingAction";
 import ServiceBooking from "../components/ServiceBooking";
 import TicketResolved from "../components/TicketResolved";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 export default function AlertPanel() {
   // Placeholder data for alerts and notifications
@@ -16,11 +17,14 @@ export default function AlertPanel() {
   ];
 
   return (
-    <ChartCard title="Alerts & Notifications">
+   <ContentWrapper>
+
+     <ChartCard title="Alerts & Notifications">
     <AlertTriggered/>
     <TicketResolved/>
     <PendingAction/>
     <ServiceBooking/>
     </ChartCard>
+   </ContentWrapper>
   );
 }

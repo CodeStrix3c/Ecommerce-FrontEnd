@@ -14,9 +14,9 @@ export default function TicketResolved({
 }) {
   return (
    <div>
-     <h2 className="text-3xl font-bold text-center m-6 text-[var(--color-black)]">Ticket Query</h2>
+     <h2 className="text-xl font-semibold pt-16 pb-5 text-[var(--color-black)]">Ticket Query</h2>
     <div
-      className="max-w-6xl mx-auto bg-[var(--color-white)] p-6 border rounded-lg border-[var(--color-black)]"
+      className="bg-[var(--color-white)] p-6 border rounded-lg -[var(--color-black)]"
     >
       <header className="flex items-start gap-4">
         <div className="flex-none rounded-full bg-[var(--color-primary-hover)]/10 p-3">

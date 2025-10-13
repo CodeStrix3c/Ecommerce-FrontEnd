@@ -2,6 +2,7 @@ import React from "react";
 import ChartCard from "../components/ChartCard";
 import { BarChart3, Droplet, Clock, CreditCard, Wrench, Shovel } from "lucide-react";
 import CustomLineChart from "@/components/charts/CustomLineChart";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 export default function ResourcePanel() {
   const chartData = [
@@ -43,7 +44,8 @@ export default function ResourcePanel() {
   ];
 
   return (
-    <ChartCard title="Input & Resource Usage">
+    <ContentWrapper>
+      <ChartCard title="Input & Resource Usage">
       <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {resourceMetrics.map((metric, i) => {
           const Icon = metric.icon;
@@ -77,5 +79,6 @@ export default function ResourcePanel() {
           ></CustomLineChart>
         </div>
     </ChartCard>
+    </ContentWrapper>
   );
 }
