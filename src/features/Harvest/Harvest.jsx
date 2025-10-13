@@ -46,10 +46,10 @@ function Harvest() {
         </h2>
 
         {/* Description */}
-        <p className="text-sm md:text-base lg:text-lg text-[var(--color-black)] mt-2 md:mt-3 lg:mt-4 w-full">
+        {/* <p className="text-sm md:text-base lg:text-lg text-[var(--color-black)] mt-2 md:mt-3 lg:mt-4 w-full">
           Harvesting is the process of gathering mature crops from the fields,
           ensuring quality and timely collection for optimal yield.
-        </p>
+        </p> */}
 
         <div className="h-[2px] bg-[var(--color-black-hover)] my-4" />
 

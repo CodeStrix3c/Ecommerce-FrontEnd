@@ -13,7 +13,6 @@ import publicRoutes from "./routes/PublicRoutes";
 import protectedRoutes from "./routes/ProtectedRoutes";
 import axiosInstance from "./api/axiosInstance";
 
-
 function App() {
   useEffect(() => {
     axiosInstance.defaults.headers.common["Authorization"] =

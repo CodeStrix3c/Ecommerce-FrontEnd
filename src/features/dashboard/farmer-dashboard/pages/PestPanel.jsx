@@ -44,8 +44,50 @@ export default function PestPanel() {
               {metric.value}
             </span>
           </div>
-        ))}
+        </div>
+
+        <div className="mt-8 bg-[var(--color-white)] p-5 rounded-2xl shadow-md border border-white backdrop-blur-sm">
+          <h3 className="text-sm font-semibold text-[var(--color-black)] mb-3">
+            Recent Photo Diagnoses
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left border-t border-emerald-50">
+              <thead>
+                <tr className="text-sm text-[var(--color-black)]uppercase">
+                  <th className="py-2">Farmer</th>
+                  <th className="py-2">Title</th>
+                  <th className="py-2">Submitted At</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y ">
+                <tr className="text-gray">
+                  <td className="py-3">Ravi</td>
+                  <td className="py-3">Leaf spots</td>
+                  <td className="py-3">2025-10-01 08:20</td>
+                </tr>
+                <tr className="">
+                  <td className="py-3">Sita</td>
+                  <td className="py-3">Wilting</td>
+                  <td className="py-3">2025-10-02 11:45</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+       
+        <div className="mt-8 flex flex-wrap gap-3">
+          <button className="px-4 py-2 rounded-lg text-[var(--color-black)] text-md shadow-sm border border-sm bg-[var(--color-error)]">
+            Export Report
+          </button>
+          <button className="px-4 py-2 rounded-lg text-[var(--color-black)] text-md shadow-sm border border-sm  bg-[var(--color-primary)]">
+            Edit Advisory Schedule
+          </button>
+        </div>
       </div>
+    </div>
+  );
+}
 
       {/* Risk Trend Placeholder */}
       <div className="mt-6 h-40 bg-[var(--color-black-hover)] rounded-xl flex items-center justify-center text-gray-500 text-sm sm:text-base">
