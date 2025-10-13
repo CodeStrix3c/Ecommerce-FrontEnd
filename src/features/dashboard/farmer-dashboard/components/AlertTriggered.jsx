@@ -50,7 +50,12 @@ export default function AlertTriggered() {
       setWeatherAlerts(weatherData);
       setPestAlerts(pestData);
       setNutrientAlerts(nutrientData);
-      setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch alerts:", error);
+        // You could set an error state here
+      } finally {
+        setLoading(false);
+      }
     }
     fetchData();
   }, []);
@@ -63,10 +68,8 @@ export default function AlertTriggered() {
     );
 
   return (
-  
-
-      <div className="h-fit  bg-gray-50">
-      <h1 className=" text-xl font-semibold mb-8  text-gray-800">
+    <ContentWrapper>
+      <h1 className="text-xl font-semibold mb-8 text-gray-800">
         Major Alerts
       </h1>
 
@@ -141,9 +144,6 @@ export default function AlertTriggered() {
           </div>
         </div>
       </div>
-    </div>
-
-
-    
+    </ContentWrapper>
   );
 }
