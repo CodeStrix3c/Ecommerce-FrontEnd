@@ -87,7 +87,7 @@ const DropdownPanel = ({ open, onClose, isSupplierLoggedIn }) => {
             {isSupplierLoggedIn ? (
               <>
                 <Link
-                  to="/dashboard/overview"
+                  to="/dashboard/orchard"
                   onClick={onClose}
                   className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
                 >

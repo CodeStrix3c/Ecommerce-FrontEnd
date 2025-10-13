@@ -1,5 +1,6 @@
 import React from "react";
 import ChartCard from "../components/ChartCard";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 export default function PestPanel() {
   const pestMetrics = [
@@ -12,27 +13,33 @@ export default function PestPanel() {
     { label: "Avg. Expert Response Time (hrs)", value: "4" },
   ];
 
+  const getRiskColor = (label, value) => {
+    if (label === "Pest/Disease Risk Level") {
+      if (value === "High") return "text-red-600";
+      if (value === "Medium") return "text-yellow-600";
+      return "text-green-600";
+    }
+    return "text-[var(--color-black)]";
+  };
+
   return (
-    <ChartCard title="Pest & Disease Management">
-      <div className="grid grid-cols-2 gap-4">
+   <ContentWrapper>
+     <ChartCard title="Pest & Disease Management">
+      {/* Metric Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {pestMetrics.map((metric, i) => (
           <div
             key={i}
-            className="bg-[var(--color-black-hover)] p-3 rounded-lg flex flex-col items-start justify-center"
+            className="bg-[var(--color-white)]  shadow-sm rounded-xl p-4 flex flex-col justify-between transition-transform hover:scale-[1.02] duration-200"
           >
-            <span className="text-xs text-[var(--color-gray)]">
+            <span className="text-sm font-medium text-gray-600 mb-1">
               {metric.label}
             </span>
             <span
-              className={`text-lg font-semibold ${
-                metric.label === "Pest/Disease Risk Level"
-                  ? metric.value === "High"
-                    ? "text-red-600"
-                    : metric.value === "Medium"
-                      ? "text-yellow-600"
-                      : "text-green-600"
-                  : "text-[var(--color-black)]"
-              }`}
+              className={`text-xl font-semibold ${getRiskColor(
+                metric.label,
+                metric.value
+              )}`}
             >
               {metric.value}
             </span>
@@ -40,10 +47,11 @@ export default function PestPanel() {
         ))}
       </div>
 
-      {/* Placeholder for risk chart / trends */}
-      <div className="mt-4 h-32 bg-[var(--color-white)] rounded shadow flex items-center justify-center text-gray-400">
-        Pest/Disease Risk Trend Placeholder
+      {/* Risk Trend Placeholder */}
+      <div className="mt-6 h-40 bg-[var(--color-black-hover)] rounded-xl flex items-center justify-center text-gray-500 text-sm sm:text-base">
+        Pest / Disease Risk Trend Chart (Coming Soon)
       </div>
     </ChartCard>
+   </ContentWrapper>
   );
 }

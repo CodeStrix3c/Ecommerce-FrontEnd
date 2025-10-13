@@ -117,7 +117,7 @@ export default [
     </Route>
   </Route>,
   <Route path="/dashboard" element={<DashboardLayout />}>
-    <Route path="overview" element={<FarmerOverview />} />
+    {/* <Route path="overview" element={<FarmerOverview />} /> */}
     <Route path="orchard" element={<OrchardPanel />} />
     <Route path="weather" element={<WeatherPanel />} />
     <Route path="soil" element={<SoilWaterNutrientPanel />} />
