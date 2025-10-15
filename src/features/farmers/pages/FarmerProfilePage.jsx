@@ -6,7 +6,10 @@ import ProfileAvatar from "@/components/shared/ProfileAvatar";
 import ProfileDetail from "../components/ProfileDetail";
 import { User, Calendar, Mail, Phone, Book, Briefcase } from "lucide-react";
 import ProfileCompletion from "@/features/suppliers/components/ProfileCompletion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import CustomButton from "@/components/ui/CustomButton";
+import { color } from "framer-motion";
+import { size } from "zod";
 
 export default function FarmerProfilePage() {
   const {
@@ -22,6 +25,7 @@ export default function FarmerProfilePage() {
   const [showIncompleteSection, setShowIncompleteSection] = useState(false);
   const [gpsLocation, setGpsLocation] = useState("");
   const gpsInputRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => detectLocation(), []);
 
@@ -53,30 +57,33 @@ export default function FarmerProfilePage() {
         <div className="space-y-8 lg:space-y-12 lg:py-36">
           <div className="flex flex-col sm:flex-row sm:items-start gap-6">
             <ProfileAvatar
-              avatar={farmer?.profilePic || "/assets/images/farmer.jpeg"}
+              avatar={farmer?.profilePic || "/assets/images/supplier.png"}
               onEdit={() => setShowIncompleteSection(true)}
             />
 
             <div className="flex-1 flex flex-col gap-4">
-              <div className="flex justify-end gap-3">
-                <Link
-                  to="/dashboard/overview"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/orchards"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
-                >
-                  View Orchards
-                </Link>
-                <Link
-                  to="/orchard-registration"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
-                >
-                  Add Orchard
-                </Link>
+              <div className="flex justify-end gap-2 p-1">
+                <CustomButton
+                  color="secondary"
+                  size="small"
+                  variant="outlined"
+                  onClick={() => navigate("/dashboard/orchard")}
+                  text="Dashboard"
+                />
+                <CustomButton
+                  color="secondary"
+                  size="small"
+                  variant="outlined"
+                  onClick={() => navigate("/orchards")}
+                  text="View Orchards"
+                />
+                <CustomButton
+                  color="secondary"
+                  size="small"
+                  variant="outlined"
+                  onClick={() => navigate("/orchard-registration")}
+                  text="Add Orchard"
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
