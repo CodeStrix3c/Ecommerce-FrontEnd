@@ -14,6 +14,7 @@ import {
 } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import logo from "/assets/images/ziraat.jpeg";
+import { X } from "lucide-react";
 
 export default function Sidebar({ collapsed, setCollapsed }) {
   const navigate = useNavigate();
@@ -21,14 +22,42 @@ export default function Sidebar({ collapsed, setCollapsed }) {
 
   const navItems = [
     // { label: "Overview", icon: <BarChart />, to: "/dashboard/overview" },
-    { label: "Orchard Profile & Productivity", icon: <Landscape />, to: "/dashboard/orchard" },
+    {
+      label: "Orchard Profile & Productivity",
+      icon: <Landscape />,
+      to: "/dashboard/orchard",
+    },
     { label: "Weather & Climate", icon: <WbSunny />, to: "/dashboard/weather" },
-    { label: "Soil & Nutrient Management", icon: <Spa />, to: "/dashboard/soil" },
-    { label: "Pest & Disease Management", icon: <BugReport />, to: "/dashboard/pest" },
-    { label: "Input & Resource Usage", icon: <Build />, to: "/dashboard/resources" },
-    { label: "Financial & Yield Performance", icon: <Money />, to: "/dashboard/financial" },
-    { label: "Knowledge & Advisory", icon: <MenuBook />, to: "/dashboard/knowledge" },
-    { label: "Alerts & Notifications", icon: <Notifications />, to: "/dashboard/alerts" },
+    {
+      label: "Soil & Nutrient Management",
+      icon: <Spa />,
+      to: "/dashboard/soil",
+    },
+    {
+      label: "Pest & Disease Management",
+      icon: <BugReport />,
+      to: "/dashboard/pest",
+    },
+    {
+      label: "Input & Resource Usage",
+      icon: <Build />,
+      to: "/dashboard/resources",
+    },
+    {
+      label: "Financial & Yield Performance",
+      icon: <Money />,
+      to: "/dashboard/financial",
+    },
+    {
+      label: "Knowledge & Advisory",
+      icon: <MenuBook />,
+      to: "/dashboard/knowledge",
+    },
+    {
+      label: "Alerts & Notifications",
+      icon: <Notifications />,
+      to: "/dashboard/alerts",
+    },
   ];
 
   useEffect(() => {
@@ -59,23 +88,23 @@ export default function Sidebar({ collapsed, setCollapsed }) {
 
   return (
     <>
-      {/* Menu Button (show only when sidebar is closed) */}
-      {collapsed && (
-        <button
-          onClick={() => setCollapsed(false)}
-          className="fixed top-4 left-4 z-50 p-2 rounded-full shadow-md transition-all duration-200 hover:scale-105"
-          style={{
-            backgroundColor: "var(--color-white)",
-            color: "var(--color-black)",
-          }}
-        >
-          <MenuIcon />
-        </button>
-      )}
-
       {/* Portal for Sidebar Panel and Overlay */}
       {createPortal(
         <>
+          {/* Menu Button (show only when sidebar is closed) */}
+          {collapsed && (
+            <button
+              onClick={() => setCollapsed(false)}
+              className="fixed top-4 left-4 z-[9999] flex items-center justify-center p-2 rounded-full shadow-md transition-all duration-200 hover:scale-105"
+              style={{
+                backgroundColor: "var(--color-white)",
+                color: "var(--color-black)",
+              }}
+            >
+              <MenuIcon />
+            </button>
+          )}
+
           {/* Overlay */}
           {!collapsed && (
             <div
@@ -97,18 +126,23 @@ export default function Sidebar({ collapsed, setCollapsed }) {
           >
             {/* Header */}
             <div
-              className="flex items-center justify-center border-b py-4 cursor-pointer"
+              className="flex items-center justify-between border-b py-4 cursor-pointer"
               style={{ borderColor: "var(--color-gray)" }}
             >
-              <img
-                src={logo}
-                alt="Logo"
-                className="w-24 h-12 object-contain rounded"
-                onClick={() => {
-                  navigate("/home");
-                  setCollapsed(true);
-                }}
-              />
+              <div>
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="w-24 h-12 object-contain rounded"
+                  onClick={() => {
+                    navigate("/home");
+                    setCollapsed(true);
+                  }}
+                />
+              </div>
+              <div className="pr-5 cursor-pointer " onClick={() => setCollapsed(true)}>
+                <X size={20} strokeWidth={2.5} stroke="var(--color-black)"/>
+              </div>
             </div>
             {/* Nav Items */}
             <nav className="flex-1 flex flex-col gap-1 mt-4">

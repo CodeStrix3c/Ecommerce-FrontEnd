@@ -73,9 +73,9 @@ export default function WeatherPanel({ data = mock }) {
      <ChartCard title="Weather & Climate">
       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 ">
         {/* Temperature Card */}
-        <div className="bg-[var(--color-white)]rounded-xl shadow-md flex flex-col justify-between">
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <div>
+        <div className="bg-[var(--color-white)] rounded-md  flex flex-col justify-between">
+          <div className=" flex items-center justify-between flex-wrap gap-3">
+            <div className="p-5">
               <div className="text-xs sm:text-sm text-[var(--color-gray)]">
                 Current Temperature
               </div>
@@ -86,7 +86,7 @@ export default function WeatherPanel({ data = mock }) {
                 7-day forecast
               </div>
             </div>
-            <div className="w-full sm:w-40 h-20 sm:h-24">
+            <div className="w-full sm:w-40 h-fit sm:h-24 p-2">
               <CustomAreaChart
                 data={tempForecastData}
                 dataKey="value"

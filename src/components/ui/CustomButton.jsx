@@ -10,7 +10,56 @@ const CustomButton = ({
   text,
   disabled = false,
   sx = {},
+  size = "medium",
+  color = "primary", // primary | secondary | black | error
 }) => {
+  const sizeStyles = {
+    small: {
+      fontSize: "0.75rem",
+      py: 0.5,
+      px: 2,
+      minWidth: 80,
+    },
+    medium: {
+      fontSize: "0.9rem",
+      py: 1,
+      px: 3,
+      minWidth: 120,
+    },
+    large: {
+      fontSize: "1rem",
+      py: 1.5,
+      px: 4,
+      minWidth: 160,
+    },
+  };
+
+  // 👇 only root color variables used
+  const colorMap = {
+    primary: {
+      main: "var(--color-primary)",
+      hover: "var(--color-primary-hover)",
+      text: "var(--color-white)",
+    },
+    secondary: {
+      main: "var(--color-secondary)",
+      hover: "var(--color-secondary-hover)",
+      text: "var(--color-white)",
+    },
+    black: {
+      main: "var(--color-black)",
+      hover: "var(--color-black-hover)",
+      text: "var(--color-white)",
+    },
+    error: {
+      main: "var(--color-error)",
+      hover: "#d32f2f", // slightly darker red for hover
+      text: "var(--color-white)",
+    },
+  };
+
+  const selectedColor = colorMap[color] || colorMap.primary;
+
   return (
     <Button
       fullWidth={fullWidth}
@@ -20,28 +69,28 @@ const CustomButton = ({
       disabled={disabled || loading}
       sx={{
         textTransform: "none",
-        fontSize: "1rem",
-        py: 1,
-        px: 3,
-        borderRadius: "0.75rem", // consistent with your root comment
+        borderRadius: "1rem",
         fontWeight: 600,
-        minWidth: 120,
         color:
           variant === "contained"
-            ? "var(--color-white)"
-            : "var(--color-primary)", // use root primary color for outlined text
+            ? selectedColor.text
+            : selectedColor.main,
         backgroundColor:
-          variant === "contained" ? "var(--color-primary)" : "transparent",
+          variant === "contained" ? selectedColor.main : "transparent",
         border:
-          variant === "outlined" ? "1.5px solid var(--color-primary)" : "none",
+          variant === "outlined"
+            ? `1.5px solid ${selectedColor.main}`
+            : "none",
         "&:hover": {
           backgroundColor:
             variant === "contained"
-              ? "var(--color-primary-hover)"
-              : "var(--color-black-hover)",
+              ? selectedColor.hover
+              : "rgba(0, 0, 0, 0.04)",
           borderColor:
-            variant === "outlined" ? "var(--color-primary-hover)" : "none",
+            variant === "outlined" ? selectedColor.hover : "none",
         },
+        transition: "all 0.2s ease",
+        ...sizeStyles[size],
         ...sx,
       }}
     >
