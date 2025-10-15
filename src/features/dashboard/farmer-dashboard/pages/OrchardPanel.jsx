@@ -41,8 +41,12 @@ export default function OrchardPanel() {
                 <item.Icon className="w-6 h-6 sm:w-8 sm:h-8 text-[var(--color-secondary)]" />
               </div>
               <div>
-                <p className="text-xs sm:text-sm text-[var(--color-black)]">{item.label}</p>
-                <h2 className="text-lg sm:text-2xl font-semibold">{item.value}</h2>
+                <p className="text-xs sm:text-sm text-[var(--color-black)]">
+                  {item.label}
+                </p>
+                <h2 className="text-lg sm:text-2xl font-semibold">
+                  {item.value}
+                </h2>
               </div>
             </div>
           ))}
@@ -53,17 +57,23 @@ export default function OrchardPanel() {
           {/* CHART */}
           <div className="col-span-1 lg:col-span-2 p-4 sm:p-6 border rounded-md bg-[var(--color-white)] overflow-x-auto">
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-              <h3 className="text-base sm:text-lg font-semibold">Variety & Planting Year Distribution</h3>
-              <p className="text-xs sm:text-sm text-[var(--color-black)]">Area measured in Kanals</p>
+              <h3 className="text-base sm:text-lg font-semibold">
+                Variety & Planting Year Distribution
+              </h3>
+              <p className="text-xs sm:text-sm text-[var(--color-black)]">
+                Area measured in Kanals
+              </p>
             </div>
             <div className="relative z-0">
-  <CustomBarChart data={pHData} dataKey="value" xKey="month" />
-</div>
+              <CustomBarChart data={pHData} dataKey="value" xKey="month" />
+            </div>
           </div>
 
           {/* YIELD SUMMARY */}
           <div className="p-4 sm:p-6 border rounded-md bg-[var(--color-white)] flex flex-col gap-4">
-            <h3 className="text-base sm:text-lg font-semibold">Yield Summary</h3>
+            <h3 className="text-base sm:text-lg font-semibold">
+              Yield Summary
+            </h3>
             <div className="grid grid-cols-1 gap-3">
               {[
                 { label: "Yield per Tree", value: "80 kg/tree" },
@@ -75,8 +85,12 @@ export default function OrchardPanel() {
                   key={index}
                   className="p-3 sm:p-4 border rounded-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
                 >
-                  <p className="text-xs sm:text-sm text-[var(--color-black)]">{item.label}</p>
-                  <h4 className="text-base sm:text-xl font-semibold">{item.value}</h4>
+                  <p className="text-xs sm:text-sm text-[var(--color-black)]">
+                    {item.label}
+                  </p>
+                  <h4 className="text-base sm:text-xl font-semibold">
+                    {item.value}
+                  </h4>
                 </div>
               ))}
             </div>
@@ -86,8 +100,12 @@ export default function OrchardPanel() {
         {/* TABLE */}
         <div className="p-3 sm:p-6 border rounded-md mt-6 bg-[var(--color-white)] overflow-x-auto">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
-            <h3 className="text-base sm:text-lg font-semibold">Registered Orchards</h3>
-            <p className="text-xs sm:text-sm text-[var(--color-black)]">4 entries</p>
+            <h3 className="text-base sm:text-lg font-semibold">
+              Registered Orchards
+            </h3>
+            <p className="text-xs sm:text-sm text-[var(--color-black)]">
+              4 entries
+            </p>
           </div>
           <table className="w-full text-xs sm:text-sm table-auto min-w-[600px]">
             <thead>
