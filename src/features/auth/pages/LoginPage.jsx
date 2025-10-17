@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks";
-import { Button, Divider, Tabs, Tab, Box } from "@mui/material";
+import {
+  Button,
+  Divider,
+  Tabs,
+  Tab,
+  Box,
+  CircularProgress,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -11,19 +18,14 @@ import {
   emailLoginSchema,
 } from "@/features/farmer-registration/schemas/authSchemas";
 import FormInput from "../../../components/shared/custom-inputs/FormInput";
-import PageWrapper from "@/components/shared/AuthPageWrapper";
+import { useLoginMutation } from "@/hooks/useAuthMutation";
 
 const LoginPage = () => {
   const [redirect, setRedirect] = useState(false);
   const [tab, setTab] = useState(0);
   const auth = useAuth();
 
-  // useEffect(() => {
-  //   document.body.style.overflow = "hidden";
-  //   return () => {
-  //     document.body.style.overflow = "auto";
-  //   };
-  // }, []);
+  const { mutate: loginMutate, isPending } = useLoginMutation();
 
   const schema = tab === 0 ? phoneLoginSchema : emailLoginSchema;
 
@@ -32,31 +34,32 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
-  const onSubmit = async (data) => {
-    // Fake response for demonstration
-    console.log(data, "login data");
 
-    const response = { success: true, message: "Login successful!" };
+  const onSubmit = (data) => {
+    const payload =
+      tab === 0
+        ? { phone: data.phone, password: data.password }
+        : { email: data.email, password: data.password };
 
-    if (response.success) {
-      // Set a fake token in localStorage
-      localStorage.setItem("token", "fake-jwt-token-12345");
-
-      toast.success(response.message);
-      setRedirect(true);
-    } else {
-      toast.error(response.message);
-    }
+    loginMutate(payload, {
+      onSuccess: (res) => {
+        console.log(res, "res from login");
+        localStorage.setItem("token", res?.token || "fake-token"); // example
+        toast.success("Login successful!");
+        setRedirect(true);
+      },
+      onError: (err) => {
+        toast.error(
+          err?.response?.data?.error || "Invalid credentials. Please try again."
+        );
+      },
+    });
   };
 
   const handleGoogleLogin = async (credential) => {
-    // Fake response for Google login
     const response = { success: true, message: "Google login successful!" };
-
     if (response.success) {
-      // Set a fake token in localStorage
       localStorage.setItem("token", "fake-google-token-12345");
-
       toast.success(response.message);
       setRedirect(true);
     } else {
@@ -68,16 +71,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex justify-center min-h-screen">
-      <div className="w-full max-w-md bg-var(--color-white) rounded-xl mt-20 lg:mt10">
-        {/* Logo */}
-        {/* <div className="flex justify-center mb-6">
-            <img
-              src="/assets/images/ziraat.jpeg"
-              alt="Ziraat Logo"
-              className="h-16 object-contain"
-            />
-          </div> */}
-
+      <div className="w-full max-w-md bg-var(--color-white) rounded-xl mt-20 lg:mt10 p-6">
         <h1
           className="text-2xl font-semibold mb-6 text-center"
           style={{ color: "var(--color-black)" }}
@@ -141,6 +135,7 @@ const LoginPage = () => {
               fullWidth
               type="submit"
               variant="contained"
+              disabled={isPending}
               sx={{
                 backgroundColor: "var(--color-primary)",
                 "&:hover": { backgroundColor: "var(--color-primary-hover)" },
@@ -151,7 +146,11 @@ const LoginPage = () => {
                 color: "var(--color-white)",
               }}
             >
-              Continue
+              {isPending ? (
+                <CircularProgress size={24} sx={{ color: "white" }} />
+              ) : (
+                "Continue"
+              )}
             </Button>
           </form>
         </Box>
