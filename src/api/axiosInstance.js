@@ -5,14 +5,21 @@ const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  // withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = import.meta.env.VITE_API_TOKEN;
+    const runtimeToken =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    const envToken = import.meta.env.VITE_API_TOKEN;
+    const token = runtimeToken || envToken;
+
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers = config.headers || {};
+      config.headers.Authorization = `Bearer ${envToken}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error)
