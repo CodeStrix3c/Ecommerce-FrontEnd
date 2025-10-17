@@ -82,7 +82,7 @@ export default function AboutUs() {
 
   return (
     <div className="bg-[var(--color-white)] text-[var(--color-black)] mt-8">
-      <section
+      {/* <section
         className="relative flex items-center justify-center min-h-[70vh] bg-cover bg-center"
         style={{ backgroundImage: 'url("/assets/images/aboutUsBg.jpg")' }}
       /> */}
