@@ -7,6 +7,6 @@ export const getProducts = async () => {
 };
 
 export const getProductById = async (id) => {
-  const { data } = await axiosInstance.get(`/products/${id}`);
+  const { data } = await axiosInstance.get(`/api/products/${id}`);
   return data;
 };

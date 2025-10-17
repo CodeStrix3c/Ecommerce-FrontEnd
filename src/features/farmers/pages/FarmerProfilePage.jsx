@@ -60,7 +60,7 @@ export default function FarmerProfilePage() {
             <div className="flex-1 flex flex-col gap-4">
               <div className="flex justify-end gap-3">
                 <Link
-                  to="/dashboard/overview"
+                  to="/dashboard/orchard"
                   className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
                 >
                   Dashboard
