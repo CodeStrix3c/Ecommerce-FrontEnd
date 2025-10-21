@@ -9,18 +9,28 @@ export const signup = async (userData) => {
 };
 
 export const login = async (credentials) => {
-  const { data } = await axiosInstance.post("/login", credentials, {
-    auth: false,
-    headers: {
-      "Content-Type": "application/json",
-    },
+  const { data: loginRes } = await axiosInstance.post("/login", credentials, {
+    headers: { "Content-Type": "application/json" },
   });
 
-  if (data.token) {
-    localStorage.setItem("jwtToken", data.token);
+  if (!loginRes?.success || !loginRes?.userId) {
+    throw new Error("Invalid credentials");
   }
 
-  return data;
+  const { data: tokenRes } = await axiosInstance.get(
+    `/generate-token?userId=${loginRes.userId}`
+  );
+
+  if (!tokenRes?.token) {
+    throw new Error("Failed to fetch JWT token");
+  }
+
+  localStorage.setItem("jwtToken", tokenRes.token);
+
+  return {
+    ...loginRes,
+    token: tokenRes.token,
+  };
 };
 
 export const logout = () => {
