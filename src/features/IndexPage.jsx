@@ -1,15 +1,11 @@
 import CarousalSection from "@/components/shared/CarousalSection";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import { dummyData } from "@/data/dummyData";
-import { useProductQuery, useProductsQuery } from "@/hooks/useProductsQuery";
 
 const IndexPage = () => {
   const dummyData1 = dummyData.slice(0, 8);
   const dummyData2 = dummyData.slice(8, 15);
   const dummyData3 = dummyData.slice(10);
-
-  const { data, isLoading, error } = useProductsQuery();
-  console.log(data, "data from index page");
 
   return (
     <ContentWrapper>
