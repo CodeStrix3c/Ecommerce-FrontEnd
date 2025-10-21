@@ -106,9 +106,9 @@ export default function WeatherPage() {
     </p>
   </div>
 
-  <WeatherHighlights />
-
-  <WeatherHourlyForecast />
+  <WeatherHighlights/>
+  
+  <WeatherHourlyForecast/>
 
 
   <div className="mt-8 sm:mt-10">
