@@ -17,11 +17,11 @@ import { toast } from "react-toastify";
 
 const DropdownPanel = ({ open, onClose, isSupplierLoggedIn }) => {
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem("token");
+  const isLoggedIn = !!localStorage.getItem("userLoginToken");
   const isMobile = useIsMobile(1100);
 
   const handleLogout = () => {
-    removeItemFromLocalStorage("token");
+    removeItemFromLocalStorage("userLoginToken");
     removeItemFromLocalStorage("loginData");
     toast.success("Logged out successfully!");
     navigate("/login");

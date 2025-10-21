@@ -13,14 +13,13 @@ export default function FormInput({
   inputRef = null,
   value,
   errors,
-  required = true, // true = required, false = optional, null = plain
+  required = true,
   onClick,
 }) {
-  // Decide which label to render
   const getLabel = () => {
     if (required === true) return <RequiredLabel label={label} />;
     if (required === false) return <OptionalLabel label={label} />;
-    return label; // plain string if null
+    return label;
   };
 
   return (
