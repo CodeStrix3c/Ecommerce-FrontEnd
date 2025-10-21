@@ -13,7 +13,6 @@ import FormStepper from "@/features/auth/components/StepHeader";
 
 import { profileSchema } from "@/features/farmer-registration/schemas/profileSchema";
 import { otpSchema } from "@/features/farmer-registration/schemas/otpSchema";
-import PageWrapper from "@/components/shared/AuthPageWrapper";
 import { useFarmer } from "@/providers/FarmerProvider";
 import { OTP_FIELDS, PROFILE_FIELDS } from "../../constants/profileFields";
 
@@ -29,6 +28,7 @@ export default function SignUpPage() {
   const navigate = useNavigate();
 
   const { mutate: signupMutate, isPending } = useSignupMutation();
+
   // console.log(signup, "signup mutation");
 
   const methods = useForm({
@@ -72,18 +72,18 @@ export default function SignUpPage() {
       return;
     }
 
-    const payload = {
-      Email: values.email,
-      FullName: values.fullName,
-      // Phone: values.phone,
-      Password: values.password,
-      ConfirmPassword: values.confirmPassword,
-      // Age: values.age,
-      // Gender: values.gender,
-    };
-    console.log(payload, "payload");
+    // const payload = {
+    //   Email: values.email,
+    //   FullName: values.fullName,
+    //   // Phone: values.phone,
+    //   Password: values.password,
+    //   ConfirmPassword: values.confirmPassword,
+    //   // Age: values.age,
+    //   // Gender: values.gender,
+    // };
+    // console.log(payload, "payload");
 
-    signupMutate(payload, {
+    signupMutate(values, {
       onSuccess: (data) => {
         console.log("Signup success:", data);
         toast.success("Signup successful!");
