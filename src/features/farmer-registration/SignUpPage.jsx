@@ -28,7 +28,7 @@ export default function SignUpPage() {
   const { setProfileComplete, setOtpComplete } = useFarmer();
   const navigate = useNavigate();
 
-  const { mutate: signupMutate, isLoading } = useSignupMutation();
+  const { mutate: signupMutate, isPending } = useSignupMutation();
   // console.log(signup, "signup mutation");
 
   const methods = useForm({
@@ -90,8 +90,8 @@ export default function SignUpPage() {
         navigate("/login");
       },
       onError: (err) => {
-        console.error("Signup failed:", err);
-        toast.error(err.response?.data?.message || "Signup failed");
+        console.error("Signup failed:", err.response.data[""][0]);
+        toast.error(err.response?.data[""][0] || "Signup failed");
       },
     });
   };
@@ -130,8 +130,8 @@ export default function SignUpPage() {
               borderRadius: 2,
               py: 3,
               position: "relative",
-              opacity: isLoading ? 0.6 : 1,
-              pointerEvents: isLoading ? "none" : "auto",
+              opacity: isPending ? 0.6 : 1,
+              pointerEvents: isPending ? "none" : "auto",
             }}
           >
             {step === 0 && (
@@ -147,7 +147,7 @@ export default function SignUpPage() {
               nextStep={nextStep}
               prevStep={prevStep}
               handleSubmit={handleSubmitClick}
-              isLoading={isLoading}
+              isPending={isPending}
             />
           </Box>
         </Box>
