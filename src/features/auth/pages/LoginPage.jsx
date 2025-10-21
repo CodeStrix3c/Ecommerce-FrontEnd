@@ -19,6 +19,7 @@ import {
 } from "@/features/farmer-registration/schemas/authSchemas";
 import FormInput from "../../../components/shared/custom-inputs/FormInput";
 import { useLoginMutation } from "@/hooks/useAuthMutation";
+import { setItemsInLocalStorage } from "@/utils/localStorage";
 
 const LoginPage = () => {
   const [redirect, setRedirect] = useState(false);
@@ -44,7 +45,8 @@ const LoginPage = () => {
     loginMutate(payload, {
       onSuccess: (res) => {
         console.log(res, "res from login");
-        localStorage.setItem("token", res?.token || "fake-token"); // example
+        setItemsInLocalStorage("userLoginToken", res.token);
+        // localStorage.setItem("token", res?.token || "fake-token");
         toast.success("Login successful!");
         setRedirect(true);
       },
