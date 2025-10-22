@@ -1,5 +1,12 @@
 import axiosInstance from "@/api/axiosInstance";
 
+export const supplierSignup = async(userData) => {
+
+  const {data} =await axiosInstance.post ()
+
+
+  }
+
 export const signup = async (userData) => {
   // console.log(userData, "userData....");
 
@@ -18,6 +25,8 @@ export const login = async (credentials) => {
       headers: { "Content-Type": "application/json" },
     }
   );
+
+  
 
   // if (!loginRes?.success || !loginRes?.userId) {
   //   throw new Error("Invalid credentials");

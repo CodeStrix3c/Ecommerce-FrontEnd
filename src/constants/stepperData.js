@@ -9,6 +9,7 @@ export const ORCHARD_STEPS = {
     "Production & Marketing",
     "Input Cost Details",
     "Future-Proof Fields",
+  
   ],
   descriptions: [
     "Enter basic farmer and household info",
@@ -20,6 +21,7 @@ export const ORCHARD_STEPS = {
     "Enter production and marketing information such as yield, harvest season, and selling preferences",
     "Add details about pesticide supplier locations, payment type, and credit period",
     "Provide information on government schemes, memberships, certifications, and digital tools",
+  
   ],
 };
 
@@ -30,13 +32,15 @@ export const PROFILE_STEPS = {
     "Education Details",
     "Profession Details",
     "OTP Verification",
-  ],
+  
+  ], 
   descriptions: [
     "Set up your personal profile with basic details like name and contact info.",
     "Provide your current residential or business address.",
     "Add your educational background or relevant qualifications.",
     "Enter your current profession, job role, or business occupation.",
     "Verify your identity by entering the OTP sent to your registered mobile number.",
+  
   ],
 };
 
@@ -49,6 +53,7 @@ export const SUPPLIER_STEPS = {
     "Financial & Payment",
     "Support & Services",
     // "Verification & Ratings",
+
   ],
   descriptions: [
     "Provide shop/business details and contact info",
@@ -58,5 +63,6 @@ export const SUPPLIER_STEPS = {
     "Add bank/UPI details, payout preferences, and credit facility",
     "Indicate advisory, staff availability, after-sales service, and logistics",
     // "Get verified badge, dealer rating, and farmer feedback reviews",
+  
   ],
 };
