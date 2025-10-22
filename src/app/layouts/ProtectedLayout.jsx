@@ -9,9 +9,19 @@ const ProtectedLayout = () => {
   const location = useLocation();
 
   const firstPath = location.pathname.split("/")[1];
+  const isCartPage = location.pathname === "/cart";
+  const isPlacePage = firstPath === "place";
 
-  const footerPadding =
-    firstPath === "place" && isMobile ? "pb-44" : isMobile ? "pb-12" : "";
+  let bottomPadding = "";
+  if (isMobile) {
+    if (isCartPage) {
+      bottomPadding = "pb-28";
+    } else if (isPlacePage) {
+      bottomPadding = "pb-44";
+    } else {
+      bottomPadding = "pb-12";
+    }
+  }
 
   return (
     <>
@@ -19,7 +29,7 @@ const ProtectedLayout = () => {
       <div className="min-h-screen">
         <Outlet />
       </div>
-      <div className={footerPadding}>
+      <div className={bottomPadding}>
         <Footer />
       </div>
     </>
