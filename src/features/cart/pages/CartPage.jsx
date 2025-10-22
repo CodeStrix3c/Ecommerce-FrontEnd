@@ -58,7 +58,7 @@ const CartPage = () => {
                   product={product}
                   onRemove={removeFromCart}
                 />
-                {isMobile && <hr />}
+                {isMobile && cartList.length > 1 && <hr />}
               </>
             ))}
           </div>

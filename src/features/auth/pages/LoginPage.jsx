@@ -79,7 +79,7 @@ const LoginPage = () => {
           className="text-2xl font-semibold mb-6 text-center"
           style={{ color: "var(--color-black)" }}
         >
-          Log in or sign up
+          Log in to your account
         </h1>
 
         <Tabs

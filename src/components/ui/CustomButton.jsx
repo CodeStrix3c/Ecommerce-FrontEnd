@@ -68,26 +68,22 @@ const CustomButton = ({
       onClick={onClick}
       disabled={disabled || loading}
       sx={{
+        boxShadow: "none",
         textTransform: "none",
         borderRadius: "1rem",
         fontWeight: 600,
         color:
-          variant === "contained"
-            ? selectedColor.text
-            : selectedColor.main,
+          variant === "contained" ? selectedColor.text : selectedColor.main,
         backgroundColor:
           variant === "contained" ? selectedColor.main : "transparent",
         border:
-          variant === "outlined"
-            ? `1.5px solid ${selectedColor.main}`
-            : "none",
+          variant === "outlined" ? `1.5px solid ${selectedColor.main}` : "none",
         "&:hover": {
           backgroundColor:
             variant === "contained"
               ? selectedColor.hover
               : "rgba(0, 0, 0, 0.04)",
-          borderColor:
-            variant === "outlined" ? selectedColor.hover : "none",
+          borderColor: variant === "outlined" ? selectedColor.hover : "none",
         },
         transition: "all 0.2s ease",
         ...sizeStyles[size],
