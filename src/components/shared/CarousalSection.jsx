@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import Slider from "react-slick";
 import PlaceCard from "@/features/places/components/PlaceCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -16,12 +16,16 @@ const CarousalSection = ({ title, places, loading }) => {
   const settings = useMemo(
     () => ({
       dots: false,
-      speed: 500,
+      speed: 450,
+      cssEase: "cubic-bezier(.25,.8,.25,1)",
       slidesToShow: isMobile ? 2.1 : 7,
-      // slidesToScroll: 7,
+      slidesToScroll: 1,
       swipeToSlide: true,
+      touchMove: true,
+      touchThreshold: 5,
       arrows: false,
       infinite: false,
+      lazyLoad: "ondemand",
       beforeChange: (_, next) => setCurrentSlide(next),
       responsive: [
         { breakpoint: 400, settings: { slidesToShow: 1.1 } },
@@ -36,7 +40,79 @@ const CarousalSection = ({ title, places, loading }) => {
   );
 
   const disablePrev = currentSlide === 0;
-  const disableNext = currentSlide >= totalSlides - settings.slidesToShow;
+  const disableNext =
+    currentSlide >= totalSlides - Math.ceil(isMobile ? 2.1 : 7);
+
+  useEffect(() => {
+    const listEl = sliderRef.current?.innerSlider?.list;
+    if (!listEl) return;
+
+    let startX = 0;
+    let startTime = 0;
+
+    const getClientX = (e) => {
+      if (e.touches && e.touches[0]) return e.touches[0].clientX;
+      if (e.changedTouches && e.changedTouches[0])
+        return e.changedTouches[0].clientX;
+      return e.clientX;
+    };
+
+    const onPointerDown = (e) => {
+      startX = getClientX(e);
+      startTime = performance.now();
+    };
+
+    const onPointerUp = (e) => {
+      const endX = getClientX(e);
+      const deltaX = endX - startX;
+      const dt = performance.now() - startTime;
+      const absDelta = Math.abs(deltaX);
+
+      if (absDelta < 10 || dt <= 0) return;
+
+      const slideEl = listEl.querySelector(".slick-slide");
+      const slideWidth = slideEl
+        ? slideEl.getBoundingClientRect().width
+        : listEl.clientWidth / (isMobile ? 2.1 : 7);
+
+      const velocity = absDelta / dt;
+
+      const distanceSlides = Math.max(
+        1,
+        Math.round(absDelta / Math.max(1, slideWidth))
+      );
+
+      // if swipe is fast, amplify slides to move
+      // tweak thresholds/multiplier as needed
+      const multiplier = velocity > 0.8 ? 2 : velocity > 0.5 ? 1.5 : 1;
+      const slidesToMove = Math.min(
+        totalSlides,
+        Math.max(1, Math.round(distanceSlides * multiplier))
+      );
+
+      if (slidesToMove <= 1) return;
+
+      const direction = deltaX < 0 ? 1 : -1;
+      const target = Math.max(
+        0,
+        Math.min(totalSlides - 1, currentSlide + direction * slidesToMove)
+      );
+
+      sliderRef.current?.slickGoTo(target);
+    };
+
+    listEl.addEventListener("pointerdown", onPointerDown);
+    listEl.addEventListener("pointerup", onPointerUp);
+    listEl.addEventListener("touchstart", onPointerDown, { passive: true });
+    listEl.addEventListener("touchend", onPointerUp);
+
+    return () => {
+      listEl.removeEventListener("pointerdown", onPointerDown);
+      listEl.removeEventListener("pointerup", onPointerUp);
+      listEl.removeEventListener("touchstart", onPointerDown);
+      listEl.removeEventListener("touchend", onPointerUp);
+    };
+  }, [currentSlide, isMobile, totalSlides]);
 
   return (
     <div className="mt-0">

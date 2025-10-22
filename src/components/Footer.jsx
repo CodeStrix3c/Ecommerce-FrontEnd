@@ -7,8 +7,8 @@ const Footer = () => {
   return (
     <div className="flex w-full justify-center bg-[var(--color-black-hover)] pb-8 mt-10">
       <ContentWrapper>
-        <div className="flex w-full flex-col items-center">
-          <div className="grid w-full grid-cols-1 gap-4 py-8 text-sm md:grid-cols-3">
+        <div className="flex w-full flex-col items-end">
+          <div className="grid w-full grid-cols-2 gap-10 py-8 text-sm md:grid-cols-3">
             <div className="flex flex-col gap-4">
               <strong className="font-medium text-[var(--color-black)]">
                 Support
