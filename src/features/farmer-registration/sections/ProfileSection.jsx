@@ -48,7 +48,6 @@ export default function ProfileSection({ register, errors, control }) {
         errors={errors.age}
       />
 
-      {/* ✅ Gender dropdown */}
       <Controller
         name="gender"
         control={control}
@@ -66,14 +65,19 @@ export default function ProfileSection({ register, errors, control }) {
           />
         )}
       />
-      <FileUploadField
+      <Controller
         name="profilePic"
-        label="Upload Profile"
-        register={register}
-        variant="profile"
-        errors={errors}
-        showPreview={false}
-        optional
+        control={control}
+        render={({ field, fieldState }) => (
+          <FileUploadField
+            {...field}
+            label="Upload Profile"
+            errors={fieldState.error ? { profilePic: fieldState.error } : {}}
+            onFilesChange={(files) => field.onChange(files)}
+            showPreview
+            optional
+          />
+        )}
       />
 
       <FormInput

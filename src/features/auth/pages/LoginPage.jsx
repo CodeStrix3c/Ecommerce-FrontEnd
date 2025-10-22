@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks";
@@ -22,6 +22,7 @@ import { useLoginMutation } from "@/hooks/useAuthMutation";
 import { setItemsInLocalStorage } from "@/utils/localStorage";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
   const [tab, setTab] = useState(0);
   const auth = useAuth();
@@ -46,7 +47,6 @@ const LoginPage = () => {
       onSuccess: (res) => {
         console.log(res, "res from login");
         setItemsInLocalStorage("userLoginToken", res.token);
-        // localStorage.setItem("token", res?.token || "fake-token");
         toast.success("Login successful!");
         setRedirect(true);
       },
@@ -63,6 +63,7 @@ const LoginPage = () => {
     if (response.success) {
       localStorage.setItem("token", "fake-google-token-12345");
       toast.success(response.message);
+      navigate("/home");
       setRedirect(true);
     } else {
       toast.error(response.message);
