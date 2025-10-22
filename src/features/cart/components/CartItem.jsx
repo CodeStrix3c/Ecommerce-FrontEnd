@@ -25,13 +25,15 @@ const CartItem = ({ product, onRemove }) => {
               />
             </div>
             {product.photos?.length > 1 && (
-              <div className="absolute bottom-2 right-2 bg-[var(--color-black)] bg-opacity-70 text-[var(--color-white)] text-xs px-2 py-1 rounded-md">
+              <div
+                className="absolute bottom-2 right-2 bg-[var(--color-black)] bg-opacity-70 text-[var(--color-white)] text-xs px-2 py-1 rounded-md"
+                onClick={() => setShowGallery(true)}
+              >
                 +{product.photos.length - 1} more
               </div>
             )}
           </div>
 
-          {/* Info */}
           <div className="flex flex-col justify-center flex-grow">
             <div>
               <p className="text-sm text-[var(--color-neutral-dark)] line-clamp-1">
