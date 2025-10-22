@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import React, { useState } from "react";
 import RequiredLabel from "@/components/ui/RequiredLabel";
 import OptionalLabel from "@/components/ui/OptionalLabel";
 
@@ -26,25 +26,21 @@ export default function FormInput({
     return label;
   };
 
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const getInputType = () => {
-    if (type === "password") return showPassword ? "text" : "password";
-    return type;
-  };
-
-  const renderIcon = () => {
+  const getEndAdornment = () => {
     if (type === "password") {
       return (
         <InputAdornment position="end">
-          <IconButton onClick={handleTogglePassword} edge="end">
+          <IconButton
+            onClick={() => setShowPassword((prev) => !prev)}
+            edge="end"
+            tabIndex={-1}
+          >
             {showPassword ? <VisibilityOff /> : <Visibility />}
           </IconButton>
         </InputAdornment>
       );
-    } else if (icon) {
+    }
+    if (icon) {
       return (
         <InputAdornment position="end" onClick={onClick}>
           {icon}
@@ -60,14 +56,19 @@ export default function FormInput({
       defaultValue=""
       value={value}
       inputRef={inputRef}
-      type={getInputType()}
+      type={type === "password" && showPassword ? "text" : type}
       label={getLabel()}
       variant="outlined"
       size={size}
       helperText={errors?.message}
-      InputProps={{
-        endAdornment: renderIcon(),
+      slotProps={{
+        formHelperText: {
+          sx: { color: "var(--color-error)" },
+        },
         readOnly,
+        input: {
+          endAdornment: getEndAdornment(),
+        },
       }}
       {...register(name)}
     />
