@@ -23,6 +23,36 @@ const sprayHistoryData = [
     cost: 7000,
   },
   {
+    id: 2,
+    type: "Fertilizer",
+    name: "GrowFast",
+    quantity: "2 kg",
+    waterUsed: "15 L",
+    totalTrees: 40,
+    date: "26 Sep 2025",
+    cost: 7000,
+  },
+  {
+    id: 2,
+    type: "Fertilizer",
+    name: "GrowFast",
+    quantity: "2 kg",
+    waterUsed: "15 L",
+    totalTrees: 40,
+    date: "26 Sep 2025",
+    cost: 7000,
+  },
+  {
+    id: 2,
+    type: "Fertilizer",
+    name: "GrowFast",
+    quantity: "2 kg",
+    waterUsed: "15 L",
+    totalTrees: 40,
+    date: "26 Sep 2025",
+    cost: 7000,
+  },
+  {
     id: 3,
     type: "Pesticide",
     name: "BugAway",
@@ -52,7 +82,7 @@ export default function SprayHistory() {
             <div className="flex flex-col ">
               <span className="font-semibold mb-3 text-[var(--color-black)] text-xl sm:text-l">
                 {item.name}
-                <span className="ml-2 text-[var(--color-secondary)] text-l sm:text-l">
+                <span className="ml-2 text-[var(--color-secondary)] text-sm sm:text-l">
                   {item.type}
                 </span>
               </span>
