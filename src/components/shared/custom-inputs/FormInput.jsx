@@ -1,4 +1,6 @@
-import { TextField, InputAdornment } from "@mui/material";
+import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import React, { useState } from "react";
 import RequiredLabel from "@/components/ui/RequiredLabel";
 import OptionalLabel from "@/components/ui/OptionalLabel";
 
@@ -16,35 +18,56 @@ export default function FormInput({
   required = true,
   onClick,
 }) {
+  const [showPassword, setShowPassword] = useState(false);
+
   const getLabel = () => {
     if (required === true) return <RequiredLabel label={label} />;
     if (required === false) return <OptionalLabel label={label} />;
     return label;
   };
 
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const getInputType = () => {
+    if (type === "password") return showPassword ? "text" : "password";
+    return type;
+  };
+
+  const renderIcon = () => {
+    if (type === "password") {
+      return (
+        <InputAdornment position="end">
+          <IconButton onClick={handleTogglePassword} edge="end">
+            {showPassword ? <VisibilityOff /> : <Visibility />}
+          </IconButton>
+        </InputAdornment>
+      );
+    } else if (icon) {
+      return (
+        <InputAdornment position="end" onClick={onClick}>
+          {icon}
+        </InputAdornment>
+      );
+    }
+    return null;
+  };
+
   return (
     <TextField
       fullWidth
-      defaultValue={""}
+      defaultValue=""
       value={value}
       inputRef={inputRef}
-      type={type}
+      type={getInputType()}
       label={getLabel()}
       variant="outlined"
       size={size}
       helperText={errors?.message}
-      slotProps={{
-        formHelperText: {
-          sx: { color: "var(--color-error)" },
-        },
+      InputProps={{
+        endAdornment: renderIcon(),
         readOnly,
-        input: {
-          endAdornment: icon ? (
-            <InputAdornment position="end" onClick={onClick}>
-              {icon}
-            </InputAdornment>
-          ) : null,
-        },
       }}
       {...register(name)}
     />

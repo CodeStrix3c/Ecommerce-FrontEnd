@@ -7,7 +7,7 @@ const CartItem = ({ product, onRemove }) => {
 
   return (
     <>
-      <div className="md:border rounded-2xl py-4 transition bg-[var(--color-white)] hover:shadow-md">
+      <div className="md:border rounded-2xl py-4 transition bg-[var(--color-white)]">
         <h3 className="text-lg font-semibold text-[var(--color-neutral-dark)] mb-3">
           {product.title}
         </h3>
