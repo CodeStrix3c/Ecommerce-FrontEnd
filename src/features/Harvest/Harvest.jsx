@@ -41,7 +41,7 @@ function Harvest() {
   return (
     <ContentWrapper compactScreen>
       <div className="py-16 md:py-24 lg:py-36">
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[var(--color-black)]">
+        <h2 className="text-4xl md:text-2xl lg:text-3xl font-semibold text-[var(--color-black)]">
           Harvest
         </h2>
 
