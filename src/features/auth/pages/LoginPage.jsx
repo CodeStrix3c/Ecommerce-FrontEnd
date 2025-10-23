@@ -38,24 +38,25 @@ const LoginPage = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = (data) => {
-    const payload =
-      tab === 0
-        ? { phone: data.phone, password: data.password }
-        : { email: data.email, password: data.password };
+    setRedirect(true);
+    // const payload =
+    //   tab === 0
+    //     ? { phone: data.phone, password: data.password }
+    //     : { email: data.email, password: data.password };
 
-    loginMutate(payload, {
-      onSuccess: (res) => {
-        console.log(res, "res from login");
-        setItemsInLocalStorage("userLoginToken", res.token);
-        toast.success("Login successful!");
-        setRedirect(true);
-      },
-      onError: (err) => {
-        toast.error(
-          err?.response?.data?.error || "Invalid credentials. Please try again."
-        );
-      },
-    });
+    // loginMutate(payload, {
+    //   onSuccess: (res) => {
+    //     console.log(res, "res from login");
+    //     setItemsInLocalStorage("userLoginToken", res.token);
+    //     toast.success("Login successful!");
+    //     setRedirect(true);
+    //   },
+    //   onError: (err) => {
+    //     toast.error(
+    //       err?.response?.data?.error || "Network error. Please try again later."
+    //     );
+    //   },
+    // });
   };
 
   const handleGoogleLogin = async (credential) => {
