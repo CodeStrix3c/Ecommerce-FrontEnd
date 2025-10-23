@@ -11,7 +11,7 @@ export const useSignupMutation = () => {
       console.error("Signup error:", error);
     },
   });
-};
+};  
 
 export const useLoginMutation = () => {
   return useMutation({
