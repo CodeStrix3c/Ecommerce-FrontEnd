@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import Spinner from "@/components/ui/Spinner";
@@ -16,19 +16,14 @@ import Testimonials from "@/features/reviews/pages/Testimonials";
 import HighlightBanner from "@/features/reviews/components/HighlightBanner";
 import ExploreNearby from "../components/ExploreNearby";
 import SharePopUp from "@/components/ui/SharePopUp";
-import useIsMobile from "@/hooks/useInMobile";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 
 const PlacePage = () => {
   const { id } = useParams();
-  const location = useLocation();
 
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sharePopUp, setSharePopUp] = useState(false);
-  const isMobile = useIsMobile();
-
-  const isPlacePage = /^\/place\/\w+/.test(location.pathname);
 
   const nearbyOptions = [
     { name: "New Delhi", href: "/new-delhi-india/stays" },
@@ -62,12 +57,11 @@ const PlacePage = () => {
   }
 
   return (
-    <ContentWrapper compactScreen>
+    <ContentWrapper compactScreen topSpacing>
       <motion.div
         initial={false}
-        // animate={{ maxWidth: isPlacePage && !isMobile ? "73vw" : "92vw" }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="mt-4 overflow-x-hidden md:mt-36 lg:mt-36"
+        className="overflow-x-hidden"
       >
         <ListingHeader place={place} onShare={handleShare} />
         <AddressLink placeAddress={place.address} />
