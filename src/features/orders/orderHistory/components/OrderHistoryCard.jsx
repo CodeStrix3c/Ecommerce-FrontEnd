@@ -17,7 +17,7 @@ export default function OrderCard({
 
   return (
     <div
-      className="border p-4  bg-white shadow-sm cursor-pointer hover:shadow-md transition rounded-sm"
+      className="border p-4 bg-white cursor-pointer hover:shadow-md transition rounded-sm"
       onClick={onViewDetails}
     >
       <p className={`${statusColor} font-medium`}>{status}</p>
