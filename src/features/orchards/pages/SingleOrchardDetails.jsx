@@ -78,7 +78,7 @@ const SingleOrchardDetails = () => {
             />
             <div className=" md:block absolute top-0 right-0 w-80 h-60 rounded-lg  bg-opacity-15 flex items-center justify-center text-[var(--color-black)] text-xl font-semibold "></div>
 
-            <ul className="list-disc pl-5 text-[var(--color-black)] space-y-1 relative z-10">
+            <ul className="list-disc pl-5 text-[var(--color-black)] space-y-1 ">
               <li>Red Delicious</li>
               <li>Golden Delicious</li>
               <li>Granny Smith</li>
@@ -97,7 +97,7 @@ const SingleOrchardDetails = () => {
             />
             <div className="md:block absolute top-0 right-0 w-80 h-64 rounded-lg  bg-opacity-15 flex items-center justify-center text-[var(--color-black)] text-xl font-semibold  "></div>
 
-            <ul className="list-disc pl-5 text-[var(--color-black)] space-y-1 relative z-10">
+            <ul className="list-disc pl-5 text-[var(--color-black)] space-y-1">
               <li>Regular pruning for tree health</li>
               <li>Integrated Pest Management (IPM)</li>
               <li>Use of organic fertilizers & vermicompost</li>
@@ -125,7 +125,7 @@ const SingleOrchardDetails = () => {
           </div>
         </Section>
 
-        <div className="w-full max-w-6xl px-3 sm:px-4 lg:px-0 mt-8">
+        <div className="w-full max-w-6xl px-3 sm:px-4 lg:px-0 mt-5">
           <h3 className="font-bold text-lg sm:text-xl text-[var(--color-black)]">
             Description
           </h3>
@@ -175,10 +175,10 @@ const Info = ({ label, value }) => (
 );
 
 const Section = ({ title, icon, children }) => (
-  <div className="w-full max-w-6xl px-3 sm:px-4 lg:px-0 bg-white rounded-xl  p-5 sm:p-8 mt-8 space-y-6">
+  <div className="w-full max-w-6xl px-3 sm:px-4 lg:px-0 bg-white rounded-xl  p-5 sm:p-8 mt-3 space-y-2 ">
     <div className="flex items-center gap-2">
       {icon}
-      <h2 className="text-xl sm:text-2xl font-bold text-[var(--color-black)]">
+      <h2 className="text-xl sm:text-2xl mt-[-22px] font-bold text-[var(--color-black)]">
         {title}
       </h2>
     </div>
