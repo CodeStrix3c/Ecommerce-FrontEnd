@@ -1,12 +1,12 @@
 import axiosInstance from "@/api/axiosInstance";
 
 export const getProducts = async () => {
-  const { data } = await axiosInstance.get("/api/products");
+  const { data } = await axiosInstance.get("/api/products/quick-search");
 
   return data;
 };
 
 export const getProductById = async (id) => {
-  const { data } = await axiosInstance.get(`/products/${id}`);
+  const { data } = await axiosInstance.get(`/api/products/${id}`);
   return data;
 };

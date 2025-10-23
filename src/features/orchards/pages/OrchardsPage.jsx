@@ -58,6 +58,7 @@ const OrchardsPage = () => {
   return (
     <ContentWrapper compactScreen>
       <div className="pt-16 md:pt-40">
+        {/* Filters + Search */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 w-full">
           <div className="grid grid-cols-2 gap-4">
             <SelectField
@@ -80,9 +81,9 @@ const OrchardsPage = () => {
             />
           </div>
 
-          {/* Right side: Search bar */}
-          <div className="w-full justify-self-end">
-            <SecondarySearchBar className="flex w-full justify-end" />
+          {/* Search bar */}
+          <div className="w-full flex md:justify-end">
+            <SecondarySearchBar className="w-full md:w-auto" />
           </div>
         </div>
 
@@ -91,35 +92,39 @@ const OrchardsPage = () => {
           {cardsData.map((card, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden relative"
+              className="bg-[var(--color-white)] rounded-2xl shadow-lg overflow-hidden relative"
             >
               <img
                 className="w-full h-48 sm:h-60 object-cover"
                 src={card.image}
                 alt={card.Title}
               />
+
+              {/* Badge */}
               <div className="absolute top-3 left-3">
                 <p className="px-3 py-1 text-xs sm:text-sm font-semibold bg-[var(--color-black-hover)] text-[var(--color-primary)] rounded-lg shadow-md">
                   Growing Button
                 </p>
               </div>
+
+              {/* Menu */}
               <div className="absolute top-3 right-3">
                 <button
                   onClick={() => toggleMenu(index)}
-                  className="p-2 rounded-full bg-[var(--color-black-hover)] text-black shadow"
+                  className="p-2 rounded-full bg-[var(--color-black-hover)] text-[var(--color-black)] shadow"
                 >
                   <MoreVertical size={20} />
                 </button>
 
                 {menuOpen[index] && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg border z-10">
-                    <button className="flex items-center gap-2 w-full px-4 py-2 text-gray-700 hover:bg-gray-100">
+                  <div className="absolute right-0 mt-2 w-40 bg-[var(--color-white)] shadow-lg rounded-lg border z-10">
+                    <button className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-black)] hover:bg-[var(--color-black-hover)]">
                       <Edit size={18} /> Edit
                     </button>
-                    <button className="flex items-center gap-2 w-full px-4 py-2 text-red-600 hover:bg-gray-100">
+                    <button className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-error)] hover:bg-[var(--color-black-hover)]">
                       <Trash2 size={18} /> Delete
                     </button>
-                    <button className="flex items-center gap-2 w-full px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <button className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-black)] hover:bg-[var(--color-black-hover)]">
                       <X size={18} /> Cancel
                     </button>
                   </div>
@@ -127,6 +132,7 @@ const OrchardsPage = () => {
               </div>
 
               <div className="p-4">
+                {/* Title + Variety */}
                 <div className="flex flex-col">
                   <div className="flex items-center gap-2 flex-wrap">
                     <h3 className="text-lg font-semibold text-[var(--color-black)]">
@@ -141,26 +147,31 @@ const OrchardsPage = () => {
                   </p>
                 </div>
 
+                {/* Acres + View Details */}
                 <div className="flex justify-between items-center mt-2">
                   <p className="text-sm text-[var(--color-black)]">
                     {card.Acres}
                   </p>
                   <Link
                     to={"/orchards/1"}
-                    className="text-sm text-[var(--color-primary)]"
+                    className="text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-hover)]"
                   >
                     View Details
                   </Link>
                 </div>
 
+                {/* Trees */}
                 <div className="flex justify-center mt-2">
-                  <p className="text-sm text-gray-600">{card.Trees}</p>
+                  <p className="text-sm text-[var(--color-gray)]">
+                    {card.Trees}
+                  </p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
+        {/* Pagination / Bottom */}
         <div className="mt-8">
           <OrchardBottom />
         </div>
