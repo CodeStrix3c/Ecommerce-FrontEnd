@@ -35,7 +35,11 @@ export default function FormInput({
             edge="end"
             tabIndex={-1}
           >
-            {showPassword ? <VisibilityOff /> : <Visibility />}
+            {showPassword ? (
+              <VisibilityOff sx={{ color: "var(--color-secondary)" }} />
+            ) : (
+              <Visibility sx={{ color: "var(--color-secondary)" }} />
+            )}
           </IconButton>
         </InputAdornment>
       );
