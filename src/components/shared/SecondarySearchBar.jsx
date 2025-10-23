@@ -4,7 +4,7 @@ import React from "react";
 function SecondarySearchBar({ className = "" }) {
   return (
     <div className={`w-full flex justify-center ${className}`}>
-      <div className="flex items-center bg-[var(--color-white)] backdrop-blur-md border border-gray-200 rounded-full shadow-sm overflow-hidden w-full max-w-md sm:max-w-lg transition-all duration-300">
+      <div className="flex items-center bg-[var(--color-white)] backdrop-blur-md border border-[var(--color-black-hover)] rounded-full shadow-sm overflow-hidden w-96 max-w-md sm:max-w-lg transition-all duration-300">
         <input
           type="text"
           placeholder="Search for a city..."

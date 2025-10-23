@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +17,8 @@ import PageWrapper from "@/components/shared/AuthPageWrapper";
 import { useFarmer } from "@/providers/FarmerProvider";
 import { OTP_FIELDS, PROFILE_FIELDS } from "../../constants/profileFields";
 
+import { useSignupMutation } from "@/hooks/useAuthMutation";
+
 const stepSchemas = [profileSchema, otpSchema];
 const stepLabels = ["Profile", "OTP Verification"];
 
@@ -25,6 +27,9 @@ export default function SignUpPage() {
   const [otpSent, setOtpSent] = useState(false);
   const { setProfileComplete, setOtpComplete } = useFarmer();
   const navigate = useNavigate();
+
+  const { mutate: signupMutate, isPending } = useSignupMutation();
+  // console.log(signup, "signup mutation");
 
   const methods = useForm({
     resolver: zodResolver(stepSchemas[step]),
@@ -36,23 +41,19 @@ export default function SignUpPage() {
     trigger,
     register,
     formState: { errors },
-    setValue,
   } = methods;
   const values = watch();
-  console.log(values, "values in farmer registration");
-
-  // useEffect(() => {
-  //   setFarmer(values);
-  // }, [values, setFarmer]);
+  console.log(values, "signup values");
 
   const nextStep = async () => {
-    let stepFields = step === 0 ? PROFILE_FIELDS : OTP_FIELDS;
+    const stepFields = step === 0 ? PROFILE_FIELDS : OTP_FIELDS;
     const valid = await trigger(stepFields);
 
     if (step === 0 && valid && !otpSent) {
       const phone = watch("phone");
       if (phone) {
         console.log("OTP sent to phone:", phone);
+        toast.info(`OTP sent to ${phone}`);
         setOtpSent(true);
       }
     }
@@ -70,13 +71,29 @@ export default function SignUpPage() {
       toast.error("Please enter the OTP");
       return;
     }
-    setProfileComplete();
-    setOtpComplete();
-    localStorage.setItem("token", "fake-jwt-token-12345");
-    localStorage.setItem("farmerData", JSON.stringify(values));
 
-    toast.success("Signup successful!");
-    navigate("/home");
+    const payload = {
+      Email: values.email,
+      FullName: values.fullName,
+      // Phone: values.phone,
+      Password: values.password,
+      ConfirmPassword: values.confirmPassword,
+      // Age: values.age,
+      // Gender: values.gender,
+    };
+    console.log(payload, "payload");
+
+    signupMutate(payload, {
+      onSuccess: (data) => {
+        console.log("Signup success:", data);
+        toast.success("Signup successful!");
+        navigate("/login");
+      },
+      onError: (err) => {
+        console.error("Signup failed:", err.response.data[""][0]);
+        toast.error(err.response?.data[""][0] || "Signup failed");
+      },
+    });
   };
 
   return (
@@ -112,6 +129,9 @@ export default function SignUpPage() {
               border: "1px solid var(--color-black-light)",
               borderRadius: 2,
               py: 3,
+              position: "relative",
+              opacity: isPending ? 0.6 : 1,
+              pointerEvents: isPending ? "none" : "auto",
             }}
           >
             {step === 0 && (
@@ -127,6 +147,7 @@ export default function SignUpPage() {
               nextStep={nextStep}
               prevStep={prevStep}
               handleSubmit={handleSubmitClick}
+              isPending={isPending}
             />
           </Box>
         </Box>
