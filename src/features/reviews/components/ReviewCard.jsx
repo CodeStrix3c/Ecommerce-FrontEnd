@@ -41,12 +41,12 @@ export default function ReviewCard({ review, onShowMore, compact }) {
         </span>
       </div>
 
-      {/* Review Text */}
+     
       <p className="line-clamp-4 text-[15px] leading-relaxed text-[var(--color-neutral-dark-hover)]">
         {review.text}
       </p>
 
-      {/* Show More */}
+      
       {review.text.length > 50 && (
         <button
           onClick={() => onShowMore(review)}

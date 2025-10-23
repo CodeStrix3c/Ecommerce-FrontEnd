@@ -41,7 +41,7 @@ export default function CropProtectionPage() {
           Empowering farmers with knowledge to fight pests, diseases, and climate challenges.
         </p>
         <div className="space-x-4">
-          <button className="bg-white text-[var(--color-black)] px-6 py-2 rounded-lg border border-lg  hover:bg-[var(--color-black-hover)]">
+          <button className=" text-[var(--color-black)] px-6 py-2 rounded-lg border border-lg  hover:bg-[var(--color-black-hover)]">
             Ask an Expert
           </button>
           <button className=" text-[var(--color-black)] px-6 py-2 rounded-lg border border-lg   hover:bg-[var(--color-black-hover)]">
@@ -112,7 +112,7 @@ export default function CropProtectionPage() {
         <h2 className="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
         <div className="max-w-3xl mx-auto">
           {faqs.map((f, i) => (
-            <div key={i} className="mb-4 border rounded-lg bg-white">
+            <div key={i} className="mb-4 border rounded-lg ">
               <button
                 onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
                 className="w-full text-left p-4 font-medium flex justify-between items-center"

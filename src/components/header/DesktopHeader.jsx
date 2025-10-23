@@ -41,7 +41,7 @@ const DesktopHeader = ({ location, onHeightChange }) => {
             ? "inset 0px -60px 60px -10px rgba(0, 0, 0, 0.03)"
             : "none",
       }}
-      className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)] border-b border-gray-100"
+      className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)] border-b border-[var(--color-black-hover)]"
     >
       <motion.div
         initial={false}
