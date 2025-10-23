@@ -99,14 +99,14 @@ const PlaceGallery = ({ place }) => {
              sm:py-1.5 sm:px-3 sm:text-xs 
              md:py-2 md:px-4 md:text-sm 
              lg:py-2.5 lg:px-5 lg:text-base
-             shadow-md shadow-[var(--color-black-hover)]"
+             border border-[var(--color-black-hover)] "
   onClick={() => setShowGallery(true)}
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-[var(--color-black)]"
+    className="h-5 w-5 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-[var(--color-black)]"
   >
     <path
       fillRule="evenodd"
