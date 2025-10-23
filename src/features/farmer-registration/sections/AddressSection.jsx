@@ -70,6 +70,7 @@ export default function AddressSection({
           errors={errors.pincode}
         />
         <FormInput
+          required={false}
           name="gps"
           label="Orchard Location"
           value={gpsLocation}
