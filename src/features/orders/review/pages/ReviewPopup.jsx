@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Divider, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -6,6 +6,7 @@ import ReviewHeader from "../components/ReviewHeader";
 import ReviewForm from "../components/ReviewForm";
 import ReviewProductInfo from "../components/ReviewProductInfo";
 import ReviewActions from "../components/ReviewActions";
+import { iso } from "zod";
 
 export default function ReviewPopup({ isOpen, onClose, product }) {
   const [rating, setRating] = useState(0);
@@ -13,7 +14,19 @@ export default function ReviewPopup({ isOpen, onClose, product }) {
   const [description, setDescription] = useState("");
   const [files, setFiles] = useState([]);
 
-  if (!isOpen) return null;
+
+  useEffect(()=>{
+    if(isOpen){
+      document.body.style.overflow = "hidden";
+    }else{
+      document.body.style.overflow = "auto";
+    }
+
+
+  },[isOpen])
+
+    if (!isOpen) return null;
+
 
   const handleSubmit = () => {
     console.log("Rating:", rating);
@@ -24,7 +37,7 @@ export default function ReviewPopup({ isOpen, onClose, product }) {
 
   return (
     <div className="fixed inset-0 bg-[var(--color-overlay)] flex items-center justify-center z-50 p-2 sm:p-4">
-      <div className="bg-[var(--color-white)] rounded-[var(--radius)] w-full max-w-md sm:max-w-lg p-4 sm:p-6 shadow-lg animate-popin relative">
+      <div className="w-full lg:w-[500px] bg-[var(--color-white)] rounded-sm shadow-lg animate-popin relative py-5  ">
         {/* Close Button */}
         <IconButton
           onClick={onClose}
@@ -34,34 +47,48 @@ export default function ReviewPopup({ isOpen, onClose, product }) {
         </IconButton>
 
         {/* Title */}
-        <Typography sx={{ textAlign: "center", fontWeight: 500, mb: 2, fontSize: { xs: "1rem", sm: "1.125rem" } }}>
+        <Typography
+          sx={{
+            textAlign: "center",
+            fontWeight: 500,
+            mb: 2,
+            fontSize: { xs: "1rem", sm: "1.125rem" },
+          }}
+        >
           Write Review
         </Typography>
 
         {/* Banner */}
-        <ReviewHeader />
-
+        <div>
+          <ReviewHeader />
+        </div>
         {/* Product Info */}
-        <ReviewProductInfo
-          product={product}
-          rating={rating}
-          hoverRating={hoverRating}
-          setRating={setRating}
-          setHoverRating={setHoverRating}
-        />
+        <div>
+          <ReviewProductInfo
+            product={product}
+            rating={rating}
+            hoverRating={hoverRating}
+            setRating={setRating}
+            setHoverRating={setHoverRating}
+          />
+        </div>
 
         <Divider sx={{ mb: 3 }} />
 
         {/* Review Form */}
-        <ReviewForm
-          description={description}
-          setDescription={setDescription}
-          files={files}
-          setFiles={setFiles}
-        />
+        <div>
+          <ReviewForm
+            description={description}
+            setDescription={setDescription}
+            files={files}
+            setFiles={setFiles}
+          />
+        </div>
 
         {/* Actions */}
-        <ReviewActions onClose={onClose} handleSubmit={handleSubmit} />
+        <div className="px-4 py-2">
+          <ReviewActions onClose={onClose} handleSubmit={handleSubmit} />
+        </div>
       </div>
     </div>
   );
