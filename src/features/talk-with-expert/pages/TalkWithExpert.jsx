@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Phone, Mail, MessageCircle, Bot, Video } from "lucide-react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 
-// Expanded expert list
 const sampleExperts = [
   {
     id: 1,
@@ -74,33 +73,34 @@ const sampleExperts = [
 
 function ExpertCard({ expert, onOpenChat }) {
   return (
-    <div className="   rounded-2xl p-4 flex flex-col gap-4">
+    <div className="rounded-2xl p-4 flex flex-col gap-4 bg-[var(--color-white)] shadow-sm border">
       <div className="flex gap-4 items-start">
         <img
           src={expert.avatar}
           alt={expert.name}
-          className="w-20 h-20 rounded-xl object-cover "
+          className="w-20 h-20 rounded-xl object-cover"
         />
         <div className="flex-1">
           <h3 className="text-lg font-semibold">{expert.name}</h3>
-          <p className="text-sm text-[var(--color-black )]">{expert.title}</p>
+          <p className="text-sm text-[var(--color-black)]">{expert.title}</p>
           <p className="mt-2 text-sm text-[var(--color-black)]">{expert.bio}</p>
         </div>
       </div>
       <div className="flex gap-2 flex-wrap">
         <button
           onClick={() => onOpenChat(expert)}
-          className="px-3 py-1 rounded-lg hover:bg-[var(--color-black-hover)]  text-[var(--color-black)] border border-lg text-sm flex items-center gap-1"
+          className="px-3 py-1 rounded-lg hover:bg-[var(--color-black-hover)] text-[var(--color-black)] border text-sm flex items-center gap-1"
         >
-          <MessageCircle className="text-[var(--color-secondary)]" size={20} />{" "}
+          <MessageCircle className="text-[var(--color-secondary)]" size={20} />
           Chat
         </button>
-
-        <button className="px-3 py-1 rounded-lg  border border-lg  hover:bg-[var(--color-black-hover)] text-[var(--color-black)] text-sm flex items-center gap-1 ">
-          <Phone className="text-[var(--color-secondary)]" size={20} /> Call
+        <button className="px-3 py-1 rounded-lg border hover:bg-[var(--color-black-hover)] text-[var(--color-black)] text-sm flex items-center gap-1">
+          <Phone className="text-[var(--color-secondary)]" size={20} />
+          Call
         </button>
-        <button className="px-3 py-1 rounded-lg hover:bg-[var(--color-black-hover)] text-[var(--color-black)] border border-lg text-sm flex items-center gap-1   ">
-          <Mail className="text-[var(--color-secondary)]" size={20} /> Mail
+        <button className="px-3 py-1 rounded-lg hover:bg-[var(--color-black-hover)] text-[var(--color-black)] border text-sm flex items-center gap-1">
+          <Mail className="text-[var(--color-secondary)]" size={20} />
+          Mail
         </button>
       </div>
     </div>
@@ -132,9 +132,9 @@ function ChatPanel({ openChatWith, onClose }) {
   }
 
   return (
-    <div className="fixed right-4 bottom-4 z-50">
-      <div className="  rounded-2xl shadow-xl flex flex-col h-96">
-        <div className="p-3 border-b flex justify-between">
+    <div className="sticky bottom-4 z-50 flex justify-end">
+      <div className="rounded-2xl shadow-xl flex flex-col h-96 w-80 bg-[var(--color-white)] border">
+        <div className="p-3 border-b flex justify-between items-center">
           <div className="flex items-center gap-2">
             {openChatWith.avatar ? (
               <img
@@ -146,25 +146,33 @@ function ChatPanel({ openChatWith, onClose }) {
               <Bot className="w-6 h-6 text-[var(--color-black)]" />
             )}
             <div>
-              <div className=" font-semibold text-sm">{openChatWith.name}</div>
+              <div className="font-semibold text-sm">{openChatWith.name}</div>
               <div className="text-xs text-[var(--color-black)]">
                 {openChatWith.title}
               </div>
             </div>
           </div>
-          <button onClick={onClose}>✕</button>
+          <button onClick={onClose} className="text-sm">
+            ✕
+          </button>
         </div>
+
         <div className="flex-1 overflow-y-auto p-3 space-y-2">
           {messages.map((m) => (
             <div key={m.id} className={m.from === "you" ? "text-right" : ""}>
               <div
-                className={`inline-block px-3 py-2 rounded-lg ${m.from === "you" ? " text-[var(--color-balck)]" : ""}`}
+                className={`inline-block px-3 py-2 rounded-lg ${
+                  m.from === "you"
+                    ? "bg-[var(--color-black-hover)] text-[var(--color-black)]"
+                    : "bg-gray-100"
+                }`}
               >
                 {m.text}
               </div>
             </div>
           ))}
         </div>
+
         <div className="p-3 border-t flex gap-2">
           <input
             value={input}
@@ -190,9 +198,9 @@ export default function TalkWithExpert() {
   const [openChatWith, setOpenChatWith] = useState(null);
 
   return (
-    <ContentWrapper compactScreen>
-      <div className=" lg:mt-28 py-6 min-h-screen">
-        <div className=" space-y-6">
+    <ContentWrapper compactScreen topSpacing>
+      <div className="relative flex flex-col gap-10">
+        <div className="space-y-6">
           <h1 className="text-2xl font-bold">Talk with an Expert</h1>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -205,7 +213,7 @@ export default function TalkWithExpert() {
             ))}
           </div>
 
-          <div className=" border border-sm rounded-2xl p-6 mt-8 text-center">
+          <div className="border rounded-2xl p-6 mt-8 text-center bg-[var(--color-white)] shadow-sm">
             <h2 className="text-xl font-semibold flex items-center justify-center gap-2">
               <Video className="text-[var(--color-secondary)]" /> Join Our
               Webinar
@@ -214,40 +222,42 @@ export default function TalkWithExpert() {
               Would you like to join our upcoming webinar? Contact us below:
             </p>
             <div className="mt-4 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-              <button className="px-4 py-2 rounded-lg  text-[var(--color-black)] border border-lg flex items-center gap-2">
-                <Phone className="text-[var(--color-secondary)]" size={20} />{" "}
+              <button className="px-4 py-2 rounded-lg text-[var(--color-black)] border flex items-center gap-2">
+                <Phone className="text-[var(--color-secondary)]" size={20} />
                 Call
               </button>
-              <button className="px-4 py-2 rounded-lg text-[var(--color-black)] border border-lg flex items-center gap-2">
+              <button className="px-4 py-2 rounded-lg text-[var(--color-black)] border flex items-center gap-2">
                 <MessageCircle
                   className="text-[var(--color-secondary)]"
                   size={20}
-                />{" "}
+                />
                 WhatsApp
               </button>
-              <button className="px-4 py-2 rounded-lg text-[var(--color-black)] border border-lg flex items-center gap-2 ">
-                <Mail className="text-[var(--color-secondary)]" size={20} />{" "}
+              <button className="px-4 py-2 rounded-lg text-[var(--color-black)] border flex items-center gap-2">
+                <Mail className="text-[var(--color-secondary)]" size={20} />
                 Message
               </button>
             </div>
           </div>
         </div>
 
-        <div className=" fixed right-4 bottom-24 z-50 ">
+        <div className="sticky bottom-20 flex justify-end">
           <button
             onClick={() =>
               setOpenChatWith({ name: "AI Assistant", title: "Virtual Helper" })
             }
-            className="w-14 h-14 rounded-full text-[var(--color-white)]  bg-[var(--color-secondary)] flex items-center justify-center"
+            className="w-14 h-14 rounded-full text-[var(--color-white)] bg-[var(--color-secondary)] flex items-center justify-center shadow-lg"
           >
             <Bot className="w-6 h-6" />
           </button>
         </div>
 
-        <ChatPanel
-          openChatWith={openChatWith}
-          onClose={() => setOpenChatWith(null)}
-        />
+        {openChatWith && (
+          <ChatPanel
+            openChatWith={openChatWith}
+            onClose={() => setOpenChatWith(null)}
+          />
+        )}
       </div>
     </ContentWrapper>
   );
