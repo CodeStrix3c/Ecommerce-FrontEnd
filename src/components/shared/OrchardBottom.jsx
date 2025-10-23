@@ -2,7 +2,7 @@ import React from 'react';
 
 function OrchardBottom({ title = "Summary", details = [] }) {
   return (
-    <div className="px-3 py-2 border rounded-lg my-6 bg-white shadow-sm">
+    <div className="px-3 py-2 border rounded-lg my-6 bg-[var(--color-white)] shadow-sm">
       {/* Row 1: Title */}
       <div>
         <h1 className="text-[var(--color-black)] text-2xl font-bold pb-2 ms-3">
