@@ -29,7 +29,7 @@ function Subheader() {
       </div>
 
       {/* Search Bar */}
-      <div className="flex bg-[#f7f7f7] border rounded-full w-4/12 py-3 mt-6 text-center font-medium mx-auto items-center justify-between px-4">
+      <div className="flex bg-[var-(--color--white)] border rounded-full w-4/12 py-3 mt-6 text-center font-medium mx-auto items-center justify-between px-4">
         <input
           type="text"
           value={searchText}
@@ -39,7 +39,7 @@ function Subheader() {
         />
 
         <div
-        className={`flex items-center bg-[#c7611f] text-white p-3 rounded-3xl cursor-pointer transition-all duration-300 {
+        className={`flex items-center bg-[-var(--color-secondary)] text-[var-(--color--white)] p-3 rounded-3xl cursor-pointer transition-all duration-300 {
             showText ? "w-28 justify-around" : "w-10 justify-center"
           }`}
           onClick={() => setShowText(!showText)}
