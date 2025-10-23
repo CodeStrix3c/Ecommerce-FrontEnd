@@ -1,4 +1,6 @@
-import { TextField, InputAdornment } from "@mui/material";
+import { useState } from "react";
+import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import RequiredLabel from "@/components/ui/RequiredLabel";
 import OptionalLabel from "@/components/ui/OptionalLabel";
 
@@ -13,23 +15,52 @@ export default function FormInput({
   inputRef = null,
   value,
   errors,
-  required = true, // true = required, false = optional, null = plain
+  required = true,
   onClick,
 }) {
-  // Decide which label to render
+  const [showPassword, setShowPassword] = useState(false);
+
   const getLabel = () => {
     if (required === true) return <RequiredLabel label={label} />;
     if (required === false) return <OptionalLabel label={label} />;
-    return label; // plain string if null
+    return label;
+  };
+
+  const getEndAdornment = () => {
+    if (type === "password") {
+      return (
+        <InputAdornment position="end">
+          <IconButton
+            onClick={() => setShowPassword((prev) => !prev)}
+            edge="end"
+            tabIndex={-1}
+          >
+            {showPassword ? (
+              <VisibilityOff sx={{ color: "var(--color-secondary)" }} />
+            ) : (
+              <Visibility sx={{ color: "var(--color-secondary)" }} />
+            )}
+          </IconButton>
+        </InputAdornment>
+      );
+    }
+    if (icon) {
+      return (
+        <InputAdornment position="end" onClick={onClick}>
+          {icon}
+        </InputAdornment>
+      );
+    }
+    return null;
   };
 
   return (
     <TextField
       fullWidth
-      defaultValue={""}
+      defaultValue=""
       value={value}
       inputRef={inputRef}
-      type={type}
+      type={type === "password" && showPassword ? "text" : type}
       label={getLabel()}
       variant="outlined"
       size={size}
@@ -40,11 +71,7 @@ export default function FormInput({
         },
         readOnly,
         input: {
-          endAdornment: icon ? (
-            <InputAdornment position="end" onClick={onClick}>
-              {icon}
-            </InputAdornment>
-          ) : null,
+          endAdornment: getEndAdornment(),
         },
       }}
       {...register(name)}
