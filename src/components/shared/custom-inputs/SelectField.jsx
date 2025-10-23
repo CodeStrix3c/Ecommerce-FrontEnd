@@ -3,22 +3,6 @@ import { TextField, MenuItem } from "@mui/material";
 import OptionalLabel from "@/components/ui/OptionalLabel";
 import RequiredLabel from "@/components/ui/RequiredLabel";
 
-/**
- * SelectField - A reusable select/dropdown field using MUI.
- *
- * Props:
- * - name: string - field name
- * - label: string - label text
- * - register: function - from react-hook-form
- * - errors: object - error object from react-hook-form
- * - options: array - list of { label, value } objects
- * - optional: boolean - whether the field is optional
- * - showOptionalLabel: boolean - if false, hides "(Optional)" on optional fields
- * - size: "small" | "medium"
- * - value: selected value
- * - onChange: function
- * - isMultiple: boolean - support multiple selection
- */
 const SelectField = ({
   name,
   label,
@@ -36,10 +20,8 @@ const SelectField = ({
 
   const errorMessage = errors?.[name]?.message || errors?.message || "";
 
-  // Handle null/undefined value safely
   const safeValue = value ?? (isMultiple ? [] : "");
 
-  // Handle dynamic label rendering
   const renderLabel = () => {
     if (isRequired) {
       return <RequiredLabel label={label} required />;
