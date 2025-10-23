@@ -15,7 +15,6 @@ export default function ProfileSection({ register, errors, control }) {
   console.log(errors);
 
   return (
-    // <FormSection title="Profile Information">
     <FormLayout>
       <FormInput
         name="fullName"
@@ -97,6 +96,5 @@ export default function ProfileSection({ register, errors, control }) {
         icon={<LockIcon sx={iconStyle} />}
       />
     </FormLayout>
-    // </FormSection>
   );
 }
