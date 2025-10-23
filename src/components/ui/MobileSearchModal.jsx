@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MapPin, Leaf, Search } from "lucide-react";
 import { Box, Button, TextField } from "@mui/material";
@@ -11,6 +11,14 @@ const MobileSearchModal = ({ isOpen, onClose }) => {
   const [region, setRegion] = useState("");
   const [crop, setCrop] = useState("");
   const [dateRange, setDateRange] = useState(null);
+
+  const regionInputRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen && regionInputRef.current) {
+      setTimeout(() => regionInputRef.current.focus(), 300);
+    }
+  }, [isOpen]);
 
   const handleSearch = () => {
     const filters = { region, crop, when: dateRange };
@@ -63,6 +71,7 @@ const MobileSearchModal = ({ isOpen, onClose }) => {
                   value={region}
                   onChange={(e) => setRegion(e.target.value)}
                   size="small"
+                  inputRef={regionInputRef}
                   InputProps={{
                     style: { fontSize: "14px" },
                   }}
@@ -120,7 +129,9 @@ const MobileSearchModal = ({ isOpen, onClose }) => {
                       className="flex cursor-pointer items-center gap-2 rounded-lg p-2 hover:bg-gray-100"
                     >
                       <Leaf className="h-5 w-5 text-[var(--color-primary)]" />
-                      <span className="text-sm text-[var(--color-black)]">{c}</span>
+                      <span className="text-sm text-[var(--color-black)]">
+                        {c}
+                      </span>
                     </div>
                   ))}
                 </div>

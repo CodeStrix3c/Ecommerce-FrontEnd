@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks";
@@ -22,6 +22,7 @@ import { useLoginMutation } from "@/hooks/useAuthMutation";
 import { setItemsInLocalStorage } from "@/utils/localStorage";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
   const [tab, setTab] = useState(0);
   const auth = useAuth();
@@ -37,25 +38,25 @@ const LoginPage = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = (data) => {
-    const payload =
-      tab === 0
-        ? { phone: data.phone, password: data.password }
-        : { email: data.email, password: data.password };
+    setRedirect(true);
+    // const payload =
+    //   tab === 0
+    //     ? { phone: data.phone, password: data.password }
+    //     : { email: data.email, password: data.password };
 
-    loginMutate(payload, {
-      onSuccess: (res) => {
-        console.log(res, "res from login");
-        setItemsInLocalStorage("userLoginToken", res.token);
-        // localStorage.setItem("token", res?.token || "fake-token");
-        toast.success("Login successful!");
-        setRedirect(true);
-      },
-      onError: (err) => {
-        toast.error(
-          err?.response?.data?.error || "Invalid credentials. Please try again."
-        );
-      },
-    });
+    // loginMutate(payload, {
+    //   onSuccess: (res) => {
+    //     console.log(res, "res from login");
+    //     setItemsInLocalStorage("userLoginToken", res.token);
+    //     toast.success("Login successful!");
+    //     setRedirect(true);
+    //   },
+    //   onError: (err) => {
+    //     toast.error(
+    //       err?.response?.data?.error || "Network error. Please try again later."
+    //     );
+    //   },
+    // });
   };
 
   const handleGoogleLogin = async (credential) => {
@@ -63,6 +64,7 @@ const LoginPage = () => {
     if (response.success) {
       localStorage.setItem("token", "fake-google-token-12345");
       toast.success(response.message);
+      navigate("/home");
       setRedirect(true);
     } else {
       toast.error(response.message);
@@ -78,7 +80,7 @@ const LoginPage = () => {
           className="text-2xl font-semibold mb-6 text-center"
           style={{ color: "var(--color-black)" }}
         >
-          Log in or sign up
+          Log in to your account
         </h1>
 
         <Tabs

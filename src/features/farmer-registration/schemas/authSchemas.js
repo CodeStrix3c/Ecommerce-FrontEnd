@@ -1,28 +1,12 @@
-import { z } from "zod";
-export const emailValidator = z.string().email("Invalid email");
-
-export const passwordValidator = z
-  .string()
-  .regex(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{7,}$/,
-    "Password must be at least 7 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
-  );
-
-export const phoneValidator = z
-  .string()
-  .regex(/^[0-9]{10}$/, "Enter your registered 10-digit phone number");
-
-export const nameValidator = z.string().min(2, "Name is required");
-
-export const fullNameValidator = z.string().min(2, "Full name is required");
-export const otpValidator = z
-  .string()
-  .regex(/^[0-9]{6}$/, "Enter a valid 6-digit OTP");
-
-// ----------------------
-// Login Schemas
-// ----------------------
-export const loginPasswordValidator = z.string().min(1, "Password is required");
+import {
+  emailValidator,
+  fullNameValidator,
+  loginPasswordValidator,
+  nameValidator,
+  passwordValidator,
+  phoneValidator,
+} from "@/utils/validators";
+import z from "zod";
 
 export const loginSchema = z.object({
   email: emailValidator,
@@ -44,9 +28,6 @@ export const supplierLoginSchema = z.object({
   password: passwordValidator,
 });
 
-// ----------------------
-// Register Schemas
-// ----------------------
 export const emailRegisterSchema = z
   .object({
     fullName: fullNameValidator,
@@ -84,7 +65,7 @@ export const supplierRegisterSchema = z
     city: z.string().min(2, "City is required"),
     state: z.string().min(2, "State is required"),
     country: z.string().min(2, "Country is required"),
-    profilePic: z.any().optional(), // optional file upload
+    profilePic: z.any().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
@@ -105,9 +86,8 @@ export const farmerRegisterSchema = z
         "Password must be at least 7 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
       ),
     confirmPassword: z.string().min(1, "Confirm password is required"),
-    profilePic: z.any().optional(), // optional profile photo
+    profilePic: z.any().optional(),
 
-    // Farm details
     farmName: z.string().min(1, "Farm / Orchard name is required"),
     farmSize: z
       .string()
@@ -115,7 +95,6 @@ export const farmerRegisterSchema = z
       .regex(/^[0-9]+$/, "Farm size must be a number (in kanals)"),
     mainCrops: z.string().min(1, "Please enter your main crops"),
 
-    // Land details
     soilType: z.string().min(1, "Soil type is required"),
     irrigationMethod: z.string().min(1, "Irrigation method is required"),
     environmentalConditions: z
@@ -133,23 +112,17 @@ export const farmerRegisterSchema = z
       .min(4, "Pin code is required")
       .regex(/^[0-9]+$/, "Pin code must be numeric"),
     gps: z.string().optional(),
-
-    // keep the rest of your fields here...
   })
   .superRefine(({ password, confirmPassword }, ctx) => {
     if (password && confirmPassword && password !== confirmPassword) {
       ctx.addIssue({
         code: "custom",
-        path: ["confirmPassword"], // 👈 attaches error here
+        path: ["confirmPassword"],
         message: "Passwords do not match",
       });
     }
   });
 
-// ----------------------
-// Profile Update Schema
-// (for your ProfileSection inputs)
-// ----------------------
 export const profileUpdateSchema = z
   .object({
     fullName: fullNameValidator,
