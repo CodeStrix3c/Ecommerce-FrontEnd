@@ -13,7 +13,7 @@ export default function ListingHeader({ place, onShare }) {
 
   return (
     <header className="w-full border-b border-[var(--color-black-hover)] bg-[var(--color-white)]">
-      <div className="mx-auto flex items-center justify-between gap-4 py-5">
+      <div className="mx-auto flex items-center justify-between gap-4 pb-5">
         <h1 className="text-xl font-semibold tracking-tight text-[var(--color-black)] sm:text-2xl md:text-3xl">
           {place.title}
         </h1>

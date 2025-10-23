@@ -16,16 +16,17 @@ const CarousalSection = ({ title, places, loading }) => {
   const settings = useMemo(
     () => ({
       dots: false,
-      speed: 450,
-      cssEase: "cubic-bezier(.25,.8,.25,1)",
+      arrows: false,
+      infinite: false,
+      speed: 600,
+      cssEase: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
       slidesToShow: isMobile ? 2.1 : 7,
       slidesToScroll: 1,
       swipeToSlide: true,
       touchMove: true,
-      touchThreshold: 5,
-      arrows: false,
-      infinite: false,
+      touchThreshold: 10,
       lazyLoad: "ondemand",
+      adaptiveHeight: false,
       beforeChange: (_, next) => setCurrentSlide(next),
       responsive: [
         { breakpoint: 400, settings: { slidesToShow: 1.1 } },
@@ -82,8 +83,6 @@ const CarousalSection = ({ title, places, loading }) => {
         Math.round(absDelta / Math.max(1, slideWidth))
       );
 
-      // if swipe is fast, amplify slides to move
-      // tweak thresholds/multiplier as needed
       const multiplier = velocity > 0.8 ? 2 : velocity > 0.5 ? 1.5 : 1;
       const slidesToMove = Math.min(
         totalSlides,

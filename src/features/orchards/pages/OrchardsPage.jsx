@@ -71,7 +71,6 @@ const OrchardsPage = () => {
   return (
     <ContentWrapper compactScreen>
       <div className="pt-16 md:pt-40">
-        {/* Filter Section */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 w-full">
           <div className="grid grid-cols-2 gap-4">
             <SelectField
