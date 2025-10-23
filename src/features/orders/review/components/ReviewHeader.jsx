@@ -10,7 +10,7 @@ export default function ReviewHeader() {
         px: 2,
         borderRadius: "6px",
         mb: 2,
-        backgroundColor: "#fff4f2",
+        // backgroundColor: "#fff4f2",
       }}
     >
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 items-center sm:items-start">
