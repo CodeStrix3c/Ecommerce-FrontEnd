@@ -82,14 +82,15 @@ export default function AboutUs() {
 
   return (
     <div className="bg-[var(--color-white)] text-[var(--color-black)] mt-8">
-      {/* <section
+      <section
         className="relative flex items-center justify-center min-h-[70vh] bg-cover bg-center"
-        style={{ backgroundImage: 'url("/assets/images/aboutUsBg.jpg")' }}
-      /> */}
+        // style={{ backgroundImage: 'url("/assets/images/aboutUsBg.jpg")' }}
+         style={{ backgroundImage: 'url("/assets/images/aboutimg.jpg")' }}
+      />
 
       <ContentWrapper compactScreen>
         <div className="py-10">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 text-center">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 text-center  ">
             About Us
           </h2>
           <p className="text-sm sm:text-base md:text-lg leading-relaxed text-justify">
@@ -102,6 +103,7 @@ export default function AboutUs() {
             the land.
           </p>
         </div>
+
 
         <div className="py-10">
           <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">

@@ -25,7 +25,7 @@ export default function AllReviewsModal({ testimonials, onClose }) {
               {testimonials.map((review) => (
                 <div
                   key={review.id}
-                  className="border-b border-[var(--color-neutral-dark-hover)] pb-4"
+                  className="pb-4"
                 >
                   <ReviewCard review={review} compact={false} />
                 </div>
