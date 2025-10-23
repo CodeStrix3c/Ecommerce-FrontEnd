@@ -119,7 +119,11 @@ export default function SignUpPage() {
           }}
         >
           <div className="py-10">
-            <SectionTitle title="Farmer Registration" centered />
+            <SectionTitle
+              title="Farmer Registration"
+              className="lg:text-4xl text-2xl font-bold text-center mb-0 text-[var(--color-black)]"
+              centered
+            />
           </div>
           <FormStepper activeStep={step} type="profile" />
 
