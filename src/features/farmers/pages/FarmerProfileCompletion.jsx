@@ -98,54 +98,56 @@ export default function FarmerProfileCompletion({ onComplete }) {
 
   return (
     <ContentWrapper compactScreen topSpacing>
-      <FormProvider {...methods}>
-        <Box
-          component="form"
-          onSubmit={handleSubmit(onSubmitForm)}
-          sx={{
-            // maxWidth: 800,
-            // mx: "auto",
-            // p: { xs: 2, sm: 3, md: 4 },
-            borderRadius: 2,
-            bgcolor: "var(--color-white)",
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-          }}
-        >
-          <SectionTitle
-            title="Farmer Completion"
-            centered
-            className="text-2xl sm:text-2xl md:text-2xl lg:text-3xl"
-          />
-          <FormStepper activeStep={step} steps={labels} />
+      <div className="lg:mt-44 md:mt-36">
+        <FormProvider {...methods}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmitForm)}
+            sx={{
+              // maxWidth: 800,
+              // mx: "auto",
+              // p: { xs: 2, sm: 3, md: 4 },
+              borderRadius: 2,
+              bgcolor: "var(--color-white)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
+            <SectionTitle
+              title="Farmer Completion"
+              centered
+              className="text-2xl sm:text-2xl md:text-2xl lg:text-3xl"
+            />
+            <FormStepper activeStep={step} steps={labels} />
 
-          <StepHeader activeStep={step} type="profile" />
+            <StepHeader activeStep={step} type="profile" />
 
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            {step === 0 && (
-              <ProfileSection register={register} errors={errors} />
-            )}
-            {step === 1 && (
-              <AddressSection register={register} errors={errors} />
-            )}
-            {step === 2 && (
-              <EducationSection register={register} errors={errors} />
-            )}
-            {step === 3 && (
-              <ProfessionSection register={register} errors={errors} />
-            )}
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              {step === 0 && (
+                <ProfileSection register={register} errors={errors} />
+              )}
+              {step === 1 && (
+                <AddressSection register={register} errors={errors} />
+              )}
+              {step === 2 && (
+                <EducationSection register={register} errors={errors} />
+              )}
+              {step === 3 && (
+                <ProfessionSection register={register} errors={errors} />
+              )}
+            </Box>
+
+            <FormNavigation
+              step={step}
+              totalSteps={stepSchemas.length}
+              nextStep={nextStep}
+              prevStep={prevStep}
+              handleSubmit={onSubmitForm}
+            />
           </Box>
-
-          <FormNavigation
-            step={step}
-            totalSteps={stepSchemas.length}
-            nextStep={nextStep}
-            prevStep={prevStep}
-            handleSubmit={onSubmitForm}
-          />
-        </Box>
-      </FormProvider>
+        </FormProvider>
+      </div>
     </ContentWrapper>
   );
 }

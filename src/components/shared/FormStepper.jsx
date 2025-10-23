@@ -1,14 +1,14 @@
 import React from "react";
 import { Stepper, Step, StepLabel, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import useIsMobile from "@/hooks/useInMobile";
 
 const FormStepper = ({
   steps = [],
   activeStep = 0,
   alternativeLabel = true,
 }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useIsMobile();
 
   return (
     <Stepper
@@ -16,7 +16,7 @@ const FormStepper = ({
       alternativeLabel={!isMobile && alternativeLabel}
       orientation={isMobile ? "vertical" : "horizontal"}
       sx={{
-        px: isMobile ? 1 : 4,
+        // px: isMobile ? 1 : 4,
         py: isMobile ? 2 : 3,
         "& .MuiStepLabel-label": {
           fontSize: isMobile ? "0.75rem" : "0.9rem",
