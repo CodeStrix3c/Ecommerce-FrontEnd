@@ -1,5 +1,5 @@
 import React from "react";
-import { X } from "lucide-react"; // for a modern close icon
+import { X } from "lucide-react";
 
 const ImageGalleryModal = ({ photos = [], isOpen, onClose }) => {
   if (!isOpen) return null;
