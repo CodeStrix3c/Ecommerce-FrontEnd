@@ -127,3 +127,8 @@ button.social {
   --color-overlay: rgba(0, 0, 0, 0.5);
   --color-error: #f44336;
 }
+
+.recharts-wrapper {
+  position: relative;
+  z-index: 0;
+}
