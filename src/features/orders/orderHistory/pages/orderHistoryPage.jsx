@@ -15,7 +15,7 @@ export default function OrderHistoryPage() {
       <div className=" pt-8 lg:pt-36">
       <h2 className="text-lg font-semibold pb-5">All Orders</h2>
 
-      <div>
+      <div className="space-y-2 ">
         {uniqueOrders.map((order) => (
           <OrderCard
             key={order.orderId}

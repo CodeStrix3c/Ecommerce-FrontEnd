@@ -6,7 +6,7 @@ export default function HelpButton() {
   
 
   return (
-    <div className="flex justify-end w-full pt-4 pr-10 ">
+    <div className="flex justify-end w-full pt-4 pr-2">
       <button className="flex items-center text-[var(--color-black)] hover:text-[var(--color-secondary)] text-sm sm:text-base"
       onClick={()=>{navigate("/help-center")}}
       >
