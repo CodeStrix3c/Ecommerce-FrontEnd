@@ -28,7 +28,7 @@ export default function OrderDetailsPage() {
 
   return (
     <ContentWrapper compactScreen={true}>
-      <div className=" md:pt-24 lg:pt-28 mb-3  bg-[var(--color-black-hover)]">
+      <div className=" md:pt-24 lg:pt-28 mb-3">
         <HelpButton />
         <ProductCard order={order} />
         <OrderStatus order={order} steps={steps} />
