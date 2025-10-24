@@ -6,113 +6,103 @@ function Privacy() {
       <div className="py-8 lg:mt-32">
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="text-[var(--color-black)] lg:col-span-8">
-            <h6 className="pb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-black)] sm:text-sm">
+            <h6 className="pb-2 text-xs font-semibold uppercase  text-[var(--color-black)] sm:text-sm">
               Legal Terms
             </h6>
 
             <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl">
-              Airbnb Privacy
+              Zirat Privacy
             </h1>
 
-            <p className="pt-6 text-base leading-relaxed sm:text-lg md:text-xl">
+            <p className="pt-6 text-base  sm:text-lg md:text-xl">
               Our Privacy Policy explains what personal information we collect,
-              how we use personal information, how personal information is
-              shared, and privacy rights.
+              how we use it, how it may be shared, and your privacy rights when
+              using our Services.
             </p>
 
             <h3 className="pb-4 pt-8 text-xl font-semibold underline sm:text-2xl">
-              Privacy Policy
+              Information We Collect
             </h3>
-
-            <p className="text-base leading-relaxed sm:text-lg md:text-xl">
-              Please review the supplemental privacy policies linked within the
-              privacy policy documents, such as for certain Airbnb services,
-              that may be applicable to you.
+            <p className="text-base  sm:text-lg md:text-xl">
+              We collect information you provide directly, such as account details,
+              farm data, and payment information. We also collect usage data automatically,
+              including device information, location data, and interaction logs.
             </p>
 
             <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
-              Supplemental Privacy Policy Documents
+              How We Use Your Information
             </h3>
-
             <ul className="ms-6 list-disc space-y-2 text-base sm:text-lg md:text-xl text-[var(--color-black)]">
-              <li>Outside the United States Supplement</li>
-              <li>United States Privacy Supplement</li>
-              <li>Cookie Policy</li>
-              <li>Enterprise Customers and Airbnb for Work</li>
-              <li>Privacy Supplement for China Users</li>
-              <li>Brazil Privacy Supplement</li>
-              <li>Privacy Policy Supplement for Services and Experiences</li>
-              <li>
-                Privacy Policy Supplement for the Airbnb-friendly Marketplace
-              </li>
-              <li>Privacy Policy Supplement for Airbnb Creators</li>
+              <li>Provide, maintain, and improve our Services</li>
+              <li>Deliver personalized insights, alerts, and recommendations</li>
+              <li>Analyze usage trends and agricultural productivity</li>
+              <li>Communicate updates, support messages, and marketing materials</li>
+              <li>Prevent fraud, abuse, and security breaches</li>
+              <li>Comply with legal obligations and enforce our terms</li>
             </ul>
 
-            <div className="pt-8 text-[var(--color-black)]">
-              <p className="text-base leading-relaxed sm:text-lg md:text-xl">
-                <span className="font-semibold underline">Airbnb.org</span>{" "}
-                <span className="font-bold">
-                  is a separate and independent entity from Airbnb, Inc. Access
-                  the{" "}
-                </span>
-                <span className="font-semibold underline">
-                  Airbnb.org Privacy Policy
-                </span>
-                .
-              </p>
-            </div>
+            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
+              Sharing & Disclosure
+            </h3>
+            <p className="text-base leading-relaxed sm:text-lg md:text-xl">
+              We do not sell your personal data. We may share information with:
+            </p>
+            <ul className="ms-6 list-disc space-y-2 text-base sm:text-lg md:text-xl text-[var(--color-black)]">
+              <li>Service providers assisting us with analytics, hosting, and support</li>
+              <li>Legal authorities if required by law or to protect our rights</li>
+              <li>Business partners for legitimate business purposes with consent</li>
+            </ul>
 
-            <hr className="my-8 border-t-2 border-[var(--color-black)]" />
+            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
+              Cookies & Tracking
+            </h3>
+            <p className="text-base sm:text-lg md:text-xl">
+              We use cookies and similar technologies to enhance your experience,
+              remember preferences, and analyze traffic. You can manage cookies
+              through your browser settings.
+            </p>
 
-            {/* Related Articles */}
-            <div className="text-[var(--color-black)]">
-              <h2 className="pb-3 text-xl font-semibold sm:text-2xl">
-                Related articles
-              </h2>
-              <p className="pb-1 text-[var(--color-black)]">Legal terms</p>
-              <p className="pb-1 text-lg font-medium underline sm:text-xl">
-                Privacy Policy
-              </p>
-              <p className="text-sm">Please review our Privacy Policy.</p>
-            </div>
+            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
+              User Rights
+            </h3>
+            <ul className="ms-6 list-disc space-y-2 text-base sm:text-lg md:text-xl text-[var(--color-black)]">
+              <li>Access and correct your personal information</li>
+              <li>Request deletion of your data</li>
+              <li>Opt out of marketing communications</li>
+              <li>Restrict or object to certain processing activities</li>
+            </ul>
 
-            <hr className="my-8 border-t-2 border-[var(--color-black)]" />
+            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
+              Data Storage and Security
+            </h3>
+            <p className="text-base  sm:text-lg md:text-xl">
+              We implement encryption, secure servers, and access controls to protect your
+              data. However, no online system is completely secure. Always safeguard
+              your login information and use strong passwords.
+            </p>
 
-            <div className="text-[var(--color-black)]">
-              <p className="pb-1 text-[var(--color-black)]">Community policy</p>
-              <p className="pb-1 text-lg font-medium underline sm:text-xl">
-                Protecting your privacy
-              </p>
-              <p className="text-sm">
-                To create an environment that promotes not only physical safety,
-                but also the safety and security of private information, certain
-                behaviours and activities are...
-              </p>
-            </div>
+            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
+              International Transfers
+            </h3>
+            <p className="text-base leading-relaxed sm:text-lg md:text-xl">
+              If you access our Services from outside India, your data may be transferred
+              to and processed in countries with different data protection laws.
+            </p>
 
-            <hr className="my-8 border-t-2 border-[var(--color-black)]" />
+            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
+              Updates to This Privacy Policy
+            </h3>
+            <p className="text-base  sm:text-lg md:text-xl">
+              We may update this Privacy Policy from time to time. Changes will be
+              posted with a new “Last Updated” date. Continued use of our Services
+              constitutes acceptance of the updated policy.
+            </p>
 
-            <div className="text-[var(--color-black)]">
-              <p className="pb-1 text-[var(--color-black)]">Legal terms</p>
-              <p className="pb-1 text-lg font-medium underline sm:text-xl">
-                Outside the United States Supplement
-              </p>
-              <p className="text-sm">
-                Please review this information which supplements our Privacy
-                Policy.
-              </p>
-            </div>
-          </div>
-
-          <div className="lg:col-span-4">
-            <div className="shadow-lg w-80 rounded-xl border border-[var(--color-black)] bg-[var(--color-white)] p-4">
-              <p className="text-base text-[var(--color-black)] sm:text-lg">
-                Get help with your reservations, account, and more.
-              </p>
-              <button className="mt-4 w-full rounded-lg bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] py-2 text-sm text-[var(--color-white)] transition">
-                Login or Sign Up
-              </button>
-            </div>
+            <p className="pt-6 text-sm sm:text-base md:text-lg">
+              Last Updated: <b>October 24, 2025</b>
+              <br />
+              Thank you for trusting Zirat with your farm data!
+            </p>
           </div>
         </div>
       </div>
