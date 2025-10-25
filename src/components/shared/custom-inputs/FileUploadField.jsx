@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
-  IconButton,
   useTheme,
   FormHelperText,
+  IconButton,
 } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import ClearIcon from "@mui/icons-material/Clear";
+import { Close } from "@mui/icons-material";
+import RequiredLabel from "@/components/ui/RequiredLabel";
 
 const FileUploadField = ({
   value,
@@ -15,7 +16,7 @@ const FileUploadField = ({
   label,
   accept = "image/*",
   multiple = false,
-  showPreview = true,
+  show = true,
   optional = false,
   error,
 }) => {
@@ -42,20 +43,24 @@ const FileUploadField = ({
 
   const handleChange = (e) => {
     const files = Array.from(e.target.files);
-    setPreviews(
-      files.map((f) => ({ name: f.name, url: URL.createObjectURL(f), file: f }))
-    );
+    const newPreviews = files.map((f) => ({
+      name: f.name,
+      url: URL.createObjectURL(f),
+      file: f,
+    }));
+    setPreviews(newPreviews);
     onFilesChange(multiple ? files : files[0]);
   };
 
-  const handleRemove = (fileToRemove) => {
-    const newPreviews = previews.filter((f) => f.name !== fileToRemove.name);
-    setPreviews(newPreviews);
-    if (multiple) {
-      onFilesChange(newPreviews.map((f) => f.file));
-    } else {
-      onFilesChange(null);
-    }
+  const handleView = (file) => {
+    window.open(file.url, "_blank");
+  };
+
+  const handleRemove = (index) => {
+    const updated = previews.filter((_, i) => i !== index);
+    setPreviews(updated);
+    if (multiple) onFilesChange(updated.map((p) => p.file));
+    else onFilesChange(null);
   };
 
   return (
@@ -79,16 +84,71 @@ const FileUploadField = ({
             color: previews.length
               ? theme.palette.text.primary
               : theme.palette.text.disabled,
+            display: "flex",
+            alignItems: "center",
+            gap: 0.5,
+            flexWrap: "wrap",
           }}
         >
+          {!previews.length && (
+            <>
+              <span>{label}</span>
+              {!optional && <RequiredLabel />}
+            </>
+          )}
+
           {previews.length
-            ? previews.map((p) => p.name).join(", ")
-            : label + (optional ? " (Optional)" : "")}
+            ? `(${previews.map((p) => p.name).join(", ")})`
+            : optional
+              ? "(Optional)"
+              : ""}
         </Typography>
-        <UploadFileIcon
-          fontSize="small"
-          sx={{ color: "var(--color-secondary)" }}
-        />
+
+        {show && previews.length > 0 ? (
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            {previews.map((file, idx) => (
+              <Box
+                key={idx}
+                sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+              >
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "var(--color-primary)",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                    fontSize: "12px",
+                  }}
+                  onClick={() => handleView(file)}
+                >
+                  Show Preview
+                </Typography>
+                <IconButton
+                  size="small"
+                  onClick={(e) => {
+                    handleRemove(idx);
+                  }}
+                  sx={{
+                    color: "var(--color-error)",
+                    p: 0,
+                    "&:hover": { background: "transparent" },
+                  }}
+                ></IconButton>
+                <Close
+                  fontSize="12px"
+                  sx={{
+                    color: "var(--color-error)",
+                  }}
+                />
+              </Box>
+            ))}
+          </Box>
+        ) : (
+          <UploadFileIcon
+            fontSize="small"
+            sx={{ color: "var(--color-secondary)" }}
+          />
+        )}
 
         <input
           type="file"
@@ -99,46 +159,13 @@ const FileUploadField = ({
         />
       </Box>
 
-      {showPreview && previews.length > 0 && (
-        <Box sx={{ display: "flex", gap: 1, mt: 1, flexWrap: "wrap" }}>
-          {previews.map((file, idx) => (
-            <Box
-              key={idx}
-              sx={{
-                position: "relative",
-                width: 60,
-                height: 60,
-                borderRadius: "0.5rem",
-                border: `1px solid ${theme.palette.divider}`,
-                overflow: "hidden",
-              }}
-            >
-              <Box
-                component="img"
-                src={file.url}
-                alt={file.name}
-                sx={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-              <IconButton
-                size="small"
-                onClick={() => handleRemove(file)}
-                sx={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  backgroundColor: theme.palette.background.paper,
-                  borderRadius: "50%",
-                  padding: "2px",
-                }}
-              >
-                <ClearIcon fontSize="small" />
-              </IconButton>
-            </Box>
-          ))}
-        </Box>
+      {error && !optional && (
+        <FormHelperText
+          style={{ color: "var(--color-error)", fontSize: "12px" }}
+        >
+          {error}
+        </FormHelperText>
       )}
-
-      {error && <FormHelperText error>{error}</FormHelperText>}
     </Box>
   );
 };
