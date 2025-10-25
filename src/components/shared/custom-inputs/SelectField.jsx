@@ -15,10 +15,14 @@ const SelectField = ({
   onChange,
   value,
   isMultiple = false,
+  disabled = false,
 }) => {
+  console.log(errors, "textfield errors");
+
   const isRequired = optional === false;
 
-  const errorMessage = errors?.[name]?.message || errors?.message || "";
+  const errorMessage =
+    errors?.[name]?.message || errors?.message || errors || "";
 
   const safeValue = value ?? (isMultiple ? [] : "");
 
@@ -41,6 +45,7 @@ const SelectField = ({
       value={safeValue}
       onChange={onChange}
       helperText={errorMessage}
+      disabled={disabled}
       variant="outlined"
       {...(register
         ? register(name, {
