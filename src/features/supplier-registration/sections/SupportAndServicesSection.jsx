@@ -16,43 +16,32 @@ export default function SupportServicesSection({ register, errors, control }) {
 
   return (
     <FormLayout>
-      {/* 1. Agronomy Advisory Support */}
-      <Controller
+      <SelectField
         name="advisorySupport"
+        register={register}
         control={control}
-        render={({ field }) => (
-          <SelectField
-            {...field}
-            label="Agronomy Advisory Support"
-            options={[
-              { value: "", label: "Select" },
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-            errors={errors.advisorySupport}
-          />
-        )}
+        label="Agronomy Advisory Support"
+        options={[
+          { value: "", label: "Select" },
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+        errors={errors.advisorySupport}
       />
 
-      {/* 2. Field Staff Available */}
-      <Controller
+      <SelectField
         name="fieldStaffAvailable"
+        register={register}
         control={control}
-        render={({ field }) => (
-          <SelectField
-            {...field}
-            label="Field Staff Available"
-            options={[
-              { value: "", label: "Select" },
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-            errors={errors.fieldStaffAvailable}
-          />
-        )}
+        label="Field Staff Available"
+        options={[
+          { value: "", label: "Select" },
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+        errors={errors.fieldStaffAvailable}
       />
 
-      {/* If Yes → Ask Number of Staff */}
       {fieldStaffAvailable === "yes" && (
         <FormInput
           name="fieldStaffCount"
@@ -64,7 +53,6 @@ export default function SupportServicesSection({ register, errors, control }) {
         />
       )}
 
-      {/* 3. After-Sales Service */}
       <FormInput
         name="afterSalesService"
         label="After-Sales Service (Warranty / Return / Replacement policy)"
@@ -72,7 +60,6 @@ export default function SupportServicesSection({ register, errors, control }) {
         errors={errors.afterSalesService}
       />
 
-      {/* 4. Preferred delivery area range */}
       <FormInput
         name="deliveryRange"
         label="Preferred Delivery Area Range (Sq. KMs)"
@@ -81,40 +68,30 @@ export default function SupportServicesSection({ register, errors, control }) {
         errors={errors.deliveryRange}
       />
 
-      {/* 5. Computer/Laptop Facility */}
-      <Controller
+      <SelectField
         name="computerAvailable"
+        register={register}
         control={control}
-        render={({ field }) => (
-          <SelectField
-            {...field}
-            label="Computer/Laptop Facility Available"
-            options={[
-              { value: "", label: "Select" },
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-            errors={errors.computerAvailable}
-          />
-        )}
+        label="Computer/Laptop Facility Available"
+        options={[
+          { value: "", label: "Select" },
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+        errors={errors.computerAvailable}
       />
 
-      {/* 6. Vehicle for Delivery */}
-      <Controller
+      <SelectField
         name="vehicleAvailable"
+        register={register}
         control={control}
-        render={({ field }) => (
-          <SelectField
-            {...field}
-            label="Vehicle for Delivery / Two Wheeler"
-            options={[
-              { value: "", label: "Select" },
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-            errors={errors.vehicleAvailable}
-          />
-        )}
+        label="Vehicle for Delivery / Two Wheeler"
+        options={[
+          { value: "", label: "Select" },
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+        errors={errors.vehicleAvailable}
       />
     </FormLayout>
   );

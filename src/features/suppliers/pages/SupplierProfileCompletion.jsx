@@ -85,7 +85,7 @@ export default function SupplierProfileCompletion({ onComplete }) {
 
     const valid = await trigger(stepFields);
 
-    if (valid) setStep((s) => Math.min(stepSchemas.length - 1, s + 1));
+    if (!valid) setStep((s) => Math.min(stepSchemas.length - 1, s + 1));
   };
 
   const prevStep = () => setStep((s) => Math.max(0, s - 1));
@@ -158,16 +158,32 @@ export default function SupplierProfileCompletion({ onComplete }) {
               <LicensingComplianceSection register={register} errors={errors} />
             )}
             {step === 2 && (
-              <ProductPortfolioSection register={register} errors={errors} />
+              <ProductPortfolioSection
+                register={register}
+                errors={errors}
+                control={methods.control}
+              />
             )}
             {step === 3 && (
-              <OperationalDetailsSection register={register} errors={errors} />
+              <OperationalDetailsSection
+                register={register}
+                errors={errors}
+                control={methods.control}
+              />
             )}
             {step === 4 && (
-              <FinancialPaymentSection register={register} errors={errors} />
+              <FinancialPaymentSection
+                register={register}
+                errors={errors}
+                control={methods.control}
+              />
             )}
             {step === 5 && (
-              <SupportServicesSection register={register} errors={errors} />
+              <SupportServicesSection
+                register={register}
+                errors={errors}
+                control={methods.control}
+              />
             )}
           </Box>
 
