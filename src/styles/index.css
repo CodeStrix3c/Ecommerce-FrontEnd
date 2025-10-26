@@ -8,7 +8,6 @@
   scrollbar-width: none;
 }
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -123,7 +122,7 @@ button.social {
   --color-black: #222222;
   --color-black-hover: #f7f7f7;
   --color-white: #ffffff;
-  --color-gray: #55555555;
+  --color-gray: #8888883b;
   --color-overlay: rgba(0, 0, 0, 0.5);
   --color-error: #f44336;
 }
