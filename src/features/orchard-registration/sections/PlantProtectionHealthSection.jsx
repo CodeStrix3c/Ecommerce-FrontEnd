@@ -11,50 +11,41 @@ export default function PlantProtectionHealthSection({
   errors,
   control,
 }) {
+  console.log(errors, "dkfjdkfj");
+
   return (
     <FormLayout>
-      {/* 1. Disease History */}
-      <Controller
+      <SelectField
         name="diseaseHistory"
         control={control}
-        render={({ field }) => (
-          <SelectField
-            {...field}
-            label="Disease History"
-            errors={errors.diseaseHistory}
-            multiple
-            options={[
-              { value: "scab", label: "Scab" },
-              { value: "alternaria", label: "Alternaria" },
-              { value: "powderyMildew", label: "Powdery Mildew" },
-              { value: "other", label: "Other" },
-            ]}
-          />
-        )}
+        label="Disease History"
+        register={register}
+        errors={errors.diseaseHistory}
+        multiple
+        options={[
+          { value: "scab", label: "Scab" },
+          { value: "alternaria", label: "Alternaria" },
+          { value: "powderyMildew", label: "Powdery Mildew" },
+          { value: "other", label: "Other" },
+        ]}
       />
 
-      {/* 2. Pest History */}
-      <Controller
+      <SelectField
         name="pestHistory"
         control={control}
-        render={({ field }) => (
-          <SelectField
-            {...field}
-            label="Pest History"
-            errors={errors.pestHistory}
-            multiple
-            options={[
-              { value: "aphids", label: "Aphids" },
-              { value: "mites", label: "Mites" },
-              { value: "codlingMoth", label: "Codling Moth" },
-              { value: "leafMinor", label: "Leaf Minor" },
-              { value: "other", label: "Other" },
-            ]}
-          />
-        )}
+        label="Pest History"
+        register={register}
+        errors={errors.pestHistory}
+        multiple
+        options={[
+          { value: "aphids", label: "Aphids" },
+          { value: "mites", label: "Mites" },
+          { value: "codlingMoth", label: "Codling Moth" },
+          { value: "leafMinor", label: "Leaf Minor" },
+          { value: "other", label: "Other" },
+        ]}
       />
 
-      {/* 3. Spray Schedule (optional) */}
       <FormTextArea
         name="spraySchedule"
         label="Spray Schedule (optional – to track)"
@@ -64,22 +55,17 @@ export default function PlantProtectionHealthSection({
         rows={4}
       />
 
-      {/* 4. Crop Insurance Coverage */}
-      <Controller
+      <SelectField
         name="cropInsuranceCoverage"
+        register={register}
         control={control}
-        render={({ field }) => (
-          <SelectField
-            {...field}
-            label="Crop Insurance Coverage"
-            errors={errors.cropInsuranceCoverage}
-            options={[
-              { value: "", label: "Select Option" },
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-          />
-        )}
+        label="Crop Insurance Coverage"
+        errors={errors.cropInsuranceCoverage}
+        options={[
+          { value: "", label: "Select Option" },
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
       />
     </FormLayout>
   );

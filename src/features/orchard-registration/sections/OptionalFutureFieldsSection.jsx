@@ -23,28 +23,21 @@ export default function OptionalFutureFieldsSection({
           required={null}
         />
 
-        <Controller
+        <SelectField
           name="fpoMembership"
+          register={register}
           control={control}
-          render={({ field, fieldState }) => (
-            <SelectField
-              optional
-              {...field}
-              label="FPO / Cooperative Membership"
-              errors={
-                fieldState.error ? { [field.name]: fieldState.error } : {}
-              }
-              options={[
-                { value: "", label: "Select Membership Status" },
-                { value: "yes", label: "Yes" },
-                { value: "no", label: "No" },
-                { value: "planning", label: "Planning to Join" },
-              ]}
-            />
-          )}
+          optional
+          label="FPO / Cooperative Membership"
+          errors={errors.fpoMembership}
+          options={[
+            { value: "", label: "Select Membership Status" },
+            { value: "yes", label: "Yes" },
+            { value: "no", label: "No" },
+            { value: "planning", label: "Planning to Join" },
+          ]}
         />
 
-        {/* 3. Certification */}
         <FormInput
           name="certification"
           label="Certification (Organic, GAP, Fair Trade, etc.)"
@@ -54,7 +47,6 @@ export default function OptionalFutureFieldsSection({
           required={null}
         />
 
-        {/* 4. Digital Tools Used */}
         <FormInput
           name="digitalToolsUsed"
           label="Digital Tools Used (Weather apps, Advisory apps, Farm management tools)"

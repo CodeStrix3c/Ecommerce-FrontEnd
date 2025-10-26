@@ -7,6 +7,7 @@ import FormInput from "@/components/shared/custom-inputs/FormInput";
 import FormDateInput from "@/components/shared/custom-inputs/FormDateInput";
 import FormFileInput from "@/components/shared/custom-inputs/FormFileInput";
 import SelectField from "@/components/shared/custom-inputs/SelectField";
+import FileUploadField from "@/components/shared/custom-inputs/FileUploadField";
 
 export default function SoilWaterProfileSection({ register, errors, control }) {
   console.log(errors, "errr");
@@ -34,115 +35,86 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
   return (
     <>
       <FormLayout>
-        {/* 1. Soil Type */}
-        <Controller
+        <SelectField
+          label="Soil Type"
           name="soilType"
+          register={register}
           control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Soil Type"
-              errors={errors.soilType}
-              options={[
-                { value: "", label: "Select Soil Type" },
-                { value: "sandyClayLoam", label: "Sandy Clay Loam" },
-                { value: "sandyLoam", label: "Sandy Loam" },
-                { value: "sandyClay", label: "Sandy Clay" },
-                { value: "sandy", label: "Sandy" },
-                { value: "siltLoam", label: "Silt Loam" },
-                { value: "heavyClay", label: "Heavy Clay" },
-                { value: "siltClay", label: "Silt Clay" },
-                { value: "silt", label: "Silt" },
-                { value: "siltClayLoam", label: "Silt Clay Loam" },
-                { value: "notGetting", label: "Not getting" },
-              ]}
-            />
-          )}
+          errors={errors.soilType}
+          options={[
+            { value: "", label: "Select Soil Type" },
+            { value: "sandyClayLoam", label: "Sandy Clay Loam" },
+            { value: "sandyLoam", label: "Sandy Loam" },
+            { value: "sandyClay", label: "Sandy Clay" },
+            { value: "sandy", label: "Sandy" },
+            { value: "siltLoam", label: "Silt Loam" },
+            { value: "heavyClay", label: "Heavy Clay" },
+            { value: "siltClay", label: "Silt Clay" },
+            { value: "silt", label: "Silt" },
+            { value: "siltClayLoam", label: "Silt Clay Loam" },
+            { value: "notGetting", label: "Not getting" },
+          ]}
         />
-
-        {/* 2. Soil Health Status */}
-        <Controller
+        <SelectField
+          register={register}
+          control={control}
+          label="Soil Health Status"
           name="soilHealthStatus"
-          control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Soil Health Status"
-              errors={errors.soilHealthStatus}
-              options={[
-                { value: "", label: "Select Soil Health Status" },
-                { value: "acidic", label: "Acidic" },
-                { value: "alkaline", label: "Alkaline" },
-                { value: "notKnown", label: "Not Known" },
-              ]}
-            />
-          )}
+          errors={errors.soilHealthStatus}
+          options={[
+            { value: "", label: "Select Soil Health Status" },
+            { value: "acidic", label: "Acidic" },
+            { value: "alkaline", label: "Alkaline" },
+            { value: "notKnown", label: "Not Known" },
+          ]}
         />
-
-        {/* 3. Last Soil Test Date */}
         <FormDateInput
           name="lastSoilTestDate"
           label="Last Soil Test Date"
           register={register}
           errors={errors.lastSoilTestDate}
         />
-
-        {/* 4-6. Water Details */}
-        <Controller
+        <SelectField
+          label="Water Source"
           name="waterSource"
+          register={register}
           control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Water Source"
-              errors={errors.waterSource}
-              options={[
-                { value: "", label: "Select Water Source" },
-                { value: "canal", label: "Canal" },
-                { value: "borewell", label: "Borewell" },
-                { value: "rainfed", label: "Rainfed" },
-                { value: "spring", label: "Spring" },
-                { value: "other", label: "Other" },
-              ]}
-            />
-          )}
+          errors={errors.waterSource}
+          options={[
+            { value: "", label: "Select Water Source" },
+            { value: "canal", label: "Canal" },
+            { value: "borewell", label: "Borewell" },
+            { value: "rainfed", label: "Rainfed" },
+            { value: "spring", label: "Spring" },
+            { value: "other", label: "Other" },
+          ]}
         />
-
-        <Controller
+        <SelectField
+          label="Irrigation Method"
+          register={register}
+          control={control}
           name="irrigationMethod"
-          control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Irrigation Method"
-              errors={errors.irrigationMethod}
-              options={[
-                { value: "", label: "Select Irrigation Method" },
-                { value: "drip", label: "Drip" },
-                { value: "sprinkler", label: "Sprinkler" },
-                { value: "flood", label: "Flood" },
-                { value: "none", label: "None" },
-              ]}
-            />
-          )}
+          errors={errors.irrigationMethod}
+          options={[
+            { value: "", label: "Select Irrigation Method" },
+            { value: "drip", label: "Drip" },
+            { value: "sprinkler", label: "Sprinkler" },
+            { value: "flood", label: "Flood" },
+            { value: "none", label: "None" },
+          ]}
         />
-
-        <Controller
-          name="waterAvailability"
+        <SelectField
+          register={register}
           control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Water Availability"
-              errors={errors.waterAvailability}
-              options={[
-                { value: "", label: "Select Water Availability" },
-                { value: "roundTheYear", label: "Round-the-year" },
-                { value: "seasonal", label: "Seasonal" },
-                { value: "notAvailable", label: "Not available" },
-              ]}
-            />
-          )}
+          label="Water Availability"
+          name="waterAvailability"
+          errors={errors.waterAvailability}
+          options={[
+            { value: "", label: "Select Water Availability" },
+            { value: "roundTheYear", label: "Round-the-year" },
+            { value: "seasonal", label: "Seasonal" },
+            { value: "notAvailable", label: "Not available" },
+          ]}
         />
       </FormLayout>
       <section style={{ marginTop: 24 }}>
@@ -165,7 +137,6 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
           Enter values or upload a report. At least one is required.
         </p>
 
-        {/* Toggle button/link */}
         <div style={{ marginBottom: 8 }}>
           <button
             type="button"
@@ -186,26 +157,22 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
         </div>
 
         {useFileUpload ? (
-          // File Upload Input
           <Controller
             name="soilTestReport"
             control={control}
             render={({ field, fieldState }) => (
-              <FormFileInput
+              <FileUploadField
+                {...field}
+                value={field.value}
                 name="soilTestReport"
                 label="Upload Soil Test Report"
-                showPreview
-                value={field.value}
-                required={null}
-                onChange={field.onChange}
-                // errors={fieldState.error}
-                optional
-                accept=".pdf,.doc,.docx,.jpg,.png"
+                error={fieldState.error?.message}
+                onFilesChange={(files) => field.onChange(files)}
+                // optional
               />
             )}
           />
         ) : (
-          // Numeric Inputs Grid
           <div
             style={{
               display: "grid",
@@ -221,8 +188,6 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
               register={register}
               errors={errors.pH}
               required={null}
-              value={soilTest.pH}
-              onChange={handleSoilTestChange}
             />
             <FormInput
               name="N"
@@ -231,8 +196,6 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
               register={register}
               errors={errors.N}
               required={null}
-              value={soilTest.N}
-              onChange={handleSoilTestChange}
             />
             <FormInput
               name="P"
@@ -241,8 +204,6 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
               register={register}
               errors={errors.P}
               required={null}
-              value={soilTest.P}
-              onChange={handleSoilTestChange}
             />
             <FormInput
               name="K"
@@ -251,8 +212,6 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
               register={register}
               errors={errors.K}
               required={null}
-              value={soilTest.K}
-              onChange={handleSoilTestChange}
             />
             <FormInput
               name="organicCarbon"
@@ -261,8 +220,6 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
               register={register}
               required={null}
               errors={errors.organicCarbon}
-              value={soilTest.organicCarbon}
-              onChange={handleSoilTestChange}
             />
             <FormInput
               name="micronutrients"
@@ -270,8 +227,6 @@ export default function SoilWaterProfileSection({ register, errors, control }) {
               register={register}
               required={null}
               errors={errors.micronutrients}
-              value={soilTest.micronutrients}
-              onChange={handleSoilTestChange}
             />
           </div>
         )}
