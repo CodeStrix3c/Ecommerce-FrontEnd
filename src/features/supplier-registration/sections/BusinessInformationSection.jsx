@@ -24,6 +24,7 @@ export default function BusinessInformationSection() {
     register,
     setValue,
     watch,
+
     formState: { errors },
   } = useFormContext();
   const [loading, setLoading] = useState(false);

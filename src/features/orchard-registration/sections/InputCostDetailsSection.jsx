@@ -10,68 +10,43 @@ export default function InputCostDetailsSection({ register, errors, control }) {
   return (
     <>
       <FormLayout>
-        {/* 1. Pesticide Supplier Location */}
-        <Controller
+        <SelectField
           name="pesticideSupplierLocation"
           control={control}
-          render={({ field, fieldState }) => (
-            <SelectField
-              {...field}
-              label="Pesticide Supplier Location"
-              errors={
-                fieldState.error ? { [field.name]: fieldState.error } : {}
-              }
-              options={[
-                { value: "", label: "Select Location Type" },
-                { value: "village", label: "Village Level" },
-                { value: "town", label: "From Town" },
-                { value: "city", label: "From City" },
-                { value: "online", label: "Online Mostly" },
-              ]}
-            />
-          )}
+          register={register}
+          label="Pesticide Supplier Location"
+          errors={errors.pesticideSupplierLocation}
+          options={[
+            { value: "", label: "Select Location Type" },
+            { value: "village", label: "Village Level" },
+            { value: "town", label: "From Town" },
+            { value: "city", label: "From City" },
+            { value: "online", label: "Online Mostly" },
+          ]}
         />
-
-        {/* 2. Payment Type */}
-        <Controller
+        <SelectField
           name="paymentType"
+          label="Payment Type"
           control={control}
-          render={({ field, fieldState }) => (
-            <SelectField
-              {...field}
-              label="Payment Type"
-              errors={
-                fieldState.error ? { [field.name]: fieldState.error } : {}
-              }
-              options={[
-                { value: "", label: "Select Payment Type" },
-                { value: "credit", label: "Credit Purchase" },
-                { value: "cash", label: "Cash Purchase" },
-                { value: "mixed", label: "Mixed" },
-              ]}
-            />
-          )}
+          errors={errors.paymentType}
+          options={[
+            { value: "", label: "Select Payment Type" },
+            { value: "credit", label: "Credit Purchase" },
+            { value: "cash", label: "Cash Purchase" },
+            { value: "mixed", label: "Mixed" },
+          ]}
         />
-
-        {/* 3. Credit Period */}
-        <Controller
+        <SelectField
           name="creditPeriod"
+          label="Credit Period"
+          errors={errors.creditPeriod}
           control={control}
-          render={({ field, fieldState }) => (
-            <SelectField
-              {...field}
-              label="Credit Period"
-              errors={
-                fieldState.error ? { [field.name]: fieldState.error } : {}
-              }
-              options={[
-                { value: "", label: "Select Credit Period" },
-                { value: "month", label: "Month" },
-                { value: "cropSeason", label: "Crop Season" },
-                { value: "noLimits", label: "No Limits" },
-              ]}
-            />
-          )}
+          options={[
+            { value: "", label: "Select Credit Period" },
+            { value: "month", label: "Month" },
+            { value: "cropSeason", label: "Crop Season" },
+            { value: "noLimits", label: "No Limits" },
+          ]}
         />
       </FormLayout>
     </>

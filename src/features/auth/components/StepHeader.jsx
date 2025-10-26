@@ -23,7 +23,7 @@ const StepHeader = ({ activeStep, type }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
-          mb: { xs: 1, sm: 1.5, md: 2 },
+          mb: { xs: 1, sm: 1.5, md: 4 },
           flexDirection: "row",
           gap: { xs: 0.75, sm: 0 },
           // px: { xs: 0, sm: 1, md: 2 },

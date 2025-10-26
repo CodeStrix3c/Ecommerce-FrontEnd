@@ -15,56 +15,44 @@ export default function CropNutritionManagementSection({
   return (
     <>
       <FormLayout>
-        <Controller
+        <SelectField
           name="fertilizerPractices"
+          register={register}
           control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Fertilizer Practices"
-              errors={errors.fertilizerPractices}
-              options={[
-                { value: "", label: "Select Fertilizer Practice" },
-                { value: "organic", label: "Organic" },
-                { value: "chemical", label: "Chemical" },
-                { value: "integrated", label: "Integrated" },
-              ]}
-            />
-          )}
+          label="Fertilizer Practices"
+          errors={errors.fertilizerPractices}
+          options={[
+            { value: "", label: "Select Fertilizer Practice" },
+            { value: "organic", label: "Organic" },
+            { value: "chemical", label: "Chemical" },
+            { value: "integrated", label: "Integrated" },
+          ]}
         />
 
-        <Controller
+        <SelectField
+          register={register}
+          control={control}
           name="fertigationFacilities"
-          control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Fertigation Facilities"
-              errors={errors.fertigationFacilities}
-              options={[
-                { value: "", label: "Select Option" },
-                { value: "yes", label: "Yes" },
-                { value: "no", label: "No" },
-              ]}
-            />
-          )}
+          label="Fertigation Facilities"
+          errors={errors.fertigationFacilities}
+          options={[
+            { value: "", label: "Select Option" },
+            { value: "yes", label: "Yes" },
+            { value: "no", label: "No" },
+          ]}
         />
 
-        <Controller
-          name="mulching"
+        <SelectField
+          label="Mulching"
+          register={register}
           control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Mulching"
-              errors={errors.mulching}
-              options={[
-                { value: "", label: "Select Option" },
-                { value: "yes", label: "Yes" },
-                { value: "no", label: "No" },
-              ]}
-            />
-          )}
+          errors={errors.mulching}
+          name="mulching"
+          options={[
+            { value: "", label: "Select Option" },
+            { value: "yes", label: "Yes" },
+            { value: "no", label: "No" },
+          ]}
         />
 
         <FormDateInput
@@ -81,21 +69,17 @@ export default function CropNutritionManagementSection({
           rows={5}
         />
 
-        <Controller
-          name="fertiliserApplicationMode"
+        <SelectField
+          register={register}
           control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Mode of Fertiliser Application"
-              errors={errors.fertiliserApplicationMode}
-              options={[
-                { value: "", label: "Select Application Mode" },
-                { value: "soil", label: "Soil Application" },
-                { value: "foliar", label: "Foliar Application" },
-              ]}
-            />
-          )}
+          label="Mode of Fertiliser Application"
+          errors={errors.fertiliserApplicationMode}
+          name="fertiliserApplicationMode"
+          options={[
+            { value: "", label: "Select Application Mode" },
+            { value: "soil", label: "Soil Application" },
+            { value: "foliar", label: "Foliar Application" },
+          ]}
         />
       </FormLayout>
     </>
