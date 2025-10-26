@@ -43,36 +43,28 @@ export default function OperationalDetailsSection({
         errors={errors.distributorTieUps}
       />
 
-      <Controller
+      <SelectField
         name="deliveryService"
+        register={register}
         control={control}
-        render={({ field }) => (
-          <SelectField
-            {...field}
-            label="Delivery Service Available"
-            options={[
-              { value: "", label: "Select" },
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-            errors={errors.deliveryService}
-          />
-        )}
+        label="Delivery Service Available"
+        options={[
+          { value: "", label: "Select" },
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+        errors={errors.deliveryService}
       />
 
       {deliveryService === "yes" && (
-        <Controller
+        <SelectField
           name="serviceArea"
+          register={register}
           control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Service Area (Villages / Blocks covered)"
-              isMultiple
-              options={serviceAreaOptions}
-              errors={deliveryService === "yes" && errors.serviceArea}
-            />
-          )}
+          label="Service Area (Villages / Blocks covered)"
+          isMultiple
+          options={serviceAreaOptions}
+          errors={deliveryService === "yes" && errors.serviceArea}
         />
       )}
 
