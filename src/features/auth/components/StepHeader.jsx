@@ -1,19 +1,8 @@
 import React from "react";
 import { Box, Typography, Paper } from "@mui/material";
-import {
-  ORCHARD_STEPS,
-  PROFILE_STEPS,
-  SUPPLIER_STEPS,
-} from "@/constants/stepperData";
 
-const stepDataMap = {
-  orchard: ORCHARD_STEPS,
-  profile: PROFILE_STEPS,
-  supplier: SUPPLIER_STEPS,
-};
-
-const StepHeader = ({ activeStep, type }) => {
-  const { labels, descriptions } = stepDataMap[type] || {};
+const StepHeader = ({ activeStep, steps }) => {
+  const { labels, descriptions } = steps || {};
   const totalSteps = labels?.length || 0;
 
   return (

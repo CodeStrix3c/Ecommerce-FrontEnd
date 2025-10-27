@@ -46,6 +46,7 @@ export default function ProductionMarketingSection({
         />
 
         <FormInput
+          required={false}
           name="buyerDetails"
           label="Buyer Details (Optional, for future linkage)"
           register={register}
