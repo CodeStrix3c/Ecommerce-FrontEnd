@@ -49,7 +49,7 @@ export default function SupportServicesSection({ register, errors, control }) {
           type="number"
           register={register}
           errors={errors.fieldStaffCount}
-          required={null}
+          // required={null}
         />
       )}
 
