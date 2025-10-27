@@ -31,7 +31,7 @@ import {
 import BusinessInformationSection from "@/features/supplier-registration/sections/BusinessInformationSection";
 import { businessInformationSchema } from "@/features/supplier-registration/schemas/businessInformationSchemas";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import { SUPPLIER_STEPS } from "@/constants/stepperData";
+import { SUPPLIER_COMPLETION_STEPS } from "@/constants/stepperData";
 import StepHeader from "@/features/auth/components/StepHeader";
 import FormStepper from "@/components/shared/FormStepper";
 
@@ -45,7 +45,7 @@ const stepSchemas = [
 ];
 
 export default function SupplierProfileCompletion({ onComplete }) {
-  const { labels, descriptions } = SUPPLIER_STEPS || {};
+  const { labels, descriptions } = SUPPLIER_COMPLETION_STEPS || {};
   const totalSteps = labels.length;
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
@@ -85,7 +85,7 @@ export default function SupplierProfileCompletion({ onComplete }) {
 
     const valid = await trigger(stepFields);
 
-    if (!valid) setStep((s) => Math.min(stepSchemas.length - 1, s + 1));
+    if (valid) setStep((s) => Math.min(stepSchemas.length - 1, s + 1));
   };
 
   const prevStep = () => setStep((s) => Math.max(0, s - 1));
@@ -120,7 +120,7 @@ export default function SupplierProfileCompletion({ onComplete }) {
     if (step >= 4) completedSections.push("supportServices");
 
     onComplete?.({ ...data, completedSections });
-    navigate("/farmer-dashboard");
+    navigate("/supplier-profile");
   };
 
   return (
@@ -148,7 +148,7 @@ export default function SupplierProfileCompletion({ onComplete }) {
 
           <FormStepper activeStep={step} steps={labels} />
 
-          <StepHeader activeStep={step} type="supplier" />
+          <StepHeader activeStep={step} steps={SUPPLIER_COMPLETION_STEPS} />
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
             {step === 0 && (

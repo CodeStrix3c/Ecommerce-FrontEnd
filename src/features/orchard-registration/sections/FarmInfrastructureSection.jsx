@@ -52,6 +52,7 @@ export default function FarmInfrastructureSection({
       />
       <SelectField
         label="Other Tools"
+        optional
         name="otherTools"
         register={register}
         control={control}
