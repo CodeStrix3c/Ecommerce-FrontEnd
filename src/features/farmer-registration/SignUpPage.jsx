@@ -9,7 +9,6 @@ import ProfileSection from "./sections/ProfileSection";
 import OtpVerificationSection from "./sections/OtpVerificationSection";
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
-import FormStepper from "@/features/auth/components/StepHeader";
 
 import { profileSchema } from "@/features/farmer-registration/schemas/profileSchema";
 import { otpSchema } from "@/features/farmer-registration/schemas/otpSchema";
@@ -17,6 +16,9 @@ import { useFarmer } from "@/providers/FarmerProvider";
 import { OTP_FIELDS, PROFILE_FIELDS } from "../../constants/profileFields";
 
 import { useSignupMutation } from "@/hooks/useAuthMutation";
+import { PROFILE_STEPS } from "@/constants/stepperData";
+import StepHeader from "@/features/auth/components/StepHeader";
+import FormStepper from "@/components/shared/FormStepper";
 
 const stepSchemas = [profileSchema, otpSchema];
 const stepLabels = ["Profile", "OTP Verification"];
@@ -24,6 +26,8 @@ const stepLabels = ["Profile", "OTP Verification"];
 export default function SignUpPage() {
   const [step, setStep] = useState(0);
   const [otpSent, setOtpSent] = useState(false);
+  const { labels, descriptions } = PROFILE_STEPS || {};
+
   const { setProfileComplete, setOtpComplete } = useFarmer();
   const navigate = useNavigate();
 
@@ -125,7 +129,9 @@ export default function SignUpPage() {
               centered
             />
           </div>
-          <FormStepper activeStep={step} type="profile" />
+          <FormStepper activeStep={step} steps={labels} />
+
+          <StepHeader activeStep={step} steps={PROFILE_STEPS} />
 
           <Box
             sx={{
