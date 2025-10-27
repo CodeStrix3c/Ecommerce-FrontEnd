@@ -47,22 +47,18 @@ export default function ProfileSection({ register, errors, control }) {
         errors={errors.age}
       />
 
-      <Controller
+      <SelectField
         name="gender"
+        register={register}
         control={control}
-        render={({ field, fieldState }) => (
-          <SelectField
-            {...field}
-            label="Gender"
-            errors={fieldState.error ? { [field.name]: fieldState.error } : {}}
-            options={[
-              { value: "", label: "Select Gender" },
-              { value: "male", label: "Male" },
-              { value: "female", label: "Female" },
-              { value: "other", label: "Other" },
-            ]}
-          />
-        )}
+        label="Gender"
+        errors={errors.gender}
+        options={[
+          { value: "", label: "Select Gender" },
+          { value: "male", label: "Male" },
+          { value: "female", label: "Female" },
+          { value: "other", label: "Other" },
+        ]}
       />
       <Controller
         name="profilePic"
@@ -73,7 +69,7 @@ export default function ProfileSection({ register, errors, control }) {
             label="Upload Profile"
             errors={fieldState.error ? { profilePic: fieldState.error } : {}}
             onFilesChange={(files) => field.onChange(files)}
-            showPreview
+            // showPreview
             optional
           />
         )}

@@ -139,7 +139,11 @@ export default function SignUpPage() {
             }}
           >
             {step === 0 && (
-              <ProfileSection register={register} errors={errors} />
+              <ProfileSection
+                register={register}
+                errors={errors}
+                control={methods.control}
+              />
             )}
             {step === 1 && (
               <OtpVerificationSection register={register} errors={errors} />

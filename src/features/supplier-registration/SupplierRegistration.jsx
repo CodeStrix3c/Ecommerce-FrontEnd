@@ -85,6 +85,7 @@ export default function SupplierRegistration() {
                     <BusinessInformationSection
                       register={register}
                       errors={errors}
+                      control={methods.control}
                     />
                   )}
 
@@ -92,6 +93,7 @@ export default function SupplierRegistration() {
                     <OtpVerificationSection
                       register={register}
                       errors={errors}
+                      control={methods.control}
                     />
                   )}
 
