@@ -7,6 +7,7 @@ import useIsMobile from "@/hooks/useInMobile";
 import DropdownPanel from "./DropDownPanel";
 import { AccountCircle } from "@mui/icons-material";
 import SidebarMobile from "./SidebarMobile";
+import { getItemFromLocalStorage } from "@/utils/localStorage";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ const DropdownMenu = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("SRT");
+    const token = getItemFromLocalStorage("SRT");
     setIsSupplierLoggedIn(!!token);
   }, []);
 

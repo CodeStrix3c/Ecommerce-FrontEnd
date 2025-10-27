@@ -8,8 +8,6 @@ import SoilWaterProfileSection from "./sections/SoilWaterProfileSection";
 import CropNutritionManagementSection from "./sections/CropNutritionManagementSection";
 import PlantProtectionHealthSection from "./sections/PlantProtectionHealthSection";
 import FarmInfrastructureSection from "./sections/FarmInfrastructureSection";
-import LandHoldingSection from "./sections/LandHoldingSection";
-import AddressSection from "./sections/AddressSection";
 
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
@@ -29,7 +27,6 @@ import {
   farmInfrastructureStepFields,
   demographicsStepFields,
   varietyPlantingStepFields,
-  orchardRegistrationDefaultFields,
   productionMarketingStepFields,
   inputCostDetailsStepFields,
   optionalFutureFieldsStepFields,
@@ -37,7 +34,6 @@ import {
 
 import useIsMobile from "@/hooks/useInMobile";
 import { useNavigate } from "react-router-dom";
-import Popup from "@/components/shared/Popup";
 import ProductionMarketingSection from "./sections/ProductionMarketingSection";
 import { productionMarketingSchema } from "./schemas/productionMarketingSchema";
 import InputCostDetailsSection from "./sections/InputCostDetailsSection";
@@ -123,21 +119,10 @@ export default function OrchardRegistration() {
 
     const valid = await trigger(stepFields);
 
-    if (valid) setStep((s) => Math.min(stepSchemas.length - 1, s + 1));
+    if (!valid) setStep((s) => Math.min(stepSchemas.length - 1, s + 1));
   };
 
   const prevStep = () => setStep((s) => Math.max(0, s - 1));
-
-  // const detectLocation = () => {
-  //   if (!navigator.geolocation) return alert("Geolocation is not supported");
-  //   navigator.geolocation.getCurrentPosition(
-  //     (pos) =>
-  //       setValue("gps", `${pos.coords.latitude},${pos.coords.longitude}`, {
-  //         shouldValidate: true,
-  //       }),
-  //     () => alert("Unable to retrieve location")
-  //   );
-  // };
 
   const handleSubmitClick = async () => {
     if (step < stepSchemas.length - 1) {
@@ -183,7 +168,6 @@ export default function OrchardRegistration() {
                   />
                 </div>
                 <div
-                  ref={stepperRef}
                   style={{
                     overflowX: "auto",
                     whiteSpace: "nowrap",
@@ -192,12 +176,20 @@ export default function OrchardRegistration() {
                   }}
                   className="hide-scrollbar"
                 >
-                  <FormStepper activeStep={step} steps={labels} />
+                  <FormStepper
+                    activeStep={step}
+                    steps={labels}
+                    ref={stepperRef}
+                  />
                 </div>
               </Box>
 
               <Box sx={{ flex: 1 }}>
-                <StepHeader activeStep={step} type="orchard" />
+                <StepHeader
+                  activeStep={step}
+                  labels={labels}
+                  descriptions={descriptions}
+                />
 
                 {step === 0 && (
                   <DemographicsSection
