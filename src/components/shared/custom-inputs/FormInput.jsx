@@ -26,9 +26,9 @@ export default function FormInput({
     return label;
   };
   const getStartAdornment = () => {
-    if (type === "tel") {
-      return <InputAdornment position="start">+91</InputAdornment>;
-    }
+    // if (type === "tel") {
+    //   return <InputAdornment position="start">+91</InputAdornment>;
+    // }
     return null;
   };
   const getEndAdornment = () => {

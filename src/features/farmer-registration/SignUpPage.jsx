@@ -19,6 +19,7 @@ import { useSignupMutation } from "@/hooks/useAuthMutation";
 import { PROFILE_STEPS } from "@/constants/stepperData";
 import StepHeader from "@/features/auth/components/StepHeader";
 import FormStepper from "@/components/shared/FormStepper";
+import { setItemsInLocalStorage } from "@/utils/localStorage";
 
 const stepSchemas = [profileSchema, otpSchema];
 const stepLabels = ["Profile", "OTP Verification"];
@@ -87,17 +88,19 @@ export default function SignUpPage() {
     // };
     // console.log(payload, "payload");
 
-    signupMutate(values, {
-      onSuccess: (data) => {
-        console.log("Signup success:", data);
-        toast.success("Signup successful!");
-        navigate("/login");
-      },
-      onError: (err) => {
-        console.error("Signup failed:", err.response.data[""][0]);
-        toast.error(err.response?.data[""][0] || "Signup failed");
-      },
-    });
+    // signupMutate(values, {
+    //   onSuccess: (data) => {
+    //     console.log("Signup success:", data);
+    //     toast.success("Signup successful!");
+    //     navigate("/login");
+    //   },
+    //   onError: (err) => {
+    //     console.error("Signup failed:", err.response.data[""][0]);
+    //     toast.error(err.response?.data[""][0] || "Signup failed");
+    //   },
+    // });
+    // setItemsInLocalStorage("userLoginToken", "signedUp");
+    navigate("/login");
   };
 
   return (
@@ -131,7 +134,11 @@ export default function SignUpPage() {
           </div>
           <FormStepper activeStep={step} steps={labels} />
 
-          <StepHeader activeStep={step} steps={PROFILE_STEPS} />
+          <StepHeader
+            activeStep={step}
+            labels={labels}
+            descriptions={descriptions}
+          />
 
           <Box
             sx={{
