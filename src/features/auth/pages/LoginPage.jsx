@@ -38,6 +38,8 @@ const LoginPage = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = (data) => {
+    setItemsInLocalStorage("userLoginToken", "fakeToken");
+
     setRedirect(true);
     // const payload =
     //   tab === 0
