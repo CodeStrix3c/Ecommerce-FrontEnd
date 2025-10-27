@@ -17,6 +17,7 @@ import ContentWrapper from "@/components/shared/ContentWrapper";
 import FormStepper from "@/components/shared/FormStepper";
 import StepHeader from "../auth/components/StepHeader";
 import { SUPPLIER_STEPS } from "@/constants/stepperData";
+import { setItemsInLocalStorage } from "@/utils/localStorage";
 
 const stepSchemas = [businessInformationSchema, otpSchema];
 
@@ -58,7 +59,7 @@ export default function SupplierRegistration() {
 
     setBusinessComplete();
     setOtpComplete();
-    localStorage.setItem("SRT", "dummy data");
+    setItemsInLocalStorage("SRT", "fakeSupplierToken");
 
     toast.success("Business and OTP completed!");
     navigate("/supplier-profile");
@@ -87,7 +88,11 @@ export default function SupplierRegistration() {
                   />
                   <FormStepper activeStep={step} steps={labels} />
 
-                  <StepHeader activeStep={step} steps={SUPPLIER_STEPS} />
+                  <StepHeader
+                    activeStep={step}
+                    labels={labels}
+                    descriptions={descriptions}
+                  />
                   {step === 0 && (
                     <BusinessInformationSection
                       register={register}
