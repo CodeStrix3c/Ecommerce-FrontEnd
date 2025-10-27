@@ -70,7 +70,7 @@ const SingleOrchardDetails = lazy(
   () => import("@/features/orchards/pages/SingleOrchardDetails")
 );
 const SprayPage = lazy(() => import("@/features/spray/pages/SprayPage"));
-const Harvest = lazy(() => import("@/features/Harvest/Harvest"));
+const Harvest = lazy(() => import("@/features/Harvest/Pages/Harvest"));
 const SupplierProductPage = lazy(
   () => import("@/features/suppliers/pages/SupplierProductPage")
 );
