@@ -1,5 +1,5 @@
 import React from "react";
-import { Edit2, Trash2 } from "lucide-react";
+
 
 const sprayHistoryData = [
   {
@@ -9,8 +9,8 @@ const sprayHistoryData = [
     quantity: "1 kg",
     waterUsed: "10 L",
     totalTrees: 25,
-    date: "25 Sep 2025",
-    cost: 5000,
+    date: "May - Sep 2025",
+    cost: "5000 per 1kg",
   },
   {
     id: 2,
@@ -19,8 +19,8 @@ const sprayHistoryData = [
     quantity: "2 kg",
     waterUsed: "15 L",
     totalTrees: 40,
-    date: "26 Sep 2025",
-    cost: 7000,
+    date: "Aug - Oct 2025",
+    cost: "6000 per 2kg",
   },
   {
     id: 2,
@@ -29,8 +29,8 @@ const sprayHistoryData = [
     quantity: "2 kg",
     waterUsed: "15 L",
     totalTrees: 40,
-    date: "26 Sep 2025",
-    cost: 7000,
+    date: "Jul - Sep 2025",
+    cost: "5000 per 2kg",
   },
   {
     id: 2,
@@ -39,8 +39,9 @@ const sprayHistoryData = [
     quantity: "2 kg",
     waterUsed: "15 L",
     totalTrees: 40,
-    date: "26 Sep 2025",
-    cost: 7000,
+    date: "Apr - Jun 2025",
+    cost: "8000 per 2kg",
+   
   },
   {
     id: 2,
@@ -49,8 +50,8 @@ const sprayHistoryData = [
     quantity: "2 kg",
     waterUsed: "15 L",
     totalTrees: 40,
-    date: "26 Sep 2025",
-    cost: 7000,
+    date: "Mar - Aug 2025",
+    cost: "7000 per 2kg",
   },
   {
     id: 3,
@@ -59,13 +60,13 @@ const sprayHistoryData = [
     quantity: "500 g",
     waterUsed: "5 L",
     totalTrees: 15,
-    date: "27 Sep 2025",
-    cost: 3000,
+    date: "Jun - Sep 2025",
+    cost: "3000 per 500g",
   },
 ];
 
 export default function SprayHistory() {
-  const totalCost = sprayHistoryData.reduce((sum, item) => sum + item.cost, 0);
+  const totalCost = sprayHistoryData.reduce((sum, item) => sum + parseFloat(item.cost), 0);
 
   return (
     <div className="">
@@ -78,9 +79,9 @@ export default function SprayHistory() {
             key={item.id}
             className="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
           >
-            {/* Left Info */}
+          
             <div className="flex flex-col ">
-              <span className="font-semibold mb-3 text-[var(--color-black)] text-xl sm:text-l">
+              <span className="font-bold mb-3 text-[var(--color-black)] text-xl sm:text-l">
                 {item.name}
                 <span className="ml-2 text-[var(--color-secondary)] text-sm sm:text-l">
                   {item.type}
@@ -107,28 +108,28 @@ export default function SprayHistory() {
                 Spray Cost ₹{item.cost.toLocaleString()}
               </span>
 
-              {/* Actions */}
-              <div className="flex gap-2">
+            
+              {/* <div className="flex gap-2">
                 <Edit2
                   size={18}
                   className="cursor-pointer text-[var(--color-primary)] hover:text-[var(--color-primary-hover)]"
                 />
                 <Trash2
                   size={18}
-                  className="cursor-pointer text-[var(--color-error)] hover:text-[var(--color-black)]"
+                  className="cursor-pointer text-[var(--color-error)]  hover:text-[var(--color-error-hover)]"
                 />
-              </div>
+              </div> */}
             </div>
           </li>
         ))}
       </ul>
 
-      {/* Total Cost Summary */}
+   
       <div
-        className="flex justify-between items-center mt-4 py-3 border-t"
+        className="flex justify-between items-center mt-4 py-8 border-t"
         style={{ borderColor: "var(--color-black-hover)" }}
       >
-        <span className="font-bold text-[var(--color-black)] text-base sm:text-lg">
+        <span className="font-bold text-[var(--color-black)] text-base sm:text-xl">
           Total Cost
         </span>
         <span className="font-bold text-[var(--color-primary)] text-base sm:text-lg">
@@ -137,4 +138,4 @@ export default function SprayHistory() {
       </div>
     </div>
   );
-}
+} 
