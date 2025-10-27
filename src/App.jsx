@@ -16,7 +16,7 @@ import axiosInstance from "./api/axiosInstance";
 function App() {
   useEffect(() => {
     axiosInstance.defaults.headers.common["Authorization"] =
-      `Bearer ${getItemFromLocalStorage("token")}`;
+      `Bearer ${getItemFromLocalStorage("userLoginToken")}`;
   }, []);
 
   return (

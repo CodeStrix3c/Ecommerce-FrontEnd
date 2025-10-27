@@ -28,7 +28,7 @@ const PlaceCard = ({ place }) => {
     <div className="h-full">
       <Link to={`/place/${_id}`} className="block h-full cursor-pointer ">
         <div className="relative">
-          <div className="aspect-[5/5] w-full overflow-hidden rounded-2xl bg-[var(--color-black-hover)] border border-sm ">
+          <div className="aspect-[5/5] w-full overflow-hidden rounded-sm bg-[var(--color-black-hover)] border border-sm ">
             <img
               src={photos[0]}
               alt={title}
@@ -48,15 +48,15 @@ const PlaceCard = ({ place }) => {
               toggleWishlist(place);
             }}
           >
-            
-
             <Heart
-            className={`h-6 w-6 transition-all duration-300
-           ${isWishlisted 
-          ? "fill-current text-[var(--color-secondary)] stroke-white stroke-1" 
-          : "fill-[rgba(0,0,0,0.5)] stroke-white stroke-1"} 
+              className={`h-6 w-6 transition-all duration-300
+           ${
+             isWishlisted
+               ? "fill-current text-[var(--color-secondary)] stroke-white stroke-1"
+               : "fill-[rgba(0,0,0,0.5)] stroke-white stroke-1"
+           } 
   `}
-/>
+            />
           </button>
         </div>
 
@@ -73,9 +73,7 @@ const PlaceCard = ({ place }) => {
           <div className="mt-1 flex  text-[13px] sm:text-sm">
             <span className="flex items-center font-normal text-[var(--color-black)]">
               <IndianRupee className="h-3 w-3  text-[var(--color-black)] font-medium" />
-              <span className="text-xs font-medium">
-                {price || 500}{" "}
-              </span>
+              <span className="text-xs font-medium">{price || 500} </span>
               <span className="mx-1 min-w-fit text-[12px] text-[var(--color-black)] font-medium">
                 per liter.
               </span>
@@ -83,9 +81,7 @@ const PlaceCard = ({ place }) => {
 
             <span className="flex items-center gap-1 font-normal text-[var(--color-black)]">
               <Star className="h-2 w-2 fill-current text-[var(--color-black)]" />
-              <span className="text-xs font-medium">
-                {rating || 4.7}
-              </span>
+              <span className="text-xs font-medium">{rating || 4.7}</span>
             </span>
           </div>
         </div>
@@ -95,7 +91,3 @@ const PlaceCard = ({ place }) => {
 };
 
 export default PlaceCard;
-
-
-
-
