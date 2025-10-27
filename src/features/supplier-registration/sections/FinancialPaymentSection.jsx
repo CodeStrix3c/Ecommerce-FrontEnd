@@ -16,10 +16,6 @@ export default function FinancialPaymentSection({ register, errors, control }) {
     name: "sellingViaZiraat",
     defaultValue: false,
   });
-  console.log(errors, "financial errors");
-  // Add at the top of your component
-
-  // Inside your component
   const { setValue } = useFormContext
     ? useFormContext()
     : { setValue: () => {} };
@@ -31,7 +27,6 @@ export default function FinancialPaymentSection({ register, errors, control }) {
   }, [sellingViaZiraat, setValue]);
   return (
     <>
-      {/* General Payment Options */}
       <Box
         sx={{
           border: "1px solid var(--color-border)",
@@ -39,45 +34,34 @@ export default function FinancialPaymentSection({ register, errors, control }) {
         }}
       >
         <FormLayout>
-          {/* UPI / Digital Payment */}
-          <Controller
+          <SelectField
             name="upiAvailable"
+            register={register}
             control={control}
-            render={({ field }) => (
-              <SelectField
-                {...field}
-                label="UPI / Digital Payment Options"
-                options={[
-                  { value: "", label: "Select" },
-                  { value: "yes", label: "Yes" },
-                  { value: "no", label: "No" },
-                ]}
-                errors={errors.upiAvailable}
-              />
-            )}
+            label="UPI / Digital Payment Options"
+            options={[
+              { value: "", label: "Select" },
+              { value: "yes", label: "Yes" },
+              { value: "no", label: "No" },
+            ]}
+            errors={errors.upiAvailable}
           />
 
-          {/* Credit Facility */}
-          <Controller
+          <SelectField
             name="creditFacility"
+            register={register}
             control={control}
-            render={({ field }) => (
-              <SelectField
-                {...field}
-                label="Credit Facility to Farmers"
-                options={[
-                  { value: "", label: "Select" },
-                  { value: "yes", label: "Yes" },
-                  { value: "no", label: "No" },
-                ]}
-                errors={errors.creditFacility}
-              />
-            )}
+            label="Credit Facility to Farmers"
+            options={[
+              { value: "", label: "Select" },
+              { value: "yes", label: "Yes" },
+              { value: "no", label: "No" },
+            ]}
+            errors={errors.creditFacility}
           />
         </FormLayout>
       </Box>
 
-      {/* Ziraat Marketplace Section */}
       <Box
         sx={{
           border: "1px solid var(--color-border)",
@@ -95,7 +79,7 @@ export default function FinancialPaymentSection({ register, errors, control }) {
                 <Checkbox
                   {...field}
                   checked={!!field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} // <-- ensures boolean
+                  onChange={(e) => field.onChange(e.target.checked)}
                   sx={{
                     p: 1,
                     color: "var(--color-primary)",
@@ -123,7 +107,6 @@ export default function FinancialPaymentSection({ register, errors, control }) {
           payouts.
         </Typography>
 
-        {/* Bank Details (only if selling via ZIRAAT) */}
         {sellingViaZiraat && (
           <FormLayout>
             <FormInput

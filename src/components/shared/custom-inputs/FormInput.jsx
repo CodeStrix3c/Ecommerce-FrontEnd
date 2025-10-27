@@ -25,7 +25,12 @@ export default function FormInput({
     if (required === false) return <OptionalLabel label={label} />;
     return label;
   };
-
+  const getStartAdornment = () => {
+    if (type === "tel") {
+      return <InputAdornment position="start">+91</InputAdornment>;
+    }
+    return null;
+  };
   const getEndAdornment = () => {
     if (type === "password") {
       return (
@@ -71,6 +76,7 @@ export default function FormInput({
         },
         readOnly,
         input: {
+          startAdornment: getStartAdornment(),
           endAdornment: getEndAdornment(),
         },
       }}

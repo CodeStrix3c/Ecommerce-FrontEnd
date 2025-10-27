@@ -6,7 +6,7 @@ function Sitemap() {
   const sections = [
     {
       title: "Main Pages",
-      icon: <Home className="w-8 h-8  text-[var(--color-black)]" />,
+      icon: <Home className="w-6 h-6  text-[var(--color-secondary)]" />,
       links: [
         { name: "Home", path: "/" },
         { name: "Features", path: "/features" },
@@ -18,7 +18,7 @@ function Sitemap() {
     },
     {
       title: "App Features",
-      icon: <Layers className="w-8 h-8 text-[var(--color-black)] " />,
+      icon: <Layers className="w-6 h-6 text-[var(--color-secondary)] " />,
       links: [
         { name: "Crop Management", path: "/features/crop-management" },
         { name: "Field Mapping", path: "/features/field-mapping" },
@@ -30,7 +30,7 @@ function Sitemap() {
     },
     {
       title: "User Account",
-      icon: <User className="w-8 h-8 text-[var(--color-black)]" />,
+      icon: <User className="w-6 h-6 text-[var(--color-secondary)]" />,
       links: [
         { name: "Login", path: "/login" },
         { name: "Sign Up", path: "/signup" },
@@ -40,7 +40,7 @@ function Sitemap() {
     },
     {
       title: "Support & Legal",
-      icon: <HelpCircle className="w-8 h-8 text-[var(--color-black)]" />,
+      icon: <HelpCircle className="w-6 h-6 text-[var(--color-secondary)]" />,
       links: [
         { name: "Help Center", path: "/support" },
         { name: "FAQ", path: "/faq" },
@@ -60,18 +60,18 @@ function Sitemap() {
         <div className="space-y-12">
           {sections.map((section, i) => (
             <div key={i}>
-              <div className="flex items-center underline gap-2 mb-3">
+              <div className="flex items-center  gap-2 mb-3">
                 {section.icon}
-                <h2 className="text-3xl mb-3  font-bold text-[var(--color-black)]">
+                <h2 className="text-2xl mb-2  font-Semibold text-[var(--color-black)]">
                   {section.title}
                 </h2>
               </div>
-              <ul className="grid grid-cols-1 list-disc sm:grid-cols-2 md:grid-cols-3 gap-2">
+              <ul className="grid grid-cols-1   list-disc sm:grid-cols-2 md:grid-cols-3 gap-2">
                 {section.links.map((link, j) => (
                   <li key={j}>
                     <Link
                       to={link.path}
-                      className="text-[var(--color-black)] hover:underline  transition-colors"
+                    
                     >
                       {link.name}
                     </Link>

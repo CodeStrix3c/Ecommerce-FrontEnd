@@ -55,7 +55,6 @@ export const SUPPORT_SERVICES_FIELDS = [
 
 export const VERIFICATION_RATINGS_FIELDS = [];
 
-// All supplier fields combined
 export const ALL_SUPPLIER_PROFILE_FIELDS = [
   ...BUSINESS_INFORMATION_FIELDS,
   ...LICENSING_COMPLIANCE_FIELDS,
@@ -66,7 +65,6 @@ export const ALL_SUPPLIER_PROFILE_FIELDS = [
   ...VERIFICATION_RATINGS_FIELDS,
 ];
 
-// Helper functions
 export const getFilledSupplierFieldsCount = (supplier) => {
   return ALL_SUPPLIER_PROFILE_FIELDS.filter(
     (field) =>
