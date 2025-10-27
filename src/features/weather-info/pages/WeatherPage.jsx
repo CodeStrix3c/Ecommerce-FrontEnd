@@ -28,7 +28,7 @@ export default function WeatherPage() {
   };
 
   return (
-    <ContentWrapper compactScreen>
+    <ContentWrapper compactScreen topSpacing>
       <div className="lg:mt-20">
         <header className="ptmb-10 text-center">
           <h1 className="lg:mt-24 text-3xl sm:text-4xl font-bold text-[var(--color-black)]">
