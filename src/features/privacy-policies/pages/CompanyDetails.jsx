@@ -87,34 +87,34 @@ function CompanyDetails() {
   <p className="font-semibold pb-2">Follow Us:</p>
   <ul className="list-none flex gap-10">
     <li className="flex items-center gap-2">
-      <Facebook className="w-8 h-8  text-[var(--color-black)]"/>
+      <Facebook className="w-8 h-8  text-[var(--color-black)] hover:text-[var(--color-primary-hover)]"/>
       <a
         href="https://www.facebook.com/zirat"
         target="_blank"
         rel="noopener noreferrer"
-        className="underline text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)]"
+        className="underline"
       >
         Facebook
       </a>
     </li>
     <li className="flex items-center gap-2">
-      <Linkedin className="w-8 h-8 text-[var(--color-black)]" />
+      <Linkedin className="w-8 h-8 text-[var(--color-black)] hover:text-[var(--color-primary-hover)]" />
       <a
         href="https://www.linkedin.com/company/zirat"
         target="_blank"
         rel="noopener noreferrer"
-        className="underline text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)]"
+        className="underline"
       >
         LinkedIn
       </a>
     </li>
     <li className="flex items-center gap-2">
-      <Twitter className="w-8 h-8 text-[var(--color-black)]" />
+      <Twitter className="w-8 h-8 text-[var(--color-black)] hover:text-[var(--color-primary-hover)] " />
       <a
         href="https://twitter.com/zirat"
         target="_blank"
         rel="noopener noreferrer"
-        className="underline text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)]"
+        className="underline"
       >
         Twitter
       </a>
