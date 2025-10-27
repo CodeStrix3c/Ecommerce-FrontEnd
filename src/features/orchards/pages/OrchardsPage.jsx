@@ -1,196 +1,206 @@
-import { useState } from "react";
-import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
-import { MoreVertical, Edit, Trash2, X } from "lucide-react";
-import SelectField from "@/components/shared/custom-inputs/SelectField";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import { Link } from "react-router-dom";
+import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
+import React, { useState, useMemo } from "react";
 import OrchardsSummary from "../components/OrchardsSummary";
+import { Link } from "react-router-dom";
 
-const cardsData = [
-  {
-    Title: "Apple",
-    variety: "kullu",
-    Location: "pulwama",
-    Acres: "10 acres",
-    Trees: "100 Trees",
-    Details: "View Details",
-    image:
-      "https://media.istockphoto.com/id/2183999220/photo/rolling-soybean-field-with-red-barn-central-wisconsin.webp?a=1&b=1&s=612x612&w=0&k=20&c=PRrck7ACz14UT20RfBTD5Coyb6W7zdKd_7zc1JLfceI=",
-  },
-  {
-    Title: "Walnuts",
-    variety: "california",
-    Location: "pulwama",
-    Acres: "10 acres",
-    Trees: "200 Trees",
-    Details: "View Details",
-    image:
-      "https://t3.ftcdn.net/jpg/05/06/30/80/360_F_506308027_CDz21VQ7ed6seYBiFElgoTnWdc5I2plg.jpg",
-  },
-  {
-    Title: "Apricot",
-    variety: "ladakh",
-    Location: "pulwama",
-    Acres: "10 acres",
-    Trees: "200 Trees",
-    Details: "View Details",
-    image:
-      "https://images.pexels.com/photos/1574547/pexels-photo-1574547.jpeg?cs=srgb&dl=pexels-jplenio-1574547.jpg&fm=jpg",
-  },
-];
-
-const OrchardsPage = () => {
-  const [menuOpen, setMenuOpen] = useState(Array(cardsData.length).fill(false));
-  const [selectedFruit, setSelectedFruit] = useState("allFruits");
-  const [selectedStatus, setSelectedStatus] = useState("allStatus");
-
-  const toggleMenu = (index) => {
-    const newMenuOpen = Array(cardsData.length).fill(false);
-    newMenuOpen[index] = !menuOpen[index];
-    setMenuOpen(newMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(Array(cardsData.length).fill(false));
-  };
-
-  const fruitOptions = [
-    { value: "allFruits", label: "All Fruits" },
-    { value: "apple", label: "Apple" },
-    { value: "walnut", label: "Walnut" },
-    { value: "apricot", label: "Apricot" },
+export default function OrchardsPage() {
+  const sample = [
+    {
+      id: 1,
+      name: "Green Valley Orchards",
+      type: "Apple",
+      location: "Himachal Pradesh, India",
+      totalLand: 12.5,
+      landUnit: "acres",
+      varieties: ["Honeycrisp", "Royal Gala"],
+      status: "Sowing",
+      image:
+        "https://images.unsplash.com/photo-1607358049845-4360f06be5b7?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    },
+    {
+      id: 2,
+      name: "Mountain Walnut Farm",
+      type: "Walnut",
+      location: "Kashmir, India",
+      totalLand: 20,
+      landUnit: "acres",
+      varieties: ["Chandler"],
+      status: "Harvesting",
+      image:
+        "https://images.unsplash.com/photo-1627371827420-2d1cda3b6a81?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    },
+    {
+      id: 3,
+      name: "Peach Paradise",
+      type: "Peach",
+      location: "Nainital, India",
+      totalLand: 10,
+      landUnit: "acres",
+      varieties: ["Elberta", "Redhaven"],
+      status: "Sowing",
+      image:
+        "https://plus.unsplash.com/premium_photo-1661822856704-c061ba5e94da?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    },
+    {
+      id: 4,
+      name: "Cherry Hill Orchards",
+      type: "Cherry",
+      location: "Shimla, India",
+      totalLand: 6,
+      landUnit: "acres",
+      varieties: ["Bing", "Rainier"],
+      status: "Harvesting",
+      image:
+        "https://plus.unsplash.com/premium_photo-1661843593682-facc94cf9f33?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    },
+    {
+      id: 5,
+      name: "Almond Grove",
+      type: "Almond",
+      location: "Maharashtra, India",
+      totalLand: 15,
+      landUnit: "acres",
+      varieties: ["Nonpareil", "Carmel"],
+      status: "Sowing",
+      image:
+        "https://images.unsplash.com/photo-1709618526707-4d7ac66c8180?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    },
+    {
+      id: 6,
+      name: "Green Valley Orchards",
+      type: "Apple",
+      location: "Himachal Pradesh, India",
+      totalLand: 12.5,
+      landUnit: "acres",
+      varieties: ["Honeycrisp", "Royal Gala"],
+      status: "Idle",
+      image:
+        "https://images.unsplash.com/photo-1607358049845-4360f06be5b7?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    },
+    {
+      id: 7,
+      name: "Mountain Walnut Farm",
+      type: "Walnut",
+      location: "Kashmir, India",
+      totalLand: 20,
+      landUnit: "acres",
+      varieties: ["Chandler", "Pedro", "Local Kashmir Walnut (Desi)"],
+      status: "Idle",
+      image:
+        "https://images.unsplash.com/photo-1627371827420-2d1cda3b6a81?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    },
   ];
 
-  const statusOptions = [
-    { value: "allStatus", label: "All Status" },
-    { value: "growing", label: "Growing" },
-    { value: "harvested", label: "Harvested" },
-    { value: "planned", label: "Planned" },
-  ];
+  const [orchards] = useState(() => sample);
+  const [query, setQuery] = useState("");
+  const [filterType, setFilterType] = useState("All");
+
+  const orchardTypes = useMemo(() => {
+    const setT = new Set(orchards.map((o) => o.type));
+    return ["All", ...Array.from(setT)];
+  }, [orchards]);
+
+  const filtered = useMemo(() => {
+    return orchards.filter((o) => {
+      const matchesQuery = [o.name, o.location, o.varieties.join(" ")]
+        .join(" ")
+        .toLowerCase()
+        .includes(query.toLowerCase());
+      const matchesType = filterType === "All" ? true : o.type === filterType;
+      return matchesQuery && matchesType;
+    });
+  }, [orchards, query, filterType]);
 
   return (
-    <ContentWrapper compactScreen>
-      <div className="pt-16 md:pt-40">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 w-full">
-          <div className="grid grid-cols-2 gap-4">
-            <SelectField
-              name="fruits"
-              label="All Fruits"
-              options={fruitOptions}
-              value={selectedFruit}
-              onChange={(e) => setSelectedFruit(e.target.value)}
-              showOptionalLabel={false}
-              optional
-            />
-            <SelectField
-              name="status"
-              label="All Status"
-              options={statusOptions}
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-              showOptionalLabel={false}
-              optional
-            />
-          </div>
-
-          <div className="w-full flex md:justify-end">
-            <SecondarySearchBar className="w-full md:w-auto" />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 pt-4">
-          {cardsData.map((card, index) => (
-            <div
-              key={index}
-              className="bg-[var(--color-white)] rounded-2xl overflow-hidden relative"
-            >
-              <img
-                className="w-full h-48 sm:h-60 object-cover"
-                src={card.image}
-                alt={card.Title}
-              />
-
-              <div className="absolute top-3 left-3">
-                <p className="px-3 py-1 text-xs sm:text-sm font-semibold bg-[var(--color-black-hover)] text-[var(--color-primary)] rounded-lg ">
-                  Growing Button
-                </p>
-              </div>
-
-              <div className="absolute top-3 right-3">
-                <button
-                  onClick={() => toggleMenu(index)}
-                  className="p-2 rounded-full bg-[var(--color-black-hover)] text-[var(--color-black)] "
+    <ContentWrapper topSpacing>
+      <div className="p-4 sm:p-6 min-h-screen text-[var(--color-black)] ">
+        <div className="max-w-7xl mx-auto">
+        
+          <section className="mb-6 p-4 rounded-lg shadow-sm">
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+            
+              <div className="flex w-full sm:w-auto gap-3 items-center justify-between sm:justify-start">
+                <select
+                  value={filterType}
+                  onChange={(e) => setFilterType(e.target.value)}
+                  className="px-3 py-2 border rounded-sm w-full sm:w-44 text-sm"
                 >
-                  <MoreVertical size={20} />
-                </button>
-
-                {menuOpen[index] && (
-                  <div className="absolute right-0 mt-2 w-40 bg-[var(--color-white)] rounded-lg border z-10">
-                    <button
-                      onClick={closeMenu}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-black)] hover:bg-[var(--color-black-hover)]"
-                    >
-                      <Edit size={18} /> Edit
-                    </button>
-                    <button
-                      onClick={closeMenu}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-error)] hover:bg-[var(--color-black-hover)]"
-                    >
-                      <Trash2 size={18} /> Delete
-                    </button>
-                    <button
-                      onClick={closeMenu}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-black)] hover:bg-[var(--color-black-hover)]"
-                    >
-                      <X size={18} /> Cancel
-                    </button>
-                  </div>
-                )}
+                  {orchardTypes.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              <div className="p-4">
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-lg font-semibold text-[var(--color-black)]">
-                      {card.Title}
-                    </h3>
-                    <p className="text-xs text-[var(--color-secondary)] bg-[var(--color-black-hover)] border rounded-lg px-2 py-1">
-                      {card.variety}
-                    </p>
-                  </div>
-                  <p className="text-sm text-[var(--color-black)] mt-1">
-                    {card.Location}
-                  </p>
-                </div>
-
-                <div className="flex justify-between items-center mt-2">
-                  <p className="text-sm text-[var(--color-black)]">
-                    {card.Acres}
-                  </p>
-                  <Link
-                    to={"/orchards/1"}
-                    className="text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-hover)]"
-                  >
-                    View Details
-                  </Link>
-                </div>
-
-                <div className="flex justify-center mt-2">
-                  <p className="text-sm text-[var(--color-gray)]">
-                    {card.Trees}
-                  </p>
-                </div>
+              
+              <div className="w-full sm:w-auto">
+                <SecondarySearchBar
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-full md:w-auto"
+                />
               </div>
             </div>
-          ))}
-        </div>
+          </section>
 
-        <div className="mt-8">
-          <OrchardsSummary />
+         
+          <section>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {filtered.map((o) => (
+                <article
+                  key={o.id}
+                  className="rounded-lg border   overflow-hidden relative "
+                >
+                
+                  <span className="absolute top-2 left-2 text-[var(--color-black)] text-xs font-semibold px-2 py-1 rounded bg-[var(--color-white)] shadow">
+                    {o.status}
+                  </span>
+
+                 
+                  <img
+                    src={o.image}
+                    alt={o.name}
+                    className="w-full h-56 sm:h-60 object-cover"
+                  />
+
+                  
+                  <div className="p-4 flex flex-col justify-between min-h-[180px]">
+                  
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <h3 className="text-sm font-semibold text-[var(--color-primary)]">
+                        {o.name}
+                      </h3>
+                      <Link to="/orchards/1">
+                        <button className="text-xs text-[var(--color-secondary)] hover:text-[var(--color-primary-hover)] transition whitespace-nowrap">
+                          Show More Details
+                        </button>
+                      </Link>
+                    </div>
+
+                    
+                    <p className="text-xs text-[var(--color-black)] mt-1 whitespace-normal">
+                      {o.type} • {o.location}
+                    </p>
+                    <p className="mt-2 text-sm text-[var(--color-black)]">
+                      Total Land: {o.totalLand} {o.landUnit}
+                    </p>
+                    <p className="mt-2 text-sm text-[var(--color-black)]">
+                      Varieties: {o.varieties.join(", ")}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+         
+          <div className="mt-10">
+            <OrchardsSummary orchards={filtered} />
+          </div>
         </div>
       </div>
     </ContentWrapper>
   );
-};
-
-export default OrchardsPage;
+}
