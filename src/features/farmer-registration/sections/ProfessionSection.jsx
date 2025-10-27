@@ -34,8 +34,9 @@ export default function ProfessionSection({ register, errors }) {
         />
         <FormInput
           name="skills"
-          label="Key Skills / Expertise (Optional)"
+          label="Key Skills / Expertise"
           register={register}
+          required={false}
           errors={errors.skills}
         />
       </FormLayout>

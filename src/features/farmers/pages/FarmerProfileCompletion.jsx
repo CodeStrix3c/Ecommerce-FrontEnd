@@ -21,7 +21,10 @@ import {
   EDUCATION_FIELDS,
   PROFESSION_FIELDS,
 } from "@/constants/profileFields";
-import { PROFILE_STEPS } from "@/constants/stepperData";
+import {
+  PROFILE_COMPLETION_STEPS,
+  PROFILE_STEPS,
+} from "@/constants/stepperData";
 
 import { profileSchema } from "@/features/farmer-registration/schemas/profileSchema";
 import { addressSchema } from "@/features/farmer-registration/schemas/addressSchema";
@@ -91,10 +94,10 @@ export default function FarmerProfileCompletion({ onComplete }) {
       "profession",
     ].slice(0, step + 1);
     onComplete?.({ ...data, completedSections });
-    navigate("/farmer-dashboard");
+    navigate("/farmer-profile");
   };
 
-  const { labels } = PROFILE_STEPS;
+  const { labels } = PROFILE_COMPLETION_STEPS;
 
   return (
     <ContentWrapper compactScreen topSpacing>
@@ -121,11 +124,15 @@ export default function FarmerProfileCompletion({ onComplete }) {
             />
             <FormStepper activeStep={step} steps={labels} />
 
-            <StepHeader activeStep={step} type="profile" />
+            <StepHeader activeStep={step} steps={PROFILE_COMPLETION_STEPS} />
 
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
               {step === 0 && (
-                <ProfileSection register={register} errors={errors} />
+                <ProfileSection
+                  register={register}
+                  errors={errors}
+                  control={methods.control}
+                />
               )}
               {step === 1 && (
                 <AddressSection register={register} errors={errors} />
