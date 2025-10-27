@@ -3,6 +3,8 @@ import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import React, { useState, useMemo } from "react";
 import OrchardsSummary from "../components/OrchardsSummary";
 import { Link } from "react-router-dom";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
+import CustomSelect from "@/components/shared/CustomSelect";
 
 export default function OrchardsPage() {
   const sample = [
@@ -113,28 +115,20 @@ export default function OrchardsPage() {
   }, [orchards, query, filterType]);
 
   return (
-    <ContentWrapper topSpacing>
+    <ContentWrapper topSpacing compactScreen>
       <div className="p-4 sm:p-6 min-h-screen text-[var(--color-black)] ">
-        <div className="max-w-7xl mx-auto">
-        
+        <div className="">
           <section className="mb-6 p-4 rounded-lg shadow-sm">
             <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-            
               <div className="flex w-full sm:w-auto gap-3 items-center justify-between sm:justify-start">
-                <select
+                <CustomSelect
                   value={filterType}
-                  onChange={(e) => setFilterType(e.target.value)}
-                  className="px-3 py-2 border rounded-sm w-full sm:w-44 text-sm"
-                >
-                  {orchardTypes.map((t) => (
-                    <option key={t} value={t}>
-                      {t}
-                    </option>
-                  ))}
-                </select>
+                  onChange={setFilterType}
+                  options={orchardTypes}
+                  className="sm:w-44"
+                />
               </div>
 
-              
               <div className="w-full sm:w-auto">
                 <SecondarySearchBar
                   value={query}
@@ -145,7 +139,6 @@ export default function OrchardsPage() {
             </div>
           </section>
 
-         
           <section>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filtered.map((o) => (
@@ -153,21 +146,17 @@ export default function OrchardsPage() {
                   key={o.id}
                   className="rounded-lg border   overflow-hidden relative "
                 >
-                
                   <span className="absolute top-2 left-2 text-[var(--color-black)] text-xs font-semibold px-2 py-1 rounded bg-[var(--color-white)] shadow">
                     {o.status}
                   </span>
 
-                 
                   <img
                     src={o.image}
                     alt={o.name}
                     className="w-full h-56 sm:h-60 object-cover"
                   />
 
-                  
                   <div className="p-4 flex flex-col justify-between min-h-[180px]">
-                  
                     <div className="flex items-center justify-between flex-wrap gap-2">
                       <h3 className="text-sm font-semibold text-[var(--color-primary)]">
                         {o.name}
@@ -179,7 +168,6 @@ export default function OrchardsPage() {
                       </Link>
                     </div>
 
-                    
                     <p className="text-xs text-[var(--color-black)] mt-1 whitespace-normal">
                       {o.type} • {o.location}
                     </p>
@@ -195,7 +183,6 @@ export default function OrchardsPage() {
             </div>
           </section>
 
-         
           <div className="mt-10">
             <OrchardsSummary orchards={filtered} />
           </div>
