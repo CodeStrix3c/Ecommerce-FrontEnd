@@ -38,7 +38,7 @@ const SingleOrchardDetails = () => {
 
           {/* Right: Orchard Info */}
           <div className="flex-1 flex flex-col justify-center gap-6">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-primary)] leading-snug">
+            <h1 className="text-xl sm:text-2xl lg:text-2xl font-bold  leading-snug">
               Apple Orchard
             </h1>
 
@@ -151,7 +151,7 @@ const Info = ({ label, value, icon }) => (
 
 const Section = ({ title, children }) => (
   <div className="p-6 bg-[var(--color-white)] ">
-    <h2 className="text-lg sm:text-xl font-semibold text-[var(--color-primary)] mb-3 border-b  pb-1">
+    <h2 className="text-lg sm:text-xl font-semibold  mb-3 border-b  pb-1">
       {title}
     </h2>
     {children}
