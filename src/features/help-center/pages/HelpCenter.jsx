@@ -87,7 +87,7 @@ export default function AgricultureHelpCenter() {
           </div>
         </div> */}
 
-        {/* Guides */}
+       
         <div className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl font-bold mb-6">
             Guides for getting started
@@ -162,10 +162,10 @@ export default function AgricultureHelpCenter() {
                 },
               ].map((item, idx) => (
                 <div key={idx}>
-                  <h3 className="font-semibold text-[var(--color-primary)] mb-1">
+                  <h3 className=" text-xl font-semibold text-[var(--color-black)] mb-1">
                     {item.title}
                   </h3>
-                  <p className="text-[var(--color-black)]">{item.desc}</p>
+                  <p className="  text-[var(--color-black)]">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -183,9 +183,9 @@ export default function AgricultureHelpCenter() {
               ].map((item, idx) => (
                 <button
                   key={idx}
-                  className="p-4 rounded-lg border bg-[var(--color-black-hover)] hover:bg-white text-left flex items-center gap-2"
+                  className="p-4 rounded-lg border text-left flex items-center gap-2"
                 >
-                  <item.icon className="w-5 h-5 text-[var(--color-primary)]" />
+                  <item.icon className="w-5 h-5 text-[var(--color-secondary)]" />
                   {item.label}
                 </button>
               ))}
@@ -211,7 +211,7 @@ export default function AgricultureHelpCenter() {
                 },
               ].map((item, idx) => (
                 <li key={idx} className="border-b last:border-none pb-4">
-                  <h3 className="font-semibold text-[var(--color-primary)]">
+                  <h3 className="font-semibold text-[var(--color-scondary)]">
                     {item.title}
                   </h3>
                   <p className="text-[var(--color-black)]">{item.desc}</p>
@@ -263,7 +263,7 @@ export default function AgricultureHelpCenter() {
                       className="w-full h-40 sm:h-48 object-cover"
                     />
                     <div className="p-4">
-                      <h3 className="font-semibold text-[var(--color-primary)]">
+                      <h3 className="font-bold text-[var(--color-black)]">
                         {item.title}
                       </h3>
                       <p className="text-sm text-[var(--color-black)]">

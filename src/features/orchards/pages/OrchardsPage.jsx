@@ -5,6 +5,8 @@ import OrchardsSummary from "../components/OrchardsSummary";
 import { Link } from "react-router-dom";
 import OrchardContent from "./OrchardContent";
 import { TreePine } from "lucide-react";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
+import CustomSelect from "@/components/shared/CustomSelect";
 
 export default function OrchardsPage() {
   const sample = [
@@ -151,47 +153,20 @@ export default function OrchardsPage() {
   }, [orchards, query, filterType]);
 
   return (
-    
-    <ContentWrapper topSpacing>
-      <section className=" px-6 md:px-24 text-center">
-        
-        {/* <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--color-black)] flex items-center justify-center gap-2 mb-8">
-          <TreePine className="w-7 h-7 text-[var(--color-secondary)]" />
-          Our Orchards
-        </h2> */}
-        <div className="text-center mb-10 ">
-          <h2 className="text-2xl md:text-4xl font-bold text-[var(--color-black)] mb-2">
-            Our Orchard
-          </h2>
-          <p className="text-sm md:text-base  max-w-2xl mx-auto">
-             Ziraat’s orchards are at the heart of our sustainable farming mission.
-          We cultivate premium fruits through modern techniques, environmental
-          care, and strong community partnerships with local farmers..
-          </p>
-        </div>
-        
-        </section>
-      <div className="p-2 min-h-screen text-[var(--color-black)] ">
-        <div className=" mx-auto">
-        
-          <section className="mb-6  rounded-lg shadow-sm">
+    <ContentWrapper topSpacing compactScreen>
+      <div className="p-4 sm:p-6 min-h-screen text-[var(--color-black)] ">
+        <div className="">
+          <section className="mb-6 p-4 rounded-lg shadow-sm">
             <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-            
               <div className="flex w-full sm:w-auto gap-3 items-center justify-between sm:justify-start">
-                <select
+                <CustomSelect
                   value={filterType}
-                  onChange={(e) => setFilterType(e.target.value)}
-                  className="px-3 py-2 border rounded-sm w-full sm:w-44 text-sm"
-                >
-                  {orchardTypes.map((t) => (
-                    <option key={t} value={t}>
-                      {t}
-                    </option>
-                  ))}
-                </select>
+                  onChange={setFilterType}
+                  options={orchardTypes}
+                  className="sm:w-44"
+                />
               </div>
 
-              
               <div className="w-full sm:w-auto">
                 <SecondarySearchBar
                   value={query}
@@ -202,7 +177,6 @@ export default function OrchardsPage() {
             </div>
           </section>
 
-         
           <section>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {filtered.map((o) => (
@@ -210,21 +184,17 @@ export default function OrchardsPage() {
                   key={o.id}
                   className="rounded-lg border   overflow-hidden relative "
                 >
-                
                   <span className="absolute top-2 left-2 text-[var(--color-black)] text-xs font-semibold px-2 py-1 rounded bg-[var(--color-white)] shadow">
                     {o.status}
                   </span>
 
-                 
                   <img
                     src={o.image}
                     alt={o.name}
                     className="w-full h-56 sm:h-60 object-cover"
                   />
 
-                  
                   <div className="p-4 flex flex-col justify-between min-h-[180px]">
-                  
                     <div className="flex items-center justify-between flex-wrap gap-2">
                       <h3 className="text-sm font-semibold text-[var(--color-primary)]">
                         {o.name}
@@ -236,7 +206,6 @@ export default function OrchardsPage() {
                       </Link>
                     </div>
 
-                    
                     <p className="text-xs text-[var(--color-black)] mt-1 whitespace-normal">
                       {o.type} • {o.location}
                     </p>
@@ -251,10 +220,7 @@ export default function OrchardsPage() {
               ))}
             </div>
           </section>
-             <div className="mt-12">
-              <OrchardContent/>
-             </div>
-         
+
           <div className="mt-10">
             <OrchardsSummary orchards={filtered} />
           </div>
