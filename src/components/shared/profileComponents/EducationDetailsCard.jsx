@@ -25,15 +25,15 @@ const educationDetails = [
   },
 ];
 
-const EducationDetails = () => (
+const EducationDetailsCard = () => (
   <DetailCard
     icon={GraduationCap}
     title="Education Details"
     headerButton={
-        false
-    //   <button className="px-5 py-1 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-lg hover:bg-[var(--color-secondary-hover)] transition-colors">
-    //     View
-    //   </button>
+      false
+      //   <button className="px-5 py-1 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-lg hover:bg-[var(--color-secondary-hover)] transition-colors">
+      //     View
+      //   </button>
     }
   >
     {educationDetails.map((item, index) => (
@@ -46,4 +46,4 @@ const EducationDetails = () => (
     ))}
   </DetailCard>
 );
-export default EducationDetails;
+export default EducationDetailsCard;
