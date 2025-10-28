@@ -3,6 +3,8 @@ import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import React, { useState, useMemo } from "react";
 import OrchardsSummary from "../components/OrchardsSummary";
 import { Link } from "react-router-dom";
+import OrchardContent from "./OrchardContent";
+import { TreePine } from "lucide-react";
 
 export default function OrchardsPage() {
   const sample = [
@@ -90,6 +92,42 @@ export default function OrchardsPage() {
       image:
         "https://images.unsplash.com/photo-1627371827420-2d1cda3b6a81?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
     },
+    {
+      id: 8,
+      name: "Almond Grove",
+      type: "Almond",
+      location: "Maharashtra, India",
+      totalLand: 15,
+      landUnit: "acres",
+      varieties: ["Nonpareil", "Carmel"],
+      status: "Sowing",
+      image:
+        "https://images.unsplash.com/photo-1709618526707-4d7ac66c8180?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    },
+    {
+      id: 9,
+      name: "Green Valley Orchards",
+      type: "Apple",
+      location: "Himachal Pradesh, India",
+      totalLand: 12.5,
+      landUnit: "acres",
+      varieties: ["Honeycrisp", "Royal Gala"],
+      status: "Idle",
+      image:
+        "https://images.unsplash.com/photo-1607358049845-4360f06be5b7?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    },
+    {
+      id: 10,
+      name: "Mountain Walnut Farm",
+      type: "Walnut",
+      location: "Kashmir, India",
+      totalLand: 20,
+      landUnit: "acres",
+      varieties: ["Chandler", "Pedro", "Local Kashmir Walnut (Desi)"],
+      status: "Idle",
+      image:
+        "https://images.unsplash.com/photo-1627371827420-2d1cda3b6a81?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    },
   ];
 
   const [orchards] = useState(() => sample);
@@ -113,11 +151,30 @@ export default function OrchardsPage() {
   }, [orchards, query, filterType]);
 
   return (
+    
     <ContentWrapper topSpacing>
-      <div className="p-4 sm:p-6 min-h-screen text-[var(--color-black)] ">
-        <div className="max-w-7xl mx-auto">
+      <section className=" px-6 md:px-24 text-center">
         
-          <section className="mb-6 p-4 rounded-lg shadow-sm">
+        {/* <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--color-black)] flex items-center justify-center gap-2 mb-8">
+          <TreePine className="w-7 h-7 text-[var(--color-secondary)]" />
+          Our Orchards
+        </h2> */}
+        <div className="text-center mb-10 ">
+          <h2 className="text-2xl md:text-4xl font-bold text-[var(--color-black)] mb-2">
+            Our Orchard
+          </h2>
+          <p className="text-sm md:text-base  max-w-2xl mx-auto">
+             Ziraat’s orchards are at the heart of our sustainable farming mission.
+          We cultivate premium fruits through modern techniques, environmental
+          care, and strong community partnerships with local farmers..
+          </p>
+        </div>
+        
+        </section>
+      <div className="p-2 min-h-screen text-[var(--color-black)] ">
+        <div className=" mx-auto">
+        
+          <section className="mb-6  rounded-lg shadow-sm">
             <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
             
               <div className="flex w-full sm:w-auto gap-3 items-center justify-between sm:justify-start">
@@ -147,7 +204,7 @@ export default function OrchardsPage() {
 
          
           <section>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {filtered.map((o) => (
                 <article
                   key={o.id}
@@ -173,8 +230,8 @@ export default function OrchardsPage() {
                         {o.name}
                       </h3>
                       <Link to="/orchards/1">
-                        <button className="text-xs text-[var(--color-secondary)] hover:text-[var(--color-primary-hover)] transition whitespace-nowrap">
-                          Show More Details
+                        <button className="text-sm text-[var(--color-secondary)] hover:text-[var(--color-primary-hover)] transition whitespace-nowrap">
+                          Show More 
                         </button>
                       </Link>
                     </div>
@@ -194,13 +251,17 @@ export default function OrchardsPage() {
               ))}
             </div>
           </section>
-
+             <div className="mt-12">
+              <OrchardContent/>
+             </div>
          
           <div className="mt-10">
             <OrchardsSummary orchards={filtered} />
           </div>
         </div>
       </div>
+      
     </ContentWrapper>
+    
   );
 }
