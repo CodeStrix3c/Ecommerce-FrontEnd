@@ -7,6 +7,7 @@ import FormInput from "@/components/shared/custom-inputs/FormInput";
 import SelectField from "@/components/shared/custom-inputs/SelectField";
 import { GpsFixed } from "@mui/icons-material";
 import { getCurrentLocation } from "@/utils/getCurrentLocation";
+import MapBox from "@/components/ui/MapBox";
 
 const locationData = {
   "State A": {
@@ -33,18 +34,26 @@ export default function BusinessInformationSection() {
   const stateValue = watch("businessAddressState") || "";
   const districtValue = watch("businessAddressDistrict") || "";
   const tehsilValue = watch("businessAddressTehsil") || "";
+    const [coords, setCoords] = useState(null);
+      const [gpsLocation, setGpsLocation] = useState("");
+    
+  
 
   const villageValue = watch("businessAddressVillage") || "";
   const gpsValue = watch("gps") || "";
+  useEffect(() => {
+    fetchLocation();
+  }, []);
 
   const fetchLocation = async () => {
     setLoading(true);
     try {
-      const { gpsString } = await getCurrentLocation();
-      setValue("gps", gpsString, { shouldValidate: true });
+      const { gpsString, latitude, longitude } = await getCurrentLocation();
+      setGpsLocation(gpsString);
+      setCoords({ latitude, longitude });
       setTimeout(() => gpsInputRef.current?.focus(), 100);
     } catch (err) {
-      console.error(err);
+      console.error("Error fetching GPS:", err);
     } finally {
       setLoading(false);
     }
@@ -193,7 +202,10 @@ export default function BusinessInformationSection() {
         />
       </FormLayout>
 
-      <div className="mt-4 cursor-auto">
+      {coords && <MapBox lat={coords.latitude} lng={coords.longitude} />}
+
+
+      {/* <div className="mt-4 cursor-auto">
         <FormInput
           name="gps"
           label="Gps Location"
@@ -213,7 +225,7 @@ export default function BusinessInformationSection() {
           errors={errors.gps}
           inputRef={gpsInputRef}
         />
-      </div>
+      </div> */}
     </>
   );
 }
