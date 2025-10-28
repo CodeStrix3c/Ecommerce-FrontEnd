@@ -6,16 +6,34 @@ const SprayPage = () => {
   const isMobile = useIsMobile();
 
   return (
-          <ContentWrapper compactScreen topSpacing>
-    <div className="w-full min-h-screen bg-[var(--color-white)]">
-     
-      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-7">
-        <div className="mb-8">
-        <h2 className="text-xl sm:text-2xl font-bold text-[var(--color-black)] mb-8 text-center lg:text-left">
-          Spray Record Information
-        </h2>
+   
+      <div className="w-full min-h-screen bg-[var(--color-white)]">
 
-        </div>
+
+  <div className=" lg:mt-24 w-full h-[70vh] sm:h-[70vh] overflow-hidden">
+    <img
+      src="https://images.pexels.com/photos/21711158/pexels-photo-21711158.jpeg"
+      alt="Spray Record"
+      className="w-full h-full object-cover brightness-75"
+    />
+
+  <div className="absolute inset-0 flex flex-col items-center lg:items-start justify-center px-6 sm:px-10 md:px-16 lg:px-24 text-white">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-center lg:text-left">
+        Spray Record Information
+      </h2>
+      <p className="text-sm sm:text-base md:text-lg max-w-2xl text-center lg:text-left leading-relaxed">
+        Maintain accurate  spray data — including pesticide type, quantity, period, and cost.
+        Keeping proper records ensures effective management and legal compliance.
+      </p>
+    </div>
+     <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-10">
+   
+  </div>
+  </div>
+  
+
+
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
@@ -64,6 +82,7 @@ const SprayPage = () => {
             </div>
           ))}
         </div>
+        
 
        
         <div className="max-w-5xl mx-auto mt-12 sm:mt-16 md:mt-20 lg:mt-16 text-center">
@@ -77,13 +96,19 @@ const SprayPage = () => {
         </div>
       </div>
 
-     
-        <div className="mt-12 md:mt-14 lg:mt-16 px-4 sm:px-8">
+      <ContentWrapper compactScreen topSpacing isMobile={isMobile} >
+        <div className="sm:mt-[-8rem] md:mt-10 lg:mt-[-6rem]  px-4 sm:px-6 md:px-8 lg:px-12 pb-10">
           <SprayHistory />
         </div>
-    </div>
       </ContentWrapper>
+      </div>
+    
+     
   );
 };
 
 export default SprayPage;
+
+
+
+
