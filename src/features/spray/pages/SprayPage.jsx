@@ -1,6 +1,7 @@
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SprayHistory from "../components/SprayCard";
 import useIsMobile from "@/hooks/useInMobile";
+import ImageHeaderSection from "../../../components/shared/ImageHeaderSection";
 
 const SprayPage = () => {
   const isMobile = useIsMobile();
@@ -10,27 +11,15 @@ const SprayPage = () => {
       <div className="w-full min-h-screen bg-[var(--color-white)]">
 
 
-  <div className=" lg:mt-24 w-full h-[70vh] sm:h-[70vh] overflow-hidden">
-    <img
-      src="https://images.pexels.com/photos/21711158/pexels-photo-21711158.jpeg"
-      alt="Spray Record"
-      className="w-full h-full object-cover brightness-75"
-    />
-
-  <div className="absolute inset-0 flex flex-col items-center lg:items-start justify-center px-6 sm:px-10 md:px-16 lg:px-24 text-white">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-center lg:text-left">
-        Spray Record Information
-      </h2>
-      <p className="text-sm sm:text-base md:text-lg max-w-2xl text-center lg:text-left leading-relaxed">
-        Maintain accurate  spray data — including pesticide type, quantity, period, and cost.
-        Keeping proper records ensures effective management and legal compliance.
-      </p>
-    </div>
-     <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-10">
-   
-  </div>
-  </div>
+<ImageHeaderSection image={"https://images.pexels.com/photos/21711158/pexels-photo-21711158.jpeg"}
+title={"Spray Record Information"}
+description={" Maintain accurate  spray data — including pesticide type, quantity, period, and cost.Keeping proper records ensures effective management and legal compliance."}
+/>
   
+
+   
+    
+       
 
 
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-10">
