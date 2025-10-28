@@ -76,7 +76,7 @@ const PlacePage = () => {
               <h2 className="text-2xl font-semibold text-[var(--color-black)]">
                 Description
               </h2>
-              <p className="mt-2 text-[var(--color-black)]/70">
+              <p className="mt-2 text-[var(--color-black)]/70 text-justify">
                 {place.description}
               </p>
 
