@@ -33,7 +33,7 @@ export default function ProfileSection({ register, errors, control }) {
       />
       <FormInput
         name="phone"
-        label="Mobile Number"
+        label="Mobile Number (OTP Linked)"
         type="tel"
         register={register}
         errors={errors.phone}
