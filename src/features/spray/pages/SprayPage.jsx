@@ -1,21 +1,28 @@
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SprayHistory from "../components/SprayCard";
 import useIsMobile from "@/hooks/useInMobile";
+import ImageHeaderSection from "../../../components/shared/ImageHeaderSection";
 
 const SprayPage = () => {
   const isMobile = useIsMobile();
 
   return (
-          <ContentWrapper compactScreen topSpacing>
-    <div className="w-full min-h-screen bg-[var(--color-white)]">
-     
-      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-7">
-        <div className="mb-8">
-        <h2 className="text-xl sm:text-2xl font-bold text-[var(--color-black)] mb-8 text-center lg:text-left">
-          Spray Record Information
-        </h2>
+   
+      <div className="w-full min-h-screen bg-[var(--color-white)]">
 
-        </div>
+
+<ImageHeaderSection image={"https://images.pexels.com/photos/21711158/pexels-photo-21711158.jpeg"}
+title={"Spray Record Information"}
+description={" Maintain accurate  spray data — including pesticide type, quantity, period, and cost.Keeping proper records ensures effective management and legal compliance."}
+/>
+  
+
+   
+    
+       
+
+
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
@@ -64,6 +71,7 @@ const SprayPage = () => {
             </div>
           ))}
         </div>
+        
 
        
         <div className="max-w-5xl mx-auto mt-12 sm:mt-16 md:mt-20 lg:mt-16 text-center">
@@ -77,13 +85,19 @@ const SprayPage = () => {
         </div>
       </div>
 
-     
-        <div className="mt-12 md:mt-14 lg:mt-16 px-4 sm:px-8">
+      <ContentWrapper compactScreen topSpacing isMobile={isMobile} >
+        <div className="sm:mt-[-8rem] md:mt-10 lg:mt-[-6rem]  px-4 sm:px-6 md:px-8 lg:px-12 pb-10">
           <SprayHistory />
         </div>
-    </div>
       </ContentWrapper>
+      </div>
+    
+     
   );
 };
 
 export default SprayPage;
+
+
+
+

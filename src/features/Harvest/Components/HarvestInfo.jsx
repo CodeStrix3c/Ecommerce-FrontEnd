@@ -1,6 +1,6 @@
 import React from "react";
 import { Leaf, Sprout, Hand, TreePine } from "lucide-react";
-import ContentWrapper from "@/components/shared/ContentWrapper";
+
 
 const HarvestInfo = () => {
   return (

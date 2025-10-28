@@ -19,6 +19,7 @@ import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPan
 import SupplierProfileCompletion from "@/features/suppliers/pages/SupplierProfileCompletion";
 import FarmerProfileCompletion from "@/features/farmers/pages/FarmerProfileCompletion";
 import Faq from "@/features/FAQ/Faq";
+import CropProtectionPage from "@/features/Protection-info/pages/ProtectionInfo";
 
 const SupplierRegistration = lazy(
   () => import("@/features/supplier-registration/SupplierRegistration")
@@ -94,12 +95,14 @@ export default [
         element={<FarmerProfileCompletion />}
       />
       <Route path="/resources/crop-information" element={<CropInformation />} />
+      <Route path="/resources/crop-protection" element={<CropProtectionPage />} />
       <Route path="/help-center" element={<AgricultureHelpCenter />} />
       <Route path="/orchard-registration" element={<OrchardRegistration />} />
       <Route path="/orchards" element={<OrchardsPage />} />
       <Route path="/orchards/:id" element={<SingleOrchardDetails />} />
       <Route path="/supplier-login" element={<SupplierLogin />} />
 
+      {/* <Route path="/about-us" element={<AboutUs />} /> */}
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/sitemap" element={<Sitemap />} />

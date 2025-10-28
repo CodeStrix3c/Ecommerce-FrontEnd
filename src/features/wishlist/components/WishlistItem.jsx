@@ -8,8 +8,8 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
   return (
     <>
       <div
-        className="group border border-[var(--color-black-hover)] bg-[var(--color-white)] transition relative overflow-hidden
-   w-full mx-auto sm:max-w-none"
+        className="group border border-[var(--color-gray)] bg-[var(--color-white)] transition relative overflow-hidden
+   w-full mx-auto sm:max-w-none rounded-sm"
       >
         <div
           className="relative w-full cursor-pointer overflow-hidden bg-[var(--color-black-hover)]"
