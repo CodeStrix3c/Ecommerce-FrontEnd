@@ -1,8 +1,7 @@
 import React from "react";
 import { Box, Typography, Paper } from "@mui/material";
 
-const StepHeader = ({ activeStep, steps }) => {
-  const { labels, descriptions } = steps || {};
+const StepHeader = ({ activeStep, labels, descriptions }) => {
   const totalSteps = labels?.length || 0;
 
   return (
