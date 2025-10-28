@@ -41,10 +41,10 @@ export default function CropProtectionPage() {
           Empowering farmers with knowledge to fight pests, diseases, and climate challenges.
         </p>
         <div className="space-x-4">
-          <button className=" text-[var(--color-black)] px-6 py-2 rounded-lg border border-lg  hover:bg-[var(--color-black-hover)]">
+          <button className=" text-[var(--color-black)] px-6 py-2 rounded-lg border border-lg  ">
             Ask an Expert
           </button>
-          <button className=" text-[var(--color-black)] px-6 py-2 rounded-lg border border-lg   hover:bg-[var(--color-black-hover)]">
+          <button className=" text-[var(--color-black)] px-6 py-2 rounded-lg border border-lg ">
             Buy Products
           </button>
         </div>
@@ -59,7 +59,7 @@ export default function CropProtectionPage() {
             { icon: <Sprout />, title: "Biological Control", desc: "Use beneficial insects, bacteria, and fungi to control harmful pests." },
             { icon: <Droplet />, title: "Mechanical Methods", desc: "Manual weeding, traps, and barriers protect crops effectively." },
           ].map((m, i) => (
-            <div key={i} className="border border-lg p-6 rounded-xl  transition hover:bg-[var(--color-black-hover)]">
+            <div key={i} className="border border-lg p-6 rounded-xl  transition">
               <div className="text-[var(--color-secondary)] text-3xl mb-4">{m.icon}</div>
               <h3 className="font-semibold text-lg mb-2">{m.title}</h3>
               <p className="text-sm text-[var(--color-black)]">{m.desc}</p>
@@ -125,6 +125,7 @@ export default function CropProtectionPage() {
           ))}
         </div>
       </section>
+      
     </div>
   );
 }
