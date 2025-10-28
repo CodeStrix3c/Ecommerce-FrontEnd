@@ -84,11 +84,11 @@ function Harvest() {
   ];
 
   return (
-    <ContentWrapper topSpacing compactScreen>
-      <section className="py-6">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-black)] mb-2">
+    <ContentWrapper topSpacing >
+      <section className="">
+       
+        <div className="text-center mb-10 ">
+          <h2 className="text-2xl md:text-4xl font-bold text-[var(--color-black)] mb-2">
             Harvest Overview
           </h2>
           <p className="text-sm md:text-base  max-w-2xl mx-auto">
@@ -97,12 +97,12 @@ function Harvest() {
           </p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+       
+        <div className="grid grid-cols-1   sm:grid-cols-3 lg:grid-cols-5 gap-6 ">
           {cardsData.map((card, index) => (
             <div
               key={index}
-              className=" rounded-sm border  overflow-hidden flex flex-col"
+              className="rounded-sm border  overflow-hidden flex flex-col"
             >
               {/* Image */}
               <div className="relative w-full h-56 overflow-hidden">

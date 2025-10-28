@@ -102,6 +102,7 @@ export default [
       <Route path="/orchards/:id" element={<SingleOrchardDetails />} />
       <Route path="/supplier-login" element={<SupplierLogin />} />
 
+      {/* <Route path="/about-us" element={<AboutUs />} /> */}
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/sitemap" element={<Sitemap />} />
