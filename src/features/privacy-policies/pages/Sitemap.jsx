@@ -43,7 +43,7 @@ function Sitemap() {
       icon: <HelpCircle className="w-6 h-6 text-[var(--color-secondary)]" />,
       links: [
         { name: "Help Center", path: "/support" },
-        { name: "FAQ", path: "/faq" },
+        { name: "Faq", path: "/FAQ" },
         { name: "Privacy Policy", path: "/privacy" },
         { name: "Terms of Service", path: "/terms" },
       ],
