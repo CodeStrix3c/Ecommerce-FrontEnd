@@ -7,6 +7,9 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+html {
+  -webkit-text-size-adjust: 100%;
+}
 
 @tailwind base;
 @tailwind components;
