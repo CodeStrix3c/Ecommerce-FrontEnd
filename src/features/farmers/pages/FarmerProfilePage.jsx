@@ -47,7 +47,7 @@ const FarmerProfilePage = () => {
         {/* ✅ Main Grid Layout */}
         <div className="grid md:grid-cols-[280px_1fr]">
           {/* LEFT COLUMN */}
-          <div className="flex flex-col mt-8">
+          <div className="flex flex-col mt-0 lg:mt-8 md:mt-2 ">
             {/* Reusable Banner on Top */}
             <ImageBanner
               imageSrc="assets/images/farmerPro.png"
