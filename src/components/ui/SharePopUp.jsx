@@ -46,18 +46,15 @@ function SharePopUp({ onClose, placeData }) {
             />
             <div className="flex flex-col text-[var(--color-black)] text-center sm:text-left flex-1">
               <p className="font-semibold text-lg sm:text-xl">{placeData.title}</p>
-              <p className="mt-2 text-sm sm:text-base text-[var(--color-black)]">
-                {placeData.description}
-              </p>
             </div>
           </div>
 
           {/* Share Options */}
-          <div className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 sm:gap-4">
             {shareOptions.map(({ icon, label }) => (
               <button
                 key={label}
-                className="flex flex-col items-center justify-center gap-2 p-3 sm:p-4 border border-[var(--color-black)] rounded-xl hover:bg-[var(--color-black-hover)] transition text-[var(--color-black)]"
+                className="flex flex-row items-center justify-center gap-2 p-3 sm:p-4 border border-[var(--color-black)] rounded-xl hover:bg-[var(--color-black-hover)] transition text-[var(--color-black)]"
               >
                 <span className="text-2xl sm:text-xl">{icon}</span>
                 <p className="text-xs sm:text-sm font-medium text-center">
