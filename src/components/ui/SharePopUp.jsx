@@ -11,17 +11,18 @@ import {
   WhatsApp,
 } from "@mui/icons-material";
 
-function SharePopUp({ onClose, title = "Ziraat", subtitle = "Ziraat connects farmers and investors through smart farming tools and sustainable agriculture solutions." }) {
+function SharePopUp({ onClose, placeData }) {
+ 
   const shareOptions = [
-    { icon: <Link />, label: "Copy Link" },
-    { icon: <Email />, label: "Email" },
-    { icon: <Message />, label: "Messages" },
-    { icon: <WhatsApp />, label: "WhatsApp" },
-    { icon: <MessageOutlined />, label: "Messenger" },
-    { icon: <Facebook />, label: "Facebook" },
-    { icon: <Twitter />, label: "Twitter" },
-    { icon: <Code />, label: "Embed" },
-    { icon: <More />, label: "More Options" },
+    { icon: <Link />, label: "Copy Link", linkTo:placeData.linkTo },
+    { icon: <Email />, label: "Email", linkTo:placeData.linkTo },
+    { icon: <Message />, label: "Messages",linkTo:placeData.linkTo  },
+    { icon: <WhatsApp />, label: "WhatsApp",linkTo:placeData.linkTo  },
+    { icon: <MessageOutlined />, label: "Messenger",linkTo:placeData.linkTo  },
+    { icon: <Facebook />, label: "Facebook",linkTo:placeData.linkTo  },
+    { icon: <Twitter />, label: "Twitter",linkTo:placeData.linkTo  },
+    { icon: <Code />, label: "Embed",linkTo:placeData.linkTo  },
+    { icon: <More />, label: "More Options",linkTo:placeData.linkTo  },
   ];
 
   return (
@@ -40,13 +41,13 @@ function SharePopUp({ onClose, title = "Ziraat", subtitle = "Ziraat connects far
           <div className="flex flex-col sm:flex-row items-center mb-6 gap-4">
             <img
               className="w-16 h-16 sm:w-20 sm:h-20"
-              src="/assets/images/ziraat.png"
-              alt={title}
+              src={placeData.photos[0]}
+              alt={placeData}
             />
             <div className="flex flex-col text-[var(--color-black)] text-center sm:text-left flex-1">
-              <p className="font-semibold text-lg sm:text-xl">{title}</p>
+              <p className="font-semibold text-lg sm:text-xl">{placeData.title}</p>
               <p className="mt-2 text-sm sm:text-base text-[var(--color-black)]">
-                {subtitle}
+                {placeData.description}
               </p>
             </div>
           </div>
@@ -56,10 +57,10 @@ function SharePopUp({ onClose, title = "Ziraat", subtitle = "Ziraat connects far
             {shareOptions.map(({ icon, label }) => (
               <button
                 key={label}
-                className="flex flex-col items-center justify-center gap-2 p-3 sm:p-4 border border-[var(--color-black)]/20 rounded-xl hover:bg-[var(--color-black-hover)] transition text-[var(--color-black)]"
+                className="flex flex-col items-center justify-center gap-2 p-3 sm:p-4 border border-[var(--color-black)] rounded-xl hover:bg-[var(--color-black-hover)] transition text-[var(--color-black)]"
               >
                 <span className="text-2xl sm:text-xl">{icon}</span>
-                <p className="text-xs sm:text-sm font-medium text-center break-words">
+                <p className="text-xs sm:text-sm font-medium text-center">
                   {label}
                 </p>
               </button>
