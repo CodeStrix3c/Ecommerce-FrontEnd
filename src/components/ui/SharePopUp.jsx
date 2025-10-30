@@ -35,16 +35,20 @@ function SharePopUp({ onClose, placeData }) {
         >
           <Close className="text-[var(--color-black)] w-5 h-5" />
         </button>
-
+         
+           <p className="font-bold mx-5 mt-5 text-2xl">Share the Product</p>
+  
         <div className="p-4 sm:p-6">
+           
           {/* Info Section */}
           <div className="flex flex-col sm:flex-row items-center mb-6 gap-4">
             <img
               className="w-16 h-16 sm:w-20 sm:h-20"
               src={placeData.photos[0]}
-              alt={placeData}
-            />
+              alt={placeData} />
+
             <div className="flex flex-col text-[var(--color-black)] text-center sm:text-left flex-1">
+             
               <p className="font-semibold text-lg sm:text-xl">{placeData.title}</p>
             </div>
           </div>
@@ -54,7 +58,7 @@ function SharePopUp({ onClose, placeData }) {
             {shareOptions.map(({ icon, label }) => (
               <button
                 key={label}
-                className="flex flex-row items-center justify-center gap-2 p-3 sm:p-4 border border-[var(--color-black)] rounded-xl hover:bg-[var(--color-black-hover)] transition text-[var(--color-black)]"
+                className="flex flex-row items-center justify-center gap-2 p-1 sm:p-1 border border-[var(--color-black)] rounded-xl hover:bg-[var(--color-black-hover)] transition text-[var(--color-black)]"
               >
                 <span className="text-2xl sm:text-xl">{icon}</span>
                 <p className="text-xs sm:text-sm font-medium text-center">
