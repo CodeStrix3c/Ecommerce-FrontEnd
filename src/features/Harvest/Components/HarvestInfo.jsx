@@ -24,8 +24,7 @@ const HarvestInfo = () => {
 
       
 
-      {/* Feature Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
         <div className=" rounded-sm border p-6 flex flex-col items-center">
           <Leaf className="text-[var(--color-secondary)] mb-3" size={36} />
           <h4 className="font-semibold text-lg text-[var(--color-black)] mb-2">Naturally Grown</h4>
