@@ -64,6 +64,7 @@ const PlacePage = () => {
         className="overflow-x-hidden"
       >
         <ListingHeader place={place} onShare={handleShare} />
+
         <AddressLink placeAddress={place.address} />
 
         <PlaceGallery place={place} />
@@ -117,7 +118,7 @@ const PlacePage = () => {
           title="Explore other options in and around Gurugram"
           options={nearbyOptions}
         />
-        {sharePopUp && <SharePopUp onClose={() => setSharePopUp(false)} />}
+        {sharePopUp && <SharePopUp onClose={() => setSharePopUp(false)} placeData={place} />}
       </motion.div>
     </ContentWrapper>
   );
