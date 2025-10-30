@@ -1,4 +1,3 @@
-// Component for a single item row in the detail cards (Address, Education, Profession)
 const DetailItem = ({
   title,
   subtitle,
