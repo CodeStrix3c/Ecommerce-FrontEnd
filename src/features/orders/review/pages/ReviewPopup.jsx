@@ -95,11 +95,12 @@ export default function ReviewPopup({ isOpen, onClose, product }) {
 
     
     <div className="fixed inset-0 bg-[var(--color-overlay)] flex items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto">
-  <div className="w-full max-w-[500px] bg-[var(--color-white)] rounded-lg shadow-xl animate-popin relative py-5 px-3 sm:px-5 my-6 sm:my-0">
+  <div className="w-full max-w-[500px] bg-[var(--color-white)] rounded-lg shadow-xl animate-popin relative py-5 px-5 sm:px-5 my-6 sm:my-0">
+    
     {/* Close Button */}
     <IconButton
       onClick={onClose}
-      sx={{ position: "absolute", top: 8, right: 8 }}
+      sx={{ position: "absolute", top: 8, right: 8 , mt:1, }}
     >
       <CloseIcon />
     </IconButton>
@@ -109,15 +110,15 @@ export default function ReviewPopup({ isOpen, onClose, product }) {
       sx={{
         textAlign: "center",
         fontWeight: 600,
-        mb: 2,
+      mt:1,
         fontSize: { xs: "1.1rem", sm: "1.25rem" },
       }}
     >
-      Write Review
+      Write a Review
     </Typography>
 
     {/* Banner */}
-    <div className="mb-2">
+    <div className="my-2">
       <ReviewHeader />
     </div>
 
@@ -132,7 +133,7 @@ export default function ReviewPopup({ isOpen, onClose, product }) {
       />
     </div>
 
-    <Divider sx={{ my: 3 }} />
+    {/* <Divider sx={{ my: 3 }} /> */}
 
     {/* Review Form */}
     <div className="px-1 sm:px-3">
@@ -145,7 +146,7 @@ export default function ReviewPopup({ isOpen, onClose, product }) {
     </div>
 
     {/* Actions */}
-    <div className="px-4 py-3 mt-2 border-t border-gray-100 bg-gray-50 rounded-b-lg">
+    <div className="px-4 py-3 mt-2 border-t border-[var(--color-gray)] rounded-b-lg">
       <ReviewActions onClose={onClose} handleSubmit={handleSubmit} />
     </div>
   </div>
