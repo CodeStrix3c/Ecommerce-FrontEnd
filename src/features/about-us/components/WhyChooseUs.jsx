@@ -36,7 +36,7 @@ const WhyChooseUs = () => {
       </div>
 
       
-      <p className="max-w-3xl text-base sm:text-lg md:text-xl mx-auto mb-12 leading-relaxed px-2">
+      <p className="max-w-3xl text-base sm:text-lg md:text-xl mx-auto mb-12 leading-relaxed px-2 text-justify">
         At{" "}
         <span className="font-semibold text-[var(--color-secondary)]">
           Farmer Orchard
