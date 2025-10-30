@@ -44,7 +44,7 @@ export default function CropInformation() {
             </div>
 
             <div className="w-full md:w-1/3">
-              <SecondarySearchBar />
+              <SecondarySearchBar placeholder="Search for a crop..." />
             </div>
           </div>
         </header>
