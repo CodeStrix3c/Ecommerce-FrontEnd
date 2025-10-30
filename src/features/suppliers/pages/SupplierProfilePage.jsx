@@ -1,110 +1,115 @@
-import React, { useState, useRef } from "react";
-import { useSupplier } from "@/providers/SupplierProvider";
-import ProfileCompletion from "../components/ProfileCompletion";
-import ContentWrapper from "@/components/shared/ContentWrapper";
-import ProfileDetail from "@/features/farmers/components/ProfileDetail";
-import { Phone, Mail, MapPin, User, Factory, Leaf } from "lucide-react";
-import ProfileAvatar from "@/components/shared/ProfileAvatar";
-import { Link } from "react-router-dom";
+import React from "react";
+import {
+  MapPin,
+  Settings,
+  BadgeCheck,
+  Boxes,
+  FileText,
+  HelpCircle,
+  BadgeCheckIcon,
+} from "lucide-react";
+import ProfileSidebar from "@/components/shared/profileComponents/ProfileSidebar";
+import AddressDetails from "@/components/shared/profileComponents/AddressCard";
+import ProfessionDetails from "@/components/shared/profileComponents/ProfessionalDetailsCard";
+import SectionTitle from "@/components/shared/SectionTitle";
+import EducationDetailsCard from "@/components/shared/profileComponents/EducationDetailsCard";
+import ImageBanner from "@/components/shared/profileComponents/ImageComponent";
+import {
+  farmerLicenceDetails,
+  operationalDetails,
+  productPortfolio,
+  supplierAddress,
+  supplierInfo,
+  supportAndServices,
+} from "./DummyData";
 
-export default function SupplierProfilePage() {
-  const [showIncompleteSection, setShowIncompleteSection] = useState(false);
-
-  const supplier = {
-    name: "Umar Mukhtar",
-    phone: "+91 9876543210",
-    email: "info@umar.com",
-    location: "Pulwama, India",
-    company: "umarcodes Pvt Ltd",
-    specialization: "Coding",
-    avatar:
-      "https://images.unsplash.com/photo-1718900109613-457f76a456b2?w=600&auto=format&fit=crop&q=60",
-  };
-
-  const {
-    progress,
-    isComplete,
-    setLicensingComplete,
-    setProductPortfolioComplete,
-    setOperationalDetailsComplete,
-    setFinancialPaymentComplete,
-    setSupportServicesComplete,
-    setBusinessComplete,
-  } = useSupplier();
-
-  const handleCompleteProfile = () => {
-    setBusinessComplete();
-    setLicensingComplete();
-    setProductPortfolioComplete();
-    setOperationalDetailsComplete();
-    setFinancialPaymentComplete();
-    setSupportServicesComplete();
-    setShowIncompleteSection(false);
-  };
-
+const FarmerProfilePage = () => {
   return (
-    <>
-      <ContentWrapper compactScreen>
-        <div className="space-y-8 lg:space-y-12 lg:py-36 md:pt-36">
-          <div className="flex flex-col sm:flex-row items-start gap-6">
-            <ProfileAvatar
-              avatar={supplier.avatar}
-              onEdit={() => setShowIncompleteSection(true)}
+      <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
+        {/* Main Card Container */}
+        <div className="lg:rounded-sm lg:shadow-sm w-full  max-w-6xl overflow-hidden bg-white">
+          
+          <div className="w-full border-b border-gray-100 px-6 py-4 flex justify-between items-center bg-white">
+            <SectionTitle
+              title="Supplier Profile"
+              className="lg:font-bold lg:text-2xl"
             />
-
-            <div className="flex-1 flex flex-col gap-4">
-              <div className="flex justify-end">
-                <Link
-                  to={"/home"}
-                  className="text-[var(--color-secondary)] font-medium text-sm sm:text-base hover:text-[var(--color-secondary-hover)]"
-                >
-                  View Products
-                </Link>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
-                <ProfileDetail
-                  icon={<User />}
-                  label="Name"
-                  value={supplier.name}
-                />
-                <ProfileDetail
-                  icon={<Phone />}
-                  label="Phone"
-                  value={supplier.phone}
-                />
-                <ProfileDetail
-                  icon={<Mail />}
-                  label="Email"
-                  value={supplier.email}
-                />
-                <ProfileDetail
-                  icon={<MapPin />}
-                  label="Location"
-                  value={supplier.location}
-                />
-                <ProfileDetail
-                  icon={<Factory />}
-                  label="Company"
-                  value={supplier.company}
-                />
-                <ProfileDetail
-                  icon={<Leaf />}
-                  label="Specialization"
-                  value={supplier.specialization}
-                />
+            <div className="flex items-center space-x-4">
+              <button className="px-4 py-2 text-sm font-medium text-white bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
+                Complete Your Profile
+              </button>
+              <div className="p-2 border rounded-full">
+                <Settings className="w-5 h-5 text-gray-600" />
               </div>
             </div>
           </div>
-          <ProfileCompletion
-            progress={progress}
-            isComplete={isComplete}
-            profileCompletionLink={"/supplier-profile-completion"}
-            showPopup={showIncompleteSection}
-            onClosePopup={() => setShowIncompleteSection(false)}
-          />
+
+          {/* Main Grid Layout */}
+          <div className="grid md:grid-cols-[280px_1fr]">
+            {/* LEFT COLUMN */}
+            <div className="flex flex-col mt-8">
+              <ImageBanner
+                imageSrc="assets/images/supplierPro.png"
+                altText="Farmer field background"
+                logoSrc="https://placehold.co/24x24/ffffff/000000?text=I"
+                height="h-[310px]"
+              />
+              <ProfileSidebar userData={supplierInfo} icon={BadgeCheckIcon} />
+            </div>
+
+            {/* RIGHT COLUMN */}
+            <div className="p-2 lg:p-8 space-y-10">
+              <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8">
+                {/* Left Side */}
+                <div className="space-y-8">
+                  <AddressDetails
+                    title="Address Details"
+                    icon={MapPin}
+                    addressData={supplierAddress}
+                  />
+
+                  <AddressDetails
+                    title="Licence Details"
+                    icon={BadgeCheck}
+                    addressData={farmerLicenceDetails}
+                  />
+
+                  <EducationDetailsCard
+                    icon={Boxes}
+                    title="Product Portfolio"
+                    educationData={productPortfolio}
+                  />
+                </div>
+
+                {/* Right Side */}
+                <div className="space-y-8 lg:space-y-8 md:space-y-0">
+                  <div className="rounded-sm overflow-hidden shadow-lg block md:hidden lg:block">
+                    <img
+                      src="assets/images/kassupplier.png"
+                      alt="Rural scene"
+                      className="w-full object-cover h-[210px]"
+                    />
+                  </div>
+
+                  <ProfessionDetails
+                    icon={FileText}
+                    title="Operational Details"
+                    professionData={operationalDetails}
+                  />
+
+                  <ProfessionDetails
+                    icon={HelpCircle}
+                    title="Support & Services"
+                    professionData={supportAndServices}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* End Grid */}
         </div>
-      </ContentWrapper>
-    </>
+      </div>
   );
-}
+};
+
+export default FarmerProfilePage;
