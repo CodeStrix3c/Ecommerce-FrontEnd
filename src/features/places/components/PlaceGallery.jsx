@@ -2,6 +2,8 @@ import ImageGalleryModal from "@/components/shared/ImageGalleryModal";
 import React, { useState } from "react";
 
 const PlaceGallery = ({ place }) => {
+  // console.log(place,"place");
+  
   const [showGallery, setShowGallery] = useState(false);
 
   return (
