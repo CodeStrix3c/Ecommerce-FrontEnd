@@ -26,7 +26,7 @@ const FarmerProfilePage = () => {
   return (
     <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
       {/* Main Card Container */}
-      <div className="lg:rounded-sm lg:shadow-md w-full max-w-6xl overflow-hidden bg-white">
+      <div className="lg:rounded-sm lg:shadow-sm w-full max-w-6xl overflow-hidden bg-white">
         
         {/* ✅ Full-width Header */}
         <div className="w-full border-b border-gray-100 px-6 py-4 flex justify-between items-center bg-white">
