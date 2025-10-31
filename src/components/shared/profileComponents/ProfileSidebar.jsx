@@ -1,8 +1,6 @@
-// ProfileSidebar.jsx
 
 import SidebarDetails from "./SidebarDetails";
 import UserHeaderCard from "./InfoCard";
-import { ShieldCheck, Verified } from "lucide-react";
 
 const ProfileSidebar = ({ userData, icon,title }) => {
 
