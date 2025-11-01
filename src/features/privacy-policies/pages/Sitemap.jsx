@@ -66,7 +66,7 @@ function Sitemap() {
                   {section.title}
                 </h2>
               </div>
-              <ul className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-2 text-blue-500 underline">
+              <ul className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-2 underline decoration-[var(--color-secondary)]">
                 {section.links.map((link, j) => (
                   <li key={j}>
                     <Link
