@@ -1,11 +1,11 @@
 import React from "react";
 import {
-  User,
-  MapPin,
   Briefcase,
+  Calendar,
+  Circle,
   GraduationCap,
-  Key,
-  ChevronDown,
+  MapPin,
+  Phone,
   Settings,
 } from "lucide-react";
 import ProfileSidebar from "@/components/shared/profileComponents/ProfileSidebar";
@@ -13,57 +13,78 @@ import AddressDetails from "@/components/shared/profileComponents/AddressCard";
 import ProfessionDetails from "@/components/shared/profileComponents/ProfessionalDetailsCard";
 import SectionTitle from "@/components/shared/SectionTitle";
 import EducationDetailsCard from "@/components/shared/profileComponents/EducationDetailsCard";
+import ImageBanner from "@/components/shared/profileComponents/ImageComponent";
+import { Email } from "@mui/icons-material";
+import {
+  farmerAddress,
+  farmerData,
+  farmerEducation,
+  farmerProfession,
+} from "@/features/suppliers/pages/DummyData";
 
 const FarmerProfilePage = () => {
   return (
     <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
       {/* Main Card Container */}
-      <div className=" lg:rounded-sm lg:shadow-md w-full max-w-6xl overflow-hidden grid md:grid-cols-[280px_1fr]">
-        {/* LEFT SIDEBAR: Fully encapsulated component */}
-        <ProfileSidebar />
-
-        {/* RIGHT MAIN CONTENT AREA */}
-        <div className="p-2 lg:p-8 bg-white space-y-10">
-          {/* Main Header */}
-          <header className="flex justify-between items-center pb-4 border-b border-gray-100">
-            {/* <h2 className="text-xl font-bold text-gray-800">Farmer Profile</h2> */}
-            <SectionTitle
-              title={"Farmer Profile"}
-              className="lg:font-bold lg:text-2xl "
-            />
-            <div className="flex items-center space-x-4">
-              <button className="px-4 py-2 text-sm font-medium text-white bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
-                Complete Your Profile
-              </button>
-              <div className="p-2 border rounded-full">
-                <Settings className="w-5 h-5 text-gray-600" />
-              </div>
-            </div>
-          </header>
-
-          {/* Body Content: Two main columns for better responsiveness */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8">
-            {/* Left/Top Content Column */}
-            <div className="space-y-8">
-              <AddressDetails />
-              <EducationDetailsCard />
-            </div>
-
-            {/* Right/Bottom Content Column */}
-            <div className="space-y-8 lg:space-y-8 md:space-y-0">
-              {/* Image Card */}
-              <div className="rounded-sm overflow-hidden shadow-lg md:hidden lg:block ">
-                <img
-                  src="assets/images/farmer3.png"
-                  alt="Rural scene"
-                  className="w-full object-cover h-[210px]"
-                />
-              </div>
-
-              <ProfessionDetails />
+      <div className="lg:rounded-sm lg:shadow-sm w-full max-w-6xl overflow-hidden bg-white">
+        
+        {/* ✅ Full-width Header */}
+        <div className="w-full border-b border-gray-100 px-6 py-4 flex justify-between items-center bg-white">
+          <SectionTitle
+            title="Farmer Profile"
+            className="lg:font-bold lg:text-2xl"
+          />
+          <div className="flex items-center space-x-4">
+            <button className="px-4 py-2 text-sm font-medium text-white bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
+              Complete Your Profile
+            </button>
+            <div className="p-2 border rounded-full">
+              <Settings className="w-5 h-5 text-gray-600" />
             </div>
           </div>
         </div>
+
+        {/* ✅ Main Grid Layout */}
+        <div className="grid md:grid-cols-[280px_1fr]">
+          {/* LEFT COLUMN */}
+          <div className="flex flex-col mt-0 lg:mt-8 md:mt-2 ">
+            {/* Reusable Banner on Top */}
+            <ImageBanner
+              imageSrc="assets/images/farmerPro.png"
+              altText="Farmer field background"
+              logoSrc="https://placehold.co/24x24/ffffff/000000?text=I"
+              height="h-[310px]"
+            />
+
+            {/* Sidebar Details Below */}
+            <ProfileSidebar userData={farmerData} />
+          </div>
+
+          {/* RIGHT COLUMN */}
+          <div className="p-2 lg:p-8 space-y-10">
+            {/* Main Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8">
+              {/* Left Side */}
+              <div className="space-y-8">
+                <AddressDetails addressData={farmerAddress} />
+                <EducationDetailsCard educationData={farmerEducation} />
+              </div>
+
+              {/* Right Side */}
+              <div className="space-y-8 lg:space-y-8 md:space-y-0">
+                <div className="rounded-sm overflow-hidden shadow-lg block md:hidden lg:block">
+                  <img
+                    src="assets/images/kasfarmer.png"
+                    alt="Rural scene"
+                    className="w-full object-cover h-[210px]"
+                  />
+                </div>
+                <ProfessionDetails professionData={farmerProfession} />
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* End Grid */}
       </div>
     </div>
   );
