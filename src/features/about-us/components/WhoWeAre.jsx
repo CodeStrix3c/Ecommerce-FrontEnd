@@ -47,7 +47,7 @@ const WhoWeAre = () => (
       </div>
 
      
-      <p className="text-base sm:text-lg md:text-xl leading-relaxed ">
+      <p className="text-base sm:text-lg md:text-xl leading-relaxed text-justify ">
         At{" "}
         <strong className="font-semibold text-[var(--color-secondary)]">
           Ziraat
