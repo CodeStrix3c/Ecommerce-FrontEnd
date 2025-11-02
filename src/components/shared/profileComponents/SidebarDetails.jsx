@@ -16,7 +16,6 @@ const SidebarDetails = ({ title, subtitle, isCheckbox = false, icon: Icon, isSel
         {subtitle && <span className="text-xs text-gray-500">{subtitle}</span>}
       </div>
     </div>
-    {/* <ChevronDown className="w-4 h-4 text-gray-400" /> */}
   </div>
 );
 export default SidebarDetails;

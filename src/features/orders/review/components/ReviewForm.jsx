@@ -14,8 +14,7 @@ export default function ReviewForm({ description, setDescription, files, setFile
       className="
         flex flex-col 
        bg-[var(--color-white)]
-        gap-5 sm:gap-6 md:gap-4
-        p-4 sm:p-6  
+        gap-5 sm:gap-6 md:gap-4  
         w-full"
       sx={{
         maxWidth: { xs: "100%", sm: "750px", md: "700px", lg: "800px" },
