@@ -11,7 +11,7 @@ function Faq() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto pt-32 p-6">
+    <div className="max-w-5xl mx-auto pt-32 p-6">
       <h2 className="text-3xl font-bold mb-6 text-center text-[var(--color-black)]">
         {heading}
       </h2>
