@@ -32,7 +32,7 @@ function CompanyDetails() {
           </p>
 
           <p className="pt-4">
-            <b>Directors:</b> John Doe, Jane Smith <br />
+            <b>Directors:</b> Ashiq  Ali <br />
             <b>VAT/GST ID:</b> 12ABCDE3456F7Z8 <br />
             <b>Company Registration Number:</b> 1234567890
           </p>
@@ -59,14 +59,14 @@ function CompanyDetails() {
             For complaints or concerns about the platform or any
             violation of our Terms of Service, please contact our grievance officer:
           </p>
-          <p className="pt-3 font-medium">Attn: Mr. John Doe, Grievance Officer</p>
+          <p className="pt-3 font-medium">Attn: Mr. Ashiq Ali, Grievance Officer</p>
           <p className="pt-2">
-            Email:{" "}
+            email:{" "}
             <a
               href="mailto:grievance@zirat.com"
               className="underline text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)]"
             >
-              grievance@zirat.com
+              ashiqAli@zirat.com
             </a>
           </p>
           <p className="pt-2">Phone: +91 9876543211</p>
@@ -94,7 +94,7 @@ function CompanyDetails() {
         rel="noopener noreferrer"
         className="underline"
       >
-        Facebook
+
       </a>
     </li>
     <li className="flex items-center gap-2">
@@ -105,18 +105,17 @@ function CompanyDetails() {
         rel="noopener noreferrer"
         className="underline"
       >
-        LinkedIn
+    
       </a>
     </li>
     <li className="flex items-center gap-2">
-      <Twitter className="w-8 h-8 text-[var(--color-black)] hover:text-[var(--color-primary-hover)] " />
+      <Twitter className="w-8 h-8  " />
       <a
         href="https://twitter.com/zirat"
         target="_blank"
         rel="noopener noreferrer"
         className="underline"
       >
-        Twitter
       </a>
     </li>
   </ul>
