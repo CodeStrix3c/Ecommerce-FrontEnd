@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Bug, X } from "lucide-react";
+import { Bug } from "lucide-react";
 
 export default function PestDisease() {
-    const [selectedPest, setSelectedPest] = useState(null);
-
     const pests = [
         {
             name: "Locusts",
@@ -43,6 +41,14 @@ export default function PestDisease() {
         },
     ];
 
+    const [expanded, setExpanded] = useState(Array(pests.length).fill(false));
+
+    const handleToggle = (index) => {
+        setExpanded((prev) =>
+            prev.map((val, i) => (i === index ? !val : val))
+        );
+    };
+
     return (
         <section className="py-12 px-6">
             <h2 className="text-3xl font-bold text-center mb-8">
@@ -50,48 +56,43 @@ export default function PestDisease() {
             </h2>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {pests.map((p, i) => (
-                    <div
-                        key={i}
-                        className="border border-gray-200  transition-all duration-200 p-6 rounded-xl bg-[var(--color-white)]"
-                    >
-                        <div className="flex items-center mb-3">
-                            <Bug className="mr-2 text-[var(--color-secondary)]" />
-                            <h3 className="font-semibold text-[var(--color-black)]">
-                                {p.name}
-                            </h3>
-                        </div>
-                        <p className="text-sm text-[var(--color-black)]">{p.desc}</p>
-                        <button
-                            onClick={() => setSelectedPest(p)}
-                            className="mt-4 text-sm font-medium text-[var(--color-secondary)] hover:underline"
+                {pests.map((p, i) => {
+                    const isOpen = expanded[i];
+                    return (
+                        <div
+                            key={i}
+                            className="border border-gray-200 rounded-xl p-6 bg-[var(--color-white)]  transition-all duration-300 "
                         >
-                            Read More
-                        </button>
-                    </div>
-                ))}
+                            <div className="flex items-center mb-3">
+                                <Bug className="mr-2 text-[var(--color-secondary)]" />
+                                <h3 className="font-semibold text-[var(--color-black)]">{p.name}</h3>
+                            </div>
+
+                            <p className="text-sm text-[var(--color-black)]">{p.desc}</p>
+
+
+                            <div
+                                className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] mt-3" : "grid-rows-[0fr]"
+                                    }`}
+                            >
+                                <div className="overflow-hidden">
+                                    <p className="text-sm text-[var(--color-black)] leading-relaxed">
+                                        {p.details}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button
+                                type="button"
+                                onClick={() => handleToggle(i)}
+                                className="mt-4 text-sm font-medium text-[var(--color-black)] hover:underline focus:outline-none"
+                            >
+                                {isOpen ? "Read Less" : "Read More"}
+                            </button>
+                        </div>
+                    );
+                })}
             </div>
-
-
-            {selectedPest && (
-                <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[var(--color-white)] border border-gray-200 shadow-sm rounded-2xl p-6 w-[90%] max-w-md z-50 animate-fadeIn">
-                    <button
-                        onClick={() => setSelectedPest(null)}
-                        className="absolute top-3 right-3 text-[var(--color-black)] hover:text-[var(--color-black)]"
-                    >
-                        <X size={20} />
-                    </button>
-                    <div className="flex items-center mb-4">
-                        <Bug className="mr-2 text-[var(--color-secondary)]" />
-                        <h3 className="text-xl font-bold text-[var(--color-black)]">
-                            {selectedPest.name}
-                        </h3>
-                    </div>
-                    <p className="text-[var(--color-black)] text-sm leading-relaxed">
-                        {selectedPest.details}
-                    </p>
-                </div>
-            )}
         </section>
     );
 }
