@@ -166,7 +166,9 @@ export default function OrchardsPage() {
                  
                   <div className="mt-auto pt-4 flex justify-center">
                     <Link to={`/orchards/${o.id}`}>
-                      <button className="text-xs md:text-sm font-medium text-[var(--color-secondary)] hover:text-[var(--color-primary-hover)] transition">
+                      <button 
+                      onClick={sample}
+                      className="text-xs md:text-sm font-medium text-[var(--color-secondary)] hover:text-[var(--color-primary-hover)] transition">
                         Show More →
                       </button>
                     </Link>
