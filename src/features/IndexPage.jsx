@@ -26,7 +26,8 @@ const IndexPage = () => {
 
   const dummyData1 = dummyData.slice(0, 8);
   const dummyData2 = dummyData.slice(8, 15);
-  const dummyData3 = dummyData.slice(10);
+  const dummyData3 = dummyData.slice(15,22);
+  const dummyData4 = dummyData.slice(22,29);
   const { data } = useProductsQuery(requestBody);
   console.log(data, "data...");
 
@@ -44,6 +45,10 @@ const IndexPage = () => {
         <CarousalSection
           title="Herbicides for Effective Weed Control"
           places={dummyData3}
+        />
+         <CarousalSection
+          title="Popular Pesticides for Crop Protection"
+          places={dummyData4}
         />
       </div>
     </ContentWrapper>
