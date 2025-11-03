@@ -61,12 +61,12 @@ function CompanyDetails() {
           </p>
           <p className="pt-3 font-medium">Attn: Mr. Ashiq Ali, Grievance Officer</p>
           <p className="pt-2">
-            Email:{" "}
+            email:{" "}
             <a
               href="mailto:grievance@zirat.com"
               className="underline text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)]"
             >
-              AshiqAli@zirat.com
+              ashiqAli@zirat.com
             </a>
           </p>
           <p className="pt-2">Phone: +91 9876543211</p>
