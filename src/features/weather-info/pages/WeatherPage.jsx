@@ -16,8 +16,8 @@ import { useState } from "react";
 import Spinner from "@/components/ui/Spinner";
 
 export default function WeatherPage() {
-  const [queryData, setQueryData] = useState("srinagar");
-  const { data, isLoading, isError } = useWeatherQuery(queryData);
+  const [cityData, setCityData] = useState("srinagar");
+  const { data, isLoading, isError } = useWeatherQuery(cityData);
 
   if (isLoading) return <Spinner />;
   if (isError || !data)
@@ -38,7 +38,10 @@ export default function WeatherPage() {
           <p className="text-[var(--color-black)] mt-6 text-xl pb-5">
             Stay ahead with the latest weather forecast
           </p>
-          <SecondarySearchBar onSearch={(val) => setQueryData(val)} />
+          <SecondarySearchBar
+            onSearch={(val) => setCityData(val)}
+            placeholder="Search with city..."
+          />
         </header>
 
         <div className="p-4 sm:p-6">
