@@ -204,15 +204,10 @@ export default function TalkWithExpert() {
   return (
     <div className="w-full min-h-screen bg-[var(--color-white)]">
 
-      <ImageHeaderSection
-        image="https://media.istockphoto.com/id/2233741999/photo/mid-adult-agronomist-talking-to-farmers-at-agricultural-field.jpg?s=612x612&w=0&k=20&c=ht-d3jNsJ4QY-rUp6YmC6UNA99-Xb_9hBncicWVDpIc="
-        title="Talk with an Expert"
-        description="Connect directly with agriculture specialists for expert guidance on crop protection, soil management, irrigation, and modern agri-tech practices."
-      />
-
 
       <ContentWrapper compactScreen topSpacing>
-        <div className="space-y-12">
+        <div className="space-y-6">
+          <h3 className=" text-3xl font-bold text[var-(--color-black)]">Talk to an expert</h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {experts.map((ex) => (
