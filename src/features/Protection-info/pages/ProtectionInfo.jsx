@@ -5,53 +5,61 @@ import {
   Droplet,
   Leaf,
   Sprout,
-  BookOpen,
-  Video,
-  HelpCircle,
+  ChevronDown,
+  ChevronUp
+
+
 } from "lucide-react";
+import PestDisease from "../component/PestDisease";
+import GuidesResources from "../component/GuidesResources";
+import ImageHeaderSection from "@/components/shared/ImageHeaderSection";
+
 
 export default function CropProtectionPage() {
   const [openFAQ, setOpenFAQ] = useState(null);
 
   const faqs = [
     {
-      q: "What is crop protection?",
-      a: "Crop protection involves practices and products that safeguard crops from pests, weeds, and diseases to improve yield and quality."
+      q: "What are the best pest control methods for organic farming?",
+      a: "Use biological control agents like ladybugs and Trichogramma, neem-based sprays, and crop rotation. Avoid synthetic pesticides to maintain soil and ecosystem health.",
     },
     {
-      q: "Are organic methods effective?",
-      a: "Yes, organic methods like neem extracts, crop rotation, and biological control are sustainable and effective against many threats."
+      q: "How can farmers improve soil fertility naturally?",
+      a: "Incorporate organic compost, green manure, and vermicompost. Practice crop rotation and intercropping to restore essential nutrients like nitrogen and phosphorus.",
     },
     {
-      q: "How do I choose pesticides?",
-      a: "Always identify the pest first, then select pesticides approved for that crop. Follow government guidelines to avoid misuse."
+      q: "When is the best time to spray pesticides?",
+      a: "Spray during early morning or late evening when temperatures are cooler, and pollinators are less active. Avoid spraying before rainfall to ensure effectiveness.",
     },
     {
-      q:"How can farmers ensure safe pesticide usage?",
-      a : "Wear protective clothing, Store chemicals safely away from food and children, Avoid over-spraying"
-    }
+      q: "What government subsidies are available for small-scale farmers?",
+      a: "Farmers can apply for PM-Kisan, Soil Health Card Scheme, and agricultural machinery subsidies through the MyScheme portal or local Krishi Vigyan Kendra (KVK).",
+    },
+    {
+      q: "How do I prevent fungal diseases like powdery mildew?",
+      a: "Ensure proper air circulation, avoid overwatering, and use sulfur-based or potassium bicarbonate sprays. Resistant crop varieties can also reduce infection risks.",
+    },
+    {
+      q: "How can I store harvested grains safely?",
+      a: "Keep grains dry, use moisture-proof containers, and ensure storage areas are well-ventilated. Treat containers with neem oil or natural repellents to prevent pest attacks.",
+    },
   ];
-
   return (
-    <div className=" lg: mt-28  min-h-screen text-[var(--color-black)]">
-      <section className="text-center py-12 px-6 text-[var(--color-black)]">
-        <h1 className="text-4xl font-bold mb-4">Crop Protection Guide</h1>
-        <p className="max-w-2xl mx-auto mb-6">
-          Protect your crops with sustainable methods, smart practices, and modern tools. 
-          Empowering farmers with knowledge to fight pests, diseases, and climate challenges.
-        </p>
-        <div className="space-x-4">
-          <button className=" text-[var(--color-black)] px-6 py-2 rounded-lg border border-lg  ">
-            Ask an Expert
-          </button>
-          <button className=" text-[var(--color-black)] px-6 py-2 rounded-lg border border-lg ">
-            Buy Products
-          </button>
-        </div>
-      </section>
+    <div className="w-full min-h-screen bg-[var(--color-white)]">
+      <ImageHeaderSection
+        image={
+          "https://images.pexels.com/photos/15610774/pexels-photo-15610774.jpeg"
+        }
+        title={"Crop Protection Guide"}
+        description={
+          "Protect your crops with sustainable methods, smart practices, and modern tools Empowering farmers with knowledge to fight pests, diseases, and climate challenges"
+        }
+      />
 
-      <section className="py-12 px-6">
-        <h2 className="text-2xl font-bold text-center mb-8">Methods of Crop Protection</h2>
+
+
+      <section className="py-7 px-6">
+        <h2 className="text-3xl font-bold text-center mb-8">Methods of Crop Protection</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { icon: <ShieldCheck />, title: "Chemical Control", desc: "Use pesticides and fungicides responsibly to control pests and diseases." },
@@ -67,65 +75,42 @@ export default function CropProtectionPage() {
           ))}
         </div>
       </section>
+      <PestDisease />
+      <GuidesResources />
 
-      
-      <section className="py-12 px-6 ">
-        <h2 className=" text-2xl font-bold text-center mb-8">Common Pests & Diseases</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            { name: "Locusts", desc: "Destroy crops rapidly. Use bio-pesticides and timely monitoring." },
-            { name: "Rice Blast", desc: "Fungal disease reducing yield. Resistant varieties help." },
-            { name: "Aphids", desc: "Suck sap and spread viruses. Neem spray helps control." },
-            { name: "Powdery Mildew", desc: "White fungal growth. Sulfur-based sprays are effective." },
-            { name: "Stem Borers", desc: "Damage maize & rice stems. Use pheromone traps & resistant seeds." },
-            { name: "Leaf Rust", desc: "Affects wheat leaves. Apply fungicides as per guidelines." },
-          ].map((p, i) => (
-            <div key={i} className=" border border-lg text-[var(--color-secondary)] p-6 rounded-xl">
-              <div className="flex items-center mb-3">
-                <Bug className="mr-2" /> <h3 className="font-semibold text-[var(--color-black)]">{p.name}</h3>
-              </div>
-              <p className="text-sm text-[var(--color-black)]">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
-      
-      <section className="py-12 px-6">
-        <h2 className="text-2xl font-bold text-center mb-8">Guides & Resources</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { icon: <BookOpen />, text: "Download Crop Protection Handbook" },
-            { icon: <Video />, text: "Watch Training Videos" },
-            { icon: <HelpCircle />, text: "Government Schemes & Subsidies" },
-          ].map((r, i) => (
-            <button key={i} className="flex items-center text-[var(--color-black)] px-6 py-4 rounded-xl border border-lg  w-full justify-center">
-              <span className="mr-3 text-[var(--color-secondary)] ">{r.icon}</span>
-              {r.text}
-            </button>
-          ))}
-        </div>
-      </section>
+      <section className="py-7 px-6">
+        <h2 className="text-3xl font-bold text-center mb-8">
+          Frequently Asked Questions
+        </h2>
 
-    
-      <section className="py-12 px-6">
-        <h2 className="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto space-y-4">
           {faqs.map((f, i) => (
-            <div key={i} className="mb-4 border rounded-lg ">
+            <div
+              key={i}
+              className="border border-gray-200 rounded-xl bg-[var(--color-white)]  hover:shadow-sm transition-all duration-200"
+            >
               <button
                 onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
-                className="w-full text-left p-4 font-medium flex justify-between items-center"
+                className="w-full flex justify-between items-center p-5 font-medium text-[var(--color-black)]"
               >
-                {f.q}
-                <span>{openFAQ === i ? "−" : "+"}</span>
+                <span>{f.q}</span>
+                {openFAQ === i ? (
+                  <ChevronUp className="text-[var(--color-secondary)]" />
+                ) : (
+                  <ChevronDown className="text-[var(--color-secondary)]" />
+                )}
               </button>
-              {openFAQ === i && <p className="p-4 text-sm text-[var(--color-black)]">{f.a}</p>}
+
+              {openFAQ === i && (
+                <p className="p-5 pt-0 text-sm text-[var(--color-black)] leading-relaxed">
+                  {f.a}
+                </p>
+              )}
             </div>
           ))}
         </div>
       </section>
-      
     </div>
   );
 }
