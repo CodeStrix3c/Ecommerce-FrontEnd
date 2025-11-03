@@ -21,7 +21,7 @@ function SecondarySearchBar({
 
   return (
     <div className={`w-full flex justify-center ${className}`}>
-      <div className="flex items-center bg-[var(--color-white)] backdrop-blur-md border border-[var(--color-gray)] rounded-full shadow-sm overflow-hidden w-96 max-w-md sm:max-w-lg transition-all duration-300">
+      <div className="flex items-center bg-[var(--color-white)] backdrop-blur-md border border-[var(--color-gray)] rounded-full  overflow-hidden w-96 max-w-md sm:max-w-lg transition-all duration-300">
         <input
           type="text"
           placeholder={placeholder}
@@ -32,7 +32,7 @@ function SecondarySearchBar({
         />
         <button
           onClick={handleSearch}
-          className="bg-[var(--color-secondary)] text-[var(--color-white)] p-2 sm:p-2.5 hover:bg-[var(--color-secondary-hover)] transition-all duration-300 rounded-full flex items-center justify-center"
+          className="bg-[var(--color-secondary)] text-[var(--color-white)] p-2 sm:p-2.5 hover:bg-[var(--color-secondary-hover)] mr-1 transition-all duration-300 rounded-full flex items-center justify-center"
           aria-label="search"
         >
           <Search size={18} className="sm:w-5 sm:h-5" />
