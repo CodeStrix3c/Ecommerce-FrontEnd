@@ -1,13 +1,13 @@
 export const dummyData = [
   {
     _id: "101",
-    title: "Agricultural Insecticides",
+    title: "Buprofezin",
     address: "Pan-India",
     photos: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqkAahgtpYF_49aU9fJgimkrS4FksjyC1uiw&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqkAahgtpYF_49aU9fJgimkrS4FksjyC1uiw&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcuMJ0qoypA4s-xG8iB2b8MqFYIYcGn-NNeQ&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDuWwHD71E5P6F3vgttMpLKq6hOKmDXJ1Uog&s",
+      "/assets/images/product-images/Buprofezin/frontimg.png",
+       "/assets/images/product-images/Buprofezin/backimg.png",
+        "/assets/images/product-images/Buprofezin/details.png",
+        "/assets/images/product-images/Buprofezin/ingre.png",
     ],
     description:
       "With extensive experience in supplying and trading Agricultural Insecticides, focusing on a customer-centric approach. Rashel Fertilizers has a pan-India presence and caters to a huge consumer base throughout the country. Buy Insecticides in bulk at Trade India quality-assured products.",
@@ -19,12 +19,15 @@ export const dummyData = [
   },
   {
     _id: "102",
-    title: "General-Purpose Pesticide",
+    title: "Acetamiprid",
     address: "India",
     photos: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN90JUi7HcrOhPKUrqj-kdjlwFQFoCjzAvyQ&s",
-      "https://m.media-amazon.com/images/I/61BfD4TUMYL._SY879_.jpg",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSW_2AYesa6nANW-9zciXtgJena7I29bLgbQ&s",
+      "/assets/images/product-images/Acetamiprid/front2.png",
+      "/assets/images/product-images/Acetamiprid/front.png",
+       "/assets/images/product-images/Acetamiprid/backimg.png",
+        "/assets/images/product-images/Acetamiprid/ingre.png",
+        "/assets/images/product-images/Acetamiprid/QR.png",
+        
     ],
     description:
       "General-purpose pesticide used to control pests that harm crops. Effective against a wide range of insects and other harmful organisms. Clearly labeled with a warning to keep out of children’s reach.",
@@ -36,13 +39,13 @@ export const dummyData = [
   },
   {
     _id: "103",
-    title: "Herbicide for Weed Control",
+    title: "Carbendazim",
     address: "India",
     photos: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcplq7dPZhBgKmFfdPL2VfyzN0rCqUWXn_pw&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmRc1b0Z6qGTcbo30m5iw9n2s5Yom2JairWg&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_IRGoMM3gPS60DOPH75Jinef2OEkyZkn6kA&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIKSbHVPNfvPdKN9EgeXHESUWPyOe7Ta0cJQ&s",
+     "/assets/images/product-images/Carbendazim/frontimg.png",
+       "/assets/images/product-images/Carbendazim/backimg.png",
+        "/assets/images/product-images/Carbendazim/details.png",
+        "/assets/images/product-images/Carbendazim/ingre.png",
     ],
     description:
       "Designed to kill or inhibit the growth of unwanted plants (weeds). Helps farmers protect crops by reducing weed competition for nutrients, water, and sunlight. Bright yellow packaging for easy identification.",
@@ -54,13 +57,14 @@ export const dummyData = [
   },
   {
     _id: "104",
-    title: "Ergonomic Pesticide Sprayer",
+    title: "Chlorantraniliprole",
     address: "India",
     photos: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2iKyvcf3ybP9FqzWm4Fth7GWyThc7g3BFiQ&",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfif1XtdK017cqdoOUZoz9nXE18S_h-KmFhQ&s",
-      "https://5.imimg.com/data5/SELLER/Default/2023/9/340826218/JN/AE/BU/95066681/pesticide-500x500.webp",
-      "https://m.media-amazon.com/images/I/71VHMQYhL3L._AC_UL320_.jpg",
+      "/assets/images/product-images/Chlorantraniliprole/frontimg.png",
+       "/assets/images/product-images/Chlorantraniliprole/backimg.png",
+        "/assets/images/product-images/Chlorantraniliprole/details.png",
+        "/assets/images/product-images/Chlorantraniliprole/ing.png",
+        "/assets/images/product-images/Chlorantraniliprole/QR.png",
     ],
     description:
       "The ergonomic handle ensures a comfortable grip during extended use. Effortlessly tackle cleaning tasks, sanitize surfaces, or revitalize outdoor spaces with ease. Ideal for both indoor and outdoor use.",
@@ -72,13 +76,13 @@ export const dummyData = [
   },
   {
     _id: "105",
-    title: "Pesticides Neem Spray",
+    title: "Chlorpyrifos",
     address: "India",
     photos: [
-      "https://m.media-amazon.com/images/I/71D-F7tZvPL._AC_UF480,480_SR480,480_.jpg",
-      "https://m.media-amazon.com/images/I/71UmpWDWczL._SX466_.jpg",
-      "https://m.media-amazon.com/images/I/61xsuXd7NzL._AC_UF480,480_SR480,480_.jpg",
-      "https://m.media-amazon.com/images/I/61xsuXd7NzL._AC_UF480,480_SR480,480_.jpg",
+     "/assets/images/product-images/Chlorpyrifos/frontimg.png",
+       "/assets/images/product-images/Chlorpyrifos/backimg.png",
+        "/assets/images/product-images/Chlorpyrifos/ingre.png",
+        "/assets/images/product-images/Chlorpyrifos/QR.png",
     ],
     description:
       "High quality Neem Oil spray. More effective with spreading agents for better coverage. Sticks to plant and keeps working longer. Suitable for all plant types. Spray twice a month or as required.",
@@ -90,11 +94,13 @@ export const dummyData = [
   },
   {
     _id: "106",
-    title: "Bio Fungicide - Prevents Fungal",
+    title: "Cypermethrin",
     address: "India",
     photos: [
-      "https://m.media-amazon.com/images/I/71pgj6lZB0L._AC_UC154,154_CACC,154,154_QL85_.jpg",
-      "https://m.media-amazon.com/images/I/217lPdoRqaL._AC_UC154,154_CACC,154,154_QL85_.jpg",
+      "/assets/images/product-images/Cypermethrin/frontimg.png",
+       "/assets/images/product-images/Cypermethrin/backimg.png",
+        "/assets/images/product-images/Cypermethrin/ingre.png",
+        "/assets/images/product-images/Cypermethrin/QR.png",
     ],
     description:
       "100% Pure & Cold-Pressed Neem Oil sourced from premium-grade neem seeds. Natural & eco-conscious solution, biodegradable and free from synthetic chemicals. Easy to use, water-soluble, just mix and spray.",
@@ -106,13 +112,13 @@ export const dummyData = [
   },
   {
     _id: "107",
-    title: "Gardening & Potted Plants, Potting Soil",
+    title: "Deltamethrin",
     address: "India",
     photos: [
-      "https://m.media-amazon.com/images/I/71TAWti7eLL._SX569_.jpg",
-      "https://m.media-amazon.com/images/I/71-g4vwX1tL._SX569_.jpg",
-      "https://m.media-amazon.com/images/I/71CDxc5dLKL._AC_UC154,154_CACC,154,154_QL85_.jpg",
-      "https://m.media-amazon.com/images/I/51Qar1Cau0L._AC_UF480,480_SR480,480_.jpg",
+     "/assets/images/product-images/Deltamethrin/frontimg.png",
+       "/assets/images/product-images/Deltamethrin/backimg.png",
+        "/assets/images/product-images/Deltamethrin/ingre.png",
+        "/assets/images/product-images/Deltamethrin/QR.png",
     ],
     description:
       "Versatile Organic Potting Mix: Ideal for various gardening needs, this organic potting mix serves as an excellent base for pots, planters, and seed starting. Experience the benefits of a natural soil conditioner in your garden.",
@@ -124,13 +130,14 @@ export const dummyData = [
   },
   {
     _id: "108",
-    title: "Home Garden, Potting Plants, Terrace Gardening",
+    title: "Diafenthiuron",
     address: "India",
     photos: [
-      "https://m.media-amazon.com/images/I/61uaG-kJFkL._AC_UF480,480_SR480,480_.jpg",
-      "https://m.media-amazon.com/images/I/410OYwXtrOL._AC_UF480,480_SR480,480_.jpg",
-      "https://m.media-amazon.com/images/I/71uwiHxcf1L._AC_UF480,480_SR480,480_.jpg",
-      "https://m.media-amazon.com/images/I/715IhOpDjyL._AC_UF480,480_SR480,480_.jpg",
+     "/assets/images/product-images/Diafenthiuron/frontimg.png",
+       "/assets/images/product-images/Diafenthiuron/backimg.png",
+        "/assets/images/product-images/Diafenthiuron/ingre.png",
+        "/assets/images/product-images/Diafenthiuron/QR.png",
+        "/assets/images/product-images/Diafenthiuron/ingre2.png",
     ],
     description:
       "Biodegradable & Organic: Made from natural coconut husk, cocopeat is 100% biodegradable and environmentally friendly. Naturally resistant to pests and fungal growth, reduces soil-borne diseases, and improves soil texture.",
@@ -142,13 +149,14 @@ export const dummyData = [
   },
   {
     _id: "109",
-    title: "Pure Natural Repellent for Organic Farming",
+    title: "Difenoconazole",
     address: "India",
     photos: [
-      "https://m.media-amazon.com/images/I/61ZjmzdxEAL._AC_UC154,154_CACC,154,154_QL85_.jpg",
-      "https://m.media-amazon.com/images/I/71vs82G1rfL._AC_UC154,154_CACC,154,154_QL85_.jpg",
-      "https://m.media-amazon.com/images/I/61sv9k+SwLL._SX466_.jpg",
-      "https://m.media-amazon.com/images/I/71A-9tOe3RL._AC_UC154,154_CACC,154,154_QL85_.jpg",
+      "/assets/images/product-images/Difenoconazole/frontimg.png",
+       "/assets/images/product-images/Difenoconazole/backimg.png",
+        "/assets/images/product-images/Difenoconazole/ingre.png",
+        "/assets/images/product-images/Difenoconazole/QR.png",
+        "/assets/images/product-images/Difenoconazole/ingre2.png",
     ],
     description:
       "Recommended for indoor/outdoor gardening and organic farming. Best quality water-soluble neem oil with strong neem smell. Useful in composting and as a soil amendment.",
@@ -160,13 +168,14 @@ export const dummyData = [
   },
   {
     _id: "110",
-    title: "Removing all types of insects and pests from Plants and soil",
+    title: "Dimethoate",
     address: "India",
     photos: [
-      "https://m.media-amazon.com/images/I/713K+2W5c-L._AC_UC154,154_CACC,154,154_QL85_.jpg",
-      "https://m.media-amazon.com/images/I/71oneYJtv1L._AC_UC154,154_CACC,154,154_QL85_.jpg",
-      "https://m.media-amazon.com/images/I/71mfutvfglL._SX569_.jpg",
-      "https://m.media-amazon.com/images/I/71BapiRtQ9L._AC_UF480,480_SR480,480_.jpg",
+    "/assets/images/product-images/Dimethoate/frontimg.png",
+       "/assets/images/product-images/Dimethoate/backimg.png",
+        "/assets/images/product-images/Dimethoate/ingre.png",
+        "/assets/images/product-images/Dimethoate/QR.png",
+        "/assets/images/product-images/Dimethoate/front2img.png",
     ],
     description:
       "Just a few millilitres sprayed on infested plants is enough to get rid of insect infections. This organic liquid effectively removes all types of insects like mealybugs from plants.",
@@ -179,13 +188,14 @@ export const dummyData = [
 
   {
     _id: "111",
-    title: "Compost Maker, Vegetable Waste Decomposer, Bio-Waste Decomposer",
+    title: "Emamectin Benzoate",
     address: "India",
     photos: [
-      "https://m.media-amazon.com/images/I/61o66dbKMgL.jpg",
-      "https://m.media-amazon.com/images/I/61aPYs3HtFL._AC_UC154,154_CACC,154,154_QL85_.jpg",
-      "https://m.media-amazon.com/images/I/71RFfaTJytL._SX569_.jpg",
-      "https://m.media-amazon.com/images/I/61kXemfYXeL._SX385_.jpg",
+      "/assets/images/product-images/Emamectin Benzoate/frontimg.png",
+       "/assets/images/product-images/Emamectin Benzoate/backimg.png",
+        "/assets/images/product-images/Emamectin Benzoate/ingre.png",
+        "/assets/images/product-images/Emamectin Benzoate/QR.png",
+        "/assets/images/product-images/Emamectin Benzoate/ingre2.png",
     ],
     description:
       "Can be used for quick composting of biowastes, foliar spray as biopesticide against most plant diseases. Controls soil-borne and foliar diseases, insects, and pests. Contains helpful bacteria collected from Desi Cow Dung.",
@@ -197,13 +207,13 @@ export const dummyData = [
   },
   {
     _id: "112",
-    title: "Plants for Home Gardening: Hydroponic Soil (Loose and Dry)",
+    title: "Fipronil",
     address: "India",
     photos: [
-      "https://m.media-amazon.com/images/I/51VXeZr2kgL._SX569_.jpg",
-      "https://m.media-amazon.com/images/I/71HBfObxO1L._SX679_.jpg",
-      "https://m.media-amazon.com/images/I/41tkvZ8si1L._SX569_.jpg",
-      "https://m.media-amazon.com/images/I/71uwiHxcf1L._AC_UF480,480_SR480,480_.jpg",
+     "/assets/images/product-images/Fipronil/frontimg.png",
+       "/assets/images/product-images/Fipronil/backimg.png",
+        "/assets/images/product-images/Fipronil/ingre.png",
+        "/assets/images/product-images/Fipronil/QR.png",
     ],
     description:
       "Loose Cocopeat as hydroponic soil. Coconut coir is renewable and eco-conscious. Reduces environmental impact compared to traditional peat-based products.",
@@ -215,13 +225,14 @@ export const dummyData = [
   },
   {
     _id: "113",
-    title: "Major Crops: Cabbage and Cauliflower",
+    title: "Flonicamid",
     address: "India",
     photos: [
-      "https://www.bestagrolife.com/img/Spintocon.png",
-      "https://www.bestagrolife.com/img/Spinosher.png",
-      "https://www.bestagrolife.com/img/Spinosher.png",
-      "https://www.bestagrolife.com/img/Spinosher.png",
+     "/assets/images/product-images/Flonicamid/frontimg.png",
+       "/assets/images/product-images/Flonicamid/backimg.png",
+        "/assets/images/product-images/Flonicamid/Ingre.png",
+        "/assets/images/product-images/Flonicamid/QR.png",
+        "/assets/images/product-images/Flonicamid/Ingre2.png",
     ],
     description:
       "Effective against diamond back moth infesting cabbage and cauliflower.",
@@ -233,11 +244,14 @@ export const dummyData = [
   },
   {
     _id: "114",
-    title: "Effective against Insecticides and Fungi",
+    title: "Hexaconazole",
     address: "India",
     photos: [
-      "https://www.bestagrolife.com/img/VistaraNew.png",
-      "https://www.bestagrolife.com/img/diron.webp",
+      "/assets/images/product-images/Hexaconazole/frontimg.png",
+       "/assets/images/product-images/Hexaconazole/backimg.png",
+        "/assets/images/product-images/Hexaconazole/ing.png",
+        "/assets/images/product-images/Hexaconazole/QR.png",
+        "/assets/images/product-images/Hexaconazole/details.png",
     ],
     description:
       "Includes insecticides, herbicides, fungicides, and plant growth regulators.",
@@ -249,13 +263,15 @@ export const dummyData = [
   },
   {
     _id: "115",
-    title: "Reducing and Protection from Parasites",
+    title: "Imicadepriod",
     address: "India",
     photos: [
-      "https://www.bestagrolife.com/img/carto_50_3d.png",
-      "https://www.bestagrolife.com/img/wardin-extra.png",
-      "https://www.bestagrolife.com/img/Axeman.webp",
-      "https://www.bestagrolife.com/img/DEFENDER-for-WEB.png",
+       "/assets/images/product-images/Imicadepriod/side.png",
+       "/assets/images/product-images/Imicadepriod/backimg.png",
+        "/assets/images/product-images/Imicadepriod/Ingre.png",
+        "/assets/images/product-images/Imicadepriod/QR.png",
+        "/assets/images/product-images/Imicadepriod/desc.png",
+        "/assets/images/product-images/Imicadepriod/backimg2.png",
     ],
     description:
       "Fetagan delivers a triple ACTION shield for broad-spectrum, long-lasting crop protection. Disrupts nervous system of pests for rapid paralysis and death. Reduces need for repeated applications.",
@@ -267,13 +283,15 @@ export const dummyData = [
   },
   {
     _id: "116",
-    title: "Nutri Combi-F Multi Micronutrients",
+    title: "Imidacloprid",
     address: "India",
     photos: [
-      "https://cpimg.tistatic.com/10029793/b/4/Mix-Micronutrient-Fertilizers..jpg",
-      "https://img3.exportersindia.com/product_images/bc-full/2023/9/7056719/nutri-combi-f-multi-micronutrients-liquid-1690520304-7003378.jpeg",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQbPRSahmv1hU-BSvEjBBNKjkQHgkmVQNHty9iKFm0fE_kZK_fFg8g8oQ8iFbmBp-5GK4&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnIyccBHHdeptmxqcwj104eZX-lxQSdZwwaKOrJ-y38oYgEzix90-sb_kx4M7oAYYOcLI&usqp=CAU",
+      "/assets/images/product-images/Imidacloprid/frontimg.png",
+       "/assets/images/product-images/Imidacloprid/sideimg.png",
+       "/assets/images/product-images/Imidacloprid/backimg.png",
+        "/assets/images/product-images/Imidacloprid/ingre.png",
+        "/assets/images/product-images/Imidacloprid/QR.png",
+        
     ],
     description:
       "Liquid Calcium Nitrate derivative fortified with chelated minerals and essential crop nutrients.",
@@ -285,12 +303,14 @@ export const dummyData = [
   },
   {
     _id: "117",
-    title: "Maintaining Growth and Nutrients",
+    title: "Indoxacarb",
     address: "India",
     photos: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuAP3drs1Bmtg8odJjTAIDM56m39T4f85gFvPvj0w0gqLk5bh8to5HZmDGm8xQLTdp31I&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA00L-Nx8K_FO6VHGlAD_reNfEz-yOIIcRD9I4yq5AyLUDTY-NAabop0kW23JI2foiNmk&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlJEInJsg7CURC34LePp1bu84q2sBhn0iUFw&s",
+      "/assets/images/product-images/Indoxacarb/frontimg.png",
+       "/assets/images/product-images/Indoxacarb/ingre2.png",
+       "/assets/images/product-images/Indoxacarb/backimg.png",
+        "/assets/images/product-images/Indoxacarb/ingre.png",
+        "/assets/images/product-images/Indoxacarb/QR.png",
     ],
     description:
       "Mixture of partially chelated micronutrients in balanced proportion to maintain plant growth and nutrients.",
@@ -302,12 +322,13 @@ export const dummyData = [
   },
   {
     _id: "118",
-    title: "Agromin Foliar Spray Liquid",
+    title: "Lambda-cyhalothrin",
     address: "India",
     photos: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuikOxw9qSI6qPoKQ7ToIWpOrP8-Usse9Vlg&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFC5Q1rnRXqVOkbeZ9v_R5I5xSXurdoFWBQQ&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj_FaGGjxGEvvgfYE9tviOuna1hmaLUcrvrrj7yQ_PzP98A0yAql1VWmdGTM8pAQuM8vg&usqp=CAU",
+     "/assets/images/product-images/Lambda-cyhalothrin/frontimg.png",
+       "/assets/images/product-images/Lambda-cyhalothrin/backimg.png",
+        "/assets/images/product-images/Lambda-cyhalothrin/ingre.png",
+        "/assets/images/product-images/Lambda-cyhalothrin/QR.png",
     ],
     description:
       "Organic complex of biologically derived material, organically certified, suitable as foliar spray for plant nutrition.",
@@ -319,13 +340,13 @@ export const dummyData = [
   },
   {
     _id: "119",
-    title: "Agripro Micronutrient Usage & Crops",
+    title: "Malathion",
     address: "India",
     photos: [
-      "https://ariesagro.com/wp-content/uploads/2022/11/boro_20.png",
-      "https://ariesagro.com/wp-content/uploads/2023/03/Majorsol-Paddy.png",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzRGx041r7BYox30iwzkJTkKk0v1mP6aaGvofvVw9prTEsCwfsRqXwTNEsqUQWQVN5-yE&usqp=CAU",
-      "https://ariesagro.com/wp-content/uploads/2023/04/TRISHOOL-neem-cake.png",
+      "/assets/images/product-images/Malathion/frontimg.png",
+       "/assets/images/product-images/Malathion/backimg.png",
+        "/assets/images/product-images/Malathion/ingre.png",
+        "/assets/images/product-images/Malathion/front2img.png",
     ],
     description:
       "Natural and biologically active amino acids & chelated micronutrients. Helps increase production and facilitates better absorption of nutrients.",
@@ -337,13 +358,13 @@ export const dummyData = [
   },
   {
     _id: "120",
-    title: "Suitable for Gardens",
+    title: "Quinalphos",
     address: "India",
     photos: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHObKGs2wcacPWJdKB1U1pqs_6VQCjA2nsLw&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGxaSAK-Z_fGc6qdCJ9swo0uSRBqlzQLchB0ZeiQp6UrNx8M6M9wZHRVQLWs7MXx9WQ6M&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsdhUHqCnonRpXo9T5bWKFEVRxlUncOTbeFA&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUxe3ReYrWpp-6nmSR9qfvtJvBIbJTAwYpQg&s",
+      "/assets/images/product-images/Quinalphos/frontimg.png",
+       "/assets/images/product-images/Quinalphos/backimg.png",
+        "/assets/images/product-images/Quinalphos/QR.png",
+        "/assets/images/product-images/Quinalphos/front2img.png",
     ],
     description:
       "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
@@ -353,4 +374,182 @@ export const dummyData = [
     extraInfo: "Applicable for all types of fruit and flower crops.",
     rating: 4.7,
   },
+
+ 
+
+  {
+    _id: "121",
+    title: "Mancozeb",
+    address: "India",
+    photos: [
+      "/assets/images/product-images/Mancozeb/frontimg.png",
+       "/assets/images/product-images/Mancozeb/backimg.png",
+        "/assets/images/product-images/Mancozeb/ingre.png",
+        "/assets/images/product-images/Mancozeb/ingre2.png",
+    ],
+    description:
+      "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
+    price: 550,
+    inStock: true,
+    perks: ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
+    extraInfo: "Applicable for all types of fruit and flower crops.",
+    rating: 4.7,
+  },
+ 
+   {
+    _id: "122",
+    title: "Propiconazole",
+    address: "India",
+    photos: [
+      "/assets/images/product-images/Propiconazole/frontimg.png",
+       "/assets/images/product-images/Propiconazole/backimg.png",
+        "/assets/images/product-images/Propiconazole/ingre.png",
+        "/assets/images/product-images/Propiconazole/ingre2.png",
+    ],
+    description:
+      "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
+    price: 550,
+    inStock: true,
+    perks: ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
+    extraInfo: "Applicable for all types of fruit and flower crops.",
+    rating: 4.7,
+  },
+
+   {
+    _id: "123",
+    title: "Buprofezin",
+    address: "India",
+    photos: [
+       "/assets/images/product-images/Buprofezin/frontimg.png",
+       "/assets/images/product-images/Buprofezin/backimg.png",
+        "/assets/images/product-images/Buprofezin/details.png",
+        "/assets/images/product-images/Buprofezin/ingre.png",
+    ],
+    description:
+      "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
+    price: 550,
+    inStock: true,
+    perks: ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
+    extraInfo: "Applicable for all types of fruit and flower crops.",
+    rating: 4.7,
+  },
+
+   {
+    _id: "124",
+    title: "Spinosad",
+    address: "India",
+    photos: [
+     "/assets/images/product-images/Spinosad/frontimg.png",
+       "/assets/images/product-images/Spinosad/backimg.png",
+        "/assets/images/product-images/Spinosad/ingre.png",
+        "/assets/images/product-images/Spinosad/ingre2.png",
+    ],
+    description:
+      "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
+    price: 550,
+    inStock: true,
+    perks: ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
+    extraInfo: "Applicable for all types of fruit and flower crops.",
+    rating: 4.7,
+  },
+
+   {
+    _id: "125",
+    title: "Spirotetramat",
+    address: "India",
+    photos: [
+      "/assets/images/product-images/Spirotetramat/frontimg.png",
+       "/assets/images/product-images/Spirotetramat/backimg.png",
+        "/assets/images/product-images/Spirotetramat/ingre.png",
+        "/assets/images/product-images/Spirotetramat/ingre2.png",
+        "/assets/images/product-images/Spirotetramat/QR.png",
+    ],
+    description:
+      "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
+    price: 550,
+    inStock: true,
+    perks: ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
+    extraInfo: "Applicable for all types of fruit and flower crops.",
+    rating: 4.7,
+  },
+
+   {
+    _id: "126",
+    title: "Thiamethoxam",
+    address: "India",
+    photos: [
+      "/assets/images/product-images/Thiamethoxam/frontimg.jpg",
+       "/assets/images/product-images/Thiamethoxam/backimg.png",
+        "/assets/images/product-images/Thiamethoxam/ingre.png",
+        "/assets/images/product-images/Thiamethoxam/front2img.png",
+        "/assets/images/product-images/Thiamethoxam/QR.png",
+    ],
+    description:
+      "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
+    price: 550,
+    inStock: true,
+    perks: ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
+    extraInfo: "Applicable for all types of fruit and flower crops.",
+    rating: 4.7,
+  },
+
+   {
+    _id: "127",
+    title: "Hexaconazole",
+    address: "India",
+    photos: [
+        "/assets/images/product-images/Hexaconazole/frontimg.png",
+       "/assets/images/product-images/Hexaconazole/backimg.png",
+        "/assets/images/product-images/Hexaconazole/ing.png",
+        "/assets/images/product-images/Hexaconazole/QR.png",
+    ],
+    description:
+      "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
+    price: 550,
+    inStock: true,
+    perks: ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
+    extraInfo: "Applicable for all types of fruit and flower crops.",
+    rating: 4.7,
+  },
+  
+   {
+    _id: "128",
+    title: "Fipronil",
+    address: "India",
+    photos: [
+      "/assets/images/product-images/Fipronil/frontimg.png",
+       "/assets/images/product-images/Fipronil/backimg.png",
+        "/assets/images/product-images/Fipronil/ingre.png",
+        "/assets/images/product-images/Fipronil/QR.png",
+    ],
+    description:
+      "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
+    price: 550,
+    inStock: true,
+    perks: ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
+    extraInfo: "Applicable for all types of fruit and flower crops.",
+    rating: 4.7,
+  },
+
+   {
+    _id: "129",
+    title: "Cypermethrin",
+    address: "India",
+    photos: [
+      "/assets/images/product-images/Cypermethrin/frontimg.png",
+       "/assets/images/product-images/Cypermethrin/backimg.png",
+        "/assets/images/product-images/Cypermethrin/ingre.png",
+        "/assets/images/product-images/Cypermethrin/QR.png",
+    
+    ],
+    description:
+      "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
+    price: 550,
+    inStock: true,
+    perks: ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
+    extraInfo: "Applicable for all types of fruit and flower crops.",
+    rating: 4.7,
+  },
+
+  
 ];
