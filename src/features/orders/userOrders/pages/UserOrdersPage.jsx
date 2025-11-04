@@ -31,7 +31,7 @@ export default function UserOrderDetailsPage() {
   return (
     <ContentWrapper compactScreen={true}>
 
-      <div className="bg-[var(--color-white)] lg:pt-40 shadow-sm min-h-screen w-full  py-4">
+      <div className="lg:pt-36 ">
       <h2 className="text-lg sm:text-xl font-semibold mb-6 text-center sm:text-left pt-5">
         Order ID: {id}
       </h2>
@@ -39,7 +39,7 @@ export default function UserOrderDetailsPage() {
       {filteredOrders.map((order, idx) => (
         <div
           key={idx}
-          className="border rounded-md p-4 sm:p-6 mb-6 "
+          className="p-4 sm:p-6 mb-6 "
         >
           <OrderHeader order={order} />
 
@@ -56,7 +56,7 @@ export default function UserOrderDetailsPage() {
         </div>
       ))}
 
-      <OrderActions navigate={navigate} />
+      {/* <OrderActions navigate={navigate} /> */}
     </div>
     </ContentWrapper>
   );

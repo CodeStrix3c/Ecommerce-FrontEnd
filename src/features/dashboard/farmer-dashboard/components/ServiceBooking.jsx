@@ -1,3 +1,4 @@
+import ContentWrapper from '@/components/shared/ContentWrapper';
 import React, { useState } from 'react';
 
 function ServiceBooking() {
@@ -21,14 +22,14 @@ function ServiceBooking() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold m-6 text-center text-[var(--color-black)]">Service Booking</h1>
+    <div className='py-5'>
+      <h1 className=" py-5 text-xl font-semibold   text-[var(--color-black)]">Service Booking</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {services.map((service) => (
           <div
             key={service.id}
-            className="bg-[var(--color-white)] border border-[var(--color-black)] p-4 rounded-2xl shadow hover:shadow-md transition"
+            className=" bg-[var(--color-white)] p-4 rounded-2xl shadow hover:shadow-md transition"
           >
             <h3 className="text-xl font-bold text-[var(--color-black)]">{service.name}</h3>
             <p className="text-l text-[var(--color-black)] mb-1">{service.category}</p>
@@ -36,13 +37,14 @@ function ServiceBooking() {
             <p className="text-[var(--color-primary)] font-semibold mb-3">Price: {service.price}</p>
             <button
               onClick={() => handleBooking(service)}
-              className="bg-[var(--color-primary)] text-[var(--color-white)] px-4 py-2 rounded-lg">
+              className="bg-[var(--color-primary)] text-[var(--color-white)] px-4 py-2 rounded-sm">
               Book Service
             </button>
           </div>
         ))}
       </div>
-    </div>
+      </div>
+    
   );
 }
 

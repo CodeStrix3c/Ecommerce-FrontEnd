@@ -30,8 +30,9 @@ export default function EducationSection({ register, errors }) {
         />
         <FormInput
           name="specialization"
-          label="Specialization / Major (Optional)"
+          label="Specialization / Major"
           register={register}
+          required={false}
           errors={errors.specialization}
         />
       </FormLayout>

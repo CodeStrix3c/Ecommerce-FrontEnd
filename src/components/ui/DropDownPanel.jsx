@@ -10,24 +10,18 @@ import {
   Package,
   FlaskRoundIcon,
   LayoutDashboard,
+  UserPlusIcon,
 } from "lucide-react";
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const DropdownPanel = ({ open, onClose }) => {
+const DropdownPanel = ({ open, onClose, isSupplierLoggedIn }) => {
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem("token");
+  const isLoggedIn = !!localStorage.getItem("userLoginToken");
   const isMobile = useIsMobile(1100);
-  const [isSupplierLoggedIn, setIsSupplierLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("SRT");
-    setIsSupplierLoggedIn(!!token);
-  }, []);
 
   const handleLogout = () => {
-    removeItemFromLocalStorage("token");
+    removeItemFromLocalStorage("userLoginToken");
     removeItemFromLocalStorage("loginData");
     toast.success("Logged out successfully!");
     navigate("/login");
@@ -87,6 +81,13 @@ const DropdownPanel = ({ open, onClose }) => {
         >
           <Package size={16} /> <span>My Orders</span>
         </Link>
+        <Link
+          to="/supplier-profile"
+          onClick={onClose}
+          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <UserPlusIcon size={16} /> <span>Supplier Profile</span>
+        </Link>
 
         {/* Mobile-specific links */}
         {isMobile && (
@@ -94,11 +95,11 @@ const DropdownPanel = ({ open, onClose }) => {
             {isSupplierLoggedIn ? (
               <>
                 <Link
-                  to="/dashboard/overview"
+                  to="/dashboard/orchard"
                   onClick={onClose}
                   className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
                 >
-                  <LayoutDashboard size={16} /> <span>Dashboard</span>
+                  <LayoutDashboard size={16} /> <span>Supplier Dashboard</span>
                 </Link>
 
                 <Link

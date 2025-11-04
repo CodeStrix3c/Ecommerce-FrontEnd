@@ -15,7 +15,7 @@ export default function ReviewTags() {
             key={index}
             onClick={() => handleClick(tag)}
             className="px-4 py-2 text-sm rounded-full 
-                       bg-gray-200 text-gray-700 hover:bg-gray-50 
+                        text-[var(--color-black)]
                        transition-colors duration-200"
           >
             {tag}

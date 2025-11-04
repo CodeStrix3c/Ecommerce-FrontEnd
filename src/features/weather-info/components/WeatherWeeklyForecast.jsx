@@ -1,34 +1,44 @@
 import React from "react";
-import { Sun, CloudSun, CloudRain, Cloud } from "lucide-react";
 
-export default function WeatherWeeklyForecast() {
-  const weeklyForecast = [
-    { day: "Wed", icon: <CloudSun className="text-[var(--color-secondary)]" size={28} />, min: 18, max: 27 },
-    { day: "Thu", icon: <Cloud className="text-[var(--color-secondary)]" size={28} />, min: 17, max: 24 },
-    { day: "Fri", icon: <CloudRain className="text-[var(--color-secondary)]" size={28} />, min: 16, max: 22 },
-    { day: "Sat", icon: <Sun className="text-[var(--color-secondary)]" size={28} />, min: 19, max: 29 },
-    { day: "Sun", icon: <CloudSun className="text-[var(--color-secondary)]" size={28} />, min: 20, max: 28 },
-    { day: "Mon", icon: <CloudRain className="text-[var(--color-secondary)]" size={28} />, min: 18, max: 25 },
-    { day: "Tue", icon: <Sun className="text-[var(--color-secondary)]" size={28} />, min: 21, max: 30 },
-  ];
+export default function WeatherWeeklyForecast({ forecast }) {
+  console.log(forecast, "forecast..");
 
   return (
-    <div className="mt-10 sm:mt-12">
-      <h3 className="text-lg sm:text-xl font-bold text-[var(--color-black)] mb-3 sm:mb-4">7-Day Forecast</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3 sm:gap-4">
-        {weeklyForecast.map((day, idx) => (
-          <div
-            key={idx}
-            className="flex flex-col items-center bg-[var(--color-white)] backdrop-blur-md rounded-xl shadow-sm p-3 sm:p-4"
-          >
-            <span className="text-xs sm:text-sm font-medium text-[var(--color-black)]">{day.day}</span>
-            <div className="mt-2">{day.icon}</div>
-            <div className="flex gap-1 sm:gap-2 mt-2 text-xs sm:text-sm text-[var(--color-black)]">
-              <span className="font-semibold">{day.max}°</span>
-              <span className="text-[var(--color-black)]">{day.min}°</span>
+    <div className=" text-[var(--color-black)] flex flex-col items-center px-4 sm:px-8 justify-end">
+      <div className="w-full max-w-5xl mt-8 sm:mt-12">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-center sm:text-left mb-6">
+          3-Day Weather Forecast
+        </h2>
+
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+          {forecast.map((day, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col items-center bg-[var(--color-white)] backdrop-blur-lg rounded-2xl shadow-sm p-4 sm:p-5 
+                         hover:scale-105 transition-transform text-[var(--color-black)]"
+            >
+              <span className="text-sm sm:text-base font-semibold">
+                {new Date(day.date).toLocaleDateString("en-US", {
+                  weekday: "short",
+                })}
+              </span>
+
+              <img
+                src={day.day.condition.icon}
+                alt={day.day.condition.text}
+                className="mt-3 w-10 h-10"
+              />
+              <p className="mt-2 text-xs sm:text-sm italic">
+                {day.day.condition.text}
+              </p>
+
+              <div className="flex gap-1 sm:gap-2 mt-3 text-sm sm:text-base">
+                <span className="font-semibold">{day.day.maxtemp_c}°</span>
+                <span className="opacity-75">{day.day.mintemp_c}°</span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

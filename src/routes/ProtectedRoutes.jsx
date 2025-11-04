@@ -16,7 +16,10 @@ import ResourcesPanel from "@/features/dashboard/farmer-dashboard/pages/Resource
 import OrchardRegistration from "@/features/orchard-registration/OrchardRegistration";
 import SoilWaterNutrientPanel from "@/features/dashboard/farmer-dashboard/pages/SoilWaterNutrientPanel";
 import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
-
+import SupplierProfileCompletion from "@/features/suppliers/pages/SupplierProfileCompletion";
+import FarmerProfileCompletion from "@/features/farmers/pages/FarmerProfileCompletion";
+import Faq from "@/features/FAQ/Faq";
+import CropProtectionPage from "@/features/Protection-info/pages/ProtectionInfo";
 
 const SupplierRegistration = lazy(
   () => import("@/features/supplier-registration/SupplierRegistration")
@@ -69,7 +72,7 @@ const SingleOrchardDetails = lazy(
   () => import("@/features/orchards/pages/SingleOrchardDetails")
 );
 const SprayPage = lazy(() => import("@/features/spray/pages/SprayPage"));
-const Harvest = lazy(() => import("@/features/Harvest/Harvest"));
+const Harvest = lazy(() => import("@/features/Harvest/Pages/Harvest"));
 const SupplierProductPage = lazy(
   () => import("@/features/suppliers/pages/SupplierProductPage")
 );
@@ -82,17 +85,24 @@ export default [
   <Route element={<ProtectedRoute />} key="protected">
     <Route path="/" element={<ProtectedLayout />}>
       <Route path="/supplier-register" element={<SupplierRegistration />} />
+      <Route path="/FAQ"element={<Faq/>}/>
       <Route path="/harvest" element={<Harvest />} />
       <Route path="/home" element={<IndexPage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
+      <Route
+        path="/farmer-profile-completion"
+        element={<FarmerProfileCompletion />}
+      />
       <Route path="/resources/crop-information" element={<CropInformation />} />
+      <Route path="/resources/crop-protection" element={<CropProtectionPage />} />
       <Route path="/help-center" element={<AgricultureHelpCenter />} />
       <Route path="/orchard-registration" element={<OrchardRegistration />} />
       <Route path="/orchards" element={<OrchardsPage />} />
       <Route path="/orchards/:id" element={<SingleOrchardDetails />} />
       <Route path="/supplier-login" element={<SupplierLogin />} />
 
+      {/* <Route path="/about-us" element={<AboutUs />} /> */}
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/sitemap" element={<Sitemap />} />
@@ -107,6 +117,10 @@ export default [
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/supplier-profile" element={<SupplierProfilePage />} />
+      <Route
+        path="/supplier-profile-completion"
+        element={<SupplierProfileCompletion />}
+      />
       <Route path="/spray" element={<SprayPage />} />
       <Route path="/supplier-product" element={<SupplierProductPage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
@@ -117,7 +131,7 @@ export default [
     </Route>
   </Route>,
   <Route path="/dashboard" element={<DashboardLayout />}>
-    <Route path="overview" element={<FarmerOverview />} />
+    {/* <Route path="overview" element={<FarmerOverview />} /> */}
     <Route path="orchard" element={<OrchardPanel />} />
     <Route path="weather" element={<WeatherPanel />} />
     <Route path="soil" element={<SoilWaterNutrientPanel />} />

@@ -15,86 +15,82 @@ export default function ProfileSection({ register, errors, control }) {
   console.log(errors);
 
   return (
-    <FormSection title="Profile Information">
-      <FormLayout>
-        <FormInput
-          name="fullName"
-          label="Full Name"
-          register={register}
-          errors={errors.fullName}
-          icon={<AccountCircleIcon sx={iconStyle} />}
-        />
-        <FormInput
-          name="email"
-          label="Email"
-          type="email"
-          register={register}
-          errors={errors.email}
-          icon={<EmailIcon sx={iconStyle} />}
-        />
-        <FormInput
-          name="phone"
-          label="Mobile Number"
-          type="tel"
-          register={register}
-          errors={errors.phone}
-          icon={<PhoneIcon sx={iconStyle} />}
-        />
-        <FormInput
-          name="age"
-          label="Age"
-          type="number"
-          register={register}
-          errors={errors.age}
-        />
+    <FormLayout>
+      <FormInput
+        name="fullName"
+        label="Full Name"
+        register={register}
+        errors={errors.fullName}
+        icon={<AccountCircleIcon sx={iconStyle} />}
+      />
+      <FormInput
+        name="email"
+        label="Email"
+        type="email"
+        register={register}
+        errors={errors.email}
+        icon={<EmailIcon sx={iconStyle} />}
+      />
+      <FormInput
+        name="phone"
+        label="Mobile Number (OTP Linked)"
+        type="tel"
+        register={register}
+        errors={errors.phone}
+        icon={<PhoneIcon sx={iconStyle} />}
+      />
+      <FormInput
+        name="age"
+        label="Age"
+        type="number"
+        register={register}
+        errors={errors.age}
+      />
 
-        {/* ✅ Gender dropdown */}
-        <Controller
-          name="gender"
-          control={control}
-          render={({ field, fieldState }) => (
-            <SelectField
-              {...field}
-              label="Gender"
-              errors={
-                fieldState.error ? { [field.name]: fieldState.error } : {}
-              }
-              options={[
-                { value: "", label: "Select Gender" },
-                { value: "male", label: "Male" },
-                { value: "female", label: "Female" },
-                { value: "other", label: "Other" },
-              ]}
-            />
-          )}
-        />
-        <FileUploadField
-          name="profilePic"
-          label="Upload Profile"
-          register={register}
-          variant="profile"
-          errors={errors}
-          showPreview={false}
-          optional
-        />
+      <SelectField
+        name="gender"
+        register={register}
+        control={control}
+        label="Gender"
+        errors={errors.gender}
+        options={[
+          { value: "", label: "Select Gender" },
+          { value: "male", label: "Male" },
+          { value: "female", label: "Female" },
+          { value: "other", label: "Other" },
+        ]}
+      />
+      <Controller
+        name="profilePic"
+        control={control}
+        render={({ field, fieldState }) => (
+          <FileUploadField
+            {...field}
+            label="Upload Profile"
+            errors={fieldState.error ? { profilePic: fieldState.error } : {}}
+            onFilesChange={(files) => field.onChange(files)}
+            // showPreview
+            optional
+          />
+        )}
+      />
 
-        <FormInput
-          name="password"
-          label="Password"
-          type="password"
-          register={register}
-          errors={errors.password}
-          icon={<LockIcon sx={iconStyle} />}
-        />
-        <FormInput
-          name="confirmPassword"
-          label="Confirm Password"
-          type="password"
-          register={register}
-          errors={errors.confirmPassword}
-          icon={<LockIcon sx={iconStyle} />}
-        />
-      </FormLayout>
-    </FormSection>
+      <FormInput
+        name="password"
+        label="Password"
+        type="password"
+        register={register}
+        errors={errors.password}
+        icon={<LockIcon sx={iconStyle} />}
+      />
+      <FormInput
+        name="confirmPassword"
+        label="Confirm Password"
+        type="password"
+        register={register}
+        errors={errors.confirmPassword}
+        icon={<LockIcon sx={iconStyle} />}
+      />
+    </FormLayout>
   );
 }

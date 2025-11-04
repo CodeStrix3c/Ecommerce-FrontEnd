@@ -1,150 +1,93 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useFarmer } from "@/providers/FarmerProvider";
-import ContentWrapper from "@/components/shared/ContentWrapper";
-import Popup from "@/components/shared/Popup";
-import FarmerProfileCompletion from "./FarmerProfileCompletion";
-import ProfileAvatar from "@/components/shared/ProfileAvatar";
-import ProfileDetail from "../components/ProfileDetail";
-import { User, Calendar, Mail, Phone, Book, Briefcase } from "lucide-react";
-import ProfileCompletion from "@/features/suppliers/components/ProfileCompletion";
-import { Link } from "react-router-dom";
+import React from "react";
+import {
+  Briefcase,
+  Calendar,
+  Circle,
+  GraduationCap,
+  MapPin,
+  Phone,
+  Settings,
+} from "lucide-react";
+import ProfileSidebar from "@/components/shared/profileComponents/ProfileSidebar";
+import AddressDetails from "@/components/shared/profileComponents/AddressCard";
+import ProfessionDetails from "@/components/shared/profileComponents/ProfessionalDetailsCard";
+import SectionTitle from "@/components/shared/SectionTitle";
+import EducationDetailsCard from "@/components/shared/profileComponents/EducationDetailsCard";
+import ImageBanner from "@/components/shared/profileComponents/ImageComponent";
+import { Email } from "@mui/icons-material";
+import {
+  farmerAddress,
+  farmerData,
+  farmerEducation,
+  farmerProfession,
+} from "@/features/suppliers/pages/DummyData";
 
-export default function FarmerProfilePage() {
-  const {
-    farmer,
-    progress,
-    isComplete,
-    setEducationComplete,
-    setProfessionComplete,
-    setAddressComplete,
-    setProfileComplete,
-  } = useFarmer();
-
-  const [showIncompleteSection, setShowIncompleteSection] = useState(false);
-  const [gpsLocation, setGpsLocation] = useState("");
-  const gpsInputRef = useRef(null);
-
-  useEffect(() => detectLocation(), []);
-
-  const detectLocation = () => {
-    if (!navigator.geolocation) return alert("Geolocation not supported");
-
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const gpsString = `${pos.coords.latitude},${pos.coords.longitude}`;
-        setGpsLocation(gpsString);
-        gpsInputRef.current?.focus();
-      },
-      () => alert("Unable to retrieve location"),
-      { enableHighAccuracy: true }
-    );
-  };
-
-  const handleCompleteProfile = () => {
-    setProfileComplete();
-    setEducationComplete();
-    setProfessionComplete();
-    setAddressComplete();
-    setShowIncompleteSection(false);
-  };
-
+const FarmerProfilePage = () => {
   return (
-    <>
-      <ContentWrapper compactScreen>
-        <div className="space-y-8 lg:space-y-12 lg:py-36">
-          {/* Avatar + Details + Links */}
-          <div className="flex flex-col sm:flex-row sm:items-start gap-6">
-            {/* Left: Avatar */}
-            <ProfileAvatar
-              avatar={farmer?.profilePic || "/assets/images/farmer.jpeg"}
-              onEdit={() => setShowIncompleteSection(true)}
-            />
-
-            <div className="flex-1 flex flex-col gap-4">
-              {/* Simple Links */}
-              <div className="flex justify-end gap-3">
-                <Link
-                  to="/orchards"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-gray-300 hover:bg-gray-100 transition"
-                >
-                  View Orchards
-                </Link>
-                <Link
-                  to="/orchard-registration"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md border border-gray-300 hover:bg-gray-100 transition"
-                >
-                  Add Orchard
-                </Link>
-              </div>
-
-              {/* Profile Details */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
-                <ProfileDetail
-                  icon={<User />}
-                  label="Name"
-                  value={farmer?.fullName || "Quarat"}
-                />
-                <ProfileDetail
-                  icon={<Calendar />}
-                  label="Age"
-                  value={farmer?.age || "28"}
-                />
-                <ProfileDetail
-                  icon={<Mail />}
-                  label="Email"
-                  value={farmer?.email || "anjuqadir14848@gmail.com"}
-                />
-                <ProfileDetail
-                  icon={<Phone />}
-                  label="Phone"
-                  value={farmer?.phone || "7051059559"}
-                />
-                <ProfileDetail
-                  icon={<Book />}
-                  label="Education"
-                  value={farmer?.education || "Graduate"}
-                />
-                <ProfileDetail
-                  icon={<Briefcase />}
-                  label="Profession"
-                  value={farmer?.profession || "Mazdoor"}
-                />
-              </div>
-
-              {/* Profile Completion */}
-              <ProfileCompletion
-                progress={progress}
-                isComplete={isComplete}
-                onCompleteClick={() => setShowIncompleteSection(true)}
-                showPopup={showIncompleteSection}
-                onClosePopup={() => setShowIncompleteSection(false)}
-              >
-                <FarmerProfileCompletion
-                  gpsLocation={gpsLocation}
-                  gpsInputRef={gpsInputRef}
-                  onComplete={handleCompleteProfile}
-                  detectLocation={detectLocation}
-                />
-              </ProfileCompletion>
+    <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
+      {/* Main Card Container */}
+      <div className="lg:rounded-sm lg:shadow-sm w-full max-w-6xl overflow-hidden bg-white">
+        
+        {/* ✅ Full-width Header */}
+        <div className="w-full border-b border-gray-100 px-6 py-4 flex justify-between items-center bg-white">
+          <SectionTitle
+            title="Farmer Profile"
+            className="lg:font-bold lg:text-2xl"
+          />
+          <div className="flex items-center space-x-4">
+            <button className="px-4 py-2 text-sm font-medium text-white bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
+              Complete Your Profile
+            </button>
+            <div className="p-2 border rounded-full">
+              <Settings className="w-5 h-5 text-gray-600" />
             </div>
           </div>
         </div>
-      </ContentWrapper>
 
-      {showIncompleteSection && (
-        <Popup
-          open={showIncompleteSection}
-          onClose={() => setShowIncompleteSection(false)}
-          title="Complete Farmer Profile"
-        >
-          <FarmerProfileCompletion
-            gpsLocation={gpsLocation}
-            gpsInputRef={gpsInputRef}
-            onComplete={handleCompleteProfile}
-            detectLocation={detectLocation}
-          />
-        </Popup>
-      )}
-    </>
+        {/* ✅ Main Grid Layout */}
+        <div className="grid md:grid-cols-[280px_1fr]">
+          {/* LEFT COLUMN */}
+          <div className="flex flex-col mt-0 lg:mt-8 md:mt-2 ">
+            {/* Reusable Banner on Top */}
+            <ImageBanner
+              imageSrc="assets/images/farmerPro.png"
+              altText="Farmer field background"
+              logoSrc="https://placehold.co/24x24/ffffff/000000?text=I"
+              height="h-[310px]"
+            />
+
+            {/* Sidebar Details Below */}
+            <ProfileSidebar userData={farmerData} />
+          </div>
+
+          {/* RIGHT COLUMN */}
+          <div className="p-2 lg:p-8 space-y-10">
+            {/* Main Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8">
+              {/* Left Side */}
+              <div className="space-y-8">
+                <AddressDetails addressData={farmerAddress} />
+                <EducationDetailsCard educationData={farmerEducation} />
+              </div>
+
+              {/* Right Side */}
+              <div className="space-y-8 lg:space-y-8 md:space-y-0">
+                <div className="rounded-sm overflow-hidden shadow-lg block md:hidden lg:block">
+                  <img
+                    src="assets/images/kasfarmer.png"
+                    alt="Rural scene"
+                    className="w-full object-cover h-[210px]"
+                  />
+                </div>
+                <ProfessionDetails professionData={farmerProfession} />
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* End Grid */}
+      </div>
+    </div>
   );
-}
+};
+
+export default FarmerProfilePage;

@@ -9,65 +9,59 @@ import {
   More,
   Twitter,
   WhatsApp,
-  Star,
-  StarRounded,
 } from "@mui/icons-material";
 
-function SharePopUp({ onClose }) {
+function SharePopUp({ onClose, placeData }) {
+ 
   const shareOptions = [
-    { icon: <Link />, label: "Copy Link" },
-    { icon: <Email />, label: "Email" },
-    { icon: <Message />, label: "Messages" },
-    { icon: <WhatsApp />, label: "WhatsApp" },
-    { icon: <MessageOutlined />, label: "Messenger" },
-    { icon: <Facebook />, label: "Facebook" },
-    { icon: <Twitter />, label: "Twitter" },
-    { icon: <Code />, label: "Embed" },
-    { icon: <More />, label: "More Options" },
+    { icon: <Link />, label: "Copy Link", linkTo:placeData.linkTo },
+    { icon: <Email />, label: "Email", linkTo:placeData.linkTo },
+    { icon: <Message />, label: "Messages",linkTo:placeData.linkTo  },
+    { icon: <WhatsApp />, label: "WhatsApp",linkTo:placeData.linkTo  },
+    { icon: <MessageOutlined />, label: "Messenger",linkTo:placeData.linkTo  },
+    { icon: <Facebook />, label: "Facebook",linkTo:placeData.linkTo  },
+    { icon: <Twitter />, label: "Twitter",linkTo:placeData.linkTo  },
+    { icon: <Code />, label: "Embed",linkTo:placeData.linkTo  },
+    { icon: <More />, label: "More Options",linkTo:placeData.linkTo  },
   ];
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-[var(--color-overlay)] z-50">
-      <div className="w-[90%] md:w-[500px] bg-[var(--color-white)] rounded-2xl shadow-lg relative">
+    <div className="fixed inset-0 flex items-center justify-center bg-[var(--color-overlay)] z-50 p-2 sm:p-4 overflow-y-auto">
+      <div className="w-full max-w-[480px] bg-[var(--color-white)] rounded-2xl shadow-lg relative mx-2 sm:mx-0">
+        {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 p-2 rounded-full hover:bg-[var(--color-black-hover)] transition"
+          className="absolute top-2 right-2 p-2 rounded-full hover:bg-[var(--color-black-hover)] transition"
         >
-          <Close className="text-[var(--color-black)]" />
+          <Close className="text-[var(--color-black)] w-5 h-5" />
         </button>
-
-        <div className="p-6">
-          <h1 className="text-xl font-semibold text-[var(--color-black)] mb-6">
-            Share this place
-          </h1>
-          <div className="flex items-center mb-6 gap-4">
+         
+           <p className="font-bold mx-5 mt-5 text-2xl">Share the Product</p>
+  
+        <div className="p-4 sm:p-6">
+           
+          {/* Info Section */}
+          <div className="flex flex-col sm:flex-row items-center mb-6 gap-4">
             <img
-              className="w-20 h-20 rounded-lg object-cover"
-              src="imgs/52a6957f-d4e1-4255-9b5f-f9ef5fc35785.avif"
-              alt="Preview"
-            />
-            <div className="flex flex-col text-[var(--color-black)]">
-              <p className="font-semibold text-sm">
-                Rental unit in Bangalore Urban
-              </p>
+              className="w-16 h-16 sm:w-20 sm:h-20"
+              src={placeData.photos[0]}
+              alt={placeData} />
 
-              <div className="flex items-center gap-2 mt-1 text-[var(--color-black)]/80 text-sm font-medium">
-                <StarRounded className="w-4 h-4 text-[var(--color-black)]" />
-                <span>4.81</span>
-                <span>· 1 bedroom</span>
-                <span>· 1 bed</span>
-                <span>· 1 bathroom</span>
-              </div>
+            <div className="flex flex-col text-[var(--color-black)] text-center sm:text-left flex-1">
+             
+              <p className="font-semibold text-lg sm:text-xl">{placeData.title}</p>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
+
+          {/* Share Options */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 sm:gap-4">
             {shareOptions.map(({ icon, label }) => (
               <button
                 key={label}
-                className="flex flex-col items-center justify-center gap-2 p-4 border border-[var(--color-black)]/20 rounded-xl hover:bg-[var(--color-black-hover)] transition"
+                className="flex flex-row items-center justify-center gap-2 p-1 sm:p-1 border border-[var(--color-black)] rounded-xl hover:bg-[var(--color-black-hover)] transition text-[var(--color-black)]"
               >
-                <span className="text-[var(--color-black)]">{icon}</span>
-                <p className="text-sm font-medium text-[var(--color-black)] text-center">
+                <span className="text-2xl sm:text-xl">{icon}</span>
+                <p className="text-xs sm:text-sm font-medium text-center">
                   {label}
                 </p>
               </button>
