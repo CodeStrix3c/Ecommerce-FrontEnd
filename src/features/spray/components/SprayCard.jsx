@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Leaf, FlaskRound, Bug, Droplet } from "lucide-react";
 
 const sprayHistoryData = [
   {
@@ -23,35 +23,14 @@ const sprayHistoryData = [
     cost: "6000 per 2kg",
   },
   {
-    id: 2,
-    type: "Fertilizer",
-    name: "GrowFast",
-    quantity: "2 kg",
-    waterUsed: "15 L",
-    totalTrees: 40,
-    date: "Jul - Sep 2025",
-    cost: "5000 per 2kg",
-  },
-  {
-    id: 2,
-    type: "Fertilizer",
-    name: "GrowFast",
-    quantity: "2 kg",
-    waterUsed: "15 L",
-    totalTrees: 40,
-    date: "Apr - Jun 2025",
-    cost: "8000 per 2kg",
-   
-  },
-  {
-    id: 2,
-    type: "Fertilizer",
-    name: "GrowFast",
-    quantity: "2 kg",
-    waterUsed: "15 L",
-    totalTrees: 40,
-    date: "Mar - Aug 2025",
-    cost: "7000 per 2kg",
+    id: 3,
+    type: "Pesticide",
+    name: "BugAway",
+    quantity: "500 g",
+    waterUsed: "5 L",
+    totalTrees: 15,
+    date: "Jun - Sep 2025",
+    cost: "3000 per 500g",
   },
   {
     id: 3,
@@ -63,7 +42,7 @@ const sprayHistoryData = [
     date: "Jun - Sep 2025",
     cost: "3000 per 500g",
   },
-   {
+  {
     id: 3,
     type: "Pesticide",
     name: "BugAway",
@@ -73,7 +52,7 @@ const sprayHistoryData = [
     date: "Jun - Sep 2025",
     cost: "3000 per 500g",
   },
-   {
+  {
     id: 3,
     type: "Pesticide",
     name: "BugAway",
@@ -106,76 +85,76 @@ const sprayHistoryData = [
 ];
 
 export default function SprayHistory() {
-  const totalCost = sprayHistoryData.reduce((sum, item) => sum + parseFloat(item.cost), 0);
+  const totalCost = sprayHistoryData.reduce((sum, item) => {
+    const num = parseFloat(item.cost.replace(/[^\d.]/g, ""));
+    return sum + num;
+  }, 0);
+
+  const typeIcons = {
+    Herbicide: <Leaf className="text-[var(--color-secondary)]" size={22} />,
+    Fertilizer: <FlaskRound className="text-[var(--color-secondary)]" size={22} />,
+    Pesticide: <Bug className="text-[var(--color-secondary)]" size={22} />,
+  };
 
   return (
-    <div className="">
-      <ul
-        className="divide-y"
-        style={{ borderColor: "var(--color-black-hover)" }}
-      >
+    <div className="max-w-5xl mx-auto px-4 py-8">
+      <h2 className="text-2xl font-bold text-[var(--color-black)] mb-6">
+        Spray History
+      </h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {sprayHistoryData.map((item) => (
-          <li
-            key={item.id}
-            className="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
+          <div
+            key={item.id + item.date}
+            className="p-5 rounded-2xl bg-[var(--color-white)] shadow-sm border border-gray-200"
           >
-          
-            <div className="flex flex-col ">
-              <span className="font-bold mb-3 text-[var(--color-black)] text-xl sm:text-l">
-                {item.name}
-                <span className="ml-2 text-[var(--color-secondary)] text-sm sm:text-l">
-                  {item.type}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                {typeIcons[item.type]}
+                <span className="font-semibold text-lg text-[var(--color-black)]">
+                  {item.name}
                 </span>
-              </span>
-              <span className="text-[var(--color-black)] text-l sm:text-l">
-                Qty: {item.quantity} | Water: {item.waterUsed} | Trees:{" "}
-                {item.totalTrees}
-              </span>
-              <span className="text-[var(--color-black)] text-l sm:text-l">
-                {item.date}
+              </div>
+              <span className="text-xs font-medium bg-[var(--color-secondary)] text-[var(--color-white)] px-2 py-1 rounded-md">
+                {item.type}
               </span>
             </div>
 
-            <div className="flex items-center justify-between sm:justify-end gap-4">
-              <span
-                className="font-semibold text-sm lg:text-xs sm:text-xs px-4 py-1 rounded-lg"
-                style={{
-                  backgroundColor: "var(--color-black-hover)",
-                  color: "var(--color-black)",
-                  opacity: 0.8,
-                }}
-              >
-                Spray Cost ₹{item.cost.toLocaleString()}
-              </span>
-
-            
-              {/* <div className="flex gap-2">
-                <Edit2
-                  size={18}
-                  className="cursor-pointer text-[var(--color-primary)] hover:text-[var(--color-primary-hover)]"
-                />
-                <Trash2
-                  size={18}
-                  className="cursor-pointer text-[var(--color-error)]  hover:text-[var(--color-error-hover)]"
-                />
-              </div> */}
+            <div className="space-y-1 text-[var(--color-black)] text-sm">
+              <p>
+                <strong>Quantity:</strong> {item.quantity}
+              </p>
+              <p>
+                <strong>Water Used:</strong> {item.waterUsed}
+              </p>
+              <p>
+                <strong>Total Trees:</strong> {item.totalTrees}
+              </p>
+              <p>
+                <strong>Duration:</strong> {item.date}
+              </p>
             </div>
-          </li>
+
+            <div className="flex justify-between items-center mt-4 pt-3 border-t border-gray-200">
+              <span className="text-sm text-[var(--color-gray)]font-medium">
+                Spray Cost
+              </span>
+              <span className="font-semibold text-[var(--color-primary)]">
+                ₹{item.cost}
+              </span>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
 
-   
-      <div
-        className="flex justify-between items-center mt-4 py-8 border-t"
-        style={{ borderColor: "var(--color-black-hover)" }}
-      >
-        <span className="font-bold text-[var(--color-black)] text-base sm:text-xl">
+      <div className="mt-10 p-5 rounded-2xl bg-[var(--color-black-hover)] flex justify-between items-center ">
+        <span className="text-lg font-semibold text-[var(--color-black)]">
           Total Cost
         </span>
-        <span className="font-bold text-[var(--color-primary)] text-base sm:text-lg">
+        <span className="text-xl font-bold text-[var(--color-primary)]">
           ₹{totalCost.toLocaleString()}
         </span>
       </div>
     </div>
   );
-} 
+}
