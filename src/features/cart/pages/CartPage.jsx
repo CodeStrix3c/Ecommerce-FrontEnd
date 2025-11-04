@@ -30,7 +30,7 @@ const CartPage = () => {
     return (
       <EmptyState
         title="Empty Cart"
-        subTitle="Your cart is empty. Add items you love and come back to checkout!"
+        subTitle="There is nothing in your bag.Let's add some items"
         icon={
           <ShoppingCart className="w-16 h-16 text-[var(--color-secondary)]" />
         }
@@ -46,7 +46,7 @@ const CartPage = () => {
         <div
           className={`col-span-2 flex flex-col gap-6 ${isMobile ? "pb-24" : "pb-0"}`}
         >
-          <h1 className="text-2xl font-semibold text-[var(--color-neutral-dark)]">
+          <h1 className="text-2xl font-bold text-[var(--color-neutral-dark)]">
             My Cart
           </h1>
 
