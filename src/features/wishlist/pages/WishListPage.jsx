@@ -23,7 +23,7 @@ const WishlistPage = () => {
   if (wishlist.length === 0) {
     return (
       <EmptyState
-        title="Oops! Your cart is empty"
+        title=" Empty Wishlist "
         subTitle=" Looks like you haven't added anything to your cart yet."
         icon={<Heart className="w-12 h-12 text-[var(--color-secondary)]" />}
         btnText="Browse Products"

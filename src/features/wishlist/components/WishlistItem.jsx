@@ -58,11 +58,10 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
               ₹{product.price}
             </p>
             <p
-              className={`text-[11px] sm:text-sm font-medium ${
-                product.inStock
+              className={`text-[11px] sm:text-sm font-medium ${product.inStock
                   ? "text-[var(--color-primary)]"
                   : "text-[var(--color-secondary-hover)]"
-              }`}
+                }`}
             >
               {product.inStock ? "In Stock" : "Out of Stock"}
             </p>
@@ -77,7 +76,7 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
           text-[var(--color-secondary)] text-xs sm:text-sm font-medium 
           hover:text-[var(--color-secondary-hover)] hover:bg-[var(--color-black-hover)] transition"
             >
-              <ShoppingCart size={16} /> Add to Cart
+              <ShoppingCart size={18} /> Add to Cart
             </button>
           ) : (
             <span className="block text-center text-[var(--color-black)] text-xs sm:text-sm py-2">
