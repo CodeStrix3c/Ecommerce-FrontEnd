@@ -1,5 +1,6 @@
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import { Facebook, Linkedin, Twitter } from "lucide-react";
+
+import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 function CompanyDetails() {
   return (
@@ -85,37 +86,40 @@ function CompanyDetails() {
         {/* Social Media */}
         <div className="text-base sm:text-lg md:text-xl">
   <p className="font-semibold pb-2">Follow Us:</p>
-  <ul className="list-none flex gap-10">
-    <li className="flex items-center gap-2">
-      <Facebook className="w-8 h-8  text-[var(--color-black)] hover:text-[var(--color-primary-hover)]"/>
+  <ul className="list-none flex gap-4">
+    <li className="flex items-center gap-1">
+        <FaFacebook className="w-6 h-6 text-[#1877F2] hover:opacity-80 cursor-pointer" />
       <a
         href="https://www.facebook.com/zirat"
         target="_blank"
         rel="noopener noreferrer"
         className="underline"
       >
-
+       
       </a>
     </li>
-    <li className="flex items-center gap-2">
-      <Linkedin className="w-8 h-8 text-[var(--color-black)] hover:text-[var(--color-primary-hover)]" />
+    <li className="flex items-center gap-1">
+      <FaLinkedin className="w-6 h-6 text-[#0A66C2] hover:opacity-80 cursor-pointer" />
       <a
         href="https://www.linkedin.com/company/zirat"
         target="_blank"
         rel="noopener noreferrer"
         className="underline"
       >
-    
+       
       </a>
     </li>
-    <li className="flex items-center gap-2">
-      <Twitter className="w-8 h-8  " />
+    <li className="flex items-center gap-1">
+
+      
+ <FaTwitter className="w-6 h-6 text-[#1DA1F2] hover:opacity-80" />
       <a
         href="https://twitter.com/zirat"
         target="_blank"
         rel="noopener noreferrer"
         className="underline"
       >
+        
       </a>
     </li>
   </ul>
