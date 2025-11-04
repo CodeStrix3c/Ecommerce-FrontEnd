@@ -68,7 +68,7 @@ export default function OrchardsPage() {
       varieties: ["Nonpareil", "Carmel"],
       status: "Sowing",
       image:
-        "/assets/images/almond.jpg",
+        "/assets/images/almondfarm2.jpg",
     },
   ];
 
