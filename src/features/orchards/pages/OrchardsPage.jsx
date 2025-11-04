@@ -1,4 +1,5 @@
 
+
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import ContentWrapper from "@/components/shared/ContentWrapper";
@@ -19,7 +20,7 @@ export default function OrchardsPage() {
       varieties: ["Honeycrisp", "Royal Gala", "Maharaji", "Ambri"],
       status: "Sowing",
       image:
-        "https://images.unsplash.com/photo-1607358049845-4360f06be5b7?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+        "/assets/images/appleOrchard/apple.png",
     },
     {
       id: 2,
@@ -31,43 +32,43 @@ export default function OrchardsPage() {
       varieties: ["Chandler", "Pedro", "Local Kashmir Walnut (Desi)"],
       status: "Harvesting",
       image:
-        "https://images.unsplash.com/photo-1627371827420-2d1cda3b6a81?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+        "/assets/images/wallnutOrchard/walnut.png",
     },
     {
       id: 3,
       name: "Peach Paradise",
       type: "Peach",
-      location: "Nainital, India",
+      location: "Pulwama, Kashmir",
       totalLand: 10,
       landUnit: "acres",
-      varieties: ["Elberta", "Redhaven"],
+      varieties: ["Elberta", "Redhaven","Makhdoom","Waris","Pranyaj"],
       status: "Sowing",
-      image:
-        "https://plus.unsplash.com/premium_photo-1661822856704-c061ba5e94da?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+     image:
+        "/assets/images/peachOrchard/peach.png",
     },
     {
       id: 4,
       name: "Cherry Orchards",
       type: "Cherry",
-      location: "Shimla, India",
+      location: "Shopian, Kashmir",
       totalLand: 6,
       landUnit: "acres",
-      varieties: ["Bing", "Rainier"],
+      varieties: ["Bing", "Rainier","Makhmali","Mishri","Double"],
       status: "Harvesting",
       image:
-        "https://plus.unsplash.com/premium_photo-1661843593682-facc94cf9f33?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+        "/assets/images/cherryOrchard/cherry1.png",
     },
     {
       id: 5,
       name: "Almond Grove",
       type: "Almond",
-      location: "Maharashtra, India",
+      location: "Kashmir, India",
       totalLand: 15,
       landUnit: "acres",
       varieties: ["Nonpareil", "Carmel"],
       status: "Sowing",
       image:
-        "https://images.unsplash.com/photo-1709618526707-4d7ac66c8180?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+        "/assets/images/almond.jpg",
     },
   ];
 
@@ -147,33 +148,31 @@ export default function OrchardsPage() {
                 </div>
 
                 {/* Card Content */}
-                <div className="flex flex-col flex-grow p-4">
-                  <h3 className="text-base font-semibold text-[var(--color-primary)] mb-1 border">
-                    {o.name}
-                  </h3>
-                  <p className="text-xs  mb-1">
-                    {o.type} • {o.location}
-                  </p>
-                  <p className="text-sm">
-                    <span className="font-medium">Total Land:</span>{" "}
-                    {o.totalLand} {o.landUnit}
-                  </p>
-                  <p className="text-sm mt-1">
-                    <span className="font-medium">Varieties:</span>{" "}
-                    {o.varieties.join(", ")}
-                  </p>
+<div className="flex flex-col flex-grow p-4">
+  <div className="flex items-center justify-between mb-1">
+    <h3 className="text-base font-semibold text-[var(--color-primary)]">
+      {o.name}
+    </h3>
+    <Link to={`/orchards/${o.id}`}>
+      <button className="text-xs md:text-sm font-medium text-[var(--color-secondary)] hover:text-[var(--color-primary-hover)] transition">
+        Show More →
+      </button>
+    </Link>
+  </div>
 
-                 
-                  <div className="mt-auto pt-4 flex justify-center">
-                    <Link to={`/orchards/${o.id}`}>
-                      <button 
-                      onClick={sample}
-                      className="text-xs md:text-sm font-medium text-[var(--color-secondary)] hover:text-[var(--color-primary-hover)] transition">
-                        Show More →
-                      </button>
-                    </Link>
-                  </div>
-                </div>
+  <p className="text-xs mb-1">
+    {o.type} • {o.location}
+  </p>
+  <p className="text-sm">
+    <span className="font-medium">Total Land:</span>{" "}
+    {o.totalLand} {o.landUnit}
+  </p>
+  <p className="text-sm mt-1">
+    <span className="font-medium">Varieties:</span>{" "}
+    {o.varieties.join(", ")}
+  </p>
+</div>
+
               </article>
             ))}
           </div>
