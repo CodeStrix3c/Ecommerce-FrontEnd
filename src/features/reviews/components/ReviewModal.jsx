@@ -24,14 +24,14 @@ export default function ReviewModal({
           </div>
           <div className="p-6 md:h-full md:overflow-y-auto">
             <h1 className="mb-4 mt-7 text-xl font-semibold text-[var(--color-neutral-dark)]">
-              Reviews ({testimonials.length})
+             All Reviews ({testimonials.length})
             </h1>
 
             <div className="space-y-6">
               {testimonials.map((review) => (
                 <div
                   key={review.id}
-                  className={`border-b border-[var(--color-neutral-dark-hover)] pb-4 ${
+                  className={`pb-4 ${
                     selectedReview?.id === review.id
                       ? "rounded-lg bg-[var(--color-white-hover)] p-3"
                       : ""

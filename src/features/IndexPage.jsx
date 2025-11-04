@@ -4,12 +4,32 @@ import { dummyData } from "@/data/dummyData";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
 
 const IndexPage = () => {
+  const requestBody = {
+    pagination: {
+      start: 0,
+      totalItemCount: 100,
+      number: 1,
+      numberOfPages: 10,
+    },
+    search: {
+      predicateObject: {
+        additionalProp1: ["pesticide", "fertilizer"],
+        additionalProp2: ["organic", "chemical"],
+        additionalProp3: ["herbicide", "insecticide"],
+      },
+    },
+    sort: {
+      predicate: "name",
+      reverse: false,
+    },
+  };
+
   const dummyData1 = dummyData.slice(0, 8);
   const dummyData2 = dummyData.slice(8, 15);
-  const dummyData3 = dummyData.slice(10);
-
-  const { data, isLoading, error } = useProductsQuery("jeans");
-  console.log(data, "data from index page");
+  const dummyData3 = dummyData.slice(15,22);
+  const dummyData4 = dummyData.slice(22,29);
+  const { data } = useProductsQuery(requestBody);
+  console.log(data, "data...");
 
   return (
     <ContentWrapper>
@@ -25,6 +45,10 @@ const IndexPage = () => {
         <CarousalSection
           title="Herbicides for Effective Weed Control"
           places={dummyData3}
+        />
+         <CarousalSection
+          title="Popular Pesticides for Crop Protection"
+          places={dummyData4}
         />
       </div>
     </ContentWrapper>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-
 import AccountNav from "@/components/ui/AccountNav";
 import Perks from "@/features/perks/components/Perks";
 import PhotosUploader from "@/features/places/components/PhotosUploader";
@@ -13,7 +12,6 @@ const PlacesFormPage = () => {
   const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(false);
   const [addedPhotos, setAddedPhotos] = useState([]);
-
   const [formData, setFormData] = useState({
     title: "",
     address: "",

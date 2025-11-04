@@ -27,21 +27,17 @@ export default function ProductPortfolioSection({ register, errors, control }) {
   return (
     <>
       <FormLayout>
-        <Controller
+        <SelectField
           name="inputsSold"
+          register={register}
           control={control}
-          render={({ field }) => (
-            <SelectField
-              {...field}
-              label="Type of Inputs Sold"
-              isMultiple
-              options={inputOptions.map((item) => ({
-                value: item,
-                label: item,
-              }))}
-              errors={errors.inputsSold}
-            />
-          )}
+          label="Type of Inputs Sold"
+          isMultiple
+          options={inputOptions.map((item) => ({
+            value: item,
+            label: item,
+          }))}
+          errors={errors.inputsSold}
         />
 
         <FormInput

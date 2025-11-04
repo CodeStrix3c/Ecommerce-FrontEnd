@@ -5,7 +5,7 @@ import { Controller } from "react-hook-form";
 import FormLayout from "@/components/shared/FormLayout";
 import FormInput from "@/components/shared/custom-inputs/FormInput";
 import FormDateInput from "@/components/shared/custom-inputs/FormDateInput";
-import FormFileInput from "@/components/shared/custom-inputs/FormFileInput";
+import FileUploadField from "@/components/shared/custom-inputs/FileUploadField";
 
 export default function LicensingComplianceSection({
   register,
@@ -50,20 +50,17 @@ export default function LicensingComplianceSection({
         required={null}
         errors={errors.pan}
       />
+
       <Controller
         name="licenseCopy"
         control={control}
         render={({ field, fieldState }) => (
-          <FormFileInput
-            name="licenseCopy"
+          <FileUploadField
+            {...field}
             label="Upload License Copy (PDF / JPEG / PNG)"
-            showPreview
-            labelPosition="inside"
-            value={field.value}
-            onChange={field.onChange}
-            accept=".pdf,.jpg,.jpeg,.png"
-            optional
-            errors={fieldState.error}
+            error={fieldState.error?.message}
+            onFilesChange={(files) => field.onChange(files)}
+            // optional
           />
         )}
       />

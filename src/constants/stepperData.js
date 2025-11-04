@@ -24,11 +24,14 @@ export const ORCHARD_STEPS = {
 };
 
 export const PROFILE_STEPS = {
-  labels: ["Profile", "OTP Verification"],
-  descriptions: ["Set up your personal profile", "Verify your number via OTP"],
+  labels: ["Profile Information", "OTP Verification"],
+  descriptions: [
+    "Set up your personal profile with basic details like name and contact info.",
+    "Verify your identity by entering the OTP sent to your registered mobile number.",
+  ],
 };
 
-export const SUPPLIER_STEPS = {
+export const SUPPLIER_COMPLETION_STEPS = {
   labels: [
     "Business Information",
     "Licensing & Compliance",
@@ -46,5 +49,27 @@ export const SUPPLIER_STEPS = {
     "Add bank/UPI details, payout preferences, and credit facility",
     "Indicate advisory, staff availability, after-sales service, and logistics",
     // "Get verified badge, dealer rating, and farmer feedback reviews",
+  ],
+};
+export const PROFILE_COMPLETION_STEPS = {
+  labels: [
+    "Profile Information",
+    "Address Details",
+    "Education Details",
+    "Profession Details",
+  ],
+  descriptions: [
+    "Set up your personal profile with basic details like name and contact info.",
+    "Provide your current residential or business address.",
+    "Add your educational background or relevant qualifications.",
+    "Enter your current profession, job role, or business occupation.",
+  ],
+};
+
+export const SUPPLIER_STEPS = {
+  labels: ["Business Information", "OTP Verification"],
+  descriptions: [
+    "Provide shop/business details and contact info",
+    "Verify your identity by entering the OTP sent to your registered mobile number.",
   ],
 };

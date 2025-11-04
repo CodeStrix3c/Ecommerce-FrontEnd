@@ -14,10 +14,16 @@ import { businessInformationSchema } from "./schemas/businessInformationSchemas"
 import { otpSchema } from "../farmer-registration/schemas/otpSchema";
 import { useSupplier } from "@/providers/SupplierProvider";
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import FormStepper from "@/components/shared/FormStepper";
+import StepHeader from "../auth/components/StepHeader";
+import { SUPPLIER_STEPS } from "@/constants/stepperData";
+import { setItemsInLocalStorage } from "@/utils/localStorage";
 
 const stepSchemas = [businessInformationSchema, otpSchema];
 
 export default function SupplierRegistration() {
+  const { labels, descriptions } = SUPPLIER_STEPS || {};
+
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
   const { setBusinessComplete, setOtpComplete } = useSupplier();
@@ -53,17 +59,17 @@ export default function SupplierRegistration() {
 
     setBusinessComplete();
     setOtpComplete();
-    localStorage.setItem("SRT", "dummy data");
+    setItemsInLocalStorage("SRT", "fakeSupplierToken");
 
     toast.success("Business and OTP completed!");
     navigate("/supplier-profile");
   };
 
   return (
-    <ContentWrapper>
-      <div className="lg:mt-10 min-h-screen flex items-center justify-center">
+    <ContentWrapper compactScreen>
+      <div className="mt-10 lg:mt-36 md:mt-20 flex items-center justify-center">
         <div className="flex flex-col lg:flex-row w-full overflow-hidden ">
-          <div className="w-full lg:px-64 md:px-20 flex flex-col justify-center">
+          <div className="w-full flex flex-col justify-center ">
             <div className="flex justify-center space-x-4 mb-6 sm:mb-8">
               <div className={`  ${step === 0 ? "" : ""}`}></div>
               <div className={` ${step === 1 ? "" : ""}`}></div>
@@ -80,11 +86,18 @@ export default function SupplierRegistration() {
                     className="lg:text-4xl text-2xl font-bold text-center mb-6 text-[var(--color-black)]"
                     centered
                   />
+                  <FormStepper activeStep={step} steps={labels} />
 
+                  <StepHeader
+                    activeStep={step}
+                    labels={labels}
+                    descriptions={descriptions}
+                  />
                   {step === 0 && (
                     <BusinessInformationSection
                       register={register}
                       errors={errors}
+                      control={methods.control}
                     />
                   )}
 
@@ -92,6 +105,7 @@ export default function SupplierRegistration() {
                     <OtpVerificationSection
                       register={register}
                       errors={errors}
+                      control={methods.control}
                     />
                   )}
 
