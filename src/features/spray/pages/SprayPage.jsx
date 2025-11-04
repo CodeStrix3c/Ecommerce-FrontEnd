@@ -72,7 +72,7 @@ const SprayPage = () => {
         }
       />
 
-    
+
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {data.map((item, index) => (
@@ -93,7 +93,7 @@ const SprayPage = () => {
           ))}
         </div>
 
-       
+
         <div className="max-w-5xl mx-auto mt-12 sm:mt-16 md:mt-20 lg:mt-16 text-center">
           <h4 className="text-sm sm:text-base md:text-lg font-semibold text-[var(--color-black)] leading-relaxed">
             Good record keeping is not only a sound management discipline,
@@ -105,7 +105,7 @@ const SprayPage = () => {
         </div>
       </div>
 
-     
+
       <ContentWrapper compactScreen topSpacing isMobile={isMobile}>
         <div className="sm:mt-[-8rem] md:mt-10 lg:mt-[-6rem] px-4 sm:px-6 md:px-8 lg:px-12 pb-10">
           <SprayHistory />
