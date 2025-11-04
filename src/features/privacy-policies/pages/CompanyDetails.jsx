@@ -1,6 +1,7 @@
 import ContentWrapper from "@/components/shared/ContentWrapper";
 
-import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin,  } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 function CompanyDetails() {
   return (
@@ -111,8 +112,21 @@ function CompanyDetails() {
     </li>
     <li className="flex items-center gap-1">
 
-      
- <FaTwitter className="w-6 h-6 text-[#1DA1F2] hover:opacity-80" />
+    
+ <FaInstagram className="w-6 h-6 text-[#E4405F] hover:opacity-80 cursor-pointer" />
+      <a
+        href="https://twitter.com/zirat"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline"
+      >
+        
+      </a>
+    </li>
+    <li className="flex items-center gap-1">
+
+    
+ <FaXTwitter className="w-6 h-6 text-black hover:opacity-80 cursor-pointer" />
       <a
         href="https://twitter.com/zirat"
         target="_blank"
