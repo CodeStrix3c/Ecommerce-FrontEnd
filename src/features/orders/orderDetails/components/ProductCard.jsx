@@ -1,6 +1,6 @@
 export default function ProductCard({ order }) {
   return (
-    <div className="flex flex-col items-center justify-center bg-[var(--color-black-hover)] shadow-sm w-full p-4 sm:p-6">
+    <div className="flex flex-col items-center justify-center shadow-sm w-full p-4 sm:p-6">
       <img
         src={order.image}
         alt={order.name}

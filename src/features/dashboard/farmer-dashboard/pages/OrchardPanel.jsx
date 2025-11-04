@@ -1,8 +1,6 @@
-import CustomBarChart from '@/components/charts/CustomBarChart';
-import CustomLineChart from '@/components/charts/CustomLineChart';
-import { Gauge, Sprout, Tractor, Trees } from 'lucide-react';
-import React from 'react';
-
+import CustomBarChart from "@/components/charts/CustomBarChart";
+import { Gauge, Sprout, Tractor, Trees } from "lucide-react";
+import React from "react";
 
 export default function OrchardPanel() {
   const pHData = [
@@ -11,128 +9,105 @@ export default function OrchardPanel() {
     { month: "Mar", value: 6.4 },
     { month: "Apr", value: 6.7 },
   ];
- 
+
   return (
-    <div className="min-h-screen p-4 sm:p-6 lg:p-10">
+    <div className="min-h-screen p-3 sm:p-6 bg-[var(--color-black-hover)] overflow-y-auto">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        {/* HEADER */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-[var(--color-black)]">
+            <h1 className="text-xl sm:text-2xl font-extrabold text-[var(--color-black)]">
               Orchard Profile
             </h1>
-            <p className="text-sm text-[var(--color-black)] mt-1">
+            <p className="text-xs sm:text-sm text-[var(--color-black)] mt-1">
               Overview of area, planting, survival & yield metrics
             </p>
           </div>
         </div>
 
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
-          <div className="p-4 sm:p-5 border  flex items-center gap-3 sm:gap-4 bg-[var(--color-white)]">
-            <div className="p-3 rounded-md ">
-              <Tractor className="w-8 h-8 text-[var(--color-secondary)]" />
+        {/* KPI GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 mb-6">
+          {[
+            { label: "Total Orchard Area", value: "55 Kanals", Icon: Tractor },
+            { label: "Plant Density", value: "90 trees", Icon: Trees },
+            { label: "Survival Rate", value: "5%", Icon: Gauge },
+            { label: "Average Tree Age", value: "8yrs", Icon: Sprout },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="p-3 sm:p-5 border rounded-md flex items-center gap-3 sm:gap-4 bg-[var(--color-white)]"
+            >
+              <div className="p-2 sm:p-3 rounded-md">
+                <item.Icon className="w-6 h-6 sm:w-8 sm:h-8 text-[var(--color-secondary)]" />
+              </div>
+              <div>
+                <p className="text-xs sm:text-sm text-[var(--color-black)]">
+                  {item.label}
+                </p>
+                <h2 className="text-lg sm:text-2xl font-semibold">
+                  {item.value}
+                </h2>
+              </div>
             </div>
-            <div>
-              <p className="text-sm text-[var(--color-black)]">Total Orchard Area</p>
-              <h2 className="text-2xl font-semibold">55 Kanals</h2>
-            </div>
-          </div>
-
-          <div className="p-4 sm:p-5 border flex items-center gap-3 sm:gap-4  bg-[var(--color-white)]">
-            <div className="p-3 rounded-md">
-              <Trees className="w-8 h-8 text-[var(--color-secondary)]" />
-            </div>
-            <div>
-              <p className="text-sm text-[var(--color-black)]">Plant Density</p>
-              <h2 className="text-2xl font-semibold">90 trees</h2>
-            </div>
-          </div>
-
-          <div className="p-4 sm:p-5 border  flex items-center gap-3 sm:gap-4  bg-[var(--color-white)]">
-            <div className="p-3 rounded-md">
-              <Gauge className="w-8 h-8 text-[var(--color-secondary)]" />
-            </div>
-            <div>
-              <p className="text-sm text-[var(--color-black)]">Survival Rate</p>
-              <h2 className="text-2xl font-semibold">5%</h2>
-            </div>
-          </div>
-
-          <div className="p-4 sm:p-5 border s flex items-center gap-3 sm:gap-4  bg-[var(--color-white)]">
-            <div className="p-3 rounded-md">
-              <Sprout className="w-8 h-8 text-[var(--color-secondary)]" />
-            </div>
-            <div>
-              <p className="text-sm text-[var(--color-black)]">Average Tree Age</p>
-              <h2 className="text-2xl font-semibold">8yrs</h2>
-            </div>
-          </div>
+          ))}
         </div>
 
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="col-span-1 lg:col-span-2 p-6 border
-           overflow-x-auto  bg-[var(--color-white)]">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 gap-2 md:gap-0">
-              <h3 className="text-lg font-semibold">Variety & Planting Year Distribution</h3>
-              <p className="text-sm text-[var(--color-black)]">Area measured in Kanals</p>
+        {/* CHART + YIELD SUMMARY */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+          {/* CHART */}
+          <div className="col-span-1 lg:col-span-2 p-4 sm:p-6 border rounded-md bg-[var(--color-white)] overflow-x-auto">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
+              <h3 className="text-base sm:text-lg font-semibold">
+                Variety & Planting Year Distribution
+              </h3>
+              <p className="text-xs sm:text-sm text-[var(--color-black)]">
+                Area measured in Kanals
+              </p>
             </div>
-            <div className="flex items-end h-96">
-             {/* please put chart here umar */}
-             <CustomBarChart data={pHData} dataKey="value" xKey="month" />
-             
-
-            </div>
-             
-            <div>
-              
+            <div className="relative z-0">
+              <CustomBarChart data={pHData} dataKey="value" xKey="month" />
             </div>
           </div>
 
-          <div className="p-6 flex flex-col gap-4 ">
-            <h3 className="text-lg font-semibold">Yield Summary</h3>
+          {/* YIELD SUMMARY */}
+          <div className="p-4 sm:p-6 border rounded-md bg-[var(--color-white)] flex flex-col gap-4">
+            <h3 className="text-base sm:text-lg font-semibold">
+              Yield Summary
+            </h3>
             <div className="grid grid-cols-1 gap-3">
-              <div className="p-4 border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2  bg-[var(--color-white)]">
-                <div>
-                  <p className="text-xs text-[var(--color-black)]">Yield per Tree</p>
-                  <h4 className="text-xl font-semibold">80 kg/tree</h4>
+              {[
+                { label: "Yield per Tree", value: "80 kg/tree" },
+                { label: "Total Trees (approx.)", value: "60" },
+                { label: "Estimated Total Yield", value: "88kg (700kg/ha)" },
+                { label: "Total Yield per Hectare (admin)", value: "90 kg/ha" },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="p-3 sm:p-4 border rounded-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
+                >
+                  <p className="text-xs sm:text-sm text-[var(--color-black)]">
+                    {item.label}
+                  </p>
+                  <h4 className="text-base sm:text-xl font-semibold">
+                    {item.value}
+                  </h4>
                 </div>
-              </div>
-
-              <div className="p-4  border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2  bg-[var(--color-white)]">
-                <div>
-                  <p className="text-xs text-[var(--color-black)]">Total Trees (approx.)</p>
-                  <h4 className="text-xl font-semibold">60</h4>
-                </div>
-                <div className="text-sm text-[var(--color-black)]">Sum of trees across orchards</div>
-              </div>
-
-              <div className="p-4  border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2  bg-[var(--color-white)]">
-                <div>
-                  <p className="text-xs text-[var(--color-black)]">Estimated Total Yield</p>
-                  <h4 className="text-xl font-semibold">88kg</h4>
-                  <p className="text-xs text-[var(--color-black)] mt-1">700kg/ha</p>
-                </div>
-                <div className="text-sm text-[var(--color-black)]">Calculated from yield/tree</div>
-              </div>
-
-              <div className="p-4  border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2  bg-[var(--color-white)]">
-                <div>
-                  <p className="text-xs text-[var(--color-black)]">Total Yield per Hectare (admin)</p>
-                  <h4 className="text-xl font-semibold">90 kg/ha</h4>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
 
-        
-        <div className="p-4 sm:p-6 border mt-6 overflow-x-auto">
-          <div className="flex items-center justify-between mb-4  bg-[var(--color-white)]">
-            <h3 className="text-lg font-semibold">Registered Orchards</h3>
-            <p className="text-sm text-[var(--color-black)]">4 entries</p>
+        {/* TABLE */}
+        <div className="p-3 sm:p-6 border rounded-md mt-6 bg-[var(--color-white)] overflow-x-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+            <h3 className="text-base sm:text-lg font-semibold">
+              Registered Orchards
+            </h3>
+            <p className="text-xs sm:text-sm text-[var(--color-black)]">
+              4 entries
+            </p>
           </div>
-          <table className="w-full text-sm table-auto min-w-[600px]">
+          <table className="w-full text-xs sm:text-sm table-auto min-w-[600px]">
             <thead>
               <tr className="text-[var(--color-black)] text-left">
                 <th className="py-2">Name</th>
@@ -144,30 +119,16 @@ export default function OrchardPanel() {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-t font-semibold">
-                <td className="py-3">Total</td>
-                <td className="py-3">30</td>
-                <td className="py-3">5000</td>
-                <td className="py-3">7</td>
-                <td className="py-3">4</td>
-                <td className="py-3">6000</td>
-              </tr>
-              <tr className="border-t font-semibold">
-                <td className="py-3">Total</td>
-                <td className="py-3">30</td>
-                <td className="py-3">5000</td>
-                <td className="py-3">7</td>
-                <td className="py-3">4</td>
-                <td className="py-3">6000</td>
-              </tr>
-              <tr className="border-t font-semibold">
-                <td className="py-3">Total</td>
-                <td className="py-3">30</td>
-                <td className="py-3">5000</td>
-                <td className="py-3">7</td>
-                <td className="py-3">4</td>
-                <td className="py-3">6000</td>
-              </tr>
+              {[1, 2, 3].map((i) => (
+                <tr key={i} className="border-t font-semibold">
+                  <td className="py-2 sm:py-3">Total</td>
+                  <td className="py-2 sm:py-3">30</td>
+                  <td className="py-2 sm:py-3">5000</td>
+                  <td className="py-2 sm:py-3">7</td>
+                  <td className="py-2 sm:py-3">4</td>
+                  <td className="py-2 sm:py-3">6000</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

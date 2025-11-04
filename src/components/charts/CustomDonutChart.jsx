@@ -23,7 +23,7 @@ const CustomDonutChart = ({ value, max = 100, label }) => {
       </ResponsiveContainer>
       <div className="absolute text-center">
         <div className="text-sm text-[var(--color-muted)]">{label}</div>
-        <div className="text-lg font-semibold text-white">
+        <div className="text-lg font-semibold text-[var(--color-white)]">
           {value}
           {label === "%" ? "%" : ""}
         </div>

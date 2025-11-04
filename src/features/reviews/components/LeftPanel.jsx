@@ -21,32 +21,32 @@ export default function LeftPanel() {
     {
       label: "Cleanliness",
       score: 5.0,
-      icon: <SprayCan className="h-5 w-5 text-gray-700" />,
+      icon: <SprayCan className="h-5 w-5 text-[var(--color-black)]" />,
     },
     {
       label: "Accuracy",
       score: 5.0,
-      icon: <CheckCircle className="h-5 w-5 text-gray-700" />,
+      icon: <CheckCircle className="h-5 w-5 text-[var(--color-black)]" />,
     },
     {
       label: "Check-in",
       score: 5.0,
-      icon: <Key className="h-5 w-5 text-gray-700" />,
+      icon: <Key className="h-5 w-5 text-[var(--color-black)]" />,
     },
     {
       label: "Communication",
       score: 5.0,
-      icon: <MessageCircle className="h-5 w-5 text-gray-700" />,
+      icon: <MessageCircle className="h-5 w-5 text-[var(--color-black)]" />,
     },
     {
       label: "Location",
       score: 4.9,
-      icon: <Map className="h-5 w-5 text-gray-700" />,
+      icon: <Map className="h-5 w-5 text-[var(--color-black)]" />,
     },
     {
       label: "Value",
       score: 4.9,
-      icon: <Tag className="h-5 w-5 text-gray-700" />,
+      icon: <Tag className="h-5 w-5 text-[var(--color-black)]" />,
     },
   ];
 
@@ -58,8 +58,8 @@ export default function LeftPanel() {
         <div className="w-70 mx-auto mb-8 space-y-2">
           {[5, 4, 3, 2, 1].map((star) => (
             <div key={star} className="flex items-center gap-2">
-              <span className="w-4 text-sm text-gray-600">{star}</span>
-              <div className="h-2 flex-1 rounded bg-gray-200">
+              <span className="w-4 text-sm text-[var(--color-black)]">{star}</span>
+              <div className="h-2 flex-1 rounded ">
                 <div
                   className="h-2 rounded bg-black"
                   style={{
@@ -76,7 +76,7 @@ export default function LeftPanel() {
             <div key={idx} className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 {item.icon}
-                <span className="text-sm font-semibold text-black">
+                <span className="text-sm font-semibold text-[var(--color-black)]">
                   {item.label}
                 </span>
               </div>
@@ -93,8 +93,8 @@ export default function LeftPanel() {
             <p className="text-5xl font-bold">{overall}</p>
             <img src={rightLeaf} alt="right leaf" className="h-8 w-8" />
           </div>
-          <p className="mt-2 font-medium text-gray-700">Guest favourite</p>
-          <p className="text-xs text-gray-500">
+          <p className="mt-2 font-medium text-[var(--color-black)]">Guest favourite</p>
+          <p className="text-xs text-[var(--color-black)]">
             Based on {totalReviews} reviews
           </p>
         </div>
@@ -103,10 +103,10 @@ export default function LeftPanel() {
           {subRatings.map((item, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center justify-center rounded-2xl bg-white p-3 shadow-md"
+              className="flex flex-col items-center justify-center rounded-2xl  p-3 shadow-md"
             >
               {item.icon}
-              <span className="mt-1 text-sm font-semibold text-black">
+              <span className="mt-1 text-sm font-semibold text-[var(--color-black)]">
                 {item.label}
               </span>
               <span className="text-lg font-bold">{item.score}</span>

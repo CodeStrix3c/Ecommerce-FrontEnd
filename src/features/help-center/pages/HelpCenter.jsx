@@ -7,9 +7,8 @@ import {
   Phone,
   Mail,
   MessageCircle,
-} from "lucide-react"; // only Lucide icons
+} from "lucide-react";
 import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
-import LoginLink from "@/components/shared/LoginLink";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import FaqCard from "@/features/about-us/components/FaqCard";
 
@@ -88,8 +87,8 @@ export default function AgricultureHelpCenter() {
           </div>
         </div> */}
 
-        {/* Guides */}
-        <div className="max-w-6xl mx-auto mt-16">
+       
+        <div className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl font-bold mb-6">
             Guides for getting started
           </h2>
@@ -131,9 +130,8 @@ export default function AgricultureHelpCenter() {
           </div>
         </div>
 
-        {/* Articles, Topics, Resources */}
-        <div className="max-w-6xl mx-auto mt-16 space-y-16">
-          {/* Top Articles */}
+
+        <div className="max-w-6xl mx-auto mt-12 space-y-12 px-4 sm:px-6 lg:px-8">
           <div>
             <h2 className="text-2xl font-bold mb-6">Top Articles</h2>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 text-sm">
@@ -164,18 +162,18 @@ export default function AgricultureHelpCenter() {
                 },
               ].map((item, idx) => (
                 <div key={idx}>
-                  <h3 className="font-semibold text-[var(--color-primary)] mb-1">
+                  <h3 className=" text-xl font-semibold text-[var(--color-black)] mb-1">
                     {item.title}
                   </h3>
-                  <p className="text-[var(--color-black)]">{item.desc}</p>
+                  <p className="  text-[var(--color-black)]">{item.desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Popular Topics */}
+     
           <div>
-            <h2 className="text-2xl font-bold mb-6">Popular Topics</h2>
+            <h2 className="text-2xl font-bold mb-5">Popular Topics</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
               {[
                 { icon: Sprout, label: "Organic Farming" },
@@ -185,18 +183,18 @@ export default function AgricultureHelpCenter() {
               ].map((item, idx) => (
                 <button
                   key={idx}
-                  className="p-4 rounded-lg border bg-[var(--color-black-hover)] hover:bg-gray-100 text-left flex items-center gap-2"
+                  className="p-4 rounded-lg border text-left flex items-center gap-2"
                 >
-                  <item.icon className="w-5 h-5 text-[var(--color-primary)]" />
+                  <item.icon className="w-5 h-5 text-[var(--color-secondary)]" />
                   {item.label}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Guides & Resources */}
+        
           <div>
-            <h2 className="text-2xl font-bold mb-6">Guides & Resources</h2>
+            <h2 className="text-2xl font-bold mb-5">Guides & Resources</h2>
             <ul className="space-y-6 text-sm">
               {[
                 {
@@ -213,7 +211,7 @@ export default function AgricultureHelpCenter() {
                 },
               ].map((item, idx) => (
                 <li key={idx} className="border-b last:border-none pb-4">
-                  <h3 className="font-semibold text-[var(--color-primary)]">
+                  <h3 className="font-semibold text-[var(--color-scondary)]">
                     {item.title}
                   </h3>
                   <p className="text-[var(--color-black)]">{item.desc}</p>
@@ -222,10 +220,9 @@ export default function AgricultureHelpCenter() {
             </ul>
           </div>
 
-          {/* FAQs */}
           <div>
-            <h2 className="text-2xl font-bold mb-6">FAQs</h2>
-            <div className="space-y-4">
+            <h2 className="text-2xl font-bold space-y-4 mt-[-4]">FAQs</h2>
+            <div className="grid gap-4 mt-6">
               {faqs.map((faq, idx) => (
                 <FaqCard
                   key={idx}
@@ -237,12 +234,12 @@ export default function AgricultureHelpCenter() {
           </div>
         </div>
 
-        {/* Explore More + Contact */}
+    
         <div className="py-14 mt-16 text-[var(--color-black)]">
           <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 items-start">
-            {/* Explore More */}
-            <div className="md:col-span-2 space-y-8">
-              <h2 className="text-2xl font-bold">Explore More</h2>
+         
+            <div className="md:col-span-2 space-y-8 mt-[-59px]">
+              <h2 className="text-2xl font-bold ml-3">Explore More</h2>
               <div className="grid sm:grid-cols-2 gap-6">
                 {[
                   {
@@ -266,7 +263,7 @@ export default function AgricultureHelpCenter() {
                       className="w-full h-40 sm:h-48 object-cover"
                     />
                     <div className="p-4">
-                      <h3 className="font-semibold text-[var(--color-primary)]">
+                      <h3 className="font-bold text-[var(--color-black)]">
                         {item.title}
                       </h3>
                       <p className="text-sm text-[var(--color-black)]">
@@ -278,7 +275,7 @@ export default function AgricultureHelpCenter() {
               </div>
             </div>
 
-            {/* Contact Section */}
+           
             <div className="bg-[var(--color-white)] rounded-xl shadow overflow-hidden flex flex-col">
               <img
                 src="https://images.pexels.com/photos/775707/pexels-photo-775707.jpeg"

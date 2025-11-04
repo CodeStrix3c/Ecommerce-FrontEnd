@@ -25,7 +25,7 @@ const NavBar = ({}) => {
                 to={tab.path}
                 end={tab.path === "/"}
                 className={({ isActive }) =>
-                  `relative flex flex-col items-center text-xs font-medium transition-colors duration-300 ${
+                  `relative flex flex-col items-center text-xs font-medium transition-colors duration-300 py-1 ${
                     isActive ? tab.activeColor : inactiveMobileColor
                   } ${hoverMobileColor}`
                 }

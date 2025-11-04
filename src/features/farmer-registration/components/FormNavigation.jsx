@@ -1,5 +1,6 @@
 import CustomButton from "@/components/ui/CustomButton";
-import { useTheme, useMediaQuery } from "@mui/material";
+import useIsMobile from "@/hooks/useInMobile";
+import { useTheme } from "@mui/material";
 
 export default function FormNavigation({
   step,
@@ -8,21 +9,26 @@ export default function FormNavigation({
   prevStep,
   handleSubmit,
 }) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useIsMobile();
 
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-5">
+    <div
+      className={`flex justify-between items-center gap-3 mt-5 ${
+        isMobile ? "flex-row" : "flex-row"
+      }`}
+    >
       {step > 0 ? (
         <CustomButton
           text="Back"
           onClick={prevStep}
           variant="outlined"
-          fullWidth={isMobile}
-          sx={{ minWidth: isMobile ? "100%" : 140 }}
+          fullWidth={false}
+          sx={{
+            minWidth: isMobile ? "48%" : 140,
+          }}
         />
       ) : (
-        <div style={{ minWidth: isMobile ? "100%" : 100 }} />
+        <div style={{ minWidth: isMobile ? "48%" : 100 }} />
       )}
 
       {step < totalSteps - 1 ? (
@@ -30,16 +36,20 @@ export default function FormNavigation({
           text="Next"
           onClick={nextStep}
           variant="contained"
-          fullWidth={isMobile}
-          sx={{ ml: isMobile ? 0 : "auto", minWidth: isMobile ? "100%" : 140 }}
+          fullWidth={false}
+          sx={{
+            minWidth: isMobile ? "48%" : 140,
+          }}
         />
       ) : (
         <CustomButton
           text="Submit"
           onClick={handleSubmit}
           variant="contained"
-          fullWidth={isMobile}
-          sx={{ ml: isMobile ? 0 : "auto", minWidth: isMobile ? "100%" : 140 }}
+          fullWidth={false}
+          sx={{
+            minWidth: isMobile ? "48%" : 140,
+          }}
         />
       )}
     </div>

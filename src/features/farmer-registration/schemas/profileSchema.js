@@ -1,12 +1,15 @@
 import { z } from "zod";
+import {
+  emailValidator,
+  fullNameValidator,
+  phoneValidator,
+} from "@/utils/validators";
 
 export const profileSchema = z
   .object({
-    fullName: z.string().min(2, "Full name is required"),
-    phone: z
-      .string()
-      .regex(/^[0-9]{10}$/, "Enter your registered 10-digit phone number"),
-    email: z.string().email("Invalid email"),
+    fullName: fullNameValidator,
+    phone: phoneValidator,
+    email: emailValidator,
     age: z.coerce
       .number({ invalid_type_error: "Age is required" })
       .min(1, "Age is required"),

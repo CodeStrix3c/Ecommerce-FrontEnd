@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box } from "@mui/material";
@@ -8,12 +8,9 @@ import SoilWaterProfileSection from "./sections/SoilWaterProfileSection";
 import CropNutritionManagementSection from "./sections/CropNutritionManagementSection";
 import PlantProtectionHealthSection from "./sections/PlantProtectionHealthSection";
 import FarmInfrastructureSection from "./sections/FarmInfrastructureSection";
-import LandHoldingSection from "./sections/LandHoldingSection";
-import AddressSection from "./sections/AddressSection";
 
 import FormNavigation from "./components/FormNavigation";
 import SectionTitle from "@/components/shared/SectionTitle";
-import FormStepper from "@/features/auth/components/FormStepper";
 import { toast } from "react-toastify";
 
 import { demographicsSchema } from "@/features/orchard-registration/schemas/demographicSchema";
@@ -30,7 +27,6 @@ import {
   farmInfrastructureStepFields,
   demographicsStepFields,
   varietyPlantingStepFields,
-  orchardRegistrationDefaultFields,
   productionMarketingStepFields,
   inputCostDetailsStepFields,
   optionalFutureFieldsStepFields,
@@ -38,7 +34,6 @@ import {
 
 import useIsMobile from "@/hooks/useInMobile";
 import { useNavigate } from "react-router-dom";
-import Popup from "@/components/shared/Popup";
 import ProductionMarketingSection from "./sections/ProductionMarketingSection";
 import { productionMarketingSchema } from "./schemas/productionMarketingSchema";
 import InputCostDetailsSection from "./sections/InputCostDetailsSection";
@@ -46,6 +41,9 @@ import { inputCostDetailsSchema } from "./schemas/inputCostDetailsSchema";
 import { optionalFutureFieldsSchema } from "./schemas/optionalFutureFieldsSchema";
 import OptionalFutureFieldsSection from "./sections/OptionalFutureFieldsSection";
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import FormStepper from "@/components/shared/FormStepper";
+import { ORCHARD_STEPS } from "@/constants/stepperData";
+import StepHeader from "../auth/components/StepHeader";
 
 const stepSchemas = [
   demographicsSchema,
@@ -62,13 +60,29 @@ const stepSchemas = [
 export default function OrchardRegistration() {
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
-
+  const { labels, descriptions } = ORCHARD_STEPS || {};
+  const stepperRef = useRef(null);
   const isMobile = useIsMobile();
+
   const methods = useForm({
     resolver: zodResolver(stepSchemas[step]),
     mode: "onChange",
     reValidateMode: "onSubmit",
   });
+  useEffect(() => {
+    if (isMobile && stepperRef.current) {
+      const activeEl = stepperRef.current.querySelector(
+        ".MuiStep-root.Mui-active"
+      );
+      if (activeEl) {
+        activeEl.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest",
+        });
+      }
+    }
+  }, [step, isMobile]);
 
   const {
     handleSubmit,
@@ -81,7 +95,7 @@ export default function OrchardRegistration() {
 
   const onSubmit = (data) => {
     console.log("Final Form Data:", data);
-    toast.success("Form submitted successfully!");
+    toast.success("Orchard Added");
   };
 
   const nextStep = async () => {
@@ -105,21 +119,10 @@ export default function OrchardRegistration() {
 
     const valid = await trigger(stepFields);
 
-    if (valid) setStep((s) => Math.min(stepSchemas.length - 1, s + 1));
+    if (!valid) setStep((s) => Math.min(stepSchemas.length - 1, s + 1));
   };
 
   const prevStep = () => setStep((s) => Math.max(0, s - 1));
-
-  const detectLocation = () => {
-    if (!navigator.geolocation) return alert("Geolocation is not supported");
-    navigator.geolocation.getCurrentPosition(
-      (pos) =>
-        setValue("gps", `${pos.coords.latitude},${pos.coords.longitude}`, {
-          shouldValidate: true,
-        }),
-      () => alert("Unable to retrieve location")
-    );
-  };
 
   const handleSubmitClick = async () => {
     if (step < stepSchemas.length - 1) {
@@ -135,96 +138,120 @@ export default function OrchardRegistration() {
 
     const data = watch();
     onSubmit(data);
-    navigate("/dashboard");
+    navigate("/orchards");
   };
 
   return (
     <ContentWrapper>
-      <div className="mt-10">
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
+      <div className="mt-10 lg:mt-36 md:mt-20">
+        <Box sx={{}}>
           <FormProvider {...methods}>
             <Box
               component="form"
               onSubmit={handleSubmit(onSubmit)}
               sx={{
-                borderRadius: 3,
-                width: "100%",
-                maxWidth: 800,
-                p: { md: 4, lg: 4 },
+                gap: 2,
+                borderRadius: 2,
                 bgcolor: "var(--color-white)",
-                display: "flex",
-                flexDirection: "column",
-                gap: 0,
               }}
             >
-              <div className="mb-8">
-                <SectionTitle
-                  title="Add Orchard/Farm"
-                  centered
-                  className="lg:text-2xl sm:text-4xl"
-                />
-              </div>
-              <FormStepper activeStep={step} type="orchard" />
-
               <Box
                 sx={{
-                  border: "1px solid var(--color-black-light)",
-                  borderRadius: 2,
-                  bgcolor: "var(--color-white)",
-                  py: 2,
+                  borderRight: { sm: "1px solid var(--color-black-light)" },
                 }}
               >
+                <div className="mb-4">
+                  <SectionTitle
+                    title="Add Orchard/Farm"
+                    centered
+                    className="lg:text-2xl sm:text-2xl md:text-xl text-xl"
+                  />
+                </div>
+                <div
+                  style={{
+                    overflowX: "auto",
+                    whiteSpace: "nowrap",
+                    scrollbarWidth: "none",
+                    msOverflowStyle: "none",
+                  }}
+                  className="hide-scrollbar"
+                >
+                  <FormStepper
+                    activeStep={step}
+                    steps={labels}
+                    ref={stepperRef}
+                  />
+                </div>
+              </Box>
+
+              <Box sx={{ flex: 1 }}>
+                <StepHeader
+                  activeStep={step}
+                  labels={labels}
+                  descriptions={descriptions}
+                />
+
                 {step === 0 && (
-                  <DemographicsSection register={register} errors={errors} />
+                  <DemographicsSection
+                    register={register}
+                    errors={errors}
+                    control={methods.control}
+                  />
                 )}
                 {step === 1 && (
-                  <VarietyPlantingSection register={register} errors={errors} />
+                  <VarietyPlantingSection
+                    register={register}
+                    control={methods.control}
+                    errors={errors}
+                  />
                 )}
                 {step === 2 && (
                   <SoilWaterProfileSection
                     register={register}
                     errors={errors}
+                    control={methods.control}
                   />
                 )}
                 {step === 3 && (
                   <CropNutritionManagementSection
                     register={register}
                     errors={errors}
+                    control={methods.control}
                   />
                 )}
                 {step === 4 && (
                   <PlantProtectionHealthSection
                     register={register}
                     errors={errors}
+                    control={methods.control}
                   />
                 )}
                 {step === 5 && (
                   <FarmInfrastructureSection
                     register={register}
                     errors={errors}
+                    control={methods.control}
                   />
                 )}
                 {step === 6 && (
                   <ProductionMarketingSection
                     register={register}
                     errors={errors}
+                    control={methods.control}
                   />
                 )}
                 {step === 7 && (
                   <InputCostDetailsSection
                     register={register}
                     errors={errors}
+                    control={methods.control}
                   />
                 )}
                 {step === 8 && (
                   <OptionalFutureFieldsSection
                     register={register}
                     errors={errors}
+                    control={methods.control}
                   />
                 )}
 

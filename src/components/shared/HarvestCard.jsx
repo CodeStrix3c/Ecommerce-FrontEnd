@@ -1,4 +1,11 @@
-import { Edit, MoreVertical, Trash2, X, Thermometer, Calendar } from "lucide-react";
+import {
+  Edit,
+  MoreVertical,
+  Trash2,
+  X,
+  Thermometer,
+  Calendar,
+} from "lucide-react";
 import React, { useState } from "react";
 import HarvestBottom from "./HarvestBottom";
 
@@ -10,14 +17,14 @@ function HarvestCard({ cardsData }) {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 pt-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4 pt-4">
       {cardsData.map((card, index) => (
         <div
           key={index}
           className="bg-[var(--color-white)] rounded-2xl border overflow-hidden flex flex-col hover:scale-[1.01] transition-transform duration-100"
         >
           {/* Image with responsive aspect ratio */}
-          <div className="w-full aspect-[16/9] overflow-hidden rounded-t-2xl">
+          <div className="w-full aspect-[4/4] overflow-hidden rounded-t-2xl">
             <img
               className="w-full h-full object-cover"
               src={card.image}
@@ -67,13 +74,19 @@ function HarvestCard({ cardsData }) {
                 <div className="flex flex-wrap justify-between items-center text-xs sm:text-sm mt-3 gap-2">
                   {card.date && (
                     <span className="flex items-center gap-1 text-[var(--color-black)]">
-                      <Calendar size={14} className="text-[var(--color-primary)]" />
+                      <Calendar
+                        size={14}
+                        className="text-[var(--color-primary)]"
+                      />
                       {card.date}
                     </span>
                   )}
                   {card.temperature && (
                     <span className="flex items-center gap-1 text-[var(--color-black)]">
-                      <Thermometer size={14} className="text-[var(--color-primary)]" />
+                      <Thermometer
+                        size={14}
+                        className="text-[var(--color-primary)]"
+                      />
                       {card.temperature}
                     </span>
                   )}

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { createPortal } from "react-dom";
 import {
   BarChart,
   WbSunny,
   BugReport,
-  AttachMoney,
   MenuBook,
   Notifications,
   Landscape,
@@ -14,12 +14,14 @@ import {
 } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import logo from "/assets/images/ziraat.jpeg";
+import { X } from "lucide-react";
 
 export default function Sidebar({ collapsed, setCollapsed }) {
   const navigate = useNavigate();
+  const sidebarRef = useRef(null);
 
   const navItems = [
-    { label: "Overview", icon: <BarChart />, to: "/dashboard/overview" },
+    // { label: "Overview", icon: <BarChart />, to: "/dashboard/overview" },
     {
       label: "Orchard Profile & Productivity",
       icon: <Landscape />,
@@ -58,70 +60,119 @@ export default function Sidebar({ collapsed, setCollapsed }) {
     },
   ];
 
+  useEffect(() => {
+    if (collapsed) return;
+
+    const handleMouseDown = (e) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+        setCollapsed(true);
+      }
+    };
+    document.addEventListener("mousedown", handleMouseDown);
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+    };
+  }, [collapsed, setCollapsed]);
+
+  useEffect(() => {
+    if (!collapsed) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [collapsed]);
+
   return (
-    <aside
-      className={`h-full flex flex-col transition-all duration-300 shadow-md ${
-        collapsed ? "w-16" : "w-72"
-      }`}
-      style={{ backgroundColor: "var(--color-white)" }}
-    >
-      <div
-        className="flex justify-between items-center p-3 border-b"
-        style={{ borderColor: "var(--color-gray)" }}
-      >
-        {!collapsed && (
-          <div
-            className="flex items-center gap-2"
-            onClick={() => navigate("/home")}
-          >
-            <img
-              src={logo}
-              alt="Logo"
-              className="w-20 h-10 object-contain rounded"
+    <>
+      {/* Portal for Sidebar Panel and Overlay */}
+      {createPortal(
+        <>
+          {/* Menu Button (show only when sidebar is closed) */}
+          {collapsed && (
+            <button
+              onClick={() => setCollapsed(false)}
+              className="fixed top-4 left-4 z-[9999] flex items-center justify-center p-2 rounded-full shadow-md transition-all duration-200 hover:scale-105"
+              style={{
+                backgroundColor: "var(--color-white)",
+                color: "var(--color-black)",
+              }}
+            >
+              <MenuIcon />
+            </button>
+          )}
+
+          {/* Overlay */}
+          {!collapsed && (
+            <div
+              id="sidebar-overlay"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9998] transition-opacity duration-300"
             />
-          </div>
-        )}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="p-2 rounded transition"
-          style={{ color: "var(--color-black)" }}
-        >
-          <MenuIcon />
-        </button>
-      </div>
-
-      <nav className="flex-1 mt-6 flex flex-col gap-2 relative">
-        {navItems.map((item, index) => (
-          <NavLink
-            key={index}
-            to={item.to}
-            className={({ isActive }) =>
-              `group flex items-center gap-3 p-3 mx-2 rounded-lg transition-colors duration-200 relative`
-            }
-            style={({ isActive }) => ({
-              backgroundColor: isActive
-                ? "var(--color-black-hover)"
-                : "transparent",
+          )}
+          {/* Sidebar Drawer */}
+          <aside
+            ref={sidebarRef}
+            id="sidebar-panel"
+            className={`fixed top-0 left-0 h-full w-72 z-[9999] transform transition-transform duration-300 ease-in-out ${
+              collapsed ? "-translate-x-full" : "translate-x-0"
+            }`}
+            style={{
+              backgroundColor: "var(--color-white)",
               color: "var(--color-black)",
-            })}
+            }}
           >
-            <div className="text-xl flex-shrink-0">{item.icon}</div>
-            {!collapsed && <span className="text-sm">{item.label}</span>}
-
-            {collapsed && (
-              <span
-                className="absolute left-full ml-2 w-max opacity-0 group-hover:opacity-100 text-xs rounded px-2 py-1 whitespace-nowrap transition-opacity duration-200 z-50"
-                style={{
-                  backgroundColor: "var(--color-black)",
-                  color: "var(--color-white)",
-                }}
-              >
-                {item.label}
-              </span>
-            )}
-          </NavLink>
-        ))}
-      </nav>
-    </aside>
+            {/* Header */}
+            <div
+              className="flex items-center justify-between border-b py-4 cursor-pointer"
+              style={{ borderColor: "var(--color-gray)" }}
+            >
+              <div>
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="w-24 h-12 object-contain rounded"
+                  onClick={() => {
+                    navigate("/home");
+                    setCollapsed(true);
+                  }}
+                />
+              </div>
+              <div className="pr-5 cursor-pointer " onClick={() => setCollapsed(true)}>
+                <X size={20} strokeWidth={2.5} stroke="var(--color-black)"/>
+              </div>
+            </div>
+            {/* Nav Items */}
+            <nav className="flex-1 flex flex-col gap-1 mt-4">
+              {navItems.map((item, index) => (
+                <NavLink
+                  key={index}
+                  to={item.to}
+                  onClick={() => setCollapsed(true)}
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 p-3 mx-3 rounded-lg transition-colors duration-200 ${
+                      isActive
+                        ? "bg-[var(--color-black-hover)] text-[var(--color-black)]"
+                        : "text-[var(--color-black)] hover:bg-[var(--color-black-hover)]"
+                    }`
+                  }
+                >
+                  <div
+                    className="text-lg flex-shrink-0"
+                    style={{ color: "var(--color-secondary)" }}
+                  >
+                    {item.icon}
+                  </div>
+                  <span className="text-sm">{item.label}</span>
+                </NavLink>
+              ))}
+            </nav>
+          </aside>
+        </>,
+        document.getElementById("sidebar-root")
+      )}
+    </>
   );
 }

@@ -1,13 +1,11 @@
 import axiosInstance from "@/api/axiosInstance";
 
-export const getProducts = async () => {
-  const { data } = await axiosInstance.get("/api/products");
-  console.log(data, "data from product service");
-
+export const getProducts = async (requestBody) => {
+  const { data } = await axiosInstance.post("/api/products/grid", requestBody);
   return data;
 };
 
 export const getProductById = async (id) => {
-  const { data } = await axiosInstance.get(`/products/${id}`);
+  const { data } = await axiosInstance.get(`/api/products/${id}`);
   return data;
 };

@@ -1,42 +1,90 @@
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import { Link } from "react-router-dom";
+import {Home,Layers,User,HelpCircle} from "lucide-react"; 
 
 function Sitemap() {
-  const destinations = [
-    "Vacation rentals & homes in 16th arrondissement",
-    "Vacation rentals & homes in 1st arrondissement",
-    "Vacation rentals & homes in 2nd arrondissement",
-    "Vacation rentals & homes in 3rd arrondissement",
-    "Vacation rentals & homes in 4th arrondissement",
-    "Vacation rentals & homes in 5th arrondissement",
-    "Vacation rentals & homes in 6th arrondissement",
-    "Vacation rentals & homes in 7th arrondissement",
+  const sections = [
+    {
+      title: "Main Pages",
+      icon: <Home className="w-6 h-6  text-[var(--color-secondary)]" />,
+      links: [
+        { name: "Home", path: "/" },
+        { name: "Features", path: "/features" },
+        { name: "Pricing", path: "/pricing" },
+        { name: "Blog", path: "/blog" },
+        { name: "About Us", path: "/about" },
+        { name: "Contact", path: "/contact" },
+      ],
+    },
+    {
+      title: "App Features",
+      icon: <Layers className="w-6 h-6 text-[var(--color-secondary)] " />,
+      links: [
+        { name: "Crop Management", path: "/features/crop-management" },
+        { name: "Field Mapping", path: "/features/field-mapping" },
+        { name: "Weather Alerts", path: "/features/weather-alerts" },
+        { name: "Inventory Tracking", path: "/features/inventory" },
+        { name: "Income & Expenses", path: "/features/finance" },
+        { name: "Reports & Analytics", path: "/features/reports" },
+      ],
+    },
+    {
+      title: "User Account",
+      icon: <User className="w-6 h-6 text-[var(--color-secondary)]" />,
+      links: [
+        { name: "Login", path: "/login" },
+        { name: "Sign Up", path: "/signup" },
+        { name: "Dashboard", path: "/dashboard" },
+        { name: "Settings", path: "/settings" },
+      ],
+    },
+    {
+      title: "Support & Legal",
+      icon: <HelpCircle className="w-6 h-6 text-[var(--color-secondary)]" />,
+      links: [
+        { name: "Help Center", path: "/support" },
+        { name: "Faq", path: "/FAQ" },
+        { name: "Privacy Policy", path: "/privacy" },
+        { name: "Terms of Service", path: "/terms" },
+      ],
+    },
   ];
 
   return (
     <ContentWrapper compactScreen>
-      <div className="py-8 text-[var(--color-black)] lg:mt-32">
-        <h1 className="pb-6 text-2xl font-bold sm:text-3xl">
-          Top Destinations
+      <div className="py-28">
+        <h1 className="text-3xl font-bold mb-6 text-[var(--color-black)]">
+          Sitemap
         </h1>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {[...Array(4)].map((_, colIndex) => (
-            <div
-              key={colIndex}
-              className="space-y-3 text-base sm:text-lg md:text-xl text-[var(--color-black)]"
-            >
-              {destinations.map((place, idx) => (
-                <a
-                  key={`${colIndex}-${idx}`}
-                  href="#"
-                  className="block underline text-[var(--color-black)] hover:text-[var(--color-secondary-hover)]"
-                >
-                  {place}
-                </a>
-              ))}
+        <div className="space-y-12">
+          {sections.map((section, i) => (
+            <div key={i}>
+              <div className="flex items-center  gap-2 mb-3">
+                {section.icon}
+                <h2 className="text-2xl mb-2  font-Semibold text-[var(--color-black)]">
+                  {section.title}
+                </h2>
+              </div>
+              <ul className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-2 underline decoration-[var(--color-secondary)]">
+                {section.links.map((link, j) => (
+                  <li key={j}>
+                    <Link
+                      to={link.path}
+                    
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
+
+        <footer className="mt-10 text-sm text-[var(--color-black)]">
+          Last updated: October 24, 2025
+        </footer>
       </div>
     </ContentWrapper>
   );
