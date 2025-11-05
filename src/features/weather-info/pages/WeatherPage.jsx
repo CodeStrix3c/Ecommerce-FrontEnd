@@ -25,6 +25,8 @@ export default function WeatherPage() {
 
   const location = data.location;
   const current = data.current;
+  console.log(current,"current");
+  
   const today = data.forecast.forecastday[0].day;
   const astro = data.forecast.forecastday[0].astro;
 
