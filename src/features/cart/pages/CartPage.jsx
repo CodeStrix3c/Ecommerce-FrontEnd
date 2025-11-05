@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ShoppingCart } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
 import { useCartList } from "@/providers/CartListProvider";
 import CartItem from "../components/CartItem";
@@ -30,10 +29,8 @@ const CartPage = () => {
     return (
       <EmptyState
         title="Empty Cart"
-        subTitle="There is nothing in your bag.Let's add some items"
-        icon={
-          <ShoppingCart className="w-16 h-16 text-[var(--color-secondary)]" />
-        }
+        subTitle="There is nothing in your bag. Let's add some items"
+        img="/assets/images/cartbag.png"
         btnText="Continue Shopping"
         redirectTo="/"
       />

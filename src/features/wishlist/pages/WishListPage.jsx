@@ -25,7 +25,7 @@ const WishlistPage = () => {
       <EmptyState
         title=" Empty Wishlist "
         subTitle=" Looks like you haven't added anything to your cart yet."
-        icon={<Heart className="w-12 h-12 text-[var(--color-secondary)]" />}
+        // icon={<Heart className="w-12 h-12 text-[var(--color-secondary)]" />}
         btnText="Browse Products"
         redirectTo="/"
         type="wishlist"

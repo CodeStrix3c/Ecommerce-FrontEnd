@@ -48,7 +48,7 @@ export default function CropProtectionPage() {
     <div className="w-full min-h-screen bg-[var(--color-white)]">
       <ImageHeaderSection
         image={
-          "https://images.pexels.com/photos/15610774/pexels-photo-15610774.jpeg"
+          "/assets/images/cropprotection.jpg"
         }
         title={"Crop Protection Guide"}
         description={

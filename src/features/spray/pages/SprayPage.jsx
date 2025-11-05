@@ -64,7 +64,7 @@ const SprayPage = () => {
     <div className="w-full min-h-screen bg-[var(--color-white)]">
       <ImageHeaderSection
         image={
-          "https://images.pexels.com/photos/21711158/pexels-photo-21711158.jpeg"
+          "/assets/images/sprayrecords.jpg"
         }
         title={"Spray Record Information"}
         description={
