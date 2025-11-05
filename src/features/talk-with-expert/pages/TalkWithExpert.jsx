@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Phone, Mail, MessageCircle, Bot, Video, Calendar } from "lucide-react";
+import { Phone, Mail, MessageCircle, Bot, Video, Calendar, Brain } from "lucide-react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import ImageHeaderSection from "@/components/shared/ImageHeaderSection";
 
@@ -12,7 +12,7 @@ const sampleExperts = [
     rating: 4.8,
     phone: "+91 98765 43210",
     email: "asha.patel@example.com",
-    avatar: "https://i.pravatar.cc/150?img=32",
+    avatar: "/assets/images/doc.png",
     bio: "10+ years advising smallholder farmers on pest management.",
   },
   {
@@ -23,7 +23,7 @@ const sampleExperts = [
     rating: 4.6,
     phone: "+91 99876 54321",
     email: "ravi.kumar@example.com",
-    avatar: "https://i.pravatar.cc/150?img=12",
+    avatar: "/assets/images/doc2.png",
     bio: "Specialises in soil health, nutrient budgeting and testing.",
   },
   {
@@ -34,7 +34,7 @@ const sampleExperts = [
     rating: 4.9,
     phone: "+91 91234 56789",
     email: "nisha.singh@example.com",
-    avatar: "https://i.pravatar.cc/150?img=18",
+    avatar: "/assets/images/doc3.png",
     bio: "Designs crop plans to maximize yield and reduce costs.",
   },
   {
@@ -45,7 +45,7 @@ const sampleExperts = [
     rating: 4.7,
     phone: "+91 93456 78901",
     email: "ajay.mehta@example.com",
-    avatar: "https://i.pravatar.cc/150?img=45",
+    avatar: "/assets/images/doc4.png",
     bio: "Helps optimize irrigation systems for efficiency.",
   },
   {
@@ -56,7 +56,7 @@ const sampleExperts = [
     rating: 4.9,
     phone: "+91 92345 67890",
     email: "kavita.rao@example.com",
-    avatar: "https://i.pravatar.cc/150?img=65",
+    avatar: "/assets/images/doc5.png",
     bio: "Advises on AI-driven solutions for farming.",
   },
   {
@@ -67,7 +67,7 @@ const sampleExperts = [
     rating: 4.8,
     phone: "+91 93456 12345",
     email: "sunil.sharma@example.com",
-    avatar: "https://i.pravatar.cc/150?img=66",
+    avatar: "/assets/images/doc6.png",
     bio: "Guides farmers in organic methods and certification.",
   },
 ];
@@ -141,15 +141,17 @@ function ChatPanel({ openChatWith, onClose }) {
   }
 
   return (
-    <div className="sticky bottom-4 z-50 flex justify-end">
+    <div className="sticky bottom-4 z-50 flex justify-end pr-5">
       <div className="rounded-2xl shadow-sm flex flex-col h-96 w-80 bg-[var(--color-white)] border">
         <div className="p-3 border-b flex justify-between items-center bg-gray-50 rounded-t-2xl">
           <div className="flex items-center gap-2">
-            <img
-              src={openChatWith.avatar || ""}
+
+            <BotMessageSquare />
+            {/* <img
+              src={"/assets/images/ai-assistant.jpg"}
               alt=""
-              className="w-8 h-8 rounded-md"
-            />
+              className="w-8 h-8 rounded-md object-fit"
+            /> */}
             <div>
               <div className="font-semibold text-sm">{openChatWith.name}</div>
               <div className="text-xs text-[var(--color-black)]">
@@ -244,7 +246,11 @@ export default function TalkWithExpert() {
           </div>
 
 
-          <div className="sticky bottom-20 flex justify-end">
+         
+        </div>
+         
+      </ContentWrapper>
+      <div className="sticky bottom-20 flex justify-end px-5">
             <button
               onClick={() =>
                 setOpenChatWith({ name: "AI Assistant", title: "Virtual Helper" })
@@ -259,8 +265,6 @@ export default function TalkWithExpert() {
           {openChatWith && (
             <ChatPanel openChatWith={openChatWith} onClose={() => setOpenChatWith(null)} />
           )}
-        </div>
-      </ContentWrapper>
     </div>
   );
 }

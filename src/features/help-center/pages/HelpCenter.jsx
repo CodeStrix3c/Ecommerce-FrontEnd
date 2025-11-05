@@ -11,39 +11,45 @@ import {
 import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import FaqCard from "@/features/about-us/components/FaqCard";
+import { useNavigate } from "react-router-dom";
 
 export default function AgricultureHelpCenter() {
+
+  const handleClick = (link) => {
+  if (link) window.location.href = link;
+};
+
   const faqs = [
     {
       question: "What is the best way to test soil quality?",
       answer:
-        "You can use soil testing kits or send samples to an agricultural lab for detailed analysis.",
+        "You can use soil testing kits available at agricultural stores or send samples to a certified soil testing lab for a detailed analysis. A proper soil test provides information about pH, nutrient levels, and organic matter content. This helps farmers make better decisions about fertilizer use, crop selection, and irrigation management to improve soil productivity.",
     },
     {
       question: "How often should I rotate my crops?",
       answer:
-        "Ideally, rotate crops every season to maintain soil fertility and reduce pest buildup.",
+        "It’s best to rotate crops every season or at least once every year. Crop rotation helps maintain soil fertility, prevents nutrient depletion, and reduces pest and disease buildup. For example, you can grow legumes after cereals to naturally replenish nitrogen in the soil and improve overall soil health over time.",
     },
     {
       question:
         "What’s the difference between organic and chemical fertilizers?",
       answer:
-        "Organic fertilizers are natural and eco-friendly, while chemical ones act faster but may degrade soil over time.",
+        "Organic fertilizers are made from natural materials like compost, manure, and plant residues. They improve soil structure and promote long-term fertility. Chemical fertilizers, on the other hand, provide quick nutrient supply and fast results but may degrade soil quality if overused. Combining both in a balanced way often gives the best results for sustainable farming.",
     },
     {
       question: "How can I prevent common crop diseases?",
       answer:
-        "Use disease-resistant seeds, rotate crops, and ensure proper irrigation to minimize risks.",
+        "Start with disease-resistant seed varieties and follow a proper crop rotation plan. Ensure fields are well-drained to avoid fungal growth and do not overwater plants. Regular monitoring, balanced nutrient management, and timely use of biological or approved chemical fungicides can greatly reduce disease risks.",
     },
     {
       question: "Which crops are best for organic farming?",
       answer:
-        "Vegetables like tomatoes, cucumbers, and leafy greens, as well as cereals like wheat and maize, are commonly grown organically.",
+        "Crops like tomatoes, cucumbers, okra, leafy greens, and pulses such as lentils or chickpeas are ideal for organic farming. Cereals like wheat, maize, and rice can also be grown organically with proper composting and pest management. Always focus on local climate and soil type to choose the most suitable crop combination.",
     },
     {
       question: "What tools are essential for modern farming?",
       answer:
-        "Tractors, irrigation systems, soil testers, and precision farming tools help improve efficiency and yields.",
+        "Modern farming benefits from tools such as tractors, drip or sprinkler irrigation systems, soil moisture sensors, drones for crop monitoring, and GPS-based precision farming equipment. These tools help save time, reduce costs, and increase productivity. Even small-scale farmers can adopt affordable versions of these technologies to improve efficiency.",
     },
   ];
 
@@ -87,7 +93,6 @@ export default function AgricultureHelpCenter() {
           </div>
         </div> */}
 
-       
         <div className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl font-bold mb-6">
             Guides for getting started
@@ -97,17 +102,17 @@ export default function AgricultureHelpCenter() {
               {
                 title: "Farming Basics",
                 desc: "Learn the foundations of sustainable farming.",
-                img: "https://images.pexels.com/photos/164504/pexels-photo-164504.jpeg",
+                img: "assets/images/rice.jpeg",
               },
               {
                 title: "Organic Practices",
                 desc: "Discover eco-friendly techniques to improve yields.",
-                img: "https://images.pexels.com/photos/169523/pexels-photo-169523.jpeg",
+                img: "assets/images/mud.jpeg",
               },
               {
                 title: "Market Access",
                 desc: "Learn how to connect with buyers and grow your business.",
-                img: "https://images.pexels.com/photos/2733918/pexels-photo-2733918.jpeg",
+                img: "assets/images/vegetables.jpeg",
               },
             ].map((item, idx) => (
               <div
@@ -129,7 +134,6 @@ export default function AgricultureHelpCenter() {
             ))}
           </div>
         </div>
-
 
         <div className="max-w-6xl mx-auto mt-12 space-y-12 px-4 sm:px-6 lg:px-8">
           <div>
@@ -171,7 +175,6 @@ export default function AgricultureHelpCenter() {
             </div>
           </div>
 
-     
           <div>
             <h2 className="text-2xl font-bold mb-5">Popular Topics</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
@@ -192,7 +195,6 @@ export default function AgricultureHelpCenter() {
             </div>
           </div>
 
-        
           <div>
             <h2 className="text-2xl font-bold mb-5">Guides & Resources</h2>
             <ul className="space-y-6 text-sm">
@@ -220,24 +222,14 @@ export default function AgricultureHelpCenter() {
             </ul>
           </div>
 
-          <div>
-            <h2 className="text-2xl font-bold space-y-4 mt-[-4]">FAQs</h2>
-            <div className="grid gap-4 mt-6">
-              {faqs.map((faq, idx) => (
-                <FaqCard
-                  key={idx}
-                  question={faq.question}
-                  answer={faq.answer}
-                />
-              ))}
-            </div>
-          </div>
+          <div></div>
+        </div>
+        <div className="w-full grid gap-4 mt-6">
+          <FaqCard question={faqs.question} answer={faqs.answer} />
         </div>
 
-    
         <div className="py-14 mt-16 text-[var(--color-black)]">
           <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 items-start">
-         
             <div className="md:col-span-2 space-y-8 mt-[-59px]">
               <h2 className="text-2xl font-bold ml-3">Explore More</h2>
               <div className="grid sm:grid-cols-2 gap-6">
@@ -245,12 +237,12 @@ export default function AgricultureHelpCenter() {
                   {
                     title: "Smart Farming Solutions",
                     desc: "Explore technology and ideas that make farming easier and more profitable.",
-                    img: "https://images.pexels.com/photos/2818573/pexels-photo-2818573.jpeg",
+                    img: "/assets/images/help-center-img.jpeg",
                   },
                   {
                     title: "Knowledge & Inspiration",
                     desc: "Discover best practices, new research, and success stories from farmers worldwide.",
-                    img: "https://images.pexels.com/photos/2255920/pexels-photo-2255920.jpeg",
+                    img: "/assets/images/help-center-img2.jpeg",
                   },
                 ].map((item, idx) => (
                   <div
@@ -275,10 +267,9 @@ export default function AgricultureHelpCenter() {
               </div>
             </div>
 
-           
             <div className="bg-[var(--color-white)] rounded-xl shadow overflow-hidden flex flex-col">
               <img
-                src="https://images.pexels.com/photos/775707/pexels-photo-775707.jpeg"
+                src="/assets/images/help-center-img3.jpeg"
                 alt="Contact Support"
                 className="w-full h-32 sm:h-40 object-cover"
               />
@@ -289,19 +280,27 @@ export default function AgricultureHelpCenter() {
                 </p>
                 <div className="space-y-4">
                   {[
-                    { icon: Phone, title: "Call Us", desc: "+1 (234) 567-890" },
+                    {
+                      icon: Phone,
+                      title: "Call Us",
+                      desc: "+1 (234) 567-890",
+                      href: "tel:+1234567890",
+                    },
                     {
                       icon: Mail,
                       title: "Email Us",
-                      desc: "info@farmhelp.com",
+                      desc: "Zirat Customer Support",
+                      href: "https://mail.google.com/mail/?view=cm&fs=1&to=test@zirat.com",
                     },
                     {
                       icon: MessageCircle,
                       title: "WhatsApp",
                       desc: "+1 (234) 567-890",
+                      href: "https://wa.me/+1234567890",
                     },
                   ].map((item, idx) => (
                     <div
+                       onClick={() => handleClick(item.href)}
                       key={idx}
                       className="flex items-center gap-4 p-4 rounded-lg border shadow-sm hover:shadow-md hover:bg-[var(--color-black-hover)] transition cursor-pointer"
                     >

@@ -68,7 +68,7 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
           </div>
         </div>
 
-        <div className="border-t border-[var(--color-black)]">
+        <div className="border-t border-[var(--color-gray)]">
           {product.inStock ? (
             <button
               onClick={() => onAddToCart(product)}
