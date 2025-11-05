@@ -87,7 +87,7 @@ export default [
     <Route path="/" element={<ProtectedLayout />}>
       <Route path="/supplier-register" element={<SupplierRegistration />} />
       <Route path="/FAQ"element={<Faq/>}/>
-      <Route path="/farming-techniques" element={<FarmingTechniques/>}/>
+      <Route path="/resources/farming-techniques" element={<FarmingTechniques/>}/>
       <Route path="/harvest" element={<Harvest />} />
       <Route path="/home" element={<IndexPage />} />
       <Route path="/company-details" element={<CompanyDetails />} />
