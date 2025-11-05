@@ -13,7 +13,7 @@ const ImageBanner = ({
       <img
         src={imageSrc}
         alt={altText}
-        className="w-full h-full object-cover rounded-none lg:rounded-t-sm md:rounded-t-sm"
+        className="w-full h-full object-cover rounded-none lg:rounded-sm md:rounded-t-sm"
       />
 
       {/* Overlay Logo */}
