@@ -27,7 +27,6 @@ const FarmerProfilePage = () => {
     <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
       {/* Main Card Container */}
       <div className="lg:rounded-sm lg:shadow-sm w-full max-w-6xl overflow-hidden bg-white">
-        
         {/* ✅ Full-width Header */}
         <div className="w-full border-b border-gray-100 px-6 py-4 flex justify-between items-center bg-white">
           <SectionTitle
@@ -38,8 +37,13 @@ const FarmerProfilePage = () => {
             <button className="px-4 py-2 text-sm font-medium text-white bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
               Complete Your Profile
             </button>
-            <div className="p-2 border rounded-full">
-              <Settings className="w-5 h-5 text-gray-600" />
+            <div className="relative group">
+              <div className="p-2 border rounded-full cursor-pointer hover:bg-[var(--color-gray)]">
+                <Settings className="w-5 h-5 text-[var(--color-black)]" />
+              </div>
+              <span className="absolute left-1/2 -translate-x-1/2 hidden group-hover:block  text-[var(--color-black)] text-sm py-1 px-2">
+                Settings
+              </span>
             </div>
           </div>
         </div>
@@ -47,7 +51,7 @@ const FarmerProfilePage = () => {
         {/* ✅ Main Grid Layout */}
         <div className="grid md:grid-cols-[280px_1fr]">
           {/* LEFT COLUMN */}
-          <div className="flex flex-col mt-0 lg:mt-8 md:mt-2 ">
+          <div className="flex flex-col mt-0 lg:mt-8 md:mt-2">
             {/* Reusable Banner on Top */}
             <ImageBanner
               imageSrc="assets/images/farmerPro.png"
@@ -72,13 +76,6 @@ const FarmerProfilePage = () => {
 
               {/* Right Side */}
               <div className="space-y-8 lg:space-y-8 md:space-y-0">
-                <div className="rounded-sm overflow-hidden shadow-lg block md:hidden lg:block">
-                  <img
-                    src="assets/images/kasfarmer.png"
-                    alt="Rural scene"
-                    className="w-full object-cover h-[210px]"
-                  />
-                </div>
                 <ProfessionDetails professionData={farmerProfession} />
               </div>
             </div>
