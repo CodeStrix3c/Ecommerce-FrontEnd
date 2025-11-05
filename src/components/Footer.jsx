@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Globe, Facebook, Instagram, Twitter } from "lucide-react";
 import ContentWrapper from "./shared/ContentWrapper";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin, } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -67,7 +68,7 @@ const Footer = () => {
                 { name: "Weather Updates", link: "/resources/weather" },
                 { name: "Market Prices", link: "/resources/market-prices" },
                 { name: "Pest Alerts", link: "/resources/pest-alerts" },
-                { name: "Farming Techniques", link: "/resources/techniques" },
+                { name: "Farming Techniques", link: "/resources/farming-techniques" },
               ].map((item, idx) => (
                 <p key={idx}>
                   <Link
@@ -91,8 +92,9 @@ const Footer = () => {
               </div>
               <div className="flex gap-3 text-[var(--color-black)]">
        <FaFacebook className="w-6 h-6 text-[#1877F2] hover:opacity-80 cursor-pointer" />
+       <FaLinkedin className="w-6 h-6 text-[#0A66C2] hover:opacity-80 cursor-pointer" />
    <FaInstagram className="w-6 h-6 text-[#E4405F] hover:opacity-80 cursor-pointer" />
-  <FaTwitter className="w-6 h-6 text-[#1DA1F2] hover:opacity-80 cursor-pointer" />
+ <FaXTwitter className="w-6 h-6 text-black hover:opacity-80 cursor-pointer" />
  
 
               </div>

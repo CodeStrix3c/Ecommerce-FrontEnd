@@ -48,7 +48,7 @@ export default function WeatherPage() {
 
         <div className="p-4 sm:p-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-10">
-            {/* Location & Condition */}
+
             <div className="mt-1 text-center md:text-left">
               <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-black)]">
                 {location.name}
@@ -72,7 +72,7 @@ export default function WeatherPage() {
               </div>
             </div>
 
-            {/* Temperature Section */}
+
             <div className="flex flex-col md:flex-row w-full md:w-auto">
               <div className="text-center md:text-right space-y-2 sm:space-y-3 w-full">
                 <h3 className="text-3xl sm:text-5xl font-semibold text-[var(--color-black)]">
@@ -117,7 +117,7 @@ export default function WeatherPage() {
             </div>
           </div>
 
-          {/* Summary */}
+
           <div className="mt-10 sm:mt-10 text-center md:text-left">
             <h3 className="text-lg sm:text-xl font-bold text-[var(--color-black)]">
               {today.condition.text}
@@ -127,7 +127,6 @@ export default function WeatherPage() {
             </p>
           </div>
 
-          {/* Highlights */}
           <WeatherHighlights
             visibility={current.vis_km}
             pressure={current.pressure_mb}
@@ -136,10 +135,10 @@ export default function WeatherPage() {
             uv={current.uv}
           />
 
-          {/* Hourly Forecast */}
+
           <WeatherHourlyForecast hours={data.forecast.forecastday[0].hour} />
 
-          {/* Daily Insights */}
+
           <div className="mt-8 sm:mt-10">
             <h3 className="ml-0 sm:ml-4 text-lg sm:text-2xl font-semibold text-[var(--color-black)] mb-3 sm:mb-4 text-center sm:text-left">
               Daily Insights
