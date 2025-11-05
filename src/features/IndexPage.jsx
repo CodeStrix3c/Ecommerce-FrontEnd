@@ -47,7 +47,7 @@ const IndexPage = () => {
           places={dummyData3}
         />
          <CarousalSection
-          title="Popular Pesticides for Crop Protection"
+          title="Fungicides to Safeguard Your Crops"
           places={dummyData4}
         />
       </div>
