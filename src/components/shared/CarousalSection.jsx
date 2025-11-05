@@ -25,7 +25,7 @@ const CarouselSection = ({ title, places = [], loading }) => {
   return (
     <div className="mt-0">
       <div className="mb-4 flex items-center justify-between">
-        <SectionTitle title={title} />
+        <SectionTitle title={title}/>
 
         {!isMobile && (
           <div className="flex gap-2">

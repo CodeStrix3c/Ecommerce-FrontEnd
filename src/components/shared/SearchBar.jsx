@@ -4,8 +4,8 @@ import useIsMobile from "@/hooks/useInMobile";
 import DatePickerWithRange from "../ui/DatePickerWithRange";
 import ContentWrapper from "./ContentWrapper";
 
-const crops = ["Wheat", "Rice", "Cotton", "Maize", "Sugarcane"];
-const regions = ["Punjab", "Bihar", "Maharashtra", "Haryana", "UP"];
+const crops = ["Apple", "Rice", "Walnut", "Peach", "Almond"];
+const regions = ["Pulwama", "Sopore", "Shopian", "Anantnag", "Kulgam"];
 
 const SearchBar = ({ onSubmit }) => {
   const isMobile = useIsMobile(900);
@@ -34,7 +34,7 @@ const SearchBar = ({ onSubmit }) => {
       <ContentWrapper>
         <div className="w-full flex justify-center">
           <div className="flex w-full max-w-md items-center rounded-full border-2 border-[var(--color-black-hover)] px-3 py-2">
-            <Search className="h-5 w-5 text-[var(--color-black)]/70" />
+            <Search className="h-5 w-5 text-[var(--color-black)]/70"/>
             <input
               type="text"
               placeholder="Search pesticides"
@@ -73,7 +73,7 @@ const SearchBar = ({ onSubmit }) => {
             Crop
           </p>
           <select
-            className="w-full bg-transparent text-sm md:text-xs text-[var(--color-black)] focus:outline-none"
+            className="w-full text-sm md:text-xs text-[var(--color-black)] focus:outline-none"
             value={selectedCrop}
             onChange={(e) => setSelectedCrop(e.target.value)}
           >

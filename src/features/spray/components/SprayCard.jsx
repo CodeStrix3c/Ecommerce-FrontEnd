@@ -151,7 +151,7 @@ export default function SprayHistory() {
         <span className="text-lg font-semibold text-[var(--color-black)]">
           Total Cost
         </span>
-        <span className="text-xl font-bold text-[var(--color-primary)]">
+        <span className="text-xl font-bold text-[var(--color-secondary)]">
           ₹{totalCost.toLocaleString()}
         </span>
       </div>
