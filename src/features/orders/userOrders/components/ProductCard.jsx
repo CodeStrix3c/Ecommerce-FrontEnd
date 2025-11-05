@@ -19,8 +19,8 @@ export default function ProductCard({ product, order, navigate }) {
           />
           <div className="flex flex-col">
             <p className="font-semibold text-sm">{product.brand}</p>
-            <p className="text-sm text-[var(--color-black)]">{product.name}</p>
-            <p className="text-xs text-gray-500">Quantity: {product.quantity}</p>
+            <p className="text-sm text-[var(--color-black)] mt-1">{product.name}</p>
+            <p className="text-xs text-gray-500 mt-1" >Quantity: {product.quantity}</p>
           </div>
         </div>
 
