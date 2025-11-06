@@ -71,7 +71,9 @@ const SprayPage = () => {
   return (
     <div className="w-full min-h-screen bg-[var(--color-white)]">
       <ImageHeaderSection
-        image={"/assets/images/spray-image.jpeg"}
+        image={
+          "/assets/images/sprayrecords.jpg"
+        }
         title={"Spray Record Information"}
         description={
           "Maintain accurate spray data — including pesticide type, quantity, period, and cost. Keeping proper records ensures effective management and legal compliance."
