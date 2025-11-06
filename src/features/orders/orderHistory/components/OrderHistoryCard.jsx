@@ -1,54 +1,95 @@
-import { Star } from "lucide-react";
+import { Truck, CheckCircle, RotateCcw, RefreshCcw, Package, Star } from "lucide-react";
 
 export default function OrderCard({
   status,
   statusColor,
   amount,
   date,
-  refundDetailsLabel,
   products = [],
   onViewDetails,
   refunded = true,
+  rating = 4,
 }) {
   if (!products.length) return null;
 
   const firstProduct = products[0];
   const remainingCount = products.length - 1;
 
+  // Choose icon based on order status
+  const getStatusIcon = (status) => {
+    switch (status.toLowerCase()) {
+      case "delivered":
+        return <CheckCircle className="w-4 h-4 text-green-600" />;
+      case "in transit":
+      case "shipped":
+        return <Truck className="w-4 h-4 text-blue-600" />;
+      case "returned":
+        return <RotateCcw className="w-4 h-4 text-orange-500" />;
+      case "refunded":
+        return <RefreshCcw className="w-4 h-4 text-purple-600" />;
+      default:
+        return <Package className="w-4 h-4 text-gray-500" />;
+    }
+  };
+
   return (
     <div
-      className="border p-4 bg-white cursor-pointer hover:shadow-md transition rounded-sm"
+      className="border p-4 bg-white cursor-pointer hover:shadow-md transition rounded-md flex flex-col"
       onClick={onViewDetails}
     >
-      <p className={`${statusColor} font-medium`}>{status}</p>
-     {refunded && (
-         
-        <p className="text-sm text-gray-600 mb-2">
-        Your refund of {amount} for the return has been processed successfully on {date}.{" "}
-        <span className="text-blue-600 cursor-pointer">{refundDetailsLabel}</span>
-      </p>
-     
-     )}
+      {/* Status Row with Icon */}
+      <div className="flex items-center gap-2 mb-2">
+        {getStatusIcon(status)}
+        <p className={`${statusColor} font-medium text-sm`}>{status}</p>
+      </div>
 
+      {/* Refund Info */}
+      {refunded && (
+        <p className="text-sm text-gray-600 mb-3 break-words">
+          Your refund of <span className="font-semibold">{amount}</span> for the
+          return has been processed successfully on {date}.
+        </p>
+      )}
 
-      <div className="flex items-center space-x-3 mb-2">
+      {/* Product Info */}
+      <div className="flex items-center sm:items-start gap-3">
         <img
           src={`/${firstProduct.image}`}
           alt={firstProduct.name}
-          className="w-20 h-20 object-contain "
+          className="w-16 h-16 sm:w-20 sm:h-20 object-contain flex-shrink-0"
         />
-        <div>
-          <p className="font-semibold text-sm">{firstProduct.brand}</p>
-          <p className="text-sm text-gray-700">{firstProduct.name}</p>
-          <p className="text-xs text-gray-500">Quantity: {firstProduct.quantity}</p>
+        <div className="flex flex-col flex-wrap sm:flex-nowrap">
+          <p className="font-semibold text-sm break-words ">
+            {firstProduct.brand}
+          </p>
+          <p className="text-sm text-gray-700 break-words mt-2">
+            {firstProduct.name}
+          </p>
+          <p className="text-xs text-gray-500 mt-2">
+            Quantity: {firstProduct.quantity}
+          </p>
 
           {remainingCount > 0 && (
-            <p className="text-xs text-gray-500 mt-1">+{remainingCount} more product{remainingCount > 1 ? "s" : ""}</p>
+            <p className="text-xs text-gray-500 mt-1">
+              +{remainingCount} more product
+              {remainingCount > 1 ? "s" : ""}
+            </p>
           )}
+
+          {/* Ratings Section */}
+          <div className="flex items-center mt-4">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                className={`w-4 h-4 ${
+                  i < rating ? "text-[var(--color-secondary)] " : "text-gray-300"
+                }`}
+              />
+            ))}
+            <span className="text-xs text-gray-600 ml-1">({rating}/5)</span>
+          </div>
         </div>
       </div>
-
-      
     </div>
   );
 }

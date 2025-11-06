@@ -5,9 +5,16 @@ import { useWishlist } from "@/providers/WishListProvider";
 import PlaceCardSkeletonUi from "./PlaceCardSkeletonUi";
 
 const PlaceCard = ({ place }) => {
+
+  const ids = ["101","105","108","109", "113","115","118","120","125","128","129"]
+
   const { wishlist, toggleWishlist } = useWishlist();
 
   const { _id, title, address, photos, price, rating } = place;
+
+  console.log(_id,"id....", typeof(_id));
+  
+  4
   const isWishlisted = wishlist.some((item) => item._id === _id);
 
   const [loading, setLoading] = useState(true);
@@ -42,9 +49,11 @@ const PlaceCard = ({ place }) => {
             </div>
           </div>
 
-          <div className="absolute left-2 top-2 rounded-full px-3 py-1 text-xs font-medium text-[var(--color-black)] bg-white/70 backdrop-blur-sm shadow-sm">
+         {ids.includes(_id) && (
+           <div className="absolute left-2 top-2 rounded-full px-3 py-1 text-xs font-medium text-[var(--color-black)] bg-white/70 backdrop-blur-sm shadow-sm">
             Farmer Favourite
           </div>
+         )}
 
           <button
             type="button"

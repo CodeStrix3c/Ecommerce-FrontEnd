@@ -47,7 +47,7 @@ const CartPage = () => {
             My Cart
           </h1>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             {cartList.map((product) => (
               <>
                 <CartItem
@@ -62,7 +62,7 @@ const CartPage = () => {
         </div>
 
         {!isMobile && cartList.length > 0 && (
-          <div className="col-span-1">
+          <div className="col-span-1 mt-14">
             <CartSummary
               cart={cartList}
               subtotal={subtotal}

@@ -29,7 +29,7 @@ const PaymentOptions = ({ selected, onChange }) => {
     <div className="flex flex-col gap-2 w-full">
       <button
         onClick={() => setShowPayment((prev) => !prev)}
-        className="flex w-full items-center justify-between rounded-md border border-black bg-[var(--color-white)] px-3 py-2 text-sm font-medium hover:bg-[var(--color-black-hover)]"
+        className="flex w-full items-center justify-between rounded-md border  bg-[var(--color-white)] px-3 py-2 text-sm hover:bg-[var(--color-black-hover)]"
       >
         <span>{getPaymentLabel(selected)}</span>
         {showPayment ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
