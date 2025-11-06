@@ -1,4 +1,13 @@
-import { Truck, CheckCircle, RotateCcw, RefreshCcw, Package, Star } from "lucide-react";
+import {
+  Truck,
+  CheckCircle,
+  RotateCcw,
+  RefreshCcw,
+  Package,
+  Star,
+  Clock,
+  XCircle,
+} from "lucide-react";
 
 export default function OrderCard({
   status,
@@ -15,14 +24,18 @@ export default function OrderCard({
   const firstProduct = products[0];
   const remainingCount = products.length - 1;
 
-  // Choose icon based on order status
+  
   const getStatusIcon = (status) => {
-    switch (status.toLowerCase()) {
+    switch (status?.toLowerCase()) {
       case "delivered":
         return <CheckCircle className="w-4 h-4 text-green-600" />;
-      case "in transit":
       case "shipped":
+      case "in transit":
         return <Truck className="w-4 h-4 text-blue-600" />;
+      case "pending":
+        return <Clock className="w-4 h-4 text-yellow-500" />;
+      case "cancelled":
+        return <XCircle className="w-4 h-4 text-red-600" />;
       case "returned":
         return <RotateCcw className="w-4 h-4 text-orange-500" />;
       case "refunded":
@@ -37,13 +50,15 @@ export default function OrderCard({
       className="border p-4 bg-white cursor-pointer hover:shadow-md transition rounded-md flex flex-col"
       onClick={onViewDetails}
     >
-      {/* Status Row with Icon */}
+      
       <div className="flex items-center gap-2 mb-2">
         {getStatusIcon(status)}
-        <p className={`${statusColor} font-medium text-sm`}>{status}</p>
+        <p className={`font-medium text-sm capitalize ${statusColor}`}>
+          {status}
+        </p>
       </div>
 
-      {/* Refund Info */}
+     
       {refunded && (
         <p className="text-sm text-gray-600 mb-3 break-words">
           Your refund of <span className="font-semibold">{amount}</span> for the
@@ -51,7 +66,6 @@ export default function OrderCard({
         </p>
       )}
 
-      {/* Product Info */}
       <div className="flex items-center sm:items-start gap-3">
         <img
           src={`/${firstProduct.image}`}
@@ -59,13 +73,13 @@ export default function OrderCard({
           className="w-16 h-16 sm:w-20 sm:h-20 object-contain flex-shrink-0"
         />
         <div className="flex flex-col flex-wrap sm:flex-nowrap">
-          <p className="font-semibold text-sm break-words ">
+          <p className="font-semibold text-sm break-words">
             {firstProduct.brand}
           </p>
-          <p className="text-sm text-gray-700 break-words mt-2">
+          <p className="text-sm text-gray-700 break-words mt-1">
             {firstProduct.name}
           </p>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-gray-500 mt-1">
             Quantity: {firstProduct.quantity}
           </p>
 
@@ -76,13 +90,13 @@ export default function OrderCard({
             </p>
           )}
 
-          {/* Ratings Section */}
-          <div className="flex items-center mt-4">
+          
+          <div className="flex items-center mt-3">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
                 className={`w-4 h-4 ${
-                  i < rating ? "text-[var(--color-secondary)] " : "text-gray-300"
+                  i < rating ? "text-[var(--color-secondary)]" : "text-gray-300"
                 }`}
               />
             ))}
