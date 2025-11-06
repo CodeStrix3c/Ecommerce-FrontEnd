@@ -2,20 +2,7 @@ const WishlistActions = ({ wishlist, addAllToCart, removeAllFromWishlist }) => {
   if (wishlist.length === 0) return null;
 
   return (
-    // <div className="flex gap-3">
-    //   <button
-    //     onClick={addAllToCart}
-    //     className="px-4 py-2 rounded-lg font-medium bg-[var(--color-primary)] text-[var(--color-white)] hover:bg-[var(--color-primary-hover)] transition"
-    //   >
-    //     Add All to Cart
-    //   </button>
-    //   <button
-    //     onClick={removeAllFromWishlist}
-    //     className="px-4 py-2 rounded-lg font-medium border border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary-hover)] hover:text-[var(--color-white)] transition"
-    //   >
-    //     Clear Wishlist
-    //   </button>
-    // </div>
+
 
     <div className="flex flex-col sm:flex-row gap-2 w-full">
       <button

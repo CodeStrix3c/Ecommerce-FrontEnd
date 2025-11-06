@@ -13,12 +13,11 @@ const EmptyState = ({ title, subTitle, btnText, img }) => {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center min-h-[70vh] px-4 lg:mt-28 md:mt-28 gap-10 md:gap-16 text-center md:text-left">
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-[70vh] px-4 lg:mt-28 md:mt-28 gap-8 md:gap-16 text-center md:text-left">
       <img
-        src="/assets/images/empty-cart.ico"
-        alt="Empty Wishlist"
-        className="w-80 h-80 object-contain mb-6 bg-red-50"
-
+        src={"/assets/images/w9.png"}
+        alt={"Empty Wishlist"}
+        className="w-40 sm:w-45 md:w-50 lg:w-60 h-auto object-contain  md:mb-0 "
       />
 
       <div>
@@ -26,6 +25,8 @@ const EmptyState = ({ title, subTitle, btnText, img }) => {
           {title}
         </h2>
         <p className="mb-4 text-sm md:text-base">{subTitle}</p>
+
+
 
         <button
           onClick={() => navigate("/")}
