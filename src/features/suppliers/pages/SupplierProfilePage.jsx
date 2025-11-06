@@ -28,13 +28,13 @@ const FarmerProfilePage = () => {
     <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
       {/* Main Card Container */}
       <div className="lg:rounded-sm lg:shadow-sm w-full  max-w-6xl overflow-hidden bg-[var(--color-white)]">
-        <div className="w-full border-b border-[var(--color-gray)] px-6 py-4 flex justify-between items-center bg-[var(--color-white)]">
+        <div className="w-full border-b border-[var(--color-gray)] px-1 py-4 flex justify-between items-center bg-[var(--color-white)]">
           <SectionTitle
             title="Supplier Profile"
-            className="lg:font-bold lg:text-2xl"
+            className="lg:font-bold lg:text-2xl "
           />
           <div className="flex items-center space-x-4">
-            <button className="px-4 py-2 text-sm font-medium text-[var(--color-white)]bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
+            <button className="px-2 py-2 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
               Complete Your Profile
             </button>
             <div className="relative group">
