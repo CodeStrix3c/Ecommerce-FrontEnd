@@ -9,7 +9,7 @@ const FAQCard = ({ faqs }) => {
   };
 
   return (
-    <section className="py-10 px-4 sm:px-8 md:px-16 lg:px-24">
+    <section className=" py-10 px-4 sm:px-8 md:px-16 lg:px-24">
 
       <div className="max-w-4xl mx-auto text-center mb-10">
         <h2 className="text-2xl sm:text-3xl font-bold mb-3">
@@ -22,7 +22,7 @@ const FAQCard = ({ faqs }) => {
       </div>
 
 
-      <div className="max-w-3xl mx-auto space-y-4">
+      <div className="max-w-5xl mx-auto space-y-4">
         {faqs.map((faq, i) => (
           <div
             key={i}
@@ -36,7 +36,7 @@ const FAQCard = ({ faqs }) => {
                 {faq.question}
               </h3>
               <ChevronDown
-                className={`w-5 h-5 text-[var(--color-secondary)] transform transition-transform duration-300 ${openIndex === i ? "rotate-180" : ""
+                className={`w-5 h-5 text-[var(--color-black)] transform transition-transform duration-300 ${openIndex === i ? "rotate-180" : ""
                   }`}
               />
             </button>
