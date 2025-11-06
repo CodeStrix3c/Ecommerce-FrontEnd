@@ -16,8 +16,8 @@ import FaqCard from "@/features/about-us/components/FaqCard";
 export default function AgricultureHelpCenter() {
 
   const handleClick = (link) => {
-  if (link) window.location.href = link;
-};
+    if (link) window.location.href = link;
+  };
 
   const helpCenterfaqs = [
     {
@@ -66,33 +66,6 @@ export default function AgricultureHelpCenter() {
             </div>
           </div>
         </div>
-
-        {/* <div className="flex justify-center flex-wrap gap-4 sm:gap-6 mt-6 border-b">
-          {["Farmers", "Traders", "Researchers", "Policy Makers"].map(
-            (tab, i) => (
-              <button
-                key={i}
-                className="py-2 sm:py-3 text-sm sm:text-base font-medium border-b-2 border-transparent hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition"
-              >
-                {tab}
-              </button>
-            )
-          )}
-        </div> */}
-
-        {/* <div className="max-w-3xl mx-auto text-center mt-10">
-          <div className="rounded-xl shadow p-6 sm:p-8 flex flex-col items-center space-y-4 bg-[var(--color-white)]">
-            <h2 className="font-bold text-lg sm:text-xl">We’re here for you</h2>
-            <p className="text-sm sm:text-base">
-              <LoginLink /> Log in to get help with your queries, resources, and
-              support.
-            </p>
-            <button className="bg-[var(--color-secondary)] hover:bg-[var(--color-secondary-hover)] text-[var(--color-white)] py-3 rounded-lg font-medium w-full sm:w-auto">
-              Log in or sign up
-            </button>
-          </div>
-        </div> */}
-
         <div className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl font-bold mb-6">
             Guides for getting started
