@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-
 const FAQCard = ({ faqs }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
