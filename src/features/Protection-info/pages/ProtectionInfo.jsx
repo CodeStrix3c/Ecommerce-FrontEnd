@@ -88,7 +88,7 @@ export default function CropProtectionPage() {
           {faqs.map((f, i) => (
             <div
               key={i}
-              className="border border-gray-200 rounded-xl bg-[var(--color-white)]  hover:shadow-sm transition-all duration-200"
+              className="border border-[var(--color-gray)] rounded-xl bg-[var(--color-white)]  hover:shadow-sm transition-all duration-200"
             >
               <button
                 onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
