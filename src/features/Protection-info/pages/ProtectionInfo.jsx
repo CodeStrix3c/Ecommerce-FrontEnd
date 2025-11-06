@@ -7,9 +7,8 @@ import {
   Sprout,
   ChevronDown,
   ChevronUp
-
-
-} from "lucide-react";
+}
+  from "lucide-react";
 import PestDisease from "../component/PestDisease";
 import GuidesResources from "../component/GuidesResources";
 import ImageHeaderSection from "@/components/shared/ImageHeaderSection";
@@ -92,22 +91,22 @@ export default function CropProtectionPage() {
 
         {/* <ContentWrapper >
           <div className="space-y-4 px-0 lg:px-28 ">
-          {faqs.map((f, i) => (
-            <div
-              key={i}
-              className="border border-[var(--color-gray)] rounded-xl bg-[var(--color-white)]  hover:shadow-sm transition-all duration-200"
-            >
-              <button
-                onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
-                className="w-full flex justify-between items-center p-5 font-medium text-[var(--color-black)]"
+            {faqs.map((f, i) => (
+              <div
+                key={i}
+                className="border border-[var(--color-gray)] rounded-xl bg-[var(--color-white)]  hover:shadow-sm transition-all duration-200"
               >
-                <span>{f.q}</span>
-                {openFAQ === i ? (
-                  <ChevronUp className="w-5 h-5 text-[var(--color-black)] transform transition-transform duration-300" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-[var(--color-black)] transform transition-transform duration-300" />
-                )}
-              </button>
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
+                  className="w-full flex justify-between items-center p-5 font-medium text-[var(--color-black)]"
+                >
+                  <span>{f.q}</span>
+                  {openFAQ === i ? (
+                    <ChevronUp className="w-5 h-5 text-[var(--color-black)] transform transition-transform duration-300" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-[var(--color-black)] transform transition-transform duration-300" />
+                  )}
+                </button>
 
               {openFAQ === i && (
                 <p className="p-5 pt-0 text-sm text-[var(--color-black)] leading-relaxed">
