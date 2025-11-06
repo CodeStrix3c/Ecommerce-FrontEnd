@@ -15,11 +15,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function AgricultureHelpCenter() {
 
-  const handleClick = (link) => {
-  if (link) window.location.href = link;
-};
 
-  const faqs = [
+  const helpCenterFaqs = [
     {
       question: "What is the best way to test soil quality?",
       answer:
@@ -67,31 +64,7 @@ export default function AgricultureHelpCenter() {
           </div>
         </div>
 
-        {/* <div className="flex justify-center flex-wrap gap-4 sm:gap-6 mt-6 border-b">
-          {["Farmers", "Traders", "Researchers", "Policy Makers"].map(
-            (tab, i) => (
-              <button
-                key={i}
-                className="py-2 sm:py-3 text-sm sm:text-base font-medium border-b-2 border-transparent hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition"
-              >
-                {tab}
-              </button>
-            )
-          )}
-        </div> */}
 
-        {/* <div className="max-w-3xl mx-auto text-center mt-10">
-          <div className="rounded-xl shadow p-6 sm:p-8 flex flex-col items-center space-y-4 bg-[var(--color-white)]">
-            <h2 className="font-bold text-lg sm:text-xl">We’re here for you</h2>
-            <p className="text-sm sm:text-base">
-              <LoginLink /> Log in to get help with your queries, resources, and
-              support.
-            </p>
-            <button className="bg-[var(--color-secondary)] hover:bg-[var(--color-secondary-hover)] text-[var(--color-white)] py-3 rounded-lg font-medium w-full sm:w-auto">
-              Log in or sign up
-            </button>
-          </div>
-        </div> */}
 
         <div className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl font-bold mb-6">
@@ -175,6 +148,7 @@ export default function AgricultureHelpCenter() {
             </div>
           </div>
 
+
           <div>
             <h2 className="text-2xl font-bold mb-5">Popular Topics</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
@@ -194,6 +168,7 @@ export default function AgricultureHelpCenter() {
               ))}
             </div>
           </div>
+
 
           <div>
             <h2 className="text-2xl font-bold mb-5">Guides & Resources</h2>
@@ -222,14 +197,23 @@ export default function AgricultureHelpCenter() {
             </ul>
           </div>
 
-          <div></div>
+          <div>
+            <h2 className="text-2xl font-bold space-y-4 -mt-4"></h2>
+            <div className="grid gap-4 mt-6">
+              {/* {faqs.map((faq, idx) => ( */}
+              <FaqCard
+                // key={idx}
+                faqs={helpCenterFaqs} />
+              {/* ))} */}
+            </div>
+          </div>
+
         </div>
-        <div className="w-full grid gap-4 mt-6">
-          <FaqCard question={faqs.question} answer={faqs.answer} />
-        </div>
+
 
         <div className="py-14 mt-16 text-[var(--color-black)]">
           <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 items-start">
+
             <div className="md:col-span-2 space-y-8 mt-[-59px]">
               <h2 className="text-2xl font-bold ml-3">Explore More</h2>
               <div className="grid sm:grid-cols-2 gap-6">
@@ -266,6 +250,7 @@ export default function AgricultureHelpCenter() {
                 ))}
               </div>
             </div>
+
 
             <div className="bg-[var(--color-white)] rounded-xl shadow overflow-hidden flex flex-col">
               <img
