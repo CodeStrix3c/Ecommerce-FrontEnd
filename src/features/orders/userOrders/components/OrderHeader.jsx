@@ -11,20 +11,22 @@ import {
 export default function OrderHeader({ order }) {
  
   const getStatusIcon = (status) => {
-    switch (status?.toLowerCase()) {
+   switch (status?.toLowerCase()) {
       case "delivered":
-        return <CheckCircle className="text-green-600 w-5 h-5" />;
+        return <CheckCircle className="w-4 h-4 text-[var(--color-primary)]"  />;
       case "shipped":
       case "in transit":
-        return <Truck className="w-4 h-4 text-blue-600" />;
+        return <Truck className="w-4 h-4 text-[var(--color-secondary-hover)]" />;
       case "pending":
-        return <Clock className="text-yellow-500 w-5 h-5" />;
+        return <Clock className="w-4 h-4 text-[var(--color-primary-hover)]" />;
       case "cancelled":
-        return <XCircle className="text-red-600 w-5 h-5" />;
+        return <XCircle className="w-4 h-4 text-[var(--color-error)]" />;
       case "returned":
-        return <RotateCcw className="text-purple-600 w-5 h-5" />;
+        return <RotateCcw className="w-4 h-4 text-[var(--color-secondary)]" />;
+      case "refunded":
+        return <RefreshCcw className="w-4 h-4 text-[var(--color-black)]" />;
       default:
-        return <Package className="text-gray-500 w-5 h-5" />;
+        return <Package className="w-4 h-4 text-[var(--color-gray)]" />;
     }
   };
 
