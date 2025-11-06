@@ -10,6 +10,7 @@ const CartItem = ({ product, onRemove }) => {
       <div className=" md:border rounded-sm transition bg-[var(--color-white)] pr-3">
         <div className="flex gap-6">
           <div className="w-40 flex-shrink-0 relative">
+            
             <div
               className="bg-red-50 h-28 overflow-hidden cursor-pointer"
               onClick={() => setShowGallery(e)}
@@ -20,6 +21,7 @@ const CartItem = ({ product, onRemove }) => {
                 className="w-full h-full object-cover rounded-sm "
               />
             </div>
+
             {product.photos?.length > 1 && (
               <div
                 className="absolute bottom-2 right-2 bg-[var(--color-black)] bg-opacity-70 text-[var(--color-white)] text-xs px-2 py-1 rounded-sm"
