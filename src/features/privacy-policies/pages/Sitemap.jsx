@@ -1,6 +1,6 @@
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import { Link } from "react-router-dom";
-import {Home,Layers,User,HelpCircle} from "lucide-react"; 
+import { Home, Layers, User, HelpCircle } from "lucide-react";
 
 function Sitemap() {
   const sections = [
@@ -32,9 +32,8 @@ function Sitemap() {
       title: "User Account",
       icon: <User className="w-6 h-6 text-[var(--color-secondary)]" />,
       links: [
-        { name: "Login", path: "/login" },
-        { name: "Sign Up", path: "/signup" },
-        { name: "Dashboard", path: "/dashboard" },
+        { name: "Profile", path: "/supplier-profile" },
+        { name: "Dashboard", path: "/dashboard/orchard" },
         { name: "Settings", path: "/settings" },
       ],
     },
@@ -57,21 +56,21 @@ function Sitemap() {
           Sitemap
         </h1>
 
-        <div className="space-y-12">
+        <div className="space-y-16">
           {sections.map((section, i) => (
             <div key={i}>
-              <div className="flex items-center  gap-2 mb-3">
+              <div className="flex items-center gap-2 pb-5">
                 {section.icon}
-                <h2 className="text-2xl mb-2  font-Semibold text-[var(--color-black)]">
+                <h5 className="text-xl font-Semibold text-[var(--color-black)]">
                   {section.title}
-                </h2>
+                </h5>
               </div>
-              <ul className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-2 underline decoration-[var(--color-secondary)]">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 {section.links.map((link, j) => (
                   <li key={j}>
                     <Link
+                      className="text-[var(--color-black)] underline underline-offset-4 decoration-[var(--color-black)] hover:text-[var(--color-secondary)] hover:decoration-[var(--color-secondary)] transition-colors duration-200"
                       to={link.path}
-                    
                     >
                       {link.name}
                     </Link>

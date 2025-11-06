@@ -7,7 +7,7 @@ const ProfileSidebar = ({ userData, icon,title }) => {
   const { name, profileImage, details } = userData;
 
   return (
-    <div className="flex flex-col border-r border-[var(--color-gray)] pb-5">
+    <div className="flex flex-col rounded-sm border border-[var(--color-gray)]  pb-5 px-4 mt-4">
       {/* Profile Info Header */}
       <UserHeaderCard 
       image={profileImage}
