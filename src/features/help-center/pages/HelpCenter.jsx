@@ -11,7 +11,7 @@ import {
 import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import FaqCard from "@/features/about-us/components/FaqCard";
-import { useNavigate } from "react-router-dom";
+
 
 export default function AgricultureHelpCenter() {
 
@@ -200,11 +200,9 @@ export default function AgricultureHelpCenter() {
           <div>
             <h2 className="text-2xl font-bold space-y-4 -mt-4"></h2>
             <div className="grid gap-4 mt-6">
-              {/* {faqs.map((faq, idx) => ( */}
               <FaqCard
-                // key={idx}
+
                 faqs={helpCenterFaqs} />
-              {/* ))} */}
             </div>
           </div>
 
@@ -285,7 +283,7 @@ export default function AgricultureHelpCenter() {
                     },
                   ].map((item, idx) => (
                     <div
-                       onClick={() => handleClick(item.href)}
+                      onClick={() => handleClick(item.href)}
                       key={idx}
                       className="flex items-center gap-4 p-4 rounded-lg border shadow-sm hover:shadow-md hover:bg-[var(--color-black-hover)] transition cursor-pointer"
                     >
