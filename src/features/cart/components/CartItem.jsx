@@ -7,26 +7,22 @@ const CartItem = ({ product, onRemove }) => {
 
   return (
     <>
-      <div className="md:border rounded-2xl py-4 transition bg-[var(--color-white)]">
-        <h3 className="text-lg font-semibold text-[var(--color-neutral-dark)] mb-3">
-          {product.title}
-        </h3>
-
-        <div className="flex gap-4">
+      <div className=" md:border rounded-sm transition bg-[var(--color-white)] pr-3">
+        <div className="flex gap-6">
           <div className="w-40 flex-shrink-0 relative">
             <div
-              className="h-28 overflow-hidden rounded-xl cursor-pointer"
-              onClick={() => setShowGallery(true)}
+              className="bg-red-50 h-28 overflow-hidden cursor-pointer"
+              onClick={() => setShowGallery(e)}
             >
               <img
                 src={product.photos?.[0] || "/placeholder.jpg"}
                 alt={product.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover rounded-sm "
               />
             </div>
             {product.photos?.length > 1 && (
               <div
-                className="absolute bottom-2 right-2 bg-[var(--color-black)] bg-opacity-70 text-[var(--color-white)] text-xs px-2 py-1 rounded-md"
+                className="absolute bottom-2 right-2 bg-[var(--color-black)] bg-opacity-70 text-[var(--color-white)] text-xs px-2 py-1 rounded-sm"
                 onClick={() => setShowGallery(true)}
               >
                 +{product.photos.length - 1} more
@@ -36,11 +32,14 @@ const CartItem = ({ product, onRemove }) => {
 
           <div className="flex flex-col justify-center flex-grow">
             <div>
+              <h3 className="text-lg font-semibold text-[var(--color-neutral-dark)] ">
+                {product.title}
+              </h3>
               <p className="text-sm text-[var(--color-neutral-dark)] line-clamp-1">
                 {product.address}
               </p>
 
-              <div className="flex items-center gap-2 mt-1">
+              <div className="flex items-center gap-2 p">
                 <div className="flex items-center gap-1 text-[var(--color-secondary)] font-semibold">
                   <Star size={16} />
                   <span>{product.rating}</span>

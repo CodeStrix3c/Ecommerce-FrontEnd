@@ -54,13 +54,13 @@ const FAQCard = ({ faqs }) => {
         {faqs.map((faq, i) => (
           <div
             key={i}
-            className="border border-[var(--color-gray)] rounded-md  shadow-sm hover:shadow-md transition-shadow duration-300"
+            className="border border-[var(--color-gray)] rounded-md shadow-sm hover:shadow-md transition-shadow duration-300"
           >
             <button
               onClick={() => toggle(i)}
               className="w-full flex justify-between items-center text-left p-4 sm:p-5"
             >
-              <h3 className="font-semibold text-base sm:text-lg">
+              <h3 className="font-medium text-md">
                 {faq.question}
               </h3>
               <ChevronDown
@@ -70,7 +70,7 @@ const FAQCard = ({ faqs }) => {
             </button>
 
             {openIndex === i && (
-              <div className="px-4 sm:px-5 pb-4  leading-relaxed border-t  text-sm sm:text-base">
+              <div className="px-4 sm:px-5 pb-4 leading-relaxed text-base lg:text-sm">
                 {faq.answer}
               </div>
             )}

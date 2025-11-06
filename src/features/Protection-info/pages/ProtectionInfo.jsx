@@ -13,37 +13,39 @@ import {
 import PestDisease from "../component/PestDisease";
 import GuidesResources from "../component/GuidesResources";
 import ImageHeaderSection from "@/components/shared/ImageHeaderSection";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 
 
 export default function CropProtectionPage() {
   const [openFAQ, setOpenFAQ] = useState(null);
 
   const faqs = [
-    {
-      q: "What are the best pest control methods for organic farming?",
-      a: "Use biological control agents like ladybugs and Trichogramma, neem-based sprays, and crop rotation. Avoid synthetic pesticides to maintain soil and ecosystem health.",
-    },
-    {
-      q: "How can farmers improve soil fertility naturally?",
-      a: "Incorporate organic compost, green manure, and vermicompost. Practice crop rotation and intercropping to restore essential nutrients like nitrogen and phosphorus.",
-    },
-    {
-      q: "When is the best time to spray pesticides?",
-      a: "Spray during early morning or late evening when temperatures are cooler, and pollinators are less active. Avoid spraying before rainfall to ensure effectiveness.",
-    },
-    {
-      q: "What government subsidies are available for small-scale farmers?",
-      a: "Farmers can apply for PM-Kisan, Soil Health Card Scheme, and agricultural machinery subsidies through the MyScheme portal or local Krishi Vigyan Kendra (KVK).",
-    },
-    {
-      q: "How do I prevent fungal diseases like powdery mildew?",
-      a: "Ensure proper air circulation, avoid overwatering, and use sulfur-based or potassium bicarbonate sprays. Resistant crop varieties can also reduce infection risks.",
-    },
-    {
-      q: "How can I store harvested grains safely?",
-      a: "Keep grains dry, use moisture-proof containers, and ensure storage areas are well-ventilated. Treat containers with neem oil or natural repellents to prevent pest attacks.",
-    },
-  ];
+  {
+    q: "What are the best pest control methods for organic farming?",
+    a: "For organic farming, focus on creating a balanced ecosystem. Use biological control agents like ladybugs, lacewings, and Trichogramma to manage common pests naturally. Apply neem-based sprays or botanical extracts that deter insects without harming beneficial organisms. Regularly monitor pest populations, rotate crops, and introduce trap crops to reduce pest buildup. Avoid synthetic pesticides to maintain soil biodiversity and long-term sustainability.",
+  },
+  {
+    q: "How can farmers improve soil fertility naturally?",
+    a: "To enrich soil fertility naturally, add well-decomposed organic compost, green manure, and vermicompost to enhance microbial activity. Practice crop rotation with legumes to restore essential nutrients like nitrogen and phosphorus. Incorporate cover crops such as clover or alfalfa to prevent erosion and improve soil texture. Regular soil testing helps you understand nutrient gaps and apply organic amendments effectively, leading to healthier, more resilient crops.",
+  },
+  {
+    q: "When is the best time to spray pesticides?",
+    a: "The ideal time to spray pesticides is early morning or late evening when temperatures are cooler, humidity is higher, and pollinators are less active. Spraying during these times improves absorption and reduces evaporation losses. Always avoid spraying before rainfall or during strong winds, as it can wash away or spread chemicals unevenly. For maximum effectiveness, follow the recommended dosage and spray intervals mentioned on the product label.",
+  },
+  {
+    q: "What government subsidies are available for small-scale farmers?",
+    a: "Small-scale farmers in India can benefit from various government schemes. Programs like PM-Kisan provide direct income support, while the Soil Health Card Scheme offers soil nutrient analysis and guidance. The Pradhan Mantri Fasal Bima Yojana (PMFBY) gives crop insurance coverage, and agricultural machinery subsidies make modern equipment more affordable. Farmers can explore and apply for these schemes via the MyScheme portal or visit their nearest Krishi Vigyan Kendra (KVK) for personalized assistance.",
+  },
+  {
+    q: "How do I prevent fungal diseases like powdery mildew?",
+    a: "To prevent fungal infections such as powdery mildew, ensure proper spacing between plants for good air circulation and sunlight penetration. Avoid overwatering and excess humidity around the plant base. Use sulfur-based or potassium bicarbonate sprays as preventive treatments. For long-term protection, choose disease-resistant varieties and rotate crops every season. Regular pruning and removing infected leaves can also keep fungal spread under control.",
+  },
+  {
+    q: "How can I store harvested grains safely?",
+    a: "Proper grain storage starts with thorough drying to reduce moisture content below 12%. Store grains in clean, airtight, and moisture-proof containers such as metal bins or HDPE drums. Keep the storage area dry, well-ventilated, and elevated from the floor to prevent dampness. You can also mix neem leaves or apply neem oil as a natural insect repellent. Regularly inspect for any signs of pest activity or mold and ensure fumigation if needed before the next storage cycle.",
+  },
+];
+
   return (
     <div className="w-full min-h-screen bg-[var(--color-white)]">
       <ImageHeaderSection
@@ -79,12 +81,13 @@ export default function CropProtectionPage() {
       <GuidesResources />
 
 
-      <section className="py-7 px-6">
+      <section className="py-7 ">
         <h2 className="text-3xl font-bold text-center mb-8">
           Frequently Asked Questions
         </h2>
 
-        <div className="max-w-4xl mx-auto space-y-4">
+        <ContentWrapper >
+          <div className="space-y-4 px-0 lg:px-28 ">
           {faqs.map((f, i) => (
             <div
               key={i}
@@ -96,9 +99,9 @@ export default function CropProtectionPage() {
               >
                 <span>{f.q}</span>
                 {openFAQ === i ? (
-                  <ChevronUp className="text-[var(--color-secondary)]" />
+                  <ChevronUp className="w-5 h-5 text-[var(--color-black)] transform transition-transform duration-300" />
                 ) : (
-                  <ChevronDown className="text-[var(--color-secondary)]" />
+                  <ChevronDown className="w-5 h-5 text-[var(--color-black)] transform transition-transform duration-300" />
                 )}
               </button>
 
@@ -110,6 +113,7 @@ export default function CropProtectionPage() {
             </div>
           ))}
         </div>
+        </ContentWrapper>
       </section>
     </div>
   );
