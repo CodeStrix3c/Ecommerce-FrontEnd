@@ -11,8 +11,6 @@ import {
 import PestDisease from "../component/PestDisease";
 import GuidesResources from "../component/GuidesResources";
 import ImageHeaderSection from "@/components/shared/ImageHeaderSection";
-import ContentWrapper from "@/components/shared/ContentWrapper";
-import Faq from "@/features/FAQ/Faq";
 import FAQCard from "@/features/about-us/components/FaqCard";
 
 export default function CropProtectionPage() {
@@ -61,7 +59,6 @@ export default function CropProtectionPage() {
           "Protect your crops with sustainable methods, smart practices, and modern tools Empowering farmers with knowledge to fight pests, diseases, and climate challenges"
         }
       />
-
       <section className="py-7 px-6">
         <h2 className="text-3xl font-bold text-center mb-8">
           Methods of Crop Protection
