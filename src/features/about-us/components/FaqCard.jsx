@@ -1,34 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-// const faqs = [
-//   {
-//     question: "Are your pesticides safe for the environment?",
-//     answer:
-//       "Yes. All Ziraat products are eco-safe and tested to ensure minimal environmental impact. They are designed to protect crops without harming beneficial insects or soil quality.",
-//   },
-//   {
-//     question: "Do your products work for all orchard crops?",
-//     answer:
-//       "Our pesticide solutions are tailored for orchard fruits such as apples, mangoes, oranges, and pomegranates. We also offer crop-specific recommendations for best results.",
-//   },
-//   {
-//     question: "Can I buy products directly from Ziraat?",
-//     answer:
-//       "Yes, farmers can buy directly through our website or connect with our authorized field representatives and distributors across India.",
-//   },
-//   {
-//     question: "Do you provide field consultation or support?",
-//     answer:
-//       "Absolutely! Our agronomy experts offer field visits, pest diagnosis, and crop protection advice to help farmers make informed decisions.",
-//   },
-//   {
-//     question: "Where are your products manufactured?",
-//     answer:
-//       "All Ziraat products are proudly made in India, developed using cutting-edge agricultural research and sustainable production practices.",
-//   },
-// ];
-
 const FAQCard = ({ faqs }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
