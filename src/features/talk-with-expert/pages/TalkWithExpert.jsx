@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Phone, Mail, MessageCircle, Bot, Video, Calendar, Brain } from "lucide-react";
+import { Phone, Mail, MessageCircle, Bot, Video, Calendar, Brain, BotIcon } from "lucide-react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import ImageHeaderSection from "@/components/shared/ImageHeaderSection";
 
@@ -71,8 +71,22 @@ const sampleExperts = [
     bio: "Guides farmers in organic methods and certification.",
   },
 ];
+ export const openWhatsApp = (phoneNumber, message) => {
+  // detect mobile device
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  // choose correct WhatsApp link
+  const baseURL = isMobile
+    ? `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`
+    : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+  // open link in new tab or app
+  window.open(baseURL, "_blank");
+};
 
 function ExpertCard({ expert, onOpenChat }) {
+
+ 
   return (
     <div className="rounded-2xl p-4 flex flex-col gap-4 bg-[var(--color-white)] shadow-sm border hover:shadow-md transition">
       <div className="flex gap-4 items-start">
@@ -102,10 +116,10 @@ function ExpertCard({ expert, onOpenChat }) {
           Appointment
         </button>
 
-        <button className="px-3 py-1.5 rounded-lg border text-[var(--color-black)] text-sm flex items-center gap-1 transition">
+        {/* <button className="px-3 py-1.5 rounded-lg border text-[var(--color-black)] text-sm flex items-center gap-1 transition">
           <Phone className="text-[var(--color-secondary)]" size={20} />
           Call
-        </button>
+        </button> */}
 
         <button className="px-3 py-1.5 rounded-lg text-[var(--color-black)] border text-sm flex items-center gap-1 transition">
           <Mail className="text-[var(--color-secondary)]" size={20} />
@@ -146,12 +160,8 @@ function ChatPanel({ openChatWith, onClose }) {
         <div className="p-3 border-b flex justify-between items-center bg-gray-50 rounded-t-2xl">
           <div className="flex items-center gap-2">
 
-            <BotMessageSquare />
-            {/* <img
-              src={"/assets/images/ai-assistant.jpg"}
-              alt=""
-              className="w-8 h-8 rounded-md object-fit"
-            /> */}
+            <BotIcon/>
+            
             <div>
               <div className="font-semibold text-sm">{openChatWith.name}</div>
               <div className="text-xs text-[var(--color-black)]">
@@ -225,14 +235,23 @@ export default function TalkWithExpert() {
                 sessions. Enhance your knowledge and connect with professionals.
               </p>
               <div className="mt-4 flex flex-wrap justify-center gap-4">
-                <button className="px-5 py-2.5 rounded-full border flex items-center gap-2 hover:bg-[var(--color-black-hover)] transition">
+                {/* <button className="px-5 py-2.5 rounded-full border flex items-center gap-2 hover:bg-[var(--color-black-hover)] transition">
                   <Phone className="text-[var(--color-secondary)]" size={20} />
                   Call
-                </button>
-                <button className="px-5 py-2.5 rounded-full border flex items-center gap-2 hover:bg-[var(--color-black-hover)] transition">
+                </button> */}
+                <div>
+                  <button
+                onClick={()=>{
+                  openWhatsApp(
+                    "+911234578222",
+                    "Hello How can i assist you today"
+                  )
+                }}
+                 className="px-5 py-2.5 rounded-full border flex items-center gap-2 hover:bg-[var(--color-black-hover)] transition">
                   <MessageCircle className="text-[var(--color-secondary)]" size={20} />
                   WhatsApp
                 </button>
+                </div>
                 <button className="px-5 py-2.5 rounded-full border flex items-center gap-2 hover:bg-[var(--color-black-hover)] transition">
                   <Calendar className="text-[var(--color-secondary)]" size={20} />
                   Appointment
