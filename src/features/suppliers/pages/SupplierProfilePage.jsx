@@ -48,9 +48,7 @@ const FarmerProfilePage = () => {
           </div>
         </div>
 
-        {/* Main Grid Layout */}
         <div className="grid md:grid-cols-[280px_1fr]">
-          {/* LEFT COLUMN */}
           <div className="flex flex-col mt-0 lg:mt-8 md:mt-2">
             <ImageBanner
               imageSrc="assets/images/supplierPro.png"
@@ -61,10 +59,8 @@ const FarmerProfilePage = () => {
             <ProfileSidebar userData={supplierInfo} icon={BadgeCheckIcon} />
           </div>
 
-          {/* RIGHT COLUMN */}
           <div className="p-2 lg:p-8 space-y-10">
             <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8">
-              {/* Left Side */}
               <div className="space-y-8">
                 <AddressDetails
                   title="Address Details"
@@ -85,7 +81,6 @@ const FarmerProfilePage = () => {
                 />
               </div>
 
-              {/* Right Side */}
               <div className="space-y-8 lg:space-y-8 md:space-y-0">
                 <ProfessionDetails
                   icon={FileText}
@@ -102,7 +97,6 @@ const FarmerProfilePage = () => {
             </div>
           </div>
         </div>
-        {/* End Grid */}
       </div>
     </div>
   );
