@@ -28,20 +28,20 @@ export default function OrderCard({
   const getStatusIcon = (status) => {
     switch (status?.toLowerCase()) {
       case "delivered":
-        return <CheckCircle className="w-4 h-4 text-green-600" />;
+        return <CheckCircle className="w-4 h-4 text-[var(--color-primary)]"  />;
       case "shipped":
       case "in transit":
-        return <Truck className="w-4 h-4 text-blue-600" />;
+        return <Truck className="w-4 h-4 text-[var(--color-secondary-hover)]" />;
       case "pending":
-        return <Clock className="w-4 h-4 text-yellow-500" />;
+        return <Clock className="w-4 h-4 text-[var(--color-primary-hover)]" />;
       case "cancelled":
-        return <XCircle className="w-4 h-4 text-red-600" />;
+        return <XCircle className="w-4 h-4 text-[var(--color-error)]" />;
       case "returned":
-        return <RotateCcw className="w-4 h-4 text-orange-500" />;
+        return <RotateCcw className="w-4 h-4 text-[var(--color-secondary)]" />;
       case "refunded":
-        return <RefreshCcw className="w-4 h-4 text-purple-600" />;
+        return <RefreshCcw className="w-4 h-4 text-[var(--color-black)]" />;
       default:
-        return <Package className="w-4 h-4 text-gray-500" />;
+        return <Package className="w-4 h-4 text-[var(--color-gray)]" />;
     }
   };
 
