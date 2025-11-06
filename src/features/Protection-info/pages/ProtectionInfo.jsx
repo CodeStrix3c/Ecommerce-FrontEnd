@@ -42,7 +42,7 @@ export default function CropProtectionPage() {
     },
     {
       question: "How do I prevent fungal diseases like powdery mildew?",
-      answera:
+      answer:
         "To prevent fungal infections such as powdery mildew, ensure proper spacing between plants for good air circulation and sunlight penetration. Avoid overwatering and excess humidity around the plant base. Use sulfur-based or potassium bicarbonate sprays as preventive treatments. For long-term protection, choose disease-resistant varieties and rotate crops every season. Regular pruning and removing infected leaves can also keep fungal spread under control.",
     },
     {
