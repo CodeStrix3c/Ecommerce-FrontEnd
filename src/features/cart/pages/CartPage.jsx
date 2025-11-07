@@ -29,8 +29,8 @@ const CartPage = () => {
     return (
       <EmptyState
         title="Empty Cart"
-        subTitle="There is nothing in your bag. Let's add some items"
-        img="/assets/images/cartbag.png"
+        subTitle="There is nothing in your cart. Let's add some items"
+        img="/assets/images/empty-cart.png"
         btnText="Continue Shopping"
         redirectTo="/"
       />
