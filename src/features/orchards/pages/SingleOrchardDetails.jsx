@@ -157,9 +157,9 @@ const SingleOrchardDetails = () => {
         </div>
 
         
-        <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-4 ">
           <Section title="Crop Varieties">
-            <ul className="list-disc space-y-2 text-[var(--color-black)] text-sm sm:text-base">
+            <ul className="list-disc space-y-2 text-[var(--color-black)] text-sm font-medium sm:text-base  ">
               {orchard.varieties.map((v, i) => (
                 <li key={i}>{v}</li>
               ))}
@@ -167,27 +167,25 @@ const SingleOrchardDetails = () => {
           </Section>
 
           <Section title="Visitor Information">
-            <div className="grid grid-cols-1 sm:grid-cols-2 text-sm sm:text-base">
-              <div className="p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm sm:text-base ">
+              <div className="p-4 border rounded-sm bg-white shadow-sm">
                 <p className="font-semibold">Visiting Hours</p>
                 <p className="opacity-80">9:00 AM – 6:00 PM</p>
               </div>
-              <div className="p-4">
+              <div className="p-4 border rounded-sm bg-white shadow-sm">
                 <p className="font-semibold">Entry Fee</p>
                 <p className="opacity-80">₹100 per person</p>
               </div>
-              <div className="p-4">
+              <div className="p-4 border rounded-sm bg-white shadow-sm">
                 <p className="font-semibold">Activities</p>
                 <p className="opacity-80">Guided tours, fruit picking</p>
               </div>
-              <div className="p-4">
+              <div className="p-4 border rounded-sm bg-white shadow-sm">
                 <p className="font-semibold">Contact</p>
                 <p className="opacity-80">+91 97657 89000</p>
               </div>
             </div>
-             <div className="text-center mb-10">
-          
-        </div>
+           
         
           </Section>
         </div>
@@ -231,7 +229,7 @@ const Info = ({ label, value, icon }) => (
 );
 
 const Section = ({ title, children }) => (
-  <div className="p-6 bg-[var(--color-white)] border">
+  <div className="p-6 bg-[var(--color-green)] border rounded-sm">
     <h2 className="text-lg sm:text-xl font-semibold mb-3 border-b pb-1">{title}</h2>
     {children}
   </div>
