@@ -13,11 +13,11 @@ const EmptyState = ({ title, subTitle, btnText, img }) => {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center min-h-[70vh] px-4 lg:mt-28 md:mt-28 gap-8 md:gap-16 text-center md:text-left">
+    <div className=" flex flex-col md:flex-row items-center justify-center min-h-[70vh] px-4 lg:mt-28 md:mt-28 gap-8 text-center md:text-left">
       <img
-        src={"/assets/images/w9.png"}
+        src={img}
         alt={"Empty Wishlist"}
-        className="w-40 sm:w-45 md:w-50 lg:w-60 h-auto object-contain  md:mb-0 "
+        className="w-32 md:w-40 lg:w-60 h-fit object-contain md:mb-0 "
       />
 
       <div>

@@ -22,13 +22,19 @@ const WishlistPage = () => {
 
   if (wishlist.length === 0) {
     return (
+     <>
       <EmptyState
         title=" Empty Wishlist "
-        subTitle=" Looks like you haven't added anything to your cart yet."
+        subTitle=" Looks like you haven't added anything to your wishlist yet."
         btnText="Browse Products"
         redirectTo="/"
         type="wishlist"
+        img={"/assets/images/empty-wishlist.png"}
       />
+
+      {/* <img src={img}alt="" /> */}
+     </>
+      
     );
   }
 
