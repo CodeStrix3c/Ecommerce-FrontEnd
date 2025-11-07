@@ -20,6 +20,7 @@ import {
 import FormInput from "../../../components/shared/custom-inputs/FormInput";
 import { useLoginMutation } from "@/hooks/useAuthMutation";
 import { setItemsInLocalStorage } from "@/utils/localStorage";
+import userCredentials from "../../../data/userCredentials.json";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -38,7 +39,21 @@ const LoginPage = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = (data) => {
-    setItemsInLocalStorage("userLoginToken", "fakeToken");
+    const isEmailLogin = tab === 1;
+    const { email, phone, password } = data;
+    const isValid =
+      (isEmailLogin &&
+        email === userCredentials.email &&
+        password === userCredentials.password) ||
+      (!isEmailLogin &&
+        phone === userCredentials.phone &&
+        password === userCredentials.password);
+
+    if (!isValid) {
+      toast.error("Invalid Credentials.");
+      return;
+    }
+    setItemsInLocalStorage("userLoginToken", "demo-token-12345");
 
     setRedirect(true);
     // const payload =

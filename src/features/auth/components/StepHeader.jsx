@@ -23,7 +23,12 @@ const StepHeader = ({ activeStep, labels, descriptions }) => {
             variant="h6"
             sx={{
               color: "var(--color-black)",
-              fontSize: { xs: "1rem", sm: "1.25rem", md: "1.4rem", lg: "1rem" },
+              fontSize: {
+                xs: "1rem",
+                sm: "1.25rem",
+                md: "1.4rem",
+                lg: "1.4rem",
+              },
               fontWeight: 600,
               lineHeight: 1.2,
               whiteSpace: "nowrap",
