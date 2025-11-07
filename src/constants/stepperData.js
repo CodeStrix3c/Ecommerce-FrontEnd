@@ -70,6 +70,6 @@ export const SUPPLIER_STEPS = {
   labels: ["Business Information", "OTP Verification"],
   descriptions: [
     "Provide shop/business details and contact info",
-    "Verify your identity by entering the OTP sent to your registered mobile number.",
+    // "Verify your identity by entering the OTP sent to your registered mobile number. </br>OTP expires in 5:00 minutes",
   ],
 };

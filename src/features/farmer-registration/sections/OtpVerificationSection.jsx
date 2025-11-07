@@ -9,8 +9,8 @@ export default function OtpVerificationSection({ register, errors, onResend }) {
   const iconStyle = { color: "var(--color-secondary)", fontSize: 20 };
 
   return (
-    <FormSection title="OTP Verification">
-      <p className="text-sm text-[var(--color-secondary)] mb-4">
+    <>
+      <p className=" text-[var(--color-secondary)] mb-4" style={{}}>
         Please enter the 6-digit OTP sent to your registered mobile number.
         <br />
         OTP expires in <span className="font-medium">5:00</span> minutes.
@@ -32,6 +32,6 @@ export default function OtpVerificationSection({ register, errors, onResend }) {
 
         <div className="flex flex-col justify-center items-start"></div>
       </FormLayout>
-    </FormSection>
+    </>
   );
 }
