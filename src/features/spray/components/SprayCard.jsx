@@ -97,7 +97,7 @@ export default function SprayHistory() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <div className="max-w-5xl mx-auto  ">
       <h2 className="text-2xl font-bold text-[var(--color-black)] mb-6">
         Spray History
       </h2>
