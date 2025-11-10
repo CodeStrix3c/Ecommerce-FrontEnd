@@ -100,7 +100,7 @@ const SprayPage = () => {
           ))}
         </div>
 
-        <div className="max-w-5xl mx-auto mt-12 sm:mt-16 md:mt-20 lg:mt-16 text-center">
+        <div className="max-w-5xl mx-auto mt-12 sm:mt-16 md:mt-20 lg:mt-16 text-center lg:mb-2">
           <h4 className="text-sm sm:text-base md:text-lg font-semibold text-[var(--color-black)] leading-relaxed">
             Good record keeping is not only a sound management discipline,
             especially with regard to the use of pesticides, it is a legal
@@ -111,8 +111,8 @@ const SprayPage = () => {
         </div>
       </div>
 
-      <ContentWrapper compactScreen topSpacing isMobile={isMobile}>
-        <div className="sm:mt-[-8rem] md:mt-10 lg:mt-[-6rem] px-4 sm:px-6 md:px-8 lg:px-12 pb-10">
+      <ContentWrapper compactScreen {...(!isMobile && { topSpacing: true })} >
+        <div className="sm:mt-[-8rem] md:mt- lg:mt-[-6rem] lg:px-12 pb-10">
           <SprayHistory />
         </div>
       </ContentWrapper>
