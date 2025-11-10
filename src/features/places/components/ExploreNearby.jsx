@@ -17,8 +17,8 @@ const ExploreNearby = ({ title, options }) => {
                   <span className="font-semibold text-[var(--color-black)]">
                     {option.name}
                   </span>
-                  <span className="text-[15px] font-[500] text-[var(--color-neutral-dark)] hover:text-[var(--color-neutral-dark-hover)]">
-                    Holiday rentals
+                  <span className="text-[13px] font-[400] text-[var(--color-neutral-dark)] hover:text-[var(--color-neutral-dark-hover)]">
+                   {option.subHeading}
                   </span>
                 </div>
               </Link>

@@ -25,17 +25,84 @@ const PlacePage = () => {
   const [loading, setLoading] = useState(false);
   const [sharePopUp, setSharePopUp] = useState(false);
 
-  const nearbyOptions = [
-    { name: "New Delhi", href: "/new-delhi-india/stays" },
-    { name: "Delhi", href: "/delhi-india/stays" },
-    { name: "Lahore", href: "/lahore-pakistan/stays" },
-    { name: "Jaipur", href: "/jaipur-india/stays" },
-    { name: "Noida", href: "/noida-india/stays" },
-    { name: "Rishikesh", href: "/rishikesh-india/stays" },
-    { name: "Dehradun", href: "/dehradun-india/stays" },
-    { name: "Kullu", href: "/kullu-india/stays" },
-    { name: "Tehri Garhwal", href: "/tehri-garhwal-india/stays" },
-  ];
+  const agricultureOptions = [
+  {
+    name: "Wheat",
+    href: "/products/wheat",
+    subHeading: "A staple grain used in bread, flour, and countless food products worldwide.",
+  },
+  {
+    name: "Rice",
+    href: "/products/rice",
+    subHeading: "India’s most consumed crop, grown in paddy fields and exported globally.",
+  },
+  {
+    name: "Maize (Corn)",
+    href: "/products/maize",
+    subHeading: "A versatile cereal used for food, feed, and industrial products.",
+  },
+  {
+    name: "Sugarcane",
+    href: "/products/sugarcane",
+    subHeading: "A tropical crop used to produce sugar, jaggery, and ethanol.",
+  },
+  {
+    name: "Cotton",
+    href: "/products/cotton",
+    subHeading: "A key fiber crop used in textiles and cottonseed oil production.",
+  },
+  {
+    name: "Soybean",
+    href: "/products/soybean",
+    subHeading: "Rich in protein and oil, used in animal feed and food industries.",
+  },
+  {
+    name: "Pulses (Lentils)",
+    href: "/products/pulses",
+    subHeading: "Protein-packed legumes including lentils, chickpeas, and beans.",
+  },
+  {
+    name: "Vegetables",
+    href: "/products/vegetables",
+    subHeading: "Fresh, seasonal produce rich in vitamins and essential nutrients.",
+  },
+  {
+    name: "Fruits",
+    href: "/products/fruits",
+    subHeading: "Delicious and healthy produce ranging from apples to mangoes.",
+  },
+  {
+    name: "Oilseeds",
+    href: "/products/oilseeds",
+    subHeading: "Includes mustard, sunflower, and groundnut used for edible oils.",
+  },
+  {
+    name: "Spices",
+    href: "/products/spices",
+    subHeading: "Aromatic spices like turmeric, cardamom, and pepper grown across India.",
+  },
+  {
+    name: "Tea",
+    href: "/products/tea",
+    subHeading: "Premium tea leaves from Assam and Darjeeling, known worldwide.",
+  },
+  {
+    name: "Coffee",
+    href: "/products/coffee",
+    subHeading: "Aromatic beans cultivated in Karnataka, Kerala, and Tamil Nadu.",
+  },
+  {
+    name: "Organic Produce",
+    href: "/products/organic",
+    subHeading: "Chemical-free, eco-friendly crops promoting healthy living.",
+  },
+  {
+    name: "Dairy Products",
+    href: "/products/dairy",
+    subHeading: "Fresh milk, butter, ghee, and cheese from local Indian dairies.",
+  },
+];
+
 
   useEffect(() => {
     if (!id) return;
@@ -104,7 +171,7 @@ const PlacePage = () => {
           </aside>
         </div>
 
-        <div className="my-8 md:hidden z-40 absolute left-0 w-full px-4 ">
+        <div className="my-8 md:hidden z-40 absolute left-0 w-full ">
           <BookingWidget place={place} />
         </div>
 
@@ -115,10 +182,12 @@ const PlacePage = () => {
         <MapBox address={place.address} />
 
         <ExploreNearby
-          title="Explore other options in and around Gurugram"
-          options={nearbyOptions}
-        />
-        {sharePopUp && <SharePopUp onClose={() => setSharePopUp(false)} placeData={place} />}
+  title="Explore other popular crops and products"
+  options={agricultureOptions}
+/>
+        {sharePopUp && (
+          <SharePopUp onClose={() => setSharePopUp(false)} placeData={place} />
+        )}
       </motion.div>
     </ContentWrapper>
   );
