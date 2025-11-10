@@ -34,7 +34,7 @@ const SearchBar = ({ onSubmit }) => {
       <ContentWrapper>
         <div className="w-full flex justify-center">
           <div className="flex w-full max-w-md items-center rounded-full border-2 border-[var(--color-black-hover)] px-3 py-2">
-            <Search className="h-5 w-5 text-[var(--color-black)]/70"/>
+            <Search className="h-5 w-5 text-[var(--color-black)]/70" />
             <input
               type="text"
               placeholder="Search pesticides"
@@ -73,7 +73,7 @@ const SearchBar = ({ onSubmit }) => {
             Crop
           </p>
           <select
-            className="w-full text-sm md:text-xs text-[var(--color-black)] focus:outline-none"
+            className="w-full text-sm md:text-xs text-[var(--color-black)] focus:outline-none bg-[var(--color-white)]"
             value={selectedCrop}
             onChange={(e) => setSelectedCrop(e.target.value)}
           >
