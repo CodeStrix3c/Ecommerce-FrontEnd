@@ -7,7 +7,7 @@ import AddressLink from "@/components/shared/AddressLink";
 import BookingWidget from "@/features/bookings/components/BookingWidget";
 import PlaceGallery from "@/features/places/components/PlaceGallery";
 import PerksWidget from "@/features/perks/components/PerksWidget";
-import { dummyData } from "@/data/dummyData";
+import products from "@/data/products.json";
 import MapBox from "@/components/ui/MapBox";
 import ListingHeader from "@/components/shared/ListingHeader";
 import RatingSummary from "@/features/reviews/components/Ratings";
@@ -17,6 +17,7 @@ import HighlightBanner from "@/features/reviews/components/HighlightBanner";
 import ExploreNearby from "../components/ExploreNearby";
 import SharePopUp from "@/components/ui/SharePopUp";
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import agricultureOptions from "@/data/agricultureOptions";
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -25,90 +26,11 @@ const PlacePage = () => {
   const [loading, setLoading] = useState(false);
   const [sharePopUp, setSharePopUp] = useState(false);
 
-  const agricultureOptions = [
-  {
-    name: "Wheat",
-    href: "/products/wheat",
-    subHeading: "A staple grain used in bread, flour, and countless food products worldwide.",
-  },
-  {
-    name: "Rice",
-    href: "/products/rice",
-    subHeading: "India’s most consumed crop, grown in paddy fields and exported globally.",
-  },
-  {
-    name: "Maize (Corn)",
-    href: "/products/maize",
-    subHeading: "A versatile cereal used for food, feed, and industrial products.",
-  },
-  {
-    name: "Sugarcane",
-    href: "/products/sugarcane",
-    subHeading: "A tropical crop used to produce sugar, jaggery, and ethanol.",
-  },
-  {
-    name: "Cotton",
-    href: "/products/cotton",
-    subHeading: "A key fiber crop used in textiles and cottonseed oil production.",
-  },
-  {
-    name: "Soybean",
-    href: "/products/soybean",
-    subHeading: "Rich in protein and oil, used in animal feed and food industries.",
-  },
-  {
-    name: "Pulses (Lentils)",
-    href: "/products/pulses",
-    subHeading: "Protein-packed legumes including lentils, chickpeas, and beans.",
-  },
-  {
-    name: "Vegetables",
-    href: "/products/vegetables",
-    subHeading: "Fresh, seasonal produce rich in vitamins and essential nutrients.",
-  },
-  {
-    name: "Fruits",
-    href: "/products/fruits",
-    subHeading: "Delicious and healthy produce ranging from apples to mangoes.",
-  },
-  {
-    name: "Oilseeds",
-    href: "/products/oilseeds",
-    subHeading: "Includes mustard, sunflower, and groundnut used for edible oils.",
-  },
-  {
-    name: "Spices",
-    href: "/products/spices",
-    subHeading: "Aromatic spices like turmeric, cardamom, and pepper grown across India.",
-  },
-  {
-    name: "Tea",
-    href: "/products/tea",
-    subHeading: "Premium tea leaves from Assam and Darjeeling, known worldwide.",
-  },
-  {
-    name: "Coffee",
-    href: "/products/coffee",
-    subHeading: "Aromatic beans cultivated in Karnataka, Kerala, and Tamil Nadu.",
-  },
-  {
-    name: "Organic Produce",
-    href: "/products/organic",
-    subHeading: "Chemical-free, eco-friendly crops promoting healthy living.",
-  },
-  {
-    name: "Dairy Products",
-    href: "/products/dairy",
-    subHeading: "Fresh milk, butter, ghee, and cheese from local Indian dairies.",
-  },
-];
-
-
   useEffect(() => {
     if (!id) return;
 
     setLoading(true);
-    const foundPlace = dummyData.find((p) => p._id === id);
+    const foundPlace = products.find((p) => p._id === id);
 
     setTimeout(() => {
       setPlace(foundPlace);
@@ -182,9 +104,9 @@ const PlacePage = () => {
         <MapBox address={place.address} />
 
         <ExploreNearby
-  title="Explore other popular crops and products"
-  options={agricultureOptions}
-/>
+          title="Explore other popular crops and products"
+          options={agricultureOptions}
+        />
         {sharePopUp && (
           <SharePopUp onClose={() => setSharePopUp(false)} placeData={place} />
         )}
