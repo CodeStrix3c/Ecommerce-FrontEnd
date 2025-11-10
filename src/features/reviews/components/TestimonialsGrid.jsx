@@ -21,7 +21,7 @@ export default function TestimonialsGrid({
       <div className="mt-6 flex justify-center">
         <button
           onClick={onShowAll} 
-          className="rounded-lg border px-4 py-2 hover:bg-gray-100"
+          className="rounded-lg border px-4 py-2 "
         >
           Show All Reviews
         </button>
