@@ -1,6 +1,6 @@
 import CarousalSection from "@/components/shared/CarousalSection";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import { dummyData } from "@/data/dummyData";
+// import products from "@/data/products.json";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
 
 const IndexPage = () => {
@@ -23,32 +23,32 @@ const IndexPage = () => {
       reverse: false,
     },
   };
+  const { data: products } = useProductsQuery();
+  if (!products) return null;
 
-  const dummyData1 = dummyData.slice(0, 8);
-  const dummyData2 = dummyData.slice(8, 15);
-  const dummyData3 = dummyData.slice(15,22);
-  const dummyData4 = dummyData.slice(22,29);
-  const { data } = useProductsQuery(requestBody);
-  console.log(data, "data...");
+  const products1 = products?.slice(0, 8);
+  const products2 = products?.slice(8, 15);
+  const products3 = products?.slice(15, 22);
+  const products4 = products?.slice(22, 29);
 
   return (
     <ContentWrapper>
       <div className="pt-8 sm:pt-10 md:pt-10 lg:pt-60 flex flex-col gap-8">
         <CarousalSection
           title="Popular Pesticides for Crop Protection"
-          places={dummyData1}
+          places={products1}
         />
         <CarousalSection
           title="Upcoming Pesticide Solutions for Next Season"
-          places={dummyData2}
+          places={products2}
         />
         <CarousalSection
           title="Herbicides for Effective Weed Control"
-          places={dummyData3}
+          places={products3}
         />
-         <CarousalSection
+        <CarousalSection
           title="Fungicides to Safeguard Your Crops"
-          places={dummyData4}
+          places={products4}
         />
       </div>
     </ContentWrapper>
