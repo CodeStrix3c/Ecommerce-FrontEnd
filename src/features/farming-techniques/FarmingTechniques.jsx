@@ -5,8 +5,8 @@ import ContentWrapper from "@/components/shared/ContentWrapper";
 function FarmingTechniques() {
   return (
     <ContentWrapper>
-      <div className="py-6 sm:py-10 md:py-14 lg:pt-32 text-[var(--color-black)] text-justify">
-        <div className="text-center mb-12">
+      <div className="py-6 sm:py-10 md:py-14 lg:mt-32 text-[var(--color-black)] text-justify">
+        <div className="text-center mb-12 ">
           <h1 className="text-3xl font-semibold mb-4 max-sm:whitespace-normal sm:whitespace-nowrap">
             The Future of Farming
           </h1>
@@ -48,8 +48,8 @@ function FarmingTechniques() {
           ))}
         </div>
 
-        <div className="mt-8 border-t border-[var(--color-gray)] pt-10">
-          <h2 className="text-3xl font-semibold mb-8 text-center text-[var(--color-black)]">
+        <div className="mt-8  border-[var(--color-gray)] pt-10">
+          <h2 className="text-2xl font-semibold mb-8 text-center text-[var(--color-black)]">
             Moving Toward a Sustainable Future
           </h2>
 
@@ -82,7 +82,7 @@ function FarmingTechniques() {
         </div>
 
         <div className="mt-12 rounded-sm ">
-          <h2 className="text-3xl font-semibold mb-10 text-center text-[var(--color-black)] max-sm:whitespace-normal sm:whitespace-nowrap">
+          <h2 className="text-2xl font-semibold mb-10 text-center text-[var(--color-black)] max-sm:whitespace-normal sm:whitespace-nowrap">
             Emerging Innovations in Agriculture
           </h2>
 
