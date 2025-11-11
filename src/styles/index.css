@@ -20,6 +20,7 @@ html {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Base style (mobile first) */
 
 @layer base {
   :root {
@@ -145,4 +146,69 @@ button.social {
 .recharts-wrapper {
   position: relative;
   z-index: 0;
+}
+
+/* //////////////////////////////////////////// */
+.responsive-padding {
+  padding-top: 2rem; /* same as Tailwind pt-8 */
+}
+
+@media (min-width: 640px) {
+  .responsive-padding {
+    padding-top: 2.5rem; /* pt-10 */
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-padding {
+    padding-top: 2.5rem; /* still pt-10 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-padding {
+    padding-top: 16rem; /* pt-60 */
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-padding {
+    padding-top: 16rem;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1023px) {
+  .responsive-padding {
+    padding-top: 16rem;
+  }
+}
+
+/* /////////////////////////////////////////////////////////// */
+
+.top-spacing {
+  margin-top: 4rem; /* similar to Tailwind mt-16 */
+}
+
+@media (min-width: 640px) {
+  .top-spacing {
+    margin-top: 4rem; /* mt-16 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .top-spacing {
+    margin-top: 10rem; /* mt-32 */
+  }
+}
+
+@media (min-width: 1280px) {
+  .top-spacing {
+    margin-top: 10rem;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1024px) {
+  .top-spacing {
+    padding-top: 6rem;
+  }
 }
