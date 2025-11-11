@@ -48,7 +48,7 @@ function Harvest() {
       Boxes: "10",
       Workers: "5",
     },
-     {
+    {
       image:
         "https://images.unsplash.com/photo-1552417569-262c0e72f374?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVhY2glMjBoYXJ2ZXN0fGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
       Orchard: "Orchard",
@@ -81,9 +81,9 @@ function Harvest() {
       Boxes: "10",
       Workers: "5",
     },
-     {
+    {
       image:
-         "https://images.unsplash.com/photo-1552417569-262c0e72f374?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVhY2glMjBoYXJ2ZXN0fGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+        "https://images.unsplash.com/photo-1552417569-262c0e72f374?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVhY2glMjBoYXJ2ZXN0fGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
       Orchard: "Orchard",
       Title: "Peach",
       variety: "Kashmiri",
@@ -117,20 +117,18 @@ function Harvest() {
   ];
 
   return (
-    <ContentWrapper topSpacing >
-      <section className="">
-       
+    <ContentWrapper topSpacing>
+      <section>
         <div className="text-center mb-10 ">
           <h2 className="text-2xl md:text-4xl font-bold text-[var(--color-black)] mb-2">
             Harvest Overview
           </h2>
           <p className="text-sm md:text-base  max-w-2xl mx-auto">
-            Our freshly harvested crops are carefully collected from the orchards, 
-            ensuring top quality and freshness in every batch.
+            Our freshly harvested crops are carefully collected from the
+            orchards, ensuring top quality and freshness in every batch.
           </p>
         </div>
 
-       
         <div className="grid grid-cols-1   sm:grid-cols-3 lg:grid-cols-5 gap-6 ">
           {cardsData.map((card, index) => (
             <div
@@ -157,11 +155,17 @@ function Harvest() {
 
                 <div className="space-y-2 text-sm  flex-grow">
                   <div className="flex items-center gap-2">
-                    <CalendarDays size={16} className="text-[var(--color-secondary)]" />
+                    <CalendarDays
+                      size={16}
+                      className="text-[var(--color-secondary)]"
+                    />
                     <span>Harvest Period: {card.date}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Thermometer size={16} className="text-[var(--color-secondary)]" />
+                    <Thermometer
+                      size={16}
+                      className="text-[var(--color-secondary)]"
+                    />
                     <span>Temperature: {card.temperature}</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -169,7 +173,10 @@ function Harvest() {
                     <span>Boxes Collected: {card.Boxes}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Users size={16} className="text-[var(--color-secondary)]" />
+                    <Users
+                      size={16}
+                      className="text-[var(--color-secondary)]"
+                    />
                     <span>Workers: {card.Workers}</span>
                   </div>
                 </div>

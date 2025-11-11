@@ -2,7 +2,7 @@ import ContentWrapper from "@/components/shared/ContentWrapper";
 import SprayHistory from "../components/SprayCard";
 import useIsMobile from "@/hooks/useInMobile";
 import ImageHeaderSection from "../../../components/shared/ImageHeaderSection";
-import AssignmentIcon  from "@mui/icons-material/Science";
+import AssignmentIcon from "@mui/icons-material/Science";
 
 import {
   Leaf,
@@ -38,8 +38,7 @@ const SprayPage = () => {
     {
       title: "Fungicide Records",
       desc: "Maintain proper logs for fungicide applications and seasonal coverage.",
-      icon: <SprayCanIcon className="w-8 h-8 text-[var(--color-secondary)]"  />
-,
+      icon: <SprayCanIcon className="w-8 h-8 text-[var(--color-secondary)]" />,
     },
     {
       title: "Nutrient Application",
@@ -71,9 +70,7 @@ const SprayPage = () => {
   return (
     <div className="w-full min-h-screen bg-[var(--color-white)]">
       <ImageHeaderSection
-        image={
-          "/assets/images/sprayrecords.jpg"
-        }
+        image={"/assets/images/sprayrecords.jpg"}
         title={"Spray Record Information"}
         description={
           "Maintain accurate spray data — including pesticide type, quantity, period, and cost. Keeping proper records ensures effective management and legal compliance."
@@ -111,7 +108,7 @@ const SprayPage = () => {
         </div>
       </div>
 
-      <ContentWrapper compactScreen {...(!isMobile && { topSpacing: true })} >
+      <ContentWrapper compactScreen {...(!isMobile && { topSpacing: true })}>
         <div className="sm:mt-[-8rem] md:mt- lg:mt-[-6rem] lg:px-12 pb-10">
           <SprayHistory />
         </div>
