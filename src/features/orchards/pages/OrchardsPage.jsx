@@ -98,7 +98,6 @@ export default function OrchardsPage() {
   return (
     <ContentWrapper topSpacing>
       <div className="min-h-screen text-[var(--color-black)]">
-        {/* Header */}
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-4xl font-bold mb-3">
             Orchard Overview

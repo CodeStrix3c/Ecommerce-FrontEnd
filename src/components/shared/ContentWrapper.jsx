@@ -8,10 +8,7 @@ export default function ContentWrapper({
   const isMobile = useIsMobile();
 
   const widthClass = compactScreen && !isMobile ? "w-[74vw]" : "w-[93vw]";
-
-  const topMarginClass = topSpacing
-    ? "mt-16 sm:mt-16 md:mt-28 lg:mt-32"
-    : "mt-0";
+  const topMarginClass = topSpacing ? "top-spacing" : "";
 
   return (
     <div className={`${widthClass} ${topMarginClass} mx-auto`}>{children}</div>
