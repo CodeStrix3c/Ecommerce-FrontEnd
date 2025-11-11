@@ -33,7 +33,7 @@ const IndexPage = () => {
 
   return (
     <ContentWrapper>
-      <div className="pt-8 sm:pt-10 md:pt-10 lg:pt-60 flex flex-col gap-8">
+      <div className="responsive-padding flex flex-col gap-8 ">
         <CarousalSection
           title="Popular Pesticides for Crop Protection"
           places={products1}
