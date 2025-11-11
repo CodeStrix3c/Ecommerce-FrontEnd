@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import PlaceCard from "@/features/places/components/PlaceCard";
@@ -19,6 +19,11 @@ const CarouselSection = ({ title, places = [], loading }) => {
     },
     breakpoints: carouselBreakpoints,
   });
+  useEffect(() => {
+    if (instanceRef.current) {
+      instanceRef.current.update(); // Recalculate layout
+    }
+  }, [places]);
 
   return (
     <div className="mt-0">
