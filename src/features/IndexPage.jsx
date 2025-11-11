@@ -2,6 +2,7 @@ import CarousalSection from "@/components/shared/CarousalSection";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 // import products from "@/data/products.json";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
+import PlaceCardSkeletonUi from "./places/components/PlaceCardSkeletonUi";
 
 const IndexPage = () => {
   const requestBody = {
@@ -23,8 +24,10 @@ const IndexPage = () => {
       reverse: false,
     },
   };
-  const { data: products } = useProductsQuery();
-  if (!products) return null;
+  const { data: products, isLoading } = useProductsQuery();
+  if (isLoading) {
+    return <PlaceCardSkeletonUi />;
+  }
 
   const products1 = products?.slice(0, 8);
   const products2 = products?.slice(8, 15);
