@@ -24,15 +24,12 @@ const IndexPage = () => {
       reverse: false,
     },
   };
-  const { data: products, isLoading } = useProductsQuery();
-  if (isLoading) {
-    return <PlaceCardSkeletonUi />;
-  }
+  const { data, isLoading } = useProductsQuery();
 
-  const products1 = products?.slice(0, 8);
-  const products2 = products?.slice(8, 15);
-  const products3 = products?.slice(15, 22);
-  const products4 = products?.slice(22, 29);
+  const products1 = data?.slice(0, 8) || [];
+  const products2 = data?.slice(8, 15) || [];
+  const products3 = data?.slice(15, 22) || [];
+  const products4 = data?.slice(22, 29) || [];
 
   return (
     <ContentWrapper>
@@ -40,18 +37,22 @@ const IndexPage = () => {
         <CarousalSection
           title="Popular Pesticides for Crop Protection"
           places={products1}
+          loading={isLoading}
         />
         <CarousalSection
           title="Upcoming Pesticide Solutions for Next Season"
           places={products2}
+          loading={isLoading}
         />
         <CarousalSection
           title="Herbicides for Effective Weed Control"
           places={products3}
+          loading={isLoading}
         />
         <CarousalSection
           title="Fungicides to Safeguard Your Crops"
           places={products4}
+          loading={isLoading}
         />
       </div>
     </ContentWrapper>
