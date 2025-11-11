@@ -31,7 +31,7 @@ const PlacePage = () => {
     if (!id) return;
 
     setLoading(true);
-    const foundPlace = products.find((p) => p._id === id);
+    const foundPlace = products?.find((p) => p._id === id);
 
     setTimeout(() => {
       setPlace(foundPlace);
