@@ -7,7 +7,6 @@ import AddressLink from "@/components/shared/AddressLink";
 import BookingWidget from "@/features/bookings/components/BookingWidget";
 import PlaceGallery from "@/features/places/components/PlaceGallery";
 import PerksWidget from "@/features/perks/components/PerksWidget";
-import products from "@/data/products.json";
 import MapBox from "@/components/ui/MapBox";
 import ListingHeader from "@/components/shared/ListingHeader";
 import RatingSummary from "@/features/reviews/components/Ratings";
@@ -17,7 +16,8 @@ import HighlightBanner from "@/features/reviews/components/HighlightBanner";
 import ExploreNearby from "../components/ExploreNearby";
 import SharePopUp from "@/components/ui/SharePopUp";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import agricultureOptions from "@/data/agricultureOptions";
+import agriculturalOptions from "@/data/agriculturalOptions";
+import { useProductsQuery } from "@/hooks/useProductsQuery";
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -25,6 +25,7 @@ const PlacePage = () => {
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sharePopUp, setSharePopUp] = useState(false);
+  const { data: products } = useProductsQuery();
 
   useEffect(() => {
     if (!id) return;
@@ -105,7 +106,7 @@ const PlacePage = () => {
 
         <ExploreNearby
           title="Explore other popular crops and products"
-          options={agricultureOptions}
+          options={agriculturalOptions}
         />
         {sharePopUp && (
           <SharePopUp onClose={() => setSharePopUp(false)} placeData={place} />
