@@ -12,7 +12,7 @@ export default function ReviewSection({ order }) {
       {/* Stars */}
       <div className="flex items-center gap-1">
         {[...Array(5)].map((_, i) => (
-          <Star key={i} size={12} className="text-[var(--color-secondary)]" />
+          <Star key={i} size={12} className="text-[var(--color-secondary)] fill-[var(--color-secondary)]" />
         ))}
       </div>
 
