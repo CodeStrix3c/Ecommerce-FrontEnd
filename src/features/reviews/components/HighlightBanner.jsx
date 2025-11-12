@@ -7,7 +7,7 @@ export default function HighlightBanner({
   rating = 5.0,
   reviewCount = 26,
 }) {
-  // ⭐ Dynamic star rendering
+ 
   const renderStars = () =>
     Array(5)
       .fill(0)
@@ -21,9 +21,9 @@ export default function HighlightBanner({
             size={14}
             className={`${
               filled
-                ? "fill-current text-[var(--color-black)]"
+                ? "fill-current text-[var(--color-secondary)]"
                 : half
-                ? "fill-current text-[var(--color-black)] opacity-50"
+                ? "fill-current text-[var(--color-secondary)] opacity-50"
                 : "text-[var(--color-black-hover)]"
             }`}
           />
