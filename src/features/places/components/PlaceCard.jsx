@@ -91,8 +91,8 @@ const PlaceCard = ({ place, loading }) => {
             <span className="flex items-center gap-0 font-normal text-[var(--color-black)]">
               <IndianRupee className="h-4 w-4 text-[var(--color-black)]" />
               <span className="text-sm font-medium">{price || 500}</span>
-              <span className="text-xs text-[var(--color-black)] ml-1">
-                per liter
+              <span className="text-sm text-[var(--color-black)]  ">
+             /liter
               </span>
             </span>
 
