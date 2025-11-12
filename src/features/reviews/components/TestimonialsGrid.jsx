@@ -14,6 +14,8 @@ export default function TestimonialsGrid({
             review={review}
             compact
             onShowMore={onShowMore} 
+               onEdit={(rev) => console.log("Edit review:", rev)}
+      onDelete={(id) => console.log("Delete review ID:", id)}
           />
         ))}
       </div>
