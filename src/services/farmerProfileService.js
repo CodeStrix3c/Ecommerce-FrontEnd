@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axiosInstance";
+import axiosInstance from "@/api/client/axiosInstance";
 
 // 🔐 LOGIN
 export const login = async (credentials) => {

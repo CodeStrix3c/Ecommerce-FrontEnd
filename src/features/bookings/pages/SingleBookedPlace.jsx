@@ -6,7 +6,7 @@ import AddressLink from "../../../components/shared/AddressLink";
 import BookingDates from "../components/BookingDates";
 import PlaceGallery from "../../places/components/PlaceGallery";
 import Spinner from "../../../components/ui/Spinner";
-import axiosInstance from "@/api/axiosInstance";
+import axiosInstance from "@/api/client/axiosInstance";
 
 const SingleBookedPlace = () => {
   const { id } = useParams();
