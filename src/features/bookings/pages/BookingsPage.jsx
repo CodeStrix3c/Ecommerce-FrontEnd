@@ -5,7 +5,7 @@ import AccountNav from "@/components/ui/AccountNav";
 <<<<<<< HEAD
 import BookingDates from "@/features/bookings/components/BookingDates";
 import Spinner from "@/components/ui/Spinner";
-import axiosInstance from "@/api/axiosInstance";
+import axiosInstance from "@/api/client/axiosInstance";
 import PlaceImg from "@/features/places/components/PlaceImg";
 =======
 import PlaceImg from "@/features/places/components/PlaceImg";
