@@ -38,12 +38,12 @@ const FarmerProfilePage = () => {
               Complete Your Profile
             </button>
             <div className="relative group">
-              <div className="p-2 border rounded-full cursor-pointer hover:bg-[var(--color-gray)]">
+              <div
+                className="p-2 border rounded-full cursor-pointer hover:bg-[var(--color-gray)]"
+                title="Settings"
+              >
                 <Settings className="w-5 h-5 text-[var(--color-black)]" />
               </div>
-              <span className="absolute left-1/2 -translate-x-1/2  hidden group-hover:block text-[var(--color-black)] text-sm py-1 px-2">
-                Settings
-              </span>
             </div>
           </div>
         </div>
