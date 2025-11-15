@@ -1,4 +1,4 @@
-import weatherInstance from "@/api/weatherInstance";
+import weatherInstance from "@/api/client/weatherInstance";
 
 export const fetchWeather = async (query = "pulwama") => {
   const { data } = await weatherInstance.get(

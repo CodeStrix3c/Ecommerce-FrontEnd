@@ -11,7 +11,7 @@ import ScrollToTop from "./components/shared/ScrollToTop";
 import Spinner from "./components/ui/Spinner";
 import publicRoutes from "./routes/PublicRoutes";
 import protectedRoutes from "./routes/ProtectedRoutes";
-import axiosInstance from "./api/axiosInstance";
+import axiosInstance from "./api/client/axiosInstance";
 
 function App() {
   useEffect(() => {
