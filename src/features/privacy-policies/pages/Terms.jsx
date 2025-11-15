@@ -4,7 +4,6 @@ function Terms() {
   return (
     <ContentWrapper compactScreen topSpacing>
       <div className="relative   ">
-        
         <div className="text-center mb-10">
           <h6 className="text-sm uppercase tracking-widest text-[var(--color-secondary)] font-semibold">
             Legal Terms
@@ -17,16 +16,17 @@ function Terms() {
           </p>
         </div>
 
-       
         <div className="text-gray-700 leading-relaxed space-y-8">
           <section>
-            
             <p className="text-base sm:text-lg">
-             Welcome to <b className="text-[var(--color-secondary)]">Ziraat</b> — your trusted partner in smart and sustainable farming.  
-By accessing or using our platform, mobile app, or website (collectively, the “Services”), you agree to follow these Terms of Service (“Terms”).  
-Our goal is to simplify your farm management through digital tools that help you track crops, monitor expenses, and make data-driven decisions for better yields.  
-If you do not agree with these Terms, please refrain from using our Services.
-
+              Welcome to <b className="text-[var(--color-secondary)]">Ziraat</b>{" "}
+              — your trusted partner in smart and sustainable farming. By
+              accessing or using our platform, mobile app, or website
+              (collectively, the “Services”), you agree to follow these Terms of
+              Service (“Terms”). Our goal is to simplify your farm management
+              through digital tools that help you track crops, monitor expenses,
+              and make data-driven decisions for better yields. If you do not
+              agree with these Terms, please refrain from using our Services.
             </p>
 
             <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
@@ -40,7 +40,8 @@ If you do not agree with these Terms, please refrain from using our Services.
                 <li>Analyze productivity and generate reports</li>
               </ul>
               <p className="mt-3 text-sm text-gray-600">
-                *Information provided is for guidance only and should not replace professional advice.*
+                *Information provided is for guidance only and should not
+                replace professional advice.*
               </p>
             </div>
           </section>
@@ -134,7 +135,6 @@ If you do not agree with these Terms, please refrain from using our Services.
             </p>
           </section>
 
-          
           <div className="pt-8 border-t border-gray-200 mt-8 text-sm sm:text-base text-gray-600">
             <p>
               <b>Last Updated:</b> May 13, 2025

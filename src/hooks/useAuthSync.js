@@ -6,7 +6,7 @@ export const useAuthSync = () => {
 
   useEffect(() => {
     const handleStorageChange = (e) => {
-      if (e.key === "userLoginToken" && !e.newValue) {
+      if (e.key === "token" && !e.newValue) {
         navigate("/login");
       }
     };

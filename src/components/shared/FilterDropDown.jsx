@@ -26,7 +26,7 @@ const FilterDropdown = ({ onSelect, options }) => {
           <Settings2
             size={18}
             strokeWidth={2}
-            style={{ color: "var(--color-secondary)" }}
+            style={{ color: "var(--color-primary)" }}
           />
           <span className="text-[var(--color-black)] font-medium">
             {displayText}

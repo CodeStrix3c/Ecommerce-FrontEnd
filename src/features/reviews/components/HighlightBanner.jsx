@@ -7,7 +7,7 @@
 //   rating = 5.0,
 //   reviewCount = 26,
 // }) {
- 
+
 //   const renderStars = () =>
 //     Array(5)
 //       .fill(0)
@@ -32,7 +32,7 @@
 
 //   return (
 //     <div className="border flex flex-col sm:flex-row items-center w-full sm:w-fit justify-between sm:space-x-6 md:space-x-8 rounded-2xl bg-[var(--color-white)] py-2 px-3 sm:py-1.5 sm:px-5 text-[12px] sm:text-[13px] md:text-[14px]">
-      
+
 //       {/* ================= Mobile ================= */}
 //       <div className="flex sm:hidden flex-row items-center w-full justify-center">
 //         {/* Rating */}
@@ -69,7 +69,7 @@
 
 //       {/* ================= medium & Desktop ================= */}
 //       <div className="hidden sm:flex flex-row items-center w-full sm:w-auto sm:space-x-4 md:space-x-6 lg:space-x-8">
-        
+
 //         {/* Title */}
 //         <div>
 //           <LeafTitleBlock title={title} isGray leafSize="sm" titleSize="bold" />
@@ -101,26 +101,24 @@
 //   );
 // }
 
-
 import LeafTitleBlock from "@/components/shared/LeafTitleBlock";
 import Divider from "@mui/material/Divider";
-import StarRating from "@/components/ui/StarRating"; 
+import StarRating from "@/components/ui/StarRating";
 
 export default function HighlightBanner({
   title = "Farmer's favourite",
-  
+
   reviewCount = 26,
 }) {
   return (
     <div className="border flex flex-col sm:flex-row items-center w-full sm:w-fit justify-between sm:space-x-6 md:space-x-8 rounded-2xl bg-[var(--color-white)] py-2 px-3 sm:py-1.5 sm:px-5 text-[12px] sm:text-[13px] md:text-[14px]">
-      
       {/* ================= Mobile ================= */}
       <div className="flex sm:hidden flex-row items-center w-full justify-center">
         {/* Rating */}
         <div className="flex flex-col items-center gap-0.5 px-2">
           {/* <p className="font-semibold text-xs">{rating.toFixed(1)}</p> */}
           {/* ✅ Use StarRating component */}
-          <StarRating  size={14} />
+          <StarRating size={14} />
         </div>
 
         <Divider
@@ -158,9 +156,7 @@ export default function HighlightBanner({
 
         {/* Rating */}
         <div className="flex flex-col items-center gap-0.5">
-          
-          
-          <StarRating  size={14} rating={4.5} />
+          <StarRating size={14} rating={4.5} />
         </div>
 
         <Divider

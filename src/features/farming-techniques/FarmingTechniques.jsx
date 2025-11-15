@@ -35,11 +35,11 @@ function FarmingTechniques() {
                 <h2 className="text-2xl font-semibold mb-3 text-left">
                   {tech.title}
                 </h2>
-              
+
                 <p className="text-[var(--color-black)] mb-2 font-medium text-justify">
                   {tech.summary}
                 </p>
-            
+
                 <p className="text-[var(--color-black)] text-justify">
                   {tech.details}
                 </p>

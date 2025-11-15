@@ -11,7 +11,7 @@ import { getItemFromLocalStorage } from "@/utils/localStorage";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
-  const [isSupplierLoggedIn, setIsSupplierLoggedIn] = useState(false);
+  const [isSupplierLoggedIn, setIsSupplierLoggedIn] = useState(true);
   const menuRef = useRef(null);
   const { wishlist } = useWishlist();
   const { cartList } = useCartList();
@@ -19,10 +19,10 @@ const DropdownMenu = () => {
   const isBelow500 = useIsMobile(620);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = getItemFromLocalStorage("SRT");
-    setIsSupplierLoggedIn(!!token);
-  }, []);
+  // useEffect(() => {
+  //   const token = getItemFromLocalStorage("SRT");
+  //   setIsSupplierLoggedIn(!!token);
+  // }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

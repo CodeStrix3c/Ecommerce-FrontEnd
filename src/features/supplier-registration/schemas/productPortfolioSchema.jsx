@@ -12,16 +12,12 @@ export const productPortfolioSchema = z.object({
     .array(
       z.object({
         name: z.string().min(1, "Input name is required"),
-        stock: z.preprocess(
-          (val) => (val === "" ? undefined : Number(val)), // convert string → number
-          z
-            .number({ invalid_type_error: "Enter stock as a number" })
-            .min(0, "Stock cannot be negative")
-        ),
+        stock: z
+          .number({ invalid_type_error: "Enter stock as a number" })
+          .min(0, "Stock cannot be negative"),
       })
     )
     .optional(),
 
-  storageCapacity: z.string().optional(),
+  storageCapacity: z.string().optional(), // can be MT or Litres (not strictly validated)
 });
-

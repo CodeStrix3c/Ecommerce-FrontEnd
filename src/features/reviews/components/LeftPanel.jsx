@@ -60,7 +60,9 @@ export default function LeftPanel() {
         <div className="w-72 mx-auto mb-8 space-y-2">
           {[5, 4, 3, 2, 1].map((star) => (
             <div key={star} className="flex items-center gap-3">
-              <span className="w-5 text-sm text-gray-800 font-medium">{star}</span>
+              <span className="w-5 text-sm text-gray-800 font-medium">
+                {star}
+              </span>
               <div className="relative h-2 flex-1 rounded-full bg-gray-200">
                 <div
                   className="absolute h-2 rounded-full bg-[var(--color-secondary)] transition-all"
@@ -103,7 +105,9 @@ export default function LeftPanel() {
             <img src={rightLeaf} alt="right leaf" className="h-8 w-8" />
           </div>
           <p className="mt-2 font-semibold text-gray-700">Farmer's favourite</p>
-          <p className="text-xs text-gray-600">Based on {totalReviews} reviews</p>
+          <p className="text-xs text-gray-600">
+            Based on {totalReviews} reviews
+          </p>
         </div>
 
         <div className="grid grid-cols-2 gap-4">

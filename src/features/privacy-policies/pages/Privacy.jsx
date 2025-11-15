@@ -4,27 +4,27 @@ export default function Privacy() {
   return (
     <ContentWrapper compactScreen topSpacing>
       <div className="text-[var(--color-black)] lg:mt-32">
-       
         <h2 className="pb-8 font-bold text-3xl sm:text-4xl text-center text-[var(--color-black)]">
           Privacy Policy
         </h2>
 
         <div className="mx-auto space-y-10">
-         
           <section>
             <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               Introduction
             </h3>
             <p className="text-gray-600 leading-relaxed text-lg">
-              Welcome to <span className="font-semibold text-[var(--color-secondary)]">Ziraat</span>.
-              We value your privacy and are committed to safeguarding your
+              Welcome to{" "}
+              <span className="font-semibold text-[var(--color-secondary)]">
+                Ziraat
+              </span>
+              . We value your privacy and are committed to safeguarding your
               personal information. This Privacy Policy explains how we collect,
               use, and protect your data when you use our website, mobile app,
               and services.
             </p>
           </section>
 
-         
           <section className="border-t border-gray-200 pt-6">
             <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               Information We Collect
@@ -37,11 +37,12 @@ export default function Privacy() {
               <li>Account and contact details (name, email, phone number)</li>
               <li>Farm and crop data you enter on the platform</li>
               <li>Device, browser, and location information</li>
-              <li>Usage data such as page visits, interactions, and preferences</li>
+              <li>
+                Usage data such as page visits, interactions, and preferences
+              </li>
             </ul>
           </section>
 
-         
           <section className="border-t border-gray-200 pt-6">
             <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               How We Use Your Information
@@ -55,7 +56,6 @@ export default function Privacy() {
             </ul>
           </section>
 
-          
           <section className="border-t border-gray-200 pt-6">
             <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               Sharing & Disclosure
@@ -70,7 +70,6 @@ export default function Privacy() {
             </ul>
           </section>
 
-          
           <section className="border-t border-gray-200 pt-6">
             <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               Cookies & Tracking
@@ -82,7 +81,6 @@ export default function Privacy() {
             </p>
           </section>
 
-          
           <section className="border-t border-gray-200 pt-6">
             <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               Your Rights
@@ -95,7 +93,6 @@ export default function Privacy() {
             </ul>
           </section>
 
-         
           <section className="border-t border-gray-200 pt-6">
             <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               Data Security
@@ -107,7 +104,6 @@ export default function Privacy() {
             </p>
           </section>
 
-         
           <section className="border-t border-gray-200 pt-6">
             <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               Policy Updates
@@ -119,7 +115,6 @@ export default function Privacy() {
             </p>
           </section>
 
-         
           <section className="border-t border-gray-200 pt-6">
             <p className="text-gray-700 text-lg">
               Last Updated: <b>October 24, 2025</b>
