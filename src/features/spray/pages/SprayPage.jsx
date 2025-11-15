@@ -2,22 +2,16 @@ import ContentWrapper from "@/components/shared/ContentWrapper";
 import SprayHistory from "../components/SprayCard";
 import useIsMobile from "@/hooks/useInMobile";
 import ImageHeaderSection from "../../../components/shared/ImageHeaderSection";
-import AssignmentIcon from "@mui/icons-material/Science";
+
 
 import {
   Leaf,
   Bug,
-  CloudRain,
-  Droplets,
   Wrench,
   Shield,
   Sun,
   User,
-  ClipboardList,
-  FlaskRound,
   Sprout,
-  SprayCan,
-  BugOff,
   SprayCanIcon,
 } from "lucide-react";
 
@@ -38,7 +32,8 @@ const SprayPage = () => {
     {
       title: "Fungicide Records",
       desc: "Maintain proper logs for fungicide applications and seasonal coverage.",
-      icon: <SprayCanIcon className="w-8 h-8 text-[var(--color-secondary)]" />,
+      icon: <SprayCanIcon className="w-8 h-8 text-[var(--color-secondary)]" />
+
     },
     {
       title: "Nutrient Application",
