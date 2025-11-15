@@ -25,37 +25,6 @@ import { Link } from "react-router-dom";
 
 const FarmerProfilePage = () => {
   return (
-<<<<<<< HEAD
-    <>
-      <ContentWrapper compactScreen>
-        <div className="space-y-8 lg:space-y-12 lg:py-36">
-          <div className="flex flex-col sm:flex-row sm:items-start gap-6">
-            <ProfileAvatar
-              avatar={farmer?.profilePic || "/assets/images/farmer.jpeg"}
-              onEdit={() => setShowIncompleteSection(true)}
-            />
-
-            <div className="flex-1 flex flex-col gap-4">
-              <div className="flex justify-end gap-3">
-                <Link
-                  to="/dashboard/orchard"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/orchards"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
-                >
-                  View Orchards
-                </Link>
-                <Link
-                  to="/orchard-registration"
-                  className="px-3 py-1.5 text-sm font-medium rounded-md bg-[var(--color-primary)] text-white"
-                >
-                  Add Orchard
-                </Link>
-=======
     <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
       {/* Main Card Container */}
       <div className="lg:rounded-sm lg:shadow-sm w-full max-w-6xl overflow-hidden bg-[var(--color-white)]">
@@ -75,7 +44,6 @@ const FarmerProfilePage = () => {
             <div className="relative group">
               <div className="p-2 border rounded-full cursor-pointer hover:bg-[var(--color-gray)]">
                 <Settings className="w-5 h-5 text-[var(--color-black)]" />
->>>>>>> 7dce92f99aa33b903526bbf3bd81a83a563e60e1
               </div>
               <span className="absolute left-1/2 -translate-x-1/2 hidden group-hover:block  text-[var(--color-black)] text-sm py-1 px-2">
                 Settings

@@ -15,14 +15,13 @@ import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import SelectField from "@/components/shared/custom-inputs/SelectField";
 
 export default function CropInformation() {
-  
   const Label = ({ children }) => (
     <div className="text-xs text-[var(--color-black)]">{children}</div>
   );
 
   return (
-    <ContentWrapper compactScreen>
-      <div className="min-h-screen bg-[var(--color-white)] text-[var(--color-black)] lg:mt-36 md:mt-28">
+    <ContentWrapper compactScreen topSpacing>
+      <div className="min-h-screen bg-[var(--color-white)] text-[var(--color-black)] ">
         <header className="">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
             <div className="flex items-center gap-3">
