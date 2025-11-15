@@ -7,13 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "@/components/shared/custom-inputs/FormInput";
 import useIsMobile from "@/hooks/useInMobile";
 import CustomButton from "@/components/ui/CustomButton";
-import {
-  loginPasswordValidator,
-  loginSchema,
-} from "@/features/farmer-registration/schemas/authSchemas";
+import { loginSchema } from "@/features/farmer-registration/schemas/authSchemas";
 
 export default function SupplierLogin() {
-  const isMobile = useIsMobile();
   const [redirect, setRedirect] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -51,7 +47,6 @@ export default function SupplierLogin() {
   return (
     <main className="flex items-center justify-center min-h-screen  p-4">
       <section className="w-full max-w-md bg-[var(--color-white)] rounded-2xl border border-[var(--color-neutral-medium)] p-8 shadow-lg">
-        {/* Header */}
         <header className="text-center mb-6">
           <h1 className="text-3xl font-bold text-[var(--color-neutral-dark)] mb-2">
             Supplier Login
@@ -61,7 +56,6 @@ export default function SupplierLogin() {
           </p>
         </header>
 
-        {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <FormInput
             name="email"
@@ -88,7 +82,6 @@ export default function SupplierLogin() {
           />
         </form>
 
-        {/* Footer */}
         <footer className="mt-6 text-center text-sm text-[var(--color-neutral-dark)]">
           Don't have an account?{" "}
           <Link

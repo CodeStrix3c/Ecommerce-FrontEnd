@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { ShoppingCart } from "lucide-react";
+import React, { useState, useMemo } from "react";
 import useIsMobile from "@/hooks/useInMobile";
 import { useCartList } from "@/providers/CartListProvider";
 import CartItem from "../components/CartItem";
@@ -9,10 +8,29 @@ import EmptyState from "@/components/shared/EmptyState";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 
 const CartPage = () => {
-  const { cartList, removeFromCart, clearCart } = useCartList();
+  const { cartList, removeFromCart, clearCart, updateQuantity } = useCartList();
   const isMobile = useIsMobile();
 
   const [selectedPayment, setSelectedPayment] = useState("");
+  //recalculate whenever we increase or decrease the quantity
+  const { subtotal, taxes, total, totalItems } = useMemo(() => {
+    const subtotalCalc = cartList.reduce(
+      (sum, item) => sum + item.price * (item.quantity || 1),
+      0
+    );
+    const itemCount = cartList.reduce(
+      (count, item) => count + (item.quantity || 1),
+      0
+    );
+    const taxesCalc = subtotalCalc * 0.1;
+    const totalCalc = subtotalCalc + taxesCalc;
+    return {
+      subtotal: subtotalCalc,
+      taxes: taxesCalc,
+      total: totalCalc,
+      totalItems: itemCount,
+    };
+  }, [cartList]);
 
   const checkoutAll = () => {
     if (!selectedPayment) {
@@ -22,18 +40,12 @@ const CartPage = () => {
     alert(`Proceeding to checkout with ${selectedPayment}`);
   };
 
-  const subtotal = cartList.reduce((sum, item) => sum + item.price, 0);
-  const taxes = subtotal * 0.1;
-  const total = subtotal + taxes;
-
   if (cartList.length === 0) {
     return (
       <EmptyState
         title="Empty Cart"
-        subTitle="Your cart is empty. Add items you love and come back to checkout!"
-        icon={
-          <ShoppingCart className="w-16 h-16 text-[var(--color-secondary)]" />
-        }
+        subTitle="There is nothing in your cart. Let's add some items"
+        img="/assets/images/empty-cart.png"
         btnText="Continue Shopping"
         redirectTo="/"
       />
@@ -44,28 +56,30 @@ const CartPage = () => {
     <ContentWrapper compactScreen>
       <div className="py-8 lg:mt-28 md:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div
-          className={`col-span-2 flex flex-col gap-6 ${isMobile ? "pb-24" : "pb-0"}`}
+          className={`col-span-2 flex flex-col gap-6 ${
+            isMobile ? "pb-24" : "pb-0"
+          }`}
         >
-          <h1 className="text-2xl font-semibold text-[var(--color-neutral-dark)]">
-            My Cart
+          <h1 className="text-2xl font-semibold text-[var(--color-black)]">
+            My Cart ({totalItems} {totalItems === 1 ? "item" : "items"})
           </h1>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             {cartList.map((product) => (
-              <>
+              <React.Fragment key={product._id}>
                 <CartItem
-                  key={product._id}
                   product={product}
                   onRemove={removeFromCart}
+                  onQuantityChange={updateQuantity}
                 />
-                {isMobile && <hr />}
-              </>
+                {isMobile && cartList.length > 1 && <hr />}
+              </React.Fragment>
             ))}
           </div>
         </div>
 
-        {!isMobile && cartList.length > 0 && (
-          <div className="col-span-1">
+        {!isMobile && (
+          <div className="col-span-1 mt-14">
             <CartSummary
               cart={cartList}
               subtotal={subtotal}
@@ -79,7 +93,7 @@ const CartPage = () => {
           </div>
         )}
 
-        {isMobile && cartList.length > 0 && (
+        {isMobile && (
           <CartBottomBar
             cart={cartList}
             total={total}

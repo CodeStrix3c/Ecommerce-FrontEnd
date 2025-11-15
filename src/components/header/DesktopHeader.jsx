@@ -1,4 +1,4 @@
-import { useEffect, useRef, useLayoutEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import useOnScroll from "@/hooks/useOnScroll";
@@ -6,22 +6,13 @@ import DropdownMenu from "../ui/DropDownMenu";
 import SearchBar from "../shared/SearchBar";
 import NavBar from "../ui/NavBar";
 import SubSearchModal from "../ui/SubSearchModal";
-import { getHeaderWidthByPath } from "@/utils/headerWidth";
+import ContentWrapper from "../shared/ContentWrapper";
 
-const DesktopHeader = ({ location, onHeightChange }) => {
+const DesktopHeader = ({ location }) => {
   const [openSearchBar, setOpenSearchBar] = useState(false);
-  const [headerWidth, setHeaderWidth] = useState();
   const scrollY = useOnScroll();
 
   const headerRef = useRef();
-
-  useLayoutEffect(() => {
-    // if (headerRef.current) {
-    //   const height = headerRef.current.offsetHeight;
-    //   onHeightChange?.(height);
-    // }
-    setHeaderWidth(getHeaderWidthByPath(location.pathname));
-  }, [location.pathname, headerWidth]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,65 +32,63 @@ const DesktopHeader = ({ location, onHeightChange }) => {
             ? "inset 0px -60px 60px -10px rgba(0, 0, 0, 0.03)"
             : "none",
       }}
-      className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)] border-b border-gray-100"
+      className="fixed top-0 z-50 w-full pt-5 transition-shadow duration-500 bg-[var(--color-white)] border-b border-[var(--color-black-hover)]"
     >
-      <motion.div
-        initial={false}
-        animate={{ width: headerWidth }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="mx-auto py-3 grid grid-cols-[auto_1fr_auto] items-center gap-6"
-      >
-        <NavLink to="/" className="flex items-center gap-2">
-          <img
-            src="/assets/images/ziraat.png"
-            alt="ziraat"
-            width={80}
-            height={80}
-          />
-        </NavLink>
+      <ContentWrapper>
+        <motion.div
+          initial={false}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="py-3 grid grid-cols-[auto_1fr_auto] items-center gap-6"
+        >
+          <NavLink to="/home" className="flex items-center gap-2">
+            <img
+              src="/assets/images/ziraat.png"
+              alt="ziraat"
+              width={80}
+              height={80}
+            />
+          </NavLink>
 
-        <AnimatePresence mode="wait">
-          {scrollY < 100 ? (
-            <motion.div
-              key="navbar"
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="flex justify-center"
-            >
-              <NavBar />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="subsearchmodal"
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="flex justify-center"
-            >
-              <div onClick={() => setOpenSearchBar(!openSearchBar)}>
-                <SubSearchModal />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          <AnimatePresence mode="wait">
+            {scrollY < 100 ? (
+              <motion.div
+                key="navbar"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="flex justify-center"
+              >
+                <NavBar />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="subsearchmodal"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="flex justify-center"
+              >
+                <div onClick={() => setOpenSearchBar(!openSearchBar)}>
+                  <SubSearchModal />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-        {/* Right: Dropdown / Actions */}
-        <div className="flex items-center gap-4 justify-start">
-          <DropdownMenu />
-        </div>
-      </motion.div>
+          <div className="flex items-center gap-4 justify-start">
+            <DropdownMenu />
+          </div>
+        </motion.div>
+      </ContentWrapper>
 
-      {/* Below header row (only on /home) */}
       {location.pathname === "/home" && scrollY < 100 && (
         <div className="flex justify-center py-3 pb-10">
           <SearchBar />
         </div>
       )}
 
-      {/* Animated search bar */}
       <AnimatePresence>
         {openSearchBar && (
           <motion.div
@@ -107,7 +96,8 @@ const DesktopHeader = ({ location, onHeightChange }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}git
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            git
             className="flex justify-center py-4"
           >
             <SearchBar />

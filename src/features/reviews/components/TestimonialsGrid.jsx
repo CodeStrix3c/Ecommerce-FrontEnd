@@ -13,15 +13,17 @@ export default function TestimonialsGrid({
             key={review.id}
             review={review}
             compact
-            onShowMore={onShowMore} // Show more for single review
+            onShowMore={onShowMore} 
+               onEdit={(rev) => console.log("Edit review:", rev)}
+      onDelete={(id) => console.log("Delete review ID:", id)}
           />
         ))}
       </div>
 
       <div className="mt-6 flex justify-center">
         <button
-          onClick={onShowAll} // Show all reviews
-          className="rounded-lg border px-4 py-2 hover:bg-gray-100"
+          onClick={onShowAll} 
+          className="rounded-lg border px-4 py-2 "
         >
           Show All Reviews
         </button>

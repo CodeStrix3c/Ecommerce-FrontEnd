@@ -1,7 +1,9 @@
 import axiosInstance from "@/api/axiosInstance";
 
 export const getProducts = async () => {
-  const { data } = await axiosInstance.get("/api/products");
+  const { data } = await axiosInstance.get("/products.json", {
+    auth: false,
+  });
 
   return data;
 };

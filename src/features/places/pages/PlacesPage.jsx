@@ -1,7 +1,6 @@
 // PlacesPage.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 import { dummyData } from '@/data/dummyData.ts';
 import AccountNav from '@/components/ui/AccountNav';
 import InfoCard from '@/components/shared/InfoCard';

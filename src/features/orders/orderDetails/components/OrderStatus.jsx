@@ -2,7 +2,7 @@ import FormStepper from "@/components/shared/FormStepper";
 
 export default function OrderStatus({ order, steps }) {
   return (
-    <div className="bg-[var(--color-black-hover)] shadow-sm w-full py-3 sm:py-5">
+    <div className=" shadow-sm w-full py-3 sm:py-5">
       <div className="w-full">
         <div className="bg-[var(--color-primary)] text-[var(--color-white)] p-3 sm:p-4">
           <p className="font-semibold">{order.status}</p>

@@ -44,7 +44,7 @@ function OrchardCards({ cardsData }) {
                 <button className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-black)] ">
                   <Edit size={18} /> Edit
                 </button>
-                <button className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-primary)] hover:bg-gray-100">
+                <button className="flex items-center gap-2 w-full px-4 py-2 text-[var(--color-primary)] ">
                   <Trash2 size={18} /> Delete
                 </button>
                 <button
