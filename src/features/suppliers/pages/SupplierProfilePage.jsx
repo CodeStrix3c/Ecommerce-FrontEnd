@@ -22,6 +22,10 @@ import {
   supplierInfo,
   supportAndServices,
 } from "./DummyData";
+<<<<<<< HEAD
+import { Link } from "react-router-dom";
+=======
+>>>>>>> 91efd9998147dbc4f0908723ead972c9053db651
 
 const FarmerProfilePage = () => {
   return (
@@ -34,9 +38,15 @@ const FarmerProfilePage = () => {
             className="lg:font-bold lg:text-2xl "
           />
           <div className="flex items-center space-x-4">
+<<<<<<< HEAD
+            <Link to="/supplier-profile-completion" className="px-2 py-2 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
+              Complete Your Profile
+            </Link>
+=======
             <button className="px-2 py-2 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
               Complete Your Profile
             </button>
+>>>>>>> 91efd9998147dbc4f0908723ead972c9053db651
             <div className="relative group">
               <div
                 className="p-2 border rounded-full cursor-pointer hover:bg-[var(--color-gray)]"

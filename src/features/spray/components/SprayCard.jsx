@@ -33,7 +33,7 @@ const sprayHistoryData = [
     cost: "3000 per 500g",
   },
   {
-    id: 3,
+    id: 4,
     type: "Pesticide",
     name: "BugAway",
     quantity: "500 g",
@@ -43,7 +43,7 @@ const sprayHistoryData = [
     cost: "3000 per 500g",
   },
   {
-    id: 3,
+    id: 5,
     type: "Pesticide",
     name: "BugAway",
     quantity: "500 g",
@@ -53,7 +53,7 @@ const sprayHistoryData = [
     cost: "3000 per 500g",
   },
   {
-    id: 3,
+    id: 6,
     type: "Pesticide",
     name: "BugAway",
     quantity: "500 g",
@@ -62,8 +62,8 @@ const sprayHistoryData = [
     date: "Jun - Sep 2025",
     cost: "3000 per 500g",
   },
-   {
-    id: 3,
+  {
+    id: 6,
     type: "Pesticide",
     name: "BugAway",
     quantity: "500 g",
@@ -72,8 +72,8 @@ const sprayHistoryData = [
     date: "Jun - Sep 2025",
     cost: "3000 per 500g",
   },
-   {
-    id: 3,
+  {
+    id: 7,
     type: "Pesticide",
     name: "BugAway",
     quantity: "500 g",
@@ -92,15 +92,22 @@ export default function SprayHistory() {
 
   const typeIcons = {
     Herbicide: <Leaf className="text-[var(--color-secondary)]" size={22} />,
-    Fertilizer: <FlaskRound className="text-[var(--color-secondary)]" size={22} />,
+    Fertilizer: (
+      <FlaskRound className="text-[var(--color-secondary)]" size={22} />
+    ),
     Pesticide: <Bug className="text-[var(--color-secondary)]" size={22} />,
   };
 
   return (
-    <div className="max-w-5xl mx-auto  ">
-      <h2 className="text-2xl font-bold text-[var(--color-black)] mb-6">
-        Spray History
-      </h2>
+    <div className="mx-auto  ">
+      <h3 className="text-xl lg:text-3xl md:text-xl font-semibold text-[var(--color-black)] mb-4 mt-4 text-center">
+        Spray Records
+      </h3>
+
+      <p className="mx-auto max-w-5xl  text-center text-[var(--color-black)] leading-relaxed mb-6">
+        Record, manage, and monitor every detail of your spray operations — from
+        chemicals to weather logs.
+      </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {sprayHistoryData.map((item) => (
