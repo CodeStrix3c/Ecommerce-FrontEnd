@@ -148,7 +148,7 @@ export default function SupplierProfileCompletion({ onComplete }) {
 
           <FormStepper activeStep={step} steps={labels} />
 
-          <StepHeader activeStep={step} steps={SUPPLIER_COMPLETION_STEPS} />
+          <StepHeader activeStep={step} labels={labels} descriptions={descriptions} />
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
             {step === 0 && (

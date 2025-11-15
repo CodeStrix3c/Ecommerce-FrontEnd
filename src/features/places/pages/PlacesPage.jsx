@@ -1,7 +1,7 @@
 // PlacesPage.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { dummyData } from '@/data/dummyData.ts';
+// import { dummyData } from '@/data/dummyData.ts';
 import AccountNav from '@/components/ui/AccountNav';
 import InfoCard from '@/components/shared/InfoCard';
 import Spinner from '@/components/ui/Spinner';
@@ -12,7 +12,7 @@ const PlacesPage = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setPlaces(dummyData);
+      setPlaces();
       setLoading(false);
     }, 1000);
   }, []);

@@ -21,6 +21,7 @@ import {
   farmerEducation,
   farmerProfession,
 } from "@/features/suppliers/pages/DummyData";
+import { Link } from "react-router-dom";
 
 const FarmerProfilePage = () => {
   return (
@@ -33,19 +34,19 @@ const FarmerProfilePage = () => {
             title="Farmer Profile"
             className="lg:font-bold lg:text-2xl"
           />
-          <div className="flex items-center space-x-4">
-            <button className="px-4 py-2 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
-              Complete Your Profile
-            </button>
-            <div className="relative group">
-              <div className="p-2 border rounded-full cursor-pointer hover:bg-[var(--color-gray)]">
-                <Settings className="w-5 h-5 text-[var(--color-black)]" />
-              </div>
-              <span className="absolute left-1/2 -translate-x-1/2 hidden group-hover:block  text-[var(--color-black)] text-sm py-1 px-2">
-                Settings
-              </span>
-            </div>
-          </div>
+        <div className="flex items-center space-x-4">
+               <Link to="/farmer-profile-completion" className="px-2 py-2 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
+                 Complete Your Profile
+               </Link>
+               <div className="relative group">
+                 <div
+                   className="p-2 border rounded-full cursor-pointer hover:bg-[var(--color-gray)]"
+                   title="Settings"
+                 >
+                   <Settings className="w-5 h-5 text-[var(--color-black)]" />
+                 </div>
+               </div>
+             </div>
         </div>
 
         {/* ✅ Main Grid Layout */}

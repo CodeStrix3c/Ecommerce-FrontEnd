@@ -102,7 +102,7 @@ export default function LeftPanel() {
             <p className="text-4xl font-extrabold text-gray-800">{overall}</p>
             <img src={rightLeaf} alt="right leaf" className="h-8 w-8" />
           </div>
-          <p className="mt-2 font-semibold text-gray-700">Guest favourite</p>
+          <p className="mt-2 font-semibold text-gray-700">Farmer's favourite</p>
           <p className="text-xs text-gray-600">Based on {totalReviews} reviews</p>
         </div>
 

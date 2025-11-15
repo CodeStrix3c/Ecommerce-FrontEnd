@@ -26,7 +26,7 @@ const FilterDropdown = ({ onSelect, options }) => {
           <Settings2
             size={18}
             strokeWidth={2}
-            style={{ color: "var(--color-primary)" }}
+            style={{ color: "var(--color-secondary)" }}
           />
           <span className="text-[var(--color-black)] font-medium">
             {displayText}
@@ -34,7 +34,7 @@ const FilterDropdown = ({ onSelect, options }) => {
         </span>
 
         <ChevronDown
-          className={`h-4 w-4 text-[var(--color-primary)] transition-transform duration-200 ${
+          className={`h-4 w-4 text-[var(--color-secondary)] transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
         />

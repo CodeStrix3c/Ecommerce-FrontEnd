@@ -21,8 +21,8 @@ export default function CropInformation() {
   );
 
   return (
-    <ContentWrapper compactScreen>
-      <div className="min-h-screen bg-[var(--color-white)] text-[var(--color-black)] lg:mt-36 md:mt-28">
+    <ContentWrapper compactScreen topSpacing>
+      <div className="min-h-screen bg-[var(--color-white)] text-[var(--color-black)] ">
         <header className="">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
             <div className="flex items-center gap-3">

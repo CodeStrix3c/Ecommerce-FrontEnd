@@ -7,7 +7,7 @@ const HarvestInfo = () => {
   
      <section className="mt-20 text-center px-4">
       
-      <h3 className="text-lg lg:text-3xl md:text-xl font-semibold text-[var(--color-black)] mb-4">
+      <h3 className="text-xl lg:text-3xl md:text-xl font-semibold text-[var(--color-black)] mb-4">
         From Orchard to Basket – Our Harvest Story
       </h3>
 

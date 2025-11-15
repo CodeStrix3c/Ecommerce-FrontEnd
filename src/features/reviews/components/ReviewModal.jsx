@@ -97,7 +97,7 @@ export default function ReviewModal({
                       : ""
                   }`}
                 >
-                  {/* ✅ Pass update & delete handlers */}
+                 
                   <ReviewCard
                     review={review}
                     onUpdate={onUpdate}

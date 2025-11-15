@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const PlaceImg = ({ place, index = 0, className = null }) => {

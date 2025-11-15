@@ -97,7 +97,7 @@ export default function FarmerProfileCompletion({ onComplete }) {
     navigate("/farmer-profile");
   };
 
-  const { labels } = PROFILE_COMPLETION_STEPS;
+  const { labels,descriptions } = PROFILE_COMPLETION_STEPS;
 
   return (
     <ContentWrapper compactScreen topSpacing>
@@ -124,7 +124,7 @@ export default function FarmerProfileCompletion({ onComplete }) {
             />
             <FormStepper activeStep={step} steps={labels} />
 
-            <StepHeader activeStep={step} steps={PROFILE_COMPLETION_STEPS} />
+            <StepHeader activeStep={step} descriptions={descriptions} labels={labels} />
 
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
               {step === 0 && (

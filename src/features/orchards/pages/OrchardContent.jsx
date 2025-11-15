@@ -92,7 +92,7 @@ const OrchardContent = () => {
       <section className="text-center mt-20 ">
         {/* Section Heading */}
         <div className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-black)]">
+          <h2 className="text-xl lg:text-3xl md:text-xl  font-semibold text-[var(--color-black)]">
             Our Orchard Practices
           </h2>
           <p className="mt-3 text-[var(--color-black)] text-base md:text-lg max-w-2xl mx-auto leading-relaxed">

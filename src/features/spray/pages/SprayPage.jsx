@@ -77,7 +77,17 @@ const SprayPage = () => {
         }
       />
 
-      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-10">
+      <div className=" mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-10">
+        <h3 className="text-xl lg:text-3xl md:text-xl font-semibold text-[var(--color-black)] mb-4 mt-4 text-center">Spray Management Overview</h3>
+        
+          <p className="mx-auto max-w-5xl  text-center text-[var(--color-black)] leading-relaxed mb-6">
+            Good record keeping is not only a sound management discipline,
+            especially with regard to the use of pesticides, it is a legal
+            requirement. These pages, compiled by Bayer CropScience, are
+            designed to facilitate the recording of a range of field data with
+            special emphasis on pesticide usage.
+          </p>
+       
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {data.map((item, index) => (
             <div
@@ -97,22 +107,15 @@ const SprayPage = () => {
           ))}
         </div>
 
-        <div className="max-w-5xl mx-auto mt-12 sm:mt-16 md:mt-20 lg:mt-16 text-center lg:mb-2">
-          <h4 className="text-sm sm:text-base md:text-lg font-semibold text-[var(--color-black)] leading-relaxed">
-            Good record keeping is not only a sound management discipline,
-            especially with regard to the use of pesticides, it is a legal
-            requirement. These pages, compiled by Bayer CropScience, are
-            designed to facilitate the recording of a range of field data with
-            special emphasis on pesticide usage.
-          </h4>
-        </div>
+       
       </div>
 
-      <ContentWrapper compactScreen {...(!isMobile && { topSpacing: true })}>
-        <div className="sm:mt-[-8rem] md:mt- lg:mt-[-6rem] lg:px-12 pb-10">
-          <SprayHistory />
-        </div>
-      </ContentWrapper>
+     <ContentWrapper {...(!isMobile && { topSpacing: true })}>
+  <div className="sm:mt-[-8rem] md:mt-[-6rem] lg:mt-[-6rem] pb-10">
+    <SprayHistory />
+  </div>
+</ContentWrapper>
+
     </div>
   );
 };

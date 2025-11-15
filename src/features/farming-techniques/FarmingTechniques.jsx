@@ -4,12 +4,12 @@ import ContentWrapper from "@/components/shared/ContentWrapper";
 
 function FarmingTechniques() {
   return (
-    <ContentWrapper>
-      <div className="py-6 sm:py-10 md:py-14 lg:mt-32 text-[var(--color-black)] text-justify">
+    <ContentWrapper topSpacing>
+      <div className="text-[var(--color-black)] text-justify">
         <div className="text-center mb-12 ">
-          <h1 className="text-3xl font-semibold mb-4 max-sm:whitespace-normal sm:whitespace-nowrap">
+          <h2 className="text-3xl font-semibold mb-4 max-sm:whitespace-normal sm:whitespace-nowrap">
             The Future of Farming
-          </h1>
+          </h2>
           <p className="text-lg text-[var(--color-black)] max-w-3xl mx-auto text-justify">
             Farming is evolving every day with new innovations. Below are some
             sustainable techniques that are redefining agriculture while
@@ -49,7 +49,7 @@ function FarmingTechniques() {
         </div>
 
         <div className="mt-8  border-[var(--color-gray)] pt-10">
-          <h2 className="text-2xl font-semibold mb-8 text-center text-[var(--color-black)]">
+          <h2 className="text-xl lg:text-3xl md:text-xl  font-semibold mb-8 text-center text-[var(--color-black)]">
             Moving Toward a Sustainable Future
           </h2>
 
