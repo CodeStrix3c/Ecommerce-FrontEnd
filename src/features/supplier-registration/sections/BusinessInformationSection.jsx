@@ -1,19 +1,46 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useFormContext } from "react-hook-form";
 import FormLayout from "@/components/shared/FormLayout";
 import FormInput from "@/components/shared/custom-inputs/FormInput";
+import SelectField from "@/components/shared/custom-inputs/SelectField";
 import { GpsFixed } from "@mui/icons-material";
 import { getCurrentLocation } from "@/utils/getCurrentLocation";
+import MapBox from "@/components/ui/MapBox";
 
-export default function BusinessInformationSection({
-  register,
-  errors,
-  setValue,
-}) {
-  const [gpsLocation, setGpsLocation] = useState("");
+const locationData = {
+  "State A": {
+    "District 1": ["Tehsil 1", "Tehsil 2"],
+    "District 2": ["Tehsil 3", "Tehsil 4"],
+  },
+  "State B": {
+    "District 3": ["Tehsil 5", "Tehsil 6"],
+    "District 4": ["Tehsil 7", "Tehsil 8"],
+  },
+};
+
+export default function BusinessInformationSection() {
+  const {
+    register,
+    setValue,
+    watch,
+
+    formState: { errors },
+  } = useFormContext();
   const [loading, setLoading] = useState(false);
   const gpsInputRef = useRef(null);
+
+  const stateValue = watch("businessAddressState") || "";
+  const districtValue = watch("businessAddressDistrict") || "";
+  const tehsilValue = watch("businessAddressTehsil") || "";
+    const [coords, setCoords] = useState(null);
+      const [gpsLocation, setGpsLocation] = useState("");
+    
+  
+
+  const villageValue = watch("businessAddressVillage") || "";
+  const gpsValue = watch("gps") || "";
   useEffect(() => {
     fetchLocation();
   }, []);
@@ -21,17 +48,38 @@ export default function BusinessInformationSection({
   const fetchLocation = async () => {
     setLoading(true);
     try {
-      const { gpsString } = await getCurrentLocation();
+      const { gpsString, latitude, longitude } = await getCurrentLocation();
       setGpsLocation(gpsString);
-
-      setTimeout(() => {
-        gpsInputRef.current?.focus();
-      }, 100);
+      setCoords({ latitude, longitude });
+      setTimeout(() => gpsInputRef.current?.focus(), 100);
     } catch (err) {
+      console.error("Error fetching GPS:", err);
     } finally {
       setLoading(false);
     }
   };
+
+  const stateOptions = Object.keys(locationData).map((s) => ({
+    label: s,
+    value: s,
+  }));
+  const districtOptions = stateValue
+    ? Object.keys(locationData[stateValue]).map((d) => ({ label: d, value: d }))
+    : [];
+  const tehsilOptions =
+    stateValue && districtValue
+      ? locationData[stateValue][districtValue].map((t) => ({
+          label: t,
+          value: t,
+        }))
+      : [];
+  const villageOptions =
+    stateValue && districtValue && tehsilValue
+      ? ["Village 1", "Village 2", "Village 3"].map((v) => ({
+          label: v,
+          value: v,
+        }))
+      : [];
 
   return (
     <>
@@ -76,30 +124,75 @@ export default function BusinessInformationSection({
           errors={errors.email}
         />
 
-        <FormInput
-          name="businessAddressVillage"
-          label="Business Address - Village"
-          register={register}
-          errors={errors.businessAddressVillage}
-        />
-        <FormInput
-          name="businessAddressTehsil"
-          label="Tehsil"
-          register={register}
-          errors={errors.businessAddressTehsil}
-        />
-        <FormInput
-          name="businessAddressDistrict"
-          label="District"
-          register={register}
-          errors={errors.businessAddressDistrict}
-        />
-        <FormInput
+        <SelectField
           name="businessAddressState"
           label="State"
           register={register}
           errors={errors.businessAddressState}
+          options={stateOptions}
+          value={stateValue}
+          onChange={(e) => {
+            setValue("businessAddressState", e.target.value, {
+              shouldValidate: true,
+            });
+            setValue("businessAddressDistrict", "");
+            setValue("businessAddressTehsil", "");
+          }}
         />
+
+        <SelectField
+          name="businessAddressDistrict"
+          label="District"
+          register={register}
+          errors={
+            !stateValue ? "Select State First" : errors.businessAddressDistrict
+          }
+          options={districtOptions}
+          value={districtValue}
+          onChange={(e) => {
+            setValue("businessAddressDistrict", e.target.value, {
+              shouldValidate: true,
+            });
+            setValue("businessAddressTehsil", "");
+          }}
+          disabled={!stateValue}
+        />
+
+        <SelectField
+          name="businessAddressTehsil"
+          label="Tehsil"
+          register={register}
+          errors={
+            !districtValue
+              ? "Select District first"
+              : errors.businessAddressTehsil
+          }
+          options={tehsilOptions}
+          value={tehsilValue}
+          onChange={(e) =>
+            setValue("businessAddressTehsil", e.target.value, {
+              shouldValidate: true,
+            })
+          }
+          disabled={!districtValue}
+        />
+        <SelectField
+          name="businessAddressVillage"
+          label="Village"
+          register={register}
+          errors={
+            !tehsilValue ? "Select Tehsil first" : errors.businessAddressVillage
+          }
+          options={villageOptions}
+          value={villageValue}
+          onChange={(e) => {
+            setValue("businessAddressVillage", e.target.value, {
+              shouldValidate: true,
+            });
+          }}
+          disabled={!tehsilValue}
+        />
+
         <FormInput
           name="businessAddressPincode"
           label="PIN Code"
@@ -108,11 +201,15 @@ export default function BusinessInformationSection({
           errors={errors.businessAddressPincode}
         />
       </FormLayout>
-      <div className="mt-4 cursor-auto">
+
+      {coords && <MapBox lat={coords.latitude} lng={coords.longitude} />}
+
+
+      {/* <div className="mt-4 cursor-auto">
         <FormInput
           name="gps"
           label="Gps Location"
-          value={gpsLocation}
+          value={gpsValue}
           icon={
             <GpsFixed
               sx={{
@@ -128,7 +225,7 @@ export default function BusinessInformationSection({
           errors={errors.gps}
           inputRef={gpsInputRef}
         />
-      </div>
+      </div> */}
     </>
   );
 }

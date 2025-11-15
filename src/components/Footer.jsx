@@ -2,13 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Globe, Facebook, Instagram, Twitter } from "lucide-react";
 import ContentWrapper from "./shared/ContentWrapper";
+import { FaFacebook, FaInstagram, FaLinkedin, } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
     <div className="flex w-full justify-center bg-[var(--color-black-hover)] pb-8 mt-10">
       <ContentWrapper>
-        <div className="flex w-full flex-col items-center">
-          <div className="grid w-full grid-cols-1 gap-4 py-8 text-sm md:grid-cols-3">
+        <div className="flex w-full flex-col items-end">
+          <div className="grid w-full grid-cols-2 gap-10 py-8 text-sm md:grid-cols-3">
             <div className="flex flex-col gap-4">
               <strong className="font-medium text-[var(--color-black)]">
                 Support
@@ -66,7 +68,7 @@ const Footer = () => {
                 { name: "Weather Updates", link: "/resources/weather" },
                 { name: "Market Prices", link: "/resources/market-prices" },
                 { name: "Pest Alerts", link: "/resources/pest-alerts" },
-                { name: "Farming Techniques", link: "/resources/techniques" },
+                { name: "Farming Techniques", link: "/resources/farming-techniques" },
               ].map((item, idx) => (
                 <p key={idx}>
                   <Link
@@ -89,9 +91,12 @@ const Footer = () => {
                 English(IN) <span className="mx-4">₹ INR</span>
               </div>
               <div className="flex gap-3 text-[var(--color-black)]">
-                <Facebook className="h-6 w-6 cursor-pointer hover:text-[var(--color-primary)]" />
-                <Instagram className="h-6 w-6 cursor-pointer hover:text-[var(--color-primary)]" />
-                <Twitter className="h-6 w-6 cursor-pointer hover:text-[var(--color-primary)]" />
+       <FaFacebook className="w-6 h-6 text-[#1877F2] hover:opacity-80 cursor-pointer" />
+       <FaLinkedin className="w-6 h-6 text-[#0A66C2] hover:opacity-80 cursor-pointer" />
+   <FaInstagram className="w-6 h-6 text-[#E4405F] hover:opacity-80 cursor-pointer" />
+ <FaXTwitter className="w-6 h-6 text-black hover:opacity-80 cursor-pointer" />
+ 
+
               </div>
             </div>
 

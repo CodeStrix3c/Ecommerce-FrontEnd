@@ -1,8 +1,49 @@
+// import { X } from "lucide-react";
+// import LeftPanel from "./LeftPanel";
+// import ReviewCard from "./ReviewCard";
+
+// export default function AllReviewsModal({ testimonials, onClose }) {
+//   return (
+//     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--color-overlay)]">
+//       <div className="animate-slideUp relative h-full w-full overflow-hidden rounded-t-2xl bg-[var(--color-white)] md:h-[90%] md:w-4/5 md:rounded-xl">
+//         <button
+//           onClick={onClose}
+//           className="absolute right-4 top-4 text-[var(--color-neutral-dark)] hover:text-[var(--color-neutral-dark-hover)]"
+//         >
+//           <X className="h-6 w-6" />
+//         </button>
+
+//         <div className="h-full overflow-y-auto md:grid md:grid-cols-2 md:overflow-hidden">
+//           <div className="block md:h-full md:overflow-y-auto">
+//             <LeftPanel />
+//           </div>
+//           <div className="p-6 md:h-full md:overflow-y-auto">
+//             <h2 className="mb-4 text-xl font-semibold text-[var(--color-neutral-dark)]">
+//               All Reviews ({testimonials.length})
+//             </h2>
+//             <div className="space-y-6">
+//               {testimonials.map((review) => (
+//                 <div
+//                   key={review.id}
+//                   className="pb-4"
+//                 >
+//                   <ReviewCard review={review} compact={false} />
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
 import { X } from "lucide-react";
 import LeftPanel from "./LeftPanel";
 import ReviewCard from "./ReviewCard";
 
-export default function AllReviewsModal({ testimonials, onClose }) {
+export default function AllReviewsModal({ testimonials, onClose, onUpdate, onDelete }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--color-overlay)]">
       <div className="animate-slideUp relative h-full w-full overflow-hidden rounded-t-2xl bg-[var(--color-white)] md:h-[90%] md:w-4/5 md:rounded-xl">
@@ -17,17 +58,21 @@ export default function AllReviewsModal({ testimonials, onClose }) {
           <div className="block md:h-full md:overflow-y-auto">
             <LeftPanel />
           </div>
+
           <div className="p-6 md:h-full md:overflow-y-auto">
             <h2 className="mb-4 text-xl font-semibold text-[var(--color-neutral-dark)]">
               All Reviews ({testimonials.length})
             </h2>
+
             <div className="space-y-6">
               {testimonials.map((review) => (
-                <div
-                  key={review.id}
-                  className="border-b border-[var(--color-neutral-dark-hover)] pb-4"
-                >
-                  <ReviewCard review={review} compact={false} />
+                <div key={review.id} className="pb-4">
+                
+                  <ReviewCard
+                    review={review}
+                    onUpdate={onUpdate}
+                    onDelete={onDelete}
+                  />
                 </div>
               ))}
             </div>
@@ -37,3 +82,4 @@ export default function AllReviewsModal({ testimonials, onClose }) {
     </div>
   );
 }
+

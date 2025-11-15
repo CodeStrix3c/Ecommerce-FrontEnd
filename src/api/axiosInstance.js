@@ -1,5 +1,5 @@
+import { getItemFromLocalStorage } from "@/utils/localStorage";
 import axios from "axios";
-
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_ZIRAAT_BASE_URL,
   headers: {
@@ -10,11 +10,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const runtimeToken =
-      localStorage.getItem("token") || sessionStorage.getItem("token");
-    const envToken = import.meta.env.VITE_API_TOKEN;
-    const token = runtimeToken || envToken;
+    if (config.auth === false) return config;
 
+    const token = getItemFromLocalStorage("token");
     if (token) {
       config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${envToken}`;

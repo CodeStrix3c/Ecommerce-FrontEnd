@@ -1,7 +1,5 @@
-import { Divider, Stack } from "@mui/material";
 import FileUploadField from "@/components/shared/custom-inputs/FileUploadField";
 import FormInput from "@/components/shared/custom-inputs/FormInput";
-import FormSection from "@/features/auth/components/FormSection";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
@@ -15,7 +13,6 @@ export default function ProfileSection({ register, errors, control }) {
   console.log(errors);
 
   return (
-    // <FormSection title="Profile Information">
     <FormLayout>
       <FormInput
         name="fullName"
@@ -34,7 +31,7 @@ export default function ProfileSection({ register, errors, control }) {
       />
       <FormInput
         name="phone"
-        label="Mobile Number"
+        label="Mobile Number (OTP Linked)"
         type="tel"
         register={register}
         errors={errors.phone}
@@ -48,32 +45,32 @@ export default function ProfileSection({ register, errors, control }) {
         errors={errors.age}
       />
 
-      {/* ✅ Gender dropdown */}
-      <Controller
+      <SelectField
         name="gender"
+        register={register}
+        control={control}
+        label="Gender"
+        errors={errors.gender}
+        options={[
+          { value: "", label: "Select Gender" },
+          { value: "male", label: "Male" },
+          { value: "female", label: "Female" },
+          { value: "other", label: "Other" },
+        ]}
+      />
+      <Controller
+        name="profilePic"
         control={control}
         render={({ field, fieldState }) => (
-          <SelectField
+          <FileUploadField
             {...field}
-            label="Gender"
-            errors={fieldState.error ? { [field.name]: fieldState.error } : {}}
-            options={[
-              { value: "", label: "Select Gender" },
-              { value: "male", label: "Male" },
-              { value: "female", label: "Female" },
-              { value: "other", label: "Other" },
-            ]}
+            label="Upload Profile"
+            errors={fieldState.error ? { profilePic: fieldState.error } : {}}
+            onFilesChange={(files) => field.onChange(files)}
+            // showPreview
+            optional
           />
         )}
-      />
-      <FileUploadField
-        name="profilePic"
-        label="Upload Profile"
-        register={register}
-        variant="profile"
-        errors={errors}
-        showPreview={false}
-        optional
       />
 
       <FormInput
@@ -93,6 +90,5 @@ export default function ProfileSection({ register, errors, control }) {
         icon={<LockIcon sx={iconStyle} />}
       />
     </FormLayout>
-    // </FormSection>
   );
 }

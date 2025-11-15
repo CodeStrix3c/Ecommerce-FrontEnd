@@ -1,33 +1,56 @@
 import React, { useState } from "react";
-import { HelpCircle, ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
-export default function FaqCard({ question, answer, opened = false }) {
-  const [isOpen, setIsOpen] = useState(opened);
+const FAQCard = ({ faqs }) => {
+  const [openIndex, setOpenIndex] = useState(null);
 
-  const toggleOpen = () => setIsOpen(!isOpen);
+  const toggle = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
-    <div className="p-5 md:p-6 border rounded-xl transition">
-      <button
-        onClick={toggleOpen}
-        className="flex items-center justify-between w-full text-left gap-2"
-      >
-        <div className="flex items-center gap-2">
-          <HelpCircle className="text-[var(--color-secondary)]" size={20} />
-          <h3 className="font-semibold text-base md:text-lg">{question}</h3>
-        </div>
-        {isOpen ? (
-          <ChevronDown size={18} className="text-[var(--color-black)]" />
-        ) : (
-          <ChevronRight size={18} className="text-[var(--color-black)]" />
-        )}
-      </button>
+    <section className=" py-10 px-4 sm:px-8 md:px-16 lg:px-24">
 
-      {isOpen && (
-        <p className="mt-3 text-[var(--color-black)] text-sm sm:text-base">
-          {answer}
+      <div className="max-w-4xl mx-auto text-center mb-10">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+          Frequently Asked Questions
+        </h2>
+        <p className="text-base sm:text-lg ">
+          Find answers to common questions about our eco-friendly orchard care
+          products and services.
         </p>
-      )}
-    </div>
+      </div>
+
+
+      <div className="max-w-5xl mx-auto space-y-4">
+        {faqs.map((faq, i) => (
+          <div
+            key={i}
+            className="border border-[var(--color-gray)] rounded-md shadow-sm hover:shadow-md transition-shadow duration-300"
+          >
+            <button
+              onClick={() => toggle(i)}
+              className="w-full flex justify-between items-center text-left p-4 sm:p-5"
+            >
+              <h3 className="font-medium text-md">
+                {faq.question}
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 text-[var(--color-black)] transform transition-transform duration-300 ${openIndex === i ? "rotate-180" : ""
+                  }`}
+              />
+            </button>
+
+            {openIndex === i && (
+              <div className="px-4 sm:px-5 pb-4 leading-relaxed text-base lg:text-sm">
+                {faq.answer}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
   );
-}
+};
+
+export default FAQCard;

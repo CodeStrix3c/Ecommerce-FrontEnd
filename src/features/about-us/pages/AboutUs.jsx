@@ -1,165 +1,74 @@
+
 import React from "react";
-import { Leaf, Sprout, Users, Heart, Star, Map, Award } from "lucide-react";
+import HeroSection from "../components/HeroSection";
+import WhoWeAre from "../components/WhoWeAre";
+import WhyChooseUs from "../components/WhyChooseUs";
+import OurMission from "../components/OurMission";
+import FAQCard from "../components/FaqCard";
+import ImageHeaderSection from "@/components/shared/ImageHeaderSection";
 
-import ContentWrapper from "@/components/shared/ContentWrapper";
-import StatCard from "../components/StatCard";
-import FeatureCard from "../components/FeatureCard";
-import FaqCard from "../components/FaqCard";
 
-export default function AboutUs() {
-  const stats = [
-    { value: "500+", label: "local farmers in our community" },
-    { value: "50+", label: "villages supported with sustainable farming" },
-    { value: "2000+", label: "acres of farmland cultivated organically" },
-    { value: "1M+", label: "families nourished with fresh produce" },
-    { value: "100%", label: "chemical-free & natural farming practices" },
-    { value: "10K+", label: "jobs created in rural communities" },
-    { value: "15+", label: "years of building farmer-first solutions" },
-    { value: "25+", label: "partner organizations & cooperatives" },
-  ];
 
-  const mission = [
-    {
-      Icon: Leaf,
-      title: "Sustainability",
-      description:
-        "Protecting the soil and environment through eco-friendly methods.",
-    },
-    {
-      Icon: Sprout,
-      title: "Quality Harvest",
-      description:
-        "Delivering farm-fresh produce, rich in taste and nutrients.",
-    },
-    {
-      Icon: Users,
-      title: "Community",
-      description: "Empowering local farmers and supporting rural livelihoods.",
-    },
-    {
-      Icon: Heart,
-      title: "Trust",
-      description:
-        "Building strong bonds with customers through honesty & care.",
-    },
-  ];
 
-  const whyChoose = [
-    {
-      Icon: Star,
-      title: "Farm Fresh",
-      description: "Harvested daily to bring you the freshest produce.",
-    },
-    {
-      Icon: Map,
-      title: "Local Support",
-      description: "Directly supporting farmers in your community.",
-    },
-    {
-      Icon: Award,
-      title: "Certified Organic",
-      description: "Trusted produce grown without chemicals or pesticides.",
-    },
-  ];
 
-  const faqs = [
-    {
-      question: "Are your products 100% organic?",
-      answer:
-        "Yes, all our produce is grown naturally without harmful pesticides or chemicals.",
-    },
-    {
-      question: "Do you deliver to my city?",
-      answer:
-        "We deliver to most major cities and towns. You can check delivery availability at checkout.",
-    },
-    {
-      question: "How do I trust your farming practices?",
-      answer:
-        "We are certified organic and open our farms for visits to ensure full transparency.",
-    },
-  ];
+const AboutUs = () => {
+
+  const aboutUsFaqs = [
+  {
+    question: "What is Ziraat and what does it stand for?",
+    answer:
+      "Ziraat is an agri-tech brand dedicated to empowering farmers through sustainable and innovative crop protection solutions. Our name reflects our mission — to nurture the land and support those who cultivate it. At Ziraat, we believe that modern technology and traditional wisdom can coexist to create a healthier agricultural ecosystem. From pest management to soil nutrition, we focus on practical, eco-conscious methods that help farmers grow better, safer, and more profitable crops.",
+  },
+  {
+    question: "How long has Ziraat been in operation?",
+    answer:
+      "Ziraat was founded with a vision to modernize Indian agriculture. Over the years, we’ve grown into a trusted partner for farmers nationwide, focusing on eco-safe pest management, soil improvement, and sustainable crop care. With our continuous R&D and field-based feedback approach, we ensure every product and service is tailored to local farming conditions. Today, Ziraat stands as a symbol of innovation, reliability, and farmer-first values.",
+  },
+  {
+    question: "Where is Ziraat headquartered?",
+    answer:
+      "Our main office is based in India, with regional field teams and distributors operating across multiple agricultural zones to assist farmers locally. We work closely with rural communities through demo farms, training programs, and on-field support to ensure every farmer has access to expert guidance. Whether it’s a smallholder or a large-scale grower, Ziraat’s network ensures accessibility, quick delivery, and localized service for everyone.",
+  },
+  {
+    question: "What makes Ziraat different from other agricultural companies?",
+    answer:
+      "We combine technology, sustainability, and field expertise to bring real change to agriculture. Unlike conventional suppliers, Ziraat focuses on long-term soil health, eco-friendly products, and personalized agronomy support. Our experts regularly conduct field trials, soil testing, and farmer training workshops to promote best practices. We also invest heavily in innovation — introducing smart agri-solutions that reduce input costs and improve yields while preserving nature’s balance.",
+  },
+  {
+    question: "Do you collaborate with research institutions or universities?",
+    answer:
+      "Yes, absolutely! Ziraat actively partners with agricultural universities, government departments, and private research labs to develop and validate sustainable farming technologies. These collaborations ensure that our products meet the highest scientific standards and adapt to evolving agricultural challenges. Through joint research initiatives, we aim to make modern agri-innovations accessible to every farmer — from seed to harvest.",
+  },
+  {
+    question: "Can I visit your facilities or meet your experts?",
+    answer:
+      "Of course! We warmly welcome farmers, distributors, and partners to visit our facilities or meet our agronomy experts. Our team provides guided tours, product demos, and personalized consultations to help you understand our solutions better. You can book an appointment easily through our contact page or customer support line. Whether you want expert advice, training, or partnership opportunities — Ziraat is always open to connect and collaborate.",
+  },
+  {
+    question: "What are Ziraat’s future goals?",
+    answer:
+      "Ziraat aims to lead the transformation of Indian agriculture into a smart, sustainable, and digitally connected ecosystem. We are expanding our product range, investing in precision agri-tech, and building stronger partnerships with farmer communities. Our goal is to empower one million farmers by 2030 with modern tools, eco-safe solutions, and data-driven decision support systems — ensuring a prosperous and resilient future for agriculture.",
+  },
+  {
+    question: "How does Ziraat support small and marginal farmers?",
+    answer:
+      "We understand the unique challenges faced by small and marginal farmers — limited access to resources, information, and finance. Ziraat provides affordable products, on-field training, and customized crop care programs to help them maximize yields sustainably. Through our Farmer Outreach Program, we offer expert guidance in local languages, distribute knowledge kits, and create awareness about safe and effective farming practices.",
+  },
+];
+
 
   return (
-    <div className="bg-[var(--color-white)] text-[var(--color-black)] mt-8">
-      <section
-        className="relative flex items-center justify-center min-h-[70vh] bg-cover bg-center"
-        style={{ backgroundImage: 'url("/assets/images/aboutUsBg.jpg")' }}
-      /> */}
+    <div className=" ">
 
-      <ContentWrapper compactScreen>
-        <div className="py-10">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 text-center">
-            About Us
-          </h2>
-          <p className="text-sm sm:text-base md:text-lg leading-relaxed text-justify">
-            We are a community of passionate farmers dedicated to bringing
-            fresh, organic, and sustainable produce directly from our fields to
-            your table. Our journey began with a small group of farmers who
-            believed in preserving traditional farming methods while embracing
-            modern sustainable practices. Over the years, we have grown into a
-            trusted community that values quality, transparency, and care for
-            the land.
-          </p>
-        </div>
+      <ImageHeaderSection title={"About Ziraat"} image={"/assets/images/about-us-img.avif"} description={" Ziraat is dedicated to empowering orchard farmers with safe, effective,and sustainable crop protection solutions. We blend scientific innovation with agricultural wisdom to create eco-friendly pesticides that nurturehealthier orchards."
 
-        <div className="py-10">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">
-            Our Mission & Values
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-            {mission.map((m, i) => (
-              <FeatureCard key={i} {...m} />
-            ))}
-          </div>
-        </div>
-
-        <div className="py-10">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">
-            Fast Facts
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {stats.map((s, i) => (
-              <StatCard key={i} {...s} />
-            ))}
-          </div>
-        </div>
-
-        <div className="py-10">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">
-            Why Choose Us?
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {whyChoose.map((item, i) => (
-              <FeatureCard key={i} {...item} />
-            ))}
-          </div>
-        </div>
-
-        <div className="py-10">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="max-w-2xl mx-auto space-y-4">
-            {faqs.map((faq, i) => (
-              <FaqCard key={i} {...faq} />
-            ))}
-          </div>
-        </div>
-
-        <div className="py-10 text-center">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-3">
-            Join Our Farming Journey
-          </h2>
-          <p className="max-w-xl mx-auto mb-5 text-sm sm:text-base">
-            Together, we can build a healthier future by choosing natural,
-            sustainable, and farmer-friendly produce.
-          </p>
-          <button className="bg-[var(--color-primary)] text-[var(--color-white)] px-4 py-2 rounded-lg font-medium hover:bg-[var(--color-primary-hover)] transition text-sm sm:text-base">
-            Contact Us
-          </button>
-        </div>
-      </ContentWrapper>
+      } />
+      <WhoWeAre />
+      <WhyChooseUs />
+      <OurMission />
+      <FAQCard faqs={aboutUsFaqs} />
     </div>
   );
-}
+};
+
+export default AboutUs;

@@ -14,7 +14,6 @@ export default function ProductionMarketingSection({
   return (
     <>
       <FormLayout>
-        {/* 1. Average Annual Yield */}
         <FormInput
           name="averageAnnualYield"
           label="Average Annual Yield (Boxes/Kilos)"
@@ -23,7 +22,6 @@ export default function ProductionMarketingSection({
           errors={errors.averageAnnualYield}
         />
 
-        {/* 2. Peak Harvest Season */}
         <FormInput
           name="peakHarvestSeason"
           label="Peak Harvest Season (Month/Duration)"
@@ -31,31 +29,24 @@ export default function ProductionMarketingSection({
           errors={errors.peakHarvestSeason}
         />
 
-        {/* 3. Selling Preference */}
-        <Controller
+        <SelectField
           name="sellingPreference"
           control={control}
-          render={({ field, fieldState }) => (
-            <SelectField
-              {...field}
-              label="Selling Preference"
-              errors={
-                fieldState.error ? { [field.name]: fieldState.error } : {}
-              }
-              options={[
-                { value: "", label: "Select Selling Preference" },
-                { value: "localMandi", label: "Local Mandi" },
-                { value: "commissionAgent", label: "Commission Agent" },
-                { value: "fpo", label: "FPO" },
-                { value: "directBuyer", label: "Direct Buyer" },
-                { value: "onlinePlatform", label: "Online Platform" },
-              ]}
-            />
-          )}
+          register={register}
+          label="Selling Preference"
+          errors={errors.sellingPreference}
+          options={[
+            { value: "", label: "Select Selling Preference" },
+            { value: "localMandi", label: "Local Mandi" },
+            { value: "commissionAgent", label: "Commission Agent" },
+            { value: "fpo", label: "FPO" },
+            { value: "directBuyer", label: "Direct Buyer" },
+            { value: "onlinePlatform", label: "Online Platform" },
+          ]}
         />
 
-        {/* 4. Buyer Details (optional) */}
         <FormInput
+          required={false}
           name="buyerDetails"
           label="Buyer Details (Optional, for future linkage)"
           register={register}

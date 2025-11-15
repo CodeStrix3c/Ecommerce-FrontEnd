@@ -7,6 +7,7 @@ import CustomAreaChart from "@/components/charts/CustomAreaChart";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 
 export default function FinancialPanel() {
+
   const financialMetrics = [
     { label: "Cost of Cultivation / Acre", value: "₹45,000", icon: BarChart3 },
     { label: "Gross Revenue / Acre", value: "₹75,000", icon: TrendingUp },
@@ -14,17 +15,13 @@ export default function FinancialPanel() {
     { label: "ROI (%)", value: "66%", icon: LineChart },
     { label: "Break-Even Yield (kg/acre)", value: "1,200", icon: BarChart3 },
     { label: "YoY Yield Growth (%)", value: "8%", icon: TrendingUp },
-    {
-      label: "Possible Improvements",
-      value: "Cost-cutting / Crop rotation",
-      icon: ArrowUpCircle,
-    },
+    { label: "Possible Improvements",value: "Cost-cutting / Crop rotation",icon: ArrowUpCircle}
   ];
 
   const chartData = [
   { month: "Jan", fertilizer: 100, pesticide: 2, labor: 40 },
   { month: "Feb", fertilizer: 120, pesticide: 3, labor: 45 },
-  { month: "Mar", fertilizer: 110, pesticide: 2, labor: 50 },
+  { month: "Mar", fertilizer: 110, pesticide: 2, labor: 50 }
 ];
 
   return (

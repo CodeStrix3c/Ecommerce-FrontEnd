@@ -3,8 +3,8 @@ import { Bug } from "lucide-react";
 
 export default function PestAlert() {
   return (
-    <div className="bg-[var(--color-white)] rounded-2xl shadow-sm ">
-      <h3 className="text-lg font-semibold flex items-center gap-2">
+    <div className="bg-[var(--color-white)] rounded-2xl ">
+      <h3 className="text-xl font-semibold flex items-center gap-2">
         <Bug className="h-5 w-5 text-[var(--color-secondary)]" />
         Pest & Disease Alerts
       </h3>

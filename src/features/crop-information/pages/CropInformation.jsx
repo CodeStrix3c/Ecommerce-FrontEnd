@@ -15,14 +15,7 @@ import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import SelectField from "@/components/shared/custom-inputs/SelectField";
 
 export default function CropInformation() {
-  const [selectedState, setSelectedState] = useState("Punjab");
-  const states = [
-    { label: "Punjab", value: "Punjab" },
-    { label: "Kashmir", value: "Kashmir" },
-    { label: "Haryana", value: "Haryana" },
-    { label: "Uttar Pradesh", value: "Uttar Pradesh" },
-    { label: "Maharashtra", value: "Maharashtra" },
-  ];
+  
   const Label = ({ children }) => (
     <div className="text-xs text-[var(--color-black)]">{children}</div>
   );
@@ -34,7 +27,7 @@ export default function CropInformation() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
             <div className="flex items-center gap-3">
               <div>
-                <h1 className="text-xl font-semibold text-[var(--color-primary)]">
+                <h1 className="text-3xl font-semibold text-[var(--color-black)]">
                   Crop Information
                 </h1>
                 <p className="text-sm text-[var(--color-black)]">
@@ -44,7 +37,7 @@ export default function CropInformation() {
             </div>
 
             <div className="w-full md:w-1/3">
-              <SecondarySearchBar />
+              <SecondarySearchBar placeholder="Search for a crop..." />
             </div>
           </div>
         </header>
@@ -59,7 +52,7 @@ export default function CropInformation() {
               <div className="flex-1">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div>
-                    <h2 className="text-2xl font-semibold">Wheat</h2>
+                    <h2 className="text-3xl font-semibold">Wheat</h2>
                     <p className="text-sm text-[var(--color-black)] mt-1">
                       Cereal • Best season: Rabi (Nov - Apr)
                     </p>
@@ -105,7 +98,7 @@ export default function CropInformation() {
               <div className="bg-[var(--color-white)] rounded-2xl shadow-sm p-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
                   <CloudSun className="h-5 w-5 text-[var(--color-secondary)]" />
-                  Weather — Punjab
+                  Weather — Kashmir
                 </h3>
                 <div className="mt-4 flex items-center gap-6">
                   <div>
@@ -156,24 +149,9 @@ export default function CropInformation() {
             <Timeline />
             <ExpertAdvice />
           </section>
-          <aside className="space-y-4">
-            <div className="bg-[var(--color-white)] rounded-2xl shadow-sm py-4">
-              <h4 className="font-semibold mb-2 flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-[var(--color-secondary)]" />
-                Region
-              </h4>
-              <SelectField
-                name="state"
-                label="State"
-                options={states}
-                optional
-                showOptionalLabel={false}
-                value={selectedState}
-                onChange={(e) => setSelectedState(e.target.value)}
-              />
-            </div>
-            <div className="bg-[var(--color-white)] rounded-2xl shadow-sm py-4">
-              <h4 className="font-semibold flex items-center gap-2">
+          <aside className="space-y-4 ">
+            <div className="bg-[var(--color-white)] rounded-2xl py-4 ">
+              <h4 className="font-semibold text-xl flex items-center gap-2">
                 <FileDown className="h-5 w-5 text-[var(--color-secondary)]" />
                 Quick Actions
               </h4>
