@@ -49,7 +49,9 @@ export default function PestPanel() {
 
         {/* Recent Diagnoses Table */}
         <div className="mt-6 bg-[var(--color-white)] p-5 rounded-2xl shadow-md border border-white backdrop-blur-sm">
-          <h3 className="text-sm font-semibold text-[var(--color-black)] mb-3">Recent Photo Diagnoses</h3>
+          <h3 className="text-sm font-semibold text-[var(--color-black)] mb-3">
+            Recent Photo Diagnoses
+          </h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left border-t border-emerald-50">
               <thead>

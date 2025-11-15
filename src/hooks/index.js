@@ -7,7 +7,7 @@ import {
   setItemsInLocalStorage,
   removeItemFromLocalStorage,
 } from "@/utils/localStorage";
-import { UserContext } from "@/providers/UserProvider";
+// import { UserContext } from "@/providers/UserProvider";
 
 // import { UserContext } from "@/providers/UserProvider";
 // import { PlaceContext } from "@/providers/PlaceProvider";
@@ -197,6 +197,6 @@ export const useProvideAuth = () => {
     setLoading(false);
   }, []);
 };
-export const useAuth = () => {
-  return useContext(UserContext);
-};
+// export const useAuth = () => {
+//   return useContext(UserContext);
+// };

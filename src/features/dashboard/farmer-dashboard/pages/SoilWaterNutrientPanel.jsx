@@ -4,17 +4,16 @@ import {
   Leaf,
   FlaskConical,
   Gauge,
-  Thermometer,
-  BarChart3,
-  AlertTriangle,
+  Bug,
+  PackageCheck,
 } from "lucide-react";
 import CustomLineChart from "@/components/charts/CustomLineChart";
 import CustomBarChart from "@/components/charts/CustomBarChart";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import ChartCard from "../components/ChartCard";
 
 const SoilWaterNutrientPanel = () => {
+  // MOCK DATA
   const pHData = [
     { month: "Jan", value: 6.5 },
     { month: "Feb", value: 6.8 },
@@ -32,160 +31,172 @@ const SoilWaterNutrientPanel = () => {
     { name: "P", value: 35 },
     { name: "K", value: 50 },
   ];
-  const fertigationData = [
-    { week: "W1", actual: 80 },
-    { week: "W2", actual: 90 },
-    { week: "W3", actual: 85 },
+  const pesticideDemand = [
+    { quarter: "Q1", value: 120 },
+    { quarter: "Q2", value: 150 },
+    { quarter: "Q3", value: 170 },
+    { quarter: "Q4", value: 160 },
   ];
-  const irrigationData = [
-    { month: "Jan", liters: 1200 },
-    { month: "Feb", liters: 1400 },
-    { month: "Mar", liters: 1300 },
-    { month: "Apr", liters: 1250 },
-  ];
-  const efficiencyData = [
-    { season: "Kharif", eff: 78 },
-    { season: "Rabi", eff: 82 },
-    { season: "Zaid", eff: 80 },
-  ];
-  const deficiencyData = [
-    { season: "2022", count: 5 },
-    { season: "2023", count: 3 },
-    { season: "2024", count: 2 },
+  const supplierStock = [
+    { name: "Insecticides", value: 420 },
+    { name: "Fungicides", value: 360 },
+    { name: "Herbicides", value: 510 },
   ];
 
-  const getStatus = (title, value) => {
-    if (title.includes("pH")) {
-      if (value >= 6.5 && value <= 7.5)
-        return { text: "Good", color: "var(--color-primary)" };
-      if (value < 6.0 || value > 8.0)
-        return { text: "Needs Attention", color: "var(--color-error)" };
-      return { text: "Moderate", color: "var(--color-secondary)" };
-    }
-    if (title.includes("Organic")) {
-      if (value >= 1.5) return { text: "Good", color: "var(--color-primary)" };
-      if (value < 1.0)
-        return { text: "Needs Improvement", color: "var(--color-error)" };
-      return { text: "Moderate", color: "var(--color-secondary)" };
-    }
-    if (title.includes("Water Use")) {
-      if (value >= 80)
-        return { text: "Efficient", color: "var(--color-primary)" };
-      if (value < 60) return { text: "Poor", color: "var(--color-error)" };
-      return { text: "Average", color: "var(--color-secondary)" };
-    }
-    if (title.includes("Deficiency")) {
-      if (value <= 2) return { text: "Healthy", color: "var(--color-primary)" };
-      if (value >= 5) return { text: "Critical", color: "var(--color-error)" };
-      return { text: "Mild", color: "var(--color-secondary)" };
-    }
-    return { text: "Normal", color: "var(--color-secondary)" };
-  };
-
-  const cards = [
-    {
-      title: "Soil pH & EC Status",
-      icon: <FlaskConical size={22} color="var(--color-primary)" />,
-      value: "pH 6.7 / EC 1.2 dS/m",
-      numericValue: 6.7,
-      chart: <CustomLineChart data={pHData} dataKey="value" xKey="month" />,
-    },
-    {
-      title: "Organic Matter %",
-      icon: <Leaf size={22} color="var(--color-primary)" />,
-      value: "1.4%",
-      numericValue: 1.4,
-      chart: <CustomLineChart data={organicData} dataKey="value" xKey="month" />,
-    },
-    {
-      title: "N-P-K Nutrient Levels",
-      icon: <Gauge size={22} color="var(--color-primary)" />,
-      value: "N: High | P: Medium | K: High",
-      numericValue: 2,
-      chart: <CustomBarChart data={npkData} dataKey="value" xKey="name" />,
-    },
-    {
-      title: "Fertigation Compliance (%) vs Schedule",
-      icon: <BarChart3 size={22} color="var(--color-primary)" />,
-      value: "87%",
-      numericValue: 87,
-      chart: (
-        <CustomBarChart
-          data={fertigationData}
-          dataKey="actual"
-          xKey="week"
-          color="var(--color-primary)"
-        />
-      ),
-    },
-    {
-      title: "Irrigation Volume Applied (L/ha)",
-      icon: <Droplet size={22} color="var(--color-primary)" />,
-      value: "1,250 L/ha",
-      numericValue: 1250,
-      chart: <CustomLineChart data={irrigationData} dataKey="liters" xKey="month" />,
-    },
-    {
-      title: "Water Use Efficiency (%)",
-      icon: <Thermometer size={22} color="var(--color-primary)" />,
-      value: "80%",
-      numericValue: 80,
-      chart: <CustomBarChart data={efficiencyData} dataKey="eff" xKey="season" />,
-    },
-    {
-      title: "Deficiency Symptoms Detected (Count/Season)",
-      icon: <AlertTriangle size={22} color="var(--color-primary)" />,
-      value: "2",
-      numericValue: 2,
-      chart: (
-        <CustomLineChart
-          data={deficiencyData}
-          dataKey="count"
-          xKey="season"
-          color="var(--color-error)"
-        />
-      ),
-    },
+  const kpis = [
+    { label: "Soil pH Avg", value: 6.7, icon: FlaskConical },
+    { label: "Organic Matter (%)", value: 1.4, icon: Leaf },
+    { label: "Nutrient Sufficiency", value: "Optimal", icon: Gauge },
+    { label: "Pesticide Demand (Quarterly)", value: 150, icon: Bug },
+    { label: "Supplier Stock Health", value: "Healthy", icon: PackageCheck },
   ];
 
   return (
     <ContentWrapper>
-      <ChartCard title="Soil & Nutrient Management">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-5 bg-[var(--color-black-hover)] rounded-xl">
-          {cards.map((card, index) => {
-            const status = getStatus(card.title, card.numericValue);
-            return (
-              <Card
-                key={index}
-                className="bg-[var(--color-white)] text-[var(--color-black)] rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out border border-[var(--color-gray-light)]"
-              >
-                <CardHeader className="flex flex-row items-center justify-between border-b border-[var(--color-gray-light)] pb-2">
-                  <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                    {card.icon}
-                    <span>{card.title}</span>
-                  </CardTitle>
-                  <span
-                    className="text-xs font-semibold px-2 py-1 rounded-full"
-                    style={{
-                      backgroundColor: `${status.color}25`,
-                      color: status.color,
-                    }}
-                  >
-                    {status.text}
-                  </span>
-                </CardHeader>
+      <h1 className="text-xl sm:text-2xl font-extrabold text-[var(--color-black)] mb-6">
+        Soil & Crop Intelligence Dashboard
+      </h1>
 
-                <CardContent className="pt-3">
-                  <p className="text-lg font-bold text-[var(--color-secondary)] mb-2">
-                    {card.value}
-                  </p>
-                  <div className="h-24 md:h-28 lg:h-32">{card.chart}</div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-      </ChartCard>
+      {/* KPI GRID */}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 mb-8">
+        {kpis.map((kpi, index) => {
+          const Icon = kpi.icon;
+          return (
+            <Card
+              key={index}
+              className="bg-[var(--color-white)] text-[var(--color-black)] rounded-2xl shadow-sm p-4 flex flex-col items-start gap-2"
+            >
+              <div className="flex items-center gap-2">
+                <Icon size={20} className="text-[var(--color-primary)]" />
+                <h3 className="text-sm font-semibold">{kpi.label}</h3>
+              </div>
+              <p className="text-lg font-bold text-[var(--color-secondary)]">
+                {kpi.value}
+              </p>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* CHART GRID */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <Card className="bg-[var(--color-white)] rounded-2xl shadow-sm p-4">
+          <CardHeader>
+            <CardTitle className="text-sm font-semibold flex items-center gap-2">
+              <FlaskConical size={20} /> Soil pH Trend
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CustomLineChart data={pHData} dataKey="value" xKey="month" />
+          </CardContent>
+        </Card>
+
+        <Card className="bg-[var(--color-white)] rounded-2xl shadow-sm p-4">
+          <CardHeader>
+            <CardTitle className="text-sm font-semibold flex items-center gap-2">
+              <Leaf size={20} /> Organic Matter Trend (%)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CustomLineChart data={organicData} dataKey="value" xKey="month" />
+          </CardContent>
+        </Card>
+
+        <Card className="bg-[var(--color-white)] rounded-2xl shadow-sm p-4">
+          <CardHeader>
+            <CardTitle className="text-sm font-semibold flex items-center gap-2">
+              <Gauge size={20} /> NPK Nutrient Levels
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CustomBarChart data={npkData} dataKey="value" xKey="name" />
+          </CardContent>
+        </Card>
+
+        <Card className="bg-[var(--color-white)] rounded-2xl shadow-sm p-4">
+          <CardHeader>
+            <CardTitle className="text-sm font-semibold flex items-center gap-2">
+              <Bug size={20} /> Pesticide Demand Trend
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CustomLineChart
+              data={pesticideDemand}
+              dataKey="value"
+              xKey="quarter"
+            />
+          </CardContent>
+        </Card>
+
+        <Card className="bg-[var(--color-white)] rounded-2xl shadow-sm p-4">
+          <CardHeader>
+            <CardTitle className="text-sm font-semibold flex items-center gap-2">
+              <PackageCheck size={20} /> Supplier Stock Levels
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CustomBarChart data={supplierStock} dataKey="value" xKey="name" />
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* TABLE: Soil & Nutrient Summary */}
+      <Card className="bg-[var(--color-white)] rounded-2xl shadow-sm overflow-x-auto p-4">
+        <CardHeader>
+          <CardTitle className="text-sm font-semibold">
+            Soil & Nutrient Summary
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <table className="w-full text-sm table-auto border-t border-gray-200">
+            <thead>
+              <tr className="text-left text-[var(--color-black)]">
+                <th className="py-2 px-3">Metric</th>
+                <th className="py-2 px-3">Jan</th>
+                <th className="py-2 px-3">Feb</th>
+                <th className="py-2 px-3">Mar</th>
+                <th className="py-2 px-3">Apr</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y">
+              <tr>
+                <td className="py-2 px-3 font-semibold">Soil pH</td>
+                {pHData.map((d, i) => (
+                  <td key={i} className="py-2 px-3">
+                    {d.value}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="py-2 px-3 font-semibold">Organic Matter (%)</td>
+                {organicData.map((d, i) => (
+                  <td key={i} className="py-2 px-3">
+                    {d.value}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="py-2 px-3 font-semibold">Nutrient N (kg/ha)</td>
+                <td colSpan={4} className="py-2 px-3">
+                  {npkData.find((d) => d.name === "N")?.value}
+                </td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 font-semibold">Nutrient P (kg/ha)</td>
+                <td colSpan={4} className="py-2 px-3">
+                  {npkData.find((d) => d.name === "P")?.value}
+                </td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 font-semibold">Nutrient K (kg/ha)</td>
+                <td colSpan={4} className="py-2 px-3">
+                  {npkData.find((d) => d.name === "K")?.value}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
     </ContentWrapper>
   );
 };

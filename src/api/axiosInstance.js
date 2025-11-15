@@ -8,7 +8,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     if (config.auth === false) return config;
 
-    const token = getItemFromLocalStorage("userLoginToken");
+    const token = getItemFromLocalStorage("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
