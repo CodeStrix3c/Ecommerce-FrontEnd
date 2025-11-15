@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Trash2, Star } from "lucide-react";
 import ImageGalleryModal from "@/components/shared/ImageGalleryModal";
 import QuantitySelector from "@/components/shared/QuantitySelector";
+<<<<<<< HEAD
+import StarRating from "@/components/ui/StarRating";
+=======
+>>>>>>> 91efd9998147dbc4f0908723ead972c9053db651
 
 const CartItem = ({ product, onRemove, onQuantityChange }) => {
   const [showGallery, setShowGallery] = useState(false);
@@ -64,10 +68,22 @@ const CartItem = ({ product, onRemove, onQuantityChange }) => {
               </p>
 
               <div className="flex items-center gap-2">
+<<<<<<< HEAD
+                {/* <div className="flex items-center gap-1 text-[var(--color-secondary)] font-semibold">
+                  <Star size={16} />
+                  <span>{product.rating}</span>
+                </div> */}
+                 <div className="flex flex-col items-center gap-0.5">
+                          
+                          
+                          <StarRating  size={14} />
+                        </div>
+=======
                 <div className="flex items-center gap-1 text-[var(--color-secondary)] font-semibold">
                   <Star size={16} />
                   <span>{product.rating}</span>
                 </div>
+>>>>>>> 91efd9998147dbc4f0908723ead972c9053db651
                 <span className="text-sm text-[var(--color-neutral-dark)]">
                   {product.inStock ? "In Stock" : "Out of Stock"}
                 </span>

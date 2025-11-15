@@ -21,6 +21,7 @@ import {
   farmerEducation,
   farmerProfession,
 } from "@/features/suppliers/pages/DummyData";
+import { Link } from "react-router-dom";
 
 const FarmerProfilePage = () => {
   return (
@@ -34,9 +35,12 @@ const FarmerProfilePage = () => {
             className="lg:font-bold lg:text-2xl"
           />
           <div className="flex items-center space-x-4">
-            <button className="px-4 py-2 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
+            <Link
+              to={"/farmer-profile-completion"}
+              className="px-4 py-2 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors"
+            >
               Complete Your Profile
-            </button>
+            </Link>
             <div className="relative group">
               <div className="p-2 border rounded-full cursor-pointer hover:bg-[var(--color-gray)]">
                 <Settings className="w-5 h-5 text-[var(--color-black)]" />
