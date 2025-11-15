@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
-import { useAuth } from "@/hooks";
 import {
   Button,
   Divider,
@@ -18,17 +17,18 @@ import {
   emailLoginSchema,
 } from "@/features/farmer-registration/schemas/authSchemas";
 import FormInput from "../../../components/shared/custom-inputs/FormInput";
-import { useLoginMutation } from "@/hooks/useAuthMutation";
+import { useLoginMutation } from "@/hooks/useFarmerProfileMutations";
 import { setItemsInLocalStorage } from "@/utils/localStorage";
 import userCredentials from "../../../data/userCredentials.json";
+import { useUser } from "@/providers/UserProvider";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
   const [tab, setTab] = useState(0);
-  const auth = useAuth();
 
   const { mutate: loginMutate, isPending } = useLoginMutation();
+  const { setUserId } = useUser();
 
   const schema = tab === 0 ? phoneLoginSchema : emailLoginSchema;
 
@@ -39,41 +39,25 @@ const LoginPage = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = (data) => {
-    const isEmailLogin = tab === 1;
-    const { email, phone, password } = data;
-    const isValid =
-      (isEmailLogin &&
-        email === userCredentials.email &&
-        password === userCredentials.password) ||
-      (!isEmailLogin &&
-        phone === userCredentials.phone &&
-        password === userCredentials.password);
-
-    if (!isValid) {
-      toast.error("Invalid Credentials.");
-      return;
-    }
-    setItemsInLocalStorage("userLoginToken", "demo-token-12345");
-
-    setRedirect(true);
-    // const payload =
-    //   tab === 0
-    //     ? { phone: data.phone, password: data.password }
-    //     : { email: data.email, password: data.password };
-
-    // loginMutate(payload, {
-    //   onSuccess: (res) => {
-    //     console.log(res, "res from login");
-    //     setItemsInLocalStorage("userLoginToken", res.token);
-    //     toast.success("Login successful!");
-    //     setRedirect(true);
-    //   },
-    //   onError: (err) => {
-    //     toast.error(
-    //       err?.response?.data?.error || "Network error. Please try again later."
-    //     );
-    //   },
-    // });
+    const payload =
+      tab === 0
+        ? { phone: data.phone, password: data.password }
+        : { email: data.email, password: data.password };
+    loginMutate(payload, {
+      onSuccess: (res) => {
+        console.log(res, "res from login");
+        setItemsInLocalStorage("token", res.token);
+        setItemsInLocalStorage("userID", res.user);
+        setUserId(res.user);
+        toast.success("Login successful!");
+        setRedirect(true);
+      },
+      onError: (err) => {
+        toast.error(
+          err?.response?.data?.error || "Network error. Please try again later."
+        );
+      },
+    });
   };
 
   const handleGoogleLogin = async (credential) => {
