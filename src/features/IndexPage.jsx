@@ -2,6 +2,7 @@ import CarousalSection from "@/components/shared/CarousalSection";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 // import products from "@/data/products.json";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
+import PlaceCardSkeletonUi from "./places/components/PlaceCardSkeletonUi";
 
 const IndexPage = () => {
   const requestBody = {
@@ -23,32 +24,35 @@ const IndexPage = () => {
       reverse: false,
     },
   };
-  const { data: products } = useProductsQuery();
-  if (!products) return null;
+  const { data, isLoading } = useProductsQuery();
 
-  const products1 = products?.slice(0, 8);
-  const products2 = products?.slice(8, 15);
-  const products3 = products?.slice(15, 22);
-  const products4 = products?.slice(22, 29);
+  const products1 = data?.slice(0, 8) || [];
+  const products2 = data?.slice(8, 15) || [];
+  const products3 = data?.slice(15, 22) || [];
+  const products4 = data?.slice(22, 29) || [];
 
   return (
     <ContentWrapper>
-      <div className="pt-8 sm:pt-10 md:pt-10 lg:pt-60 flex flex-col gap-8">
+      <div className="responsive-padding flex flex-col gap-8 ">
         <CarousalSection
           title="Popular Pesticides for Crop Protection"
           places={products1}
+          loading={isLoading}
         />
         <CarousalSection
           title="Upcoming Pesticide Solutions for Next Season"
           places={products2}
+          loading={isLoading}
         />
         <CarousalSection
           title="Herbicides for Effective Weed Control"
           places={products3}
+          loading={isLoading}
         />
         <CarousalSection
           title="Fungicides to Safeguard Your Crops"
           places={products4}
+          loading={isLoading}
         />
       </div>
     </ContentWrapper>
