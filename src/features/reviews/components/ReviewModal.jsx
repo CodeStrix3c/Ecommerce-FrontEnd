@@ -48,8 +48,6 @@
 //   );
 // }
 
-
-
 import { X } from "lucide-react";
 import LeftPanel from "./LeftPanel";
 import ReviewCard from "./ReviewCard";
@@ -61,7 +59,7 @@ export default function ReviewModal({
   onClose,
   onShowAll,
   onUpdate,
-  onDelete, 
+  onDelete,
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--color-overlay)]">
@@ -97,7 +95,6 @@ export default function ReviewModal({
                       : ""
                   }`}
                 >
-                 
                   <ReviewCard
                     review={review}
                     onUpdate={onUpdate}
@@ -112,4 +109,3 @@ export default function ReviewModal({
     </div>
   );
 }
-

@@ -101,7 +101,6 @@
 //               <span className="text-sm font-medium">{rating || 4.7}</span>
 //             </span> */}
 
-
 //             <span className="flex items-center gap-1 font-normal text-[var(--color-black)]">
 //   {[...Array(5)].map((_, i) => (
 //     <Star
@@ -116,7 +115,6 @@
 //   <span className="text-sm font-medium ml-1">{rating || 5}</span>
 // </span>
 
-
 //           </div>
 //         </div>
 //       </Link>
@@ -126,13 +124,12 @@
 
 // export default PlaceCard;
 
-
 import React, { useEffect, useState } from "react";
 import { Heart, IndianRupee } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "@/providers/WishListProvider";
 import PlaceCardSkeletonUi from "./PlaceCardSkeletonUi";
-import StarRating from "@/components/ui/StarRating"; 
+import StarRating from "@/components/ui/StarRating";
 
 const PlaceCard = ({ place, loading }) => {
   const ids = [
@@ -219,8 +216,7 @@ const PlaceCard = ({ place, loading }) => {
               <span className="text-sm text-[var(--color-black)]">/liter</span>
             </span>
 
-            
-            <StarRating size={12} rating={4.5} highlightSingle={false}/>
+            <StarRating size={12} rating={4.5} highlightSingle={false} />
           </div>
         </div>
       </Link>

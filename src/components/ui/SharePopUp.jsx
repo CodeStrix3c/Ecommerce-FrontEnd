@@ -1,18 +1,49 @@
-
-import {  FaFacebook, FaInstagram, FaLink,  FaTwitter, FaWhatsapp ,FaTimes, FaLinkedin} from "react-icons/fa";
-
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLink,
+  FaTwitter,
+  FaWhatsapp,
+  FaTimes,
+  FaLinkedin,
+} from "react-icons/fa";
 
 function SharePopUp({ onClose, placeData }) {
   const shareOptions = [
-     { icon: <FaLink className="w-6 h-6 text-gray-700" />, label: "Copy Link", linkTo: placeData.linkTo },
-  // { icon: <FaEnvelope className="w-6 h-6 text-red-500" />, label: "Email", linkTo: placeData.linkTo },
+    {
+      icon: <FaLink className="w-6 h-6 text-gray-700" />,
+      label: "Copy Link",
+      linkTo: placeData.linkTo,
+    },
+    // { icon: <FaEnvelope className="w-6 h-6 text-red-500" />, label: "Email", linkTo: placeData.linkTo },
 
-  { icon: <FaWhatsapp className="w-6 h-6 text-[#25D366]" />, label: "WhatsApp", linkTo: placeData.linkTo },
-  { icon: <FaInstagram className="w-6 h-6 text-[#E4405F]" />, label: "Instagram", linkTo: placeData.linkTo },
-  { icon: <FaFacebook
-     className="w-6 h-6 text-[#1877F2]" />, label: "Facebook", linkTo: placeData.linkTo },
-  { icon: <FaTwitter className="w-6 h-6 text-black" />, label: "Twitter", linkTo: placeData.linkTo },
- { icon: <FaLinkedin className="w-6 h-6 text-[#0A66C2] hover:opacity-80 cursor-pointer" />, label: "LinkedIn", linkTo: placeData.linkTo },
+    {
+      icon: <FaWhatsapp className="w-6 h-6 text-[#25D366]" />,
+      label: "WhatsApp",
+      linkTo: placeData.linkTo,
+    },
+    {
+      icon: <FaInstagram className="w-6 h-6 text-[#E4405F]" />,
+      label: "Instagram",
+      linkTo: placeData.linkTo,
+    },
+    {
+      icon: <FaFacebook className="w-6 h-6 text-[#1877F2]" />,
+      label: "Facebook",
+      linkTo: placeData.linkTo,
+    },
+    {
+      icon: <FaTwitter className="w-6 h-6 text-black" />,
+      label: "Twitter",
+      linkTo: placeData.linkTo,
+    },
+    {
+      icon: (
+        <FaLinkedin className="w-6 h-6 text-[#0A66C2] hover:opacity-80 cursor-pointer" />
+      ),
+      label: "LinkedIn",
+      linkTo: placeData.linkTo,
+    },
   ];
 
   return (
@@ -42,9 +73,9 @@ function SharePopUp({ onClose, placeData }) {
               <p className="font-semibold text-lg sm:text-xl">
                 {placeData.title}
               </p>
-                <p className="text-xs mt-2 font-normal">
-                  {placeData.description}
-                </p>
+              <p className="text-xs mt-2 font-normal">
+                {placeData.description}
+              </p>
             </div>
           </div>
 

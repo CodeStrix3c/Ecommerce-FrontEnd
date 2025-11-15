@@ -68,7 +68,7 @@
 //       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12">
 //         {sections.map((section, i) => (
 //           <div key={i} className="relative flex flex-col items-center w-full">
-            
+
 //             {/* Centered Title */}
 //             <div className="w-full flex flex-col items-center">
 //               <div
@@ -86,8 +86,8 @@
 //             <div
 //               className="
 //                 w-full mt-1 space-y-4
-//                 text-center 
-//                 sm:text-left 
+//                 text-center
+//                 sm:text-left
 //                 sm:ml-4
 //                  rounded-lg
 //               "
@@ -97,9 +97,9 @@
 //                   key={j}
 //                   to={link.path}
 //                   className="
-//                     block px-3 py-1 rounded border border-gray-300 
-//                     text-gray-700 
-//                     hover:text-[var(--color-secondary)] 
+//                     block px-3 py-1 rounded border border-gray-300
+//                     text-gray-700
+//                     hover:text-[var(--color-secondary)]
 //                     hover:border-[var(--color-secondary)]
 //                     transition font-medium
 //                   "
@@ -122,7 +122,6 @@
 //     </ContentWrapper>
 //   );
 // }
-
 
 // import React from "react";
 // import { motion } from "framer-motion";
@@ -182,7 +181,6 @@
 //     },
 //   ],
 // };
-
 
 // export default function SitemapFinal() {
 //   return (
@@ -288,9 +286,6 @@
 //   </div>
 // );
 
-
-
-
 import React from "react";
 import { motion } from "framer-motion";
 import ContentWrapper from "@/components/shared/ContentWrapper";
@@ -313,8 +308,6 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-
-
 const sitemap = {
   access: [
     { text: "Login", icon: LogIn },
@@ -330,7 +323,12 @@ const sitemap = {
     {
       title: "App Features",
       icon: Star,
-      items: ["Crop Management", "Weather Alerts", "Market Prices", "Pest & Disease Guides"],
+      items: [
+        "Crop Management",
+        "Weather Alerts",
+        "Market Prices",
+        "Pest & Disease Guides",
+      ],
     },
     {
       title: "User Account",
@@ -345,17 +343,15 @@ const sitemap = {
   ],
 };
 
-
-
 export default function SitemapFinal() {
   return (
     <ContentWrapper topSpacing>
       <div className="w-full min-h-screen flex flex-col items-center px-4 md:px-8">
-<div className="text-center mb-14 px-4">
-         <h2 className="text-4xl font-bold">Sitemap</h2>
+        <div className="text-center mb-14 px-4">
+          <h2 className="text-4xl font-bold">Sitemap</h2>
           <p className="text-gray-600 mt-2">
-           Explore all sections of our platform in a visual tree layout
-         </p>
+            Explore all sections of our platform in a visual tree layout
+          </p>
         </div>
         {/* ACCESS BLOCK */}
         <div className="flex flex-col items-center  ">
@@ -379,7 +375,11 @@ export default function SitemapFinal() {
           {/* Skip arrows on small screens */}
           <div className="hidden md:block">
             {["12%", "37%", "62%", "87%"].map((pos, i) => (
-              <div key={i} className="absolute" style={{ left: pos, bottom: -12 }}>
+              <div
+                key={i}
+                className="absolute"
+                style={{ left: pos, bottom: -12 }}
+              >
                 <ArrowDown />
               </div>
             ))}
@@ -389,10 +389,14 @@ export default function SitemapFinal() {
         {/* MAIN GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 mt-10 w-full">
           {sitemap.sections.map((sec, index) => (
-            <Section key={index} title={sec.title} icon={sec.icon} items={sec.items} />
+            <Section
+              key={index}
+              title={sec.title}
+              icon={sec.icon}
+              items={sec.items}
+            />
           ))}
         </div>
-
       </div>
     </ContentWrapper>
   );
@@ -407,7 +411,7 @@ const BoxMain = ({ text, icon: Icon }) => (
     whileHover={{ scale: 1.05 }}
     className="px-6 py-3 bg-[var(--color-secondary)] text-white rounded-lg shadow font-semibold flex items-center gap-2 sm:gap-3 text-sm sm:text-base"
   >
-    <Icon size={18} className="hidden sm:block" /> 
+    <Icon size={18} className="hidden sm:block" />
     {text}
   </motion.div>
 );

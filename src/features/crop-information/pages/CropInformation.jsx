@@ -15,7 +15,6 @@ import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import SelectField from "@/components/shared/custom-inputs/SelectField";
 
 export default function CropInformation() {
-  
   const Label = ({ children }) => (
     <div className="text-xs text-[var(--color-black)]">{children}</div>
   );

@@ -6,7 +6,7 @@
 
 //   return (
 //     <>
-     
+
 //       <div className="mt-8 max-w-xl bg-white border rounded-2xl shadow-sm p-6">
 //         <h2 className="text-xl font-semibold text-gray-900 mb-2">
 //           Review this product
@@ -47,7 +47,6 @@
 
 //             {/* Review Form */}
 //             <form className="space-y-4">
-             
 
 //               <div className="text-center">
 //                 <label className="block mb-2 font-medium text-gray-700">
@@ -89,8 +88,6 @@
 //   );
 // }
 
-
-
 import React, { useState } from "react";
 import { Star, X } from "lucide-react";
 import { toast } from "react-toastify";
@@ -105,7 +102,7 @@ export default function AddReview({ onAdd }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if ( !reviewText || rating === 0) {
+    if (!reviewText || rating === 0) {
       toast.error("Please fill all fields before submitting!");
       return;
     }
@@ -113,15 +110,15 @@ export default function AddReview({ onAdd }) {
     const newReview = {
       id: Date.now(),
       // name,
-      avatar: "https://i.pravatar.cc/150?u=" + Date.now(), 
+      avatar: "https://i.pravatar.cc/150?u=" + Date.now(),
       text: reviewText,
       rating,
       date: new Date().toLocaleDateString(),
       yearsOn: "Verified Buyer",
     };
 
-    onAdd(newReview); 
-    setShowModal(false); 
+    onAdd(newReview);
+    setShowModal(false);
     setName("");
     setReviewText("");
     setRating(0);
