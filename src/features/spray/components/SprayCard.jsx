@@ -4,12 +4,86 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const sprayHistoryData = [
-  { id: 1, type: "Herbicide", nm: "Cap", quantity: "1 kg", waterUsed: "10 L", totalTrees: 25, date: "May - Sep 2025", cost: "5000 per 1kg" },
-  { id: 2, type: "Fertilizer", nm: "GrowFast", quantity: "2 kg", waterUsed: "15 L", totalTrees: 40, date: "Aug - Oct 2025", cost: "6000 per 2kg" },
-  { id: 3, type: "Pesticide", nm: "BugAway", quantity: "500 g", waterUsed: "5 L", totalTrees: 15, date: "Jun - Sep 2025", cost: "3000 per 500g" },
-  { id: 4, type: "Pesticide", nm: "CropGuard", quantity: "250 ml", waterUsed: "5 L", totalTrees: 10, date: "Jul - Aug 2025", cost: "1500 per 250ml" },
-  { id: 5, type: "Herbicide", nm: "WeedClear", quantity: "1 L", waterUsed: "10 L", totalTrees: 20, date: "Jun - Jul 2025", cost: "4000 per 1L" },
-  { id: 6, type: "Fertilizer", nm: "RootBoost", quantity: "3 kg", waterUsed: "20 L", totalTrees: 50, date: "Mar - May 2025", cost: "7000 per 3kg" },
+  {
+    id: 1,
+    type: "Herbicide",
+    name: "Cap",
+    quantity: "1 kg",
+    waterUsed: "10 L",
+    totalTrees: 25,
+    date: "May - Sep 2025",
+    cost: "5000 per 1kg",
+  },
+  {
+    id: 2,
+    type: "Fertilizer",
+    name: "GrowFast",
+    quantity: "2 kg",
+    waterUsed: "15 L",
+    totalTrees: 40,
+    date: "Aug - Oct 2025",
+    cost: "6000 per 2kg",
+  },
+  {
+    id: 3,
+    type: "Pesticide",
+    name: "BugAway",
+    quantity: "500 g",
+    waterUsed: "5 L",
+    totalTrees: 15,
+    date: "Jun - Sep 2025",
+    cost: "3000 per 500g",
+  },
+  {
+    id: 4,
+    type: "Pesticide",
+    name: "BugAway",
+    quantity: "500 g",
+    waterUsed: "5 L",
+    totalTrees: 15,
+    date: "Jun - Sep 2025",
+    cost: "3000 per 500g",
+  },
+  {
+    id: 5,
+    type: "Pesticide",
+    name: "BugAway",
+    quantity: "500 g",
+    waterUsed: "5 L",
+    totalTrees: 15,
+    date: "Jun - Sep 2025",
+    cost: "3000 per 500g",
+  },
+  {
+    id: 6,
+    type: "Pesticide",
+    name: "BugAway",
+    quantity: "500 g",
+    waterUsed: "5 L",
+    totalTrees: 15,
+    date: "Jun - Sep 2025",
+    cost: "3000 per 500g",
+  },
+  {
+    id: 6,
+    type: "Pesticide",
+    name: "BugAway",
+    quantity: "500 g",
+    waterUsed: "5 L",
+    totalTrees: 15,
+    date: "Jun - Sep 2025",
+    cost: "3000 per 500g",
+  },
+  {
+    id: 7,
+    type: "Pesticide",
+    name: "BugAway",
+    quantity: "500 g",
+    waterUsed: "5 L",
+    totalTrees: 15,
+    date: "Jun - Sep 2025",
+    cost: "3000 per 500g",
+  },
 ];
 
 export default function SprayHistory() {
@@ -26,7 +100,9 @@ export default function SprayHistory() {
 
   const typeIcons = {
     Herbicide: <Leaf className="text-[var(--color-secondary)]" size={22} />,
-    Fertilizer: <FlaskRound className="text-[var(--color-secondary)]" size={22} />,
+    Fertilizer: (
+      <FlaskRound className="text-[var(--color-secondary)]" size={22} />
+    ),
     Pesticide: <Bug className="text-[var(--color-secondary)]" size={22} />,
   };
 
@@ -39,20 +115,15 @@ export default function SprayHistory() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-10 relative">
+    <div className="mx-auto  ">
+      <h3 className="text-xl lg:text-3xl md:text-xl font-semibold text-[var(--color-black)] mb-4 mt-4 text-center">
+        Spray Records
+      </h3>
 
-      <div className="flex justify-between items-center mb-10">
-        <h2 className="text-3xl font-bold text-[var(--color-black)]">
-          Spray History Overview
-        </h2>
-        <button
-          onClick={() => setShowEditor(true)}
-          className="flex items-center gap-2 bg-[var(--color-secondary)] text-[var(--color-white)] px-5 py-2 rounded-full shadow hover:opacity-90 transition"
-        >
-          <PlusCircle size={20} /> Add Spray Note
-        </button>
-      </div>
-
+      <p className="mx-auto max-w-5xl  text-center text-[var(--color-black)] leading-relaxed mb-6">
+        Record, manage, and monitor every detail of your spray operations — from
+        chemicals to weather logs.
+      </p>
 
       <div className="mb-10">
         <h3 className="text-2xl font-semibold text-[var(--color-black)] mb-4">

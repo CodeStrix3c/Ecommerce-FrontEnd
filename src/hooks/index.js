@@ -7,7 +7,11 @@ import {
   setItemsInLocalStorage,
   removeItemFromLocalStorage,
 } from "@/utils/localStorage";
+<<<<<<< HEAD
 import { UserContext } from "@/providers/UserProvider";
+=======
+// import { UserContext } from "@/providers/UserProvider";
+>>>>>>> 91efd9998147dbc4f0908723ead972c9053db651
 
 // import { UserContext } from "@/providers/UserProvider";
 // import { PlaceContext } from "@/providers/PlaceProvider";
@@ -197,6 +201,12 @@ export const useProvideAuth = () => {
     setLoading(false);
   }, []);
 };
+<<<<<<< HEAD
 export const useAuth = () => {
   return useContext(UserContext);
 };
+=======
+// export const useAuth = () => {
+//   return useContext(UserContext);
+// };
+>>>>>>> 91efd9998147dbc4f0908723ead972c9053db651

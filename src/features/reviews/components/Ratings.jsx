@@ -8,12 +8,11 @@ export default function RatingSummary() {
         <LeafTitleBlock title="4.8" leafSize="lg" titleSize="lg" />
 
         <h2 className="mt-3 text-xl font-semibold text-[var(--color-neutral-dark)] md:text-2xl">
-          Guest favorite
+          Farmers favorite
         </h2>
 
         <p className="mx-auto mt-2 max-w-md text-sm text-[var(--color-neutral-dark-hover)] md:text-base">
-          This home is in the top 5% of eligible listings based on ratings,
-          reviews, and reliability.
+         This brand stands in the top 5% of farmer favourites for reliability and results
         </p>
       </div>
     </div>

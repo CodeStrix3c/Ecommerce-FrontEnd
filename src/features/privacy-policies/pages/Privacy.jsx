@@ -1,113 +1,133 @@
 import ContentWrapper from "@/components/shared/ContentWrapper";
 
-function Privacy() {
+export default function Privacy() {
   return (
-    <ContentWrapper compactScreen>
-      <div className="py-8 lg:mt-32">
-        <div className="grid gap-8 lg:grid-cols-12">
-          <div className="text-[var(--color-black)] lg:col-span-8">
-            <h6 className="pb-2 text-xs font-semibold uppercase  text-[var(--color-black)] sm:text-sm">
-              Legal Terms
-            </h6>
+    <ContentWrapper compactScreen topSpacing>
+      <div className="text-[var(--color-black)] lg:mt-32">
+        <h2 className="pb-8 font-bold text-3xl sm:text-4xl text-center text-[var(--color-black)]">
+          Privacy Policy
+        </h2>
 
-            <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl">
-              Zirat Privacy
-            </h1>
-
-            <p className="pt-6 text-base  sm:text-lg md:text-xl">
-              Our Privacy Policy explains what personal information we collect,
-              how we use it, how it may be shared, and your privacy rights when
-              using our Services.
+        <div className="mx-auto space-y-10">
+          <section>
+            <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
+              Introduction
+            </h3>
+            <p className="text-gray-600 leading-relaxed text-lg">
+              Welcome to{" "}
+              <span className="font-semibold text-[var(--color-secondary)]">
+                Ziraat
+              </span>
+              . We value your privacy and are committed to safeguarding your
+              personal information. This Privacy Policy explains how we collect,
+              use, and protect your data when you use our website, mobile app,
+              and services.
             </p>
+          </section>
 
-            <h3 className="pb-4 pt-8 text-xl font-semibold underline sm:text-2xl">
+          <section className="border-t border-gray-200 pt-6">
+            <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               Information We Collect
             </h3>
-            <p className="text-base  sm:text-lg md:text-xl">
-              We collect information you provide directly, such as account details,
-              farm data, and payment information. We also collect usage data automatically,
-              including device information, location data, and interaction logs.
+            <p className="text-gray-600 text-lg leading-relaxed">
+              We may collect information directly from you or automatically when
+              you use our platform. This includes:
             </p>
+            <ul className="list-disc list-inside text-gray-600 text-lg space-y-1 mt-3">
+              <li>Account and contact details (name, email, phone number)</li>
+              <li>Farm and crop data you enter on the platform</li>
+              <li>Device, browser, and location information</li>
+              <li>
+                Usage data such as page visits, interactions, and preferences
+              </li>
+            </ul>
+          </section>
 
-            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
+          <section className="border-t border-gray-200 pt-6">
+            <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               How We Use Your Information
             </h3>
-            <ul className="ms-6 list-disc space-y-2 text-base sm:text-lg md:text-xl text-[var(--color-black)]">
-              <li>Provide, maintain, and improve our Services</li>
-              <li>Deliver personalized insights, alerts, and recommendations</li>
-              <li>Analyze usage trends and agricultural productivity</li>
-              <li>Communicate updates, support messages, and marketing materials</li>
-              <li>Prevent fraud, abuse, and security breaches</li>
-              <li>Comply with legal obligations and enforce our terms</li>
+            <ul className="list-disc list-inside text-gray-600 text-lg space-y-1">
+              <li>To provide, personalize, and improve our services</li>
+              <li>To send you updates, alerts, and recommendations</li>
+              <li>To process payments securely and manage transactions</li>
+              <li>To analyze trends and improve agricultural efficiency</li>
+              <li>To comply with legal and regulatory requirements</li>
             </ul>
+          </section>
 
-            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
+          <section className="border-t border-gray-200 pt-6">
+            <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               Sharing & Disclosure
             </h3>
-            <p className="text-base leading-relaxed sm:text-lg md:text-xl">
-              We do not sell your personal data. We may share information with:
+            <p className="text-gray-600 text-lg">
+              We never sell your data. Information may be shared only with:
             </p>
-            <ul className="ms-6 list-disc space-y-2 text-base sm:text-lg md:text-xl text-[var(--color-black)]">
-              <li>Service providers assisting us with analytics, hosting, and support</li>
-              <li>Legal authorities if required by law or to protect our rights</li>
-              <li>Business partners for legitimate business purposes with consent</li>
+            <ul className="list-disc list-inside text-gray-600 text-lg space-y-1 mt-3">
+              <li>Service providers for hosting, analytics, or support</li>
+              <li>Authorities when required by law</li>
+              <li>Business partners, only with your consent</li>
             </ul>
+          </section>
 
-            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
+          <section className="border-t border-gray-200 pt-6">
+            <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
               Cookies & Tracking
             </h3>
-            <p className="text-base sm:text-lg md:text-xl">
-              We use cookies and similar technologies to enhance your experience,
-              remember preferences, and analyze traffic. You can manage cookies
-              through your browser settings.
+            <p className="text-gray-600 text-lg leading-relaxed">
+              Our platform uses cookies to remember your preferences, enhance
+              user experience, and analyze performance. You can manage cookies
+              through your browser settings at any time.
             </p>
+          </section>
 
-            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
-              User Rights
+          <section className="border-t border-gray-200 pt-6">
+            <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
+              Your Rights
             </h3>
-            <ul className="ms-6 list-disc space-y-2 text-base sm:text-lg md:text-xl text-[var(--color-black)]">
-              <li>Access and correct your personal information</li>
-              <li>Request deletion of your data</li>
-              <li>Opt out of marketing communications</li>
+            <ul className="list-disc list-inside text-gray-600 text-lg space-y-1">
+              <li>Access and update your data</li>
+              <li>Request data deletion</li>
+              <li>Withdraw consent for marketing communications</li>
               <li>Restrict or object to certain processing activities</li>
             </ul>
+          </section>
 
-            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
-              Data Storage and Security
+          <section className="border-t border-gray-200 pt-6">
+            <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
+              Data Security
             </h3>
-            <p className="text-base  sm:text-lg md:text-xl">
-              We implement encryption, secure servers, and access controls to protect your
-              data. However, no online system is completely secure. Always safeguard
-              your login information and use strong passwords.
+            <p className="text-gray-600 text-lg leading-relaxed">
+              We implement encryption, secure servers, and strict access
+              controls to protect your information. While no system is 100%
+              secure, we take all reasonable measures to safeguard your data.
             </p>
+          </section>
 
-            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
-              International Transfers
+          <section className="border-t border-gray-200 pt-6">
+            <h3 className="text-2xl font-semibold mb-3 border-l-4 border-[var(--color-secondary)] pl-3 text-gray-800">
+              Policy Updates
             </h3>
-            <p className="text-base leading-relaxed sm:text-lg md:text-xl">
-              If you access our Services from outside India, your data may be transferred
-              to and processed in countries with different data protection laws.
+            <p className="text-gray-600 text-lg leading-relaxed">
+              We may revise this Privacy Policy periodically. Any updates will
+              be posted on this page with a revised “Last Updated” date.
+              Continued use of our services means you accept the changes.
             </p>
+          </section>
 
-            <h3 className="pb-4 pt-8 text-xl font-semibold sm:text-2xl">
-              Updates to This Privacy Policy
-            </h3>
-            <p className="text-base  sm:text-lg md:text-xl">
-              We may update this Privacy Policy from time to time. Changes will be
-              posted with a new “Last Updated” date. Continued use of our Services
-              constitutes acceptance of the updated policy.
-            </p>
-
-            <p className="pt-6 text-sm sm:text-base md:text-lg">
+          <section className="border-t border-gray-200 pt-6">
+            <p className="text-gray-700 text-lg">
               Last Updated: <b>October 24, 2025</b>
               <br />
-              Thank you for trusting Zirat with your farm data!
+              Thank you for trusting{" "}
+              <span className="font-semibold text-[var(--color-secondary)]">
+                Ziraat
+              </span>{" "}
+              with your data.
             </p>
-          </div>
+          </section>
         </div>
       </div>
     </ContentWrapper>
   );
 }
-
-export default Privacy;

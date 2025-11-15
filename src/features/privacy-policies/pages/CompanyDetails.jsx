@@ -1,6 +1,6 @@
 import ContentWrapper from "@/components/shared/ContentWrapper";
 
-import { FaFacebook, FaInstagram, FaLinkedin,  } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 function CompanyDetails() {
@@ -17,9 +17,9 @@ function CompanyDetails() {
           <p>
             Zirat is a leading Farm Management Platform designed to empower
             farmers with digital tools for crop management, field mapping,
-            weather insights, inventory tracking, and financial analytics.
-            Our mission is to make farming smarter, more productive, and
-            sustainable across India.
+            weather insights, inventory tracking, and financial analytics. Our
+            mission is to make farming smarter, more productive, and sustainable
+            across India.
           </p>
         </div>
 
@@ -34,7 +34,7 @@ function CompanyDetails() {
           </p>
 
           <p className="pt-4">
-            <b>Directors:</b> Ashiq  Ali <br />
+            <b>Directors:</b> Ashiq Ali <br />
             <b>VAT/GST ID:</b> 12ABCDE3456F7Z8 <br />
             <b>Company Registration Number:</b> 1234567890
           </p>
@@ -43,9 +43,7 @@ function CompanyDetails() {
         {/* Support */}
         <div className="mb-8 text-base sm:text-lg md:text-xl">
           <p className="font-semibold">Customer Support:</p>
-          <p>
-            For assistance with the platform, contact us at:
-          </p>
+          <p>For assistance with the platform, contact us at:</p>
           <a
             href="mailto:support@zirat.com"
             className="underline text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)]"
@@ -58,10 +56,12 @@ function CompanyDetails() {
         {/* Grievance Officer */}
         <div className="mb-8 text-base sm:text-lg md:text-xl">
           <p>
-            For complaints or concerns about the platform or any
-            violation of our Terms of Service, please contact our grievance officer:
+            For complaints or concerns about the platform or any violation of
+            our Terms of Service, please contact our grievance officer:
           </p>
-          <p className="pt-3 font-medium">Attn: Mr. Ashiq Ali, Grievance Officer</p>
+          <p className="pt-3 font-medium">
+            Attn: Mr. Ashiq Ali, Grievance Officer
+          </p>
           <p className="pt-2">
             email:{" "}
             <a
@@ -86,59 +86,46 @@ function CompanyDetails() {
 
         {/* Social Media */}
         <div className="text-base sm:text-lg md:text-xl">
-  <p className="font-semibold pb-2">Follow Us:</p>
-  <ul className="list-none flex gap-4">
-    <li className="flex items-center gap-1">
-        <FaFacebook className="w-6 h-6 text-[#1877F2] hover:opacity-80 cursor-pointer" />
-      <a
-        href="https://www.facebook.com/zirat"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline"
-      >
-       
-      </a>
-    </li>
-    <li className="flex items-center gap-1">
-      <FaLinkedin className="w-6 h-6 text-[#0A66C2] hover:opacity-80 cursor-pointer" />
-      <a
-        href="https://www.linkedin.com/company/zirat"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline"
-      >
-       
-      </a>
-    </li>
-    <li className="flex items-center gap-1">
-
-    
- <FaInstagram className="w-6 h-6 text-[#E4405F] hover:opacity-80 cursor-pointer" />
-      <a
-        href="https://twitter.com/zirat"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline"
-      >
-        
-      </a>
-    </li>
-    <li className="flex items-center gap-1">
-
-    
- <FaXTwitter className="w-6 h-6 text-black hover:opacity-80 cursor-pointer" />
-      <a
-        href="https://twitter.com/zirat"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline"
-      >
-        
-      </a>
-    </li>
-  </ul>
-</div>
-
+          <p className="font-semibold pb-2">Follow Us:</p>
+          <ul className="list-none flex gap-4">
+            <li className="flex items-center gap-1">
+              <FaFacebook className="w-6 h-6 text-[#1877F2] hover:opacity-80 cursor-pointer" />
+              <a
+                href="https://www.facebook.com/zirat"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              ></a>
+            </li>
+            <li className="flex items-center gap-1">
+              <FaLinkedin className="w-6 h-6 text-[#0A66C2] hover:opacity-80 cursor-pointer" />
+              <a
+                href="https://www.linkedin.com/company/zirat"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              ></a>
+            </li>
+            <li className="flex items-center gap-1">
+              <FaInstagram className="w-6 h-6 text-[#E4405F] hover:opacity-80 cursor-pointer" />
+              <a
+                href="https://twitter.com/zirat"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              ></a>
+            </li>
+            <li className="flex items-center gap-1">
+              <FaXTwitter className="w-6 h-6 text-black hover:opacity-80 cursor-pointer" />
+              <a
+                href="https://twitter.com/zirat"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              ></a>
+            </li>
+          </ul>
+        </div>
       </div>
     </ContentWrapper>
   );

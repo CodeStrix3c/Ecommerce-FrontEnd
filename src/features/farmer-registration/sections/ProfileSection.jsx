@@ -1,7 +1,5 @@
-import { Divider, Stack } from "@mui/material";
 import FileUploadField from "@/components/shared/custom-inputs/FileUploadField";
 import FormInput from "@/components/shared/custom-inputs/FormInput";
-import FormSection from "@/features/auth/components/FormSection";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";

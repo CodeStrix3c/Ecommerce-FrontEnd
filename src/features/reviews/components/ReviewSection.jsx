@@ -6,7 +6,7 @@ export default function ReviewSection() {
   const [reviews, setReviews] = useState([]);
   const [timeAgo, setTimeAgo] = useState({});
 
-  // 🕒 Auto-update time ago every 60 seconds
+ 
   useEffect(() => {
     const interval = setInterval(() => {
       const updated = {};

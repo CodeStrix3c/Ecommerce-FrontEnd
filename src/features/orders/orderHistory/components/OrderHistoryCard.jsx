@@ -96,7 +96,7 @@ export default function OrderCard({
               <Star
                 key={i}
                 className={`w-4 h-4 ${
-                  i < rating ? "text-[var(--color-secondary)]" : "text-gray-300"
+                  i < rating ? "text-[var(--color-secondary)] fill-[var(--color-secondary)]" : "text-gray-300"
                 }`}
               />
             ))}
