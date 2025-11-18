@@ -11,47 +11,57 @@ import {
 import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import FaqCard from "@/features/about-us/components/FaqCard";
+import { useBottomCardDataQuery, useCardsDataQuery, useFaqDataQuery, useGuidesAndResourcesDataQuery, useTopArticlesDataQuery, } from "@/hooks/useHelpCenterQuery";
 
 
 export default function AgricultureHelpCenter() {
+  const {data:FaqData} = useFaqDataQuery();
+
+  const {data:CardData} = useCardsDataQuery();
+ 
+  
+
+  const {data: TopArticlesData} = useTopArticlesDataQuery();
+  const {data: GuidesData} = useGuidesAndResourcesDataQuery();
+  const {data: BottomCardData} = useBottomCardDataQuery();
 
   const handleClick = (link) => {
     if (link) window.location.href = link;
-  };
+  }
 
-  const helpCenterfaqs = [
-    {
-      question: "What is the best way to test soil quality?",
-      answer:
-        "You can use soil testing kits available at agricultural stores or send samples to a certified soil testing lab for a detailed analysis. A proper soil test provides information about pH, nutrient levels, and organic matter content. This helps farmers make better decisions about fertilizer use, crop selection, and irrigation management to improve soil productivity.",
-    },
-    {
-      question: "How often should I rotate my crops?",
-      answer:
-        "It’s best to rotate crops every season or at least once every year. Crop rotation helps maintain soil fertility, prevents nutrient depletion, and reduces pest and disease buildup. For example, you can grow legumes after cereals to naturally replenish nitrogen in the soil and improve overall soil health over time.",
-    },
-    {
-      question:
-        "What’s the difference between organic and chemical fertilizers?",
-      answer:
-        "Organic fertilizers are made from natural materials like compost, manure, and plant residues. They improve soil structure and promote long-term fertility. Chemical fertilizers, on the other hand, provide quick nutrient supply and fast results but may degrade soil quality if overused. Combining both in a balanced way often gives the best results for sustainable farming.",
-    },
-    {
-      question: "How can I prevent common crop diseases?",
-      answer:
-        "Start with disease-resistant seed varieties and follow a proper crop rotation plan. Ensure fields are well-drained to avoid fungal growth and do not overwater plants. Regular monitoring, balanced nutrient management, and timely use of biological or approved chemical fungicides can greatly reduce disease risks.",
-    },
-    {
-      question: "Which crops are best for organic farming?",
-      answer:
-        "Crops like tomatoes, cucumbers, okra, leafy greens, and pulses such as lentils or chickpeas are ideal for organic farming. Cereals like wheat, maize, and rice can also be grown organically with proper composting and pest management. Always focus on local climate and soil type to choose the most suitable crop combination.",
-    },
-    {
-      question: "What tools are essential for modern farming?",
-      answer:
-        "Modern farming benefits from tools such as tractors, drip or sprinkler irrigation systems, soil moisture sensors, drones for crop monitoring, and GPS-based precision farming equipment. These tools help save time, reduce costs, and increase productivity. Even small-scale farmers can adopt affordable versions of these technologies to improve efficiency.",
-    },
-  ];
+  // const helpCenterfaqs = [
+  //   {
+  //     question: "What is the best way to test soil quality?",
+  //     answer:
+  //       "You can use soil testing kits available at agricultural stores or send samples to a certified soil testing lab for a detailed analysis. A proper soil test provides information about pH, nutrient levels, and organic matter content. This helps farmers make better decisions about fertilizer use, crop selection, and irrigation management to improve soil productivity.",
+  //   },
+  //   {
+  //     question: "How often should I rotate my crops?",
+  //     answer:
+  //       "It’s best to rotate crops every season or at least once every year. Crop rotation helps maintain soil fertility, prevents nutrient depletion, and reduces pest and disease buildup. For example, you can grow legumes after cereals to naturally replenish nitrogen in the soil and improve overall soil health over time.",
+  //   },
+  //   {
+  //     question:
+  //       "What’s the difference between organic and chemical fertilizers?",
+  //     answer:
+  //       "Organic fertilizers are made from natural materials like compost, manure, and plant residues. They improve soil structure and promote long-term fertility. Chemical fertilizers, on the other hand, provide quick nutrient supply and fast results but may degrade soil quality if overused. Combining both in a balanced way often gives the best results for sustainable farming.",
+  //   },
+  //   {
+  //     question: "How can I prevent common crop diseases?",
+  //     answer:
+  //       "Start with disease-resistant seed varieties and follow a proper crop rotation plan. Ensure fields are well-drained to avoid fungal growth and do not overwater plants. Regular monitoring, balanced nutrient management, and timely use of biological or approved chemical fungicides can greatly reduce disease risks.",
+  //   },
+  //   {
+  //     question: "Which crops are best for organic farming?",
+  //     answer:
+  //       "Crops like tomatoes, cucumbers, okra, leafy greens, and pulses such as lentils or chickpeas are ideal for organic farming. Cereals like wheat, maize, and rice can also be grown organically with proper composting and pest management. Always focus on local climate and soil type to choose the most suitable crop combination.",
+  //   },
+  //   {
+  //     question: "What tools are essential for modern farming?",
+  //     answer:
+  //       "Modern farming benefits from tools such as tractors, drip or sprinkler irrigation systems, soil moisture sensors, drones for crop monitoring, and GPS-based precision farming equipment. These tools help save time, reduce costs, and increase productivity. Even small-scale farmers can adopt affordable versions of these technologies to improve efficiency.",
+  //   },
+  // ];
 
   return (
     <ContentWrapper>
@@ -71,23 +81,7 @@ export default function AgricultureHelpCenter() {
             Guides for getting started
           </h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Farming Basics",
-                desc: "Learn the foundations of sustainable farming.",
-                img: "assets/images/rice.jpeg",
-              },
-              {
-                title: "Organic Practices",
-                desc: "Discover eco-friendly techniques to improve yields.",
-                img: "assets/images/mud.jpeg",
-              },
-              {
-                title: "Market Access",
-                desc: "Learn how to connect with buyers and grow your business.",
-                img: "assets/images/vegetables.jpeg",
-              },
-            ].map((item, idx) => (
+            {CardData?.map((item, idx) => (
               <div
                 key={idx}
                 className="bg-[var(--color-white)] shadow rounded-lg overflow-hidden hover:shadow-md transition"
@@ -112,32 +106,7 @@ export default function AgricultureHelpCenter() {
           <div>
             <h2 className="text-2xl font-bold mb-6">Top Articles</h2>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 text-sm">
-              {[
-                {
-                  title: "Crop rotation benefits",
-                  desc: "Improve soil health and yields with proper crop rotation.",
-                },
-                {
-                  title: "Sustainable irrigation",
-                  desc: "Learn how to manage water resources effectively.",
-                },
-                {
-                  title: "Pest management",
-                  desc: "Natural methods to protect crops from common pests.",
-                },
-                {
-                  title: "Fertilizer optimization",
-                  desc: "Balance nutrients to boost crop production sustainably.",
-                },
-                {
-                  title: "Soil testing guide",
-                  desc: "Step-by-step process to test and analyze your soil.",
-                },
-                {
-                  title: "Climate-smart farming",
-                  desc: "Adapt modern methods to deal with climate change.",
-                },
-              ].map((item, idx) => (
+              {TopArticlesData?.map((item, idx) => (
                 <div key={idx}>
                   <h3 className=" text-xl font-semibold text-[var(--color-black)] mb-1">
                     {item.title}
@@ -171,20 +140,7 @@ export default function AgricultureHelpCenter() {
           <div>
             <h2 className="text-2xl font-bold mb-5">Guides & Resources</h2>
             <ul className="space-y-6 text-sm">
-              {[
-                {
-                  title: "Beginner’s Guide to Sustainable Farming",
-                  desc: "A complete handbook for new farmers exploring eco-friendly practices.",
-                },
-                {
-                  title: "Water Conservation Techniques",
-                  desc: "Learn proven methods to reduce water waste and save costs.",
-                },
-                {
-                  title: "Crop Disease Identification",
-                  desc: "Visual guide to identify and treat common plant diseases.",
-                },
-              ].map((item, idx) => (
+              {GuidesData?.map((item, idx) => (
                 <li key={idx} className="border-b last:border-none pb-4">
                   <h3 className="font-semibold text-[var(--color-scondary)]">
                     {item.title}
@@ -198,7 +154,7 @@ export default function AgricultureHelpCenter() {
           <div></div>
         </div>
         <div className="w-full grid gap-4 mt-6">
-          <FaqCard faqs={helpCenterfaqs} />
+          <FaqCard faqs={FaqData} />
         </div>
 
         <div className="py-14 mt-16 text-[var(--color-black)]">
@@ -206,18 +162,7 @@ export default function AgricultureHelpCenter() {
             <div className="md:col-span-2 space-y-8 mt-[-59px]">
               <h2 className="text-2xl font-bold ml-3">Explore More</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                {[
-                  {
-                    title: "Smart Farming Solutions",
-                    desc: "Explore technology and ideas that make farming easier and more profitable.",
-                    img: "/assets/images/help-center-img.jpeg",
-                  },
-                  {
-                    title: "Knowledge & Inspiration",
-                    desc: "Discover best practices, new research, and success stories from farmers worldwide.",
-                    img: "/assets/images/help-center-img2.jpeg",
-                  },
-                ].map((item, idx) => (
+                {BottomCardData?.map((item, idx) => (
                   <div
                     key={idx}
                     className="bg-[var(--color-white)] rounded-xl overflow-hidden shadow hover:shadow-md transition"

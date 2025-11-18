@@ -22,17 +22,17 @@ const FAQCard = ({ faqs }) => {
       </div>
 
 
-      <div className="max-w-5xl mx-auto space-y-4">
-        {faqs.map((faq, i) => (
+      <div className="max-w-5xl mx-auto space-y-2">
+        {faqs?.map((faq, i) => (
           <div
             key={i}
             className="border border-[var(--color-gray)] rounded-md shadow-sm hover:shadow-md transition-shadow duration-300"
           >
             <button
               onClick={() => toggle(i)}
-              className="w-full flex justify-between items-center text-left p-4 sm:p-5"
+              className=" w-full flex justify-between items-center text-left p-4 sm:p-5 rounded-sm"
             >
-              <h3 className="font-medium text-md">
+              <h3 className="font-medium text-md ">
                 {faq.question}
               </h3>
               <ChevronDown

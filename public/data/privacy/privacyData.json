@@ -1,0 +1,60 @@
+{
+  "title": "Zirat Privacy",
+  "subtitle": "Legal Terms",
+  "description": "Our Privacy Policy explains what personal information we collect, how we use it, how it may be shared, and your privacy rights when using our Services.",
+  "sections": [
+    {
+      "heading": "Information We Collect",
+      "text": "We collect information you provide directly, such as account details, farm data, and payment information. We also collect usage data automatically, including device information, location data, and interaction logs."
+    },
+    {
+      "heading": "How We Use Your Information",
+      "list": [
+        "Provide, maintain, and improve our Services",
+        "Deliver personalized insights, alerts, and recommendations",
+        "Analyze usage trends and agricultural productivity",
+        "Communicate updates, support messages, and marketing materials",
+        "Prevent fraud, abuse, and security breaches",
+        "Comply with legal obligations and enforce our terms"
+      ]
+    },
+    {
+      "heading": "Sharing & Disclosure",
+      "text": "We do not sell your personal data. We may share information with:",
+      "list": [
+        "Service providers assisting us with analytics, hosting, and support",
+        "Legal authorities if required by law or to protect our rights",
+        "Business partners for legitimate business purposes with consent"
+      ]
+    },
+    {
+      "heading": "Cookies & Tracking",
+      "text": "We use cookies and similar technologies to enhance your experience, remember preferences, and analyze traffic. You can manage cookies through your browser settings."
+    },
+    {
+      "heading": "User Rights",
+      "list": [
+        "Access and correct your personal information",
+        "Request deletion of your data",
+        "Opt out of marketing communications",
+        "Restrict or object to certain processing activities"
+      ]
+    },
+    {
+      "heading": "Data Storage and Security",
+      "text": "We implement encryption, secure servers, and access controls to protect your data. However, no online system is completely secure. Always safeguard your login information and use strong passwords."
+    },
+    {
+      "heading": "International Transfers",
+      "text": "If you access our Services from outside India, your data may be transferred to and processed in countries with different data protection laws."
+    },
+    {
+      "heading": "Updates to This Privacy Policy",
+      "text": "We may update this Privacy Policy from time to time. Changes will be posted with a new “Last Updated” date. Continued use of our Services constitutes acceptance of the updated policy."
+    }
+  ],
+  "footer": {
+    "lastUpdated": "October 24, 2025",
+    "note": "Thank you for trusting Zirat with your farm data!"
+  }
+}

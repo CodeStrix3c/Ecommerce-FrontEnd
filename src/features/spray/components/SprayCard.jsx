@@ -1,91 +1,96 @@
 import React from "react";
 import { Leaf, FlaskRound, Bug, Droplet } from "lucide-react";
+import { useSprayCardQuery, } from "@/hooks/useSprayQuery";
 
-const sprayHistoryData = [
-  {
-    id: 1,
-    type: "Herbicide",
-    name: "Cap",
-    quantity: "1 kg",
-    waterUsed: "10 L",
-    totalTrees: 25,
-    date: "May - Sep 2025",
-    cost: "5000 per 1kg",
-  },
-  {
-    id: 2,
-    type: "Fertilizer",
-    name: "GrowFast",
-    quantity: "2 kg",
-    waterUsed: "15 L",
-    totalTrees: 40,
-    date: "Aug - Oct 2025",
-    cost: "6000 per 2kg",
-  },
-  {
-    id: 3,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-  {
-    id: 3,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-  {
-    id: 3,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-  {
-    id: 3,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-   {
-    id: 3,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-   {
-    id: 3,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-];
+// const sprayHistoryData = [
+//   {
+//     id: 1,
+//     type: "Herbicide",
+//     name: "Cap",
+//     quantity: "1 kg",
+//     waterUsed: "10 L",
+//     totalTrees: 25,
+//     date: "May - Sep 2025",
+//     cost: "5000 per 1kg",
+//   },
+//   {
+//     id: 2,
+//     type: "Fertilizer",
+//     name: "GrowFast",
+//     quantity: "2 kg",
+//     waterUsed: "15 L",
+//     totalTrees: 40,
+//     date: "Aug - Oct 2025",
+//     cost: "6000 per 2kg",
+//   },
+//   {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+//   {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+//   {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+//   {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+//    {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+//    {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+// ];
 
 export default function SprayHistory() {
-  const totalCost = sprayHistoryData.reduce((sum, item) => {
+  
+   const {data}= useSprayCardQuery();
+
+  
+  const totalCost = data?.reduce((sum, item) => {
     const num = parseFloat(item.cost.replace(/[^\d.]/g, ""));
     return sum + num;
   }, 0);
@@ -103,7 +108,7 @@ export default function SprayHistory() {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sprayHistoryData.map((item) => (
+        {data?.map((item) => (
           <div
             key={item.id + item.date}
             className="p-5 rounded-2xl bg-[var(--color-white)] shadow-sm border border-gray-200"
@@ -152,7 +157,7 @@ export default function SprayHistory() {
           Total Cost
         </span>
         <span className="text-xl font-bold text-[var(--color-secondary)]">
-          ₹{totalCost.toLocaleString()}
+          ₹{totalCost}
         </span>
       </div>
     </div>

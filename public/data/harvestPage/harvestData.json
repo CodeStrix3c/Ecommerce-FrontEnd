@@ -1,0 +1,102 @@
+[
+  {
+    "image": "/assets/images/harvest-apples.avif",
+    "Orchard": "Orchard",
+    "Title": "Apple",
+    "variety": "Kashmiri",
+    "date": "Oct – June",
+    "temperature": "22°C - 27°C",
+    "Boxes": "12/tree",
+    "Workers": "4/acre"
+  },
+  {
+    "image": "/assets/images/harvest-walnuts.avif",
+    "Orchard": "Orchard",
+    "Title": "Walnut",
+    "variety": "Kashmiri",
+    "date": "Sep – Nov",
+    "temperature": "18°C - 23°C",
+    "Boxes": "8/tree",
+    "Workers": "3/acre"
+  },
+  {
+    "image": "/assets/images/harvest-apricot.avif",
+    "Orchard": "Orchard",
+    "Title": "Apricot",
+    "variety": "Kashmiri",
+    "date": "May – July",
+    "temperature": "28°C - 30°C",
+    "Boxes": "10/tree",
+    "Workers": "5/acre"
+  },
+  {
+    "image": "/assets/images/harvest-cherry.avif",
+    "Orchard": "Orchard",
+    "Title": "Cherry",
+    "variety": "Kashmiri",
+    "date": "May – June",
+    "temperature": "20°C - 24°C",
+    "Boxes": "6/tree",
+    "Workers": "6/acre"
+  },
+  {
+    "image": "/assets/images/harvest-peach.avif",
+    "Orchard": "Orchard",
+    "Title": "Peach",
+    "variety": "Kashmiri",
+    "date": "June – August",
+    "temperature": "23°C - 28°C",
+    "Boxes": "9/tree",
+    "Workers": "4/acre"
+  },
+  {
+    "image": "/assets/images/harvest-plum.avif",
+    "Orchard": "Orchard",
+    "Title": "Plum",
+    "variety": "Kashmiri",
+    "date": "May – August",
+    "temperature": "26°C - 29°C",
+    "Boxes": "11/tree",
+    "Workers": "5/acre"
+  },
+  {
+    "image": "/assets/images/harvest-strawberry.avif",
+    "Orchard": "Orchard",
+    "Title": "Strawberry",
+    "variety": "Kashmiri",
+    "date": "Feb – May",
+    "temperature": "18°C - 22°C",
+    "Boxes": "4/tree",
+    "Workers": "7/acre"
+  },
+  {
+    "image": "/assets/images/harvest-peach.avif",
+    "Orchard": "Orchard",
+    "Title": "Pear",
+    "variety": "Kashmiri",
+    "date": "July – September",
+    "temperature": "20°C - 25°C",
+    "Boxes": "8/tree",
+    "Workers": "4/acre"
+  },
+  {
+    "image": "/assets/images/harvest-grapes.avif",
+    "Orchard": "Orchard",
+    "Title": "Grapes",
+    "variety": "Kashmiri",
+    "date": "August – October",
+    "temperature": "27°C - 32°C",
+    "Boxes": "15/tree",
+    "Workers": "6/acre"
+  },
+  {
+    "image": "/assets/images/harvest-almond.avif",
+    "Orchard": "Orchard",
+    "Title": "Almond",
+    "variety": "Kashmiri",
+    "date": "March – June",
+    "temperature": "24°C - 29°C",
+    "Boxes": "7/tree",
+    "Workers": "5/acre"
+  }
+]
