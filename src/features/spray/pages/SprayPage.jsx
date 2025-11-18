@@ -19,53 +19,72 @@ import {
   SprayCan,
   BugOff,
   SprayCanIcon,
+  
 } from "lucide-react";
+import { useSprayPageQuery, } from "@/hooks/useSprayQuery";
+
+
 
 const SprayPage = () => {
+
+  const {data}= useSprayPageQuery()
+ 
+
+ const icons = {
+    Leaf: <Leaf className="text-[var(--color-secondary)]" size={22} />,
+    SprayCanIcon: <SprayCanIcon className="text-[var(--color-secondary)]" size={22} />,
+    Bug: <Bug className="text-[var(--color-secondary)]" size={22} />,
+    Sprout: <Sprout className="text-[var(--color-secondary)]" size={22} />,
+    Wrench: <Wrench className="text-[var(--color-secondary)]" size={22} />,
+    Shield: <Shield className="text-[var(--color-secondary)]" size={22} />, 
+    Sun: <Sun className="text-[var(--color-secondary)]" size={22} />,
+    User: <User className="text-[var(--color-secondary)]" size={22} />,
+
+  };
   const isMobile = useIsMobile();
 
-  const data = [
-    {
-      title: "Herbicide Use",
-      desc: "Record details about herbicide type, application rate, and affected area.",
-      icon: <Leaf className="w-8 h-8 text-[var(--color-secondary)]" />,
-    },
-    {
-      title: "Insecticide Schedule",
-      desc: "Track insecticide usage, intervals, and effectiveness for pest control.",
-      icon: <Bug className="w-8 h-8 text-[var(--color-secondary)]" />,
-    },
-    {
-      title: "Fungicide Records",
-      desc: "Maintain proper logs for fungicide applications and seasonal coverage.",
-      icon: <SprayCanIcon className="w-8 h-8 text-[var(--color-secondary)]" />,
-    },
-    {
-      title: "Nutrient Application",
-      desc: "Track fertilizer use, nutrient type, and soil condition improvements.",
-      icon: <Sprout className="w-8 h-8 text-[var(--color-secondary)]" />,
-    },
-    {
-      title: "Equipment Maintenance",
-      desc: "Keep records of sprayer calibration, cleaning, and repair schedules.",
-      icon: <Wrench className="w-8 h-8 text-[var(--color-secondary)]" />,
-    },
-    {
-      title: "Safety Precautions",
-      desc: "Note PPE use, safety measures, and any incidents during spraying.",
-      icon: <Shield className="w-8 h-8 text-[var(--color-secondary)]" />,
-    },
-    {
-      title: "Weather Records",
-      desc: "Log wind speed, temperature, and humidity before spraying.",
-      icon: <Sun className="w-8 h-8 text-[var(--color-secondary)]" />,
-    },
-    {
-      title: "Operator Details",
-      desc: "Record who applied the spray and any certifications they hold.",
-      icon: <User className="w-8 h-8 text-[var(--color-secondary)]" />,
-    },
-  ];
+  // const data = [
+  //   {
+  //     title: "Herbicide Use",
+  //     desc: "Record details about herbicide type, application rate, and affected area.",
+  //     icon: <Leaf className="w-8 h-8 text-[var(--color-secondary)]" />,
+  //   },
+  //   {
+  //     title: "Insecticide Schedule",
+  //     desc: "Track insecticide usage, intervals, and effectiveness for pest control.",
+  //     icon: <Bug className="w-8 h-8 text-[var(--color-secondary)]" />,
+  //   },
+  //   {
+  //     title: "Fungicide Records",
+  //     desc: "Maintain proper logs for fungicide applications and seasonal coverage.",
+  //     icon: <SprayCanIcon className="w-8 h-8 text-[var(--color-secondary)]" />,
+  //   },
+  //   {
+  //     title: "Nutrient Application",
+  //     desc: "Track fertilizer use, nutrient type, and soil condition improvements.",
+  //     icon: <Sprout className="w-8 h-8 text-[var(--color-secondary)]" />,
+  //   },
+  //   {
+  //     title: "Equipment Maintenance",
+  //     desc: "Keep records of sprayer calibration, cleaning, and repair schedules.",
+  //     icon: <Wrench className="w-8 h-8 text-[var(--color-secondary)]" />,
+  //   },
+  //   {
+  //     title: "Safety Precautions",
+  //     desc: "Note PPE use, safety measures, and any incidents during spraying.",
+  //     icon: <Shield className="w-8 h-8 text-[var(--color-secondary)]" />,
+  //   },
+  //   {
+  //     title: "Weather Records",
+  //     desc: "Log wind speed, temperature, and humidity before spraying.",
+  //     icon: <Sun className="w-8 h-8 text-[var(--color-secondary)]" />,
+  //   },
+  //   {
+  //     title: "Operator Details",
+  //     desc: "Record who applied the spray and any certifications they hold.",
+  //     icon: <User className="w-8 h-8 text-[var(--color-secondary)]" />,
+  //   },
+  // ];
 
   return (
     <div className="w-full min-h-screen bg-[var(--color-white)]">
@@ -79,13 +98,13 @@ const SprayPage = () => {
 
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {data.map((item, index) => (
+          {data?.map((item, index) => (
             <div
               key={index}
               className="bg-[var(--color-white)] border border-[var(--color-gray)] rounded-2xl p-6 shadow-sm"
             >
               <div className="flex items-center gap-3 mb-4">
-                {item.icon}
+                {icons[item.icon]}
                 <h3 className="text-lg font-semibold text-[var(--color-black)]">
                   {item.title}
                 </h3>

@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "name": "Apple Valley",
+    "type": "Apple",
+    "location": "Kashmir, India",
+    "totalLand": 12.5,
+    "landUnit": "acres",
+    "varieties": ["Honeycrisp", "Royal Gala", "Maharaji", "Ambri"],
+    "status": "Sowing",
+    "image": "/assets/images/appleOrchard/apple.png"
+  },
+  {
+    "id": 2,
+    "name": "Walnut Farm",
+    "type": "Walnut",
+    "location": "Kashmir, India",
+    "totalLand": 20,
+    "landUnit": "acres",
+    "varieties": ["Chandler", "Pedro", "Local Kashmir Walnut (Desi)"],
+    "status": "Harvesting",
+    "image": "/assets/images/wallnutOrchard/walnut.png"
+  },
+  {
+    "id": 3,
+    "name": "Peach Paradise",
+    "type": "Peach",
+    "location": "Pulwama, Kashmir",
+    "totalLand": 10,
+    "landUnit": "acres",
+    "varieties": ["Elberta", "Redhaven", "Makhdoom", "Waris", "Pranyaj"],
+    "status": "Sowing",
+    "image": "/assets/images/peachOrchard/peach.png"
+  },
+  {
+    "id": 4,
+    "name": "Cherry Orchards",
+    "type": "Cherry",
+    "location": "Shopian, Kashmir",
+    "totalLand": 6,
+    "landUnit": "acres",
+    "varieties": ["Bing", "Rainier", "Makhmali", "Mishri", "Double"],
+    "status": "Harvesting",
+    "image": "/assets/images/cherryOrchard/cherry1.png"
+  },
+  {
+    "id": 5,
+    "name": "Almond Grove",
+    "type": "Almond",
+    "location": "Kashmir, India",
+    "totalLand": 15,
+    "landUnit": "acres",
+    "varieties": ["Nonpareil", "Carmel"],
+    "status": "Sowing",
+    "image": "/assets/images/almondfarm2.jpg"
+  }
+]

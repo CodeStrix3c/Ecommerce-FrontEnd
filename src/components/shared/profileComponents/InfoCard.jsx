@@ -1,6 +1,8 @@
 
 const UserHeaderCard = ({ title, image, name, icon:Icon}) => {
 
+  
+
   return (
     <div >
       {title}

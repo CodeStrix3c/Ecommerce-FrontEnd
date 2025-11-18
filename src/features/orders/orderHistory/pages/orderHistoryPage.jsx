@@ -2,16 +2,29 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LayoutList, LayoutGrid } from "lucide-react";
 import OrderCard from "../components/OrderHistoryCard";
-import orders from "../../DemoData";
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import { useOrderHistoryDataQuery } from "@/hooks/useOrderHistoryQuery";
 
 export default function OrderHistoryPage() {
+
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState("column"); 
 
-  const uniqueOrders = Array.from(
-    new Map(orders.map((o) => [o.orderId, o])).values()
-  );
+const { data: response } = useOrderHistoryDataQuery();
+
+
+const orders = response || [];
+
+// console.log(orders,"zara");
+
+
+const uniqueOrders = Array.from(
+  new Map(orders.map((o) => [o.orderId, o])).values()
+);
+
+
+// console.log(uniqueOrders[0],"uniqueOrders");
+
 
   return (
     <ContentWrapper compactScreen={true}>
@@ -26,8 +39,8 @@ export default function OrderHistoryPage() {
               onClick={() => setViewMode("column")}
               className={`p-2 rounded-md border transition ${
                 viewMode === "column"
-                  ? "bg-black text-white border-black"
-                  : "bg-white text-gray-600 border-gray-300 hover:bg-gray-100"
+                  ? "bg-[var(--color-secondary)] text-[var(--color-white)] "
+                  : "bg-[var(--color-white)] text-gray-600 border-gray-300 hover:bg-gray-100"
               }`}
               title="List View"
             >
@@ -38,8 +51,8 @@ export default function OrderHistoryPage() {
               onClick={() => setViewMode("row")}
               className={`p-2 rounded-md border transition ${
                 viewMode === "row"
-                  ? "bg-black text-white border-black"
-                  : "bg-white text-gray-600 border-gray-300 hover:bg-gray-100"
+                  ? "bg-[var(--color-secondary)] text-[var(--color-white)] "
+                  : "bg-[var(--color-white)] text-gray-600 border-gray-300 hover:bg-gray-100"
               }`}
               title="Grid View"
             >
@@ -63,6 +76,7 @@ export default function OrderHistoryPage() {
         >
           {uniqueOrders.map((order) => (
             <OrderCard
+              order={order}
               key={order.orderId}
               status={order.status}
               statusColor={order.statusColor}
@@ -71,7 +85,7 @@ export default function OrderHistoryPage() {
               refunded={order.refunded}
               refundDetailsLabel={order.refundDetailsLabel}
               products={order.products}
-              onViewDetails={() => navigate(`/user-orders/${order.orderId}`)}
+              onViewDetails={() => navigate(`/user-orders/${order.orderId}`,)}
             />
           ))}
         </div>

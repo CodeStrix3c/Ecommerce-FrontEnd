@@ -7,6 +7,7 @@ import {
   Star,
   Clock,
   XCircle,
+  StarHalf,
 } from "lucide-react";
 
 export default function OrderCard({
@@ -16,15 +17,19 @@ export default function OrderCard({
   date,
   products = [],
   onViewDetails,
-  refunded = true,
-  rating = 4,
-}) {
+  // rating = 4,
+  order
+}) 
+
+
+{
   if (!products.length) return null;
 
   const firstProduct = products[0];
   const remainingCount = products.length - 1;
+  const rating = firstProduct.rating || 0;
 
-  
+
   const getStatusIcon = (status) => {
     switch (status?.toLowerCase()) {
       case "delivered":
@@ -59,12 +64,11 @@ export default function OrderCard({
       </div>
 
      
-      {refunded && (
-        <p className="text-sm text-gray-600 mb-3 break-words">
-          Your refund of <span className="font-semibold">{amount}</span> for the
-          return has been processed successfully on {date}.
-        </p>
-      )}
+  {order?.message && (
+  <p className="text-sm text-gray-600 mb-3 break-words">
+    {order.message}
+  </p>
+)}
 
       <div className="flex items-center sm:items-start gap-3">
         <img
@@ -91,17 +95,40 @@ export default function OrderCard({
           )}
 
           
-          <div className="flex items-center mt-3">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`w-4 h-4 ${
-                  i < rating ? "text-[var(--color-secondary)]" : "text-gray-300"
-                }`}
-              />
-            ))}
-            <span className="text-xs text-gray-600 ml-1">({rating}/5)</span>
-          </div>
+       <div className="flex items-center mt-3">
+  {[...Array(5)].map((_, i) => {
+    const fullStars = Math.floor(rating);
+    const isHalfStar =
+      rating - i > 0 &&
+      rating - i < 1 &&
+      i < Math.ceil(rating);
+
+    if (i < fullStars) {
+      return (
+        <Star
+          key={i}
+          className="w-4 h-4 text-[var(--color-secondary)]"
+          fill="currentColor"
+        />
+      );
+    } else if (isHalfStar) {
+      return (
+        <StarHalf
+          key={i}
+          className="w-4 h-4 text-[var(--color-secondary)]"
+          fill="currentColor"
+        />
+      );
+    } else {
+      return <Star key={i} className="w-4 h-4 text-gray-300" />;
+    }
+  })}
+
+  <span className="text-xs text-gray-600 ml-1">
+    ({rating.toFixed(1)}/5)
+  </span>
+</div>
+
         </div>
       </div>
     </div>

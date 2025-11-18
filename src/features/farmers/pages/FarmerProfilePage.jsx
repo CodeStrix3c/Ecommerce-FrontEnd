@@ -14,20 +14,24 @@ import ProfessionDetails from "@/components/shared/profileComponents/Professiona
 import SectionTitle from "@/components/shared/SectionTitle";
 import EducationDetailsCard from "@/components/shared/profileComponents/EducationDetailsCard";
 import ImageBanner from "@/components/shared/profileComponents/ImageComponent";
-import { Email } from "@mui/icons-material";
-import {
-  farmerAddress,
-  farmerData,
-  farmerEducation,
-  farmerProfession,
-} from "@/features/suppliers/pages/DummyData";
+
+import { useFarmerDataQuery } from "@/hooks/farmerProfilePageQuery";
 
 const FarmerProfilePage = () => {
+  const { data } = useFarmerDataQuery();
+
+  const farmerData = data?.find((d) => d.section === "farmerData") || {};
+
+  const farmerProfession = data?.find((d) => d.section === "farmerProfession")?.items || [];
+
+  const farmerAddress = data?.find((d) => d.section === "farmerAddress")?.items || [];
+
+  const farmerEducation = data?.find((d) => d.section === "farmerEducation")?.items || [];
+
   return (
     <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
       {/* Main Card Container */}
       <div className="lg:rounded-sm lg:shadow-sm w-full max-w-6xl overflow-hidden bg-[var(--color-white)]">
-        {/* ✅ Full-width Header */}
         <div className="w-full border-b border-[var(--color-gray)] px-1 py-4 flex justify-between items-center bg-[var(--color-white)]">
           <SectionTitle
             title="Farmer Profile"
@@ -54,7 +58,7 @@ const FarmerProfilePage = () => {
           <div className="flex flex-col mt-0 lg:mt-8 md:mt-2">
             {/* Reusable Banner on Top */}
             <ImageBanner
-              imageSrc="assets/images/farmerPro.png"
+              imageSrc={farmerData?.image}
               altText="Farmer field background"
               logoSrc="https://placehold.co/24x24/ffffff/000000?text=I"
               height="h-[310px]"
