@@ -35,7 +35,7 @@ export default function ReviewHeader() {
               <Star
                 key={i}
                 size={12}
-                className="text-[var(--color-secondary)]"
+                className="text-[var(--color-secondary)] fill-[var(--color-secondary)]"
               />
             ))}
           </div>

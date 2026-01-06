@@ -1,6 +1,6 @@
 // import React from "react";
 // import { Leaf, TreePine, Sprout, Droplets, Sun } from "lucide-react";
-// import ContentWrapper from "@/components/shared/ContentWrapper"; 
+// import ContentWrapper from "@/components/shared/ContentWrapper";
 
 // const OrchardContent = () => {
 //   return (
@@ -10,7 +10,6 @@
 //             <h2></h2>
 //         </div>
 
-        
 //         <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
 //           <div>
 //             <h3 className="text-xl font-semibold flex items-center gap-2 mb-3 ">
@@ -28,7 +27,6 @@
 //             </p>
 //           </div>
 
-         
 //           <div>
 //             <h3 className="text-xl font-semibold flex items-center gap-2 mb-3">
 //               <Sprout className="text-[var(--color-secondary)] w-6 h-6" />
@@ -73,14 +71,12 @@
 //           </div>
 //         </div>
 
-       
 //       </section>
 //     </ContentWrapper>
 //   );
 // };
 
 // export default OrchardContent;
-
 
 import React from "react";
 import { Leaf, Sprout, Droplets, Sun } from "lucide-react";
@@ -92,7 +88,7 @@ const OrchardContent = () => {
       <section className="text-center mt-20 ">
         {/* Section Heading */}
         <div className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-black)]">
+          <h2 className="text-xl lg:text-3xl md:text-xl  font-semibold text-[var(--color-black)]">
             Our Orchard Practices
           </h2>
           <p className="mt-3 text-[var(--color-black)] text-base md:text-lg max-w-2xl mx-auto leading-relaxed">

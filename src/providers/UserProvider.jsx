@@ -1,20 +1,23 @@
-import { createContext } from 'react';
+// src/context/UserContext.jsx
+import React, { createContext, useContext, useState } from "react";
 
-import { useProvideAuth } from '../hooks';
-
-const initialState = {
-  user: null,
-  register: () => {},
-  login: () => {},
-  googleLogin: () => {},
-  logout: () => {},
-  loading: true,
-};
-
-export const UserContext = createContext(initialState);
+const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
-  const auth = useProvideAuth();
+  const [userId, setUserId] = useState(null);
+  const [profileId, setProfileId] = useState(null);
+  const [token, setToken] = useState(null);
 
-  return <UserContext.Provider value={auth}>{children}</UserContext.Provider>;
+  const value = {
+    userId,
+    profileId,
+    token,
+    setUserId,
+    setProfileId,
+    setToken,
+  };
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
+
+export const useUser = () => useContext(UserContext);

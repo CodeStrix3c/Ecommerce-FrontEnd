@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import PlaceCard from "@/features/places/components/PlaceCard";
 import SectionTitle from "./SectionTitle";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
+import { carouselBreakpoints } from "@/lib/  carouselConfig";
 
 const CarouselSection = ({ title, places = [], loading }) => {
   const isMobile = useIsMobile();
@@ -16,11 +17,13 @@ const CarouselSection = ({ title, places = [], loading }) => {
       perView: 2.1,
       spacing: 8,
     },
-    breakpoints: {
-      "(min-width: 768px)": { slides: { perView: 4, spacing: 12 } },
-      "(min-width: 1024px)": { slides: { perView: 7, spacing: 10 } },
-    },
+    breakpoints: carouselBreakpoints,
   });
+  useEffect(() => {
+    if (instanceRef.current) {
+      instanceRef.current.update(); // Recalculate layout
+    }
+  }, [places]);
 
   return (
     <div className="mt-0">

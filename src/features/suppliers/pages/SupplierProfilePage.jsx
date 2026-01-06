@@ -14,102 +14,102 @@ import ProfessionDetails from "@/components/shared/profileComponents/Professiona
 import SectionTitle from "@/components/shared/SectionTitle";
 import EducationDetailsCard from "@/components/shared/profileComponents/EducationDetailsCard";
 import ImageBanner from "@/components/shared/profileComponents/ImageComponent";
-import {
-  farmerLicenceDetails,
-  operationalDetails,
-  productPortfolio,
-  supplierAddress,
-  supplierInfo,
-  supportAndServices,
-} from "./DummyData";
 
-const FarmerProfilePage = () => {
+import { useSupplierDataQuery } from "@/hooks/suplierProfilePageQuery";
+import { supplierData } from "@/services/supplierProfilePageServices";
+
+const SupplierProfilePage = () => {
+  const { data } = useSupplierDataQuery();
+
+  const supplierInfo = data?.find((d) => d.section === "supplierInfo");
+
+  const supplierAddress =
+    data?.find((d) => d.section === "supplierAddress")?.items || [];
+
+  const farmerLicenceDetails =
+    data?.find((d) => d.section === "farmerLicenceDetails")?.items || [];
+  const productPortfolio =
+    data?.find((d) => d.section === "productPortfolio")?.items || [];
+  const supportAndServices =
+    data?.find((d) => d.section === "supportAndServices")?.items || [];
+  const operationalDetails =
+    data?.find((d) => d.section === "operationalDetails")?.items || [];
+
   return (
-      <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
-        {/* Main Card Container */}
-        <div className="lg:rounded-sm lg:shadow-sm w-full  max-w-6xl overflow-hidden bg-white">
-          
-          <div className="w-full border-b border-gray-100 px-6 py-4 flex justify-between items-center bg-white">
-            <SectionTitle
-              title="Supplier Profile"
-              className="lg:font-bold lg:text-2xl"
+    <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
+      {/* Main Card Container */}
+      <div className="lg:rounded-sm lg:shadow-sm w-full  max-w-6xl overflow-hidden bg-[var(--color-white)]">
+        <div className="w-full border-b border-[var(--color-gray)] px-1 py-4 flex justify-between items-center bg-[var(--color-white)]">
+          <SectionTitle
+            title="Supplier Profile"
+            className="lg:font-bold lg:text-2xl "
+          />
+          <div className="flex items-center space-x-4">
+            <Link
+              to={"/supplier-profile-completion"}
+              className="px-2 py-2 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors"
+            >
+              Complete Your Profile
+            </Link>
+            <div className="relative group">
+              <div
+                className="p-2 border rounded-full cursor-pointer hover:bg-[var(--color-gray)]"
+                title="Settings"
+              >
+                <Settings className="w-5 h-5 text-[var(--color-black)]" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-[280px_1fr]">
+          <div className="flex flex-col mt-0 lg:mt-8 md:mt-2">
+            <ImageBanner
+              imageSrc={supplierInfo?.image}
+              altText="Farmer field background"
+              logoSrc="https://placehold.co/24x24/ffffff/000000?text=I"
+              height="h-[310px]"
             />
-            <div className="flex items-center space-x-4">
-              <button className="px-4 py-2 text-sm font-medium text-white bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
-                Complete Your Profile
-              </button>
-              <div className="p-2 border rounded-full">
-                <Settings className="w-5 h-5 text-gray-600" />
+            <ProfileSidebar userData={supplierInfo} icon={BadgeCheckIcon} />
+          </div>
+
+          <div className="p-2 lg:p-8 space-y-10">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8">
+              <div className="space-y-8">
+                <AddressDetails
+                  title="Address Details"
+                  addressData={supplierAddress}
+                />
+
+                <AddressDetails
+                  title="Licence Details"
+                  icon={BadgeCheck}
+                  addressData={farmerLicenceDetails}
+                />
+
+                <EducationDetailsCard
+                  title="Product Portfolio"
+                  educationData={productPortfolio}
+                />
+              </div>
+
+              <div className="space-y-8 lg:space-y-8 md:space-y-0">
+                <ProfessionDetails
+                  title="Operational Details"
+                  professionData={operationalDetails}
+                />
+
+                <ProfessionDetails
+                  title="Support & Services"
+                  professionData={supportAndServices}
+                />
               </div>
             </div>
           </div>
-
-          {/* Main Grid Layout */}
-          <div className="grid md:grid-cols-[280px_1fr]">
-            {/* LEFT COLUMN */}
-            <div className="flex flex-col mt-0 lg:mt-8 md:mt-2">
-              <ImageBanner
-                imageSrc="assets/images/supplierPro.png"
-                altText="Farmer field background"
-                logoSrc="https://placehold.co/24x24/ffffff/000000?text=I"
-                height="h-[310px]"
-              />
-              <ProfileSidebar userData={supplierInfo} icon={BadgeCheckIcon} />
-            </div>
-
-            {/* RIGHT COLUMN */}
-            <div className="p-2 lg:p-8 space-y-10">
-              <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8">
-                {/* Left Side */}
-                <div className="space-y-8">
-                  <AddressDetails
-                    title="Address Details"
-                    icon={MapPin}
-                    addressData={supplierAddress}
-                  />
-
-                  <AddressDetails
-                    title="Licence Details"
-                    icon={BadgeCheck}
-                    addressData={farmerLicenceDetails}
-                  />
-
-                  <EducationDetailsCard
-                    icon={Boxes}
-                    title="Product Portfolio"
-                    educationData={productPortfolio}
-                  />
-                </div>
-
-                {/* Right Side */}
-                <div className="space-y-8 lg:space-y-8 md:space-y-0">
-                  <div className="rounded-sm overflow-hidden shadow-lg block md:hidden lg:block">
-                    <img
-                      src="assets/images/kassupplier.png"
-                      alt="Rural scene"
-                      className="w-full object-cover h-[210px]"
-                    />
-                  </div>
-
-                  <ProfessionDetails
-                    icon={FileText}
-                    title="Operational Details"
-                    professionData={operationalDetails}
-                  />
-
-                  <ProfessionDetails
-                    icon={HelpCircle}
-                    title="Support & Services"
-                    professionData={supportAndServices}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* End Grid */}
         </div>
       </div>
+    </div>
   );
 };
 
-export default FarmerProfilePage;
+export default SupplierProfilePage;

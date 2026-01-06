@@ -17,14 +17,13 @@ export default function AlertPanel() {
   ];
 
   return (
-   <ContentWrapper>
-
-     <ChartCard title="Alerts & Notifications">
-    <AlertTriggered/>
-    <TicketResolved/>
-    <PendingAction/>
-    <ServiceBooking/>
-    </ChartCard>
-   </ContentWrapper>
+    <ContentWrapper>
+      <ChartCard title="Alerts & Notifications">
+        <AlertTriggered />
+        <TicketResolved />
+        <PendingAction />
+        <ServiceBooking />
+      </ChartCard>
+    </ContentWrapper>
   );
 }

@@ -25,6 +25,8 @@ export default function WeatherPage() {
 
   const location = data.location;
   const current = data.current;
+  console.log(current, "current");
+
   const today = data.forecast.forecastday[0].day;
   const astro = data.forecast.forecastday[0].astro;
 
@@ -114,8 +116,6 @@ export default function WeatherPage() {
               </div>
             </div>
           </div>
-
-
           <div className="mt-10 sm:mt-10 text-center md:text-left">
             <h3 className="text-lg sm:text-xl font-bold text-[var(--color-black)]">
               {today.condition.text}

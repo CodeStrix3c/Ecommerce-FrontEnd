@@ -68,7 +68,7 @@ const Footer = () => {
                 { name: "Weather Updates", link: "/resources/weather" },
                 { name: "Market Prices", link: "/resources/market-prices" },
                 { name: "Pest Alerts", link: "/resources/pest-alerts" },
-                { name: "Farming Techniques", link: "/resources/techniques" },
+                { name: "Farming Techniques", link: "/resources/farming-techniques" },
               ].map((item, idx) => (
                 <p key={idx}>
                   <Link

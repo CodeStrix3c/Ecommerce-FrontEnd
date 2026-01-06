@@ -42,7 +42,7 @@ export default function ListingHeader({ place, onShare }) {
           >
             <Heart
               className={`size-5 ${
-                isSaved ? "fill-current text-[var(--color-primary)]" : ""
+                isSaved ? "fill-current text-[var(--color-secondary)]" : ""
               }`}
               aria-hidden="true"
             />

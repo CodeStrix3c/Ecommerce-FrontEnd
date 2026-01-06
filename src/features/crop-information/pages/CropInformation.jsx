@@ -15,19 +15,18 @@ import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import SelectField from "@/components/shared/custom-inputs/SelectField";
 
 export default function CropInformation() {
-  
   const Label = ({ children }) => (
     <div className="text-xs text-[var(--color-black)]">{children}</div>
   );
 
   return (
-    <ContentWrapper compactScreen>
-      <div className="min-h-screen bg-[var(--color-white)] text-[var(--color-black)] lg:mt-36 md:mt-28">
+    <ContentWrapper compactScreen topSpacing>
+      <div className="min-h-screen bg-[var(--color-white)] text-[var(--color-black)] ">
         <header className="">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
             <div className="flex items-center gap-3">
               <div>
-                <h1 className="text-xl font-semibold text-[var(--color-primary)]">
+                <h1 className="text-3xl font-semibold text-[var(--color-black)]">
                   Crop Information
                 </h1>
                 <p className="text-sm text-[var(--color-black)]">
@@ -52,7 +51,7 @@ export default function CropInformation() {
               <div className="flex-1">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div>
-                    <h2 className="text-2xl font-semibold">Wheat</h2>
+                    <h2 className="text-3xl font-semibold">Wheat</h2>
                     <p className="text-sm text-[var(--color-black)] mt-1">
                       Cereal • Best season: Rabi (Nov - Apr)
                     </p>
@@ -150,8 +149,8 @@ export default function CropInformation() {
             <ExpertAdvice />
           </section>
           <aside className="space-y-4 ">
-            <div className="bg-[var(--color-white)] rounded-2xl shadow-sm py-4 ">
-              <h4 className="font-semibold text-lg flex items-center gap-2">
+            <div className="bg-[var(--color-white)] rounded-2xl py-4 ">
+              <h4 className="font-semibold text-xl flex items-center gap-2">
                 <FileDown className="h-5 w-5 text-[var(--color-secondary)]" />
                 Quick Actions
               </h4>

@@ -34,7 +34,7 @@ const FilterDropdown = ({ onSelect, options }) => {
         </span>
 
         <ChevronDown
-          className={`h-4 w-4 text-[var(--color-primary)] transition-transform duration-200 ${
+          className={`h-4 w-4 text-[var(--color-secondary)] transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
         />

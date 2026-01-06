@@ -4,8 +4,8 @@ import useIsMobile from "@/hooks/useInMobile";
 import DatePickerWithRange from "../ui/DatePickerWithRange";
 import ContentWrapper from "./ContentWrapper";
 
-const crops = ["Wheat", "Rice", "Cotton", "Maize", "Sugarcane"];
-const regions = ["Punjab", "Bihar", "Maharashtra", "Haryana", "UP"];
+const crops = ["Apple", "Rice", "Walnut", "Peach", "Almond"];
+const regions = ["Pulwama", "Sopore", "Shopian", "Anantnag", "Kulgam"];
 
 const SearchBar = ({ onSubmit }) => {
   const isMobile = useIsMobile(900);
@@ -73,7 +73,7 @@ const SearchBar = ({ onSubmit }) => {
             Crop
           </p>
           <select
-            className="w-full bg-transparent text-sm md:text-xs text-[var(--color-black)] focus:outline-none"
+            className="w-full text-sm md:text-xs text-[var(--color-black)] focus:outline-none bg-[var(--color-white)]"
             value={selectedCrop}
             onChange={(e) => setSelectedCrop(e.target.value)}
           >
