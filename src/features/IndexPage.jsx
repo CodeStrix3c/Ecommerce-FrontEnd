@@ -25,6 +25,7 @@ const IndexPage = () => {
     },
   };
   const { data, isLoading } = useProductsQuery();
+  console.log(data, "prodyuctdata");
 
   const products1 = data?.slice(0, 8) || [];
   const products2 = data?.slice(8, 15) || [];
