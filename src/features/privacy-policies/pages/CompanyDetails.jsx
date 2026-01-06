@@ -1,129 +1,125 @@
 import ContentWrapper from "@/components/shared/ContentWrapper";
-
+import { useCompanyDetailsData } from "@/hooks/companyDetailsQuery";
+import { socialIconMap } from "@/utils/socialIcons";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
+export const socialIconMap = {
+  FaFacebook: FaFacebook,
+  FaLinkedin: FaLinkedin,
+  FaInstagram: FaInstagram,
+  FaXTwitter: FaXTwitter
+};
+
+
 function CompanyDetails() {
+  const { data } = useCompanyDetailsData();
+
+  if (!data) return <p>Loading...</p>;
+
   return (
     <ContentWrapper compactScreen>
       <div className="py-8 text-[var(--color-black)] lg:mt-32">
+        {/* TITLE */}
         <h1 className="pb-6 text-2xl font-bold sm:text-3xl md:text-4xl">
-          Company Details
+          {data.title}
         </h1>
 
-        {/* Company Overview */}
-        <div className="mb-8 text-base  sm:text-lg md:text-xl">
-          <p className="pb-2 text-lg font-semibold sm:text-xl">About Us:</p>
-          <p>
-            Zirat is a leading Farm Management Platform designed to empower
-            farmers with digital tools for crop management, field mapping,
-            weather insights, inventory tracking, and financial analytics. Our
-            mission is to make farming smarter, more productive, and sustainable
-            across India.
+        {/* ABOUT US */}
+        <div className="mb-8 text-base sm:text-lg md:text-xl">
+          <p className="pb-2 text-lg font-semibold sm:text-xl">
+            {data.about.heading}:
           </p>
+          <p>{data.about.text}</p>
         </div>
 
-        {/* Company Info */}
+        {/* OFFICE DETAILS */}
         <div className="mb-8 text-base leading-relaxed sm:text-lg md:text-xl">
           <p className="pb-2 text-lg font-semibold sm:text-xl">
-            Registered Office:
+            {data.office.heading}:
           </p>
+
           <p>
-            Zirat Pvt. Ltd. <br />
-            Rangret, Budgam, J&K 190001, India
+            {data.office.companyName} <br />
+            {data.office.address}
           </p>
 
           <p className="pt-4">
-            <b>Directors:</b> Ashiq Ali <br />
-            <b>VAT/GST ID:</b> 12ABCDE3456F7Z8 <br />
-            <b>Company Registration Number:</b> 1234567890
+            <b>Directors:</b> {data.office.directors} <br />
+            <b>VAT/GST ID:</b> {data.office.gst} <br />
+            <b>Company Registration Number:</b> {data.office.registrationNumber}
           </p>
         </div>
 
-        {/* Support */}
+        {/* SUPPORT */}
         <div className="mb-8 text-base sm:text-lg md:text-xl">
-          <p className="font-semibold">Customer Support:</p>
+          <p className="font-semibold">{data.support.heading}:</p>
           <p>For assistance with the platform, contact us at:</p>
+
           <a
-            href="mailto:support@zirat.com"
+            href={`mailto:${data.support.email}`}
             className="underline text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)]"
           >
-            support@zirat.com
+            {data.support.email}
           </a>
-          <p className="pt-2">Phone: +91 9876543210</p>
+
+          <p className="pt-2">Phone: {data.support.phone}</p>
         </div>
 
-        {/* Grievance Officer */}
+        {/* GRIEVANCE */}
         <div className="mb-8 text-base sm:text-lg md:text-xl">
-          <p>
-            For complaints or concerns about the platform or any violation of
-            our Terms of Service, please contact our grievance officer:
-          </p>
+          <p>{data.grievance.heading}:</p>
+
           <p className="pt-3 font-medium">
-            Attn: Mr. Ashiq Ali, Grievance Officer
+            Attn: {data.grievance.officer}, Grievance Officer
           </p>
+
           <p className="pt-2">
             email:{" "}
             <a
-              href="mailto:grievance@zirat.com"
+              href={`mailto:${data.grievance.email}`}
               className="underline text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)]"
             >
-              ashiqAli@zirat.com
+              {data.grievance.email}
             </a>
           </p>
-          <p className="pt-2">Phone: +91 9876543211</p>
+
+          <p className="pt-2">Phone: {data.grievance.phone}</p>
         </div>
 
-        {/* Business Hours */}
+        {/* BUSINESS HOURS */}
         <div className="mb-8 text-base sm:text-lg md:text-xl">
-          <p className="font-semibold">Business Hours:</p>
+          <p className="font-semibold">{data.businessHours.heading}:</p>
           <ul className="list-disc list-inside">
-            <li>Monday – Friday: 9:00 AM – 6:00 PM</li>
-            <li>Saturday: 10:00 AM – 2:00 PM</li>
-            <li>Sunday: Closed</li>
+            {data.businessHours.hours.map((h, index) => (
+              <li key={index}>{h}</li>
+            ))}
           </ul>
         </div>
 
-        {/* Social Media */}
+        {/* SOCIAL MEDIA */}
         <div className="text-base sm:text-lg md:text-xl">
           <p className="font-semibold pb-2">Follow Us:</p>
+
           <ul className="list-none flex gap-4">
-            <li className="flex items-center gap-1">
-              <FaFacebook className="w-6 h-6 text-[#1877F2] hover:opacity-80 cursor-pointer" />
-              <a
-                href="https://www.facebook.com/zirat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline"
-              ></a>
-            </li>
-            <li className="flex items-center gap-1">
-              <FaLinkedin className="w-6 h-6 text-[#0A66C2] hover:opacity-80 cursor-pointer" />
-              <a
-                href="https://www.linkedin.com/company/zirat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline"
-              ></a>
-            </li>
-            <li className="flex items-center gap-1">
-              <FaInstagram className="w-6 h-6 text-[#E4405F] hover:opacity-80 cursor-pointer" />
-              <a
-                href="https://twitter.com/zirat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline"
-              ></a>
-            </li>
-            <li className="flex items-center gap-1">
-              <FaXTwitter className="w-6 h-6 text-black hover:opacity-80 cursor-pointer" />
-              <a
-                href="https://twitter.com/zirat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline"
-              ></a>
-            </li>
+            {data.socialMedia.map((item, index) => {
+              const Icon = socialIconMap[item.icon];
+
+              return (
+                <li key={index} className="flex items-center gap-1">
+                  <Icon
+                    className="w-6 h-6 hover:opacity-80 cursor-pointer"
+                    style={{ color: item.color }}
+                  />
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  ></a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

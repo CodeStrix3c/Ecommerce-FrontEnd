@@ -7,7 +7,7 @@ import { icon } from "leaflet";
 const AddressDetails = ({ addressData, title = "Address Details", icon: Icon}) => {
   return (
     <DetailCard
-      icon={Icon}
+      icon={addressData.icon }
       title={title}
       headerButton={false}
     >

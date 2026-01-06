@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Farming Basics",
+    "desc": "Learn the foundations of sustainable farming.",
+    "img": "assets/images/rice.jpeg"
+  },
+  {
+    "title": "Organic Practices",
+    "desc": "Discover eco-friendly techniques to improve yields.",
+    "img": "assets/images/mud.jpeg"
+  },
+  {
+    "title": "Market Access",
+    "desc": "Learn how to connect with buyers and grow your business.",
+    "img": "assets/images/vegetables.jpeg"
+  }
+]
