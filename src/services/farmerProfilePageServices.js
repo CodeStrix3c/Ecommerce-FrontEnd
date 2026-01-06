@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axiosInstance";
+import axiosInstance from "@/api/client/axiosInstance";
 
 export const getFarmerData = async () => {
   const { data } = await axiosInstance.get("/data/farmerProfilePage/farmerProfileData.json", {

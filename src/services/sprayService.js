@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axiosInstance";
+import axiosInstance from "@/api/client/axiosInstance";
 
 export const getSprayPageData = async () => {
   const { data } = await axiosInstance.get("/data/sprayPage/sprayPageData.json", {

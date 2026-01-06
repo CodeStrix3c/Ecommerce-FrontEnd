@@ -17,6 +17,7 @@ import ImageBanner from "@/components/shared/profileComponents/ImageComponent";
 
 import { useSupplierDataQuery } from "@/hooks/suplierProfilePageQuery";
 import { supplierData } from "@/services/supplierProfilePageServices";
+import { Link } from "react-router-dom";
 
 const SupplierProfilePage = () => {
   const { data } = useSupplierDataQuery();

@@ -1,6 +1,6 @@
-import React from "react";
 import { Leaf, FlaskRound, Bug, Droplet } from "lucide-react";
 import { useSprayCardQuery, } from "@/hooks/useSprayQuery";
+import { useState } from "react";
 
 // const sprayHistoryData = [
 //   {
@@ -86,7 +86,10 @@ import { useSprayCardQuery, } from "@/hooks/useSprayQuery";
 // ];
 
 export default function SprayHistory() {
-  
+  const [notes, setNotes] = useState([]);
+  const [newNote, setNewNote] = useState("");
+  const [showEditor, setShowEditor] = useState(false);
+
    const {data}= useSprayCardQuery();
 
   
