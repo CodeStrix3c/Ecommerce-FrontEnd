@@ -14,17 +14,27 @@ import ProfessionDetails from "@/components/shared/profileComponents/Professiona
 import SectionTitle from "@/components/shared/SectionTitle";
 import EducationDetailsCard from "@/components/shared/profileComponents/EducationDetailsCard";
 import ImageBanner from "@/components/shared/profileComponents/ImageComponent";
-import {
-  farmerLicenceDetails,
-  operationalDetails,
-  productPortfolio,
-  supplierAddress,
-  supplierInfo,
-  supportAndServices,
-} from "./DummyData";
-import { Link } from "react-router-dom";
 
-const FarmerProfilePage = () => {
+import { useSupplierDataQuery } from "@/hooks/suplierProfilePageQuery";
+import { supplierData } from "@/services/supplierProfilePageServices";
+
+const SupplierProfilePage = () => {
+  const { data } = useSupplierDataQuery();
+
+  const supplierInfo = data?.find((d) => d.section === "supplierInfo");
+
+  const supplierAddress =
+    data?.find((d) => d.section === "supplierAddress")?.items || [];
+
+  const farmerLicenceDetails =
+    data?.find((d) => d.section === "farmerLicenceDetails")?.items || [];
+  const productPortfolio =
+    data?.find((d) => d.section === "productPortfolio")?.items || [];
+  const supportAndServices =
+    data?.find((d) => d.section === "supportAndServices")?.items || [];
+  const operationalDetails =
+    data?.find((d) => d.section === "operationalDetails")?.items || [];
+
   return (
     <div className="lg:pt-36 lg:p-8 flex items-center justify-center font-sans">
       {/* Main Card Container */}
@@ -55,7 +65,7 @@ const FarmerProfilePage = () => {
         <div className="grid md:grid-cols-[280px_1fr]">
           <div className="flex flex-col mt-0 lg:mt-8 md:mt-2">
             <ImageBanner
-              imageSrc="assets/images/supplierPro.png"
+              imageSrc={supplierInfo?.image}
               altText="Farmer field background"
               logoSrc="https://placehold.co/24x24/ffffff/000000?text=I"
               height="h-[310px]"
@@ -68,7 +78,6 @@ const FarmerProfilePage = () => {
               <div className="space-y-8">
                 <AddressDetails
                   title="Address Details"
-                  icon={MapPin}
                   addressData={supplierAddress}
                 />
 
@@ -79,7 +88,6 @@ const FarmerProfilePage = () => {
                 />
 
                 <EducationDetailsCard
-                  icon={Boxes}
                   title="Product Portfolio"
                   educationData={productPortfolio}
                 />
@@ -87,13 +95,11 @@ const FarmerProfilePage = () => {
 
               <div className="space-y-8 lg:space-y-8 md:space-y-0">
                 <ProfessionDetails
-                  icon={FileText}
                   title="Operational Details"
                   professionData={operationalDetails}
                 />
 
                 <ProfessionDetails
-                  icon={HelpCircle}
                   title="Support & Services"
                   professionData={supportAndServices}
                 />
@@ -106,4 +112,4 @@ const FarmerProfilePage = () => {
   );
 };
 
-export default FarmerProfilePage;
+export default SupplierProfilePage;

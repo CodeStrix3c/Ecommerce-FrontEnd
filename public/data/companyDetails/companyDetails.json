@@ -1,0 +1,60 @@
+{
+  "title": "Company Details",
+  "about": {
+    "heading": "About Us",
+    "text": "Zirat is a leading Farm Management Platform designed to empower farmers with digital tools for crop management, field mapping, weather insights, inventory tracking, and financial analytics. Our mission is to make farming smarter, more productive, and sustainable across India."
+  },
+  "office": {
+    "heading": "Registered Office",
+    "companyName": "Zirat Pvt. Ltd.",
+    "address": "Rangret, Budgam, J&K 190001, India",
+    "directors": "Ashiq Ali",
+    "gst": "12ABCDE3456F7Z8",
+    "registrationNumber": "1234567890"
+  },
+  "support": {
+    "heading": "Customer Support",
+    "email": "support@zirat.com",
+    "phone": "+91 9876543210"
+  },
+  "grievance": {
+    "heading": "Grievance Officer",
+    "officer": "Mr. Ashiq Ali",
+    "email": "ashiqAli@zirat.com",
+    "phone": "+91 9876543211"
+  },
+  "businessHours": {
+    "heading": "Business Hours",
+    "hours": [
+      "Monday – Friday: 9:00 AM – 6:00 PM",
+      "Saturday: 10:00 AM – 2:00 PM",
+      "Sunday: Closed"
+    ]
+  },
+  "socialMedia": [
+    {
+      "platform": "Facebook",
+      "icon": "FaFacebook",
+      "url": "https://www.facebook.com/zirat",
+      "color": "#1877F2"
+    },
+    {
+      "platform": "LinkedIn",
+      "icon": "FaLinkedin",
+      "url": "https://www.linkedin.com/company/zirat",
+      "color": "#0A66C2"
+    },
+    {
+      "platform": "Instagram",
+      "icon": "FaInstagram",
+      "url": "https://instagram.com/zirat",
+      "color": "#E4405F"
+    },
+    {
+      "platform": "Twitter",
+      "icon": "FaXTwitter",
+      "url": "https://twitter.com/zirat",
+      "color": "#000000"
+    }
+  ]
+}

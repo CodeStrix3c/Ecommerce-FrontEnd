@@ -4,12 +4,12 @@ import { Landscape } from "@mui/icons-material";
 
 function OrchardsSummary({ orchards }) {
  
-  const totalOrchards = orchards.length;
-  const totalAcres = orchards.reduce((acc, o) => acc + o.totalLand, 0);
-  const totalTrees = orchards.reduce((acc, o) => acc + (o.totalTrees || 0), 0);
-  const fruitTypes = Array.from(new Set(orchards.map((o) => o.type))).length;
+  const totalOrchards = orchards?.length;
+  const totalAcres = orchards?.reduce((acc, o) => acc + o.totalLand, 0);
+  const totalTrees = orchards?.reduce((acc, o) => acc + (o.totalTrees || 0), 0);
+  const fruitTypes = Array.from(new Set(orchards?.map((o) => o.type))).length;
 
-  const statusCounts = orchards.reduce(
+  const statusCounts = orchards?.reduce(
     (acc, o) => {
       if (
         o.status === "Active" ||
@@ -28,11 +28,11 @@ function OrchardsSummary({ orchards }) {
     { icon: <Landscape fontSize="small" />, label: "Acres", value: totalAcres },
     { icon: <Trees size={20} />, label: "Trees", value: totalTrees },
     { icon: <Apple size={20} />, label: "Fruit Types", value: `${fruitTypes}` },
-    { icon: <Sprout size={20} />, label: "Active", value: statusCounts.active },
+    { icon: <Sprout size={20} />, label: "Active", value: statusCounts?.active },
     {
       icon: <CalendarCheck2 size={20} />,
       label: "Planned",
-      value: statusCounts.planned,
+      value: statusCounts?.planned,
     },
   ];
 

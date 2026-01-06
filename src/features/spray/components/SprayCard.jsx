@@ -1,99 +1,96 @@
-import React, { useState } from "react";
-import { Leaf, FlaskRound, Bug, X, PlusCircle } from "lucide-react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import React from "react";
+import { Leaf, FlaskRound, Bug, Droplet } from "lucide-react";
+import { useSprayCardQuery, } from "@/hooks/useSprayQuery";
 
-const sprayHistoryData = [
-  {
-    id: 1,
-    type: "Herbicide",
-    name: "Cap",
-    quantity: "1 kg",
-    waterUsed: "10 L",
-    totalTrees: 25,
-    date: "May - Sep 2025",
-    cost: "5000 per 1kg",
-  },
-  {
-    id: 2,
-    type: "Fertilizer",
-    name: "GrowFast",
-    quantity: "2 kg",
-    waterUsed: "15 L",
-    totalTrees: 40,
-    date: "Aug - Oct 2025",
-    cost: "6000 per 2kg",
-  },
-  {
-    id: 3,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-  {
-    id: 4,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-  {
-    id: 5,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-  {
-    id: 6,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-  {
-    id: 6,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-  {
-    id: 7,
-    type: "Pesticide",
-    name: "BugAway",
-    quantity: "500 g",
-    waterUsed: "5 L",
-    totalTrees: 15,
-    date: "Jun - Sep 2025",
-    cost: "3000 per 500g",
-  },
-];
+// const sprayHistoryData = [
+//   {
+//     id: 1,
+//     type: "Herbicide",
+//     name: "Cap",
+//     quantity: "1 kg",
+//     waterUsed: "10 L",
+//     totalTrees: 25,
+//     date: "May - Sep 2025",
+//     cost: "5000 per 1kg",
+//   },
+//   {
+//     id: 2,
+//     type: "Fertilizer",
+//     name: "GrowFast",
+//     quantity: "2 kg",
+//     waterUsed: "15 L",
+//     totalTrees: 40,
+//     date: "Aug - Oct 2025",
+//     cost: "6000 per 2kg",
+//   },
+//   {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+//   {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+//   {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+//   {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+//    {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+//    {
+//     id: 3,
+//     type: "Pesticide",
+//     name: "BugAway",
+//     quantity: "500 g",
+//     waterUsed: "5 L",
+//     totalTrees: 15,
+//     date: "Jun - Sep 2025",
+//     cost: "3000 per 500g",
+//   },
+// ];
 
 export default function SprayHistory() {
-  const [showEditor, setShowEditor] = useState(false);
-  const [newNote, setNewNote] = useState("");
-  const [notes, setNotes] = useState([
+  
+   const {data}= useSprayCardQuery();
 
-  ]);
-
-  const totalCost = sprayHistoryData.reduce((sum, item) => {
+  
+  const totalCost = data?.reduce((sum, item) => {
     const num = parseFloat(item.cost.replace(/[^\d.]/g, ""));
     return sum + (isNaN(num) ? 0 : num);
   }, 0);
@@ -153,7 +150,7 @@ export default function SprayHistory() {
         Spray Applications
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sprayHistoryData.map((item) => (
+        {data?.map((item) => (
           <div
             key={item.id + item.nm}
             className="p-5 rounded-2xl bg-[var(--color-white)] shadow-sm border border-gray-200 hover:shadow-md transition-transform duration-300 hover:scale-[1.02]"
@@ -185,10 +182,13 @@ export default function SprayHistory() {
         ))}
       </div>
 
-
-      <div className="mt-10 p-5 rounded-2xl bg-[var(--color-black-hover)] flex justify-between items-center shadow-sm">
-        <span className="text-lg font-semibold text-[var(--color-black)]">Total Cost</span>
-        <span className="text-xl font-bold text-[var(--color-secondary)]">₹{totalCost.toLocaleString()}</span>
+      <div className="mt-10 p-5 rounded-2xl bg-[var(--color-black-hover)] flex justify-between items-center ">
+        <span className="text-lg font-semibold text-[var(--color-black)]">
+          Total Cost
+        </span>
+        <span className="text-xl font-bold text-[var(--color-secondary)]">
+          ₹{totalCost}
+        </span>
       </div>
 
 

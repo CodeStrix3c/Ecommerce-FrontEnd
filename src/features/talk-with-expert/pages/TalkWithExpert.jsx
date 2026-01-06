@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Phone, Mail, MessageCircle, Bot, Video, Calendar, Brain, BotIcon } from "lucide-react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import ImageHeaderSection from "@/components/shared/ImageHeaderSection";
+import { useExpertCardsDataQuery } from "@/hooks/useTalkWithExpertQuery";
+
 
 const sampleExperts = [
   {
@@ -71,6 +73,8 @@ const sampleExperts = [
     bio: "Guides farmers in organic methods and certification.",
   },
 ];
+ 
+
  export const openWhatsApp = (phoneNumber, message) => {
   // detect mobile device
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -210,7 +214,10 @@ function ChatPanel({ openChatWith, onClose }) {
 }
 
 export default function TalkWithExpert() {
-  const [experts] = useState(sampleExperts);
+
+ const { data: expertData = [] } = useExpertCardsDataQuery();
+  
+
   const [openChatWith, setOpenChatWith] = useState(null);
 
   return (
@@ -222,7 +229,7 @@ export default function TalkWithExpert() {
           <h3 className=" text-3xl font-bold text[var-(--color-black)]">Talk to an expert</h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {experts.map((ex) => (
+            {expertData?.map((ex) => (
               <ExpertCard key={ex.id} expert={ex} onOpenChat={setOpenChatWith} />
             ))}
           </div>
