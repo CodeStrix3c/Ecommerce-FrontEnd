@@ -43,7 +43,7 @@ export default function OverallRating() {
                   </span>
                   <div className="flex-1 bg-[var(--color-border)] h-[1px] rounded">
                     <div
-                      className={`h-[3px] rounded bg-[var(--color-black)] ${bar.value}`}
+                      className={`h-[5px] rounded bg-[var(--color-secondary)] ${bar.value}`}
                     ></div>
                   </div>
                 </div>
@@ -62,10 +62,10 @@ export default function OverallRating() {
                 <p className="font-bold text-[15px] text-[var(--color-neutral-dark)]">
                   {cat.label}
                 </p>
-                <span className="text-[17px] font-bold text-[var(--color-neutral-dark)]">
+                <span className="text-[17px] font-bold text-[var(--color-neutral-dark)] mt-4">
                   {cat.score}
                 </span>
-                <span className="text-[var(--color-neutral-dark-hover)] font-bold mt-2">
+                <span className="text-[var(--color-secondary)] font-bold mt-4">
                   {cat.icon}
                 </span>
               </div>
@@ -79,7 +79,7 @@ export default function OverallRating() {
                 key={cat.label}
                 className="flex flex-col items-center justify-center bg-[var(--color-bg)] rounded-2xl shadow-md p-4"
               >
-                <span className="text-[var(--color-neutral-dark-hover)] mb-1">
+                <span className="text-[var(--color-secondary)] mb-1">
                   {cat.icon}
                 </span>
                 <p className="font-semibold text-sm text-[var(--color-neutral-dark)]">

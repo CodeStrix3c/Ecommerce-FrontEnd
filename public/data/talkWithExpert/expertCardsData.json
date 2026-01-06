@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Asha Patel",
+    "title": "Crop Protection Specialist",
+    "tags": ["Pesticides", "IPM", "Field Trials"],
+    "rating": 4.8,
+    "phone": "+91 98765 43210",
+    "email": "asha.patel@example.com",
+    "avatar": "/assets/images/doc.png",
+    "bio": "10+ years advising smallholder farmers on pest management."
+  },
+  {
+    "id": 2,
+    "name": "Mr. Ravi Kumar",
+    "title": "Soil & Fertility Expert",
+    "tags": ["Soil Testing", "NPK", "Compost"],
+    "rating": 4.6,
+    "phone": "+91 99876 54321",
+    "email": "ravi.kumar@example.com",
+    "avatar": "/assets/images/doc2.png",
+    "bio": "Specialises in soil health, nutrient budgeting and testing."
+  },
+  {
+    "id": 3,
+    "name": "Ms. Nisha Singh",
+    "title": "Agronomy Consultant",
+    "tags": ["Crop Calendar", "Variety Selection"],
+    "rating": 4.9,
+    "phone": "+91 91234 56789",
+    "email": "nisha.singh@example.com",
+    "avatar": "/assets/images/doc3.png",
+    "bio": "Designs crop plans to maximize yield and reduce costs."
+  },
+  {
+    "id": 4,
+    "name": "Mr. Ajay Mehta",
+    "title": "Irrigation Specialist",
+    "tags": ["Drip Irrigation", "Water Management"],
+    "rating": 4.7,
+    "phone": "+91 93456 78901",
+    "email": "ajay.mehta@example.com",
+    "avatar": "/assets/images/doc4.png",
+    "bio": "Helps optimize irrigation systems for efficiency."
+  },
+  {
+    "id": 5,
+    "name": "Ms. Kavita Rao",
+    "title": "Agri-Tech Consultant",
+    "tags": ["Precision Farming", "AI Tools"],
+    "rating": 4.9,
+    "phone": "+91 92345 67890",
+    "email": "kavita.rao@example.com",
+    "avatar": "/assets/images/doc5.png",
+    "bio": "Advises on AI-driven solutions for farming."
+  },
+  {
+    "id": 6,
+    "name": "Mr. Sunil Sharma",
+    "title": "Organic Farming Expert",
+    "tags": ["Organic", "Sustainability"],
+    "rating": 4.8,
+    "phone": "+91 93456 12345",
+    "email": "sunil.sharma@example.com",
+    "avatar": "/assets/images/doc6.png",
+    "bio": "Guides farmers in organic methods and certification."
+  },
+  {
+    "id": 7,
+    "name": "Dr. Asha Patel",
+    "title": "Crop Protection Specialist",
+    "tags": ["Pesticides", "IPM", "Field Trials"],
+    "rating": 4.8,
+    "phone": "+91 98765 43210",
+    "email": "asha.patel@example.com",
+    "avatar": "/assets/images/doc.png",
+    "bio": "10+ years advising smallholder farmers on pest management."
+  }
+]

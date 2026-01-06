@@ -39,7 +39,7 @@ export const SUPPLIER_COMPLETION_STEPS = {
     "Operational Details",
     "Financial & Payment",
     "Support & Services",
-    // "Verification & Ratings",
+
   ],
   descriptions: [
     "Provide shop/business details and contact info",
@@ -48,7 +48,7 @@ export const SUPPLIER_COMPLETION_STEPS = {
     "Record years in business, company tie-ups, and service areas",
     "Add bank/UPI details, payout preferences, and credit facility",
     "Indicate advisory, staff availability, after-sales service, and logistics",
-    // "Get verified badge, dealer rating, and farmer feedback reviews",
+
   ],
 };
 export const PROFILE_COMPLETION_STEPS = {
@@ -70,6 +70,6 @@ export const SUPPLIER_STEPS = {
   labels: ["Business Information", "OTP Verification"],
   descriptions: [
     "Provide shop/business details and contact info",
-    "Verify your identity by entering the OTP sent to your registered mobile number.",
+    // "Verify your identity by entering the OTP sent to your registered mobile number. </br>OTP expires in 5:00 minutes",
   ],
 };

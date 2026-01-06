@@ -5,7 +5,7 @@ import AccountNav from "@/components/ui/AccountNav";
 import Perks from "@/features/perks/components/Perks";
 import PhotosUploader from "@/features/places/components/PhotosUploader";
 import Spinner from "@/components/ui/Spinner";
-import axiosInstance from "@/api/axiosInstance";
+import axiosInstance from "@/api/client/axiosInstance";
 
 const PlacesFormPage = () => {
   const { id } = useParams();

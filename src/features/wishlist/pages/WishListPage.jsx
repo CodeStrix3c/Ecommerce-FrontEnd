@@ -1,13 +1,8 @@
 import React from "react";
-import { Heart } from "lucide-react";
 import { useWishlist } from "@/providers/WishListProvider";
 import { useCartList } from "@/providers/CartListProvider";
 import WishlistItem from "../components/WishlistItem";
-import WishlistActions from "../components/WishlistActions";
 import EmptyState from "@/components/shared/EmptyState";
-
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SectionTitle from "@/components/shared/SectionTitle";
 
@@ -22,14 +17,19 @@ const WishlistPage = () => {
 
   if (wishlist.length === 0) {
     return (
+     <>
       <EmptyState
         title=" Empty Wishlist "
-        subTitle=" Looks like you haven't added anything to your cart yet."
-        icon={<Heart className="w-12 h-12 text-[var(--color-secondary)]" />}
+        subTitle=" Looks like you haven't added anything to your wishlist yet."
         btnText="Browse Products"
         redirectTo="/"
         type="wishlist"
+        img={"/assets/images/empty-wishlist.png"}
       />
+
+      {/* <img src={img}alt="" /> */}
+     </>
+      
     );
   }
 

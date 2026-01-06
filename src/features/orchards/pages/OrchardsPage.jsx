@@ -5,73 +5,79 @@ import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import OrchardsSummary from "../components/OrchardsSummary";
 import OrchardContent from "./OrchardContent";
 import FilterDropdown from "@/components/shared/FilterDropDown";
+import { useOrchardsPageQuery } from "@/hooks/useOrchardsQuery";
 
 export default function OrchardsPage() {
-  const sample = [
-    {
-      id: 1,
-      name: "Apple Valley",
-      type: "Apple",
-      location: "Kashmir, India",
-      totalLand: 12.5,
-      landUnit: "acres",
-      varieties: ["Honeycrisp", "Royal Gala", "Maharaji", "Ambri"],
-      status: "Sowing",
-      image: "/assets/images/appleOrchard/apple.png",
-    },
-    {
-      id: 2,
-      name: "Walnut Farm",
-      type: "Walnut",
-      location: "Kashmir, India",
-      totalLand: 20,
-      landUnit: "acres",
-      varieties: ["Chandler", "Pedro", "Local Kashmir Walnut (Desi)"],
-      status: "Harvesting",
-      image: "/assets/images/wallnutOrchard/walnut.png",
-    },
-    {
-      id: 3,
-      name: "Peach Paradise",
-      type: "Peach",
-      location: "Pulwama, Kashmir",
-      totalLand: 10,
-      landUnit: "acres",
-      varieties: ["Elberta", "Redhaven", "Makhdoom", "Waris", "Pranyaj"],
-      status: "Sowing",
-      image: "/assets/images/peachOrchard/peach.png",
-    },
-    {
-      id: 4,
-      name: "Cherry Orchards",
-      type: "Cherry",
-      location: "Shopian, Kashmir",
-      totalLand: 6,
-      landUnit: "acres",
-      varieties: ["Bing", "Rainier", "Makhmali", "Mishri", "Double"],
-      status: "Harvesting",
-      image: "/assets/images/cherryOrchard/cherry1.png",
-    },
-    {
-      id: 5,
-      name: "Almond Grove",
-      type: "Almond",
-      location: "Kashmir, India",
-      totalLand: 15,
-      landUnit: "acres",
-      varieties: ["Nonpareil", "Carmel"],
-      status: "Sowing",
-      image: "/assets/images/almondfarm2.jpg",
-    },
-  ];
 
-  const [orchards] = useState(sample);
+ const { data: orchards = [] } = useOrchardsPageQuery();
+
+
+  // const sample = [
+  //   {
+  //     id: 1,
+  //     name: "Apple Valley",
+  //     type: "Apple",
+  //     location: "Kashmir, India",
+  //     totalLand: 12.5,
+  //     landUnit: "acres",
+  //     varieties: ["Honeycrisp", "Royal Gala", "Maharaji", "Ambri"],
+  //     status: "Sowing",
+  //     image: "/assets/images/appleOrchard/apple.png",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Walnut Farm",
+  //     type: "Walnut",
+  //     location: "Kashmir, India",
+  //     totalLand: 20,
+  //     landUnit: "acres",
+  //     varieties: ["Chandler", "Pedro", "Local Kashmir Walnut (Desi)"],
+  //     status: "Harvesting",
+  //     image: "/assets/images/wallnutOrchard/walnut.png",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Peach Paradise",
+  //     type: "Peach",
+  //     location: "Pulwama, Kashmir",
+  //     totalLand: 10,
+  //     landUnit: "acres",
+  //     varieties: ["Elberta", "Redhaven", "Makhdoom", "Waris", "Pranyaj"],
+  //     status: "Sowing",
+  //     image: "/assets/images/peachOrchard/peach.png",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Cherry Orchards",
+  //     type: "Cherry",
+  //     location: "Shopian, Kashmir",
+  //     totalLand: 6,
+  //     landUnit: "acres",
+  //     varieties: ["Bing", "Rainier", "Makhmali", "Mishri", "Double"],
+  //     status: "Harvesting",
+  //     image: "/assets/images/cherryOrchard/cherry1.png",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Almond Grove",
+  //     type: "Almond",
+  //     location: "Kashmir, India",
+  //     totalLand: 15,
+  //     landUnit: "acres",
+  //     varieties: ["Nonpareil", "Carmel"],
+  //     status: "Sowing",
+  //     image: "/assets/images/almondfarm2.jpg",
+  //   },
+  // ];
+
+  // const [orchards] = useState(data);
+  
   const [query, setQuery] = useState("");
   const [filterType, setFilterType] = useState("All");
 
   // Dynamically generate dropdown options from orchard types
   const orchardTypes = useMemo(() => {
-    const types = Array.from(new Set(orchards.map((o) => o.type)));
+    const types = Array.from(new Set(orchards?.map((o) => o.type)));
     return [
       { value: "All", label: "All" },
       ...types.map((t) => ({ value: t, label: t })),
@@ -80,7 +86,7 @@ export default function OrchardsPage() {
 
   // Filtering logic
   const filtered = useMemo(() => {
-    return orchards.filter((o) => {
+    return orchards?.filter((o) => {
       const matchesQuery = [o.name, o.location, o.varieties.join(" ")]
         .join(" ")
         .toLowerCase()
@@ -98,9 +104,8 @@ export default function OrchardsPage() {
   return (
     <ContentWrapper topSpacing>
       <div className="min-h-screen text-[var(--color-black)]">
-        {/* Header */}
         <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-4xl font-bold mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3">
             Orchard Overview
           </h2>
           <p className="text-sm md:text-base max-w-2xl mx-auto">
@@ -127,9 +132,9 @@ export default function OrchardsPage() {
 
         {/* Orchard Cards */}
         <section className="my-10">
-          {filtered.length > 0 ? (
+          {filtered?.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
-              {filtered.map((o) => (
+              {filtered?.map((o) => (
                 <article
                   key={o.id}
                   className="relative flex flex-col rounded-md border overflow-hidden hover:shadow-lg transition"

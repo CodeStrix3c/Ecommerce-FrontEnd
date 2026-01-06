@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Phone, Mail, MessageCircle, Bot, Video, Calendar } from "lucide-react";
+import { Phone, Mail, MessageCircle, Bot, Video, Calendar, Brain, BotIcon } from "lucide-react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import ImageHeaderSection from "@/components/shared/ImageHeaderSection";
+import { useExpertCardsDataQuery } from "@/hooks/useTalkWithExpertQuery";
+
 
 const sampleExperts = [
   {
@@ -12,7 +14,7 @@ const sampleExperts = [
     rating: 4.8,
     phone: "+91 98765 43210",
     email: "asha.patel@example.com",
-    avatar: "https://i.pravatar.cc/150?img=32",
+    avatar: "/assets/images/doc.png",
     bio: "10+ years advising smallholder farmers on pest management.",
   },
   {
@@ -23,7 +25,7 @@ const sampleExperts = [
     rating: 4.6,
     phone: "+91 99876 54321",
     email: "ravi.kumar@example.com",
-    avatar: "https://i.pravatar.cc/150?img=12",
+    avatar: "/assets/images/doc2.png",
     bio: "Specialises in soil health, nutrient budgeting and testing.",
   },
   {
@@ -34,7 +36,7 @@ const sampleExperts = [
     rating: 4.9,
     phone: "+91 91234 56789",
     email: "nisha.singh@example.com",
-    avatar: "https://i.pravatar.cc/150?img=18",
+    avatar: "/assets/images/doc3.png",
     bio: "Designs crop plans to maximize yield and reduce costs.",
   },
   {
@@ -45,7 +47,7 @@ const sampleExperts = [
     rating: 4.7,
     phone: "+91 93456 78901",
     email: "ajay.mehta@example.com",
-    avatar: "https://i.pravatar.cc/150?img=45",
+    avatar: "/assets/images/doc4.png",
     bio: "Helps optimize irrigation systems for efficiency.",
   },
   {
@@ -56,7 +58,7 @@ const sampleExperts = [
     rating: 4.9,
     phone: "+91 92345 67890",
     email: "kavita.rao@example.com",
-    avatar: "https://i.pravatar.cc/150?img=65",
+    avatar: "/assets/images/doc5.png",
     bio: "Advises on AI-driven solutions for farming.",
   },
   {
@@ -67,12 +69,28 @@ const sampleExperts = [
     rating: 4.8,
     phone: "+91 93456 12345",
     email: "sunil.sharma@example.com",
-    avatar: "https://i.pravatar.cc/150?img=66",
+    avatar: "/assets/images/doc6.png",
     bio: "Guides farmers in organic methods and certification.",
   },
 ];
+ 
+
+ export const openWhatsApp = (phoneNumber, message) => {
+  // detect mobile device
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  // choose correct WhatsApp link
+  const baseURL = isMobile
+    ? `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`
+    : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+  // open link in new tab or app
+  window.open(baseURL, "_blank");
+};
 
 function ExpertCard({ expert, onOpenChat }) {
+
+ 
   return (
     <div className="rounded-2xl p-4 flex flex-col gap-4 bg-[var(--color-white)] shadow-sm border hover:shadow-md transition">
       <div className="flex gap-4 items-start">
@@ -102,10 +120,10 @@ function ExpertCard({ expert, onOpenChat }) {
           Appointment
         </button>
 
-        <button className="px-3 py-1.5 rounded-lg border text-[var(--color-black)] text-sm flex items-center gap-1 transition">
+        {/* <button className="px-3 py-1.5 rounded-lg border text-[var(--color-black)] text-sm flex items-center gap-1 transition">
           <Phone className="text-[var(--color-secondary)]" size={20} />
           Call
-        </button>
+        </button> */}
 
         <button className="px-3 py-1.5 rounded-lg text-[var(--color-black)] border text-sm flex items-center gap-1 transition">
           <Mail className="text-[var(--color-secondary)]" size={20} />
@@ -141,15 +159,13 @@ function ChatPanel({ openChatWith, onClose }) {
   }
 
   return (
-    <div className="sticky bottom-4 z-50 flex justify-end">
+    <div className="sticky bottom-4 z-50 flex justify-end pr-5">
       <div className="rounded-2xl shadow-sm flex flex-col h-96 w-80 bg-[var(--color-white)] border">
         <div className="p-3 border-b flex justify-between items-center bg-gray-50 rounded-t-2xl">
           <div className="flex items-center gap-2">
-            <img
-              src={openChatWith.avatar || ""}
-              alt=""
-              className="w-8 h-8 rounded-md"
-            />
+
+            <BotIcon/>
+            
             <div>
               <div className="font-semibold text-sm">{openChatWith.name}</div>
               <div className="text-xs text-[var(--color-black)]">
@@ -198,7 +214,10 @@ function ChatPanel({ openChatWith, onClose }) {
 }
 
 export default function TalkWithExpert() {
-  const [experts] = useState(sampleExperts);
+
+ const { data: expertData = [] } = useExpertCardsDataQuery();
+  
+
   const [openChatWith, setOpenChatWith] = useState(null);
 
   return (
@@ -210,7 +229,7 @@ export default function TalkWithExpert() {
           <h3 className=" text-3xl font-bold text[var-(--color-black)]">Talk to an expert</h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {experts.map((ex) => (
+            {expertData?.map((ex) => (
               <ExpertCard key={ex.id} expert={ex} onOpenChat={setOpenChatWith} />
             ))}
           </div>
@@ -223,14 +242,23 @@ export default function TalkWithExpert() {
                 sessions. Enhance your knowledge and connect with professionals.
               </p>
               <div className="mt-4 flex flex-wrap justify-center gap-4">
-                <button className="px-5 py-2.5 rounded-full border flex items-center gap-2 hover:bg-[var(--color-black-hover)] transition">
+                {/* <button className="px-5 py-2.5 rounded-full border flex items-center gap-2 hover:bg-[var(--color-black-hover)] transition">
                   <Phone className="text-[var(--color-secondary)]" size={20} />
                   Call
-                </button>
-                <button className="px-5 py-2.5 rounded-full border flex items-center gap-2 hover:bg-[var(--color-black-hover)] transition">
+                </button> */}
+                <div>
+                  <button
+                onClick={()=>{
+                  openWhatsApp(
+                    "+911234578222",
+                    "Hello How can i assist you today"
+                  )
+                }}
+                 className="px-5 py-2.5 rounded-full border flex items-center gap-2 hover:bg-[var(--color-black-hover)] transition">
                   <MessageCircle className="text-[var(--color-secondary)]" size={20} />
                   WhatsApp
                 </button>
+                </div>
                 <button className="px-5 py-2.5 rounded-full border flex items-center gap-2 hover:bg-[var(--color-black-hover)] transition">
                   <Calendar className="text-[var(--color-secondary)]" size={20} />
                   Appointment
@@ -244,7 +272,11 @@ export default function TalkWithExpert() {
           </div>
 
 
-          <div className="sticky bottom-20 flex justify-end">
+         
+        </div>
+         
+      </ContentWrapper>
+      <div className="sticky bottom-20 flex justify-end px-5">
             <button
               onClick={() =>
                 setOpenChatWith({ name: "AI Assistant", title: "Virtual Helper" })
@@ -259,8 +291,6 @@ export default function TalkWithExpert() {
           {openChatWith && (
             <ChatPanel openChatWith={openChatWith} onClose={() => setOpenChatWith(null)} />
           )}
-        </div>
-      </ContentWrapper>
     </div>
   );
 }

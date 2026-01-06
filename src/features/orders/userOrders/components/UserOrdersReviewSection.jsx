@@ -12,11 +12,11 @@ export default function ReviewSection({ order }) {
       {/* Stars */}
       <div className="flex items-center gap-1">
         {[...Array(5)].map((_, i) => (
-          <Star key={i} size={12} className="text-[var(--color-secondary)]" />
+          <Star key={i} size={12} className="text-[var(--color-secondary)] fill-[var(--color-secondary)]" />
         ))}
       </div>
 
-      {/* Write Review Button */}
+      
       <span
         onClick={() => setIsModalOpen(true)}
         className="text-[var(--color-secondary)] text-sm cursor-pointer hover:underline"
@@ -24,7 +24,7 @@ export default function ReviewSection({ order }) {
         Write Review
       </span>
 
-      {/* Modal */}
+     
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -45,7 +45,7 @@ export default function ReviewSection({ order }) {
           <button
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             onClick={() => {
-              // Handle submit review here
+              
               setIsModalOpen(false);
             }}
           >

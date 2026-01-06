@@ -1,17 +1,17 @@
-import React, { useState } from "react";
 
 const UserHeaderCard = ({ title, image, name, icon:Icon}) => {
-    const [verified, setVerified]= useState(false);
+
+  
 
   return (
-    <div cl>
+    <div >
       {title}
       <div className="flex justify-center">
-        <h1 className="py-5 text-xl font-bold text-[var(--color-black)]">
+        <h1 className="py-5 text-sm font-bold text-[var(--color-black)]">
         </h1>
       </div>
       {/* User Info Card */}
-      <div className="flex items-center space-x-4 mb-6 bg-[var(--color-black-hover)] p-2 rounded-sm">
+      <div className="flex items-center space-x-2 mb-6 bg-[var(--color-black-hover)] p-2 rounded-sm">
         
         <img
           src={image}

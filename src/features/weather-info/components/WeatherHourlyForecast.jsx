@@ -2,6 +2,9 @@ import { Sun, Cloud, CloudSun, CloudRain } from "lucide-react";
 import React from "react";
 
 export default function WeatherHourlyForecast({ hours }) {
+
+  console.log(hours, "hour");
+  
   const hourlyForecast = hours
     .filter((_, i) => i % 2 === 0) // show every 2 hours
     .map((hour) => ({
