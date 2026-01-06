@@ -15,6 +15,8 @@ import { useAboutUsQuery } from "@/hooks/useAboutUsQuery";
 const AboutUs = () => {
 
 const {data} =  useAboutUsQuery();
+console.log(data, "About Data");
+
 
 
 //   const aboutUsFaqs = [
