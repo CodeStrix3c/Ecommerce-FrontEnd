@@ -6,7 +6,7 @@
 
 //   return (
 //     <>
-     
+
 //       <div className="mt-8 max-w-xl bg-white border rounded-2xl shadow-sm p-6">
 //         <h2 className="text-xl font-semibold text-gray-900 mb-2">
 //           Review this product
@@ -47,7 +47,6 @@
 
 //             {/* Review Form */}
 //             <form className="space-y-4">
-             
 
 //               <div className="text-center">
 //                 <label className="block mb-2 font-medium text-gray-700">
@@ -89,38 +88,37 @@
 //   );
 // }
 
-
-
 import React, { useState } from "react";
 import { Star, X } from "lucide-react";
+import { toast } from "react-toastify";
 
 export default function AddReview({ onAdd }) {
   const [showModal, setShowModal] = useState(false);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [reviewText, setReviewText] = useState("");
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!name || !reviewText || rating === 0) {
-      alert("Please fill all fields before submitting!");
+    if (!reviewText || rating === 0) {
+      toast.error("Please fill all fields before submitting!");
       return;
     }
 
     const newReview = {
       id: Date.now(),
-      name,
-      avatar: "https://i.pravatar.cc/150?u=" + Date.now(), 
+      // name,
+      avatar: "https://i.pravatar.cc/150?u=" + Date.now(),
       text: reviewText,
       rating,
       date: new Date().toLocaleDateString(),
       yearsOn: "Verified Buyer",
     };
 
-    onAdd(newReview); 
-    setShowModal(false); 
+    onAdd(newReview);
+    setShowModal(false);
     setName("");
     setReviewText("");
     setRating(0);
@@ -165,7 +163,7 @@ export default function AddReview({ onAdd }) {
             </div>
 
             <form className="space-y-4" onSubmit={handleSubmit}>
-              <div>
+              {/* <div>
                 <label className="block mb-1 font-medium text-gray-700">
                   Your Name
                 </label>
@@ -175,7 +173,7 @@ export default function AddReview({ onAdd }) {
                   onChange={(e) => setName(e.target.value)}
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 "
                 />
-              </div>
+              </div> */}
 
               <div className="text-center">
                 <label className="block mb-2 font-medium text-gray-700">
@@ -213,7 +211,7 @@ export default function AddReview({ onAdd }) {
 
               <button
                 type="submit"
-                className="w-full bg-[var(--color-secondary)] text-black font-semibold py-3 rounded-lg transition-all duration-300 shadow-md"
+                className="w-full bg-[var(--color-secondary)] text-[var(--color-white)] font-semibold py-3 rounded-lg transition-all duration-300 shadow-md"
               >
                 Submit Review
               </button>
