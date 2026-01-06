@@ -16,6 +16,7 @@ import EducationDetailsCard from "@/components/shared/profileComponents/Educatio
 import ImageBanner from "@/components/shared/profileComponents/ImageComponent";
 
 import { useFarmerDataQuery } from "@/hooks/farmerProfilePageQuery";
+import { Link } from "react-router-dom";
 
 const FarmerProfilePage = () => {
   const { data } = useFarmerDataQuery();

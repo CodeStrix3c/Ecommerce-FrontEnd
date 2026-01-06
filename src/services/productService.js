@@ -1,7 +1,7 @@
 import { apiGet } from "@/api/client/request";
 
 export const getProducts = () => {
-  return apiGet("/api/products");
+  return apiGet("/products.json");
 };
 
 export const getProductById = (id) => {
