@@ -19,7 +19,7 @@ import { HandshakeOutlined } from "@mui/icons-material";
 
 const SidebarMobile = ({ open, onClose, isSupplierLoggedIn }) => {
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem("userLoginToken");
+  const isLoggedIn = !!localStorage.getItem("token");
   const below1024 = useIsMobile(1024);
   const below600 = useIsMobile(600);
   const below500 = useIsMobile(620);

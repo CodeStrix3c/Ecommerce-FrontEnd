@@ -45,9 +45,12 @@ const SupplierProfilePage = () => {
             className="lg:font-bold lg:text-2xl "
           />
           <div className="flex items-center space-x-4">
-            <button className="px-2 py-2 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors">
+            <Link
+              to={"/supplier-profile-completion"}
+              className="px-2 py-2 text-sm font-medium text-[var(--color-white)] bg-[var(--color-secondary)] rounded-sm hover:bg-[var(--color-secondary-hover)] transition-colors"
+            >
               Complete Your Profile
-            </button>
+            </Link>
             <div className="relative group">
               <div
                 className="p-2 border rounded-full cursor-pointer hover:bg-[var(--color-gray)]"
