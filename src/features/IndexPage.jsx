@@ -3,6 +3,7 @@ import ContentWrapper from "@/components/shared/ContentWrapper";
 // import products from "@/data/products.json";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
 import PlaceCardSkeletonUi from "./places/components/PlaceCardSkeletonUi";
+import SearchBar from "@/components/shared/SearchBar";
 
 const IndexPage = () => {
   const requestBody = {
