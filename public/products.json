@@ -1,523 +1,524 @@
 [
   {
     "_id": "101",
-    "title": "Buprofezin",
-    "address": "Pan-India",
+    "title": "Kashmiri Samawar",
+    "category": "Metal Craft",
+    "address": "Srinagar, Kashmir",
     "photos": [
-      "/assets/images/product-images/Buprofezin/frontimg.png",
-      "/assets/images/product-images/Buprofezin/backimg.png",
-      "/assets/images/product-images/Buprofezin/details.png",
-      "/assets/images/product-images/Buprofezin/ingre.png"
+      "/assets/images/handiCraftImages/Samawar/Samavar-1.webp",
+      "/assets/images/handiCraftImages/Samawar/Samavar-2.webp",
+      "/assets/images/handiCraftImages/Samawar/Samavar-4.webp",
+      "/assets/images/handiCraftImages/Samawar/samavar-5.webp"
     ],
-    "description": "With extensive experience in supplying and trading Agricultural Insecticides, focusing on a customer-centric approach. Rashel Fertilizers has a pan-India presence and caters to a huge consumer base throughout the country. Buy Insecticides in bulk at Trade India quality-assured products.",
-    "price": 500,
+    "description": "Traditional hand-carved copper Samawar used for brewing authentic Kashmiri Kahwa. Featuring intricate floral engravings and a classic tinned inner lining for safety and durability.",
+    "price": 4500,
     "inStock": true,
-    "perks": ["Quality Assured", "Bulk Purchase", "Customer-Centric"],
-    "extraInfo": "Used widely in Indian agriculture for pest control.",
-    "rating": 4.7
+    "perks": ["Pure Copper", "Hand-Engraved", "Heritage Design"],
+    "extraInfo": "Best for home decor and traditional tea serving.",
+    "rating": 4.9
   },
   {
     "_id": "102",
-    "title": "Acetamiprid",
-    "address": "India",
+    "title": "Papier Mache Jewelry Box",
+    "category": "Home Decor",
+    "address": "Kashmir, India",
     "photos": [
-      "/assets/images/product-images/Acetamiprid/front2.png",
-      "/assets/images/product-images/Acetamiprid/front.png",
-      "/assets/images/product-images/Acetamiprid/backimg.png",
-      "/assets/images/product-images/Acetamiprid/ingre.png",
-      "/assets/images/product-images/Acetamiprid/QR.png"
+      "/assets/images/handiCraftImages/Paper-mache/paper-machie-1.webp",
+      "/assets/images/handiCraftImages/Paper-mache/paper-machie-2.webp",
+      "/assets/images/handiCraftImages/Paper-mache/paper-machie-3.webp",
+      "/assets/images/handiCraftImages/Paper-mache/paper-machie-4.webp"
     ],
-    "description": "General-purpose pesticide used to control pests that harm crops. Effective against a wide range of insects and other harmful organisms. Clearly labeled with a warning to keep out of children’s reach.",
-    "price": 350,
+    "description": "Exquisite hand-painted Papier Mache box with 'Gul-e-Wilayat' motifs. Made using recycled paper pulp and organic colors by master artisans.",
+    "price": 1200,
     "inStock": true,
-    "perks": ["Wide Spectrum", "Crop Protection", "Child Safety Label"],
-    "extraInfo": "Use as per crop type and infestation level.",
-    "rating": 4.6
+    "perks": ["Hand-Painted", "Eco-Friendly", "Intricate Art"],
+    "extraInfo": "Perfect for storing small jewelry and trinkets.",
+    "rating": 4.7
   },
   {
     "_id": "103",
-    "title": "Carbendazim",
+    "title": "Walnut Wood Bowl",
+    "category": "Woodcraft",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Carbendazim/frontimg.png",
-      "/assets/images/product-images/Carbendazim/backimg.png",
-      "/assets/images/product-images/Carbendazim/details.png",
-      "/assets/images/product-images/Carbendazim/ingre.png"
+      "/assets/images/handiCraftImages/Hand-made things/walnut-wood.webp",
+      "/assets/images/handiCraftImages/Hand-made things/kashmiri-walnut-items.webp",
+      "/assets/images/handiCraftImages/Hand-made things/walnut-items-4.webp",
+      "/assets/images/handiCraftImages/Hand-made things/walnut-wood.webp"
     ],
-    "description": "Designed to kill or inhibit the growth of unwanted plants (weeds). Helps farmers protect crops by reducing weed competition for nutrients, water, and sunlight. Bright yellow packaging for easy identification.",
-    "price": 400,
+    "description": "Crafted from a single piece of seasoned Walnut wood. This bowl features a beautiful natural grain and deep brown hue, characteristic of authentic Kashmiri woodcraft.",
+    "price": 1800,
     "inStock": true,
-    "perks": ["Weed Control", "Easy Identification", "Crop Protection"],
-    "extraInfo": "Apply according to the recommended dosage per hectare.",
-    "rating": 4.5
+    "perks": ["Seasoned Wood", "No Joints", "Durable"],
+    "extraInfo": "Food safe; polished with natural beeswax.",
+    "rating": 4.8
   },
   {
     "_id": "104",
-    "title": "Chlorantraniliprole",
+    "title": "Pashmina Shawl - Hand Embroidered",
+    "category": "Textiles",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Chlorantraniliprole/frontimg.png",
-      "/assets/images/product-images/Chlorantraniliprole/backimg.png",
-      "/assets/images/product-images/Chlorantraniliprole/details.png",
-      "/assets/images/product-images/Chlorantraniliprole/ing.png",
-      "/assets/images/product-images/Chlorantraniliprole/QR.png"
+      "/assets/images/handiCraftImages/104 t0 114/pashminaShawl/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/pashminaShawl/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/pashminaShawl/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/pashminaShawl/img4.webp"
     ],
-    "description": "The ergonomic handle ensures a comfortable grip during extended use. Effortlessly tackle cleaning tasks, sanitize surfaces, or revitalize outdoor spaces with ease. Ideal for both indoor and outdoor use.",
-    "price": 1200,
+    "description": "Luxuriously soft and warm Pashmina shawl featuring Sozni hand-embroidery. A masterpiece of patience and skill, taking months to complete by hand.",
+    "price": 15000,
     "inStock": true,
-    "perks": ["Ergonomic", "Multipurpose", "Durable"],
-    "extraInfo": "Suitable for spraying insecticides and herbicides evenly.",
-    "rating": 4.4
+    "perks": ["100% Pashmina", "Hand-Spun", "Authentic GI Tag"],
+    "extraInfo": "Dry clean only. Keeps you warm in sub-zero temperatures.",
+    "rating": 5.0
   },
   {
     "_id": "105",
-    "title": "Chlorpyrifos",
+    "title": "Crewel Embroidered Cushion Cover",
+    "category": "Hand Embroidery",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Chlorpyrifos/frontimg.png",
-      "/assets/images/product-images/Chlorpyrifos/backimg.png",
-      "/assets/images/product-images/Chlorpyrifos/ingre.png",
-      "/assets/images/product-images/Chlorpyrifos/QR.png"
+      "/assets/images/handiCraftImages/104 t0 114/cushionCover/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/cushionCover/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/cushionCover/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/cushionCover/img4.webp"
     ],
-    "description": "High quality Neem Oil spray. More effective with spreading agents for better coverage. Sticks to plant and keeps working longer. Suitable for all plant types. Spray twice a month or as required.",
-    "price": 600,
+    "description": "Hand-embroidered wool yarn on heavy cotton canvas. Features traditional floral chain-stitch patterns that add a vibrant touch to any living room.",
+    "price": 850,
     "inStock": true,
-    "perks": ["Eco-friendly", "Long-Lasting", "Suitable for All Plants"],
-    "extraInfo": "Set of two bottles, one with spray-400 ml.",
-    "rating": 4.8
+    "perks": ["Chain Stitch", "Wool Embroidery", "Long-Lasting"],
+    "extraInfo": "Zipper closure at the back. Size 16x16 inches.",
+    "rating": 4.6
   },
   {
     "_id": "106",
-    "title": "Cypermethrin",
+    "title": "Tweed Jacket - Handwoven",
+    "category": "Textiles",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Cypermethrin/frontimg.png",
-      "/assets/images/product-images/Cypermethrin/backimg.png",
-      "/assets/images/product-images/Cypermethrin/ingre.png",
-      "/assets/images/product-images/Cypermethrin/QR.png"
+      "/assets/images/handiCraftImages/104 t0 114/jacket/img4.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jacket/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jacket/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jacket/img1.webp"
     ],
-    "description": "100% Pure & Cold-Pressed Neem Oil sourced from premium-grade neem seeds. Natural & eco-conscious solution, biodegradable and free from synthetic chemicals. Easy to use, water-soluble, just mix and spray.",
-    "price": 650,
+    "description": "Handwoven wool tweed jacket. Merges traditional warmth with contemporary style. Breathable, durable, and naturally water-resistant.",
+    "price": 4500,
     "inStock": true,
-    "perks": ["Natural", "Eco-Friendly", "Easy to Use"],
-    "extraInfo": "Effortlessly blends with water, no emulsifier needed.",
-    "rating": 4.8
+    "perks": ["Pure Wool", "Hand-Woven", "Sustainable"],
+    "extraInfo": "Available in various sizes and natural earth tones.",
+    "rating": 4.7
   },
   {
     "_id": "107",
-    "title": "Deltamethrin",
+    "title": "Copper Serving Platter",
+    "category": "Metal Craft",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Deltamethrin/frontimg.png",
-      "/assets/images/product-images/Deltamethrin/backimg.png",
-      "/assets/images/product-images/Deltamethrin/ingre.png",
-      "/assets/images/product-images/Deltamethrin/QR.png"
+      "/assets/images/handiCraftImages/104 t0 114/servingCopperPlate/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/servingCopperPlate/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/servingCopperPlate/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/servingCopperPlate/img4.webp"
     ],
-    "description": "Versatile Organic Potting Mix: Ideal for various gardening needs, this organic potting mix serves as an excellent base for pots, planters, and seed starting. Experience the benefits of a natural soil conditioner in your garden.",
-    "price": 350,
+    "description": "Classic hammered copper platter with a silver-tin coating on the surface. Ideal for serving traditional meals or as a decorative wall piece.",
+    "price": 2200,
     "inStock": true,
-    "perks": ["Organic", "Versatile", "Nutrient Rich"],
-    "extraInfo": "Use for pots, planters, or seed starting.",
-    "rating": 4.6
+    "perks": ["Hammered Texture", "Food Safe", "Artisanal"],
+    "extraInfo": "Authentic 'Naqashi' work around the edges.",
+    "rating": 4.5
   },
   {
     "_id": "108",
-    "title": "Diafenthiuron",
+    "title": "Willow Wicker Basket",
+    "category": "Basketry",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Diafenthiuron/frontimg.png",
-      "/assets/images/product-images/Diafenthiuron/backimg.png",
-      "/assets/images/product-images/Diafenthiuron/ingre.png",
-      "/assets/images/product-images/Diafenthiuron/QR.png",
-      "/assets/images/product-images/Diafenthiuron/ingre2.png"
+      "/assets/images/handiCraftImages/104 t0 114/willowBasket/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/willowBasket/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/willowBasket/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/willowBasket/img4.webp"
     ],
-    "description": "Biodegradable & Organic: Made from natural coconut husk, cocopeat is 100% biodegradable and environmentally friendly. Naturally resistant to pests and fungal growth, reduces soil-borne diseases, and improves soil texture.",
-    "price": 400,
+    "description": "Sturdy and elegant basket woven from the finest willow twigs. Perfect for picnics, storage, or as a sustainable gift hamper base.",
+    "price": 950,
     "inStock": true,
-    "perks": ["Biodegradable", "Pest Resistant", "Soil Conditioner"],
-    "extraInfo": "Ideal for terrace and home gardening.",
-    "rating": 4.7
+    "perks": ["Eco-Friendly", "Lightweight", "Handcrafted"],
+    "extraInfo": "Locally known as 'Keani' craft.",
+    "rating": 4.4
   },
   {
     "_id": "109",
-    "title": "Difenoconazole",
+    "title": "Kani Weave Scarf",
+    "category": "Textiles",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Difenoconazole/frontimg.png",
-      "/assets/images/product-images/Difenoconazole/backimg.png",
-      "/assets/images/product-images/Difenoconazole/ingre.png",
-      "/assets/images/product-images/Difenoconazole/QR.png",
-      "/assets/images/product-images/Difenoconazole/ingre2.png"
+      "/assets/images/handiCraftImages/104 t0 114/kaniScarf/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/kaniScarf/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/kaniScarf/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/kaniScarf/img4.webp"
     ],
-    "description": "Recommended for indoor/outdoor gardening and organic farming. Best quality water-soluble neem oil with strong neem smell. Useful in composting and as a soil amendment.",
-    "price": 550,
+    "description": "Woven on a traditional loom using small wooden needles called 'Kani'. This scarf features a complex interlocking pattern of colors.",
+    "price": 3200,
     "inStock": true,
-    "perks": ["Organic", "Natural Repellent", "Eco-Friendly"],
-    "extraInfo": "Suitable for all types of plants.",
-    "rating": 4.8
+    "perks": ["Complex Weave", "Soft Texture", "Traditional Art"],
+    "extraInfo": "Inspired by the designs of the Mughal era.",
+    "rating": 4.9
   },
   {
     "_id": "110",
-    "title": "Dimethoate",
+    "title": "Terracotta Flower Pot",
+    "category": "Pottery",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Dimethoate/frontimg.png",
-      "/assets/images/product-images/Dimethoate/backimg.png",
-      "/assets/images/product-images/Dimethoate/ingre.png",
-      "/assets/images/product-images/Dimethoate/QR.png",
-      "/assets/images/product-images/Dimethoate/front2img.png"
+      "/assets/images/handiCraftImages/104 t0 114/flowerPots/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/flowerPots/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/flowerPots/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/flowerPots/img4.webp"
     ],
-    "description": "Just a few millilitres sprayed on infested plants is enough to get rid of insect infections. This organic liquid effectively removes all types of insects like mealybugs from plants.",
-    "price": 450,
-    "inStock": true,
-    "perks": ["Organic", "Effective", "Easy to Use"],
-    "extraInfo": "Spray directly on infested plants.",
-    "rating": 4.7
-  },
-
-  {
-    "_id": "111",
-    "title": "Emamectin Benzoate",
-    "address": "India",
-    "photos": [
-      "/assets/images/product-images/Emamectin Benzoate/frontimg.png",
-      "/assets/images/product-images/Emamectin Benzoate/backimg.png",
-      "/assets/images/product-images/Emamectin Benzoate/ingre.png",
-      "/assets/images/product-images/Emamectin Benzoate/QR.png",
-      "/assets/images/product-images/Emamectin Benzoate/ingre2.png"
-    ],
-    "description": "Can be used for quick composting of biowastes, foliar spray as biopesticide against most plant diseases. Controls soil-borne and foliar diseases, insects, and pests. Contains helpful bacteria collected from Desi Cow Dung.",
-    "price": 700,
-    "inStock": true,
-    "perks": ["Eco-Friendly", "Multifunctional", "Natural"],
-    "extraInfo": "Ideal for both composting and crop protection.",
-    "rating": 4.8
-  },
-  {
-    "_id": "112",
-    "title": "Fipronil",
-    "address": "India",
-    "photos": [
-      "/assets/images/product-images/Fipronil/frontimg.png",
-      "/assets/images/product-images/Fipronil/backimg.png",
-      "/assets/images/product-images/Fipronil/ingre.png",
-      "/assets/images/product-images/Fipronil/QR.png"
-    ],
-    "description": "Loose Cocopeat as hydroponic soil. Coconut coir is renewable and eco-conscious. Reduces environmental impact compared to traditional peat-based products.",
+    "description": "Hand-thrown clay pot with traditional engravings. Breathable material that promotes healthy plant growth and adds an earthy vibe to your garden.",
     "price": 500,
     "inStock": true,
-    "perks": ["Eco-Friendly", "Renewable", "Lightweight"],
-    "extraInfo": "Suitable for all types of hydroponic setups.",
-    "rating": 4.7
+    "perks": ["Natural Clay", "Breathable", "Eco-Friendly"],
+    "extraInfo": "Suitable for both indoor and outdoor placement.",
+    "rating": 4.3
   },
   {
-    "_id": "113",
-    "title": "Flonicamid",
-    "address": "India",
+    "_id": "111",
+    "title": "Namda Felted Rug",
+    "category": "Textiles",
+    "address": "Kashmir",
     "photos": [
-      "/assets/images/product-images/Flonicamid/frontimg.png",
-      "/assets/images/product-images/Flonicamid/backimg.png",
-      "/assets/images/product-images/Flonicamid/Ingre.png",
-      "/assets/images/product-images/Flonicamid/QR.png",
-      "/assets/images/product-images/Flonicamid/Ingre2.png"
+      "/assets/images/handiCraftImages/104 t0 114/namda/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/namda/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/namda/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/namda/img4.webp"
     ],
-    "description": "Effective against diamond back moth infesting cabbage and cauliflower.",
-    "price": 650,
+    "description": "Traditional felted wool rug embroidered with colorful floral patterns using chain-stitch.",
+    "price": 2800,
     "inStock": true,
-    "perks": ["Targeted Pest Control", "High Efficiency", "Crop-Specific"],
-    "extraInfo": "Apply as per pest infestation guidelines.",
-    "rating": 4.7
-  },
-  {
-    "_id": "114",
-    "title": "Hexaconazole",
-    "address": "India",
-    "photos": [
-      "/assets/images/product-images/Hexaconazole/frontimg.png",
-      "/assets/images/product-images/Hexaconazole/backimg.png",
-      "/assets/images/product-images/Hexaconazole/ing.png",
-      "/assets/images/product-images/Hexaconazole/QR.png",
-      "/assets/images/product-images/Hexaconazole/details.png"
-    ],
-    "description": "Includes insecticides, herbicides, fungicides, and plant growth regulators.",
-    "price": 700,
-    "inStock": true,
-    "perks": ["All-in-One", "Versatile", "Effective"],
-    "extraInfo": "Use according to crop type and disease.",
+    "perks": ["Insulating", "Hand-Felted", "Cultural"],
+    "extraInfo": "Great for cold floors in winter.",
     "rating": 4.6
   },
   {
-    "_id": "115",
-    "title": "Imicadepriod",
-    "address": "India",
+    "_id": "112",
+    "title": "Kashmiri Pheran - Men",
+    "category": "Textiles",
+    "address": "Srinagar",
     "photos": [
-      "/assets/images/product-images/Imicadepriod/side.png",
-      "/assets/images/product-images/Imicadepriod/backimg.png",
-      "/assets/images/product-images/Imicadepriod/Ingre.png",
-      "/assets/images/product-images/Imicadepriod/QR.png",
-      "/assets/images/product-images/Imicadepriod/desc.png",
-      "/assets/images/product-images/Imicadepriod/backimg2.png"
+      "/assets/images/handiCraftImages/104 t0 114/menPheran/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/menPheran/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/menPheran/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/menPheran/img4.webp"
     ],
-    "description": "Fetagan delivers a triple ACTION shield for broad-spectrum, long-lasting crop protection. Disrupts nervous system of pests for rapid paralysis and death. Reduces need for repeated applications.",
-    "price": 800,
+    "description": "Traditional loose cloak made of heavy wool, featuring elegant embroidery on the neckline and sleeves.",
+    "price": 3500,
     "inStock": true,
-    "perks": ["Triple Action", "Long-Lasting", "Broad Spectrum"],
-    "extraInfo": "Highly effective against multiple pest types.",
+    "perks": ["Winter Essential", "Handmade", "Traditional"],
+    "extraInfo": "Designed for maximum warmth and comfort.",
     "rating": 4.8
   },
   {
-    "_id": "116",
-    "title": "Imidacloprid",
+    "_id": "113",
+    "title": "Walnut Wood Jewellery Box",
+    "category": "Woodcraft",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/jewellryBox/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jewellryBox/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jewellryBox/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jewellryBox/img4.webp"
+    ],
+    "description": "Luxurious velvet-lined jewelry box made from high-quality seasoned walnut wood with velvet interiors.",
+    "price": 2500,
+    "inStock": true,
+    "perks": ["Deep Carving", "Security Lock", "Elegant"],
+    "extraInfo": "Includes a hidden sliding compartment.",
+    "rating": 4.9
+  },
+  {
+    "_id": "114",
+    "title": "Papier Mache Christmas Bell",
+    "category": "Home Decor",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Imidacloprid/frontimg.png",
-      "/assets/images/product-images/Imidacloprid/sideimg.png",
-      "/assets/images/product-images/Imidacloprid/backimg.png",
-      "/assets/images/product-images/Imidacloprid/ingre.png",
-      "/assets/images/product-images/Imidacloprid/QR.png"
+      "/assets/images/handiCraftImages/104 t0 114/bell/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/bell/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/bell/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/bell/img4.webp"
     ],
-    "description": "Liquid Calcium Nitrate derivative fortified with chelated minerals and essential crop nutrients.",
-    "price": 750,
+    "description": "Hand-painted decorative bell for festive decor. Features miniature landscape paintings.",
+    "price": 300,
     "inStock": true,
-    "perks": ["Chelated Minerals", "Growth Enhancement", "Liquid Form"],
-    "extraInfo": "Supports overall plant nutrition.",
+    "perks": ["Festive", "Handmade", "Lightweight"],
+    "extraInfo": "Ideal for tree decorations.",
+    "rating": 4.5
+  },
+  {
+    "_id": "115",
+    "title": "Silk Carpet - Hand Knotted",
+    "category": "Textiles",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/silk carpet/carpet.webp",
+      "/assets/images/handiCraftImages/silk carpet/Shahbaz-2.webp",
+      "/assets/images/handiCraftImages/silk carpet/Shahbaz2-1.webp",
+      "/assets/images/handiCraftImages/silk carpet/Shahbaz3-1.webp"
+    ],
+    "description": "Intricate hand-knotted silk on silk carpet. Features 600 knots per square inch for extreme detail.",
+    "price": 85000,
+    "inStock": true,
+    "perks": ["Investment Piece", "High Density", "Pure Silk"],
+    "extraInfo": "Comes with a certificate of authenticity.",
+    "rating": 5.0
+  },
+  {
+    "_id": "116",
+    "title": "Copper Jug - Hammered",
+    "category": "Metal Craft",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/copper jug/jug2.webp",
+      "/assets/images/handiCraftImages/copper jug/jug1.webp",
+      "/assets/images/handiCraftImages/copper jug/jug3.webp",
+      "/assets/images/handiCraftImages/copper jug/jug4.webp"
+    ],
+    "description": "A health-focused hammered copper water jug. Storing water overnight in this jug offers numerous health benefits.",
+    "price": 1600,
+    "inStock": true,
+    "perks": ["Ayurvedic Benefits", "Pure Copper", "Classic Look"],
+    "extraInfo": "Naturally antimicrobial.",
     "rating": 4.7
   },
   {
     "_id": "117",
-    "title": "Indoxacarb",
+    "title": "Chainstitch Wall Hanging",
+    "category": "Hand Embroidery",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Indoxacarb/frontimg.png",
-      "/assets/images/product-images/Indoxacarb/ingre2.png",
-      "/assets/images/product-images/Indoxacarb/backimg.png",
-      "/assets/images/product-images/Indoxacarb/ingre.png",
-      "/assets/images/product-images/Indoxacarb/QR.png"
+      "/assets/images/handiCraftImages/chain sticthed/chain2.webp",
+      "/assets/images/handiCraftImages/chain sticthed/chain1.webp",
+      "/assets/images/handiCraftImages/chain sticthed/chain3.webp",
+      "/assets/images/handiCraftImages/chain sticthed/chain3.webp"
     ],
-    "description": "Mixture of partially chelated micronutrients in balanced proportion to maintain plant growth and nutrients.",
-    "price": 700,
+    "description": "Vibrant wall art created with fine chainstitch embroidery on a linen background.",
+    "price": 4200,
     "inStock": true,
-    "perks": [
-      "Balanced Nutrition",
-      "Chelated Micronutrients",
-      "Growth Support"
-    ],
-    "extraInfo": "Apply as foliar spray or soil application.",
-    "rating": 4.6
-  },
-  {
-    "_id": "118",
-    "title": "Lambda-cyhalothrin",
-    "address": "India",
-    "photos": [
-      "/assets/images/product-images/Lambda-cyhalothrin/frontimg.png",
-      "/assets/images/product-images/Lambda-cyhalothrin/backimg.png",
-      "/assets/images/product-images/Lambda-cyhalothrin/ingre.png",
-      "/assets/images/product-images/Lambda-cyhalothrin/QR.png"
-    ],
-    "description": "Organic complex of biologically derived material, organically certified, suitable as foliar spray for plant nutrition.",
-    "price": 650,
-    "inStock": true,
-    "perks": ["Organic", "Certified", "Foliar Spray"],
-    "extraInfo": "Promotes healthy growth and yield.",
-    "rating": 4.7
-  },
-  {
-    "_id": "119",
-    "title": "Malathion",
-    "address": "India",
-    "photos": [
-      "/assets/images/product-images/Malathion/frontimg.png",
-      "/assets/images/product-images/Malathion/backimg.png",
-      "/assets/images/product-images/Malathion/ingre.png",
-      "/assets/images/product-images/Malathion/front2img.png"
-    ],
-    "description": "Natural and biologically active amino acids & chelated micronutrients. Helps increase production and facilitates better absorption of nutrients.",
-    "price": 800,
-    "inStock": true,
-    "perks": ["Amino Acids", "Chelated Micronutrients", "Enhanced Absorption"],
-    "extraInfo": "Use according to crop and soil requirement.",
+    "perks": ["Decorative", "Hand-Stitched", "Vibrant"],
+    "extraInfo": "Features nature-inspired bird motifs.",
     "rating": 4.8
   },
   {
-    "_id": "120",
-    "title": "Quinalphos",
+    "_id": "118",
+    "title": "Willow Wicker Picnic Basket",
+    "category": "Basketry",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Quinalphos/frontimg.png",
-      "/assets/images/product-images/Quinalphos/backimg.png",
-      "/assets/images/product-images/Quinalphos/QR.png",
-      "/assets/images/product-images/Quinalphos/front2img.png"
+      "/assets/images/handiCraftImages/picnic basket/img2.webp",
+      "/assets/images/handiCraftImages/picnic basket/img1.webp",
+      "/assets/images/handiCraftImages/picnic basket/img3.webp",
+      "/assets/images/handiCraftImages/picnic basket/img4.webp"
     ],
-    "description": "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
-    "price": 550,
+    "description": "Large willow basket with dual handles and a lid, designed specifically for outdoor picnics.",
+    "price": 1500,
     "inStock": true,
-    "perks": ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
-    "extraInfo": "Applicable for all types of fruit and flower crops.",
+    "perks": ["Eco-Conscious", "Spacious", "Sturdy"],
+    "extraInfo": "Strong enough to carry 10kg weight.",
+    "rating": 4.4
+  },
+  {
+    "_id": "119",
+    "title": "Tweed Pheran - Modern Fit",
+    "category": "Textiles",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/tweedPheran/img2.webp",
+      "/assets/images/handiCraftImages/tweedPheran/img1.webp",
+      "/assets/images/handiCraftImages/tweedPheran/img3.webp",
+      "/assets/images/handiCraftImages/tweedPheran/img4.webp"
+    ],
+    "description": "A fusion of traditional Pheran cut with modern high-quality wool tweed fabric.",
+    "price": 4800,
+    "inStock": true,
+    "perks": ["Modern Style", "Premium Wool", "Comfortable"],
+    "extraInfo": "Perfect for office and formal wear in winter.",
     "rating": 4.7
   },
-
+  {
+    "_id": "120",
+    "title": "Walnut Wood Bookends",
+    "category": "Woodcraft",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/walnutWoodBookends/img1.webp",
+      "/assets/images/handiCraftImages/walnutWoodBookends/img2.webp",
+      "/assets/images/handiCraftImages/walnutWoodBookends/img3.webp",
+      "/assets/images/handiCraftImages/walnutWoodBookends/img4.webp"
+    ],
+    "description": "Hand-carved bookends in the shape of Chinar leaves, made from seasoned walnut wood.",
+    "price": 1400,
+    "inStock": true,
+    "perks": ["Heavy Base", "Artistic", "Gift Item"],
+    "extraInfo": "Prevents books from sliding; rubber pads attached.",
+    "rating": 4.6
+  },
   {
     "_id": "121",
-    "title": "Mancozeb",
-    "address": "India",
+    "title": "Papier Mache Vase - Tall",
+    "category": "Home Decor",
+    "address": "Kashmir",
     "photos": [
-      "/assets/images/product-images/Mancozeb/frontimg.png",
-      "/assets/images/product-images/Mancozeb/backimg.png",
-      "/assets/images/product-images/Mancozeb/ingre.png",
-      "/assets/images/product-images/Mancozeb/ingre2.png"
+      "/assets/images/handiCraftImages/paperMacheVse/img1.webp",
+      "/assets/images/handiCraftImages/paperMacheVse/img2.webp",
+      "/assets/images/handiCraftImages/paperMacheVse/img3.webp",
+      "/assets/images/handiCraftImages/paperMacheVse/img4.webp"
     ],
-    "description": "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
-    "price": 550,
+    "description": "Floor-standing decorative vase featuring a midnight blue base with golden leaf patterns.",
+    "price": 3800,
     "inStock": true,
-    "perks": ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
-    "extraInfo": "Applicable for all types of fruit and flower crops.",
-    "rating": 4.7
+    "perks": ["Elegant", "Gold Leafing", "Lightweight"],
+    "extraInfo": "Use for dry flower arrangements only.",
+    "rating": 4.8
   },
-
   {
     "_id": "122",
-    "title": "Propiconazole",
+    "title": "Pure Silk Stole - Hand Painted",
+    "category": "Textiles",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Propiconazole/frontimg.png",
-      "/assets/images/product-images/Propiconazole/backimg.png",
-      "/assets/images/product-images/Propiconazole/ingre.png",
-      "/assets/images/product-images/Propiconazole/ingre2.png"
+      "/assets/images/handiCraftImages/silkStole/img2.webp",
+      "/assets/images/handiCraftImages/silkStole/img1.webp",
+      "/assets/images/handiCraftImages/silkStole/img3.webp",
+      "/assets/images/handiCraftImages/silkStole/img4.webp"
     ],
-    "description": "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
-    "price": 550,
+    "description": "Soft mulberry silk stole with hand-painted floral borders.",
+    "price": 2200,
     "inStock": true,
-    "perks": ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
-    "extraInfo": "Applicable for all types of fruit and flower crops.",
+    "perks": ["Pure Silk", "Artistic", "Lightweight"],
+    "extraInfo": "Can be worn as a scarf or head wrap.",
     "rating": 4.7
   },
-
   {
     "_id": "123",
-    "title": "Buprofezin",
-    "address": "India",
+    "title": "Copper Wall Clock",
+    "category": "Metal Craft",
+    "address": "Kashmir",
     "photos": [
-      "/assets/images/product-images/Buprofezin/frontimg.png",
-      "/assets/images/product-images/Buprofezin/backimg.png",
-      "/assets/images/product-images/Buprofezin/details.png",
-      "/assets/images/product-images/Buprofezin/ingre.png"
+      "/assets/images/handiCraftImages/copperWallClocks/img1.webp",
+      "/assets/images/handiCraftImages/copperWallClocks/img2.webp",
+      "/assets/images/handiCraftImages/copperWallClocks/img3.webp",
+      "/assets/images/handiCraftImages/copperWallClocks/img4.webp"
     ],
-    "description": "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
-    "price": 550,
+    "description": "Unique hand-hammered copper wall clock with vintage roman numerals.",
+    "price": 3100,
     "inStock": true,
-    "perks": ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
-    "extraInfo": "Applicable for all types of fruit and flower crops.",
-    "rating": 4.7
+    "perks": ["Silent Movement", "Rustic Finish", "Handmade"],
+    "extraInfo": "Requires 1 AA battery.",
+    "rating": 4.5
   },
-
   {
     "_id": "124",
-    "title": "Spinosad",
+    "title": "Woolen Kani Shawl",
+    "category": "Textiles",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Spinosad/frontimg.png",
-      "/assets/images/product-images/Spinosad/backimg.png",
-      "/assets/images/product-images/Spinosad/ingre.png",
-      "/assets/images/product-images/Spinosad/ingre2.png"
+      "/assets/images/handiCraftImages/woolenKaniShawl/kanishawl.webp",
+      "/assets/images/handiCraftImages/woolenKaniShawl/img1.webp",
+      "/assets/images/handiCraftImages/woolenKaniShawl/img2.webp",
+      "/assets/images/handiCraftImages/woolenKaniShawl/img3.webp"
     ],
-    "description": "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
-    "price": 550,
+    "description": "Richly woven shawl using the Kani loom technique, featuring a full-body multicolored pattern.",
+    "price": 8500,
     "inStock": true,
-    "perks": ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
-    "extraInfo": "Applicable for all types of fruit and flower crops.",
-    "rating": 4.7
+    "perks": ["Warm", "Complex Design", "Timeless"],
+    "extraInfo": "Reversible design with different color depth.",
+    "rating": 4.9
   },
-
   {
     "_id": "125",
-    "title": "Spirotetramat",
+    "title": "Willow Wicker Lamp Shade",
+    "category": "Basketry",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Spirotetramat/frontimg.png",
-      "/assets/images/product-images/Spirotetramat/backimg.png",
-      "/assets/images/product-images/Spirotetramat/ingre.png",
-      "/assets/images/product-images/Spirotetramat/ingre2.png",
-      "/assets/images/product-images/Spirotetramat/QR.png"
+      "/assets/images/handiCraftImages/willowWickerLampShade/img1.webp",
+      "/assets/images/handiCraftImages/willowWickerLampShade/img2.webp",
+      "/assets/images/handiCraftImages/willowWickerLampShade/img3.webp",
+      "/assets/images/handiCraftImages/willowWickerLampShade/img1.webp"
     ],
-    "description": "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
-    "price": 550,
+    "description": "Woven wicker lampshade that creates beautiful light patterns on walls when lit.",
+    "price": 1200,
     "inStock": true,
-    "perks": ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
-    "extraInfo": "Applicable for all types of fruit and flower crops.",
-    "rating": 4.7
+    "perks": ["Boho Style", "Sustainable", "Unique"],
+    "extraInfo": "Comes with a light fixture holder.",
+    "rating": 4.6
   },
-
   {
     "_id": "126",
-    "title": "Thiamethoxam",
-    "address": "India",
+    "title": "Aari Embroidered Bag",
+    "category": "Hand Embroidery",
+    "address": "Kashmir",
     "photos": [
-      "/assets/images/product-images/Thiamethoxam/frontimg.jpg",
-      "/assets/images/product-images/Thiamethoxam/backimg.png",
-      "/assets/images/product-images/Thiamethoxam/ingre.png",
-      "/assets/images/product-images/Thiamethoxam/front2img.png",
-      "/assets/images/product-images/Thiamethoxam/QR.png"
+      "/assets/images/handiCraftImages/ariEmbidoryBags/img1.webp",
+      "/assets/images/handiCraftImages/ariEmbidoryBags/img2.webp",
+      "/assets/images/handiCraftImages/ariEmbidoryBags/img1.webp",
+      "/assets/images/handiCraftImages/ariEmbidoryBags/img2.webp"
     ],
-    "description": "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
-    "price": 550,
+    "description": "Canvas tote bag with elaborate Aari hook-work embroidery on both sides.",
+    "price": 1100,
     "inStock": true,
-    "perks": ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
-    "extraInfo": "Applicable for all types of fruit and flower crops.",
-    "rating": 4.7
+    "perks": ["Everyday Use", "Washable", "Spacious"],
+    "extraInfo": "Internal zip pocket included.",
+    "rating": 4.4
   },
-
   {
     "_id": "127",
-    "title": "Hexaconazole",
+    "title": "Walnut Wood Serving Tray",
+    "category": "Woodcraft",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Hexaconazole/frontimg.png",
-      "/assets/images/product-images/Hexaconazole/backimg.png",
-      "/assets/images/product-images/Hexaconazole/ing.png",
-      "/assets/images/product-images/Hexaconazole/QR.png"
+      "/assets/images/handiCraftImages/walnutServingTray/img1.webp",
+      "/assets/images/handiCraftImages/walnutServingTray/img2.webp",
+      "/assets/images/handiCraftImages/walnutServingTray/img3.webp",
+      "/assets/images/handiCraftImages/walnutServingTray/img4.webp"
     ],
-    "description": "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
-    "price": 550,
+    "description": "Solid walnut wood tray with side handles and fine leaf engravings.",
+    "price": 2900,
     "inStock": true,
-    "perks": ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
-    "extraInfo": "Applicable for all types of fruit and flower crops.",
-    "rating": 4.7
+    "perks": ["Premium Wood", "Heat Resistant", "Classy"],
+    "extraInfo": "Polished with food-grade oil.",
+    "rating": 4.8
   },
-
   {
     "_id": "128",
-    "title": "Fipronil",
-    "address": "India",
+    "title": "Papier Mache Tissue Box",
+    "category": "Home Decor",
+    "address": "Kashmir",
     "photos": [
-      "/assets/images/product-images/Fipronil/frontimg.png",
-      "/assets/images/product-images/Fipronil/backimg.png",
-      "/assets/images/product-images/Fipronil/ingre.png",
-      "/assets/images/product-images/Fipronil/QR.png"
+      "/assets/images/handiCraftImages/paperMacheTissueBox/img1.webp",
+      "/assets/images/handiCraftImages/paperMacheTissueBox/img2.webp",
+      "/assets/images/handiCraftImages/paperMacheTissueBox/img3.webp",
+      "/assets/images/handiCraftImages/paperMacheTissueBox/img4.webp"
     ],
-    "description": "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
-    "price": 550,
+    "description": "Hand-painted tissue box holder with a lacquer finish for easy cleaning.",
+    "price": 900,
     "inStock": true,
-    "perks": ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
-    "extraInfo": "Applicable for all types of fruit and flower crops.",
+    "perks": ["Handmade", "Water Resistant", "Home Decor"],
+    "extraInfo": "Standard size for most tissue brands.",
     "rating": 4.7
   },
-
   {
     "_id": "129",
-    "title": "Cypermethrin",
+    "title": "Copper Fruit Bowl - Engraved",
+    "category": "Metal Craft",
     "address": "India",
     "photos": [
-      "/assets/images/product-images/Cypermethrin/frontimg.png",
-      "/assets/images/product-images/Cypermethrin/backimg.png",
-      "/assets/images/product-images/Cypermethrin/ingre.png",
-      "/assets/images/product-images/Cypermethrin/QR.png"
+      "/assets/images/handiCraftImages/copperFruitBowl/img1.webp",
+      "/assets/images/handiCraftImages/copperFruitBowl/img2.webp",
+      "/assets/images/handiCraftImages/copperFruitBowl/img3.webp",
+      "/assets/images/handiCraftImages/copperFruitBowl/img4.webp"
     ],
-    "description": "Zinc and sulfur-based nutrients crucial for plant growth, seed production, and fruit ripening. Enhances flower and fruit setting for better yields and quality.",
-    "price": 550,
+    "description": "Elegant copper fruit bowl with wide edges and deep 'Naqashi' engravings of grapevine motifs.",
+    "price": 2600,
     "inStock": true,
-    "perks": ["Nutrient Rich", "Flower & Fruit Setting", "Versatile Usage"],
-    "extraInfo": "Applicable for all types of fruit and flower crops.",
-    "rating": 4.7
+    "perks": ["Artisanal", "Pure Material", "Decorative"],
+    "extraInfo": "Adds a vintage touch to dining tables.",
+    "rating": 4.8
   }
 ]

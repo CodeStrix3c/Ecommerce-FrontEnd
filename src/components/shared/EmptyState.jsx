@@ -1,40 +1,33 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const EmptyState = ({ title, subTitle, btnText, img }) => {
+const EmptyState = ({
+  title = "No Crafts Found",
+  subTitle = "We couldn't find any Kashmir handicrafts matching your search. Explore our curated collection for authentic art pieces.",
+  btnText = "Browse Crafts",
+}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-
     return () => {
       document.body.style.overflow = "";
     };
   }, []);
 
   return (
-    <div className=" flex flex-col md:flex-row items-center justify-center min-h-[70vh] px-4 lg:mt-28 md:mt-28 gap-8 text-center md:text-left">
-      <img
-        src={img}
-        alt={"Empty Wishlist"}
-        className="w-32 md:w-40 lg:w-60 h-fit object-contain md:mb-0 "
-      />
+    <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 lg:mt-28 md:mt-28 gap-6 text-center">
+      <h2 className="text-3xl md:text-5xl font-bold text-[var(--color-black)]">
+        {title}
+      </h2>
+      <p className="text-sm md:text-base max-w-xl">{subTitle}</p>
 
-      <div>
-        <h2 className="text-2xl md:text-4xl font-bold mb-3 text-[var(--color-black)]">
-          {title}
-        </h2>
-        <p className="mb-4 text-sm md:text-base">{subTitle}</p>
-
-
-
-        <button
-          onClick={() => navigate("/")}
-          className="px-4 py-2 bg-[var(--color-secondary)] text-[var(--color-white)] rounded-lg shadow-lg transition"
-        >
-          {btnText}
-        </button>
-      </div>
+      <button
+        onClick={() => navigate("/")}
+        className="mt-4 px-6 py-3 bg-[var(--color-secondary)] text-[var(--color-white)] rounded-lg shadow-lg transition hover:bg-[var(--color-secondary-dark)]"
+      >
+        {btnText}
+      </button>
     </div>
   );
 };

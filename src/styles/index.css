@@ -150,7 +150,7 @@ button.social {
 
 /* //////////////////////////////////////////// */
 .responsive-padding {
-  padding-top: 2rem; /* same as Tailwind pt-8 */
+  padding-top: 1rem; /* same as Tailwind pt-8 */
 }
 
 @media (min-width: 640px) {
@@ -167,13 +167,13 @@ button.social {
 
 @media (min-width: 1024px) {
   .responsive-padding {
-    padding-top: 16rem; /* pt-60 */
+    padding-top: 10rem; /* pt-60 */
   }
 }
 
 @media (min-width: 1280px) {
   .responsive-padding {
-    padding-top: 16rem;
+    padding-top: 10rem;
   }
 }
 

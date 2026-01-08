@@ -1,4 +1,3 @@
-
 import { AccountCircle, Menu } from "@mui/icons-material";
 import { Globe, LeafIcon, SearchIcon } from "lucide-react";
 import React, { useState } from "react";
@@ -39,7 +38,7 @@ function Subheader() {
         />
 
         <div
-        className={`flex items-center bg-[-var(--color-secondary)] text-[var-(--color--white)] p-3 rounded-3xl cursor-pointer transition-all duration-300 {
+          className={`flex items-center bg-[-var(--color-secondary)] text-[var-(--color--white)] p-3 rounded-3xl cursor-pointer transition-all duration-300 {
             showText ? "w-28 justify-around" : "w-10 justify-center"
           }`}
           onClick={() => setShowText(!showText)}

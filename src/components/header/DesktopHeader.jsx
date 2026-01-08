@@ -42,39 +42,24 @@ const DesktopHeader = ({ location }) => {
         >
           <NavLink to="/home" className="flex items-center gap-2">
             <img
-              src="/assets/images/ziraat.png"
+              src="/assets/images/logo6.png"
               alt="ziraat"
-              width={80}
-              height={80}
+              width={200}
+              height={200}
             />
           </NavLink>
 
           <AnimatePresence mode="wait">
-            {scrollY < 100 ? (
-              <motion.div
-                key="navbar"
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="flex justify-center"
-              >
-                <NavBar />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="subsearchmodal"
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="flex justify-center"
-              >
-                <div onClick={() => setOpenSearchBar(!openSearchBar)}>
-                  <SubSearchModal />
-                </div>
-              </motion.div>
-            )}
+            <motion.div
+              key="navbar"
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="flex justify-center"
+            >
+              <NavBar />
+            </motion.div>
           </AnimatePresence>
 
           <div className="flex items-center gap-4 justify-start">
@@ -82,28 +67,6 @@ const DesktopHeader = ({ location }) => {
           </div>
         </motion.div>
       </ContentWrapper>
-
-      {location.pathname === "/home" && scrollY < 100 && (
-        <div className="flex justify-center py-3 pb-10">
-          <SearchBar />
-        </div>
-      )}
-
-      <AnimatePresence>
-        {openSearchBar && (
-          <motion.div
-            key="searchbar"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            git
-            className="flex justify-center py-4"
-          >
-            <SearchBar />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 };

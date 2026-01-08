@@ -1,7 +1,7 @@
-import Footer from "@/components/Footer";
 import Header from "@/components/header/Index";
 import useIsMobile from "@/hooks/useInMobile";
 import React from "react";
+import Footer from "@/components/Footer";
 import { Outlet, useLocation } from "react-router-dom";
 
 const ProtectedLayout = () => {
