@@ -37,10 +37,10 @@ const IndexPage = () => {
     });
   }, [data, searchQuery, category]);
 
-  const products1 = filteredProducts.slice(0, 8);
+  const products4 = filteredProducts.slice(0, 8);
   const products2 = filteredProducts.slice(8, 15);
   const products3 = filteredProducts.slice(15, 22);
-  const products4 = filteredProducts.slice(22, 29);
+  const products1 = filteredProducts.slice(22, 29);
 
   return (
     <ContentWrapper>

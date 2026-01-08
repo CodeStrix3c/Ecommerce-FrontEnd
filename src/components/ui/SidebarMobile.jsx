@@ -9,11 +9,32 @@ import {
   LogOut,
 } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
+import { useNavigate } from "react-router-dom";
+import {
+  getItemFromLocalStorage,
+  removeItemFromLocalStorage,
+} from "@/utils/localStorage"; // create this util
 
 const SidebarMobile = ({ open, onClose }) => {
   const below1024 = useIsMobile(1024);
   const below600 = useIsMobile(600);
   const below500 = useIsMobile(620);
+  const navigate = useNavigate();
+
+  const token = getItemFromLocalStorage("token");
+  const isAuthenticated = Boolean(token);
+
+  const handleAuthAction = () => {
+    if (isAuthenticated) {
+      // Sign Out
+      removeItemFromLocalStorage("token");
+      navigate("/login"); // redirect to login after signout
+    } else {
+      // Sign In
+      navigate("/login"); // redirect to login
+    }
+    onClose(); // close sidebar in both cases
+  };
 
   return (
     <>
@@ -33,11 +54,12 @@ const SidebarMobile = ({ open, onClose }) => {
       >
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-gray)]">
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             <img
-              src="/assets/images/kashmir-art.jpeg"
+              src="/assets/images/logo6.png"
               alt="Kashmir Art & Handicraft"
-              className="h-10 w-auto rounded-md object-cover"
+              width={140}
+              height={50}
             />
           </div>
           <button
@@ -50,43 +72,43 @@ const SidebarMobile = ({ open, onClose }) => {
 
         {/* Navigation */}
         <nav className="flex-1 p-4 space-y-1 text-[var(--color-black)]">
-          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-default">
-            <Info size={18} /> About Our Heritage
+          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
+            <Info size={18} /> About Kashmir Art
           </div>
 
-          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-default">
+          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
             <HelpCircle size={18} /> Visitor Support
           </div>
 
-          <div className="block px-2 py-2 rounded-lg cursor-default">
+          <div className="block px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
             <div className="flex items-center gap-3">
               <Palette size={18} /> Artisan Stories
             </div>
             <p className="ml-7 mt-1 text-xs opacity-70">
-              Learn about Kashmiri artisans and traditional craftsmanship.
+              Learn about Kashmiri artisans and their craft.
             </p>
           </div>
 
           {below1024 && !below600 && (
             <>
-              <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-default">
+              <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
                 <Package size={18} /> Craft Collections
               </div>
               <hr className="my-2 border-[var(--color-black-hover)]" />
             </>
           )}
 
-          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-default">
+          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
             <Package size={18} /> Orders & Exhibits
           </div>
 
           {below500 && (
             <>
-              <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-default">
+              <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
                 <User size={16} /> Artisan Profile
               </div>
 
-              <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-default">
+              <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
                 <Palette size={16} /> Handicraft Categories
               </div>
             </>
@@ -94,12 +116,18 @@ const SidebarMobile = ({ open, onClose }) => {
 
           <hr className="my-2 border-[var(--color-black-hover)]" />
 
-          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-default">
+          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
             <User size={18} /> Visitor Account
           </div>
 
-          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-default opacity-60">
-            <LogOut size={18} /> Sign Out
+          <div
+            onClick={handleAuthAction}
+            className={`flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer ${
+              isAuthenticated ? "text-red-600" : "text-[var(--color-primary)]"
+            }`}
+          >
+            <LogOut size={18} />
+            <span>{isAuthenticated ? "Sign Out" : "Sign In"}</span>
           </div>
         </nav>
       </div>
