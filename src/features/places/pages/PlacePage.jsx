@@ -118,8 +118,6 @@
 
 // export default PlacePage;
 
-
-
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -166,11 +164,7 @@ const PlacePage = () => {
   if (loading || productsLoading) return <Spinner />;
 
   if (!place) {
-    return (
-      <div className="p-8 text-[var(--color-black)]">
-        Place not found
-      </div>
-    );
+    return <div className="p-8 text-[var(--color-black)]">Place not found</div>;
   }
 
   return (
@@ -231,7 +225,7 @@ const PlacePage = () => {
         <MapBox address={place.address} />
 
         <ExploreNearby
-          title="Explore other popular crops and products"
+          title="Explore other popular Art&Craft products"
           options={agriculturalOptions}
         />
 

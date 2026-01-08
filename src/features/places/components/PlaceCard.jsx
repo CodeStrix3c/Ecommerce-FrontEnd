@@ -7,7 +7,17 @@ import StarRating from "@/components/ui/StarRating";
 
 const PlaceCard = ({ place, loading }) => {
   const ids = [
-    "101","105","108","109","113","115","118","120","125","128","129",
+    "101",
+    "105",
+    "108",
+    "109",
+    "113",
+    "115",
+    "118",
+    "120",
+    "125",
+    "128",
+    "129",
   ];
 
   const { wishlist, toggleWishlist } = useWishlist();
@@ -76,7 +86,7 @@ const PlaceCard = ({ place, loading }) => {
             <span className="flex items-center gap-0 font-normal text-[var(--color-black)]">
               <IndianRupee className="h-4 w-4" />
               <span className="text-sm font-medium">{price ?? 500}</span>
-              <span className="text-sm">/liter</span>
+              {/* <span className="text-sm">/liter</span> */}
             </span>
 
             <StarRating size={12} rating={rating ?? 4.5} />
