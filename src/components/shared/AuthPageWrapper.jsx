@@ -7,9 +7,9 @@ export default function AuthPageWrapper({ children }) {
       <div className="min-h-screen flex flex-col lg:px-60 md:px-40">
         <NavLink to="/" className="flex items-center gap-2 pt-6">
           <img
-            src="assets/images/ziraat.jpeg"
+            src="assets/images/logo6.png"
             alt="ziraat"
-            width={80}
+            width={200}
             height={80}
           />
         </NavLink>
