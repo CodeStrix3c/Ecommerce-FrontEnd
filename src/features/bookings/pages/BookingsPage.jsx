@@ -2,17 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import AccountNav from "@/components/ui/AccountNav";
-<<<<<<< HEAD
-import BookingDates from "@/features/bookings/components/BookingDates";
-import Spinner from "@/components/ui/Spinner";
-import axiosInstance from "@/api/client/axiosInstance";
-import PlaceImg from "@/features/places/components/PlaceImg";
-=======
 import PlaceImg from "@/features/places/components/PlaceImg";
 import BookingDates from "@/features/bookings/components/BookingDates";
 import Spinner from "@/components/ui/Spinner";
 import axiosInstance from "@/api/axiosInstance";
->>>>>>> 91efd9998147dbc4f0908723ead972c9053db651
 
 const BookingsPage = () => {
   const [bookings, setBookings] = useState([]);

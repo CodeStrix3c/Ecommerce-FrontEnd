@@ -8,7 +8,7 @@
     "landUnit": "looms",
     "varieties": ["Hand-spun", "Handwoven", "Pure Cashmere"],
     "status": "Available",
-    "image": "/assets/images/textiles/pashmina.png"
+    "image": "/assets/images/handiCraftImages/textiles/pashmina/img1.webp"
   },
   {
     "id": 2,
@@ -19,7 +19,7 @@
     "landUnit": "looms",
     "varieties": ["Floral Kani", "Geometric Kani"],
     "status": "Available",
-    "image": "/assets/images/textiles/kani.png"
+    "image": "/assets/images/handiCraftImages/textiles/kani shawl/img1.webp"
   },
   {
     "id": 3,
@@ -30,7 +30,7 @@
     "landUnit": "units",
     "varieties": ["Gabbeh", "Namda Inspired"],
     "status": "In Production",
-    "image": "/assets/images/textiles/woolrug.png"
+    "image": "/assets/images/handiCraftImages/textiles/woolen rugs/img1.jpg"
   },
   {
     "id": 4,
@@ -41,7 +41,7 @@
     "landUnit": "looms",
     "varieties": ["Single Ikat", "Double Ikat"],
     "status": "Available",
-    "image": "/assets/images/textiles/ikat.png"
+    "image": "/assets/images/handiCraftImages/textiles/silk ekat/img1.webp"
   },
   {
     "id": 5,
@@ -52,7 +52,7 @@
     "landUnit": "looms",
     "varieties": ["Katan", "Organza", "Jamawar"],
     "status": "Available",
-    "image": "/assets/images/textiles/banarasi.png"
+    "image": "/assets/images/handiCraftImages/textiles/Banarasi silk/img1.jpg"
   },
   {
     "id": 6,
@@ -63,7 +63,7 @@
     "landUnit": "workshops",
     "varieties": ["Indigo Ajrakh", "Red Ajrakh"],
     "status": "Available",
-    "image": "/assets/images/textiles/ajrakh.png"
+    "image": "/assets/images/handiCraftImages/textiles/ajrakh print/img1.jpg"
   },
   {
     "id": 7,
@@ -74,7 +74,7 @@
     "landUnit": "workshops",
     "varieties": ["Floral", "Ethnic Motifs"],
     "status": "In Production",
-    "image": "/assets/images/textiles/blockprint.png"
+    "image": "/assets/images/handiCraftImages/textiles/Bagru prints/img1.jpg"
   },
   {
     "id": 8,
@@ -85,7 +85,7 @@
     "landUnit": "looms",
     "varieties": ["Silk Cotton", "Pure Silk"],
     "status": "Available",
-    "image": "/assets/images/textiles/chanderi.png"
+    "image": "/assets/images/handiCraftImages/textiles/chandrina loom/img1.webp"
   },
   {
     "id": 9,
@@ -96,7 +96,7 @@
     "landUnit": "looms",
     "varieties": ["Raw Silk", "Matka Silk"],
     "status": "Available",
-    "image": "/assets/images/textiles/tussar.png"
+    "image": "/assets/images/handiCraftImages/textiles/bagalpuri silk/img1.webp"
   },
   {
     "id": 10,
@@ -107,7 +107,7 @@
     "landUnit": "units",
     "varieties": ["Mirror Work", "Thread Embroidery"],
     "status": "Available",
-    "image": "/assets/images/textiles/embroidery.png"
+    "image": "/assets/images/handiCraftImages/textiles/lambani emboidery/img1.jpg"
   },
   {
     "id": 11,
@@ -118,18 +118,18 @@
     "landUnit": "workshops",
     "varieties": ["Hand-painted", "Block Kalamkari"],
     "status": "In Production",
-    "image": "/assets/images/textiles/kalamkari.png"
+    "image": "/assets/images/handiCraftImages/textiles/kalamkari/img1.jpg"
   },
   {
     "id": 12,
-    "name": "Paithani Weaves",
+    "name": "Pathni Weaves",
     "type": "Paithani",
     "location": "Maharashtra, India",
     "totalLand": 2.5,
     "landUnit": "looms",
     "varieties": ["Peacock Motif", "Lotus Motif"],
     "status": "Available",
-    "image": "/assets/images/textiles/paithani.png"
+    "image": "/assets/images/handiCraftImages/textiles/pathani weaves/img1.webp"
   },
   {
     "id": 13,
@@ -140,7 +140,7 @@
     "landUnit": "looms",
     "varieties": ["Golden Silk"],
     "status": "Available",
-    "image": "/assets/images/textiles/muga.png"
+    "image": "/assets/images/handiCraftImages/textiles/Assam moga silk/img1.webp"
   },
   {
     "id": 14,
@@ -151,7 +151,7 @@
     "landUnit": "units",
     "varieties": ["Striped", "Traditional Motifs"],
     "status": "Available",
-    "image": "/assets/images/textiles/kullu.png"
+    "image": "/assets/images/handiCraftImages/textiles/himachal wool/img1.jpg"
   },
   {
     "id": 15,
@@ -162,7 +162,7 @@
     "landUnit": "looms",
     "varieties": ["Peace Silk"],
     "status": "In Production",
-    "image": "/assets/images/textiles/eri.png"
+    "image": "/assets/images/handiCraftImages/textiles/eri silk/img1.webp"
   },
   {
     "id": 16,
@@ -173,7 +173,7 @@
     "landUnit": "looms",
     "varieties": ["Geometric Ikat", "Diamond Ikat"],
     "status": "Available",
-    "image": "/assets/images/textiles/pochampally.png"
+    "image": "/assets/images/handiCraftImages/textiles/pochampali/img1.jpg"
   },
   {
     "id": 17,
@@ -184,7 +184,7 @@
     "landUnit": "units",
     "varieties": ["Red & Black Motifs"],
     "status": "Available",
-    "image": "/assets/images/textiles/toda.png"
+    "image": "/assets/images/handiCraftImages/textiles/toda/img1.webp"
   },
   {
     "id": 18,
@@ -195,7 +195,7 @@
     "landUnit": "looms",
     "varieties": ["Traditional Motifs", "Modern Patterns"],
     "status": "Available",
-    "image": "/assets/images/textiles/sambalpuri.png"
+    "image": "/assets/images/handiCraftImages/textiles/odisa sambalpuri/img1.jpg"
   },
   {
     "id": 19,
@@ -206,6 +206,6 @@
     "landUnit": "looms",
     "varieties": ["Fine Cotton", "Handwoven Cotton"],
     "status": "Available",
-    "image": "/assets/images/textiles/mangalgiri.png"
+    "image": "/assets/images/handiCraftImages/textiles/MAngalgiri/img1.webp"
   }
 ]

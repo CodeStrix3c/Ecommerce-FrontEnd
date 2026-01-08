@@ -1,4 +1,12 @@
-import { Home, Wheat, Droplets, Trees } from "lucide-react";
+import {
+  Home,
+  Shirt,
+  Hammer,
+  HardHat,
+  Wheat,
+  Droplets,
+  Trees,
+} from "lucide-react";
 
 export const NAVBAR_TABS = [
   {
@@ -10,20 +18,20 @@ export const NAVBAR_TABS = [
   {
     name: "Textiles",
     path: "/orchards",
-    icon: Trees,
+    icon: Shirt,
     activeColor: "text-[var(--color-secondary)]",
   },
   {
     name: "WoodCraft",
     path: "/harvest",
-    icon: Wheat,
+    icon: Hammer,
     activeColor: "text-[var(--color-secondary)]",
     badge: "NEW",
   },
   {
     name: "Metal & Stone",
     path: "/spray",
-    icon: Droplets,
+    icon: HardHat,
     activeColor: "text-[var(--color-secondary)]",
   },
 ];
