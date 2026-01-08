@@ -1,7 +1,7 @@
 export const testimonials = [
   {
     id: 1,
-    name: "Ayesha Khan",
+    name: "Haji Abdul Gani",
     yearsOn: "2 years on Platform",
     rating: 5,
     date: "Aug 2025",
@@ -10,7 +10,7 @@ export const testimonials = [
   },
   {
     id: 2,
-    name: "Rahul Mehta",
+    name: "Haji Ramzan",
     yearsOn: "1 year on Platform",
     rating: 4,
     date: "Jul 2025",
@@ -19,7 +19,7 @@ export const testimonials = [
   },
   {
     id: 3,
-    name: "Sophia Williams",
+    name: "Abdul Gaffar",
     yearsOn: "3 years on Platform",
     rating: 5,
     date: "Jun 2025",
@@ -28,7 +28,7 @@ export const testimonials = [
   },
   {
     id: 4,
-    name: "Arjun Verma",
+    name: "Abdul Rashid",
     yearsOn: "1 year on Platform",
     rating: 4,
     date: "May 2025",
@@ -37,7 +37,7 @@ export const testimonials = [
   },
   {
     id: 5,
-    name: "Emily Brown",
+    name: "Abdul Rahim",
     yearsOn: "2 years on Platform",
     rating: 5,
     date: "Apr 2025",

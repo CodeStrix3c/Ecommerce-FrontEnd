@@ -8,74 +8,12 @@ import FilterDropdown from "@/components/shared/FilterDropDown";
 import { useOrchardsPageQuery } from "@/hooks/useOrchardsQuery";
 
 export default function OrchardsPage() {
+  const { data: orchards = [] } = useOrchardsPageQuery();
 
- const { data: orchards = [] } = useOrchardsPageQuery();
-
-
-  // const sample = [
-  //   {
-  //     id: 1,
-  //     name: "Apple Valley",
-  //     type: "Apple",
-  //     location: "Kashmir, India",
-  //     totalLand: 12.5,
-  //     landUnit: "acres",
-  //     varieties: ["Honeycrisp", "Royal Gala", "Maharaji", "Ambri"],
-  //     status: "Sowing",
-  //     image: "/assets/images/appleOrchard/apple.png",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Walnut Farm",
-  //     type: "Walnut",
-  //     location: "Kashmir, India",
-  //     totalLand: 20,
-  //     landUnit: "acres",
-  //     varieties: ["Chandler", "Pedro", "Local Kashmir Walnut (Desi)"],
-  //     status: "Harvesting",
-  //     image: "/assets/images/wallnutOrchard/walnut.png",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Peach Paradise",
-  //     type: "Peach",
-  //     location: "Pulwama, Kashmir",
-  //     totalLand: 10,
-  //     landUnit: "acres",
-  //     varieties: ["Elberta", "Redhaven", "Makhdoom", "Waris", "Pranyaj"],
-  //     status: "Sowing",
-  //     image: "/assets/images/peachOrchard/peach.png",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Cherry Orchards",
-  //     type: "Cherry",
-  //     location: "Shopian, Kashmir",
-  //     totalLand: 6,
-  //     landUnit: "acres",
-  //     varieties: ["Bing", "Rainier", "Makhmali", "Mishri", "Double"],
-  //     status: "Harvesting",
-  //     image: "/assets/images/cherryOrchard/cherry1.png",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Almond Grove",
-  //     type: "Almond",
-  //     location: "Kashmir, India",
-  //     totalLand: 15,
-  //     landUnit: "acres",
-  //     varieties: ["Nonpareil", "Carmel"],
-  //     status: "Sowing",
-  //     image: "/assets/images/almondfarm2.jpg",
-  //   },
-  // ];
-
-  // const [orchards] = useState(data);
-  
   const [query, setQuery] = useState("");
   const [filterType, setFilterType] = useState("All");
 
-  // Dynamically generate dropdown options from orchard types
+  // Dynamically generate dropdown options from textile categories
   const orchardTypes = useMemo(() => {
     const types = Array.from(new Set(orchards?.map((o) => o.type)));
     return [
@@ -106,11 +44,11 @@ export default function OrchardsPage() {
       <div className="min-h-screen text-[var(--color-black)]">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-3">
-            Orchard Overview
+            Textile Collection Overview
           </h2>
           <p className="text-sm md:text-base max-w-2xl mx-auto">
-            Our freshly harvested crops are carefully collected from the
-            orchards, ensuring top quality and freshness in every batch.
+            Discover authentic handcrafted textiles, showcasing traditional
+            techniques, premium fabrics, and timeless craftsmanship.
           </p>
         </div>
 
@@ -130,7 +68,7 @@ export default function OrchardsPage() {
           </div>
         </section>
 
-        {/* Orchard Cards */}
+        {/* Textile Cards */}
         <section className="my-10">
           {filtered?.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
@@ -156,7 +94,7 @@ export default function OrchardsPage() {
                       </h3>
                       <Link to={`/orchards/${o.id}`}>
                         <button className="text-xs font-medium text-[var(--color-secondary)] hover:text-[var(--color-primary-hover)] transition">
-                          Show More →
+                          View Details →
                         </button>
                       </Link>
                     </div>
@@ -165,11 +103,11 @@ export default function OrchardsPage() {
                       {o.type} • {o.location}
                     </p>
                     <p className="text-sm">
-                      <span className="font-medium">Total Land:</span>{" "}
+                      <span className="font-medium">Fabric Size:</span>{" "}
                       {o.totalLand} {o.landUnit}
                     </p>
                     <p className="text-sm mt-1">
-                      <span className="font-medium">Varieties:</span>{" "}
+                      <span className="font-medium">Techniques:</span>{" "}
                       {o.varieties.join(", ")}
                     </p>
                   </div>
@@ -178,7 +116,7 @@ export default function OrchardsPage() {
             </div>
           ) : (
             <p className="text-center text-[var(--color-gray)] mt-10">
-              No orchards found matching your criteria.
+              No textile products found matching your criteria.
             </p>
           )}
         </section>
@@ -188,9 +126,9 @@ export default function OrchardsPage() {
           <OrchardContent />
         </div>
 
-        <div className="mt-12">
+        {/* <div className="mt-12">
           <OrchardsSummary orchards={filtered} />
-        </div>
+        </div> */}
       </div>
     </ContentWrapper>
   );
