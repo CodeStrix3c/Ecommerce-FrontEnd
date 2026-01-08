@@ -106,7 +106,7 @@ import Divider from "@mui/material/Divider";
 import StarRating from "@/components/ui/StarRating";
 
 export default function HighlightBanner({
-  title = "Farmer's favourite",
+  title = "Customer's favourite",
 
   reviewCount = 26,
 }) {
