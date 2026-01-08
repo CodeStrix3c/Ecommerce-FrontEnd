@@ -51,7 +51,7 @@ const PlaceCard = ({ place, loading }) => {
 
           {ids.includes(String(_id)) && (
             <div className="absolute left-2 top-2 rounded-full px-3 py-1 text-xs font-medium text-[var(--color-black)] bg-white/70 backdrop-blur-sm shadow-sm">
-              Farmer Favourite
+              Customers Favourite
             </div>
           )}
 
