@@ -1,6 +1,6 @@
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import { useCompanyDetailsData } from "@/hooks/companyDetailsQuery";
-import { socialIconMap } from "@/utils/socialIcons";
+// import { socialIconMap } from "@/utils/socialIcons";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
@@ -8,9 +8,8 @@ export const socialIconMap = {
   FaFacebook: FaFacebook,
   FaLinkedin: FaLinkedin,
   FaInstagram: FaInstagram,
-  FaXTwitter: FaXTwitter
+  FaXTwitter: FaXTwitter,
 };
-
 
 function CompanyDetails() {
   const { data } = useCompanyDetailsData();
