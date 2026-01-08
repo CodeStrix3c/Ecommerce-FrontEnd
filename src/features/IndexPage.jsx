@@ -37,22 +37,22 @@ const IndexPage = () => {
     <ContentWrapper>
       <div className="responsive-padding flex flex-col gap-8 ">
         <CarousalSection
-          title="Popular Pesticides for Crop Protection"
+          title="Popular Art & Craft Creations"
           places={products1}
           loading={isLoading}
         />
         <CarousalSection
-          title="Upcoming Pesticide Solutions for Next Season"
+          title="New & Trending Handcrafted Pieces"
           places={products2}
           loading={isLoading}
         />
         <CarousalSection
-          title="Herbicides for Effective Weed Control"
+          title="Traditional & Artisan-Made Crafts"
           places={products3}
           loading={isLoading}
         />
         <CarousalSection
-          title="Fungicides to Safeguard Your Crops"
+          title="Handcrafted Home & Decor Essentials"
           places={products4}
           loading={isLoading}
         />
