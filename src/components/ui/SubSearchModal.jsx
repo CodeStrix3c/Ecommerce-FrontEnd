@@ -2,11 +2,11 @@ import { Home, Search } from "lucide-react";
 
 function SubSearchModal() {
   return (
-    <div className="mx-auto w-full max-w-lg flex flex-col items-center gap-2 rounded-2xl bg-[var(--color-white)] px-4 py-3 ring-1 ring-[var(--color-gray)] sm:flex-row sm:justify-between sm:gap-4 cursor-pointer" >
+    <div className="mx-auto w-full max-w-lg flex flex-col items-center gap-2 rounded-2xl bg-[var(--color-white)] px-4 py-3 ring-1 ring-[var(--color-gray)] sm:flex-row sm:justify-between sm:gap-4 cursor-default">
       <div className="flex items-center gap-2 sm:gap-1">
         <Home className="h-6 w-6 text-[var(--color-secondary)]" />
         <p className="text-[var(--color-black)] font-semibold text-sm">
-          Crop Type
+          Craft Category
         </p>
       </div>
 
@@ -16,7 +16,7 @@ function SubSearchModal() {
 
       <div>
         <p className="text-[var(--color-black)] font-semibold text-sm">
-          Any location
+          Kashmir Region
         </p>
       </div>
 
@@ -26,7 +26,7 @@ function SubSearchModal() {
 
       <div>
         <p className="text-[var(--color-black)] font-semibold text-sm">
-          Add Orchards
+          Artisan Made
         </p>
       </div>
 

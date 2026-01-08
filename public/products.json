@@ -2,6 +2,7 @@
   {
     "_id": "101",
     "title": "Kashmiri Samawar",
+    "category": "Metal Craft",
     "address": "Srinagar, Kashmir",
     "photos": [
       "/assets/images/handiCraftImages/Samawar/Samavar-1.webp",
@@ -19,6 +20,7 @@
   {
     "_id": "102",
     "title": "Papier Mache Jewelry Box",
+    "category": "Home Decor",
     "address": "Kashmir, India",
     "photos": [
       "/assets/images/handiCraftImages/Paper-mache/paper-machie-1.webp",
@@ -36,6 +38,7 @@
   {
     "_id": "103",
     "title": "Walnut Wood Bowl",
+    "category": "Woodcraft",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/Hand-made things/walnut-wood.webp",
@@ -53,6 +56,7 @@
   {
     "_id": "104",
     "title": "Pashmina Shawl - Hand Embroidered",
+    "category": "Textiles",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/pashminaShawl/img1.webp",
@@ -70,6 +74,7 @@
   {
     "_id": "105",
     "title": "Crewel Embroidered Cushion Cover",
+    "category": "Hand Embroidery",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/cushionCover/img1.webp",
@@ -87,6 +92,7 @@
   {
     "_id": "106",
     "title": "Tweed Jacket - Handwoven",
+    "category": "Textiles",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/jacket/img4.webp",
@@ -104,6 +110,7 @@
   {
     "_id": "107",
     "title": "Copper Serving Platter",
+    "category": "Metal Craft",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/servingCopperPlate/img1.webp",
@@ -121,6 +128,7 @@
   {
     "_id": "108",
     "title": "Willow Wicker Basket",
+    "category": "Basketry",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/willowBasket/img1.webp",
@@ -138,6 +146,7 @@
   {
     "_id": "109",
     "title": "Kani Weave Scarf",
+    "category": "Textiles",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/kaniScarf/img1.webp",
@@ -155,6 +164,7 @@
   {
     "_id": "110",
     "title": "Terracotta Flower Pot",
+    "category": "Pottery",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/flowerPots/img1.webp",
@@ -172,6 +182,7 @@
   {
     "_id": "111",
     "title": "Namda Felted Rug",
+    "category": "Textiles",
     "address": "Kashmir",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/namda/img1.webp",
@@ -189,6 +200,7 @@
   {
     "_id": "112",
     "title": "Kashmiri Pheran - Men",
+    "category": "Textiles",
     "address": "Srinagar",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/menPheran/img1.webp",
@@ -206,6 +218,7 @@
   {
     "_id": "113",
     "title": "Walnut Wood Jewellery Box",
+    "category": "Woodcraft",
     "address": "Kashmir",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/jewellryBox/img1.webp",
@@ -223,6 +236,7 @@
   {
     "_id": "114",
     "title": "Papier Mache Christmas Bell",
+    "category": "Home Decor",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/104 t0 114/bell/img1.webp",
@@ -240,6 +254,7 @@
   {
     "_id": "115",
     "title": "Silk Carpet - Hand Knotted",
+    "category": "Textiles",
     "address": "Kashmir",
     "photos": [
       "/assets/images/handiCraftImages/silk carpet/carpet.webp",
@@ -257,6 +272,7 @@
   {
     "_id": "116",
     "title": "Copper Jug - Hammered",
+    "category": "Metal Craft",
     "address": "Kashmir",
     "photos": [
       "/assets/images/handiCraftImages/copper jug/jug2.webp",
@@ -274,6 +290,7 @@
   {
     "_id": "117",
     "title": "Chainstitch Wall Hanging",
+    "category": "Hand Embroidery",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/chain sticthed/chain2.webp",
@@ -291,6 +308,7 @@
   {
     "_id": "118",
     "title": "Willow Wicker Picnic Basket",
+    "category": "Basketry",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/picnic basket/img2.webp",
@@ -308,6 +326,7 @@
   {
     "_id": "119",
     "title": "Tweed Pheran - Modern Fit",
+    "category": "Textiles",
     "address": "Kashmir",
     "photos": [
       "/assets/images/handiCraftImages/tweedPheran/img2.webp",
@@ -325,6 +344,7 @@
   {
     "_id": "120",
     "title": "Walnut Wood Bookends",
+    "category": "Woodcraft",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/walnutWoodBookends/img1.webp",
@@ -342,6 +362,7 @@
   {
     "_id": "121",
     "title": "Papier Mache Vase - Tall",
+    "category": "Home Decor",
     "address": "Kashmir",
     "photos": [
       "/assets/images/handiCraftImages/paperMacheVse/img1.webp",
@@ -359,6 +380,7 @@
   {
     "_id": "122",
     "title": "Pure Silk Stole - Hand Painted",
+    "category": "Textiles",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/silkStole/img2.webp",
@@ -376,6 +398,7 @@
   {
     "_id": "123",
     "title": "Copper Wall Clock",
+    "category": "Metal Craft",
     "address": "Kashmir",
     "photos": [
       "/assets/images/handiCraftImages/copperWallClocks/img1.webp",
@@ -393,6 +416,7 @@
   {
     "_id": "124",
     "title": "Woolen Kani Shawl",
+    "category": "Textiles",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/woolenKaniShawl/kanishawl.webp",
@@ -410,6 +434,7 @@
   {
     "_id": "125",
     "title": "Willow Wicker Lamp Shade",
+    "category": "Basketry",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/willowWickerLampShade/img1.webp",
@@ -427,6 +452,7 @@
   {
     "_id": "126",
     "title": "Aari Embroidered Bag",
+    "category": "Hand Embroidery",
     "address": "Kashmir",
     "photos": [
       "/assets/images/handiCraftImages/ariEmbidoryBags/img1.webp",
@@ -444,6 +470,7 @@
   {
     "_id": "127",
     "title": "Walnut Wood Serving Tray",
+    "category": "Woodcraft",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/walnutServingTray/img1.webp",
@@ -461,6 +488,7 @@
   {
     "_id": "128",
     "title": "Papier Mache Tissue Box",
+    "category": "Home Decor",
     "address": "Kashmir",
     "photos": [
       "/assets/images/handiCraftImages/paperMacheTissueBox/img1.webp",
@@ -478,6 +506,7 @@
   {
     "_id": "129",
     "title": "Copper Fruit Bowl - Engraved",
+    "category": "Metal Craft",
     "address": "India",
     "photos": [
       "/assets/images/handiCraftImages/copperFruitBowl/img1.webp",

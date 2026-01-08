@@ -1,5 +1,5 @@
 import React from "react";
-import { Leaf, Sprout, Droplets, Sun } from "lucide-react";
+import { Shirt, Scissors, Droplets, Landmark } from "lucide-react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 
 const OrchardContent = () => {
@@ -22,7 +22,7 @@ const OrchardContent = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
           <div className="rounded-2xl p-6">
             <h3 className="text-xl font-semibold flex items-center gap-2 mb-3 ">
-              <Leaf className="text-[var(--color-secondary)] w-6 h-6" />
+              <Shirt className="text-[var(--color-secondary)] w-6 h-6" />
               Textile Varieties
             </h3>
             <p className="leading-relaxed text-[var(--color-black)]">
@@ -38,7 +38,7 @@ const OrchardContent = () => {
 
           <div className="rounded-sm p-6">
             <h3 className="text-xl font-semibold flex items-center gap-2 mb-3 ">
-              <Sprout className="text-[var(--color-secondary)] w-6 h-6" />
+              <Scissors className="text-[var(--color-secondary)] w-6 h-6" />
               Crafting Techniques
             </h3>
             <p className="leading-relaxed text-[var(--color-black)]">
@@ -66,7 +66,7 @@ const OrchardContent = () => {
 
           <div className="rounded-2xl p-6">
             <h3 className="text-xl font-semibold flex items-center gap-2 mb-3 ">
-              <Sun className="text-[var(--color-secondary)] w-6 h-6" />
+              <Landmark className="text-[var(--color-secondary)] w-6 h-6" />
               Sustainability & Heritage
             </h3>
             <p className="leading-relaxed text-[var(--color-black)]">

@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Globe, Facebook, Instagram, Twitter } from "lucide-react";
+import { Globe } from "lucide-react";
 import ContentWrapper from "./shared/ContentWrapper";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -11,75 +10,65 @@ const Footer = () => {
       <ContentWrapper>
         <div className="flex w-full flex-col items-end">
           <div className="grid w-full grid-cols-2 gap-10 py-8 text-sm md:grid-cols-3">
+            {/* About Kashmir Art */}
             <div className="flex flex-col gap-4">
               <strong className="font-medium text-[var(--color-black)]">
-                Support
+                About Kashmir Art
               </strong>
               {[
-                { name: "FAQ", link: "/faq" },
-                { name: "Safety Guidelines", link: "/safety-guidelines" },
-                { name: "Pesticide Usage Help", link: "/pesticide-help" },
-                { name: "Environmental Support", link: "/environment-support" },
-                { name: "Report Contamination", link: "/report-contamination" },
+                "Our Heritage",
+                "Artisan Communities",
+                "Craft Preservation",
+                "Sustainable Practices",
+                "Cultural Legacy",
               ].map((item, idx) => (
-                <p key={idx}>
-                  <Link
-                    to={item.link}
-                    className="cursor-pointer font-normal text-[var(--color-black)] decoration-1 underline-offset-1 hover:underline"
-                  >
-                    {item.name}
-                  </Link>
+                <p
+                  key={idx}
+                  className="font-normal text-[var(--color-black)] cursor-default"
+                >
+                  {item}
                 </p>
               ))}
             </div>
 
+            {/* Handicrafts */}
             <div className="flex flex-col gap-4">
               <strong className="font-medium text-[var(--color-black)]">
-                Products
+                Handicrafts
               </strong>
               {[
-                { name: "Insecticides", link: "/products/insecticides" },
-                { name: "Herbicides", link: "/products/herbicides" },
-                { name: "Fungicides", link: "/products/fungicides" },
-                { name: "Fertilizers", link: "/products/fertilizers" },
-                { name: "Organic Solutions", link: "/products/organic" },
+                "Pashmina Shawls",
+                "Handwoven Carpets",
+                "Papier Mâché",
+                "Walnut Wood Carving",
+                "Sozni Embroidery",
               ].map((item, idx) => (
-                <p key={idx}>
-                  <Link
-                    to={item.link}
-                    className="cursor-pointer font-normal text-[var(--color-black)] decoration-1 underline-offset-1 hover:underline"
-                  >
-                    {item.name}
-                  </Link>
+                <p
+                  key={idx}
+                  className="font-normal text-[var(--color-black)] cursor-default"
+                >
+                  {item}
                 </p>
               ))}
             </div>
 
+            {/* Artisan Support */}
             <div className="flex flex-col gap-4">
               <strong className="font-medium text-[var(--color-black)]">
-                Farmer Resources
+                Artisan Support
               </strong>
               {[
-                {
-                  name: "Crop Information",
-                  link: "/resources/crop-information",
-                },
-                { name: "Crop Protection", link: "/resources/crop-protection" },
-                { name: "Weather Updates", link: "/resources/weather" },
-                { name: "Market Prices", link: "/resources/market-prices" },
-                { name: "Pest Alerts", link: "/resources/pest-alerts" },
-                {
-                  name: "Farming Techniques",
-                  link: "/resources/farming-techniques",
-                },
+                "Fair Trade Commitment",
+                "Skill Development",
+                "Women Artisans",
+                "Rural Empowerment",
+                "Authenticity Assurance",
               ].map((item, idx) => (
-                <p key={idx}>
-                  <Link
-                    to={item.link}
-                    className="cursor-pointer font-normal text-[var(--color-black)] decoration-1 underline-offset-1 hover:underline"
-                  >
-                    {item.name}
-                  </Link>
+                <p
+                  key={idx}
+                  className="font-normal text-[var(--color-black)] cursor-default"
+                >
+                  {item}
                 </p>
               ))}
             </div>
@@ -88,39 +77,40 @@ const Footer = () => {
           <div className="my-4 w-full border-t border-[var(--color-black)]"></div>
 
           <div className="flex w-full flex-col items-center justify-between gap-4 md:gap-0 lg:flex-row">
+            {/* Language & Social */}
             <div className="mt-4 flex w-full justify-between gap-10 md:order-last md:w-auto">
               <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-black)]">
                 <Globe className="h-6 w-6" />
                 English(IN) <span className="mx-4">₹ INR</span>
               </div>
+
               <div className="flex gap-3 text-[var(--color-black)]">
-                <FaFacebook className="w-6 h-6 text-[#1877F2] hover:opacity-80 cursor-pointer" />
-                <FaLinkedin className="w-6 h-6 text-[#0A66C2] hover:opacity-80 cursor-pointer" />
-                <FaInstagram className="w-6 h-6 text-[#E4405F] hover:opacity-80 cursor-pointer" />
-                <FaXTwitter className="w-6 h-6 text-black hover:opacity-80 cursor-pointer" />
+                <FaFacebook className="w-6 h-6 text-[#1877F2]" />
+                <FaLinkedin className="w-6 h-6 text-[#0A66C2]" />
+                <FaInstagram className="w-6 h-6 text-[#E4405F]" />
+                <FaXTwitter className="w-6 h-6 text-black" />
               </div>
             </div>
 
+            {/* Footer Bottom */}
             <div className="flex w-full flex-col gap-2 px-1 font-normal text-[var(--color-black)] md:w-auto md:flex-row md:items-center md:gap-8">
               <p className="text-sm">
-                &copy; {new Date().getFullYear()} Ziraat, Inc.
+                &copy; {new Date().getFullYear()} Kashmir Art & Handicraft
+                Collective
               </p>
-              <div>
-                <ul className="flex gap-6 text-sm">
-                  <li className="cursor-pointer text-[var(--color-black)] decoration-1 underline-offset-1 hover:underline md:list-disc">
-                    <Link to="/privacy">Privacy</Link>
-                  </li>
-                  <li className="cursor-pointer list-disc text-[var(--color-black)] decoration-1 underline-offset-1 hover:underline">
-                    <Link to="/terms">Terms</Link>
-                  </li>
-                  <li className="cursor-pointer list-disc text-[var(--color-black)] decoration-1 underline-offset-1 hover:underline">
-                    <Link to="/sitemap">Sitemap</Link>
-                  </li>
-                  <li className="cursor-pointer list-disc text-[var(--color-black)] decoration-1 underline-offset-1 hover:underline">
-                    <Link to="/company-details">Company details</Link>
-                  </li>
-                </ul>
-              </div>
+
+              <ul className="flex gap-6 text-sm">
+                {["Privacy", "Terms", "Sitemap", "Company Details"].map(
+                  (item, idx) => (
+                    <li
+                      key={idx}
+                      className="cursor-default text-[var(--color-black)] md:list-disc"
+                    >
+                      {item}
+                    </li>
+                  )
+                )}
+              </ul>
             </div>
           </div>
         </div>

@@ -1,34 +1,34 @@
 [
   {
-    "image": "/assets/images/woodcraft/carving.avif",
+    "image": "/assets/images/handiCraftImages/wood craft/img1.jpg",
     "Title": "Walnut Wood Carving",
     "variety": "Hand-Carved Detailing",
     "date": "Year-round",
     "Workers": "4 artisans"
   },
   {
-    "image": "/assets/images/woodcraft/furniture.avif",
+    "image": "/assets/images/handiCraftImages/wood craft/img2.jpg",
     "Title": "Handcrafted Furniture",
     "variety": "Solid Walnut Wood",
     "date": "Project-based",
     "Workers": "6 artisans"
   },
   {
-    "image": "/assets/images/woodcraft/decor.avif",
+    "image": "/assets/images/handiCraftImages/wood craft/img5.jpg",
     "Title": "Decorative Wood Panels",
     "variety": "Relief & Floral Work",
     "date": "Year-round",
     "Workers": "3 artisans"
   },
   {
-    "image": "/assets/images/woodcraft/sculpture.avif",
+    "image": "/assets/images/handiCraftImages/wood craft/img3.jpg",
     "Title": "Traditional Wood Sculptures",
     "variety": "Cultural Motifs",
     "date": "Year-round",
     "Workers": "5 artisans"
   },
   {
-    "image": "/assets/images/woodcraft/boxes.avif",
+    "image": "/assets/images/handiCraftImages/wood craft/img4.jpg",
     "Title": "Handcrafted Storage Boxes",
     "variety": "Inlay & Engraved",
     "date": "Year-round",

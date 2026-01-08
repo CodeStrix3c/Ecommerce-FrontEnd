@@ -40,11 +40,9 @@ const MetalStoneCraftPage = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[var(--color-white)]">
+    <div className="w-full min-h-screen bg-[var(--color-white)] mt-10">
       <ImageHeaderSection
-        image={
-          "https://images.unsplash.com/photo-1592861954235-d0f51c6b67c1?auto=format&fit=crop&w=1470&q=80"
-        } // Metal & Stone craft Unsplash image
+        image={"/assets/images/handiCraftImages/bgstone.webp"} // Metal & Stone craft Unsplash image
         title={"Metal & Stone Crafting"}
         description={
           "Explore our metal and stone craftsmanship, combining tradition with modern techniques to create durable and exquisite pieces."
@@ -93,4 +91,3 @@ const MetalStoneCraftPage = () => {
 };
 
 export default MetalStoneCraftPage;
-s;
