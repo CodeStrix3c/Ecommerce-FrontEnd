@@ -39,21 +39,21 @@ const LoginPage = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = (data) => {
-    const isEmailLogin = tab === 1;
-    const { email, phone, password } = data;
-    const isValid =
-      (isEmailLogin &&
-        email === userCredentials.email &&
-        password === userCredentials.password) ||
-      (!isEmailLogin &&
-        phone === userCredentials.phone &&
-        password === userCredentials.password);
+    // const isEmailLogin = tab === 1;
+    // const { email, phone, password } = data;
+    // const isValid =
+    //   (isEmailLogin &&
+    //     email === userCredentials.email &&
+    //     password === userCredentials.password) ||
+    //   (!isEmailLogin &&
+    //     phone === userCredentials.phone &&
+    //     password === userCredentials.password);
 
-    if (!isValid) {
-      toast.error("Invalid Credentials.");
-      return;
-    }
-    setItemsInLocalStorage("userLoginToken", "demo-token-12345");
+    // if (!isValid) {
+    //   toast.error("Invalid Credentials.");
+    //   return;
+    // }
+    setItemsInLocalStorage("token", "demo-token-12345");
 
     setRedirect(true);
     // const payload =
