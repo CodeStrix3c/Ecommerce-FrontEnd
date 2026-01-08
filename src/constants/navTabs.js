@@ -8,20 +8,20 @@ export const NAVBAR_TABS = [
     activeColor: "text-[var(--color-secondary)]",
   },
   {
-    name: "Orchards",
+    name: "Textiles",
     path: "/orchards",
     icon: Trees,
     activeColor: "text-[var(--color-secondary)]",
   },
   {
-    name: "Harvest",
+    name: "WoodCraft",
     path: "/harvest",
     icon: Wheat,
     activeColor: "text-[var(--color-secondary)]",
     badge: "NEW",
   },
   {
-    name: "Spray",
+    name: "Metal & Stone",
     path: "/spray",
     icon: Droplets,
     activeColor: "text-[var(--color-secondary)]",
