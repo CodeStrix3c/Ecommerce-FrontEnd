@@ -5,7 +5,13 @@ import DatePickerWithRange from "../ui/DatePickerWithRange";
 import ContentWrapper from "./ContentWrapper";
 
 const crops = ["Apple", "Rice", "Walnut", "Peach", "Almond"];
-const regions = ["Pulwama", "Sopore", "Shopian", "Anantnag", "Kulgam"];
+const categories = [
+  "Textiles",
+  "Woodcraft",
+  "Metal Craft",
+  "Hand Embroidery",
+  "Home Decor",
+];
 
 const SearchBar = ({ onSubmit }) => {
   const isMobile = useIsMobile(900);
@@ -20,13 +26,16 @@ const SearchBar = ({ onSubmit }) => {
       alert("Please enter a pesticide or select a crop");
       return;
     }
+    console.log("Search submitted with:");
+    console.log("Search text:", searchText);
+    console.log("Selected category:", selectedRegion);
 
-    onSubmit({
-      pesticide: searchText,
-      crop: selectedCrop,
-      region: selectedRegion,
-      when: dateRange,
-    });
+    // onSubmit({
+    //   pesticide: searchText,
+    //   crop: selectedCrop,
+    //   region: selectedRegion,
+    //   when: dateRange,
+    // });
   };
 
   if (isMobile) {
@@ -50,25 +59,31 @@ const SearchBar = ({ onSubmit }) => {
   }
 
   return (
-    <ContentWrapper compactScreen>
-      <div
-        className="flex items-center justify-between rounded-full border border-[var(--color-black-hover)] 
-      bg-[var(--color-white)] px-4 pt-1 shadow-[0_2px_4px_rgba(0,0,0,0.08)] hover:shadow-md transition-shadow duration-200"
-      >
-        <div className="flex-1 border-r border-[var(--color-black-hover)] px-3">
-          <p className="text-sm md:text-xs font-medium text-[var(--color-black)]">
+    <div
+      className="flex items-center justify-between rounded-full border border-[var(--color-black-hover)] 
+      bg-[var(--color-white)] px-4 py-3 pt-1 shadow-[0_2px_4px_rgba(0,0,0,0.08)] hover:shadow-md transition-shadow duration-200  w-[50vw] "
+    >
+      <div className="flex-1 border-r border-black px-3 relative">
+        {/* <p className="text-sm md:text-xs font-medium text-[var(--color-black)] ">
             What
-          </p>
-          <input
-            type="text"
-            placeholder="Search pesticides"
-            className="w-full border-none text-sm md:text-xs text-[var(--color-black)] placeholder-[var(--color-black)] focus:outline-none"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-        </div>
+          </p> */}
+        <input
+          type="text"
+          placeholder="Search products"
+          className="w-full   mt-2 py-2 px-3 rounded-full text-sm md:text-xs text-[var(--color-black)] placeholder-[var(--color-black)] focus:outline-none"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+        <button
+          onClick={handleSubmit}
+          className="ml-3 flex h-10 w-10 items-center justify-center rounded-full 
+        bg-[var(--color-secondary)] text-[var(--color-white)] shadow-md transition hover:bg-[var(--color-secondary-hover)] absolute top-1 left-[80%] "
+        >
+          <Search className="h-4 w-4" />
+        </button>
+      </div>
 
-        <div className="flex-1 border-r border-[var(--color-black-hover)] px-3">
+      {/* <div className="flex-1 border-r border-[var(--color-black-hover)] px-3">
           <p className="text-xs md:text-xs font-medium text-[var(--color-black)]">
             Crop
           </p>
@@ -84,27 +99,27 @@ const SearchBar = ({ onSubmit }) => {
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
 
-        <div className="flex-1 border-r border-[var(--color-black-hover)] px-3">
-          <p className="text-xs md:text-xs font-medium text-[var(--color-black)]">
-            Region
-          </p>
-          <select
-            className="w-full bg-transparent text-sm md:text-xs text-[var(--color-black)] focus:outline-none"
-            value={selectedRegion}
-            onChange={(e) => setSelectedRegion(e.target.value)}
-          >
-            <option value="">Select region</option>
-            {regions.map((region) => (
-              <option key={region} value={region}>
-                {region}
-              </option>
-            ))}
-          </select>
-        </div>
+      <div className="flex-1 border-r border-[var(--color-black-hover)] px-6 ">
+        <p className="text-xs md:text-xs font-medium text-[var(--color-black)] ">
+          Category
+        </p>
+        <select
+          className="w-full bg-transparent text-sm md:text-xs text-[var(--color-black)] focus:outline-none"
+          value={selectedRegion}
+          onChange={(e) => setSelectedRegion(e.target.value)}
+        >
+          <option value="">Select category</option>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
 
-        <div className="flex-1 px-3 py-3 max-h-fit">
+      {/* <div className="flex-1 px-3 py-3 max-h-fit">
           <p className="text-xs md:text-xs font-medium text-[var(--color-black)] mb-1">
             When
           </p>
@@ -112,17 +127,8 @@ const SearchBar = ({ onSubmit }) => {
             setDateRange={setDateRange}
             className="text-sm md:text-xs text-[var(--color-black)]"
           />
-        </div>
-
-        <button
-          onClick={handleSubmit}
-          className="ml-3 flex h-10 w-10 items-center justify-center rounded-full 
-        bg-[var(--color-secondary)] text-[var(--color-white)] shadow-md transition hover:bg-[var(--color-secondary-hover)]"
-        >
-          <Search className="h-4 w-4" />
-        </button>
-      </div>
-    </ContentWrapper>
+        </div> */}
+    </div>
   );
 };
 

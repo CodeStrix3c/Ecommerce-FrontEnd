@@ -1,77 +1,77 @@
 [
   {
-    "name": "Wheat",
-    "href": "/products/wheat",
-    "subHeading": "A staple grain used in bread, flour, and countless food products worldwide."
+    "name": "Handmade Textiles",
+    "href": "/products/handmade-textiles",
+    "subHeading": "Beautiful handwoven fabrics, scarves, and traditional textile art."
   },
   {
-    "name": "Rice",
-    "href": "/products/rice",
-    "subHeading": "India’s most consumed crop, grown in paddy fields and exported globally."
+    "name": "Woodcraft",
+    "href": "/products/woodcraft",
+    "subHeading": "Intricately carved wooden items including decor, toys, and furniture."
   },
   {
-    "name": "Maize (Corn)",
-    "href": "/products/maize",
-    "subHeading": "A versatile cereal used for food, feed, and industrial products."
+    "name": "Metal Craft",
+    "href": "/products/metal-craft",
+    "subHeading": "Artisan metalwork like brass, copper, and wrought iron products."
   },
   {
-    "name": "Sugarcane",
-    "href": "/products/sugarcane",
-    "subHeading": "A tropical crop used to produce sugar, jaggery, and ethanol."
+    "name": "Hand Embroidery",
+    "href": "/products/hand-embroidery",
+    "subHeading": "Delicate embroidery pieces for clothing, accessories, and home decor."
   },
   {
-    "name": "Cotton",
-    "href": "/products/cotton",
-    "subHeading": "A key fiber crop used in textiles and cottonseed oil production."
+    "name": "Pottery & Ceramics",
+    "href": "/products/pottery-ceramics",
+    "subHeading": "Handmade pots, vases, and ceramic decor from skilled artisans."
   },
   {
-    "name": "Soybean",
-    "href": "/products/soybean",
-    "subHeading": "Rich in protein and oil, used in animal feed and food industries."
+    "name": "Paintings & Wall Art",
+    "href": "/products/paintings-wall-art",
+    "subHeading": "Original paintings, murals, and traditional wall art for your home."
   },
   {
-    "name": "Pulses (Lentils)",
-    "href": "/products/pulses",
-    "subHeading": "Protein-packed legumes including lentils, chickpeas, and beans."
+    "name": "Jewelry & Accessories",
+    "href": "/products/jewelry-accessories",
+    "subHeading": "Handcrafted jewelry, beads, and fashion accessories."
   },
   {
-    "name": "Vegetables",
-    "href": "/products/vegetables",
-    "subHeading": "Fresh, seasonal produce rich in vitamins and essential nutrients."
+    "name": "Home Decor",
+    "href": "/products/home-decor",
+    "subHeading": "Artisan-made cushions, rugs, and decorative items for your home."
   },
   {
-    "name": "Fruits",
-    "href": "/products/fruits",
-    "subHeading": "Delicious and healthy produce ranging from apples to mangoes."
+    "name": "Traditional Toys",
+    "href": "/products/traditional-toys",
+    "subHeading": "Wooden, clay, and fabric toys made using traditional methods."
   },
   {
-    "name": "Oilseeds",
-    "href": "/products/oilseeds",
-    "subHeading": "Includes mustard, sunflower, and groundnut used for edible oils."
+    "name": "Paper Craft",
+    "href": "/products/paper-craft",
+    "subHeading": "Origami, scrapbooking, and handmade paper products."
   },
   {
-    "name": "Spices",
-    "href": "/products/spices",
-    "subHeading": "Aromatic spices like turmeric, cardamom, and pepper grown across India."
+    "name": "Baskets & Wicker",
+    "href": "/products/baskets-wicker",
+    "subHeading": "Handwoven baskets, trays, and storage solutions."
   },
   {
-    "name": "Tea",
-    "href": "/products/tea",
-    "subHeading": "Premium tea leaves from Assam and Darjeeling, known worldwide."
+    "name": "Calligraphy & Stationery",
+    "href": "/products/calligraphy-stationery",
+    "subHeading": "Handmade notebooks, artistic pens, and calligraphy supplies."
   },
   {
-    "name": "Coffee",
-    "href": "/products/coffee",
-    "subHeading": "Aromatic beans cultivated in Karnataka, Kerala, and Tamil Nadu."
+    "name": "Glassware",
+    "href": "/products/glassware",
+    "subHeading": "Decorative and functional glass items created by artisans."
   },
   {
-    "name": "Organic Produce",
-    "href": "/products/organic",
-    "subHeading": "Chemical-free, eco-friendly crops promoting healthy living."
+    "name": "Textile Accessories",
+    "href": "/products/textile-accessories",
+    "subHeading": "Handmade bags, belts, and scarves complementing traditional textiles."
   },
   {
-    "name": "Dairy Products",
-    "href": "/products/dairy",
-    "subHeading": "Fresh milk, butter, ghee, and cheese from local Indian dairies."
+    "name": "Mixed Media Art",
+    "href": "/products/mixed-media-art",
+    "subHeading": "Creative artworks combining materials like paper, metal, and fabric."
   }
 ]
