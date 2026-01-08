@@ -3,12 +3,12 @@ import { getItemFromLocalStorage } from "@/utils/localStorage";
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = () => {
-  const token = getItemFromLocalStorage("token");
-  useAuthSync();
+  // const token = getItemFromLocalStorage("token");
+  // useAuthSync();
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
+  // if (!token) {
+  //   return <Navigate to="/login" replace />;
+  // }
 
   return (
     <>

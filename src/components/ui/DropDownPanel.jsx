@@ -1,6 +1,17 @@
 import useIsMobile from "@/hooks/useInMobile";
-import { removeItemFromLocalStorage } from "@/utils/localStorage";
-import { Info, User, HelpCircle, Palette, Package, LogOut } from "lucide-react";
+import {
+  removeItemFromLocalStorage,
+  getItemFromLocalStorage,
+} from "@/utils/localStorage";
+import {
+  Info,
+  User,
+  HelpCircle,
+  Palette,
+  Package,
+  LogOut,
+  LogIn,
+} from "lucide-react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -8,12 +19,20 @@ const DropdownPanel = ({ open, onClose }) => {
   const isMobile = useIsMobile(1100);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    removeItemFromLocalStorage("token");
-    removeItemFromLocalStorage("loginData");
-    toast.success("Logged out successfully!");
+  const token = getItemFromLocalStorage("token");
+  const isAuthenticated = Boolean(token);
+
+  const handleAuthAction = () => {
     onClose();
-    navigate("/login");
+
+    if (isAuthenticated) {
+      removeItemFromLocalStorage("token");
+      removeItemFromLocalStorage("loginData");
+      toast.success("Logged out successfully!");
+      navigate("/login");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -73,12 +92,13 @@ const DropdownPanel = ({ open, onClose }) => {
           <User size={16} /> <span>Visitor Account</span>
         </div>
 
-        {/* Logout */}
+        {/* Auth Action */}
         <div
-          onClick={handleLogout}
+          onClick={handleAuthAction}
           className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-[var(--color-black-hover)] transition-colors"
         >
-          <LogOut size={16} /> <span>Sign Out</span>
+          {isAuthenticated ? <LogOut size={16} /> : <LogIn size={16} />}
+          <span>{isAuthenticated ? "Sign Out" : "Sign In"}</span>
         </div>
       </div>
     </div>

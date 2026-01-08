@@ -27,13 +27,17 @@ const PlaceCard = ({ place, loading }) => {
     return <PlaceCardSkeletonUi />;
   }
 
-  const { _id, title, address, photos, price, rating } = place;
+  const { _id, title, category, address, photos, price, rating } = place;
 
   const isWishlisted = wishlist.some((item) => item._id === _id);
 
   return (
     <div className="h-full">
-      <Link to={`/place/${_id}`} className="block h-full cursor-pointer">
+      <Link
+        to={`/place/${_id}`}
+        state={{ place }}
+        className="block h-full cursor-pointer"
+      >
         <div className="relative">
           <div className="aspect-square w-full overflow-hidden rounded-lg bg-gradient-to-br from-[var(--color-overlay)] to-[var(--color-black-hover)] shadow-md">
             <div className="relative w-full h-full">
@@ -79,7 +83,7 @@ const PlaceCard = ({ place, loading }) => {
           </h3>
 
           <p className="truncate text-[13px] text-[var(--color-black)] sm:text-sm">
-            {address || "Pan-India Supplier"}
+            {category || "Pan-India Supplier"}
           </p>
 
           <div className="mt-2 flex items-center justify-between text-[13px] sm:text-sm">

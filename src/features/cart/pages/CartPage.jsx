@@ -6,6 +6,7 @@ import CartSummary from "../components/CartSummary";
 import CartBottomBar from "../components/CartBottomBar";
 import EmptyState from "@/components/shared/EmptyState";
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import { toast } from "react-toastify";
 
 const CartPage = () => {
   const { cartList, removeFromCart, clearCart, updateQuantity } = useCartList();
@@ -34,10 +35,10 @@ const CartPage = () => {
 
   const checkoutAll = () => {
     if (!selectedPayment) {
-      alert("Please select a payment method before checkout.");
+      toast.error("Please select a payment method before checkout.");
       return;
     }
-    alert(`Proceeding to checkout with ${selectedPayment}`);
+    toast.success(`Proceeding to checkout with ${selectedPayment}`);
   };
 
   if (cartList.length === 0) {
