@@ -12,14 +12,15 @@ import ReviewSection from "./UserOrdersReviewSection";
 import { ChevronRightTwoTone } from "@mui/icons-material";
 
 export default function ProductCard({ product, order, navigate }) {
-
   // Pick icon based on product.status
   const getProductStatusIcon = (status) => {
     switch (status?.toLowerCase()) {
       case "delivered":
         return <CheckCircle className="w-4 h-4 text-[var(--color-primary)]" />;
       case "in transit":
-        return <Truck className="w-4 h-4 text-[var(--color-secondary-hover)]" />;
+        return (
+          <Truck className="w-4 h-4 text-[var(--color-secondary-hover)]" />
+        );
       case "cancelled":
         return <XCircle className="w-4 h-4 text-[var(--color-error)]" />;
       case "returned":
@@ -37,45 +38,42 @@ export default function ProductCard({ product, order, navigate }) {
     const isHalf = rating % 1 !== 0;
 
     return (
-   <div className="flex items-center mt-3">
-  {[...Array(5)].map((_, i) => {
-    const fullStars = Math.floor(rating);
-    const isHalfStar =
-      rating - i > 0 &&
-      rating - i < 1 &&
-      i < Math.ceil(rating);
+      <div className="flex items-center mt-3">
+        {[...Array(5)].map((_, i) => {
+          const fullStars = Math.floor(rating);
+          const isHalfStar =
+            rating - i > 0 && rating - i < 1 && i < Math.ceil(rating);
 
-    if (i < fullStars) {
-      return (
-        <Star
-          key={i}
-          className="w-4 h-4 text-[var(--color-secondary)]"
-          fill="currentColor"
-        />
-      );
-    } else if (isHalfStar) {
-      return (
-        <StarHalf
-          key={i}
-          className="w-4 h-4 text-[var(--color-secondary)]"
-          fill="currentColor"
-        />
-      );
-    } else {
-      return <Star key={i} className="w-4 h-4 text-gray-300" />;
-    }
-  })}
+          if (i < fullStars) {
+            return (
+              <Star
+                key={i}
+                className="w-4 h-4 text-[var(--color-secondary)]"
+                fill="currentColor"
+              />
+            );
+          } else if (isHalfStar) {
+            return (
+              <StarHalf
+                key={i}
+                className="w-4 h-4 text-[var(--color-secondary)]"
+                fill="currentColor"
+              />
+            );
+          } else {
+            return <Star key={i} className="w-4 h-4 text-gray-300" />;
+          }
+        })}
 
-  <span className="text-xs text-gray-600 ml-1">
-    ({rating.toFixed(1)}/5)
-  </span>
-</div>
+        <span className="text-xs text-gray-600 ml-1">
+          ({rating.toFixed(1)}/5)
+        </span>
+      </div>
     );
   };
 
   return (
     <div className="border-b pb-4 mb-4 flex flex-col gap-3 w-full">
-
       <div className="flex items-center gap-2">
         {getProductStatusIcon(product.status)}
         <p className="font-medium text-sm capitalize">{product.status}</p>
@@ -110,9 +108,7 @@ export default function ProductCard({ product, order, navigate }) {
               Quantity: {product.quantity}
             </p>
 
-            <div className="mt-2">
-              {renderRatingStars(product.rating)}
-            </div>
+            <div className="mt-2">{renderRatingStars(product.rating)}</div>
           </div>
         </div>
 
