@@ -1,66 +1,64 @@
 import React from "react";
-import { Leaf, Sprout, Hand, TreePine } from "lucide-react";
+import { Hammer, Layers, Users, Box, HammerIcon } from "lucide-react";
 
 const HarvestInfo = () => {
   return (
     <section className="mt-20 text-center px-4">
       <h3 className="text-xl lg:text-3xl md:text-xl font-semibold text-[var(--color-black)] mb-4">
-        From Orchard to Basket – Our Harvest Story
+        Crafting Stories – Our Woodcraft Journey
       </h3>
 
-      <p className=" mx-auto text-[var(--color-black)] leading-relaxed mb-6">
-        Every harvest season is a celebration of patience, care, and the bond
-        between our farmers and the earth. From the first bloom to the final
-        basket, we nurture every fruit with sustainable farming practices to
-        ensure freshness, purity, and the authentic taste of nature. Our team
-        handpicks fruits at their perfect ripeness, preserving their natural
-        color, flavor, and nutrition. Each box reflects our commitment to
-        eco-friendly cultivation, minimizing chemical use and promoting soil
-        health.
+      <p className="mx-auto text-[var(--color-black)] leading-relaxed mb-6 max-w-3xl">
+        Each piece of our wooden craftsmanship is a blend of skill, patience,
+        and tradition. Our artisans carefully select premium wood and employ
+        time-honored techniques to bring life to every product. From detailed
+        carvings to functional furniture, every item reflects quality,
+        creativity, and sustainable practices that respect both the material and
+        the environment.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
-        <div className=" rounded-sm border p-6 flex flex-col items-center">
-          <Leaf className="text-[var(--color-secondary)] mb-3" size={36} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="rounded-sm border p-6 flex flex-col items-center">
+          <Hammer className="text-[var(--color-secondary)] mb-3" size={36} />
           <h4 className="font-semibold text-lg text-[var(--color-black)] mb-2">
-            Naturally Grown
+            Skilled Craftsmanship
           </h4>
           <p className="text-sm text-[var(--color-black)]">
-            We use organic and sustainable methods to ensure healthier,
-            chemical-free produce.
+            Every item is hand-crafted by experienced artisans, ensuring quality
+            and attention to detail.
           </p>
         </div>
 
-        <div className=" rounded-sm border  p-6 flex flex-col items-center">
-          <Sprout className="text-[var(--color-secondary)] mb-3" size={36} />
+        <div className="rounded-sm border p-6 flex flex-col items-center">
+          <Box className="text-[var(--color-secondary)] mb-3" size={36} />
           <h4 className="font-semibold text-lg text-[var(--color-black)] mb-2">
-            Sustainable Practices
+            Traditional Techniques
           </h4>
           <p className="text-sm text-[var(--color-black)]">
-            Our eco-friendly techniques protect soil fertility and promote
-            biodiversity.
+            We use time-honored woodworking methods, combining tradition with
+            modern functionality.
           </p>
         </div>
 
-        <div className=" rounded-sm border n p-6 flex flex-col items-center">
-          <Hand className="text-[var(--color-secondary)] mb-3" size={36} />
+        <div className="rounded-sm border p-6 flex flex-col items-center">
+          <Layers className="text-[var(--color-secondary)] mb-3" size={36} />
           <h4 className="font-semibold text-lg text-[var(--color-black)] mb-2">
-            Handpicked Freshness
+            Premium Materials
           </h4>
           <p className="text-sm text-[var(--color-black)]">
-            Each fruit is carefully handpicked at its peak to retain maximum
-            flavor and nutrition.
+            Only the finest woods are selected to create durable and beautiful
+            pieces.
           </p>
         </div>
 
-        <div className=" rounded-sm border p-6 flex flex-col items-center">
-          <TreePine className="text-[var(--color-secondary)] mb-3" size={36} />
+        <div className="rounded-sm border p-6 flex flex-col items-center">
+          <Users className="text-[var(--color-secondary)] mb-3" size={36} />
           <h4 className="font-semibold text-lg text-[var(--color-black)] mb-2">
-            Farm-to-Table Promise
+            Artisans’ Commitment
           </h4>
           <p className="text-sm text-[var(--color-black)]">
-            We deliver directly from our orchards, ensuring freshness from farm
-            to your home.
+            Our skilled artisans pour passion and care into every product,
+            ensuring each piece tells a story.
           </p>
         </div>
       </div>

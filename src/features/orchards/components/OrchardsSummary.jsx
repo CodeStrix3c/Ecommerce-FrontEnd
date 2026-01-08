@@ -3,7 +3,6 @@ import { Trees, Apple, Sprout, CalendarCheck2, Layers } from "lucide-react";
 import { Landscape } from "@mui/icons-material";
 
 function OrchardsSummary({ orchards }) {
- 
   const totalOrchards = orchards?.length;
   const totalAcres = orchards?.reduce((acc, o) => acc + o.totalLand, 0);
   const totalTrees = orchards?.reduce((acc, o) => acc + (o.totalTrees || 0), 0);
@@ -28,7 +27,11 @@ function OrchardsSummary({ orchards }) {
     { icon: <Landscape fontSize="small" />, label: "Acres", value: totalAcres },
     { icon: <Trees size={20} />, label: "Trees", value: totalTrees },
     { icon: <Apple size={20} />, label: "Fruit Types", value: `${fruitTypes}` },
-    { icon: <Sprout size={20} />, label: "Active", value: statusCounts?.active },
+    {
+      icon: <Sprout size={20} />,
+      label: "Active",
+      value: statusCounts?.active,
+    },
     {
       icon: <CalendarCheck2 size={20} />,
       label: "Planned",
@@ -38,12 +41,10 @@ function OrchardsSummary({ orchards }) {
 
   return (
     <div className="px-4 sm:px-6 py-4 border rounded-lg my-6 bg-[var(--color-white)] ">
-   
       <h2 className="text-base sm:text-lg font-semibold text-[var(--color-black)] mb-4">
         Orchards Summary
       </h2>
 
-      
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
         {summaryDetails.map((item, index) => (
           <div

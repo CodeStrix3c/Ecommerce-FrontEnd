@@ -4,110 +4,7 @@ import HarvestInfo from "../Components/HarvestInfo";
 import { useHarvestQuery } from "@/hooks/useHarvestQuery";
 
 function Harvest() {
-  const { data } =  useHarvestQuery();
-
-  // const cardsData = [
-  //   {
-  //     image: "/assets/images/harvest-apples.avif",
-  //     Orchard: "Orchard",
-  //     Title: "Apple",
-  //     variety: "Kashmiri",
-  //     date: "Oct – June",
-  //     temperature: "25°C",
-  //     Boxes: "10",
-  //     Workers: "5",
-  //   },
-  //   {
-  //     image: "/assets/images/harvest-walnuts.avif",
-  //     Orchard: "Orchard",
-  //     Title: "Walnut",
-  //     variety: "Kashmiri",
-  //     date: "Oct – June",
-  //     temperature: "20°C",
-  //     Boxes: "10",
-  //     Workers: "5",
-  //   },
-  //   {
-  //     image: "/assets/images/harvest-apricot.avif",
-  //     Orchard: "Orchard",
-  //     Title: "Apricot",
-  //     variety: "Kashmiri",
-  //     date: "Oct – June",
-  //     temperature: "28°C",
-  //     Boxes: "10",
-  //     Workers: "5",
-  //   },
-  //   {
-  //     image: "/assets/images/harvest-cherry.avif",
-  //     Orchard: "Orchard",
-  //     Title: "Cherry",
-  //     variety: "Kashmiri",
-  //     date: "Oct – June",
-  //     temperature: "25°C",
-  //     Boxes: "10",
-  //     Workers: "5",
-  //   },
-  //   {
-  //     image: "/assets/images/harvest-peach.avif",
-  //     Orchard: "Orchard",
-  //     Title: "Peach",
-  //     variety: "Kashmiri",
-  //     date: "Oct – June",
-  //     temperature: "20°C",
-  //     Boxes: "10",
-  //     Workers: "5",
-  //   },
-  //   {
-  //     image: "/assets/images/harvest-plum.avif",
-  //     Orchard: "Orchard",
-  //     Title: "Plum",
-  //     variety: "Kashmiri",
-  //     date: "Oct – June",
-  //     temperature: "28°C",
-  //     Boxes: "10",
-  //     Workers: "5",
-  //   },
-  //   {
-  //     image: "/assets/images/harvest-strawberry.avif",
-  //     Orchard: "Orchard",
-  //     Title: "Strawberry",
-  //     variety: "Kashmiri",
-  //     date: "Oct – June",
-  //     temperature: "25°C",
-  //     Boxes: "10",
-  //     Workers: "5",
-  //   },
-  //   {
-  //     image: "/assets/images/harvest-peach.avif",
-  //     Orchard: "Orchard",
-  //     Title: "Peach",
-  //     variety: "Kashmiri",
-  //     date: "Oct – June",
-  //     temperature: "20°C",
-  //     Boxes: "10",
-  //     Workers: "5",
-  //   },
-  //   {
-  //     image: "/assets/images/harvest-grapes.avif",
-  //     Orchard: "Orchard",
-  //     Title: "Grapes",
-  //     variety: "Kashmiri",
-  //     date: "Oct – June",
-  //     temperature: "28°C",
-  //     Boxes: "10",
-  //     Workers: "5",
-  //   },
-  //   {
-  //     image: "/assets/images/harvest-almond.avif",
-  //     Orchard: "Orchard",
-  //     Title: "Almond",
-  //     variety: "Kashmiri",
-  //     date: "Oct – June",
-  //     temperature: "25°C",
-  //     Boxes: "10",
-  //     Workers: "5",
-  //   },
-  // ];
+  const { data } = useHarvestQuery();
 
   return (
     <ContentWrapper topSpacing>
@@ -139,8 +36,8 @@ function Harvest() {
 
               {/* Content */}
               <div className="p-5 flex flex-col flex-grow">
-                <h3 className="text-lg md:text-xl font-semibold text-[var(--color-black)] mb-1">
-                  {card.Orchard} – {card.Title}
+                <h3 className="text-md md:text-xl font-semibold text-[var(--color-black)] mb-1">
+                  {card.Title}
                 </h3>
                 <p className="text-sm  mb-4 capitalize">
                   Variety: {card.variety}
@@ -152,19 +49,19 @@ function Harvest() {
                       size={16}
                       className="text-[var(--color-secondary)]"
                     />
-                    <span>Harvest Period: {card.date}</span>
+                    <span>Time Line: {card.date}</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  {/* <div className="flex items-center gap-2">
                     <Thermometer
                       size={16}
                       className="text-[var(--color-secondary)]"
                     />
                     <span>Temperature: {card.temperature}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
+                  </div> */}
+                  {/* <div className="flex items-center gap-2">
                     <Box size={16} className="text-[var(--color-secondary)]" />
                     <span>Boxes Collected: {card.Boxes}</span>
-                  </div>
+                  </div> */}
                   <div className="flex items-center gap-2">
                     <Users
                       size={16}

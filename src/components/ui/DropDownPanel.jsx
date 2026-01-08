@@ -1,31 +1,19 @@
 import useIsMobile from "@/hooks/useInMobile";
 import { removeItemFromLocalStorage } from "@/utils/localStorage";
-import { HandshakeOutlined } from "@mui/icons-material";
-import {
-  Info,
-  User,
-  HelpCircle,
-  UserCheck,
-  LogOut,
-  Package,
-  FlaskRoundIcon,
-  LayoutDashboard,
-  UserPlusIcon,
-} from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Info, User, HelpCircle, Palette, Package, LogOut } from "lucide-react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const DropdownPanel = ({ open, onClose, isSupplierLoggedIn }) => {
-  const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem("token");
+const DropdownPanel = ({ open, onClose }) => {
   const isMobile = useIsMobile(1100);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     removeItemFromLocalStorage("token");
     removeItemFromLocalStorage("loginData");
     toast.success("Logged out successfully!");
-    navigate("/login");
     onClose();
+    navigate("/login");
   };
 
   return (
@@ -36,130 +24,62 @@ const DropdownPanel = ({ open, onClose, isSupplierLoggedIn }) => {
           : "pointer-events-none -translate-y-1 scale-95 opacity-0"
       }`}
     >
-      <div className="flex flex-col py-2">
+      <div className="flex flex-col py-2 text-[var(--color-black)]">
         {/* About & Help */}
-        <Link
-          to="/about-us"
-          onClick={onClose}
-          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <Info size={16} /> <span>About Us</span>
-        </Link>
+        <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
+          <Info size={16} /> <span>About Our Heritage</span>
+        </div>
 
-        <Link
-          to="/help-center"
-          onClick={onClose}
-          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <HelpCircle size={16} /> <span>Help Center</span>
-        </Link>
+        <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
+          <HelpCircle size={16} /> <span>Visitor Support</span>
+        </div>
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
-        {/* Talk with Expert */}
-        <Link
-          to="/talk-with-expert"
-          onClick={onClose}
-          className="flex flex-col gap-1 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-        >
+        {/* Artisan Section */}
+        <div className="flex flex-col gap-1 px-4 py-2 text-sm cursor-default">
           <div className="flex items-center gap-3">
-            <UserCheck size={16} />
-            <span>Talk with Expert</span>
+            <Palette size={16} />
+            <span>Artisan Stories</span>
           </div>
           <p className="ml-7 text-xs opacity-80">
-            Get advice from agricultural experts to boost your farming success.
+            Discover the legacy and craftsmanship of Kashmiri artisans.
           </p>
-        </Link>
+        </div>
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
-        {/* Orders */}
-        <Link
-          to="/orders"
-          onClick={onClose}
-          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <Package size={16} /> <span>My Orders</span>
-        </Link>
-        <Link
-          to="/supplier-profile"
-          onClick={onClose}
-          className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <UserPlusIcon size={16} /> <span>Supplier Profile</span>
-        </Link>
+        {/* Collections */}
+        <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
+          <Package size={16} /> <span>Craft Collections</span>
+        </div>
 
-        {/* Mobile-specific links */}
         {isMobile && (
           <>
-            {isSupplierLoggedIn ? (
-              <>
-                <Link
-                  to="/dashboard/orchard"
-                  onClick={onClose}
-                  className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-                >
-                  <LayoutDashboard size={16} /> <span>Supplier Dashboard</span>
-                </Link>
+            <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
+              <Palette size={16} /> <span>Handicraft Categories</span>
+            </div>
 
-                <Link
-                  to="/supplier-profile"
-                  onClick={onClose}
-                  className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-                >
-                  <User size={16} /> <span>Supplier Profile</span>
-                </Link>
-              </>
-            ) : (
-              <Link
-                to="/supplier-register"
-                onClick={onClose}
-                className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-              >
-                <HandshakeOutlined fontSize="small" />{" "}
-                <span>Become a Supplier</span>
-              </Link>
-            )}
-
-            <Link
-              to="/fertilizers"
-              onClick={onClose}
-              className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-            >
-              <FlaskRoundIcon size={16} /> <span>Fertilizers</span>
-            </Link>
+            <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
+              <User size={16} /> <span>Artisan Profiles</span>
+            </div>
           </>
         )}
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
-        {/* Account Links */}
-        {isLoggedIn ? (
-          <>
-            <Link
-              to="/farmer-profile"
-              onClick={onClose}
-              className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-            >
-              <User size={16} /> <span>Profile</span>
-            </Link>
+        {/* Account */}
+        <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
+          <User size={16} /> <span>Visitor Account</span>
+        </div>
 
-            <div
-              onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
-            >
-              <LogOut size={16} /> <span>Logout</span>
-            </div>
-          </>
-        ) : (
-          <Link
-            to="/login"
-            onClick={onClose}
-            className="flex items-center gap-3 px-4 py-2 text-sm text-[var(--color-black)] hover:bg-[var(--color-black-hover)] transition-colors"
-          >
-            <User size={16} /> <span>Log in / Sign up</span>
-          </Link>
-        )}
+        {/* Logout */}
+        <div
+          onClick={handleLogout}
+          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <LogOut size={16} /> <span>Sign Out</span>
+        </div>
       </div>
     </div>
   );

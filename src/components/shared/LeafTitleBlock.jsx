@@ -3,7 +3,7 @@ import {
   titleSizeClasses,
   getLeafColor,
 } from "@/constants/theme";
-import { Leaf } from "lucide-react";
+import { Leaf, Palette } from "lucide-react";
 
 export default function LeafTitleBlock({
   title = "Guest Favourite",
@@ -18,7 +18,7 @@ export default function LeafTitleBlock({
   return (
     <div className="flex flex-col items-center text-center space-y-1">
       <div className="flex items-center space-x-2">
-        <Leaf
+        <Palette
           className={`${leafSizeClasses[leafSize]} ${leafColor}`}
           strokeWidth={1}
         />
@@ -27,7 +27,7 @@ export default function LeafTitleBlock({
         >
           {title}
         </h1>
-        <Leaf
+        <Palette
           className={`${leafSizeClasses[leafSize]} ${leafColor}`}
           strokeWidth={1}
         />
