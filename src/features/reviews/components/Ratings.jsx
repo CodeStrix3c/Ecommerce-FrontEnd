@@ -6,13 +6,15 @@ export default function RatingSummary() {
     <div className="flex flex-col items-center justify-center px-6 py-12">
       <div className="text-center">
         <LeafTitleBlock title="4.8" leafSize="lg" titleSize="lg" />
+        {/* <h1 className="font-bold text-[50px]">4.8</h1> */}
 
         <h2 className="mt-3 text-xl font-semibold text-[var(--color-neutral-dark)] md:text-2xl">
-          Farmers favorite
+          Top Rated Art & Craft Products
         </h2>
 
         <p className="mx-auto mt-2 max-w-md text-sm text-[var(--color-neutral-dark-hover)] md:text-base">
-         This brand stands in the top 5% of farmer favourites for reliability and results
+          These products are in the top 5% of art & craft items for quality,
+          creativity, and customer satisfaction.
         </p>
       </div>
     </div>
