@@ -12,7 +12,7 @@ export default function OrchardsPage() {
   const [query, setQuery] = useState("");
   const [filterType, setFilterType] = useState("All");
   const { wishlist, toggleWishlist } = useWishlist();
-
+  console.log(query, "serach query");
   // Deduplicate categories for dropdown
   const orchardTypes = useMemo(() => {
     const types = Array.from(
@@ -62,7 +62,7 @@ export default function OrchardsPage() {
           <FilterDropdown options={orchardTypes} onSelect={setFilterType} />
           <SecondarySearchBar
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onSearch={setQuery} // ✅ this updates value
             className="w-full sm:w-72"
           />
         </section>
