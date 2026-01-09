@@ -9,13 +9,14 @@ function Harvest() {
   return (
     <ContentWrapper topSpacing>
       <section>
-        <div className="text-center mb-10 ">
+        <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-black)] mb-3">
-            Harvest Overview
+            Art & Craft Collection
           </h2>
-          <p className="text-sm md:text-base  max-w-2xl mx-auto">
-            Our freshly harvested crops are carefully collected from the
-            orchards, ensuring top quality and freshness in every batch.
+          <p className="text-sm md:text-base max-w-2xl mx-auto">
+            Discover beautifully handcrafted creations made by skilled artisans,
+            showcasing traditional techniques, fine materials, and timeless
+            craftsmanship in every piece.
           </p>
         </div>
 
