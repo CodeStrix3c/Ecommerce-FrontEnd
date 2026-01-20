@@ -9,13 +9,14 @@ function Harvest() {
   return (
     <ContentWrapper topSpacing>
       <section>
-        <div className="text-center mb-10 ">
+        <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-black)] mb-3">
-            Harvest Overview
+            Art & Craft Collection
           </h2>
-          <p className="text-sm md:text-base  max-w-2xl mx-auto">
-            Our freshly harvested crops are carefully collected from the
-            orchards, ensuring top quality and freshness in every batch.
+          <p className="text-sm md:text-base max-w-2xl mx-auto">
+            Discover thoughtfully handcrafted art and craft pieces, created with
+            passion and precision. Each item reflects creativity, authenticity,
+            and the skill of dedicated artisans.
           </p>
         </div>
 
@@ -51,17 +52,24 @@ function Harvest() {
                     />
                     <span>Time Line: {card.date}</span>
                   </div>
-                  {/* <div className="flex items-center gap-2">
-                    <Thermometer
-                      size={16}
-                      className="text-[var(--color-secondary)]"
-                    />
-                    <span>Temperature: {card.temperature}</span>
-                  </div> */}
-                  {/* <div className="flex items-center gap-2">
-                    <Box size={16} className="text-[var(--color-secondary)]" />
-                    <span>Boxes Collected: {card.Boxes}</span>
-                  </div> */}
+                  {
+                    <div className="flex items-center gap-2">
+                      <Thermometer
+                        size={16}
+                        className="text-[var(--color-secondary)]"
+                      />
+                      <span>Temperature: {card.temperature}</span>
+                    </div>
+                  }
+                  {
+                    <div className="flex items-center gap-2">
+                      <Box
+                        size={16}
+                        className="text-[var(--color-secondary)]"
+                      />
+                      <span>Boxes Collected: {card.Boxes}</span>
+                    </div>
+                  }
                   <div className="flex items-center gap-2">
                     <Users
                       size={16}

@@ -14,7 +14,7 @@ export const loginSchema = z.object({
 });
 
 export const phoneLoginSchema = z.object({
-  phone: phoneValidator,
+  mobileNumber: phoneValidator,
   password: loginPasswordValidator,
 });
 
@@ -57,7 +57,7 @@ export const supplierRegisterSchema = z
     companyName: z.string().min(2, "Company name is required"),
     contactPerson: nameValidator,
     email: emailValidator,
-    phone: phoneValidator,
+    mobileNumber: phoneValidator,
     password: passwordValidator,
     confirmPassword: z.string().min(1, "Confirm password is required"),
     licenseNumber: z.string().min(3, "License number is required"),
