@@ -7,6 +7,7 @@ import DropdownPanel from "./DropDownPanel";
 import SidebarMobile from "./SidebarMobile";
 import { AccountCircle } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
@@ -30,13 +31,19 @@ const DropdownMenu = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const vendorToken = localStorage.getItem("token");
+
   return (
     <div className="relative" ref={menuRef}>
       <div className="flex items-center gap-2">
         {!isBelow500 && (
           <div className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] cursor-default">
             <Palette className="h-4 w-4" />
-            Artisan Collection
+            {!vendorToken ? (
+              <Link to="/vendor-signup">Become a Vendor</Link>
+            ) : (
+              <Link to="/supplier-register">Become a Vendor</Link>
+            )}
           </div>
         )}
 

@@ -33,7 +33,7 @@ export default function SupplierLogin() {
       console.log("Login Data:", data);
       await new Promise((res) => setTimeout(res, 1000));
       toast.success("Logged in successfully!");
-      localStorage.setItem("authToken", "dummyToken");
+      // localStorage.setItem("authToken", "dummyToken");
       setRedirect(true);
     } catch (err) {
       toast.error("Login failed. Please check your credentials.");

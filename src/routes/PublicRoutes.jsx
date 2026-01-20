@@ -7,6 +7,7 @@ import Harvest from "@/features/Harvest/Pages/Harvest";
 import SprayHistory from "@/features/spray/components/SprayCard";
 import CartPage from "@/features/cart/pages/CartPage";
 import WishlistPage from "@/features/wishlist/pages/WishListPage";
+import SupplierSignUp from "@/features/supplier-registration/SupplierSignup";
 
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
@@ -49,7 +50,8 @@ export default [
     {/* AUTH PAGES */}
     <Route element={<AuthLayout />}>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/sign-up" element={<SignUpPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} replace />
+      <Route path="/vendor-signup" element={<SupplierSignUp />} />
       <Route path="/supplier-login" element={<SupplierLogin />} />
       <Route path="/supplier-register" element={<SupplierRegistration />} />
     </Route>

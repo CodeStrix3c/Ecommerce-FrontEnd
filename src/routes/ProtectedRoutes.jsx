@@ -9,38 +9,40 @@ import OrderDetailsPage from "@/features/orders/orderDetails/pages/OrderDetailsP
 
 const CartPage = lazy(() => import("@/features/cart/pages/CartPage"));
 const Wishlist = lazy(() => import("@/features/wishlist/pages/WishListPage"));
+import supplierDashboard from "@/supplier/pages/dashboardPage";
 const TalkWithExpert = lazy(
-  () => import("@/features/talk-with-expert/pages/TalkWithExpert")
+  () => import("@/features/talk-with-expert/pages/TalkWithExpert"),
 );
 
 const OrderHistoryPage = lazy(
-  () => import("@/features/orders/orderHistory/pages/orderHistoryPage")
+  () => import("@/features/orders/orderHistory/pages/orderHistoryPage"),
 );
 
 const FarmerProfilePage = lazy(
-  () => import("@/features/farmers/pages/FarmerProfilePage")
+  () => import("@/features/farmers/pages/FarmerProfilePage"),
 );
 const FarmerProfileCompletion = lazy(
-  () => import("@/features/farmers/pages/FarmerProfileCompletion")
+  () => import("@/features/farmers/pages/FarmerProfileCompletion"),
 );
 
 const SupplierProfilePage = lazy(
-  () => import("@/features/suppliers/pages/SupplierProfilePage")
+  () => import("@/features/suppliers/pages/SupplierProfilePage"),
 );
 const SupplierProfileCompletion = lazy(
-  () => import("@/features/suppliers/pages/SupplierProfileCompletion")
+  () => import("@/features/suppliers/pages/SupplierProfileCompletion"),
 );
 
 const PlacesPage = lazy(() => import("@/features/places/pages/PlacesPage"));
 const PlacesFormPage = lazy(
-  () => import("@/features/places/pages/PlacesFormPage")
+  () => import("@/features/places/pages/PlacesFormPage"),
 );
 const BookingsPage = lazy(
-  () => import("@/features/bookings/pages/BookingsPage")
+  () => import("@/features/bookings/pages/BookingsPage"),
 );
 const SingleBookedPlace = lazy(
-  () => import("@/features/bookings/pages/SingleBookedPlace")
+  () => import("@/features/bookings/pages/SingleBookedPlace"),
 );
+const SupplierDashboard = lazy(() => import("@/supplier/pages/dashboardPage"));
 
 /* Dashboard Panels */
 import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
@@ -51,6 +53,7 @@ import ResourcesPanel from "@/features/dashboard/farmer-dashboard/pages/Resource
 import FinancialPanel from "@/features/dashboard/farmer-dashboard/pages/FinancialPanel";
 import KnowledgePanel from "@/features/dashboard/farmer-dashboard/pages/KnowledgePanel";
 import AlertPanel from "@/features/dashboard/farmer-dashboard/pages/AlertPanel";
+import AllProductList from "@/supplier/pages/AllProductList";
 
 export default [
   /* E-commerce / Account Protection */
@@ -87,6 +90,8 @@ export default [
   /* Dashboard (Always Protected) */
   <Route element={<ProtectedRoute />} key="dashboard">
     <Route path="/dashboard" element={<DashboardLayout />}>
+      <Route index element={<SupplierDashboard />} />
+      <Route path="all-products" element={<AllProductList />} />
       <Route path="orchard" element={<OrchardPanel />} />
       <Route path="weather" element={<WeatherPanel />} />
       <Route path="soil" element={<SoilWaterNutrientPanel />} />
