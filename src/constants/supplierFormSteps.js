@@ -1,5 +1,9 @@
 export const BUSINESS_INFORMATION_FIELDS = [
   "businessName",
+  "businessEmail",
+  "description",
+  "userEmail",
+  "slug",
   "ownerName",
   "primaryContact",
   "alternateContact",

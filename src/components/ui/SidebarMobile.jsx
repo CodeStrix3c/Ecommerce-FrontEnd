@@ -9,7 +9,7 @@ import {
   LogOut,
 } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getItemFromLocalStorage,
   removeItemFromLocalStorage,
@@ -28,7 +28,7 @@ const SidebarMobile = ({ open, onClose }) => {
     if (isAuthenticated) {
       // Sign Out
       removeItemFromLocalStorage("token");
-      navigate("/login"); // redirect to login after signout
+      navigate("/"); // redirect to login after signout
     } else {
       // Sign In
       navigate("/login"); // redirect to login
@@ -36,6 +36,7 @@ const SidebarMobile = ({ open, onClose }) => {
     onClose(); // close sidebar in both cases
   };
 
+  const vendorToken = getItemFromLocalStorage("token");
   return (
     <>
       {/* Overlay */}
@@ -118,6 +119,14 @@ const SidebarMobile = ({ open, onClose }) => {
 
           <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
             <User size={18} /> Visitor Account
+          </div>
+          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
+            <User size={18} />
+            {!vendorToken ? (
+              <Link to="/vendor-signup">Become a Vendor</Link>
+            ) : (
+              <Link to="supplier-register">Become a Vendor</Link>
+            )}
           </div>
 
           <div
