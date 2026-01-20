@@ -19,7 +19,7 @@ import {
 import FormInput from "../../../components/shared/custom-inputs/FormInput";
 import { useLoginMutation } from "@/hooks/useFarmerProfileMutations";
 import { setItemsInLocalStorage } from "@/utils/localStorage";
-import userCredentials from "../../../data/userCredentials.json";
+// import userCredentials from "../../../data/userCredentials.json"; ❌ FAKE DATA (COMMENTED)
 import { useUser } from "@/providers/UserProvider";
 
 const LoginPage = () => {
@@ -39,8 +39,18 @@ const LoginPage = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = (data) => {
+    const payload =
+      tab === 0
+        ? { mobileNumber: data.mobileNumber, password: data.password }
+        : { email: data.email, password: data.password };
+
+    console.log(payload, "this is loging crdentilas ");
+
+    // ❌ FAKE FRONTEND CREDENTIAL CHECK (COMMENTED)
+    // /*
     // const isEmailLogin = tab === 1;
     // const { email, phone, password } = data;
+
     // const isValid =
     //   (isEmailLogin &&
     //     email === userCredentials.email &&
@@ -53,33 +63,41 @@ const LoginPage = () => {
     //   toast.error("Invalid Credentials.");
     //   return;
     // }
-    setItemsInLocalStorage("token", "demo-token-12345");
+    // */
 
-    setRedirect(true);
-    // const payload =
-    //   tab === 0
-    //     ? { phone: data.phone, password: data.password }
-    //     : { email: data.email, password: data.password };
+    // ✅ REAL API LOGIN
+    loginMutate(payload, {
+      onSuccess: (res) => {
+        console.log("Login response:", res);
 
-    // loginMutate(payload, {
-    //   onSuccess: (res) => {
-    //     console.log(res, "res from login");
-    //     setItemsInLocalStorage("userLoginToken", res.token);
-    //     toast.success("Login successful!");
-    //     setRedirect(true);
-    //   },
-    //   onError: (err) => {
-    //     toast.error(
-    //       err?.response?.data?.error || "Network error. Please try again later."
-    //     );
-    //   },
-    // });
+        // Store token from backend
+        setItemsInLocalStorage("token", res.token);
+        setItemsInLocalStorage("userId", res.user);
+
+        // Optional: store user id if backend sends it
+        if (res?.user?.id) {
+          setUserId(res.user.id);
+        }
+
+        toast.success("Login successful!");
+        setRedirect(true);
+      },
+      onError: (err) => {
+        toast.error(
+          err?.response?.data?.error ||
+            err?.response?.data?.message ||
+            "Invalid credentials or network error"
+        );
+      },
+    });
   };
 
+  // ✅ GOOGLE LOGIN KEPT AS-IS (NOT COMMENTED)
   const handleGoogleLogin = async (credential) => {
     const response = { success: true, message: "Google login successful!" };
+
     if (response.success) {
-      localStorage.setItem("token", "fake-google-token-12345");
+      // localStorage.setItem("token", "fake-google-token-12345");
       toast.success(response.message);
       navigate("/home");
       setRedirect(true);
@@ -119,7 +137,7 @@ const LoginPage = () => {
             {tab === 0 ? (
               <>
                 <FormInput
-                  name="phone"
+                  name="mobileNumber"
                   label="Phone number"
                   type="tel"
                   register={register}
@@ -176,38 +194,20 @@ const LoginPage = () => {
           </form>
         </Box>
 
-        <Divider
-          sx={{
-            my: 4,
-            color: "var(--color-black)",
-            "&::before, &::after": { borderColor: "var(--color-black)" },
-          }}
-        >
-          or
-        </Divider>
+        <Divider sx={{ my: 4 }}>or</Divider>
 
         <div className="flex flex-col gap-3">
           <GoogleLogin
             onSuccess={(cred) => handleGoogleLogin(cred.credential)}
-            onError={() => console.log("Login failed")}
+            onError={() => console.log("Google login failed")}
             text="continue_with"
             width="100%"
           />
         </div>
 
-        <p
-          className="mt-6 text-center text-sm"
-          style={{ color: "var(--color-black)" }}
-        >
+        <p className="mt-6 text-center text-sm">
           Don’t have an account?{" "}
-          <Link
-            to="/sign-up"
-            style={{
-              fontWeight: "500",
-              textDecoration: "underline",
-              color: "var(--color-black)",
-            }}
-          >
+          <Link to="/sign-up" className="font-medium underline">
             Sign up
           </Link>
         </p>

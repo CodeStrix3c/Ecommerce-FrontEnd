@@ -35,7 +35,7 @@ export const login = async (credentials) => {
   //   throw new Error("Failed to fetch JWT token");
   // }
 
-  // localStorage.setItem("jwtToken", tokenRes.token);
+  localStorage.setItem("token", data.token);
 
   return data;
 };

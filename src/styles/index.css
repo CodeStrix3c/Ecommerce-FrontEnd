@@ -1,8 +1,8 @@
 @import "react-loading-skeleton/dist/skeleton.css";
-
+/* 
 * {
   user-select: none;
-}
+} */
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
