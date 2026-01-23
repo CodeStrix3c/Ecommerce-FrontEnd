@@ -1,11 +1,12 @@
 // import Sidebar from "@/features/dashboard/farmer-dashboard/components/Sidebar";
 import TopHeader from "@/supplier/components/dashboarHeader";
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 // import SupplierDashboard from "@/supplier/pages/dashboardPage";
 
 export default function DashboardLayout() {
   const [collapsed, setCollapsed] = useState(true);
+  const navigate = useNavigate;
 
   return (
     <div className="  min-h-screen  bg-[var(--color-white)]">

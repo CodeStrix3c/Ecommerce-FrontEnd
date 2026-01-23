@@ -81,7 +81,7 @@ export default function SupplierSignUp() {
       setStep(1);
     } catch (err) {
       toast.error(
-        err.response?.data?.message || "Email or phone verification failed"
+        err.response?.data?.message || "Email or phone verification failed",
       );
     }
   };
@@ -122,9 +122,10 @@ export default function SupplierSignUp() {
       // 4️⃣ STORE TOKEN
       setItemsInLocalStorage("token", loginResponse.token);
       setItemsInLocalStorage("email");
+      setItemsInLocalStorage("userId", loginResponse.userId);
 
       toast.success("Account created & logged in successfully");
-      navigate("/dashboard");
+      navigate("/supplier-register");
     } catch (err) {
       toast.error(err.response?.data?.message || "Signup or login failed");
     }
