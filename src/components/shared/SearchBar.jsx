@@ -14,20 +14,32 @@ const CATEGORIES = [
   "Carpets & Rugs",
   "Accessories",
 ];
-const categories = CATEGORIES;
+
 const SearchBar = ({ onChange }) => {
   const isMobile = useIsMobile(900);
 
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // 🔹 Emit changes immediately
+  // ✅ Debounced value
+  const [debouncedSearch, setDebouncedSearch] = useState(searchText);
+
+  /* ===================== DEBOUNCE LOGIC ===================== */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchText);
+    }, 400); // ⏱ 400ms debounce
+
+    return () => clearTimeout(timer);
+  }, [searchText]);
+
+  /* ===================== EMIT ONLY DEBOUNCED VALUE ===================== */
   useEffect(() => {
     onChange?.({
-      query: searchText.trim(),
+      query: debouncedSearch.trim(),
       category: selectedCategory,
     });
-  }, [searchText, selectedCategory, onChange]);
+  }, [debouncedSearch, selectedCategory, onChange]);
 
   /* ===================== MOBILE ===================== */
   if (isMobile) {
@@ -39,7 +51,8 @@ const SearchBar = ({ onChange }) => {
             <input
               type="text"
               placeholder="Search products"
-              className="ml-2 w-full border-none text-sm text-[var(--color-black)] placeholder-[var(--color-black)] focus:outline-none"
+              className="ml-2 w-full border-none text-sm text-[var(--color-black)]
+              placeholder-[var(--color-black)] focus:outline-none"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
@@ -75,7 +88,7 @@ const SearchBar = ({ onChange }) => {
         </div>
       </div>
 
-      {/* Category Filter */}
+      {/* Category Filter (NO debounce needed) */}
       <div className="flex-1 px-6">
         <p className="text-xs font-medium text-[var(--color-black)]">
           Category
@@ -87,7 +100,7 @@ const SearchBar = ({ onChange }) => {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="">Select category</option>
-          {categories.map((category) => (
+          {CATEGORIES.map((category) => (
             <option key={category} value={category}>
               {category}
             </option>

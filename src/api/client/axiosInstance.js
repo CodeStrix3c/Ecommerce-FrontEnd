@@ -19,6 +19,7 @@ axiosInstance.interceptors.request.use(
     // Auth logic (except when disabled)
     if (config.auth !== false) {
       const token = getItemFromLocalStorage("token");
+      const roles = getItemFromLocalStorage("roles");
       if (token) {
         config.headers = config.headers || {};
         config.headers.Authorization = `Bearer ${token}`;
@@ -27,7 +28,7 @@ axiosInstance.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 export default axiosInstance;
