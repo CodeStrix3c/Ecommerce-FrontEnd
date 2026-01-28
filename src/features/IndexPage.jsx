@@ -1,95 +1,72 @@
-import { useState, useMemo } from "react";
-
+import { useState } from "react";
 import CarousalSection from "@/components/shared/CarousalSection";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import { useProductsQuery } from "@/hooks/useProductsQuery";
 import SearchBar from "@/components/shared/SearchBar";
+import { useProductsQuery } from "@/hooks/useProductsQuery";
 
-const IndexPage = () => {
-  const { data, isLoading } = useProductsQuery();
+const UserHome = () => {
+  const [searchParams, setSearchParams] = useState({
+    query: "",
+    category: "",
+  });
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [category, setCategory] = useState("");
+  const { data, isLoading } = useProductsQuery({
+    query: searchParams.query,
+    category: searchParams.category,
+    page: 1,
+  });
 
-  const handleSearchChange = ({ query, category }) => {
-    setSearchQuery(query || "");
-    setCategory(category || "");
-  };
-
-  const filteredProducts = useMemo(() => {
-    if (!data) return [];
-
-    const query = searchQuery.toLowerCase();
-    const categoryFilter = category.toLowerCase();
-
-    return data.filter((product) => {
-      // Check if product matches search query
-      const matchesQuery =
-        !query ||
-        product.title?.toLowerCase().includes(query) ||
-        product.description?.toLowerCase().includes(query);
-
-      // Check if product matches selected category
-      const matchesCategory =
-        !categoryFilter || product.category?.toLowerCase() === categoryFilter;
-
-      return matchesQuery && matchesCategory;
-    });
-  }, [data, searchQuery, category]);
-
-  const products4 = filteredProducts.slice(0, 8);
-  const products2 = filteredProducts.slice(8, 15);
-  const products3 = filteredProducts.slice(15, 22);
-  const products1 = filteredProducts.slice(22, 29);
+  const products = (data?.products || []).map((item) => ({
+    _id: item.id,
+    slug: item.slug,
+    title: item.name,
+    category: item.category?.name ?? null,
+    price: item.price,
+    oldPrice: item.oldPrice,
+    rating: item.ratingAverage ?? null,
+    ratingCount: item.reviewsCount ?? 0,
+    stock: item.stockQuantity ?? 0,
+    image: item.thumbnailImage?.fileName
+      ? `/user-content/${item.thumbnailImage.fileName}`
+      : "/placeholder.png",
+    discountPercent: item.calculatedProductPrice?.percentOfSaving ?? null,
+  }));
 
   return (
     <ContentWrapper>
-      <div className="responsive-padding flex flex-col gap-8">
-        <div className="flex justify-center w-full">
-          <SearchBar onChange={handleSearchChange} />
-        </div>
+      {/* 🔍 SearchBar */}
+      <div className="responsive-padding flex justify-center ">
+        <SearchBar onChange={setSearchParams} />
+      </div>
 
-        {products1.length > 0 && (
-          <CarousalSection
-            title="Popular Art & Craft Creations"
-            places={products1}
-            loading={isLoading}
-          />
-        )}
+      {/* 📦 Sections */}
+      <div className="pt-10 flex flex-col gap-6">
+        <CarousalSection
+          title="Popular Products"
+          places={products.slice(0, 8)}
+          loading={isLoading}
+        />
 
-        {products2.length > 0 && (
-          <CarousalSection
-            title="New & Trending Handcrafted Pieces"
-            places={products2}
-            loading={isLoading}
-          />
-        )}
+        <CarousalSection
+          title="Trending This Season"
+          places={products.slice(8, 16)}
+          loading={isLoading}
+        />
 
-        {products3.length > 0 && (
-          <CarousalSection
-            title="Traditional & Artisan-Made Crafts"
-            places={products3}
-            loading={isLoading}
-          />
-        )}
+        <CarousalSection
+          title="Best Sellers"
+          places={products.slice(16, 24)}
+          loading={isLoading}
+        />
 
-        {products4.length > 0 && (
-          <CarousalSection
-            title="Handcrafted Home & Decor Essentials"
-            places={products4}
-            loading={isLoading}
-          />
-        )}
-
-        {/* Optional: show a message if no products found */}
-        {filteredProducts.length === 0 && !isLoading && (
-          <div className="text-center text-gray-500 mt-8">
-            No products found for your search.
-          </div>
-        )}
+        <CarousalSection
+          title="Recommended for You"
+          places={products.slice(24, 32)}
+          loading={isLoading}
+        />
       </div>
     </ContentWrapper>
   );
 };
 
-export default IndexPage;
+export default UserHome;
