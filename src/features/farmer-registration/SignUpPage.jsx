@@ -81,7 +81,7 @@ export default function SupplierSignUp() {
       setStep(1);
     } catch (err) {
       toast.error(
-        err.response?.data?.message || "Email or phone verification failed"
+        err.response?.data?.message || "Email or phone verification failed",
       );
     }
   };
@@ -117,9 +117,12 @@ export default function SupplierSignUp() {
         password: formData.password,
         mobileNumber: formData.phone,
       });
+      console.log(loginResponse);
 
       // 4️⃣ STORE TOKEN
       setItemsInLocalStorage("token", loginResponse.token);
+      setItemsInLocalStorage("userId", loginResponse.userId);
+      setItemsInLocalStorage("roles", loginResponse.roles);
 
       toast.success("Account created & logged in successfully");
       navigate("/");

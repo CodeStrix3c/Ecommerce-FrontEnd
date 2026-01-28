@@ -1,14 +1,10 @@
 // PlacesPage.jsx
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-<<<<<<< HEAD
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // import { dummyData } from '@/data/dummyData.ts';
-=======
-import { dummyData } from '@/data/dummyData.ts';
->>>>>>> 91efd9998147dbc4f0908723ead972c9053db651
-import AccountNav from '@/components/ui/AccountNav';
-import InfoCard from '@/components/shared/InfoCard';
-import Spinner from '@/components/ui/Spinner';
+import AccountNav from "@/components/ui/AccountNav";
+import InfoCard from "@/components/shared/InfoCard";
+import Spinner from "@/components/ui/Spinner";
 
 const PlacesPage = () => {
   const [places, setPlaces] = useState([]);
@@ -16,11 +12,7 @@ const PlacesPage = () => {
 
   useEffect(() => {
     setTimeout(() => {
-<<<<<<< HEAD
       setPlaces();
-=======
-      setPlaces(dummyData);
->>>>>>> 91efd9998147dbc4f0908723ead972c9053db651
       setLoading(false);
     }, 1000);
   }, []);
@@ -35,7 +27,7 @@ const PlacesPage = () => {
       <div className="text-center ">
         <Link
           className="inline-flex gap-1 rounded-full bg-primary px-6 py-2 text-[var(--color-white)]"
-          to={'/account/places/new'}
+          to={"/account/places/new"}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import PlaceCard from "@/features/places/components/PlaceCard";
 import SectionTitle from "./SectionTitle";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
 import { carouselBreakpoints } from "@/lib/  carouselConfig";
 
@@ -21,33 +21,27 @@ const CarouselSection = ({ title, places = [], loading = false }) => {
     breakpoints: carouselBreakpoints,
   });
 
-  // ✅ Recalculate when data changes
   useEffect(() => {
-    if (instanceRef.current) {
-      instanceRef.current.update();
-    }
-  }, [places, instanceRef]);
+    instanceRef.current?.update();
+  }, [places]);
 
   return (
-    <div className="mt-0">
-      {/* Header */}
+    <div>
       <div className="mb-4 flex items-center justify-between">
         <SectionTitle title={title} />
 
         {!isMobile && (
           <div className="flex gap-2">
             <button
-              type="button"
               onClick={() => instanceRef.current?.prev()}
-              className="rounded-full p-2 bg-white shadow hover:bg-gray-50 transition"
+              className="rounded-full bg-white p-2 shadow hover:bg-gray-50"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
 
             <button
-              type="button"
               onClick={() => instanceRef.current?.next()}
-              className="rounded-full p-2 bg-white shadow hover:bg-gray-50 transition"
+              className="rounded-full bg-white p-2 shadow hover:bg-gray-50"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -55,14 +49,10 @@ const CarouselSection = ({ title, places = [], loading = false }) => {
         )}
       </div>
 
-      {/* Slider */}
       <div ref={sliderRef} className="keen-slider">
-        {(loading ? Array.from({ length: 6 }) : places).map((place, i) => (
-          <div
-            key={place?._id ?? i}
-            className="keen-slider__slide"
-          >
-            <PlaceCard place={place} loading={loading} />
+        {(loading ? Array.from({ length: 6 }) : places).map((item, i) => (
+          <div key={item?._id ?? i} className="keen-slider__slide">
+            <PlaceCard place={item} loading={loading} />
           </div>
         ))}
       </div>

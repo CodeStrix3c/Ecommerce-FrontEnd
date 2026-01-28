@@ -29,7 +29,7 @@ const DropdownPanel = ({ open, onClose }) => {
       removeItemFromLocalStorage("token");
       removeItemFromLocalStorage("loginData");
       toast.success("Logged out successfully!");
-      navigate("/login");
+      navigate("/");
     } else {
       navigate("/login");
     }

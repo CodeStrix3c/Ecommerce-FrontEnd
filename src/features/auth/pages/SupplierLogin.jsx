@@ -34,6 +34,9 @@ export default function SupplierLogin() {
       await new Promise((res) => setTimeout(res, 1000));
       toast.success("Logged in successfully!");
       // localStorage.setItem("authToken", "dummyToken");
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("userId", res.userId);
+      localStorage.setItem("roles", res.roles);
       setRedirect(true);
     } catch (err) {
       toast.error("Login failed. Please check your credentials.");
