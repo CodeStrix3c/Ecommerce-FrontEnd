@@ -20,6 +20,7 @@ export default function DashboardLayout() {
       {/* Supplier dashboard header / layout */}
       {/* <SupplierDashboard /> */}
       {/* Nested dashboard routes */}
+      const token = getItemFromLocalStorage("token")
       <main className=" overflow-y-auto">
         <Outlet />
       </main>

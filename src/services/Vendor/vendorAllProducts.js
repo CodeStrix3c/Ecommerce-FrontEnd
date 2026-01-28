@@ -12,3 +12,14 @@ export const vendorAllProducts = async (payload) => {
   );
   return response;
 };
+
+// services/Vendor/vendorAllProducts.js
+export const vendorSearchProducts = async ({ name }) => {
+  const response = await axiosInstance.get("/api/products/quick-search", {
+    params: {
+      name, // ✅ query param
+    },
+  });
+
+  return response.data;
+};
