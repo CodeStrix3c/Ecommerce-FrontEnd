@@ -1,9 +1,16 @@
-import { vendorAllProducts } from "@/services/Vendor/vendorAllProducts";
+import {
+  vendorAllProducts,
+  vendorSearchProducts,
+} from "@/services/Vendor/vendorAllProducts";
 
-const useVendorProducts = () => {
+export const useVendorProducts = () => {
   return {
     mutationFn: vendorAllProducts,
   };
 };
 
-export default useVendorProducts;
+export const useVendorSearch = () => {
+  return {
+    mutationFn: vendorSearchProducts,
+  };
+};
