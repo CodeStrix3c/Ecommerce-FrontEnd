@@ -33,6 +33,8 @@ export const NAVBAR_TABS = [
     path: "/metal-craft",
     icon: HardHat,
     activeColor: "text-[var(--color-secondary)]",
+    badge: "NEW",
+
   },
 ];
 

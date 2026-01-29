@@ -62,7 +62,7 @@ export default function SupplierRegistration() {
       });
 
       toast.success("Supplier registered successfully");
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
       console.error("API ERROR:", error);
       toast.error("Supplier registration failed");

@@ -121,10 +121,10 @@ export default function SupplierSignUp() {
 
       // 4️⃣ STORE TOKEN
       setItemsInLocalStorage("token", loginResponse.token);
-      setItemsInLocalStorage("email");
+      setItemsInLocalStorage("userId", loginResponse.user)
 
       toast.success("Account created & logged in successfully");
-      navigate("/dashboard");
+      navigate("/supplier-register");
     } catch (err) {
       toast.error(err.response?.data?.message || "Signup or login failed");
     }
