@@ -37,6 +37,7 @@ export default function SupplierLogin() {
       localStorage.setItem("token", res.token);
       localStorage.setItem("userId", res.userId);
       localStorage.setItem("roles", res.roles);
+      localStorage.setItem("vendorId", res.vendorId);
       setRedirect(true);
     } catch (err) {
       toast.error("Login failed. Please check your credentials.");
