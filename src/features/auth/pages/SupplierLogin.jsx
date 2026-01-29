@@ -8,6 +8,7 @@ import FormInput from "@/components/shared/custom-inputs/FormInput";
 import useIsMobile from "@/hooks/useInMobile";
 import CustomButton from "@/components/ui/CustomButton";
 import { loginSchema } from "@/features/farmer-registration/schemas/authSchemas";
+import { setItemsInLocalStorage } from "@/utils/localStorage";
 
 export default function SupplierLogin() {
   const [redirect, setRedirect] = useState(false);
@@ -34,6 +35,7 @@ export default function SupplierLogin() {
       await new Promise((res) => setTimeout(res, 1000));
       toast.success("Logged in successfully!");
       // localStorage.setItem("authToken", "dummyToken");
+      setItemsInLocalStorage("userId", user)
       setRedirect(true);
     } catch (err) {
       toast.error("Login failed. Please check your credentials.");

@@ -23,7 +23,7 @@ const DropdownPanel = ({ open, onClose }) => {
   const isAuthenticated = Boolean(token);
 
   const handleAuthAction = () => {
-    onClose();
+    onClose?.();
 
     if (isAuthenticated) {
       removeItemFromLocalStorage("token");
@@ -35,16 +35,27 @@ const DropdownPanel = ({ open, onClose }) => {
     }
   };
 
+  const handleOpenProfile = () => {
+    onClose?.();
+
+    if (!isAuthenticated) {
+      toast.info("Please login to view your profile");
+      navigate("/login");
+      return;
+    }
+
+    navigate("/profile");
+  };
+
   return (
     <div
-      className={`absolute right-0 mt-4 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
-        open
-          ? "translate-y-0 scale-100 opacity-100"
-          : "pointer-events-none -translate-y-1 scale-95 opacity-0"
-      }`}
+      className={`absolute right-0 mt-4 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${open
+        ? "translate-y-0 scale-100 opacity-100"
+        : "pointer-events-none -translate-y-1 scale-95 opacity-0"
+        }`}
     >
       <div className="flex flex-col py-2 text-[var(--color-black)]">
-        {/* About & Help */}
+
         <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
           <Info size={16} /> <span>About Our Heritage</span>
         </div>
@@ -68,7 +79,6 @@ const DropdownPanel = ({ open, onClose }) => {
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
-        {/* Collections */}
         <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
           <Package size={16} /> <span>Craft Collections</span>
         </div>
@@ -87,12 +97,13 @@ const DropdownPanel = ({ open, onClose }) => {
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
-        {/* Account */}
-        <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
-          <User size={16} /> <span>Visitor Account</span>
+        <div
+          onClick={handleOpenProfile}
+          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <User size={16} />
+          <span>Visitor Account</span>
         </div>
-
-        {/* Auth Action */}
         <div
           onClick={handleAuthAction}
           className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-[var(--color-black-hover)] transition-colors"
