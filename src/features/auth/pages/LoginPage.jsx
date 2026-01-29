@@ -74,6 +74,7 @@ const LoginPage = () => {
         setItemsInLocalStorage("token", res.token);
         setItemsInLocalStorage("userId", res.user);
         setItemsInLocalStorage("roles", res.roles);
+        setItemsInLocalStorage("vendorId", res.vendorId);
 
         // Optional: store user id if backend sends it
         // if (res?.user?.id) {

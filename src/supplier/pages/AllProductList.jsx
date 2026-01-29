@@ -6,7 +6,6 @@ import LoadingSpinner from "../components/loadingSpinner";
 import { toast } from "react-toastify";
 import ProductTable from "../components/productCard";
 import Pagination from "../components/paginationComponent";
-import Spinner from "@/components/ui/Spinner";
 import ProductModal from "@/modals/vendorProductModal";
 
 const AllProductList = () => {
@@ -47,7 +46,7 @@ const AllProductList = () => {
     },
     search: {
       predicateObject: {
-        Name: searchParams.query || "",
+        Name: searchParams.query || null,
       },
     },
     sort: {
@@ -56,7 +55,7 @@ const AllProductList = () => {
     },
   });
 
-  // 🔁 Fetch data
+  // 🔁 Fetch products
   useEffect(() => {
     mutate(buildRequestBody());
   }, [searchParams, currentPage, sortBy, sortReverse]);
@@ -70,42 +69,53 @@ const AllProductList = () => {
   const totalPages = data?.data?.numberOfPages ?? 0;
 
   return (
-    <div className="w-full min-h-screen bg-[var(--color-background)] pt-[25%] lg:pt-[10%] pb-10">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="w-full min-h-screen bg-[var(--color-background)] pt-[25%] lg:pt-[10%] pb-20">
+      <div className="max-w-7xl mx-auto px-4 relative">
+        {/* 🔍 Search */}
         <div className="mb-8 flex justify-center">
           <SearchBar onChange={setSearchParams} />
         </div>
 
+        {/* 📦 Content */}
         {isLoading ? (
           <LoadingSpinner message="Loading products..." />
-        ) : products.length === 0 ? (
-          <Spinner />
         ) : (
           <>
-            <ProductTable products={products} />
+            {products.length === 0 ? (
+              <p className="text-center text-gray-500 mt-20">
+                No products available
+              </p>
+            ) : (
+              <>
+                <ProductTable products={products} />
 
-            <div className="flex justify-between items-center relative">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
-
-              <ProductModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-              />
-
-              {/* ➕ Open modal */}
-              <div
-                onClick={() => setIsModalOpen(true)}
-                className="absolute right-0 mt-5 h-10 w-10 rounded-full bg-black flex items-center justify-center cursor-pointer"
-              >
-                <span className="text-white text-lg font-bold">+</span>
-              </div>
-            </div>
+                <div className="mt-6 flex justify-center">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                  />
+                </div>
+              </>
+            )}
           </>
         )}
+
+        {/* ➕ Floating Add Product Button (ALWAYS VISIBLE) */}
+        <div
+          onClick={() => setIsModalOpen(true)}
+          className="fixed bottom-8 right-8 h-12 w-12 rounded-full
+          bg-black flex items-center justify-center cursor-pointer
+          shadow-lg hover:scale-105 transition-transform"
+        >
+          <span className="text-white text-2xl font-bold">+</span>
+        </div>
+
+        {/* 🪟 Product Modal */}
+        <ProductModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
       </div>
     </div>
   );

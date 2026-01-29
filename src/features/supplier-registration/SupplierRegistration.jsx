@@ -20,6 +20,7 @@ import { SUPPLIER_STEPS } from "@/constants/stepperData";
 import {
   getItemFromLocalStorage,
   removeItemFromLocalStorage,
+  setItemsInLocalStorage,
 } from "@/utils/localStorage";
 import useVendorBusinessReg from "@/hooks/Vendor/userVendorBusinessReg";
 
@@ -61,8 +62,7 @@ export default function SupplierRegistration() {
           : DUMMY_EMAIL;
 
       const userId = Number(getItemFromLocalStorage("userId"));
-
-      await SupplierReg({
+      const response = await SupplierReg({
         name: data.businessName,
         slug: data.slug,
         description: data.description,
@@ -70,12 +70,14 @@ export default function SupplierRegistration() {
         isActive: true,
         managers: [
           {
-            email, // ✅ NEVER EMPTY
+            email,
             userId,
           },
         ],
       });
 
+      console.log("SUPPLIER API RESPONSE:", response);
+      setItemsInLocalStorage("VendorId", response.vendorId);
       console.log(SupplierReg, "these are supplier detatils");
       toast.success("Supplier registered successfully");
       removeItemFromLocalStorage("token");

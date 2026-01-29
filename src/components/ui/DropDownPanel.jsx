@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { removeItem } from "framer-motion";
 
 const DropdownPanel = ({ open, onClose }) => {
   const isMobile = useIsMobile(1100);
@@ -28,6 +29,8 @@ const DropdownPanel = ({ open, onClose }) => {
     if (isAuthenticated) {
       removeItemFromLocalStorage("token");
       removeItemFromLocalStorage("loginData");
+      // removeItemFromLocalStorage("roles");
+      // removeItemFromLocalStorage("userId");
       toast.success("Logged out successfully!");
       navigate("/");
     } else {
