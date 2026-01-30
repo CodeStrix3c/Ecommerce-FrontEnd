@@ -43,8 +43,6 @@ const SingleBookedPlace = lazy(
   () => import("@/features/bookings/pages/SingleBookedPlace"),
 );
 const SupplierDashboard = lazy(() => import("@/supplier/pages/dashboardPage"));
-
-/* Dashboard Panels */
 import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
 import WeatherPanel from "@/features/dashboard/farmer-dashboard/pages/WeatherPanel";
 import SoilWaterNutrientPanel from "@/features/dashboard/farmer-dashboard/pages/SoilWaterNutrientPanel";
@@ -54,9 +52,10 @@ import FinancialPanel from "@/features/dashboard/farmer-dashboard/pages/Financia
 import KnowledgePanel from "@/features/dashboard/farmer-dashboard/pages/KnowledgePanel";
 import AlertPanel from "@/features/dashboard/farmer-dashboard/pages/AlertPanel";
 import AllProductList from "@/supplier/pages/AllProductList";
+import UserProfile from "@/supplier/pages/UserSupplier";
+
 
 export default [
-  /* E-commerce / Account Protection */
   <Route element={<ProtectedRoute />} key="protected">
     <Route element={<ProtectedLayout />}>
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
@@ -71,6 +70,8 @@ export default [
       <Route path="/account/places/:id" element={<PlacesFormPage />} />
       <Route path="/account/bookings" element={<BookingsPage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
+      <Route path="/profile" element={<UserProfile />} />
+
 
       {/* Profiles */}
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
@@ -86,8 +87,6 @@ export default [
       />
     </Route>
   </Route>,
-
-  /* Dashboard (Always Protected) */
   <Route element={<ProtectedRoute />} key="dashboard">
     <Route path="/dashboard" element={<DashboardLayout />}>
       <Route index element={<SupplierDashboard />} />
