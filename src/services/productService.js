@@ -1,9 +1,9 @@
-import { apiGet } from "@/api/client/request";
+import axiosInstance from "@/api/client/axiosInstance";
 
-export const getProducts = () => {
-  return apiGet("/products.json");
-};
+export const getProducts = async (params) => {
+  const response = await axiosInstance.get("/search", {
+    params,
+  });
 
-export const getProductById = (id) => {
-  return apiGet(`/api/products/${id}`);
+  return response.data; // ✅ IMPORTANT
 };

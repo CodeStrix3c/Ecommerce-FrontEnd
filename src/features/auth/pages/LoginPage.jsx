@@ -28,7 +28,7 @@ const LoginPage = () => {
   const [tab, setTab] = useState(0);
 
   const { mutate: loginMutate, isPending } = useLoginMutation();
-  const { setUserId } = useUser();
+  // const { setUserId } = useUser();
 
   const schema = tab === 0 ? phoneLoginSchema : emailLoginSchema;
 
@@ -74,11 +74,12 @@ const LoginPage = () => {
         // Store token from backend
         setItemsInLocalStorage("token", res.token);
         setItemsInLocalStorage("userId", res.user);
+        setItemsInLocalStorage("roles", res.roles);
 
         // Optional: store user id if backend sends it
-        if (res?.user?.id) {
-          setUserId(res.user.id);
-        }
+        // if (res?.user?.id) {
+        //   setUserId(res.user.id);
+        // }
 
         toast.success("Login successful!");
         setRedirect(true);
@@ -87,7 +88,7 @@ const LoginPage = () => {
         toast.error(
           err?.response?.data?.error ||
           err?.response?.data?.message ||
-          "Invalid credentials or network error"
+          "Invalid credentials or network error",
         );
       },
     });
