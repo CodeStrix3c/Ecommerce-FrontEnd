@@ -52,7 +52,7 @@ export default function StarRating({ rating = 4.2, size = 16 }) {
       ))}
 
       {/* Numeric Rating */}
-      <span className="text-sm font-medium ml-1">{safeRating.toFixed(1)}</span>
+      <span className="text-sm font-medium ml-1 ">{safeRating.toFixed(1)}</span>
     </span>
   );
 }

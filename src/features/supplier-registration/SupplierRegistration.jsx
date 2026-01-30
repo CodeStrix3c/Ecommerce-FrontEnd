@@ -17,10 +17,15 @@ import { useSupplier } from "@/providers/SupplierProvider";
 // import FormStepper from "@/components/shared/FormStepper";
 import StepHeader from "../auth/components/StepHeader";
 import { SUPPLIER_STEPS } from "@/constants/stepperData";
-import { getItemFromLocalStorage } from "@/utils/localStorage";
+import {
+  getItemFromLocalStorage,
+  removeItemFromLocalStorage,
+} from "@/utils/localStorage";
 import useVendorBusinessReg from "@/hooks/Vendor/userVendorBusinessReg";
 
 // const stepSchemas = [businessInformationSchema, otpSchema];
+
+const DUMMY_EMAIL = "dummyuser@artandcraft.com";
 
 export default function SupplierRegistration() {
   const { labels, descriptions } = SUPPLIER_STEPS || {};
@@ -45,10 +50,15 @@ export default function SupplierRegistration() {
     try {
       console.log("VALIDATED DATA:", data);
 
+      // ✅ GUARANTEED EMAIL NORMALIZATION
+      // - empty
+      // - undefined
+      // - whitespace
+      // → ALWAYS fallback to dummy
       const email =
-        data.userEmail && data.userEmail.trim() !== ""
-          ? data.userEmail
-          : "dummyuser@artandcraft.com";
+        typeof data.userEmail === "string" && data.userEmail.trim().length > 0
+          ? data.userEmail.trim()
+          : DUMMY_EMAIL;
 
       const userId = Number(getItemFromLocalStorage("userId"));
 
@@ -58,10 +68,21 @@ export default function SupplierRegistration() {
         description: data.description,
         email: data.businessEmail,
         isActive: true,
-        managers: [{ email, userId }],
+        managers: [
+          {
+            email, // ✅ NEVER EMPTY
+            userId,
+          },
+        ],
       });
 
+      console.log(SupplierReg, "these are supplier detatils");
       toast.success("Supplier registered successfully");
+      removeItemFromLocalStorage("token");
+      removeItemFromLocalStorage("roles");
+      removeItemFromLocalStorage("useId");
+      toast.success("please login to see vendor dashboard");
+
       navigate("/");
     } catch (error) {
       console.error("API ERROR:", error);
