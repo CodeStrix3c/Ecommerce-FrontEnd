@@ -16,6 +16,7 @@ const UserHome = () => {
     page: 1,
   });
 
+  console.log("Products Data:", data);
   const products = (data?.products || []).map((item) => ({
     _id: item.id,
     slug: item.slug,

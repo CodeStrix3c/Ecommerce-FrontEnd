@@ -42,16 +42,14 @@ const SidebarMobile = ({ open, onClose }) => {
       {/* Overlay */}
       <div
         onClick={onClose}
-        className={`fixed inset-0 bg-[var(--color-overlay)] backdrop-blur-sm transition-opacity duration-300 z-40 ${
-          open ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
+        className={`fixed inset-0 bg-[var(--color-overlay)] backdrop-blur-sm transition-opacity duration-300 z-40 ${open ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
       />
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-72 bg-[var(--color-white)] shadow-xl z-50 transform transition-transform duration-300 ${
-          open ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 h-full w-72 bg-[var(--color-white)] shadow-xl z-50 transform transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-gray)]">
@@ -117,9 +115,16 @@ const SidebarMobile = ({ open, onClose }) => {
 
           <hr className="my-2 border-[var(--color-black-hover)]" />
 
-          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
+          <div
+            onClick={() => {
+              navigate("/profile");
+              onClose();
+            }}
+            className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]"
+          >
             <User size={18} /> Visitor Account
           </div>
+
           <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
             <User size={18} />
             {!vendorToken ? (
@@ -131,9 +136,8 @@ const SidebarMobile = ({ open, onClose }) => {
 
           <div
             onClick={handleAuthAction}
-            className={`flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer ${
-              isAuthenticated ? "text-red-600" : "text-[var(--color-primary)]"
-            }`}
+            className={`flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer ${isAuthenticated ? "text-red-600" : "text-[var(--color-primary)]"
+              }`}
           >
             <LogOut size={18} />
             <span>{isAuthenticated ? "Sign Out" : "Sign In"}</span>
