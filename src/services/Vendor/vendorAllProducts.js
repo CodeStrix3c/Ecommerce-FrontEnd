@@ -34,3 +34,24 @@ export const venderProductAssign = async ({ payload }) => {
   );
   return response.data;
 };
+
+export const removeVendorProduct = async ({ vendorId, productId }) => {
+  const response = await axiosInstance.delete(
+    `/api/vendors/${vendorId}/products/${productId}`,
+  );
+  return response.data;
+};
+
+// services/vendorProducts.ts
+export const updateVendorProduct = async ({
+  vendorId,
+  assignmentId,
+  payload,
+}) => {
+  const response = await axiosInstance.put(
+    `/api/vendors/${vendorId}/products/${assignmentId}`,
+    payload,
+  );
+
+  return response.data;
+};
