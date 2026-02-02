@@ -67,14 +67,14 @@ const SearchBar = ({ onChange }) => {
     <div
       className="flex items-center justify-between rounded-full border border-[var(--color-black-hover)]
       bg-[var(--color-white)] px-4 py-3 pt-1 shadow-[0_2px_4px_rgba(0,0,0,0.08)]
-      hover:shadow-md transition-shadow duration-200 w-[50vw]"
+      hover:shadow-md transition-shadow duration-200 w-[35vw]"
     >
       {/* Search Input */}
       <div className="flex-1 border-r border-[var(--color-black-hover)] px-3 relative">
         <input
           type="text"
           placeholder="Search products"
-          className="w-full mt-2 py-2 px-3 rounded-full text-sm text-[var(--color-black)]
+          className="w-full mt-2 py-2 rounded-full text-sm text-[var(--color-black)]
           placeholder-[var(--color-black)] focus:outline-none"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
@@ -89,7 +89,7 @@ const SearchBar = ({ onChange }) => {
       </div>
 
       {/* Category Filter (NO debounce needed) */}
-      <div className="flex-1 px-6">
+      {/* <div className="flex-1 px-6">
         <p className="text-xs font-medium text-[var(--color-black)]">
           Category
         </p>
@@ -106,7 +106,7 @@ const SearchBar = ({ onChange }) => {
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
     </div>
   );
 };

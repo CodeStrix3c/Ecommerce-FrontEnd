@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useFormContext } from "react-hook-form";
 import RequiredLabel from "@/components/ui/RequiredLabel";
 import OptionalLabel from "@/components/ui/OptionalLabel";
 
@@ -10,14 +11,22 @@ export default function FormInput({
   type = "text",
   icon = null,
   size = "small",
-  register,
   readOnly = false,
-  inputRef = null,
-  value,
+  register: registerProp, // 👈 optional
   errors,
   required = true,
   onClick,
 }) {
+  const methods = useFormContext(); // may be null
+  const register = registerProp ?? methods?.register;
+
+  if (!register) {
+    throw new Error(
+      `FormInput: register not found for field "${name}". 
+      Either pass register as a prop or wrap the form with FormProvider.`,
+    );
+  }
+
   const [showPassword, setShowPassword] = useState(false);
 
   const getLabel = () => {
@@ -25,26 +34,17 @@ export default function FormInput({
     if (required === false) return <OptionalLabel label={label} />;
     return label;
   };
-  const getStartAdornment = () => {
-    // if (type === "tel") {
-    //   return <InputAdornment position="start">+91</InputAdornment>;
-    // }
-    return null;
-  };
+
   const getEndAdornment = () => {
     if (type === "password") {
       return (
         <InputAdornment position="end">
           <IconButton
-            onClick={() => setShowPassword((prev) => !prev)}
+            onClick={() => setShowPassword((p) => !p)}
             edge="end"
             tabIndex={-1}
           >
-            {showPassword ? (
-              <VisibilityOff sx={{ color: "var(--color-secondary)" }} />
-            ) : (
-              <Visibility sx={{ color: "var(--color-secondary)" }} />
-            )}
+            {showPassword ? <VisibilityOff /> : <Visibility />}
           </IconButton>
         </InputAdornment>
       );
@@ -62,23 +62,15 @@ export default function FormInput({
   return (
     <TextField
       fullWidth
-      defaultValue=""
-      value={value}
-      inputRef={inputRef}
       type={type === "password" && showPassword ? "text" : type}
       label={getLabel()}
       variant="outlined"
       size={size}
       helperText={errors?.message}
+      error={!!errors}
       slotProps={{
-        formHelperText: {
-          sx: { color: "var(--color-error)" },
-        },
-        readOnly,
-        input: {
-          startAdornment: getStartAdornment(),
-          endAdornment: getEndAdornment(),
-        },
+        formHelperText: { sx: { color: "var(--color-error)" } },
+        input: { endAdornment: getEndAdornment(), readOnly },
       }}
       {...register(name)}
     />

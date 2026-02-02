@@ -1,15 +1,12 @@
 import { Route } from "react-router-dom";
 import { lazy } from "react";
+
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import ProtectedLayout from "@/app/layouts/ProtectedLayout";
 import DashboardLayout from "@/app/layouts/DashboardLayout";
+import VendorSettings from "@/supplier/pages/VendorSettings";
 
-import UserOrderPage from "@/features/orders/userOrders/pages/UserOrdersPage";
-import OrderDetailsPage from "@/features/orders/orderDetails/pages/OrderDetailsPage";
-
-const CartPage = lazy(() => import("@/features/cart/pages/CartPage"));
-const Wishlist = lazy(() => import("@/features/wishlist/pages/WishListPage"));
-import supplierDashboard from "@/supplier/pages/dashboardPage";
+/* ================= AUTH / COMMON ================= */
 const TalkWithExpert = lazy(
   () => import("@/features/talk-with-expert/pages/TalkWithExpert"),
 );
@@ -17,7 +14,27 @@ const TalkWithExpert = lazy(
 const OrderHistoryPage = lazy(
   () => import("@/features/orders/orderHistory/pages/orderHistoryPage"),
 );
+const UserOrderPage = lazy(
+  () => import("@/features/orders/userOrders/pages/UserOrdersPage"),
+);
+const OrderDetailsPage = lazy(
+  () => import("@/features/orders/orderDetails/pages/OrderDetailsPage"),
+);
 
+/* ================= ACCOUNT ================= */
+const PlacesPage = lazy(() => import("@/features/places/pages/PlacesPage"));
+const PlacesFormPage = lazy(
+  () => import("@/features/places/pages/PlacesFormPage"),
+);
+const BookingsPage = lazy(
+  () => import("@/features/bookings/pages/BookingsPage"),
+);
+const SingleBookedPlace = lazy(
+  () => import("@/features/bookings/pages/SingleBookedPlace"),
+);
+const UserProfile = lazy(() => import("@/supplier/pages/UserSupplier"));
+
+/* ================= PROFILES ================= */
 const FarmerProfilePage = lazy(
   () => import("@/features/farmers/pages/FarmerProfilePage"),
 );
@@ -32,30 +49,40 @@ const SupplierProfileCompletion = lazy(
   () => import("@/features/suppliers/pages/SupplierProfileCompletion"),
 );
 
-const PlacesPage = lazy(() => import("@/features/places/pages/PlacesPage"));
-const PlacesFormPage = lazy(
-  () => import("@/features/places/pages/PlacesFormPage"),
-);
-const BookingsPage = lazy(
-  () => import("@/features/bookings/pages/BookingsPage"),
-);
-const SingleBookedPlace = lazy(
-  () => import("@/features/bookings/pages/SingleBookedPlace"),
-);
+/* ================= DASHBOARD ================= */
 const SupplierDashboard = lazy(() => import("@/supplier/pages/dashboardPage"));
-import OrchardPanel from "@/features/dashboard/farmer-dashboard/pages/OrchardPanel";
-import WeatherPanel from "@/features/dashboard/farmer-dashboard/pages/WeatherPanel";
-import SoilWaterNutrientPanel from "@/features/dashboard/farmer-dashboard/pages/SoilWaterNutrientPanel";
-import PestPanel from "@/features/dashboard/farmer-dashboard/pages/PestPanel";
-import ResourcesPanel from "@/features/dashboard/farmer-dashboard/pages/ResourcesPanel";
-import FinancialPanel from "@/features/dashboard/farmer-dashboard/pages/FinancialPanel";
-import KnowledgePanel from "@/features/dashboard/farmer-dashboard/pages/KnowledgePanel";
-import AlertPanel from "@/features/dashboard/farmer-dashboard/pages/AlertPanel";
-import AllProductList from "@/supplier/pages/AllProductList";
-import UserProfile from "@/supplier/pages/UserSupplier";
+const AllProductList = lazy(() => import("@/supplier/pages/AllProductList"));
 
+const OrchardPanel = lazy(
+  () => import("@/features/dashboard/farmer-dashboard/pages/OrchardPanel"),
+);
+const WeatherPanel = lazy(
+  () => import("@/features/dashboard/farmer-dashboard/pages/WeatherPanel"),
+);
+const SoilWaterNutrientPanel = lazy(
+  () =>
+    import(
+      "@/features/dashboard/farmer-dashboard/pages/SoilWaterNutrientPanel"
+    ),
+);
+const PestPanel = lazy(
+  () => import("@/features/dashboard/farmer-dashboard/pages/PestPanel"),
+);
+const ResourcesPanel = lazy(
+  () => import("@/features/dashboard/farmer-dashboard/pages/ResourcesPanel"),
+);
+const FinancialPanel = lazy(
+  () => import("@/features/dashboard/farmer-dashboard/pages/FinancialPanel"),
+);
+const KnowledgePanel = lazy(
+  () => import("@/features/dashboard/farmer-dashboard/pages/KnowledgePanel"),
+);
+const AlertPanel = lazy(
+  () => import("@/features/dashboard/farmer-dashboard/pages/AlertPanel"),
+);
 
 export default [
+  /* ================= PROTECTED APP ================= */
   <Route element={<ProtectedRoute />} key="protected">
     <Route element={<ProtectedLayout />}>
       <Route path="/talk-with-expert" element={<TalkWithExpert />} />
@@ -72,14 +99,12 @@ export default [
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="/profile" element={<UserProfile />} />
 
-
       {/* Profiles */}
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
       <Route
         path="/farmer-profile-completion"
         element={<FarmerProfileCompletion />}
       />
-
       <Route path="/supplier-profile" element={<SupplierProfilePage />} />
       <Route
         path="/supplier-profile-completion"
@@ -87,10 +112,13 @@ export default [
       />
     </Route>
   </Route>,
+
+  /* ================= DASHBOARD ================= */
   <Route element={<ProtectedRoute />} key="dashboard">
     <Route path="/dashboard" element={<DashboardLayout />}>
       <Route index element={<SupplierDashboard />} />
       <Route path="all-products" element={<AllProductList />} />
+      <Route path="vendor-profile" element={<VendorSettings />} />
       <Route path="orchard" element={<OrchardPanel />} />
       <Route path="weather" element={<WeatherPanel />} />
       <Route path="soil" element={<SoilWaterNutrientPanel />} />

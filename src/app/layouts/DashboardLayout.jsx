@@ -5,28 +5,20 @@ import { Outlet, useNavigate } from "react-router-dom";
 // import SupplierDashboard from "@/supplier/pages/dashboardPage";
 
 export default function DashboardLayout() {
-  const [collapsed, setCollapsed] = useState(true);
-  const navigate = useNavigate;
-
   return (
-    <div className="  min-h-screen  bg-[var(--color-white)]">
-      {/* Sidebar if needed */}{" "}
-      {/* <div className="fixed h-full">
-        <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />{" "}
-      </div> */}
-      <div className="fixed w-full">
-        <TopHeader />
-      </div>
-      {/* Supplier dashboard header / layout */}
-      {/* <SupplierDashboard /> */}
-      {/* Nested dashboard routes */}
-      const token = getItemFromLocalStorage("token")
-      <main className=" overflow-y-auto">
+    <div className="min-h-screen flex flex-col bg-[var(--color-white)]">
+      {/* ✅ Header stays in normal flow */}
+      <TopHeader />
+
+      {/* ✅ Main content pushed below header */}
+      <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
-      <p className="text-center text-xs sm:text-sm text-[var(--color-black)]/50 pt-5 pb-5 border  border-t-1">
+
+      {/* ✅ Footer */}
+      <footer className="text-center text-xs sm:text-sm text-[var(--color-black)]/50 py-5 border-t">
         © {new Date().getFullYear()} Art&Craft Panel. All rights reserved.
-      </p>
+      </footer>
     </div>
   );
 }
