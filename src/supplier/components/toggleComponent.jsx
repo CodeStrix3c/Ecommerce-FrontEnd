@@ -14,7 +14,7 @@ const ViewToggle = ({ viewMode, onViewModeChange }) => {
         }`}
         aria-label="Grid view"
       >
-        <Grid size={20} />
+        {/* <Grid size={20} /> */}
       </button>
       <button
         onClick={() => onViewModeChange("list")}
@@ -25,7 +25,7 @@ const ViewToggle = ({ viewMode, onViewModeChange }) => {
         }`}
         aria-label="List view"
       >
-        <List size={20} />
+        {/* <List size={20} /> */}
       </button>
     </div>
   );

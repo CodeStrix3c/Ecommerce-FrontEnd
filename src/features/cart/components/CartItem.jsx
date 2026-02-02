@@ -40,7 +40,7 @@ const CartItem = ({ product, onRemove, onQuantityChange }) => {
             )}
           </div>
 
-        
+
           <div className="flex flex-col justify-center flex-grow">
             <div>
               <div className="flex items-start justify-between">

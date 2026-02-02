@@ -1,25 +1,29 @@
 import { FormProvider, useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Checkbox } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+
 import {
   useVendorProductAssign,
   useUpdateVendorProduct,
 } from "@/hooks/Vendor/useVedorProducts";
 import FormInput from "@/components/shared/custom-inputs/FormInput";
-import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { assignProductSchema } from "@/features/farmer-registration/schemas/assignProductSchema";
 
 const AssignProductModal = ({
   isOpen,
   onClose,
-  productId, // used ONLY for assign
-  assignmentId, // used ONLY for update (id: 30)
+  productId,
+  assignmentId,
   vendorId,
   onSuccess,
   mode = "assign",
   initialData = null,
 }) => {
   const methods = useForm({
+    resolver: zodResolver(assignProductSchema),
     defaultValues: {
       price: "",
       discountPrice: "",
@@ -28,9 +32,14 @@ const AssignProductModal = ({
     },
   });
 
-  const { reset, handleSubmit, control } = methods;
+  const {
+    reset,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = methods;
 
-  /* ---------- RESET FORM ---------- */
+  /* ---------- RESET ---------- */
   useEffect(() => {
     if (!isOpen) return;
 
@@ -56,62 +65,45 @@ const AssignProductModal = ({
     ...useVendorProductAssign(),
     onSuccess: () => {
       toast.success("Product assigned successfully");
-      reset();
       onSuccess?.();
       onClose();
     },
-    onError: () => toast.error("Failed to assign product"),
   });
 
   const updateMutation = useMutation({
     ...useUpdateVendorProduct(),
     onSuccess: () => {
       toast.success("Product updated successfully");
-      reset();
       onSuccess?.();
       onClose();
     },
-    onError: () => toast.error("Failed to update product"),
   });
 
-  if (!isOpen) return null;
+  const isLoading = assignMutation.isLoading || updateMutation.isLoading;
 
   /* ---------- SUBMIT ---------- */
   const onSubmit = (data) => {
     const payload = {
-      assignedPrice: +data.price,
-      discountPrice: +data.discountPrice || 0,
-      stockQuantity: +data.quantity,
+      assignedPrice: data.price,
+      discountPrice: data.discountPrice || 0,
+      stockQuantity: data.quantity,
       isActive: data.isActive,
     };
 
     if (mode === "assign") {
-      if (!productId) {
-        toast.error("Product not selected");
-        return;
-      }
-
       assignMutation.mutate({
-        payload: {
-          ...payload,
-          productId,
-        },
+        payload: { ...payload, productId },
       });
     } else {
-      if (!assignmentId) {
-        toast.error("Assignment ID missing");
-        return;
-      }
-
       updateMutation.mutate({
         vendorId,
-        assignmentId, // ✅ CORRECT KEY
+        assignmentId,
         payload,
       });
     }
   };
 
-  const isLoading = assignMutation.isLoading || updateMutation.isLoading;
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -120,25 +112,25 @@ const AssignProductModal = ({
           <h2 className="text-lg font-semibold">
             {mode === "assign" ? "Assign Product" : "Update Product"}
           </h2>
-          <button
-            onClick={() => {
-              reset();
-              onClose();
-            }}
-          >
-            ✕
-          </button>
+          <button onClick={onClose}>✕</button>
         </div>
 
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
-            <FormInput name="price" label="Price" />
+            <FormInput name="price" label="Price" errors={errors.price} />
+
             <FormInput
               name="discountPrice"
               label="Discount Price"
               required={false}
+              errors={errors.discountPrice}
             />
-            <FormInput name="quantity" label="Quantity" />
+
+            <FormInput
+              name="quantity"
+              label="Quantity"
+              errors={errors.quantity}
+            />
 
             <div className="flex items-center gap-2">
               <Controller

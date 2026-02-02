@@ -12,12 +12,21 @@ export default function FormInput({
   icon = null,
   size = "small",
   readOnly = false,
-  value,
+  register: registerProp, // 👈 optional
   errors,
   required = true,
   onClick,
 }) {
-  const { register } = useFormContext(); // ✅ FIX
+  const methods = useFormContext(); // may be null
+  const register = registerProp ?? methods?.register;
+
+  if (!register) {
+    throw new Error(
+      `FormInput: register not found for field "${name}". 
+      Either pass register as a prop or wrap the form with FormProvider.`,
+    );
+  }
+
   const [showPassword, setShowPassword] = useState(false);
 
   const getLabel = () => {
@@ -58,11 +67,12 @@ export default function FormInput({
       variant="outlined"
       size={size}
       helperText={errors?.message}
+      error={!!errors}
       slotProps={{
         formHelperText: { sx: { color: "var(--color-error)" } },
-        input: { endAdornment: getEndAdornment() },
+        input: { endAdornment: getEndAdornment(), readOnly },
       }}
-      {...register(name)} // ✅ SAFE NOW
+      {...register(name)}
     />
   );
 }

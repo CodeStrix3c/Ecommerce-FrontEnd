@@ -10,70 +10,143 @@ const ProductTable = ({ products = [], onDelete, onEdit }) => {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="bg-gray-100 text-left text-sm">
-            <th className="p-3">Product</th>
-            <th className="p-3">Price</th>
-            <th className="p-3">Discount</th>
-            <th className="p-3">Quantity</th>
-            <th className="p-3">Status</th>
-            <th className="p-3 text-right">Actions</th>
-          </tr>
-        </thead>
+    <div className="w-full space-y-3">
+      {/* ================= DESKTOP TABLE ================= */}
+      <div className="hidden sm:block">
+        {/* HEADER */}
+        <div
+          className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_80px]
+          px-5 py-2 text-xs font-semibold text-gray-500 uppercase"
+        >
+          <span>Name</span>
+          <span className="text-right">Price</span>
+          <span className="text-right">Discount</span>
+          <span className="text-right">Qty</span>
+          <span className="text-center">Status</span>
+          <span className="text-right">Actions</span>
+        </div>
 
-        <tbody>
-          {products.map((item) => (
-            <tr
-              key={item.productId}
-              className="border-b hover:bg-gray-50 text-sm"
-            >
-              <td className="p-3 font-medium">{item.productName}</td>
+        {/* ROWS */}
+        {products.map((item) => (
+          <div
+            key={item.productId}
+            className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_80px]
+            items-center rounded-lg border bg-white px-4 py-3 mt-1
+            shadow-sm hover:shadow-md transition"
+          >
+            <span className="text-sm font-medium truncate">
+              {item.productName}
+            </span>
 
-              <td className="p-3">₹{item.assignedPrice}</td>
+            <span className="text-sm text-right font-medium">
+              ₹{item.assignedPrice}
+            </span>
 
-              <td className="p-3">₹{item.discountPrice || 0}</td>
+            <span className="text-sm text-right text-gray-600">
+              ₹{item.discountPrice || 0}
+            </span>
 
-              <td className="p-3">{item.stockQuantity}</td>
+            <span className="text-sm text-right">{item.stockQuantity}</span>
 
-              <td className="p-3">
-                <span
-                  className={`px-2 py-1 rounded-full text-xs ${
-                    item.isActive
-                      ? "bg-green-100 text-green-700"
-                      : "bg-red-100 text-red-700"
-                  }`}
+            <span className="flex justify-center">
+              <span
+                className={`px-2 py-1 rounded-full text-xs ${
+                  item.isActive
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+              >
+                {item.isActive ? "Active" : "Inactive"}
+              </span>
+            </span>
+
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => onEdit(item)}
+                className="text-blue-600 hover:text-blue-800"
+                title="Edit"
+              >
+                <Pencil size={18} />
+              </button>
+
+              <button
+                onClick={() => onDelete(item.productId)}
+                className="text-red-600 hover:text-red-800"
+                title="Delete"
+              >
+                <Trash2 size={18} />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ================= MOBILE CARDS ================= */}
+      <div className="sm:hidden space-y-3">
+        {products.map((item) => (
+          <div
+            key={item.productId}
+            className="rounded-xl border bg-white p-4
+            shadow-sm hover:shadow-md transition"
+          >
+            {/* TOP */}
+            <div className="flex justify-between items-start">
+              <h3 className="text-sm font-semibold truncate">
+                {item.productName}
+              </h3>
+
+              <span
+                className={`px-2 py-1 rounded-full text-xs ${
+                  item.isActive
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+              >
+                {item.isActive ? "Active" : "Inactive"}
+              </span>
+            </div>
+
+            {/* PRICE + DISCOUNT */}
+            <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <p className="text-xs text-gray-500">Price</p>
+                <p className="font-medium">₹{item.assignedPrice}</p>
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-500">Discount</p>
+                <p>₹{item.discountPrice || 0}</p>
+              </div>
+            </div>
+
+            {/* QUANTITY + ACTIONS (SAME LINE) */}
+            <div className="mt-3 flex items-center justify-between">
+              <div>
+                <p className="text-xs text-gray-500">Quantity</p>
+                <p className="text-sm font-medium">{item.stockQuantity}</p>
+              </div>
+
+              <div className="flex gap-4">
+                <button
+                  onClick={() => onEdit(item)}
+                  className="text-blue-600 hover:text-blue-800"
+                  title="Edit"
                 >
-                  {item.isActive ? "Active" : "Inactive"}
-                </span>
-              </td>
+                  <Pencil size={18} />
+                </button>
 
-              <td className="p-3">
-                <div className="flex justify-end gap-3">
-                  {/* ✅ EDIT */}
-                  <button
-                    className="text-blue-600 hover:text-blue-800"
-                    onClick={() => onEdit(item)}
-                    title="Edit"
-                  >
-                    <Pencil size={18} />
-                  </button>
-
-                  {/* ✅ DELETE */}
-                  <button
-                    className="text-red-600 hover:text-red-800"
-                    onClick={() => onDelete(item.productId)}
-                    title="Delete"
-                  >
-                    <Trash2 size={18} />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <button
+                  onClick={() => onDelete(item.productId)}
+                  className="text-red-600 hover:text-red-800"
+                  title="Delete"
+                >
+                  <Trash2 size={18} />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
