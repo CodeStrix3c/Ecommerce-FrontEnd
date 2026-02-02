@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
 import {
   useVendorProducts,
@@ -12,22 +12,27 @@ import Pagination from "../components/paginationComponent";
 import ProductModal from "@/modals/vendorProductModal";
 import AssignProductModal from "@/modals/AssignProductModal";
 import ConfirmDialog from "@/components/shared/confirmDialog";
+import ViewToggle from "../components/toggleComponent";
+import SortControl from "../components/sortControlComponent";
 
 const AllProductList = () => {
   const PAGE_SIZE = 10;
 
-  /* ✅ vendorId FROM LOCALSTORAGE */
+  /* ✅ vendorId */
   const vendorId = useMemo(() => localStorage.getItem("vendorId"), []);
 
   const [searchParams, setSearchParams] = useState({ query: "" });
   const [currentPage, setCurrentPage] = useState(1);
+
+  /* ✅ SORT STATE (only addition) */
+  const [sortBy, setSortBy] = useState("");
+  const [sortReverse, setSortReverse] = useState(false);
 
   const [productModalOpen, setProductModalOpen] = useState(false);
   const [assignModalOpen, setAssignModalOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [editProduct, setEditProduct] = useState(null);
 
-  /* ✅ confirmation state */
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleteProductId, setDeleteProductId] = useState(null);
 
@@ -53,29 +58,35 @@ const AllProductList = () => {
     onError: () => toast.error("Failed to remove product"),
   });
 
-  const buildRequestBody = () => ({
-    pagination: {
-      start: (currentPage - 1) * PAGE_SIZE,
-      number: PAGE_SIZE,
-    },
-    search: {
-      predicateObject: {
-        Name: searchParams.query || null,
+  /* ---------------- REQUEST BODY ---------------- */
+  const buildRequestBody = useCallback(
+    () => ({
+      pagination: {
+        start: (currentPage - 1) * PAGE_SIZE,
+        number: PAGE_SIZE,
       },
-    },
-    sort: {
-      predicate: "",
-      reverse: false,
-    },
-  });
+      search: {
+        predicateObject: {
+          Name: searchParams.query || null,
+        },
+      },
+      sort: {
+        predicate: sortBy,
+        reverse: sortReverse,
+      },
+    }),
+    [currentPage, searchParams, sortBy, sortReverse],
+  );
 
+  /* ---------------- SINGLE API TRIGGER ---------------- */
   useEffect(() => {
     if (!vendorId) {
       toast.error("Vendor not found");
       return;
     }
+
     fetchProducts(buildRequestBody());
-  }, [searchParams, currentPage, vendorId]);
+  }, [vendorId, buildRequestBody, fetchProducts]);
 
   const products = data?.data?.items ?? [];
   const totalPages = data?.data?.numberOfPages ?? 0;
@@ -117,16 +128,41 @@ const AllProductList = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[var(--color-background)] pt-[25%] lg:pt-[10%] pb-20">
+    <div className="w-full min-h-screen bg-[var(--color-background)] pt-8 sm:pt-20 pb-5">
       <div className="max-w-7xl mx-auto px-4 relative">
-        <div className="mb-8 flex justify-center">
+        {/* ===== TOP CONTROLS ===== */}
+        <div className="mb-6 flex flex-wrap gap-4 items-center justify-between">
           <SearchBar onChange={setSearchParams} />
+
+          <div className="flex items-center gap-3">
+            {/* <ViewToggle /> */}
+
+            <SortControl
+              sortBy={sortBy}
+              sortReverse={sortReverse}
+              sortOptions={[
+                { label: "Name", value: "ProductName" },
+                { label: "Price", value: "AssignedPrice" },
+                { label: "Discount", value: "DiscountPrice" },
+                { label: "Quantity", value: "StockQuantity" },
+              ]}
+              onSortChange={(value) => {
+                setSortBy(value);
+                setCurrentPage(1);
+              }}
+              onOrderChange={() => {
+                setSortReverse((prev) => !prev);
+                setCurrentPage(1);
+              }}
+            />
+          </div>
         </div>
 
+        {/* ===== CONTENT ===== */}
         {isLoading ? (
           <LoadingSpinner message="Loading products..." />
         ) : products.length === 0 ? (
-          <div className="text-center content-center text-gray-500 mt-20">
+          <div className="text-center text-gray-500 mt-20">
             No products available
           </div>
         ) : (
@@ -137,7 +173,7 @@ const AllProductList = () => {
               onEdit={handleEditProduct}
             />
 
-            <div className="mt-6 flex justify-center">
+            <div className="mt-4 flex justify-center">
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -171,13 +207,12 @@ const AllProductList = () => {
           }}
           vendorId={vendorId}
           productId={editProduct?.productId ?? selectedProductId}
-          assignmentId={editProduct?.id} // ✅ FIXED
+          assignmentId={editProduct?.id}
           mode={editProduct ? "update" : "assign"}
           initialData={editProduct}
           onSuccess={handleAssignSuccess}
         />
 
-        {/* ✅ CONFIRM DELETE MODAL */}
         <ConfirmDialog
           isOpen={confirmOpen}
           title="Delete Product"

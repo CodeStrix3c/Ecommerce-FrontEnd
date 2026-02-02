@@ -18,7 +18,6 @@ import ExploreNearby from "../components/ExploreNearby";
 import SharePopUp from "@/components/ui/SharePopUp";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import LoginPromptModal from "@/components/shared/LoginPromptModal";
-
 import agriculturalOptions from "@/data/agriculturalOptions";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
 import { useCartList } from "@/providers/CartListProvider";
@@ -113,7 +112,7 @@ const PlacePage = () => {
         </div>
 
         <RatingSummary />
-        <OverallRating />
+        {/* <OverallRating /> */}
         <Testimonials />
 
         <MapBox address={place.address} />
