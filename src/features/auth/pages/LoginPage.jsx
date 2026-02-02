@@ -66,7 +66,6 @@ const LoginPage = () => {
     // */
 
     // ✅ REAL API LOGIN
-
     loginMutate(payload, {
       onSuccess: (res) => {
         console.log("Login response:", res);
@@ -75,6 +74,7 @@ const LoginPage = () => {
         setItemsInLocalStorage("token", res.token);
         setItemsInLocalStorage("userId", res.user);
         setItemsInLocalStorage("roles", res.roles);
+        setItemsInLocalStorage("vendorId", res.vendorId);
 
         // Optional: store user id if backend sends it
         // if (res?.user?.id) {
@@ -87,8 +87,8 @@ const LoginPage = () => {
       onError: (err) => {
         toast.error(
           err?.response?.data?.error ||
-          err?.response?.data?.message ||
-          "Invalid credentials or network error",
+            err?.response?.data?.message ||
+            "Invalid credentials or network error",
         );
       },
     });

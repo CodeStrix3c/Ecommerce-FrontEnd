@@ -1,123 +1,154 @@
 import { Pencil, Trash2 } from "lucide-react";
 
-export default function ProductTable({ products }) {
+const ProductTable = ({ products = [], onDelete, onEdit }) => {
+  if (!products.length) {
+    return (
+      <div className="text-center text-sm text-gray-500 py-6">
+        No products found
+      </div>
+    );
+  }
+
   return (
-    <div className="overflow-x-auto bg-white rounded-md shadow-sm">
-      <table className="min-w-full border-collapse">
-        {/* TABLE HEADER */}
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-              ID
-            </th>
-            <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-              Name
-            </th>
-            <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-              Stock
-            </th>
-            <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-              Options
-            </th>
-            <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-              Visible Individually
-            </th>
-            <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-              Published
-            </th>
-            <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-              Featured
-            </th>
-            <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-              Call For Pricing
-            </th>
-            <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-              Allow To Order
-            </th>
-            <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-              Created On
-            </th>
-            <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-              Actions
-            </th>
-          </tr>
-        </thead>
+    <div className="w-full space-y-3">
+      {/* ================= DESKTOP TABLE ================= */}
+      <div className="hidden sm:block">
+        {/* HEADER */}
+        <div
+          className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_80px]
+          px-5 py-2 text-xs font-semibold text-gray-500 uppercase"
+        >
+          <span>Name</span>
+          <span className="text-right">Price</span>
+          <span className="text-right">Discount</span>
+          <span className="text-right">Qty</span>
+          <span className="text-center">Status</span>
+          <span className="text-right">Actions</span>
+        </div>
 
-        {/* TABLE BODY */}
-        <tbody>
-          {products.map((product) => (
-            <tr
-              key={product.id}
-              className="border-b last:border-b-0 hover:bg-gray-50"
-            >
-              <td className="px-4 py-3 text-sm text-gray-800">{product.id}</td>
+        {/* ROWS */}
+        {products.map((item) => (
+          <div
+            key={item.productId}
+            className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_80px]
+            items-center rounded-lg border bg-white px-4 py-3 mt-1
+            shadow-sm hover:shadow-md transition"
+          >
+            <span className="text-sm font-medium truncate">
+              {item.productName}
+            </span>
 
-              <td className="px-4 py-3 text-sm font-medium text-gray-900">
-                {product.name}
-              </td>
+            <span className="text-sm text-right font-medium">
+              ₹{item.assignedPrice}
+            </span>
 
-              <td className="px-4 py-3 text-sm text-center text-gray-800">
-                {product.stockQuantity}
-              </td>
+            <span className="text-sm text-right text-gray-600">
+              ₹{item.discountPrice || 0}
+            </span>
 
-              <td className="px-4 py-3 text-sm text-center">
-                {product.hasOptions ? "Yes" : "No"}
-              </td>
+            <span className="text-sm text-right">{item.stockQuantity}</span>
 
-              <td className="px-4 py-3 text-sm text-center">
-                {product.isVisibleIndividually ? "Yes" : "No"}
-              </td>
+            <span className="flex justify-center">
+              <span
+                className={`px-2 py-1 rounded-full text-xs ${
+                  item.isActive
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+              >
+                {item.isActive ? "Active" : "Inactive"}
+              </span>
+            </span>
 
-              <td className="px-4 py-3 text-sm text-center">
-                {product.isPublished ? (
-                  <span className="text-green-600 font-medium">Yes</span>
-                ) : (
-                  <span className="text-red-500 font-medium">No</span>
-                )}
-              </td>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => onEdit(item)}
+                className="text-blue-600 hover:text-blue-800"
+                title="Edit"
+              >
+                <Pencil size={18} />
+              </button>
 
-              <td className="px-4 py-3 text-sm text-center">
-                {product.isFeatured ? "Yes" : "No"}
-              </td>
+              <button
+                onClick={() => onDelete(item.productId)}
+                className="text-red-600 hover:text-red-800"
+                title="Delete"
+              >
+                <Trash2 size={18} />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
-              <td className="px-4 py-3 text-sm text-center">
-                {product.isCallForPricing ? "Yes" : "No"}
-              </td>
+      {/* ================= MOBILE CARDS ================= */}
+      <div className="sm:hidden space-y-3">
+        {products.map((item) => (
+          <div
+            key={item.productId}
+            className="rounded-xl border bg-white p-4
+            shadow-sm hover:shadow-md transition"
+          >
+            {/* TOP */}
+            <div className="flex justify-between items-start">
+              <h3 className="text-sm font-semibold truncate">
+                {item.productName}
+              </h3>
 
-              <td className="px-4 py-3 text-sm text-center">
-                {product.isAllowToOrder ? "Yes" : "No"}
-              </td>
+              <span
+                className={`px-2 py-1 rounded-full text-xs ${
+                  item.isActive
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+              >
+                {item.isActive ? "Active" : "Inactive"}
+              </span>
+            </div>
 
-              <td className="px-4 py-3 text-sm text-gray-600">
-                {new Date(product.createdOn).toLocaleDateString()}
-              </td>
+            {/* PRICE + DISCOUNT */}
+            <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <p className="text-xs text-gray-500">Price</p>
+                <p className="font-medium">₹{item.assignedPrice}</p>
+              </div>
 
-              {/* ACTIONS */}
-              <td className="px-4 py-3 text-center">
-                <div className="flex items-center justify-center gap-3">
-                  {/* EDIT */}
-                  <button
-                    type="button"
-                    className="text-blue-600 hover:text-blue-800"
-                    title="Edit Product"
-                  >
-                    <Pencil size={18} />
-                  </button>
+              <div>
+                <p className="text-xs text-gray-500">Discount</p>
+                <p>₹{item.discountPrice || 0}</p>
+              </div>
+            </div>
 
-                  {/* DELETE */}
-                  <button
-                    type="button"
-                    className="text-red-600 hover:text-red-800"
-                    title="Delete Product"
-                  >
-                    <Trash2 size={18} />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            {/* QUANTITY + ACTIONS (SAME LINE) */}
+            <div className="mt-3 flex items-center justify-between">
+              <div>
+                <p className="text-xs text-gray-500">Quantity</p>
+                <p className="text-sm font-medium">{item.stockQuantity}</p>
+              </div>
+
+              <div className="flex gap-4">
+                <button
+                  onClick={() => onEdit(item)}
+                  className="text-blue-600 hover:text-blue-800"
+                  title="Edit"
+                >
+                  <Pencil size={18} />
+                </button>
+
+                <button
+                  onClick={() => onDelete(item.productId)}
+                  className="text-red-600 hover:text-red-800"
+                  title="Delete"
+                >
+                  <Trash2 size={18} />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
+
+export default ProductTable;
