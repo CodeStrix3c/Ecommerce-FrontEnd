@@ -1,4 +1,3 @@
-// src/components/shared/SortControl.jsx
 import React from "react";
 
 const SortControl = ({

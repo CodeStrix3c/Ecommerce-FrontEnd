@@ -12,20 +12,15 @@ export default function FormInput({
   icon = null,
   size = "small",
   readOnly = false,
-  register: registerProp, // 👈 optional
+  register: registerProp, // optional
   errors,
   required = true,
   onClick,
+  value,
+  onChange,
 }) {
-  const methods = useFormContext(); // may be null
+  const methods = useFormContext();
   const register = registerProp ?? methods?.register;
-
-  if (!register) {
-    throw new Error(
-      `FormInput: register not found for field "${name}". 
-      Either pass register as a prop or wrap the form with FormProvider.`,
-    );
-  }
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -62,17 +57,20 @@ export default function FormInput({
   return (
     <TextField
       fullWidth
+      name={name}
       type={type === "password" && showPassword ? "text" : type}
       label={getLabel()}
       variant="outlined"
       size={size}
+      value={value}
+      onChange={onChange}
       helperText={errors?.message}
       error={!!errors}
       slotProps={{
         formHelperText: { sx: { color: "var(--color-error)" } },
         input: { endAdornment: getEndAdornment(), readOnly },
       }}
-      {...register(name)}
+      {...(register ? register(name) : {})}
     />
   );
 }
