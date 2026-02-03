@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
 import {
   useVendorProducts,
@@ -8,52 +8,35 @@ import SearchBar from "@/components/shared/SearchBar";
 import LoadingSpinner from "../components/loadingSpinner";
 import { toast } from "react-toastify";
 import ProductTable from "../components/productCard";
+import Pagination from "../components/paginationComponent";
 import ProductModal from "@/modals/vendorProductModal";
 import AssignProductModal from "@/modals/AssignProductModal";
 import ConfirmDialog from "@/components/shared/confirmDialog";
-
-const PAGE_SIZE = 10;
+import ViewToggle from "../components/toggleComponent";
+import SortControl from "../components/sortControlComponent";
 
 const AllProductList = () => {
+  const PAGE_SIZE = 10;
 
-  const [vendorId] = useState(() => localStorage.getItem("vendorId"));
+  /* ✅ vendorId */
+  const vendorId = useMemo(() => localStorage.getItem("vendorId"), []);
 
-
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams, setSearchParams] = useState({ query: "" });
   const [currentPage, setCurrentPage] = useState(1);
+
+  /* ✅ SORT STATE (only addition) */
   const [sortBy, setSortBy] = useState("");
   const [sortReverse, setSortReverse] = useState(false);
 
-  // Modal State
-  const [modals, setModals] = useState({
-    product: false,
-    assign: false,
-    confirm: false,
-  });
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [productModalOpen, setProductModalOpen] = useState(false);
+  const [assignModalOpen, setAssignModalOpen] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [editProduct, setEditProduct] = useState(null);
+
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleteProductId, setDeleteProductId] = useState(null);
 
-  // Build request payload
-  const getRequestBody = useCallback(
-    () => ({
-      pagination: {
-        start: (currentPage - 1) * PAGE_SIZE,
-        number: PAGE_SIZE,
-      },
-      search: {
-        predicateObject: {
-          Name: searchQuery || null,
-        },
-      },
-      sort: {
-        predicate: sortBy,
-        reverse: sortReverse,
-      },
-    }),
-    [currentPage, searchQuery, sortBy, sortReverse]
-  );
-
-  // Fetch products
+  /* ---------------- FETCH PRODUCTS ---------------- */
   const {
     mutate: fetchProducts,
     data,
@@ -63,60 +46,60 @@ const AllProductList = () => {
     onError: () => toast.error("Failed to load products"),
   });
 
-  // Delete product
+  /* ---------------- DELETE PRODUCT ---------------- */
   const { mutate: deleteProduct, isLoading: deleting } = useMutation({
     ...useRemoveVendorProduct(),
     onSuccess: () => {
       toast.success("Product removed successfully");
-      closeModal("confirm");
+      setConfirmOpen(false);
       setDeleteProductId(null);
-      fetchProducts(getRequestBody());
+      fetchProducts(buildRequestBody());
     },
     onError: () => toast.error("Failed to remove product"),
   });
 
-  // Load products on mount and when dependencies change
+  /* ---------------- REQUEST BODY ---------------- */
+  const buildRequestBody = useCallback(
+    () => ({
+      pagination: {
+        start: (currentPage - 1) * PAGE_SIZE,
+        number: PAGE_SIZE,
+      },
+      search: {
+        predicateObject: {
+          Name: searchParams.query || null,
+        },
+      },
+      sort: {
+        predicate: sortBy,
+        reverse: sortReverse,
+      },
+    }),
+    [currentPage, searchParams, sortBy, sortReverse],
+  );
+
+  /* ---------------- SINGLE API TRIGGER ---------------- */
   useEffect(() => {
     if (!vendorId) {
       toast.error("Vendor not found");
       return;
     }
-    fetchProducts(getRequestBody());
-  }, [vendorId, getRequestBody, fetchProducts]);
 
-  // Modal helpers
-  const openModal = (name) => setModals((prev) => ({ ...prev, [name]: true }));
-  const closeModal = (name) => setModals((prev) => ({ ...prev, [name]: false }));
+    fetchProducts(buildRequestBody());
+  }, [vendorId, buildRequestBody, fetchProducts]);
 
-  // Handlers
-  const handleSearch = useCallback((params) => {
-    setSearchQuery(params.query);
-    setCurrentPage(1); // Reset to first page on search
-  }, []);
+  const products = data?.data?.items ?? [];
+  const totalPages = data?.data?.numberOfPages ?? 0;
 
-  const handleAddProduct = () => {
-    setSelectedProduct(null);
-    openModal("product");
-  };
-
-  const handleEditProduct = (product) => {
-    setSelectedProduct(product);
-    openModal("assign");
-  };
-
-  const handleProductSelect = (productId) => {
-    setSelectedProduct({ productId });
-    closeModal("product");
-    openModal("assign");
-  };
-
+  /* ---------------- DELETE HANDLER ---------------- */
   const handleDeleteProduct = (productId) => {
     if (!vendorId) {
       toast.error("Vendor not found");
       return;
     }
+
     setDeleteProductId(productId);
-    openModal("confirm");
+    setConfirmOpen(true);
   };
 
   const confirmDelete = () => {
@@ -126,92 +109,117 @@ const AllProductList = () => {
     });
   };
 
+  const handleEditProduct = (product) => {
+    setEditProduct(product);
+    setAssignModalOpen(true);
+  };
+
+  /* ---------------- PRODUCT ASSIGN FLOW ---------------- */
+  const handleProductSelect = (productId) => {
+    setSelectedProductId(productId);
+    setProductModalOpen(false);
+    setAssignModalOpen(true);
+  };
+
   const handleAssignSuccess = () => {
     toast.success("Product assigned successfully");
-    closeModal("assign");
-    setSelectedProduct(null);
-    fetchProducts(getRequestBody());
+    setAssignModalOpen(false);
+    fetchProducts(buildRequestBody());
   };
-
-  const handleCloseAssign = () => {
-    closeModal("assign");
-    setSelectedProduct(null);
-  };
-
-  // Derived state
-  const products = data?.data?.items ?? [];
-  const totalPages = data?.data?.numberOfPages ?? 0;
-  const isEmpty = !isLoading && products.length === 0;
 
   return (
-    <div className="w-full min-h-screen bg-[var(--color-background)] pt-8 sm:pt-20 pb-5">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Header with Add Button */}
-        <div className="mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <button
-            onClick={handleAddProduct}
-            className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg 
-                       bg-[var(--color-secondary)] text-white hover:bg-gray-800 
-                       transition-colors"
-          >
-            <span className="text-lg font-bold">+</span>
-            Add Product
-          </button>
+    <div className="w-full  bg-[var(--color-background)] pt-2 sm:pt-20 pb-5">
+      <div className="max-w-7xl mx-auto px-4 relative">
+        {/* ===== TOP CONTROLS ===== */}
+        <div className="mb-6 flex flex-wrap gap-4 items-center justify-between">
+          <SearchBar onChange={setSearchParams} />
 
-          <SearchBar onChange={handleSearch} />
+          <div className="flex items-center gap-3">
+            {/* <ViewToggle /> */}
+
+            <SortControl
+              sortBy={sortBy}
+              sortReverse={sortReverse}
+              sortOptions={[
+                { label: "Name", value: "ProductName" },
+                { label: "Price", value: "AssignedPrice" },
+                { label: "Discount", value: "DiscountPrice" },
+                { label: "Quantity", value: "StockQuantity" },
+              ]}
+              onSortChange={(value) => {
+                setSortBy(value);
+                setCurrentPage(1);
+              }}
+              onOrderChange={() => {
+                setSortReverse((prev) => !prev);
+                setCurrentPage(1);
+              }}
+            />
+          </div>
         </div>
 
-        {/* Content */}
+        {/* ===== CONTENT ===== */}
         {isLoading ? (
           <LoadingSpinner message="Loading products..." />
-        ) : isEmpty ? (
-          <div className="text-center text-[var(--color-text-black)] mt-20">
-            No products found
+        ) : products.length === 0 ? (
+          <div className="text-center text-gray-500 mt-20">
+            No products available
           </div>
         ) : (
-          <ProductTable
-            products={products}
-            onDelete={handleDeleteProduct}
-            onEdit={handleEditProduct}
-          />
+          <>
+            <ProductTable
+              products={products}
+              onDelete={handleDeleteProduct}
+              onEdit={handleEditProduct}
+            />
+
+            <div className="mt-4 flex justify-center">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            </div>
+          </>
         )}
 
-        {/* Mobile Add Button */}
-        <button
-          onClick={handleAddProduct}
-          className="fixed bottom-8 right-8 h-12 w-12 rounded-full 
-                     bg-[var(--color-secondary)] flex sm:hidden items-center 
-                     justify-center shadow-lg hover:bg-gray-800 transition-colors"
-          aria-label="Add Product"
+        {/* ➕ ADD PRODUCT */}
+        <div
+          onClick={() => setProductModalOpen(true)}
+          className="fixed bottom-8 right-8 h-12 w-12 rounded-full bg-black
+          flex items-center justify-center cursor-pointer shadow-lg"
         >
-          <span className="text-white text-xl font-bold">+</span>
-        </button>
+          <span className="text-white text-2xl font-bold">+</span>
+        </div>
 
-        {/* Modals */}
         <ProductModal
-          isOpen={modals.product}
-          onClose={() => closeModal("product")}
+          isOpen={productModalOpen}
+          onClose={() => setProductModalOpen(false)}
           onSelectProduct={handleProductSelect}
         />
 
         <AssignProductModal
-          isOpen={modals.assign}
-          onClose={handleCloseAssign}
+          isOpen={assignModalOpen}
+          onClose={() => {
+            setAssignModalOpen(false);
+            setEditProduct(null);
+            setSelectedProductId(null);
+          }}
           vendorId={vendorId}
-          productId={selectedProduct?.productId}
-          assignmentId={selectedProduct?.id}
-          mode={selectedProduct?.id ? "update" : "assign"}
-          initialData={selectedProduct}
+          productId={editProduct?.productId ?? selectedProductId}
+          assignmentId={editProduct?.id}
+          mode={editProduct ? "update" : "assign"}
+          initialData={editProduct}
           onSuccess={handleAssignSuccess}
         />
 
         <ConfirmDialog
-          isOpen={modals.confirm}
+          isOpen={confirmOpen}
           title="Delete Product"
           message="Are you sure you want to remove this product?"
           confirmText="Delete"
           onConfirm={confirmDelete}
-          onCancel={() => closeModal("confirm")}
+          onCancel={() => setConfirmOpen(false)}
           loading={deleting}
         />
       </div>
