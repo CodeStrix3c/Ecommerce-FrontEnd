@@ -1,16 +1,22 @@
-// import Sidebar from "@/features/dashboard/farmer-dashboard/components/Sidebar";
+import React, { useMemo } from "react";
+import { Outlet } from "react-router-dom";
 import TopHeader from "@/supplier/components/dashboarHeader";
-import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-// import SupplierDashboard from "@/supplier/pages/dashboardPage";
+import { useVendorProfile } from "@/hooks/Vendor/useVendorProfile";
 
 export default function DashboardLayout() {
+  const vendorId = useMemo(() => localStorage.getItem("vendorId"), []);
+
+  const { data, isLoading } = useVendorProfile(vendorId);
+  console.log(data, "this is the vendor profile");
+
+  const vendorName = data?.name || "Vendor";
+
   return (
     <div className="min-h-screen flex flex-col bg-[var(--color-white)]">
-      {/* ✅ Header stays in normal flow */}
-      <TopHeader />
+      {/* ✅ Header */}
+      <TopHeader vendorName={vendorName} loading={isLoading} />
 
-      {/* ✅ Main content pushed below header */}
+      {/* ✅ Main content */}
       <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
