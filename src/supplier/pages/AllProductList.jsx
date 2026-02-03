@@ -128,7 +128,7 @@ const AllProductList = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[var(--color-background)] pt-8 sm:pt-20 pb-5">
+    <div className="w-full  bg-[var(--color-background)] pt-2 sm:pt-20 pb-5">
       <div className="max-w-7xl mx-auto px-4 relative">
         {/* ===== TOP CONTROLS ===== */}
         <div className="mb-6 flex flex-wrap gap-4 items-center justify-between">
