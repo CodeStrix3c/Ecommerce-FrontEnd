@@ -3,6 +3,7 @@ import CarousalSection from "@/components/shared/CarousalSection";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SearchBar from "@/components/shared/SearchBar";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
+import { useWishlist } from "@/providers/WishListProvider";
 
 const UserHome = () => {
   const [searchParams, setSearchParams] = useState({
@@ -10,15 +11,24 @@ const UserHome = () => {
     category: "",
   });
 
+  // 🔹 Products API
   const { data, isLoading } = useProductsQuery({
     query: searchParams.query,
     category: searchParams.category,
-    page: 2,
+    page: 1,
   });
+  console.log(data, "this is the product data ");
+  // 🔹 Wishlist from Context (SINGLE SOURCE OF TRUTH)
+  const { toggleWishlist } = useWishlist();
 
-  console.log("Products Data:", data);
+  // 🔁 Toggle handler passed to cards
+  const handleToggleWishlist = (product) => {
+    toggleWishlist(product);
+  };
+
+  // 🔹 Normalize product data
   const products = (data?.products || []).map((item) => ({
-    _id: item.id,
+    id: item.id,
     slug: item.slug,
     title: item.name,
     category: item.category?.name ?? null,
@@ -33,35 +43,37 @@ const UserHome = () => {
 
   return (
     <ContentWrapper>
-      {/* 🔍 SearchBar */}
-      <div className="responsive-padding flex justify-center ">
+      <div className="responsive-padding flex justify-center">
         <SearchBar onChange={setSearchParams} />
       </div>
 
-      {/* 📦 Sections */}
       <div className="pt-10 flex flex-col gap-6">
         <CarousalSection
           title="Popular Products"
           places={products.slice(0, 8)}
           loading={isLoading}
+          onToggleWishlist={handleToggleWishlist}
         />
 
         <CarousalSection
           title="Trending This Season"
           places={products.slice(8, 16)}
           loading={isLoading}
+          onToggleWishlist={handleToggleWishlist}
         />
 
         <CarousalSection
           title="Best Sellers"
           places={products.slice(16, 24)}
           loading={isLoading}
+          onToggleWishlist={handleToggleWishlist}
         />
 
         <CarousalSection
           title="Recommended for You"
           places={products.slice(24, 32)}
           loading={isLoading}
+          onToggleWishlist={handleToggleWishlist}
         />
       </div>
     </ContentWrapper>
