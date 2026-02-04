@@ -17,19 +17,18 @@ const WishlistPage = () => {
 
   if (wishlist.length === 0) {
     return (
-     <>
-      <EmptyState
-        title=" Empty Wishlist "
-        subTitle=" Looks like you haven't added anything to your wishlist yet."
-        btnText="Browse Products"
-        redirectTo="/"
-        type="wishlist"
-        img={"/assets/images/empty-wishlist.png"}
-      />
+      <>
+        <EmptyState
+          title=" Empty Wishlist "
+          subTitle=" Looks like you haven't added anything to your wishlist yet."
+          btnText="Browse Products"
+          redirectTo="/"
+          type="wishlist"
+          img={"/assets/images/empty-wishlist.png"}
+        />
 
-      {/* <img src={img}alt="" /> */}
-     </>
-      
+        {/* <img src={img}alt="" /> */}
+      </>
     );
   }
 
@@ -41,10 +40,18 @@ const WishlistPage = () => {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {wishlist.map((product) => (
+          {wishlist.map((item) => (
             <WishlistItem
-              key={product._id}
-              product={product}
+              key={item.id}
+              product={{
+                wishlistItemId: item.id, // ✅ IMPORTANT
+                productId: item.productId,
+                title: item.productName,
+                image: item.productImage,
+                price: item.price ?? 0,
+                inStock: true,
+                photos: [item.productImage],
+              }}
               onRemove={removeFromWishlist}
               onAddToCart={handleAddToCart}
             />

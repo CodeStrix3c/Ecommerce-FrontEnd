@@ -32,7 +32,7 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onRemove(product._id);
+              onRemove(product.wishlistItemId); // ✅ CORRECT
             }}
             className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center 
         bg-[var(--color-white)] border border-[var(--color-black-hover)] rounded-full shadow-sm 
@@ -49,19 +49,20 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
           <h3 className="text-sm sm:text-base font-semibold text-[var(--color-black)] line-clamp-1 group-hover:text-[var(--color-secondary)] transition">
             {product.title}
           </h3>
-          <p className="text-xs sm:text-sm text-[var(--color-black)]">
+          {/* <p className="text-xs sm:text-sm text-[var(--color-black)]">
             {product.category || "Agriculture Product"}
-          </p>
+          </p> */}
 
           <div className="flex items-center justify-between flex-wrap gap-1 mt-1">
             <p className="text-base sm:text-lg font-semibold text-[var(--color-black)]">
               ₹{product.price}
             </p>
             <p
-              className={`text-[11px] sm:text-sm font-medium ${product.inStock
+              className={`text-[11px] sm:text-sm font-medium ${
+                product.inStock
                   ? "text-[var(--color-primary)]"
                   : "text-[var(--color-secondary-hover)]"
-                }`}
+              }`}
             >
               {product.inStock ? "In Stock" : "Out of Stock"}
             </p>
