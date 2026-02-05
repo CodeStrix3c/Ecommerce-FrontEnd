@@ -31,9 +31,8 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useProductsQuery = (params) => {
   return useQuery({
-    queryKey: ["products", params],
-    queryFn: () => getProducts(params),
-    staleTime: 5 * 60 * 1000,
+    queryKey: ["products", params], // Added queryKey
+    queryFn: () => getProducts(params), // Pass params to the function
   });
 };
 

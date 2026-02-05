@@ -4,7 +4,6 @@ import {
   useVendorProducts,
   useRemoveVendorProduct,
 } from "@/hooks/Vendor/useVedorProducts";
-import SearchBar from "@/components/shared/SearchBar";
 import LoadingSpinner from "../components/loadingSpinner";
 import { toast } from "react-toastify";
 import ProductTable from "../components/productCard";
@@ -12,8 +11,7 @@ import Pagination from "../components/paginationComponent";
 import ProductModal from "@/modals/vendorProductModal";
 import AssignProductModal from "@/modals/AssignProductModal";
 import ConfirmDialog from "@/components/shared/confirmDialog";
-import ViewToggle from "../components/toggleComponent";
-import SortControl from "../components/sortControlComponent";
+import VendorSearchBar from "@/components/shared/VendorSearchBar";
 
 const AllProductList = () => {
   const PAGE_SIZE = 10;
@@ -137,24 +135,9 @@ const AllProductList = () => {
           <div className="flex items-center gap-3">
             {/* <ViewToggle /> */}
 
-            <SortControl
-              sortBy={sortBy}
-              sortReverse={sortReverse}
-              sortOptions={[
-                { label: "Name", value: "ProductName" },
-                { label: "Price", value: "AssignedPrice" },
-                { label: "Discount", value: "DiscountPrice" },
-                { label: "Quantity", value: "StockQuantity" },
-              ]}
-              onSortChange={(value) => {
-                setSortBy(value);
-                setCurrentPage(1);
-              }}
-              onOrderChange={() => {
-                setSortReverse((prev) => !prev);
-                setCurrentPage(1);
-              }}
-            />
+        <div className="mt-4 mb-6 flex justify-end">
+          <div className="w-56 sm:w-60">
+            <VendorSearchBar onChange={setSearchParams} />
           </div>
         </div>
 
