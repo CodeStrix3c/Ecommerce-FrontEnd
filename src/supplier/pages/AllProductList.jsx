@@ -15,11 +15,14 @@ import VendorSearchBar from "@/components/shared/VendorSearchBar";
 
 const AllProductList = () => {
   const PAGE_SIZE = 10;
+
+  /* ✅ vendorId */
   const vendorId = useMemo(() => localStorage.getItem("vendorId"), []);
 
   const [searchParams, setSearchParams] = useState({ query: "" });
   const [currentPage, setCurrentPage] = useState(1);
 
+  /* ✅ SORT STATE (only addition) */
   const [sortBy, setSortBy] = useState("");
   const [sortReverse, setSortReverse] = useState(false);
 
@@ -31,25 +34,29 @@ const AllProductList = () => {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleteProductId, setDeleteProductId] = useState(null);
 
-  /* ================= API ================= */
-  const { mutate: fetchProducts, data, isLoading } = useMutation({
+  /* ---------------- FETCH PRODUCTS ---------------- */
+  const {
+    mutate: fetchProducts,
+    data,
+    isLoading,
+  } = useMutation({
     ...useVendorProducts(),
-    onError: (err) => {
-      console.error(err);
-      toast.error("Failed to load products");
-    },
+    onError: () => toast.error("Failed to load products"),
   });
 
+  /* ---------------- DELETE PRODUCT ---------------- */
   const { mutate: deleteProduct, isLoading: deleting } = useMutation({
     ...useRemoveVendorProduct(),
     onSuccess: () => {
       toast.success("Product removed successfully");
       setConfirmOpen(false);
+      setDeleteProductId(null);
       fetchProducts(buildRequestBody());
     },
     onError: () => toast.error("Failed to remove product"),
   });
 
+  /* ---------------- REQUEST BODY ---------------- */
   const buildRequestBody = useCallback(
     () => ({
       pagination: {
@@ -62,32 +69,42 @@ const AllProductList = () => {
         },
       },
       sort: {
-        predicate: sortBy || null,
+        predicate: sortBy,
         reverse: sortReverse,
       },
     }),
-    [currentPage, searchParams, sortBy, sortReverse]
+    [currentPage, searchParams, sortBy, sortReverse],
   );
 
+  /* ---------------- SINGLE API TRIGGER ---------------- */
   useEffect(() => {
     if (!vendorId) {
       toast.error("Vendor not found");
       return;
     }
+
     fetchProducts(buildRequestBody());
   }, [vendorId, buildRequestBody, fetchProducts]);
 
   const products = data?.data?.items ?? [];
   const totalPages = data?.data?.numberOfPages ?? 0;
 
+  /* ---------------- DELETE HANDLER ---------------- */
+  const handleDeleteProduct = (productId) => {
+    if (!vendorId) {
+      toast.error("Vendor not found");
+      return;
+    }
 
-  const handleDeleteProduct = (id) => {
-    setDeleteProductId(id);
+    setDeleteProductId(productId);
     setConfirmOpen(true);
   };
 
   const confirmDelete = () => {
-    deleteProduct({ vendorId, productId: deleteProductId });
+    deleteProduct({
+      vendorId,
+      productId: deleteProductId,
+    });
   };
 
   const handleEditProduct = (product) => {
@@ -95,6 +112,7 @@ const AllProductList = () => {
     setAssignModalOpen(true);
   };
 
+  /* ---------------- PRODUCT ASSIGN FLOW ---------------- */
   const handleProductSelect = (productId) => {
     setSelectedProductId(productId);
     setProductModalOpen(false);
@@ -107,21 +125,15 @@ const AllProductList = () => {
     fetchProducts(buildRequestBody());
   };
 
-  const handleSort = (column) => {
-    if (sortBy === column) {
-      setSortReverse((prev) => !prev);
-    } else {
-      setSortBy(column);
-      setSortReverse(false);
-    }
-    setCurrentPage(1);
-  };
-
-
   return (
-    <div className="w-full bg-[var(--color-background)] pt-3 pb-28">
-      <div className="max-w-7xl mx-auto px-3 sm:px-4">
+    <div className="w-full  bg-[var(--color-background)] pt-2 sm:pt-20 pb-5">
+      <div className="max-w-7xl mx-auto px-4 relative">
+        {/* ===== TOP CONTROLS ===== */}
+        <div className="mb-6 flex flex-wrap gap-4 items-center justify-between">
+          <SearchBar onChange={setSearchParams} />
 
+          <div className="flex items-center gap-3">
+            {/* <ViewToggle /> */}
 
         <div className="mt-4 mb-6 flex justify-end">
           <div className="w-56 sm:w-60">
@@ -129,23 +141,22 @@ const AllProductList = () => {
           </div>
         </div>
 
-
-
-
+        {/* ===== CONTENT ===== */}
         {isLoading ? (
           <LoadingSpinner message="Loading products..." />
+        ) : products.length === 0 ? (
+          <div className="text-center text-gray-500 mt-20">
+            No products available
+          </div>
         ) : (
           <>
             <ProductTable
               products={products}
-              sortBy={sortBy}
-              sortReverse={sortReverse}
-              onSort={handleSort}
-              onEdit={handleEditProduct}
               onDelete={handleDeleteProduct}
+              onEdit={handleEditProduct}
             />
 
-            <div className="mt-6 flex justify-center overflow-x-auto">
+            <div className="mt-4 flex justify-center">
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -155,27 +166,15 @@ const AllProductList = () => {
           </>
         )}
 
-        <button
+        {/* ➕ ADD PRODUCT */}
+        <div
           onClick={() => setProductModalOpen(true)}
-          className="
-    fixed bottom-6 right-6
-    md:static                    
-    md:ml-auto                    
-    md:mr-0
-
-    h-10 w-10 rounded-full
-    bg-[var(--color-secondary)]
-    flex items-center justify-center
-    shadow-2xl z-50
-
-    hover:scale-105 active:scale-95 transition
-  "
+          className="fixed bottom-8 right-8 h-12 w-12 rounded-full bg-black
+          flex items-center justify-center cursor-pointer shadow-lg"
         >
-          <span className="text-white text-3xl leading-none">+</span>
-        </button>
+          <span className="text-white text-2xl font-bold">+</span>
+        </div>
 
-
-        {/* MODALS */}
         <ProductModal
           isOpen={productModalOpen}
           onClose={() => setProductModalOpen(false)}

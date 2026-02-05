@@ -49,7 +49,7 @@ const ProductTable = ({
 }) => {
   if (!Array.isArray(products) || products.length === 0) {
     return (
-      <div className="text-center py-10 text-sm text-gray-500">
+      <div className="text-center text-sm text-gray-500 py-6">
         No products found
       </div>
     );
@@ -62,9 +62,8 @@ const ProductTable = ({
 
         {/* ================= HEADER ================= */}
         <div
-          className="grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_1fr_120px]
-          gap-4 px-4 py-3 text-xs uppercase font-semibold
-          bg-gray-200 border-b"
+          className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_80px]
+          px-5 py-2 text-xs font-semibold text-gray-500 uppercase"
         >
           <SortHeader
             label="Product Name"
@@ -115,25 +114,19 @@ const ProductTable = ({
             className="grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_1fr_120px]
             gap-4 items-center px-4 py-4 border-b hover:bg-gray-50"
           >
-            {/* Product */}
-            <span className="font-medium truncate max-w-[240px]">
-              {p.productName}
+            <span className="text-sm font-medium truncate">
+              {item.productName}
             </span>
 
-            {/* Price */}
-            <span className="text-right whitespace-nowrap">
-              ₹{p.assignedPrice}
+            <span className="text-sm text-right font-medium">
+              ₹{item.assignedPrice}
             </span>
 
-            {/* Our Price */}
-            <span className="text-right whitespace-nowrap">
-              ₹{p.discountPrice || 0}
+            <span className="text-sm text-right text-gray-600">
+              ₹{item.discountPrice || 0}
             </span>
 
-            {/* Qty */}
-            <span className="text-right whitespace-nowrap">
-              {p.stockQuantity}
-            </span>
+            <span className="text-sm text-right">{item.stockQuantity}</span>
 
             {/* Date */}
             <span className="text-center whitespace-nowrap">
@@ -148,8 +141,9 @@ const ProductTable = ({
                   ? "bg-green-50 text-[var(--color-success)]"
                   : "bg-red-100 text-[var(--color-error)]"
                 }`}
-            >
-              {p.isActive ? "Active" : "Inactive"}
+              >
+                {item.isActive ? "Active" : "Inactive"}
+              </span>
             </span>
 
             {/* Actions */}
