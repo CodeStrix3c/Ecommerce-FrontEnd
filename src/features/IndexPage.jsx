@@ -13,7 +13,7 @@ const UserHome = () => {
   const { data, isLoading } = useProductsQuery({
     query: searchParams.query,
     category: searchParams.category,
-    page: 1,
+    page: 2,
   });
 
   console.log("Products Data:", data);
@@ -27,9 +27,7 @@ const UserHome = () => {
     rating: item.ratingAverage ?? null,
     ratingCount: item.reviewsCount ?? 0,
     stock: item.stockQuantity ?? 0,
-    image: item.thumbnailImage?.fileName
-      ? `/user-content/${item.thumbnailImage.fileName}`
-      : "/placeholder.png",
+    image: item.thumbnailImage?.fileName,
     discountPercent: item.calculatedProductPrice?.percentOfSaving ?? null,
   }));
 

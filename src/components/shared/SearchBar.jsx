@@ -1,112 +1,79 @@
 import React, { useState, useEffect } from "react";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
-import ContentWrapper from "./ContentWrapper";
-
-const CATEGORIES = [
-  "Metal Craft",
-  "Woodcraft",
-  "Textiles",
-  "Hand Embroidery",
-  "Home Decor",
-  "Basketry",
-  "Pottery",
-  "Carpets & Rugs",
-  "Accessories",
-];
 
 const SearchBar = ({ onChange }) => {
   const isMobile = useIsMobile(900);
 
   const [searchText, setSearchText] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  // ✅ Debounced value
-  const [debouncedSearch, setDebouncedSearch] = useState(searchText);
-
-  /* ===================== DEBOUNCE LOGIC ===================== */
+  /* ===================== DEBOUNCE ===================== */
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(searchText);
-    }, 400); // ⏱ 400ms debounce
+    }, 400);
 
     return () => clearTimeout(timer);
   }, [searchText]);
 
-  /* ===================== EMIT ONLY DEBOUNCED VALUE ===================== */
   useEffect(() => {
-    onChange?.({
-      query: debouncedSearch.trim(),
-      category: selectedCategory,
-    });
-  }, [debouncedSearch, selectedCategory, onChange]);
+    onChange?.({ query: debouncedSearch.trim() });
+  }, [debouncedSearch, onChange]);
 
-  /* ===================== MOBILE ===================== */
-  if (isMobile) {
-    return (
-      <ContentWrapper>
-        <div className="w-full flex justify-center">
-          <div className="flex w-full max-w-md items-center rounded-full border-2 border-[var(--color-black-hover)] px-3 py-2">
-            <Search className="h-5 w-5 text-[var(--color-black)]/70" />
-            <input
-              type="text"
-              placeholder="Search products"
-              className="ml-2 w-full border-none text-sm text-[var(--color-black)]
-              placeholder-[var(--color-black)] focus:outline-none"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-          </div>
-        </div>
-      </ContentWrapper>
-    );
-  }
+  const clearSearch = () => {
+    setSearchText("");
+    onChange?.({ query: "" });
+  };
 
-  /* ===================== DESKTOP ===================== */
+  /* ===================== INPUT ===================== */
   return (
-    <div
-      className="flex items-center justify-between rounded-full border border-[var(--color-black-hover)]
-      bg-[var(--color-white)] px-4 py-3 pt-1 shadow-[0_2px_4px_rgba(0,0,0,0.08)]
-      hover:shadow-md transition-shadow duration-200 w-[35vw]"
-    >
-      {/* Search Input */}
-      <div className="flex-1 border-r border-[var(--color-black-hover)] px-3 relative">
-        <input
-          type="text"
-          placeholder="Search products"
-          className="w-full mt-2 py-2 rounded-full text-sm text-[var(--color-black)]
-          placeholder-[var(--color-black)] focus:outline-none"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+    <div className="relative w-full">
+      {/* Search icon */}
+      <Search
+        size={16}
+        className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+      />
 
-        <div
-          className="absolute top-2 right-2 flex h-10 w-10 items-center justify-center
-          rounded-full bg-[var(--color-secondary)] text-[var(--color-white)]"
-        >
-          <Search className="h-4 w-4" />
-        </div>
-      </div>
+      <input
+        type="text"
+        placeholder="Search products"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        className="
+          w-full
+          h-9 sm:h-10
+          pl-10
+          pr-10
+          text-sm
+          rounded-lg
+          border
+          border-gray-300
+          focus:outline-none
+          focus:ring-1
+          focus:ring-black
+        "
+      />
 
-      {/* Category Filter (NO debounce needed) */}
-      {/* <div className="flex-1 px-6">
-        <p className="text-xs font-medium text-[var(--color-black)]">
-          Category
-        </p>
-        <select
-          className="w-full bg-transparent text-sm text-[var(--color-black)]
-          focus:outline-none cursor-pointer"
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
+      {/* Clear icon */}
+      {searchText && (
+        <button
+          onClick={clearSearch}
+          className="
+            absolute
+            right-2
+            top-1/2
+            -translate-y-1/2
+            h-7
+            w-7
+            flex
+            items-center
+            justify-center
+          "
         >
-          <option value="">Select category</option>
-          {CATEGORIES.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-      </div> */}
+          <X size={16} className="text-gray-400 hover:text-black" />
+        </button>
+      )}
     </div>
   );
 };
