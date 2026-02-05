@@ -39,28 +39,25 @@ const perkIcons = {
 };
 
 const PerksWidget = ({ perks }) => {
-  if (!perks || perks.length === 0) return null;
+  if (!Array.isArray(perks) || perks.length === 0) return null;
 
   return (
-    <div className="mt-4">
-      <hr className="mb-5 border-[var(--color-border)]" />
-      <p className="text-2xl font-semibold text-[var(--color-neutral-dark)]">
-        Product Benefits
-      </p>
+    <section>
+      <h2 className="text-2xl font-semibold mb-4">Specifications</h2>
 
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        {perks.map((perk) => (
-          <div key={perk} className="flex items-center gap-4">
-            {perkIcons[perk] || (
-              <ShieldCheck className="h-6 w-6 text-[var(--color-neutral)]" />
-            )}
-            <span className="capitalize text-[var(--color-neutral-dark)]">
-              {perk}
-            </span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {perks.map((perk, index) => (
+          <div
+            key={index}
+            className="flex justify-between rounded-lg border p-3"
+          >
+            <span className="font-medium text-gray-700">{perk.name}</span>
+
+            <span className="text-gray-600">{perk.value}</span>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
