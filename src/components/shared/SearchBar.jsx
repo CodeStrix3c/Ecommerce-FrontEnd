@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Search, X } from "lucide-react";
+import { Search } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
 import ContentWrapper from "./ContentWrapper";
 
