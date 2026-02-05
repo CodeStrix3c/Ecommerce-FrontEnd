@@ -47,8 +47,8 @@ export default function supplierDashboard() {
     <div className=" w-full h-full mt-[15%]  lg:mt-[7%] md:mt-[7%]">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pl-8 pt-7">
         <div>
-          <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold text-[var(--color-primary)]">
-            Vendor Dashboard
+          <h1 className="text-xl font-semibold text-[var(--color-black)]">
+            Art&Vendor Dashboard
           </h1>
           <p className="text-sm sm:text-base text-[var(--color-black)]/60 mt-2">
             Select an option to continue managing your store.
