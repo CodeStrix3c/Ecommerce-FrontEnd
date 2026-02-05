@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import Spinner from "@/components/ui/Spinner";
-import AddressLink from "@/components/shared/AddressLink";
 import BookingWidget from "@/features/bookings/components/BookingWidget";
 import PlaceGallery from "@/features/places/components/PlaceGallery";
 import PerksWidget from "@/features/perks/components/PerksWidget";
-import MapBox from "@/components/ui/MapBox";
 import ListingHeader from "@/components/shared/ListingHeader";
 import RatingSummary from "@/features/reviews/components/Ratings";
 import Testimonials from "@/features/reviews/pages/Testimonials";
@@ -18,59 +16,53 @@ import ContentWrapper from "@/components/shared/ContentWrapper";
 import LoginPromptModal from "@/components/shared/LoginPromptModal";
 import agriculturalOptions from "@/data/agriculturalOptions";
 
-import { useProductFromCache } from "@/hooks/useProductsQuery";
 import { useCartList } from "@/providers/CartListProvider";
 import { requireLogin } from "@/utils/auth";
+import { useProductDetailsQuery } from "@/hooks/useProductsQuery";
+
+const IMAGE_BASE_URL =
+  "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net";
 
 const PlacePage = () => {
   const { id } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { data: product, isLoading } = useProductDetailsQuery(id);
 
-  const cachedProduct = useProductFromCache(id);
-
-  const [place, setPlace] = useState(location.state?.place || null);
+  const [place, setPlace] = useState(null);
   const [sharePopUp, setSharePopUp] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const { toggleCartList, cartList } = useCartList();
 
   useEffect(() => {
-    if (place || !cachedProduct) return;
+    if (!product || place) return;
+
+    const images =
+      product.images
+        ?.flatMap((img) => [img.url, img.thumbnailUrl])
+        .filter(Boolean)
+        .map((path) =>
+          path.startsWith("http") ? path : `${IMAGE_BASE_URL}${path}`,
+        ) ?? [];
 
     setPlace({
-      _id: cachedProduct.id,
-      title: cachedProduct.name,
-      description: cachedProduct.description,
-      price: cachedProduct.price,
-      oldPrice: cachedProduct.oldPrice,
-      rating: cachedProduct.ratingAverage,
-      stock: cachedProduct.stockQuantity,
-      inStock: cachedProduct.stockQuantity > 0,
-      address: cachedProduct.brandName,
-      perks: cachedProduct.perks ?? [],
-      images: cachedProduct.productImages ?? [],
-      raw: cachedProduct,
+      _id: product.id,
+      title: product.name,
+      description: product.description,
+      price: product.calculatedProductPrice?.price ?? 0,
+      oldPrice: product.calculatedProductPrice?.oldPrice ?? null,
+      rating: product.ratingAverage,
+      stock: product.stockQuantity,
+      inStock: product.stockQuantity > 0,
+      address: null,
+      perks: product.attributes ?? [],
+      photos: images,
+      raw: product,
     });
-  }, [cachedProduct, place]);
+  }, [product, place]);
 
-  if (!place && !cachedProduct) {
-    return (
-      <ContentWrapper>
-        <div className="py-20 text-center">
-          <h2 className="text-xl font-semibold">Product not found</h2>
-          <p className="mt-2 text-gray-500">
-            Please go back and select a product again.
-          </p>
-          <button className="mt-4 underline" onClick={() => navigate(-1)}>
-            Go back
-          </button>
-        </div>
-      </ContentWrapper>
-    );
-  }
+  if (isLoading || !place) return <Spinner />;
 
-  const isCartListed = cartList.some((item) => item._id === place?._id);
+  const isCartListed = cartList.some((item) => item._id === place._id);
 
   const handleBuyNow = (quantity) => {
     requireLogin(
@@ -87,8 +79,6 @@ const PlacePage = () => {
     toast.success("Cart updated");
   };
 
-  if (!place) return <Spinner />;
-
   return (
     <ContentWrapper compactScreen topSpacing>
       <LoginPromptModal
@@ -98,7 +88,7 @@ const PlacePage = () => {
 
       <motion.div className="overflow-x-hidden">
         <ListingHeader place={place} onShare={() => setSharePopUp(true)} />
-        <AddressLink placeAddress={place.address} />
+
         <PlaceGallery place={place} />
 
         <div className="mt-10 flex flex-col gap-8 lg:flex-row">
@@ -107,7 +97,10 @@ const PlacePage = () => {
 
             <section>
               <h2 className="text-2xl font-semibold">Description</h2>
-              <p className="mt-2 text-justify">{place.description}</p>
+              <div
+                className="mt-2 prose max-w-none"
+                dangerouslySetInnerHTML={{ __html: place.description }}
+              />
             </section>
 
             <PerksWidget perks={place.perks} />
@@ -127,8 +120,6 @@ const PlacePage = () => {
 
         <RatingSummary />
         <Testimonials />
-
-        <MapBox address={place.address} />
 
         <ExploreNearby
           title="Explore other popular Art & Craft products"
