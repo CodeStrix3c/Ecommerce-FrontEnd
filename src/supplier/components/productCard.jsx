@@ -1,284 +1,186 @@
-import { useMemo, useState, useCallback } from "react";
-import { Pencil, Trash2, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { RemoveCircle } from "@mui/icons-material";
+import { ArrowUpDown, ArrowUp, ArrowDown, Pencil } from "lucide-react";
 
-/* ================= SORT COLUMNS ================= */
-const SORT_COLUMNS = {
-  NAME: "name",
-  PRICE: "price",
-  DISCOUNT: "discount",
-  QTY: "qty",
-  STATUS: "status",
-  DATE: "date",
-};
+/* ================= DATE FORMAT ================= */
+const formatDateTime = (date) =>
+  date
+    ? new Date(date).toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+    : "-";
 
-/* ================= DATE FORMATTER ================= */
-const formatDateTime = (date) => {
-  if (!date) return "-";
-  return new Date(date).toLocaleString("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
-};
-
-const ProductTable = ({ products = [], onDelete, onEdit }) => {
-  const [sortBy, setSortBy] = useState(SORT_COLUMNS.NAME);
-  const [sortReverse, setSortReverse] = useState(false);
-
-  /* ================= SORT HANDLER ================= */
-  const handleSort = useCallback((column) => {
-    setSortBy((prev) => {
-      if (prev === column) {
-        setSortReverse((r) => !r);
-        return prev;
-      }
-      setSortReverse(false);
-      return column;
-    });
-  }, []);
-
-  /* ================= SORTED PRODUCTS ================= */
-  const sortedProducts = useMemo(() => {
-    if (!products.length) return [];
-
-    const comparators = {
-      [SORT_COLUMNS.NAME]: (a, b) =>
-        a.productName.localeCompare(b.productName),
-
-      [SORT_COLUMNS.PRICE]: (a, b) =>
-        a.assignedPrice - b.assignedPrice,
-
-      [SORT_COLUMNS.DISCOUNT]: (a, b) =>
-        (a.discountPrice || 0) - (b.discountPrice || 0),
-
-      [SORT_COLUMNS.QTY]: (a, b) =>
-        a.stockQuantity - b.stockQuantity,
-
-      [SORT_COLUMNS.STATUS]: (a, b) =>
-        Number(a.isActive) - Number(b.isActive),
-
-      [SORT_COLUMNS.DATE]: (a, b) =>
-        new Date(a.createdAt).getTime() -
-        new Date(b.createdAt).getTime(),
-    };
-
-    const comparator =
-      comparators[sortBy] || comparators[SORT_COLUMNS.NAME];
-
-    const sorted = [...products].sort(comparator);
-    return sortReverse ? sorted.reverse() : sorted;
-  }, [products, sortBy, sortReverse]);
-
-  if (!sortedProducts.length) {
-    return (
-      <div className="text-center text-sm text-[var(--color-gray-dark)] py-12">
-        No products found ...
-      </div>
-    );
-  }
+const SortHeader = ({ label, column, sortBy, sortReverse, onSort }) => {
+  const active = sortBy === column;
 
   return (
-    <div className="w-full space-y-3">
-      {/* Desktop Table */}
-      <DesktopTable
-        products={sortedProducts}
-        sortBy={sortBy}
-        sortReverse={sortReverse}
-        onSort={handleSort}
-        onEdit={onEdit}
-        onDelete={onDelete}
-      />
+    <button
+      type="button"
+      onClick={() => onSort(column)}
+      className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap"
+    >
+      <span>{label}</span>
 
-      {/* Mobile Cards */}
-      <MobileCards
-        products={sortedProducts}
-        onEdit={onEdit}
-        onDelete={onDelete}
-      />
-    </div>
+      {/* Fixed width icon wrapper so alignment never shifts */}
+      <span className="w-4 flex items-center justify-center">
+        {!active && (
+          <ArrowUpDown size={14} className="text-[var(--color-black)]" />
+        )}
+
+        {active &&
+          (sortReverse ? (
+            <ArrowDown size={14} className="text-[var(--color-black)]" />
+          ) : (
+            <ArrowUp size={14} className="text-[var(--color-black)]" />
+          ))}
+      </span>
+    </button>
   );
 };
 
 
-const DesktopTable = ({
-  products,
+const ProductTable = ({
+  products = [],
   sortBy,
   sortReverse,
   onSort,
   onEdit,
   onDelete,
 }) => {
-  const SortIcon = ({ column }) => {
-    if (sortBy !== column) {
-      return <ArrowUpDown size={16} className="opacity-50" />;
-    }
-    return sortReverse ? <ArrowDown size={16} /> : <ArrowUp size={16} />;
-  };
-
-  const SortHeader = ({ column, label, align = "left" }) => {
-    const alignClass = {
-      left: "justify-start",
-      center: "justify-center",
-      right: "justify-end",
-    }[align];
-
+  if (!products || products.length === 0) {
     return (
-      <button
-        onClick={() => onSort(column)}
-        className={`flex items-center gap-1 ${alignClass} w-full
-        hover:text-[var(--color-secondary)] transition-colors`}
-      >
-        {label}
-        <SortIcon column={column} />
-      </button>
+      <div className="text-center py-10 text-sm text-gray-500">
+        No products found
+      </div>
     );
-  };
+  }
 
   return (
-    <div className="hidden sm:block overflow-x-auto">
-      <div className="min-w-[1000px]">
-        {/* HEADER */}
+    /* ================= SCROLL WRAPPER ================= */
+    <div className="w-full overflow-x-auto">
+      {/* ================= TABLE ================= */}
+      <div className="min-w-[1000px] bg-[var(--color-white)] border rounded-xl overflow-hidden">
+
+        {/* ================= HEADER ================= */}
         <div
-          className="grid grid-cols-[2fr_1.5fr_1.5fr_1fr_1.8fr_1.2fr_100px]
-          gap-4 px-5 py-3 text-xs font-semibold uppercase
-          text-[var(--color-black)] border-b bg-[var(--color-gray-white)]"
+          className="grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_1fr_120px]
+          gap-4 px-4 py-3 text-xs uppercase font-semibold
+          bg-gray-200 border-b"
         >
-          <SortHeader column={SORT_COLUMNS.NAME} label="Product Name" />
-          <SortHeader column={SORT_COLUMNS.PRICE} label="Price" align="right" />
-          <SortHeader column={SORT_COLUMNS.DISCOUNT} label="Our Price" align="right" />
-          <SortHeader column={SORT_COLUMNS.QTY} label="Qty" align="right" />
-          <SortHeader column={SORT_COLUMNS.DATE} label="Date & Time" align="center" />
-          <SortHeader column={SORT_COLUMNS.STATUS} label="Status" align="center" />
-          <span className="text-right">Actions</span>
+
+          <div className="flex items-center justify-start">
+            <SortHeader
+              label="Product Name"
+              column="ProductName"
+              {...{ sortBy, sortReverse, onSort }}
+            />
+          </div>
+
+          {/* Price */}
+          <div className="flex items-center justify-end">
+            <SortHeader
+              label="Price"
+              column="AssignedPrice"
+              {...{ sortBy, sortReverse, onSort }}
+            />
+          </div>
+
+
+          <div className="flex items-center justify-end">
+            <SortHeader
+              label="Our Price"
+              column="DiscountPrice"
+              {...{ sortBy, sortReverse, onSort }}
+            />
+          </div>
+
+
+          <div className="flex items-center justify-end">
+            <SortHeader
+              label="Qty"
+              column="StockQuantity"
+              {...{ sortBy, sortReverse, onSort }}
+            />
+          </div>
+
+
+          <div className="flex items-center justify-center">
+            <SortHeader
+              label="Date"
+              column="CreatedAt"
+              {...{ sortBy, sortReverse, onSort }}
+            />
+          </div>
+
+
+          <div className="flex items-center justify-center whitespace-nowrap">
+            Status
+          </div>
+
+
+          <div className="flex items-center justify-end whitespace-nowrap">
+            Actions
+          </div>
         </div>
 
-        <div className="divide-y divide-gray-100">
-          {products.map((product) => (
-            <ProductRow
-              key={product.productId}
-              product={product}
-              onEdit={onEdit}
-              onDelete={onDelete}
-            />
-          ))}
-        </div>
+
+        {products.map((p) => (
+          <div
+            key={p.productId}
+            className="grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_1fr_120px]
+            gap-4 items-center px-4 py-4 border-b hover:bg-gray-50"
+          >
+            {/* Product */}
+            <span className="font-medium truncate max-w-[240px]">
+              {p.productName}
+            </span>
+
+            {/* Price */}
+            <span className="text-right whitespace-nowrap">
+              ₹{p.assignedPrice}
+            </span>
+
+            {/* Our Price */}
+            <span className="text-right whitespace-nowrap">
+              ₹{p.discountPrice || 0}
+            </span>
+
+            {/* Qty */}
+            <span className="text-right whitespace-nowrap">
+              {p.stockQuantity}
+            </span>
+
+            {/* Date */}
+            <span className="text-center whitespace-nowrap">
+              {formatDateTime(p.createdAt)}
+            </span>
+
+            {/* Status */}
+            <span
+              className={`text-xs font-semibold px-2 py-1 rounded-full text-center whitespace-nowrap
+                ${p.isActive
+                  ? " text-[var(--color-success)] bg-green-50  w-20"
+                  : "bg-red-100 text-[var(--color-error)] w-20"
+                }`}
+            >
+              {p.isActive ? "Active" : "Inactive"}
+            </span>
+
+            {/* Actions */}
+            <div className="flex justify-end gap-3 whitespace-nowrap">
+              <button onClick={() => onEdit(p)}>
+                <Pencil size={18} className="text-[var(--color-black)]" />
+              </button>
+              <button onClick={() => onDelete(p.id)}>
+                <RemoveCircle className="text-[var(--color-error)]" />
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
-
-
-const ProductRow = ({ product, onEdit, onDelete }) => (
-  <div
-    className="grid grid-cols-[2fr_1.5fr_1.5fr_1fr_1.8fr_1.2fr_100px]
-    gap-4 items-center px-5 py-4 hover:bg-gray-50"
-  >
-    <span className="text-sm font-medium truncate">
-      {product.productName}
-    </span>
-
-    <span className="text-sm font-semibold text-right">
-      ₹{product.assignedPrice.toLocaleString()}
-    </span>
-
-    <span className="text-sm text-right">
-      ₹{(product.discountPrice || 0).toLocaleString()}
-    </span>
-
-    <span className="text-sm text-right">
-      {product.stockQuantity}
-    </span>
-
-    {/* DATE + TIME */}
-    <span className="text-sm text-center whitespace-nowrap">
-      {formatDateTime(product.createdAt)}
-    </span>
-
-    <div className="flex justify-center">
-      <StatusBadge isActive={product.isActive} />
-    </div>
-
-    <ActionButtons
-      onEdit={() => onEdit(product)}
-      onDelete={() => onDelete(product.productId)}
-    />
-  </div>
-);
-
-
-const MobileCards = ({ products, onEdit, onDelete }) => (
-  <div className="sm:hidden space-y-3">
-    {products.map((product) => (
-      <MobileCard
-        key={product.productId}
-        product={product}
-        onEdit={onEdit}
-        onDelete={onDelete}
-      />
-    ))}
-  </div>
-);
-
-const MobileCard = ({ product, onEdit, onDelete }) => (
-  <div className="rounded-lg border bg-white p-4 shadow-sm">
-    <div className="flex justify-between mb-2">
-      <h3 className="text-sm font-semibold line-clamp-2">
-        {product.productName}
-      </h3>
-      <StatusBadge isActive={product.isActive} />
-    </div>
-
-    <div className="grid grid-cols-2 gap-3 mb-2">
-      <InfoItem label="Price" value={`₹${product.assignedPrice}`} />
-      <InfoItem label="Discount" value={`₹${product.discountPrice || 0}`} />
-      <InfoItem label="Qty" value={product.stockQuantity} />
-      <InfoItem
-        label="Date & Time"
-        value={formatDateTime(product.createdAt)}
-      />
-    </div>
-
-    <div className="flex justify-end pt-2 border-t">
-      <ActionButtons
-        onEdit={() => onEdit(product)}
-        onDelete={() => onDelete(product.productId)}
-      />
-    </div>
-  </div>
-);
-
-
-const StatusBadge = ({ isActive }) => (
-  <span
-    className={`px-2.5 py-1 rounded-full text-xs font-medium
-    ${isActive
-        ? "bg-green-200 text-green-700"
-        : "bg-red-100 text-red-700"
-      }`}
-  >
-    {isActive ? "Active" : "Inactive"}
-  </span>
-);
-
-const ActionButtons = ({ onEdit, onDelete }) => (
-  <div className="flex gap-3">
-    <button onClick={onEdit} title="Edit">
-      <Pencil size={18} />
-    </button>
-    <button onClick={onDelete} title="Delete">
-      <Trash2 size={18} />
-    </button>
-  </div>
-);
-
-const InfoItem = ({ label, value }) => (
-  <div>
-    <p className="text-xs text-gray-500">{label}</p>
-    <p className="text-sm font-medium">{value}</p>
-  </div>
-);
 
 export default ProductTable;
