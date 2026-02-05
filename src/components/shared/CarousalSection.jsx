@@ -8,12 +8,7 @@ import SectionTitle from "./SectionTitle";
 import useIsMobile from "@/hooks/useInMobile";
 import { carouselBreakpoints } from "@/lib/  carouselConfig";
 
-const CarouselSection = ({
-  title,
-  places = [],
-  loading = false,
-  onToggleWishlist,
-}) => {
+const CarouselSection = ({ title, places = [], loading = false }) => {
   const isMobile = useIsMobile();
 
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -39,14 +34,14 @@ const CarouselSection = ({
           <div className="flex gap-2">
             <button
               onClick={() => instanceRef.current?.prev()}
-              className="rounded-full bg-white p-2 shadow"
+              className="rounded-full bg-white p-2 shadow hover:bg-gray-50"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
 
             <button
               onClick={() => instanceRef.current?.next()}
-              className="rounded-full bg-white p-2 shadow"
+              className="rounded-full bg-white p-2 shadow hover:bg-gray-50"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -56,12 +51,8 @@ const CarouselSection = ({
 
       <div ref={sliderRef} className="keen-slider">
         {(loading ? Array.from({ length: 6 }) : places).map((item, i) => (
-          <div key={item?.id ?? i} className="keen-slider__slide">
-            <PlaceCard
-              place={item}
-              loading={loading}
-              onToggleWishlist={onToggleWishlist}
-            />
+          <div key={item?._id ?? i} className="keen-slider__slide">
+            <PlaceCard place={item} loading={loading} />
           </div>
         ))}
       </div>

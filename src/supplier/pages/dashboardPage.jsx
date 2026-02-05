@@ -102,7 +102,7 @@ export default function VendorDashboard() {
         {/* Header */}
         <div>
           <h1 className="text-xl font-semibold text-[var(--color-black)]">
-            Ziraat Vendor Dashboard
+            Art&Vendor Dashboard
           </h1>
           <p className="text-sm text-[var(--color-black)]">
             Pesticide sales, inventory & agricultural performance overview
