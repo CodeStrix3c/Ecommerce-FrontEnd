@@ -172,7 +172,7 @@ export default function SupplierSignUp() {
       </FormProvider>
       <div className="flex justify-center items-center pt-5 pb-5">
         Aready have an account{" "}
-        <Link className="px-4 text-red-500" to="/logn">
+        <Link className="px-4 text-red-500" to="/login">
           Login{" "}
         </Link>
       </div>

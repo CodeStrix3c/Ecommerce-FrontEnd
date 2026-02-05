@@ -6,6 +6,8 @@ import EmptyState from "@/components/shared/EmptyState";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SectionTitle from "@/components/shared/SectionTitle";
 
+const IMAGE_BASE_URL =
+  "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net/";
 const WishlistPage = () => {
   const { cartList, addToCartList } = useCartList();
   const { wishlist, removeFromWishlist, clearWishlist } = useWishlist();
@@ -47,7 +49,9 @@ const WishlistPage = () => {
                 wishlistItemId: item.id, // ✅ IMPORTANT
                 productId: item.productId,
                 title: item.productName,
-                image: item.productImage,
+                image: item.productImage?.startsWith("http")
+                  ? item.productImage
+                  : IMAGE_BASE_URL + item.productImage,
                 price: item.price ?? 0,
                 inStock: true,
                 photos: [item.productImage],
