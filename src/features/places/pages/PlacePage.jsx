@@ -49,10 +49,12 @@ const PlacePage = () => {
       inStock: cachedProduct.stockQuantity > 0,
       address: cachedProduct.brandName,
       perks: cachedProduct.perks ?? [],
-      images: cachedProduct.productImages ?? [],
+      images: cachedProduct.thumbnailUrl ?? [],
       raw: cachedProduct,
     });
   }, [cachedProduct, place]);
+
+ console.log(setPlace.images, "this is place data");
 
   if (!place && !cachedProduct) {
     return (
