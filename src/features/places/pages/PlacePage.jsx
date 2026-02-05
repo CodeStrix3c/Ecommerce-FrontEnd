@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 
 import Spinner from "@/components/ui/Spinner";
-import AddressLink from "@/components/shared/AddressLink";
 import BookingWidget from "@/features/bookings/components/BookingWidget";
 import PlaceGallery from "@/features/places/components/PlaceGallery";
 import PerksWidget from "@/features/perks/components/PerksWidget";
-import MapBox from "@/components/ui/MapBox";
 import ListingHeader from "@/components/shared/ListingHeader";
 import RatingSummary from "@/features/reviews/components/Ratings";
 import OverallRating from "@/features/reviews/components/OverallRating";
@@ -19,15 +17,19 @@ import SharePopUp from "@/components/ui/SharePopUp";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import LoginPromptModal from "@/components/shared/LoginPromptModal";
 import agriculturalOptions from "@/data/agriculturalOptions";
-import { useProductsQuery } from "@/hooks/useProductsQuery";
+
 import { useCartList } from "@/providers/CartListProvider";
 import { requireLogin } from "@/utils/auth";
+import { useProductDetailsQuery } from "@/hooks/useProductsQuery";
+
+const IMAGE_BASE_URL =
+  "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net";
 
 const PlacePage = () => {
   const { id } = useParams();
-  const location = useLocation();
+  const { data: product, isLoading } = useProductDetailsQuery(id);
 
-  const [place, setPlace] = useState(location.state?.place || null);
+  const [place, setPlace] = useState(null);
   const [sharePopUp, setSharePopUp] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
@@ -35,29 +37,35 @@ const PlacePage = () => {
   const { toggleCartList, cartList } = useCartList();
 
   useEffect(() => {
-    if (place || !data?.products) return;
+    if (!product || place) return;
 
-    const found = data.products.find((p) => String(p.id) === id);
+    const images =
+      product.images
+        ?.flatMap((img) => [img.url, img.thumbnailUrl])
+        .filter(Boolean)
+        .map((path) =>
+          path.startsWith("http") ? path : `${IMAGE_BASE_URL}${path}`,
+        ) ?? [];
 
-    if (found) {
-      setPlace({
-        _id: found.id,
-        title: found.name,
-        description: found.description,
-        price: found.price,
-        oldPrice: found.oldPrice,
-        rating: found.ratingAverage,
-        stock: found.stockQuantity,
-        inStock: found.stockQuantity > 0,
-        address: found.brandName,
-        perks: found.perks ?? [],
-        images: found.productImages ?? [],
-        raw: found,
-      });
-    }
-  }, [data, id, place]);
+    setPlace({
+      _id: product.id,
+      title: product.name,
+      description: product.description,
+      price: product.calculatedProductPrice?.price ?? 0,
+      oldPrice: product.calculatedProductPrice?.oldPrice ?? null,
+      rating: product.ratingAverage,
+      stock: product.stockQuantity,
+      inStock: product.stockQuantity > 0,
+      address: null,
+      perks: product.attributes ?? [],
+      photos: images,
+      raw: product,
+    });
+  }, [product, place]);
 
-  const isCartListed = cartList.some((item) => item._id === place?._id);
+  if (isLoading || !place) return <Spinner />;
+
+  const isCartListed = cartList.some((item) => item._id === place._id);
 
   const handleBuyNow = (quantity) => {
     requireLogin(
@@ -74,8 +82,6 @@ const PlacePage = () => {
     toast.success("Cart updated");
   };
 
-  if (isLoading || !place) return <Spinner />;
-
   return (
     <ContentWrapper compactScreen topSpacing>
       <LoginPromptModal
@@ -85,7 +91,7 @@ const PlacePage = () => {
 
       <motion.div className="overflow-x-hidden">
         <ListingHeader place={place} onShare={() => setSharePopUp(true)} />
-        <AddressLink placeAddress={place.address} />
+
         <PlaceGallery place={place} />
 
         <div className="mt-10 flex flex-col gap-8 lg:flex-row">
@@ -94,7 +100,10 @@ const PlacePage = () => {
 
             <section>
               <h2 className="text-2xl font-semibold">Description</h2>
-              <p className="mt-2 text-justify">{place.description}</p>
+              <div
+                className="mt-2 prose max-w-none"
+                dangerouslySetInnerHTML={{ __html: place.description }}
+              />
             </section>
 
             <PerksWidget perks={place.perks} />
@@ -114,8 +123,6 @@ const PlacePage = () => {
         <RatingSummary />
         {/* <OverallRating /> */}
         <Testimonials />
-
-        <MapBox address={place.address} />
 
         <ExploreNearby
           title="Explore other popular Art & Craft products"
