@@ -3,7 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box } from "@mui/material";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import SectionTitle from "@/components/shared/SectionTitle";
 import StepHeader from "@/features/auth/components/StepHeader";
@@ -134,7 +134,8 @@ export default function SupplierSignUp() {
   return (
     <Box
       sx={{
-        // s
+        minHeight: "100vh",
+        display: "flex",
         justifyContent: "center",
       }}
     >
@@ -170,12 +171,6 @@ export default function SupplierSignUp() {
           />
         </Box>
       </FormProvider>
-      <div className="flex justify-center items-center pt-5 pb-5">
-        Aready have an account{" "}
-        <Link className="px-4 text-red-500" to="/login">
-          Login{" "}
-        </Link>
-      </div>
     </Box>
   );
 }

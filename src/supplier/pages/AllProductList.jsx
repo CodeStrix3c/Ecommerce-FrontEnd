@@ -4,7 +4,6 @@ import {
   useVendorProducts,
   useRemoveVendorProduct,
 } from "@/hooks/Vendor/useVedorProducts";
-import SearchBar from "@/components/shared/SearchBar";
 import LoadingSpinner from "../components/loadingSpinner";
 import { toast } from "react-toastify";
 import ProductTable from "../components/productCard";
@@ -12,6 +11,7 @@ import Pagination from "../components/paginationComponent";
 import ProductModal from "@/modals/vendorProductModal";
 import AssignProductModal from "@/modals/AssignProductModal";
 import ConfirmDialog from "@/components/shared/confirmDialog";
+import VendorSearchBar from "@/components/shared/VendorSearchBar";
 
 const AllProductList = () => {
   const PAGE_SIZE = 10;
@@ -125,7 +125,7 @@ const AllProductList = () => {
 
         <div className="mt-4 mb-6 flex justify-end">
           <div className="w-56 sm:w-60">
-            <SearchBar onChange={setSearchParams} />
+            <VendorSearchBar onChange={setSearchParams} />
           </div>
         </div>
 
