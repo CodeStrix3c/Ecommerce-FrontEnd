@@ -1,340 +1,119 @@
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { IndianRupee, ShoppingCart, Package, Truck } from "lucide-react";
-import ContentWrapper from "@/components/shared/ContentWrapper";
+  Package,
+  Users,
+  Settings,
+  HelpCircle,
+  ArrowUpRight,
+} from "lucide-react";
+// import TopHeader from "../components/dashboarHeader";
 
-/* ===================== DATA ===================== */
+export default function supplierDashboard() {
+  const navigate = useNavigate();
+  const cards = [
+    {
+      title: "All Products",
+      desc: "Browse all available products and add to your store",
+      icon: <Package size={22} />,
+      path: "/dashboard/all-products",
+    },
+    {
+      title: "My Products",
+      desc: "View, edit and manage your added products",
+      icon: <Package size={22} />,
+      path: "/AddedProducts",
+    },
+    {
+      title: "Customers",
+      desc: "View your customer list and manage orders",
+      icon: <Users size={22} />,
+      path: "/VendorCustomerList",
+    },
+    {
+      title: "Settings & Support",
+      desc: "Update profile settings and get help",
+      icon: <Settings size={22} />,
+      path: "/vendorSettings",
+    },
+    {
+      title: "Help Centre",
+      desc: "Get assistance and contact support",
+      icon: <HelpCircle size={22} />,
+      path: "/help",
+    },
+  ];
 
-const stats = [
-  {
-    label: "Total Agro Revenue",
-    value: "₹0",
-    icon: IndianRupee,
-    color: "var(--color-primary)",
-  },
-  {
-    label: "Total Farm Orders",
-    value: "0",
-    icon: ShoppingCart,
-    color: "var(--color-secondary)",
-  },
-  {
-    label: "Pesticide Products",
-    value: "0",
-    icon: Package,
-    color: "var(--color-primary)",
-  },
-  {
-    label: "Pending Dispatches",
-    value: "0",
-    icon: Truck,
-    color: "var(--color-error)",
-  },
-];
-
-const monthlyData = [
-  { month: "Jan", revenue: 0 },
-  { month: "Feb", revenue: 0 },
-  { month: "Mar", revenue: 0 },
-  { month: "Apr", revenue: 0 },
-  { month: "May", revenue: 0 },
-  { month: "Jun", revenue: 0 },
-];
-
-const lowStock = [
-  { name: "Chlorpyrifos 20% EC", qty: 0 },
-  { name: "Neem Oil Concentrate", qty: 0 },
-  { name: "Imidacloprid 17.8% SL", qty: 0 },
-  { name: "Neem Oil Concentrate", qty: 0 },
-];
-
-const recentOrders = [
-  {
-    id: "#ZR-8829",
-    customer: "Farmer – Rahul Patil",
-    status: "Processing",
-    amount: "₹0",
-  },
-  {
-    id: "#ZR-8827",
-    customer: "Agro Store – GreenGrow",
-    status: "Shipped",
-    amount: "₹0",
-  },
-];
-
-const pendingOrders = [
-  { id: "#ZR-8831", buyer: "Farmer – Suresh", days: "N/A", amount: "₹0" },
-  {
-    id: "#ZR-8830",
-    buyer: "Agro Store – KisanMart",
-    days: "N/A",
-    amount: "₹0",
-  },
-  { id: "#ZR-8831", buyer: "Farmer – Suresh", days: "N/A", amount: "₹0" },
-  {
-    id: "#ZR-8830",
-    buyer: "Agro Store – KisanMart",
-    days: "N/A",
-    amount: "₹0",
-  },
-];
-
-const dispatchStats = [
-  { label: "Processing", value: 0, color: "var(--color-secondary)" },
-  { label: "Ready to Ship", value: 0, color: "var(--color-primary)" },
-  { label: "Delayed", value: 0, color: "var(--color-error)" },
-];
-
-/* ===================== COMPONENT ===================== */
-
-export default function VendorDashboard() {
   return (
-    <ContentWrapper>
-      <div className="min-h-screen bg-[var(--color-light)] py-4 sm:py-6 space-y-6 sm:space-y-8">
-        {/* Header */}
+    <div className=" w-full h-full mt-[15%]  lg:mt-[7%] md:mt-[7%]">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pl-8 pt-7">
         <div>
-          <h1 className="text-xl font-semibold text-[var(--color-black)]">
-            Ziraat Vendor Dashboard
+          <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold text-[var(--color-primary)]">
+            Vendor Dashboard
           </h1>
-          <p className="text-sm text-[var(--color-black)]">
-            Pesticide sales, inventory & agricultural performance overview
+          <p className="text-sm sm:text-base text-[var(--color-black)]/60 mt-2">
+            Select an option to continue managing your store.
           </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {stats.map((item) => {
-            const Icon = item.icon;
-            return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 px-5 lg:px-8 py-10">
+        {cards.map((card, index) => (
+          <div
+            onClick={() => navigate(card.path)}
+            key={index}
+            className="
+                  group w-full text-left
+                  rounded-3xl border border-[var(--color-gray)]
+                  bg-[var(--color-white)]
+                  p-5 sm:p-6
+                  shadow-sm
+                  hover:shadow-xl
+                  hover:-translate-y-1
+                  transition-all duration-300
+                  active:scale-[0.98]
+                  cursor-pointer
+                "
+          >
+            <div className="flex items-start justify-between gap-4">
               <div
-                key={item.label}
-                className="bg-[var(--color-white)] rounded-2xl p-4 sm:p-6 border border-[var(--color-gray)] shadow-sm"
+                className="
+                      h-12 w-12 sm:h-14 sm:w-14
+                      rounded-2xl
+                      bg-[var(--color-primary)]/10
+                      flex items-center justify-center
+                      text-[var(--color-primary)]
+                      group-hover:bg-[var(--color-primary)]
+                      group-hover:text-[var(--color-white)]
+                      transition
+                    "
               >
-                {/* Icon + Label */}
-                <div className="flex items-center  mb-3">
-                  <div
-                    className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl shrink-0"
-                    style={{ backgroundColor: `${item.color}20` }}
-                  >
-                    <Icon size={20} style={{ color: item.color }} />
-                  </div>
-
-                  <p className="text-xs sm:text-sm font-medium text-[var(--color-black)] leading-tight">
-                    {item.label}
-                  </p>
-                </div>
-
-                {/* Value */}
-                <h3
-                  className="text-lg sm:text-2xl font-semibold leading-tight"
-                  style={{ color: item.color }}
-                >
-                  {item.value}
-                </h3>
-
-                {/* Accent */}
-                <div
-                  className="mt-3 h-1 w-10 rounded-full"
-                  style={{ backgroundColor: item.color }}
-                />
+                {card.icon}
               </div>
-            );
-          })}
-        </div>
-
-        {/* REVENUE + LOW STOCK */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 bg-[var(--color-white)] rounded-2xl p-4 sm:p-6 border border-[var(--color-gray)] shadow-sm">
-            <h2 className="text-lg font-medium text-[var(--color-black)] mb-1">
-              Monthly Pesticide Revenue (₹)
-            </h2>
-            <p className="text-sm text-[var(--color-black)] mb-4">
-              Revenue from pesticide & crop-protection products
-            </p>
-
-            <div className="h-56 sm:h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={monthlyData}>
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Line
-                    type="monotone"
-                    dataKey="revenue"
-                    stroke="var(--color-secondary)"
-                    strokeWidth={3}
-                    dot={{ r: 4 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+              <div
+                className="
+                      w-10 h-10 rounded-full
+                      flex items-center justify-center
+                      border border-[var(--color-gray)]
+                      text-[var(--color-black)]/60
+                      group-hover:bg-[var(--color-primary)]/10
+                      group-hover:text-[var(--color-primary)]
+                      transition
+                    "
+              >
+                <ArrowUpRight size={18} />
+              </div>
+            </div>
+            <div className="mt-4">
+              <h2 className="text-base sm:text-lg font-bold text-[var(--color-black)]">
+                {card.title}
+              </h2>
+              <p className="text-sm text-[var(--color-black)]/60 mt-1 leading-relaxed">
+                {card.desc}
+              </p>
             </div>
           </div>
-
-          <div className="bg-[var(--color-white)] rounded-2xl p-4 sm:p-6 border border-[var(--color-gray)] shadow-sm">
-            <h2 className="text-lg font-medium mb-4">Low Stock – Pesticides</h2>
-
-            <ul className="space-y-4">
-              {lowStock.map((item) => (
-                <li
-                  key={item.name}
-                  className="flex justify-between items-center p-3 rounded-xl border border-[var(--color-gray)]"
-                >
-                  <div>
-                    <p className="font-medium">{item.name}</p>
-                    <p
-                      className={`text-xs ${item.qty === 0
-                        ? "text-[var(--color-error)]"
-                        : "text-[var(--color-secondary)]"
-                        }`}
-                    >
-                      {item.qty === 0
-                        ? "Out of stock"
-                        : `${item.qty} packs left`}
-                    </p>
-                  </div>
-                  <span
-                    className="text-xs font-medium"
-                    style={{
-                      color:
-                        item.qty === 0
-                          ? "var(--color-error)"
-                          : "var(--color-secondary)",
-                    }}
-                  >
-                    Alert
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* RECENT ORDERS */}
-        <div className="bg-[var(--color-white)] rounded-2xl p-4 sm:p-6 border border-[var(--color-gray)] shadow-sm">
-          <h2 className="text-lg font-medium mb-4 text-[var(--color-secondary)]">
-            Recent Farm Orders
-          </h2>
-
-          <table className="w-full text-xs sm:text-sm block sm:table">
-            <thead className="hidden sm:table-header-group">
-              <tr className="border-b text-[var(--color-black)] mt-4">
-                <th className="py-3 text-left">Order ID</th>
-                <th className="text-left">Buyer</th>
-                <th className="text-left">Status</th>
-                <th className="text-left">Amount</th>
-              </tr>
-            </thead>
-            <tbody className="block sm:table-row-group">
-              {recentOrders.map((o) => (
-                <tr
-                  key={o.id}
-                  className="block sm:table-row border-b last:border-none mt-4 first:mt-0 sm:mt-0 "
-                >
-                  <td className="block sm:table-cell py-1 font-medium">
-                    {o.id}
-                  </td>
-                  <td className="block sm:table-cell py-1">{o.customer}</td>
-                  <td
-                    className={`block sm:table-cell py-1 font-medium ${o.status === "Processing"
-                      ? "text-[var(--color-secondary)]"
-                      : "text-[var(--color-primary)]"
-                      }`}
-                  >
-                    {o.status}
-                  </td>
-                  <td className="block sm:table-cell py-1">{o.amount}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* PENDING + DISPATCH */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 bg-[var(--color-white)] rounded-2xl p-4 sm:p-6 border border-[var(--color-gray)] shadow-sm">
-            <h2 className="text-lg font-medium mb-4 text-[var(--color-secondary)]">
-              Pending Orders
-            </h2>
-
-            <table className="w-full text-xs sm:text-sm block sm:table">
-              <thead className="hidden sm:table-header-group">
-                <tr className="border-b text-[var(--color-black)]">
-                  <th className="py-3 text-left">Order</th>
-                  <th className="text-left">Buyer</th>
-                  <th className="text-left">Days</th>
-                  <th className="text-left">Amount</th>
-                </tr>
-              </thead>
-              <tbody className="block sm:table-row-group">
-                {pendingOrders.map((o) => (
-                  <tr
-                    key={o.id}
-                    className="block sm:table-row border-b last:border-none mt-4 first:mt-0 sm:mt-0"
-                  >
-                    <td className="block sm:table-cell py-1 font-medium">
-                      {o.id}
-                    </td>
-                    <td className="block sm:table-cell py-1">{o.buyer}</td>
-                    <td className="block sm:table-cell py-1 text-[var(--color-secondary)]">
-                      {o.days}
-                    </td>
-                    <td className="block sm:table-cell py-1">{o.amount}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="bg-[var(--color-white)] rounded-2xl p-4 sm:p-6 border border-[var(--color-gray)] shadow-sm">
-            <h2 className="text-lg font-semibold mb-6 text-[var(--color-secondary)]">
-              Dispatch Status
-            </h2>
-
-            <ul className="space-y-6">
-              {dispatchStats.map((item) => (
-                <li key={item.label}>
-                  {/* Label + Value */}
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-[var(--color-black)]">
-                      {item.label}
-                    </span>
-
-                    <span
-                      className="text-sm font-semibold"
-                      style={{ color: item.color }}
-                    >
-                      {item.value}
-                    </span>
-                  </div>
-
-                  {/* Progress Track */}
-                  <div className="w-full h-1 rounded-full bg-[var(--color-gray)] overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all"
-                      style={{
-                        width: `${item.value * 8}%`,
-                        backgroundColor: item.color,
-                      }}
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            {/* Footer Hint */}
-            <p className="mt-6 text-xs text-[var(--color-black)] ">
-              Live overview of current order dispatch stages
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
-    </ContentWrapper>
+    </div>
   );
 }
