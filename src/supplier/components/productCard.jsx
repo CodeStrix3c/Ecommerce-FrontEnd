@@ -1,171 +1,63 @@
-import { RemoveCircle } from "@mui/icons-material";
-import { ArrowUpDown, ArrowUp, ArrowDown, Pencil } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 
-/* ================= DATE FORMAT ================= */
-const formatDateTime = (date) =>
-  date
-    ? new Date(date).toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    })
-    : "-";
-
-const SortHeader = ({ label, column, sortBy, sortReverse, onSort }) => {
-  const active = sortBy === column;
-
-  return (
-    <button
-      type="button"
-      onClick={() => onSort(column)}
-      className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap"
-    >
-      <span>{label}</span>
-
-      {/* Fixed width icon wrapper so alignment never shifts */}
-      <span className="w-4 flex items-center justify-center">
-        {!active && (
-          <ArrowUpDown size={14} className="text-[var(--color-black)]" />
-        )}
-
-        {active &&
-          (sortReverse ? (
-            <ArrowDown size={14} className="text-[var(--color-black)]" />
-          ) : (
-            <ArrowUp size={14} className="text-[var(--color-black)]" />
-          ))}
-      </span>
-    </button>
-  );
-};
-
-
-const ProductTable = ({
-  products = [],
-  sortBy,
-  sortReverse,
-  onSort,
-  onEdit,
-  onDelete,
-}) => {
-  if (!products || products.length === 0) {
+const ProductTable = ({ products = [], onDelete, onEdit }) => {
+  if (!products.length) {
     return (
-      <div className="text-center py-10 text-sm text-gray-500">
+      <div className="text-center text-sm text-gray-500 py-6">
         No products found
       </div>
     );
   }
 
   return (
-    /* ================= SCROLL WRAPPER ================= */
-    <div className="w-full overflow-x-auto">
-      {/* ================= TABLE ================= */}
-      <div className="min-w-[1000px] bg-[var(--color-white)] border rounded-xl overflow-hidden">
-
-        {/* ================= HEADER ================= */}
+    <div className="w-full space-y-3">
+      {/* ================= DESKTOP TABLE ================= */}
+      <div className="hidden sm:block">
+        {/* HEADER */}
         <div
-          className="grid grid-cols-[2fr_1fr_1fr_1fr_1.5fr_1fr_120px]
-          gap-4 px-4 py-3 text-xs uppercase font-semibold
-          bg-gray-200 border-b"
+          className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_80px]
+          px-5 py-2 text-xs font-semibold text-gray-500 uppercase"
         >
-
-          <div className="flex items-center justify-start">
-            <SortHeader
-              label="Product Name"
-              column="ProductName"
-              {...{ sortBy, sortReverse, onSort }}
-            />
-          </div>
-
-          {/* Price */}
-          <div className="flex items-center justify-end">
-            <SortHeader
-              label="Price"
-              column="AssignedPrice"
-              {...{ sortBy, sortReverse, onSort }}
-            />
-          </div>
-
-
-          <div className="flex items-center justify-end">
-            <SortHeader
-              label="Our Price"
-              column="DiscountPrice"
-              {...{ sortBy, sortReverse, onSort }}
-            />
-          </div>
-
-
-          <div className="flex items-center justify-end">
-            <SortHeader
-              label="Qty"
-              column="StockQuantity"
-              {...{ sortBy, sortReverse, onSort }}
-            />
-          </div>
-
-
-          <div className="flex items-center justify-center">
-            <SortHeader
-              label="Date"
-              column="CreatedAt"
-              {...{ sortBy, sortReverse, onSort }}
-            />
-          </div>
-
-
-          <div className="flex items-center justify-center whitespace-nowrap">
-            Status
-          </div>
-
-
-          <div className="flex items-center justify-end whitespace-nowrap">
-            Actions
-          </div>
+          <span>Name</span>
+          <span className="text-right">Price</span>
+          <span className="text-right">Discount</span>
+          <span className="text-right">Qty</span>
+          <span className="text-center">Status</span>
+          <span className="text-right">Actions</span>
         </div>
 
-
-        {products.map((p) => (
+        {/* ROWS */}
+        {products.map((item) => (
           <div
             key={item.id} // ✅ assignment id
             className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_80px]
             items-center rounded-lg border bg-white px-4 py-3 mt-1
             shadow-sm hover:shadow-md transition"
           >
-            {/* Product */}
-            <span className="font-medium truncate max-w-[240px]">
-              {p.productName}
+            <span className="text-sm font-medium truncate">
+              {item.productName}
             </span>
 
-            {/* Price */}
-            <span className="text-right whitespace-nowrap">
-              ₹{p.assignedPrice}
+            <span className="text-sm text-right font-medium">
+              ₹{item.assignedPrice}
             </span>
 
-            {/* Our Price */}
-            <span className="text-right whitespace-nowrap">
-              ₹{p.discountPrice || 0}
+            <span className="text-sm text-right text-gray-600">
+              ₹{item.discountPrice || 0}
             </span>
 
-            {/* Qty */}
-            <span className="text-right whitespace-nowrap">
-              {p.stockQuantity}
-            </span>
+            <span className="text-sm text-right">{item.stockQuantity}</span>
 
-            {/* Date */}
-            <span className="text-center whitespace-nowrap">
-              {formatDateTime(p.createdAt)}
-            </span>
-
-            {/* Status */}
-            <span
-              className={`text-xs font-semibold px-2 py-1 rounded-full text-center whitespace-nowrap
-                ${p.isActive
-                  ? " text-[var(--color-success)] bg-green-50  w-20"
-                  : "bg-red-100 text-[var(--color-error)] w-20"
+            <span className="flex justify-center">
+              <span
+                className={`px-2 py-1 rounded-full text-xs ${
+                  item.isActive
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
                 }`}
-            >
-              {p.isActive ? "Active" : "Inactive"}
+              >
+                {item.isActive ? "Active" : "Inactive"}
+              </span>
             </span>
 
             <div className="flex justify-end gap-3">
