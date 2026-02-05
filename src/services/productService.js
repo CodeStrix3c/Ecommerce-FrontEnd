@@ -7,3 +7,10 @@ export const getProducts = async (params) => {
 
   return response.data; // ✅ IMPORTANT
 };
+
+export const getProductDetails = async (id) => {
+  const response = await axiosInstance.get(
+    `/api/catalog/ProductsApi/detail/${id}`,
+  );
+  return response.data;
+};
