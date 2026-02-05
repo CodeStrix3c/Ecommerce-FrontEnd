@@ -16,7 +16,7 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
           onClick={() => setShowGallery(true)}
         >
           <img
-            src={product.photos?.[0] || "/placeholder.jpg"}
+            src={product.image || "/placeholder.jpg"}
             alt={product.title || "Product image"}
             loading="lazy"
             onError={(e) => (e.currentTarget.src = "/placeholder.jpg")}

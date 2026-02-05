@@ -29,7 +29,7 @@ const ProductTable = ({ products = [], onDelete, onEdit }) => {
         {/* ROWS */}
         {products.map((item) => (
           <div
-            key={item.productId}
+            key={item.id} // ✅ assignment id
             className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_80px]
             items-center rounded-lg border bg-white px-4 py-3 mt-1
             shadow-sm hover:shadow-md transition"
@@ -61,6 +61,7 @@ const ProductTable = ({ products = [], onDelete, onEdit }) => {
             </span>
 
             <div className="flex justify-end gap-3">
+              {/* EDIT → full item (already correct) */}
               <button
                 onClick={() => onEdit(item)}
                 className="text-blue-600 hover:text-blue-800"
@@ -69,8 +70,9 @@ const ProductTable = ({ products = [], onDelete, onEdit }) => {
                 <Pencil size={18} />
               </button>
 
+              {/* DELETE → ✅ assignment ID (FIXED) */}
               <button
-                onClick={() => onDelete(item.productId)}
+                onClick={() => onDelete(item.id)}
                 className="text-red-600 hover:text-red-800"
                 title="Delete"
               >
@@ -85,7 +87,7 @@ const ProductTable = ({ products = [], onDelete, onEdit }) => {
       <div className="sm:hidden space-y-3">
         {products.map((item) => (
           <div
-            key={item.productId}
+            key={item.id} // ✅ assignment id
             className="rounded-xl border bg-white p-4
             shadow-sm hover:shadow-md transition"
           >
@@ -119,7 +121,7 @@ const ProductTable = ({ products = [], onDelete, onEdit }) => {
               </div>
             </div>
 
-            {/* QUANTITY + ACTIONS (SAME LINE) */}
+            {/* QUANTITY + ACTIONS */}
             <div className="mt-3 flex items-center justify-between">
               <div>
                 <p className="text-xs text-gray-500">Quantity</p>
@@ -127,6 +129,7 @@ const ProductTable = ({ products = [], onDelete, onEdit }) => {
               </div>
 
               <div className="flex gap-4">
+                {/* EDIT */}
                 <button
                   onClick={() => onEdit(item)}
                   className="text-blue-600 hover:text-blue-800"
@@ -135,8 +138,9 @@ const ProductTable = ({ products = [], onDelete, onEdit }) => {
                   <Pencil size={18} />
                 </button>
 
+                {/* DELETE → ✅ assignment ID */}
                 <button
-                  onClick={() => onDelete(item.productId)}
+                  onClick={() => onDelete(item.id)}
                   className="text-red-600 hover:text-red-800"
                   title="Delete"
                 >
