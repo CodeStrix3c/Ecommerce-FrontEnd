@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+
 import Spinner from "@/components/ui/Spinner";
 import BookingWidget from "@/features/bookings/components/BookingWidget";
 import PlaceGallery from "@/features/places/components/PlaceGallery";
 import PerksWidget from "@/features/perks/components/PerksWidget";
 import ListingHeader from "@/components/shared/ListingHeader";
 import RatingSummary from "@/features/reviews/components/Ratings";
+import OverallRating from "@/features/reviews/components/OverallRating";
 import Testimonials from "@/features/reviews/pages/Testimonials";
 import HighlightBanner from "@/features/reviews/components/HighlightBanner";
 import ExploreNearby from "../components/ExploreNearby";
@@ -31,6 +33,7 @@ const PlacePage = () => {
   const [sharePopUp, setSharePopUp] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
+  const { data, isLoading } = useProductsQuery();
   const { toggleCartList, cartList } = useCartList();
 
   useEffect(() => {
@@ -112,13 +115,13 @@ const PlacePage = () => {
                 place={place}
                 onBuyNow={handleBuyNow}
                 onAddToCart={handleAddToCart}
-                isCartListed={isCartListed}
               />
             </div>
           </aside>
         </div>
 
         <RatingSummary />
+        {/* <OverallRating /> */}
         <Testimonials />
 
         <ExploreNearby
