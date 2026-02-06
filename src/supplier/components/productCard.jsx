@@ -1,7 +1,53 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { RemoveCircle } from "@mui/icons-material";
+import { ArrowUpDown, ArrowUp, ArrowDown, Pencil, Trash2 } from "lucide-react";
 
-const ProductTable = ({ products = [], onDelete, onEdit }) => {
-  if (!products.length) {
+/* ================= DATE FORMAT ================= */
+const formatDateTime = (date) =>
+  date
+    ? new Date(date).toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+    : "-";
+
+/* ================= SORT HEADER ================= */
+const SortHeader = ({ label, column, sortBy, sortReverse, onSort }) => {
+  const active = sortBy === column;
+
+  return (
+    <button
+      type="button"
+      onClick={() => onSort(column)}
+      className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap"
+    >
+      <span>{label}</span>
+
+      <span className="w-4 flex items-center justify-center">
+        {!active && (
+          <ArrowUpDown size={14} className="text-[var(--color-black)]" />
+        )}
+        {active &&
+          (sortReverse ? (
+            <ArrowDown size={14} className="text-[var(--color-black)]" />
+          ) : (
+            <ArrowUp size={14} className="text-[var(--color-black)]" />
+          ))}
+      </span>
+    </button>
+  );
+};
+
+/* ================= PRODUCT TABLE ================= */
+const ProductTable = ({
+  products = [],
+  sortBy,
+  sortReverse,
+  onSort,
+  onEdit,
+  onDelete,
+}) => {
+  if (!Array.isArray(products) || products.length === 0) {
     return (
       <div className="text-center text-sm text-gray-500 py-8">
         No products found
