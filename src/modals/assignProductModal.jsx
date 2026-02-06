@@ -2,8 +2,7 @@ import { FormProvider, useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Checkbox } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { useEffect, useRef } from "react";
 
 import {
   useVendorProductAssign,
@@ -18,10 +17,12 @@ const AssignProductModal = ({
   productId,
   assignmentId,
   vendorId,
-  onSuccess,
+  onSuccess, // ⬅️ callback to parent
   mode = "assign",
   initialData = null,
 }) => {
+  const isSubmittingRef = useRef(false);
+
   const methods = useForm({
     resolver: zodResolver(assignProductSchema),
     defaultValues: {
@@ -39,9 +40,11 @@ const AssignProductModal = ({
     formState: { errors },
   } = methods;
 
-  /* ---------- RESET ---------- */
+  /* ---------- RESET FORM ---------- */
   useEffect(() => {
     if (!isOpen) return;
+
+    isSubmittingRef.current = false;
 
     if (mode === "update" && initialData) {
       reset({
@@ -64,18 +67,24 @@ const AssignProductModal = ({
   const assignMutation = useMutation({
     ...useVendorProductAssign(),
     onSuccess: () => {
-      toast.success("Product assigned successfully");
-      onSuccess?.();
+      isSubmittingRef.current = false;
+      onSuccess?.("assign"); // 🔥 notify parent
       onClose();
+    },
+    onError: () => {
+      isSubmittingRef.current = false;
     },
   });
 
   const updateMutation = useMutation({
     ...useUpdateVendorProduct(),
     onSuccess: () => {
-      toast.success("Product updated successfully");
-      onSuccess?.();
+      isSubmittingRef.current = false;
+      onSuccess?.("update"); // 🔥 notify parent
       onClose();
+    },
+    onError: () => {
+      isSubmittingRef.current = false;
     },
   });
 
@@ -83,6 +92,9 @@ const AssignProductModal = ({
 
   /* ---------- SUBMIT ---------- */
   const onSubmit = (data) => {
+    if (isSubmittingRef.current) return;
+    isSubmittingRef.current = true;
+
     const payload = {
       assignedPrice: data.price,
       discountPrice: data.discountPrice || 0,

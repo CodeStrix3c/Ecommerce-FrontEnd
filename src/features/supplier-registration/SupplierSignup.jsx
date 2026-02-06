@@ -122,7 +122,8 @@ export default function SupplierSignUp() {
       // 4️⃣ STORE TOKEN
       setItemsInLocalStorage("token", loginResponse.token);
       setItemsInLocalStorage("email");
-      setItemsInLocalStorage("userId", loginResponse.userId);
+      setItemsInLocalStorage("userId", loginResponse.user);
+      setItemsInLocalStorage("vendorId", loginResponse.vendorId);
 
       toast.success("Account created & logged in successfully");
       navigate("/supplier-register");
