@@ -3,7 +3,12 @@ import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import { useVendorSearch } from "@/hooks/Vendor/useVedorProducts";
 import { ArrowForward } from "@mui/icons-material";
 
-const ProductModal = ({ isOpen, onClose, onSelectProduct }) => {
+const ProductModal = ({
+  isOpen,
+  onClose,
+  onSelectProduct,
+  assignedProductIds = [], // ✅ NEW PROP
+}) => {
   const { mutate, data, isLoading } = useMutation({
     ...useVendorSearch(),
   });
@@ -23,21 +28,39 @@ const ProductModal = ({ isOpen, onClose, onSelectProduct }) => {
 
           {isLoading && <p className="mt-4">Searching…</p>}
 
-          <div className="mt-4 max-h-[300px] overflow-y-auto">
+          <div className="mt-4 max-h-[300px] overflow-y-auto space-y-2">
             {Array.isArray(data) &&
-              data.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => {
-                    onSelectProduct(item.id);
-                    onClose();
-                  }}
-                  className="p-2 mb-2 border rounded cursor-pointer flex justify-between"
-                >
-                  {item.name}
-                  <ArrowForward />
-                </div>
-              ))}
+              data.map((item) => {
+                const isAlreadyAssigned = assignedProductIds.includes(item.id);
+
+                return (
+                  <div
+                    key={item.id}
+                    className={`p-2 border rounded ${
+                      isAlreadyAssigned
+                        ? "opacity-60 cursor-not-allowed"
+                        : "cursor-pointer hover:bg-gray-50"
+                    }`}
+                    onClick={() => {
+                      if (isAlreadyAssigned) return; // ❌ BLOCK ADD
+                      onSelectProduct(item.id);
+                      onClose();
+                    }}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span>{item.name}</span>
+                      {!isAlreadyAssigned && <ArrowForward />}
+                    </div>
+
+                    {/* 🔴 MESSAGE */}
+                    {isAlreadyAssigned && (
+                      <p className="text-xs text-red-500 mt-1">
+                        This product is already assigned
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
           </div>
 
           {Array.isArray(data) && data.length === 0 && !isLoading && (
