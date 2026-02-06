@@ -8,6 +8,7 @@ import SprayHistory from "@/features/spray/components/SprayCard";
 import CartPage from "@/features/cart/pages/CartPage";
 import WishlistPage from "@/features/wishlist/pages/WishListPage";
 import SupplierSignUp from "@/features/supplier-registration/SupplierSignup";
+import GiDetails from "@/features/places/pages/GiDetails";
 
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
@@ -82,6 +83,8 @@ export default [
       <Route path="/orchards/:id" element={<SingleOrchardDetails />} />
       <Route path="/place/:id" element={<PlacePage />} />
       <Route path="*" element={<NotFoundPage />} />
+
+      <Route path="/gi-details/:giTag" element={<GiDetails />} />
     </Route>
   </Route>,
 ];
