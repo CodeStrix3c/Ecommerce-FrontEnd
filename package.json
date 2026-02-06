@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -45,6 +45,7 @@
     "react-leaflet": "^4.2.1",
     "react-loader-spinner": "^5.3.4",
     "react-loading-skeleton": "^3.5.0",
+    "react-qr-code": "^2.0.18",
     "react-router-dom": "^6.8.0",
     "react-slick": "^0.31.0",
     "react-toastify": "^9.1.3",
