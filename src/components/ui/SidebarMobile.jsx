@@ -39,6 +39,9 @@ const SidebarMobile = ({ open, onClose }) => {
     if (isAuthenticated) {
       removeItemFromLocalStorage("token");
       removeItemFromLocalStorage("roles");
+      removeItemFromLocalStorage("userId");
+      removeItemFromLocalStorage("vendorId");
+
       navigate("/");
     } else {
       navigate("/login");
