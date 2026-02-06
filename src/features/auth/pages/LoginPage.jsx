@@ -120,7 +120,7 @@ const LoginPage = () => {
           Log in to your account
         </h1>
 
-        <Tabs
+        {/* <Tabs
           value={tab}
           onChange={(e, val) => setTab(val)}
           textColor="primary"
@@ -129,7 +129,7 @@ const LoginPage = () => {
         >
           <Tab label="Phone" />
           <Tab label="Email" />
-        </Tabs>
+        </Tabs> */}
 
         <Box className="mt-6">
           <form
@@ -143,8 +143,9 @@ const LoginPage = () => {
                   label="Phone number"
                   type="tel"
                   register={register}
-                  errors={errors.phone}
+                  errors={errors.mobileNumber}
                 />
+
                 <FormInput
                   name="password"
                   label="Password"

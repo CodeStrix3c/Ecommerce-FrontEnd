@@ -77,14 +77,13 @@ export default function SupplierRegistration() {
       });
 
       console.log("SUPPLIER API RESPONSE:", response);
-      setItemsInLocalStorage("VendorId", response.vendorId);
       console.log(SupplierReg, "these are supplier detatils");
       toast.success("Supplier registered successfully");
       removeItemFromLocalStorage("token");
       removeItemFromLocalStorage("roles");
-      removeItemFromLocalStorage("useId");
+      removeItemFromLocalStorage("userId");
+      removeItemFromLocalStorage("vendorId");
       toast.success("please login to see vendor dashboard");
-
       navigate("/");
     } catch (error) {
       console.error("API ERROR:", error);
@@ -108,7 +107,7 @@ export default function SupplierRegistration() {
               className="space-y-6"
             >
               <SectionTitle
-                title="Supplier Registration"
+                title="Vendor Registration"
                 className="lg:text-4xl text-2xl font-bold text-center mb-10"
                 centered
               />

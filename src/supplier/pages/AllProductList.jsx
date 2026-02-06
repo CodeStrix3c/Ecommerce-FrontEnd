@@ -179,6 +179,7 @@ const AllProductList = () => {
           isOpen={productModalOpen}
           onClose={() => setProductModalOpen(false)}
           onSelectProduct={handleProductSelect}
+          assignedProductIds={products.map((p) => p.productId)}
         />
 
         <AssignProductModal

@@ -28,7 +28,11 @@ const SidebarMobile = ({ open, onClose }) => {
     if (isAuthenticated) {
       // Sign Out
       removeItemFromLocalStorage("token");
-      navigate("/"); // redirect to login after signout
+      removeItemFromLocalStorage("roles");
+      removeItemFromLocalStorage("userId");
+      removeItemFromLocalStorage("vendorId");
+
+      navigate("/");
     } else {
       // Sign In
       navigate("/login"); // redirect to login
