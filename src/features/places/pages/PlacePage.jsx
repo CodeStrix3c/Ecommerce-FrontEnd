@@ -34,7 +34,7 @@ const PlacePage = () => {
   const [sharePopUp, setSharePopUp] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
-  const { data, isLoading } = useProductsQuery();
+  // const { data, isLoading } = useProductsQuery();
   const { toggleCartList, cartList } = useCartList();
 
   useEffect(() => {
