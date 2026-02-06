@@ -1,5 +1,6 @@
 import ImageGalleryModal from "@/components/shared/ImageGalleryModal";
 import React, { useState, useMemo } from "react";
+import QRCode from "react-qr-code";
 
 const PlaceGallery = ({ place }) => {
   const [showGallery, setShowGallery] = useState(false);
@@ -9,12 +10,29 @@ const PlaceGallery = ({ place }) => {
     [place.photos],
   );
 
+  // ✅ Extract GI Tag from perks
+  const giTag = useMemo(() => {
+    if (!place?.perks) return null;
+
+    const giAttr = place.perks.find((perk) =>
+      perk?.name?.toLowerCase().includes("gi")
+    );
+
+    return giAttr?.value || null;
+  }, [place.perks]);
+
+  // ✅ QR link → GI details page
+  const qrValue = giTag
+    ? `${window.location.origin}/gi-details/${giTag}`
+    : null;
+
   if (!photos.length) return null;
 
   return (
     <div className="relative">
       {/* Desktop */}
       <div className="hidden md:grid grid-cols-2 gap-6 h-[400px] py-2">
+
         {/* LEFT: Image */}
         <div className="flex items-center justify-center bg-gray-100 rounded-[12px] overflow-hidden">
           <img
@@ -25,10 +43,25 @@ const PlaceGallery = ({ place }) => {
           />
         </div>
 
-        {/* RIGHT: QR / future content */}
-        <div className="flex items-center justify-center border border-dashed rounded-[12px]">
-          {/* QR will go here */}
-          <span className="text-gray-400">QR goes here</span>
+        {/* RIGHT: QR */}
+        <div className="flex flex-col items-center justify-center border border-dashed rounded-[12px]">
+
+          {qrValue ? (
+            <>
+              <QRCode value={qrValue} size={170} />
+
+              <span className="text-sm text-gray-500 mt-3">
+                Scan GI Details
+              </span>
+
+              <span className="text-xs text-gray-400">
+                {giTag}
+              </span>
+            </>
+          ) : (
+            <span className="text-gray-400">QR not available</span>
+          )}
+
         </div>
       </div>
 

@@ -28,6 +28,7 @@ const IMAGE_BASE_URL =
 const PlacePage = () => {
   const { id } = useParams();
   const { data: product, isLoading } = useProductDetailsQuery(id);
+  console.log(product, "this is product details");
 
   const [place, setPlace] = useState(null);
   const [sharePopUp, setSharePopUp] = useState(false);
@@ -57,7 +58,7 @@ const PlacePage = () => {
       stock: product.stockQuantity,
       inStock: product.stockQuantity > 0,
       address: null,
-      perks: product.attributes ?? [],
+      perks: product.attributes ?? [], //gi tag as perks in attributes
       photos: images,
       raw: product,
     });
