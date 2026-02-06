@@ -12,17 +12,18 @@ import ProductModal from "@/modals/vendorProductModal";
 import AssignProductModal from "@/modals/AssignProductModal";
 import ConfirmDialog from "@/components/shared/confirmDialog";
 import VendorSearchBar from "@/components/shared/VendorSearchBar";
+import SearchBar from "@/components/shared/SearchBar"; // ✅ FIX 1
+import ViewToggle from "../components/toggleComponent";
+import SortControl from "../components/sortControlComponent";
 
 const AllProductList = () => {
   const PAGE_SIZE = 10;
 
-  /* ✅ vendorId */
   const vendorId = useMemo(() => localStorage.getItem("vendorId"), []);
 
   const [searchParams, setSearchParams] = useState({ query: "" });
   const [currentPage, setCurrentPage] = useState(1);
 
-  /* ✅ SORT STATE (only addition) */
   const [sortBy, setSortBy] = useState("");
   const [sortReverse, setSortReverse] = useState(false);
 
@@ -34,7 +35,6 @@ const AllProductList = () => {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleteProductId, setDeleteProductId] = useState(null);
 
-  /* ---------------- FETCH PRODUCTS ---------------- */
   const {
     mutate: fetchProducts,
     data,
@@ -44,7 +44,8 @@ const AllProductList = () => {
     onError: () => toast.error("Failed to load products"),
   });
 
-  /* ---------------- DELETE PRODUCT ---------------- */
+  console.log(data, "this is the vendors product data");
+
   const { mutate: deleteProduct, isLoading: deleting } = useMutation({
     ...useRemoveVendorProduct(),
     onSuccess: () => {
@@ -56,7 +57,6 @@ const AllProductList = () => {
     onError: () => toast.error("Failed to remove product"),
   });
 
-  /* ---------------- REQUEST BODY ---------------- */
   const buildRequestBody = useCallback(
     () => ({
       pagination: {
@@ -76,7 +76,6 @@ const AllProductList = () => {
     [currentPage, searchParams, sortBy, sortReverse],
   );
 
-  /* ---------------- SINGLE API TRIGGER ---------------- */
   useEffect(() => {
     if (!vendorId) {
       toast.error("Vendor not found");
@@ -89,22 +88,13 @@ const AllProductList = () => {
   const products = data?.data?.items ?? [];
   const totalPages = data?.data?.numberOfPages ?? 0;
 
-  /* ---------------- DELETE HANDLER ---------------- */
   const handleDeleteProduct = (productId) => {
-    if (!vendorId) {
-      toast.error("Vendor not found");
-      return;
-    }
-
     setDeleteProductId(productId);
     setConfirmOpen(true);
   };
 
   const confirmDelete = () => {
-    deleteProduct({
-      vendorId,
-      productId: deleteProductId,
-    });
+    deleteProduct({ vendorId, productId: deleteProductId });
   };
 
   const handleEditProduct = (product) => {
@@ -112,7 +102,6 @@ const AllProductList = () => {
     setAssignModalOpen(true);
   };
 
-  /* ---------------- PRODUCT ASSIGN FLOW ---------------- */
   const handleProductSelect = (productId) => {
     setSelectedProductId(productId);
     setProductModalOpen(false);
@@ -126,19 +115,11 @@ const AllProductList = () => {
   };
 
   return (
-    <div className="w-full  bg-[var(--color-background)] pt-2 sm:pt-20 pb-5">
+    <div className="w-full bg-[var(--color-background)] pt-2 sm:pt-20 pb-5">
       <div className="max-w-7xl mx-auto px-4 relative">
         {/* ===== TOP CONTROLS ===== */}
         <div className="mb-6 flex flex-wrap gap-4 items-center justify-between">
           <SearchBar onChange={setSearchParams} />
-
-          <div className="flex items-center gap-3">
-            {/* <ViewToggle /> */}
-
-        <div className="mt-4 mb-6 flex justify-end">
-          <div className="w-56 sm:w-60">
-            <VendorSearchBar onChange={setSearchParams} />
-          </div>
         </div>
 
         {/* ===== CONTENT ===== */}
@@ -152,8 +133,19 @@ const AllProductList = () => {
           <>
             <ProductTable
               products={products}
-              onDelete={handleDeleteProduct}
+              sortBy={sortBy}
+              sortReverse={sortReverse}
+              onSort={(column) => {
+                if (sortBy === column) {
+                  setSortReverse((prev) => !prev);
+                } else {
+                  setSortBy(column);
+                  setSortReverse(false);
+                }
+                setCurrentPage(1);
+              }}
               onEdit={handleEditProduct}
+              onDelete={handleDeleteProduct}
             />
 
             <div className="mt-4 flex justify-center">

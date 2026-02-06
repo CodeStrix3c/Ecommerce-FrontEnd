@@ -15,7 +15,7 @@ const PlaceGallery = ({ place }) => {
     if (!place?.perks) return null;
 
     const giAttr = place.perks.find((perk) =>
-      perk?.name?.toLowerCase().includes("gi")
+      perk?.name?.toLowerCase().includes("gi"),
     );
 
     return giAttr?.value || null;
@@ -32,7 +32,6 @@ const PlaceGallery = ({ place }) => {
     <div className="relative">
       {/* Desktop */}
       <div className="hidden md:grid grid-cols-2 gap-6 h-[400px] py-2">
-
         {/* LEFT: Image */}
         <div className="flex items-center justify-center bg-gray-100 rounded-[12px] overflow-hidden">
           <img
@@ -45,7 +44,6 @@ const PlaceGallery = ({ place }) => {
 
         {/* RIGHT: QR */}
         <div className="flex flex-col items-center justify-center border border-dashed rounded-[12px]">
-
           {qrValue ? (
             <>
               <QRCode value={qrValue} size={170} />
@@ -54,14 +52,11 @@ const PlaceGallery = ({ place }) => {
                 Scan GI Details
               </span>
 
-              <span className="text-xs text-gray-400">
-                {giTag}
-              </span>
+              <span className="text-xs text-gray-400">{giTag}</span>
             </>
           ) : (
             <span className="text-gray-400">QR not available</span>
           )}
-
         </div>
       </div>
 
