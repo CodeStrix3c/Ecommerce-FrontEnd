@@ -1,47 +1,92 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import agriculturalOptions from "@/data/agriculturalOptions";
+import Spinner from "@/components/ui/Spinner";
+import { useProductsQuery } from "@/hooks/useProductsQuery";
+
+const IMAGE_BASE_URL =
+  "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net";
 
 const GiDetails = () => {
   const { giTag } = useParams();
 
-  const giData = agriculturalOptions.find(
-    (item) => item.giId === giTag
-  );
+  // Fetch all products (real backend data)
+  const { data: products, isLoading } = useProductsQuery();
 
-  if (!giData)
-    return <p className="p-6">GI details not found</p>;
+  const [giProduct, setGiProduct] = useState(null);
+
+  useEffect(() => {
+    if (!products) return;
+
+    // Find product where attribute GI matches URL
+    const matchedProduct = products.find((product) =>
+      product.attributes?.some(
+        (attr) =>
+          attr?.name?.toLowerCase().includes("gi") &&
+          attr?.value === giTag
+      )
+    );
+
+    setGiProduct(matchedProduct);
+  }, [products, giTag]);
+
+  if (isLoading) return <Spinner />;
+
+  if (!giProduct)
+    return (
+      <div className="max-w-4xl mx-auto p-6">
+        <p className="text-red-500">GI details not found</p>
+      </div>
+    );
+
+  // Prepare image
+  const image =
+    giProduct.images?.[0]?.url
+      ? giProduct.images[0].url.startsWith("http")
+        ? giProduct.images[0].url
+        : `${IMAGE_BASE_URL}${giProduct.images[0].url}`
+      : null;
+
+  // Extract origin/category from attributes if available
+  const origin = giProduct.attributes?.find((a) =>
+    a.name.toLowerCase().includes("origin")
+  )?.value;
+
+  const category = giProduct.categoryName || giProduct.category || "Agricultural";
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-
       <h1 className="text-2xl font-bold text-green-700">
         GI Certified Product
       </h1>
 
-      {giData.image && (
+      {image && (
         <img
-          src={giData.image}
-          alt=""
+          src={image}
+          alt={giProduct.name}
           className="w-full max-h-[350px] object-contain mt-4"
         />
       )}
 
       <h2 className="text-xl font-semibold mt-4">
-        {giData.product}
+        {giProduct.name}
       </h2>
 
-      <p className="text-gray-600">
-        Origin : {giData.origin}
-      </p>
+      {origin && (
+        <p className="text-gray-600">
+          Origin : {origin}
+        </p>
+      )}
 
       <p className="text-gray-600">
-        Category : {giData.category}
+        Category : {category}
       </p>
 
-      <p className="mt-4">
-        {giData.description}
-      </p>
+      <div
+        className="mt-4 prose max-w-none"
+        dangerouslySetInnerHTML={{
+          __html: giProduct.description || "No description available",
+        }}
+      />
 
       <p className="text-sm text-gray-400 mt-4">
         GI Tag : {giTag}
