@@ -201,12 +201,9 @@ export const useProvideAuth = () => {
     setLoading(false);
   }, []);
 };
-<<<<<<< HEAD
 export const useAuth = () => {
   return useContext(UserContext);
 };
-=======
 // export const useAuth = () => {
 //   return useContext(UserContext);
 // };
->>>>>>> 91efd9998147dbc4f0908723ead972c9053db651

@@ -87,7 +87,7 @@ const PlaceCard = ({ place, loading }) => {
             {rating ? (
               <StarRating size={12} rating={rating} count={ratingCount} />
             ) : (
-              <span className="text-xs text-gray-400">No ratings yet</span>
+              <StarRating size={12} />
             )}
           </div>
 

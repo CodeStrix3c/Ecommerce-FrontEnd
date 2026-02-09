@@ -3,18 +3,7 @@ import { Search } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
 import ContentWrapper from "./ContentWrapper";
 
-const CATEGORIES = [
-  "men",
-  "handicraft",
-  "women",
-  "wathces",
-  "t-shirt",
-  "Home Decor",
-  "Basketry",
-  "Pottery",
-  "Carpets & Rugs",
-  "Accessories",
-];
+const CATEGORIES = ["handicraft", "textiles", "woodCraft", "carpets"];
 
 const SearchBar = ({ onChange, showCategory = false }) => {
   const isMobile = useIsMobile(640); // phones
