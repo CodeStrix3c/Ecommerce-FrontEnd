@@ -11,20 +11,24 @@ const PlaceGallery = ({ place }) => {
   );
 
   // Extract GI Tag from perks
-  const giTag = useMemo(() => {
-    if (!place?.perks) return null;
+  // const giTag = useMemo(() => {
+  //   if (!place?.perks) return null;
 
-    const giAttr = place.perks.find((perk) =>
-      perk?.name?.toLowerCase().includes("gi")
-    );
+  //   const giAttr = place.perks.find((perk) =>
+  //     perk?.name?.toLowerCase().includes("gi")
+  //   );
 
-    return giAttr?.value || null;
-  }, [place.perks]);
+  //   return giAttr?.value || null;
+  // }, [place.perks]);
 
+  // Static GI Tag
+const giTag = "IICT-GI-2EKEKJN";
+
+const qrValue = "https://iictsrinagarcarpet-gi.org/verify/4140NUYRNNAHNHKYNH2";
   // QR link → GI details page
-  const qrValue = giTag
-    ? `${window.location.origin}/gi-details/${giTag}`
-    : null;
+//  const qrValue = `${window.location.origin}/gi-details/${place._id}`;
+
+
 
   if (!photos.length) return null;
 
