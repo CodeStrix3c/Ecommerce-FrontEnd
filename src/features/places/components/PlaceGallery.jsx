@@ -88,7 +88,7 @@ const qrValue = "https://iictsrinagarcarpet-gi.org/verify/4140NUYRNNAHNHKYNH2";
               <span className="text-xs text-gray-400">{giTag}</span>
             </>
           ) : (
-            <span className="text-gray-400">QR not available</span>
+            <span className="text-gray-400">QR not available please try again</span>
           )}
         </div>
       </div>
