@@ -5,16 +5,12 @@ import agriculturalOptions from "@/data/agriculturalOptions";
 const GiDetails = () => {
   const { giTag } = useParams();
 
-  const giData = agriculturalOptions.find(
-    (item) => item.giId === giTag
-  );
+  const giData = agriculturalOptions.find((item) => item.giId === giTag);
 
-  if (!giData)
-    return <p className="p-6">GI details not found</p>;
+  if (!giData) return <p className="p-6">GI details not found</p>;
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-
       <h1 className="text-2xl font-bold text-green-700">
         GI Certified Product
       </h1>
@@ -27,25 +23,15 @@ const GiDetails = () => {
         />
       )}
 
-      <h2 className="text-xl font-semibold mt-4">
-        {giData.product}
-      </h2>
+      <h2 className="text-xl font-semibold mt-4">{giData.product}</h2>
 
-      <p className="text-gray-600">
-        Origin : {giData.origin}
-      </p>
+      <p className="text-gray-600">Origin : {giData.origin}</p>
 
-      <p className="text-gray-600">
-        Category : {giData.category}
-      </p>
+      <p className="text-gray-600">Category : {giData.category}</p>
 
-      <p className="mt-4">
-        {giData.description}
-      </p>
+      <p className="mt-4">{giData.description}</p>
 
-      <p className="text-sm text-gray-400 mt-4">
-        GI Tag : {giTag}
-      </p>
+      <p className="text-sm text-gray-400 mt-4">GI Tag : {giTag}</p>
     </div>
   );
 };

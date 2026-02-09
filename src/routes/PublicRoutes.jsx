@@ -13,34 +13,34 @@ import GiDetails from "@/features/places/pages/GiDetails";
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
 const SignUpPage = lazy(
-  () => import("@/features/farmer-registration/SignUpPage")
+  () => import("@/features/farmer-registration/SignUpPage"),
 );
 const SupplierLogin = lazy(() => import("@/features/auth/pages/SupplierLogin"));
 const SupplierRegistration = lazy(
-  () => import("@/features/supplier-registration/SupplierRegistration")
+  () => import("@/features/supplier-registration/SupplierRegistration"),
 );
 
 const AboutUs = lazy(() => import("@/features/about-us/pages/AboutUs"));
 const Faq = lazy(() => import("@/features/FAQ/Faq"));
 const FarmingTechniques = lazy(
-  () => import("@/features/farming-techniques/FarmingTechniques")
+  () => import("@/features/farming-techniques/FarmingTechniques"),
 );
 const CropInformation = lazy(
-  () => import("@/features/crop-information/pages/CropInformation")
+  () => import("@/features/crop-information/pages/CropInformation"),
 );
 const CropProtectionPage = lazy(
-  () => import("@/features/Protection-info/pages/ProtectionInfo")
+  () => import("@/features/Protection-info/pages/ProtectionInfo"),
 );
 const WeatherPage = lazy(
-  () => import("@/features/weather-info/pages/WeatherPage")
+  () => import("@/features/weather-info/pages/WeatherPage"),
 );
 const SprayPage = lazy(() => import("@/features/spray/pages/SprayPage"));
 
 const OrchardsPage = lazy(
-  () => import("@/features/orchards/pages/OrchardsPage")
+  () => import("@/features/orchards/pages/OrchardsPage"),
 );
 const SingleOrchardDetails = lazy(
-  () => import("@/features/orchards/pages/SingleOrchardDetails")
+  () => import("@/features/orchards/pages/SingleOrchardDetails"),
 );
 const PlacePage = lazy(() => import("@/features/places/pages/PlacePage"));
 
