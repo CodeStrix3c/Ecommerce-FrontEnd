@@ -11,6 +11,7 @@ const IMAGE_BASE_URL =
 const WishlistPage = () => {
   const { cartList, addToCartList } = useCartList();
   const { wishlist, removeFromWishlist, clearWishlist } = useWishlist();
+  console.log(wishlist, "this is the wishlist data ");
 
   const handleAddToCart = (product) => {
     addToCartList(product);

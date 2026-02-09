@@ -1,7 +1,7 @@
 import React from "react";
 import { Star } from "lucide-react";
 
-export default function StarRating({ rating = 4.2, size = 16 }) {
+export default function StarRating({ rating = 0, size = 16 }) {
   // Clamp rating between 0 and 5
   const safeRating = Math.min(5, Math.max(0, rating));
 

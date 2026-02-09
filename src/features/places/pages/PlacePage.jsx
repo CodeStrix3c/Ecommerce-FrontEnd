@@ -25,6 +25,7 @@ import { useProductDetailsQuery } from "@/hooks/useProductsQuery";
 const PlacePage = () => {
   const { id } = useParams();
   const { data: product, isLoading } = useProductDetailsQuery(id);
+  console.log(product, "these are the product details");
 
   const [place, setPlace] = useState(null);
   const [sharePopUp, setSharePopUp] = useState(false);
@@ -100,22 +101,6 @@ const PlacePage = () => {
             </section>
 
             <PerksWidget perks={place.perks} />
-
-            {/* {place.giTag && (
-              <section className="mt-6 rounded-xl border bg-white p-4">
-                <h3 className="text-lg font-semibold">
-                  Geographical Indication (GI)
-                </h3>
-
-                <p className="mt-1 text-sm text-gray-600">
-                  Certified GI Product • ID: <b>{place.giTag}</b>
-                </p>
-
-                <div className="mt-4 w-fit rounded-lg border bg-white p-3">
-                  <QRCode value={place.giTag} size={120} />
-                </div>
-              </section>
-            )} */}
           </div>
 
           <aside className="w-full lg:w-1/3">
