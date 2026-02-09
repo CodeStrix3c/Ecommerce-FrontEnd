@@ -6,8 +6,8 @@ import { useProductsQuery } from "@/hooks/useProductsQuery";
 import { useWishlist } from "@/providers/WishListProvider";
 import Pagination from "@/supplier/components/paginationComponent";
 
-const IMAGE_BASE_URL =
-  "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net/";
+// const IMAGE_BASE_URL =
+//   "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net/";
 
 const UserHome = () => {
   const [searchParams, setSearchParams] = useState({
@@ -46,12 +46,11 @@ const UserHome = () => {
     stock: item.stockQuantity ?? 0,
 
     // ✅ thumbnailUrl FIX
-    image: item.thumbnailUrl
-      ? item.thumbnailUrl.startsWith("http")
-        ? item.thumbnailUrl
-        : `${IMAGE_BASE_URL}${item.thumbnailUrl}`
-      : null,
-
+    image: item.thumbnailUrl,
+    // ? item.thumbnailUrl.startsWith("http")
+    //   ? item.thumbnailUrl
+    //   : `${IMAGE_BASE_URL}${item.thumbnailUrl}`
+    // : null,
     discountPercent: item.calculatedProductPrice?.percentOfSaving ?? null,
   }));
 
