@@ -9,15 +9,16 @@ const IMAGE_BASE_URL =
 const GiDetails = () => {
   const { giTag } = useParams();
 
-  // Fetch all products (real backend data)
+  
   const { data: products, isLoading } = useProductsQuery();
 
   const [giProduct, setGiProduct] = useState(null);
 
+
   useEffect(() => {
     if (!products) return;
 
-    // Find product where attribute GI matches URL
+
     const matchedProduct = products.find((product) =>
       product.attributes?.some(
         (attr) =>
@@ -38,7 +39,6 @@ const GiDetails = () => {
       </div>
     );
 
-  // Prepare image
   const image =
     giProduct.images?.[0]?.url
       ? giProduct.images[0].url.startsWith("http")
@@ -46,53 +46,68 @@ const GiDetails = () => {
         : `${IMAGE_BASE_URL}${giProduct.images[0].url}`
       : null;
 
-  // Extract origin/category from attributes if available
   const origin = giProduct.attributes?.find((a) =>
     a.name.toLowerCase().includes("origin")
   )?.value;
 
-  const category = giProduct.categoryName || giProduct.category || "Agricultural";
+  const category = giProduct.categoryName || giProduct.category || " ";
 
-  return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold text-green-700">
-        GI Certified Product
+ return (
+  <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+    <div className="bg-white w-full max-w-3xl border-4 border-green-700 rounded-lg shadow-lg p-8 text-center">
+
+      {/* Header */}
+      <h1 className="text-3xl font-bold text-green-800">
+        Geographical Indication Certificate
       </h1>
+      <p className="text-gray-500 mt-1">
+        Government Recognized GI Product
+      </p>
 
+      {/* Divider */}
+      <div className="border-t-2 border-green-700 my-6"></div>
+
+      {/* Product Image */}
       {image && (
         <img
           src={image}
           alt={giProduct.name}
-          className="w-full max-h-[350px] object-contain mt-4"
+          className="mx-auto max-h-[220px] object-contain"
         />
       )}
 
-      <h2 className="text-xl font-semibold mt-4">
+      {/* Product Name */}
+      <h2 className="text-2xl font-semibold mt-4 text-gray-800">
         {giProduct.name}
       </h2>
 
-      {origin && (
-        <p className="text-gray-600">
-          Origin : {origin}
-        </p>
-      )}
+      {/* Details */}
+      <div className="mt-4 text-lg text-gray-700 space-y-1">
+        {origin && <p><strong>Origin:</strong> {origin}</p>}
+        <p><strong>Category:</strong> {category}</p>
+      </div>
 
-      <p className="text-gray-600">
-        Category : {category}
-      </p>
-
+      {/* Description */}
       <div
-        className="mt-4 prose max-w-none"
+        className="mt-6 text-gray-600 text-left prose max-w-none"
         dangerouslySetInnerHTML={{
           __html: giProduct.description || "No description available",
         }}
       />
 
-      <p className="text-sm text-gray-400 mt-4">
-        GI Tag : {giTag}
+      {/* GI Tag Highlight */}
+      <div className="mt-8 border-2 border-dashed border-green-700 inline-block px-6 py-3 rounded-lg">
+        <p className="text-sm text-gray-500">GI Registration Number</p>
+        <p className="text-2xl font-bold text-green-800">{giTag}</p>
+      </div>
+
+      {/* Footer */}
+      <p className="mt-6 text-xs text-gray-400">
+        This certificate verifies the authenticity of the registered GI product.
       </p>
     </div>
-  );
-};
+  </div>
+);
+}
 
 export default GiDetails;
