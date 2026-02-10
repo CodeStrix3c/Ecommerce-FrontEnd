@@ -188,7 +188,7 @@ export default function UserSupplier() {
                     <button
                         onClick={handleSave}
                         disabled={!isEditing || isPending}
-                        className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg disabled:opacity-40"
+                        className="flex-1 bg-red-600 text-white py-2.5 rounded-lg disabled:opacity-40"
                     >
                         {isPending ? "Saving..." : "Save Changes"}
                     </button>
