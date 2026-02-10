@@ -12,9 +12,12 @@ import ProductModal from "@/modals/vendorProductModal";
 import AssignProductModal from "@/modals/AssignProductModal";
 import ConfirmDialog from "@/components/shared/confirmDialog";
 import VendorSearchBar from "@/components/shared/VendorSearchBar";
-import SearchBar from "@/components/shared/SearchBar"; // ✅ FIX 1
+import SearchBar from "@/components/shared/SearchBar";
 import ViewToggle from "../components/toggleComponent";
 import SortControl from "../components/sortControlComponent";
+import DashboardHeader from "../components/dashboarHeader";
+import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
+import ProductSearchBar from "@/components/shared/productSearchBar";
 
 const AllProductList = () => {
   const PAGE_SIZE = 10;
@@ -115,14 +118,22 @@ const AllProductList = () => {
   };
 
   return (
-    <div className="w-full bg-[var(--color-background)] pt-2 sm:pt-20 pb-5">
+
+    <div className="mt-2 w-full bg-[var(--color-background)] pt-2 sm:pt-20 pb-5">
+
+
       <div className="max-w-7xl mx-auto px-4 relative">
-        {/* ===== TOP CONTROLS ===== */}
-        <div className="mb-6 flex flex-wrap gap-4 items-center justify-between">
-          <SearchBar onChange={setSearchParams} />
+        <div className="mb-4 flex items-center justify-end ">
+          <ProductSearchBar
+            placeholder="Search products..."
+            onSearch={(query) => {
+              setSearchParams((prev) => ({ ...prev, query }));
+              setCurrentPage(1);
+            }}
+          />
         </div>
 
-        {/* ===== CONTENT ===== */}
+
         {isLoading ? (
           <LoadingSpinner message="Loading products..." />
         ) : products.length === 0 ? (
@@ -158,7 +169,6 @@ const AllProductList = () => {
           </>
         )}
 
-        {/* ➕ ADD PRODUCT */}
         <div
           onClick={() => setProductModalOpen(true)}
           className="fixed bottom-8 right-8 h-12 w-12 rounded-full bg-black
