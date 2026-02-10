@@ -9,11 +9,11 @@ import {
   LogOut,
 } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   getItemFromLocalStorage,
   removeItemFromLocalStorage,
-} from "@/utils/localStorage"; // create this util
+} from "@/utils/localStorage";
 
 const SidebarMobile = ({ open, onClose }) => {
   const below1024 = useIsMobile(1024);
@@ -24,47 +24,60 @@ const SidebarMobile = ({ open, onClose }) => {
   const token = getItemFromLocalStorage("token");
   const isAuthenticated = Boolean(token);
 
+  const rolesRaw = getItemFromLocalStorage("roles");
+  const roles = rolesRaw ? JSON.parse(rolesRaw) : [];
+
+  const hasCustomerRole = roles.includes("customer");
+  const hasVendorRole = roles.includes("vendor");
+
   const handleAuthAction = () => {
     if (isAuthenticated) {
-      // Sign Out
       removeItemFromLocalStorage("token");
       removeItemFromLocalStorage("roles");
       removeItemFromLocalStorage("userId");
       removeItemFromLocalStorage("vendorId");
-
       navigate("/");
     } else {
-      // Sign In
-      navigate("/login"); // redirect to login
+      navigate("/login");
     }
-    onClose(); // close sidebar in both cases
+    onClose();
   };
 
-  const vendorToken = getItemFromLocalStorage("token");
+  const handleVendorNavigation = () => {
+    if (!roles || roles.length === 0) {
+      navigate("/vendor-signup");
+    } else if (hasCustomerRole && !hasVendorRole) {
+      navigate("/supplier-register");
+    } else if (hasCustomerRole && hasVendorRole) {
+      navigate("/dashboard");
+    }
+    onClose();
+  };
+
   return (
     <>
       {/* Overlay */}
       <div
         onClick={onClose}
-        className={`fixed inset-0 bg-[var(--color-overlay)] backdrop-blur-sm transition-opacity duration-300 z-40 ${open ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
+        className={`fixed inset-0 bg-[var(--color-overlay)] backdrop-blur-sm transition-opacity duration-300 z-40 ${
+          open ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
       />
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-72 bg-[var(--color-white)] shadow-xl z-50 transform transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`fixed top-0 left-0 h-full w-72 bg-[var(--color-white)] shadow-xl z-50 transform transition-transform duration-300 ${
+          open ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-gray)]">
-          <div className="flex items-center gap-2">
-            <img
-              src="/assets/images/logo6.png"
-              alt="Kashmir Art & Handicraft"
-              width={140}
-              height={50}
-            />
-          </div>
+          <img
+            src="/assets/images/logo6.png"
+            alt="Kashmir Art & Handicraft"
+            width={140}
+            height={50}
+          />
           <button
             onClick={onClose}
             className="text-[var(--color-black)] hover:text-[var(--color-primary)]"
@@ -129,19 +142,22 @@ const SidebarMobile = ({ open, onClose }) => {
             <User size={18} /> Visitor Account
           </div>
 
-          <div className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]">
+          {/* ✅ UI + ROLE-BASED VENDOR OPTION */}
+          <div
+            onClick={handleVendorNavigation}
+            className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]"
+          >
             <User size={18} />
-            {!vendorToken ? (
-              <Link to="/vendor-signup">Become a Vendor</Link>
-            ) : (
-              <Link to="supplier-register">Become a Vendor</Link>
-            )}
+            {hasCustomerRole && hasVendorRole
+              ? "Vendor Dashboard"
+              : "Become a Vendor"}
           </div>
 
           <div
             onClick={handleAuthAction}
-            className={`flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer ${isAuthenticated ? "text-red-600" : "text-[var(--color-primary)]"
-              }`}
+            className={`flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer ${
+              isAuthenticated ? "text-red-600" : "text-[var(--color-primary)]"
+            }`}
           >
             <LogOut size={18} />
             <span>{isAuthenticated ? "Sign Out" : "Sign In"}</span>

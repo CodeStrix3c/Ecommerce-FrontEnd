@@ -33,9 +33,8 @@ const SearchBar = ({ onChange, showCategory = false }) => {
   if (isMobile) {
     return (
       <ContentWrapper>
-        <div className="w-full flex justify-center">
+        {/* <div className="w-full flex justify-center">
           <div className="w-full max-w-md space-y-3">
-            {/* Search */}
             <div className="flex items-center rounded-full border-2 border-[var(--color-black-hover)] px-3 py-2">
               <Search className="h-5 w-5 text-[var(--color-black)]/70" />
               <input
@@ -48,7 +47,7 @@ const SearchBar = ({ onChange, showCategory = false }) => {
               />
             </div>
 
-            {/* Category */}
+           
             {showCategory && (
               <div className="rounded-xl border border-[var(--color-black-hover)] px-4 py-2 bg-white">
                 <p className="text-xs font-medium text-[var(--color-black)] mb-1">
@@ -70,6 +69,31 @@ const SearchBar = ({ onChange, showCategory = false }) => {
               </div>
             )}
           </div>
+        </div> */}
+        <div
+          className={`flex items-center rounded-full border border-[var(--color-black-hover)]
+      bg-[var(--color-white)] px-4 py-3 pt-1 shadow-[0_2px_4px_rgba(0,0,0,0.08)]
+      hover:shadow-md transition-shadow duration-200
+      ${showCategory ? "w-[90vw]" : "w-[60vw]"}`}
+        >
+          <div
+            className={`flex-[7] px-3 relative ${
+              showCategory ? " border-[var(--color-black-hover)]" : ""
+            }`}
+          >
+            <div className="absolute top-2 left-2 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-secondary)] text-[var(--color-white)]">
+              <Search className="h-4 w-4" />
+            </div>
+
+            <input
+              type="text"
+              placeholder="Search products"
+              className="w-full mt-2 px-12 py-2 rounded-full text-sm text-[var(--color-black)]
+          placeholder-[var(--color-black)] focus:outline-none"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </div>
         </div>
       </ContentWrapper>
     );
@@ -79,32 +103,32 @@ const SearchBar = ({ onChange, showCategory = false }) => {
   return (
     <div
       className={`flex items-center rounded-full border border-[var(--color-black-hover)]
-      bg-[var(--color-white)] px-4 py-3 pt-1 shadow-[0_2px_4px_rgba(0,0,0,0.08)]
+      bg-[var(--color-white)] px-4 py-1 pt-1 shadow-[0_2px_4px_rgba(0,0,0,0.08)]
       hover:shadow-md transition-shadow duration-200
-      ${showCategory ? "w-[45vw]" : "w-[30vw]"}`}
+      ${showCategory ? "w-[35vw]" : "w-[20vw]"}`}
     >
       {/* Search */}
       <div
         className={`flex-[7] px-3 relative ${
-          showCategory ? "border-r border-[var(--color-black-hover)]" : ""
+          showCategory ? " border-[var(--color-black-hover)]" : ""
         }`}
       >
+        <div className="absolute top-1 left-2 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-secondary)] text-[var(--color-white)]">
+          <Search className="h-4 w-4" />
+        </div>
+
         <input
           type="text"
           placeholder="Search products"
-          className="w-full mt-2 px-2 py-2 rounded-full text-sm text-[var(--color-black)]
+          className="w-full mt-1 px-12 py-2 rounded-full text-sm text-[var(--color-black)]
           placeholder-[var(--color-black)] focus:outline-none"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
-
-        <div className="absolute top-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-secondary)] text-[var(--color-white)]">
-          <Search className="h-4 w-4" />
-        </div>
       </div>
 
       {/* Category */}
-      {showCategory && (
+      {/* {showCategory && (
         <div className="flex-[5] px-4">
           <p className="text-xs font-medium text-[var(--color-black)]">
             Category
@@ -123,7 +147,7 @@ const SearchBar = ({ onChange, showCategory = false }) => {
             ))}
           </select>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
