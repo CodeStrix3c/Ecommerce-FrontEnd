@@ -9,39 +9,58 @@ import ContentWrapper from "@/components/shared/ContentWrapper";
 import { toast } from "react-toastify";
 
 const CartPage = () => {
-  const { cartList, removeFromCart, clearCart, updateQuantity } = useCartList();
-  const isMobile = useIsMobile();
+  const { cartList, removeFromCart, clearCart, updateQuantity, isLoading } =
+    useCartList();
 
+  const isMobile = useIsMobile();
   const [selectedPayment, setSelectedPayment] = useState("");
-  //recalculate whenever we increase or decrease the quantity
+
+  /* =========================
+     USE BACKEND items ARRAY
+  ========================== */
+
+  const cartProducts = useMemo(() => {
+    return Array.isArray(cartList) ? cartList : [];
+  }, [cartList]);
+
+  /* =========================
+     CALCULATIONS
+  ========================== */
+
   const { subtotal, taxes, total, totalItems } = useMemo(() => {
-    const subtotalCalc = cartList.reduce(
-      (sum, item) => sum + item.price * (item.quantity || 1),
-      0
-    );
-    const itemCount = cartList.reduce(
-      (count, item) => count + (item.quantity || 1),
-      0
-    );
+    const subtotalCalc = cartProducts.reduce((sum, item) => {
+      return sum + Number(item.productPrice ?? 0) * Number(item.quantity ?? 1);
+    }, 0);
+
+    const itemCount = cartProducts.reduce((count, item) => {
+      return count + Number(item.quantity ?? 1);
+    }, 0);
+
     const taxesCalc = subtotalCalc * 0.1;
     const totalCalc = subtotalCalc + taxesCalc;
+
     return {
       subtotal: subtotalCalc,
       taxes: taxesCalc,
       total: totalCalc,
       totalItems: itemCount,
     };
-  }, [cartList]);
+  }, [cartProducts]);
 
   const checkoutAll = () => {
     if (!selectedPayment) {
       toast.error("Please select a payment method before checkout.");
       return;
     }
+
     toast.success(`Proceeding to checkout with ${selectedPayment}`);
   };
 
-  if (cartList.length === 0) {
+  if (isLoading) {
+    return <div className="text-center py-20">Loading cart...</div>;
+  }
+
+  if (cartProducts.length === 0) {
     return (
       <EmptyState
         title="Empty Cart"
@@ -56,33 +75,46 @@ const CartPage = () => {
   return (
     <ContentWrapper compactScreen>
       <div className="py-8 lg:mt-28 md:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* LEFT SIDE */}
         <div
-          className={`col-span-2 flex flex-col gap-6 ${
-            isMobile ? "pb-24" : "pb-0"
-          }`}
+          className={`col-span-2 flex flex-col gap-6 ${isMobile ? "pb-24" : ""}`}
         >
           <h1 className="text-2xl font-semibold text-[var(--color-black)]">
             My Cart ({totalItems} {totalItems === 1 ? "item" : "items"})
           </h1>
 
           <div className="flex flex-col gap-6">
-            {cartList.map((product) => (
-              <React.Fragment key={product._id}>
+            {cartProducts.map((product) => (
+              <React.Fragment key={product.id}>
                 <CartItem
-                  product={product}
-                  onRemove={removeFromCart}
-                  onQuantityChange={updateQuantity}
+                  product={{
+                    cartItemId: product.id, // ✅ cart item id
+                    title: product.productName,
+                    photos: product.productImage ? [product.productImage] : [],
+                    price: Number(product.productPrice ?? 0),
+                    oldPrice: product.oldPrice ?? 0,
+                    savings: product.percentOfSaving ?? 0,
+                    quantity: Number(product.quantity ?? 1),
+                    rating: 0,
+                    inStock: product.isProductAvailabeToOrder,
+                  }}
+                  onRemove={(cartItemId) => removeFromCart(cartItemId)}
+                  onQuantityChange={
+                    (cartItemId, qty) => updateQuantity(cartItemId, qty) // ✅ send cart item id
+                  }
                 />
-                {isMobile && cartList.length > 1 && <hr />}
+
+                {isMobile && cartProducts.length > 1 && <hr />}
               </React.Fragment>
             ))}
           </div>
         </div>
 
+        {/* DESKTOP SUMMARY */}
         {!isMobile && (
           <div className="col-span-1 mt-14">
             <CartSummary
-              cart={cartList}
+              cart={cartProducts}
               subtotal={subtotal}
               taxes={taxes}
               total={total}
@@ -94,9 +126,10 @@ const CartPage = () => {
           </div>
         )}
 
+        {/* MOBILE BAR */}
         {isMobile && (
           <CartBottomBar
-            cart={cartList}
+            cart={cartProducts}
             total={total}
             onCheckout={checkoutAll}
             selectedPayment={selectedPayment}
