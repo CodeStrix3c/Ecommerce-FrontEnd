@@ -112,8 +112,54 @@ export default function HighlightBanner({
 }) {
   return (
     <div className="border flex flex-col sm:flex-row items-center w-full sm:w-fit justify-between sm:space-x-6 md:space-x-8 rounded-2xl bg-[var(--color-white)] py-2 px-3 sm:py-1.5 sm:px-5 text-[12px] sm:text-[13px] md:text-[14px]">
+
+  {/* ================= Desktop ================= */}
+      <div className="hidden sm:flex flex-row items-center w-full sm:w-auto sm:space-x-4 md:space-x-6 lg:space-x-6">
+        {/* Title */}
+        <div>
+          <LeafTitleBlock title={title} isGray leafSize="sm" />
+        </div>
+
+          <Divider
+          orientation="vertical"
+          flexItem
+          className="border-[var(--color-black-hover)]"
+        />
+
+        {/* Rating */}
+        <div className="flex flex-col items-center gap-0.5">
+          <StarRating size={14} rating={4.5} />
+        </div>
+
+        <Divider
+          orientation="vertical"
+          flexItem
+          className="border-[var(--color-black-hover)] "
+        />
+
+        {/* Reviews */}
+        <div className="flex flex-col items-center gap-0.5">
+          <p className="font-semibold text-xs md:text-sm">{reviewCount}</p>
+          <p className="text-[var(--color-black)] text-[12px] font-semibold md:text-[14px]">
+            Reviews
+          </p>
+        </div>
+      </div>
+
       {/* ================= Mobile ================= */}
       <div className="flex sm:hidden flex-row items-center w-full justify-center">
+
+        {/* Title */}
+        <div className="px-2">
+          <LeafTitleBlock title={title} isGray leafSize="sm"  />
+        </div>
+         
+         <Divider
+          orientation="vertical"
+          flexItem
+          className="border-[var(--color-black-hover)] h-8 mx-3"
+        />
+
         {/* Rating */}
         <div className="flex flex-col items-center gap-0.5 px-2">
           {/* <p className="font-semibold text-xs">{rating.toFixed(1)}</p> */}
@@ -127,52 +173,16 @@ export default function HighlightBanner({
           className="border-[var(--color-black-hover)] h-8 mx-3"
         />
 
-        {/* Title */}
-        <div className="px-2">
-          <LeafTitleBlock title={title} isGray leafSize="sm" titleSize="bold" />
-        </div>
-
-        <Divider
-          orientation="vertical"
-          flexItem
-          className="border-[var(--color-black-hover)] h-8 mx-3"
-        />
-
         {/* Reviews */}
         <div className="flex flex-col items-center gap-0.5 px-2">
           <p className="font-semibold text-sm">{reviewCount}</p>
-          <p className="text-[var(--color-black)] font-bold text-[13px]">
+          <p className="text-[var(--color-black)] font-semibold text-[13px]">
             Reviews
           </p>
         </div>
       </div>
 
-      {/* ================= Desktop ================= */}
-      <div className="hidden sm:flex flex-row items-center w-full sm:w-auto sm:space-x-4 md:space-x-6 lg:space-x-8">
-        {/* Title */}
-        <div>
-          <LeafTitleBlock title={title} isGray leafSize="sm" titleSize="bold" />
-        </div>
-
-        {/* Rating */}
-        <div className="flex flex-col items-center gap-0.5">
-          <StarRating size={14} rating={4.5} />
-        </div>
-
-        <Divider
-          orientation="vertical"
-          flexItem
-          className="border-[var(--color-black-hover)]"
-        />
-
-        {/* Reviews */}
-        <div className="flex flex-col items-center gap-0.5">
-          <p className="font-semibold text-xs md:text-sm">{reviewCount}</p>
-          <p className="text-[var(--color-black)] text-[12px] md:text-[14px]">
-            Reviews
-          </p>
-        </div>
-      </div>
+    
     </div>
   );
 }
