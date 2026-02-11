@@ -1,8 +1,9 @@
 import { FormProvider, useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Checkbox } from "@mui/material";
+import { Switch } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import {
   useVendorProductAssign,
@@ -11,18 +12,41 @@ import {
 import FormInput from "@/components/shared/custom-inputs/FormInput";
 import { assignProductSchema } from "@/features/farmer-registration/schemas/assignProductSchema";
 
+/* ---------- Animations ---------- */
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+const modalVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+  exit: {
+    opacity: 0,
+    y: 20,
+    scale: 0.96,
+    transition: { duration: 0.18 },
+  },
+};
+
 const AssignProductModal = ({
   isOpen,
   onClose,
   productId,
   assignmentId,
   vendorId,
-  onSuccess, // ⬅️ callback to parent
+  onSuccess,
   mode = "assign",
   initialData = null,
 }) => {
   const isSubmittingRef = useRef(false);
 
+  /* ---------- Form ---------- */
   const methods = useForm({
     resolver: zodResolver(assignProductSchema),
     defaultValues: {
@@ -37,10 +61,13 @@ const AssignProductModal = ({
     reset,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = methods;
 
-  /* ---------- RESET FORM ---------- */
+  const isActiveValue = watch("isActive") ?? false;
+
+  /* ---------- Reset Form ---------- */
   useEffect(() => {
     if (!isOpen) return;
 
@@ -63,12 +90,12 @@ const AssignProductModal = ({
     }
   }, [isOpen, mode, initialData, reset]);
 
-  /* ---------- MUTATIONS ---------- */
+  /* ---------- Mutations ---------- */
   const assignMutation = useMutation({
     ...useVendorProductAssign(),
     onSuccess: () => {
       isSubmittingRef.current = false;
-      onSuccess?.("assign"); // 🔥 notify parent
+      onSuccess?.("assign");
       onClose();
     },
     onError: () => {
@@ -80,7 +107,7 @@ const AssignProductModal = ({
     ...useUpdateVendorProduct(),
     onSuccess: () => {
       isSubmittingRef.current = false;
-      onSuccess?.("update"); // 🔥 notify parent
+      onSuccess?.("update");
       onClose();
     },
     onError: () => {
@@ -90,7 +117,7 @@ const AssignProductModal = ({
 
   const isLoading = assignMutation.isLoading || updateMutation.isLoading;
 
-  /* ---------- SUBMIT ---------- */
+  /* ---------- Submit ---------- */
   const onSubmit = (data) => {
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
@@ -115,60 +142,115 @@ const AssignProductModal = ({
     }
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-[90%] md:w-[30%]">
-        <div className="flex justify-between px-4 py-3 border-b">
-          <h2 className="text-lg font-semibold">
-            {mode === "assign" ? "Assign Product" : "Update Product"}
-          </h2>
-          <button onClick={onClose}>✕</button>
-        </div>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          variants={backdropVariants}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+        >
+          <motion.div
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="w-[92%] md:w-[420px] bg-white rounded-2xl shadow-2xl border border-gray-100"
+          >
+            {/* Header */}
+            <div className="flex justify-between items-center px-6 py-4 border-b">
+              <h2 className="text-xl font-semibold text-gray-800">
+                {mode === "assign" ? "Assign Product" : "Update Product"}
+              </h2>
 
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
-            <FormInput name="price" label="Price" errors={errors.price} />
-
-            <FormInput
-              name="discountPrice"
-              label="Discount Price"
-              required={false}
-              errors={errors.discountPrice}
-            />
-
-            <FormInput
-              name="quantity"
-              label="Quantity"
-              errors={errors.quantity}
-            />
-
-            <div className="flex items-center gap-2">
-              <Controller
-                name="isActive"
-                control={control}
-                render={({ field }) => (
-                  <Checkbox {...field} checked={!!field.value} />
-                )}
-              />
-              <span className="text-sm">Active</span>
+              <button
+                onClick={onClose}
+                className="text-gray-400 hover:text-gray-700 transition text-lg"
+              >
+                ✕
+              </button>
             </div>
 
-            <button
-              disabled={isLoading}
-              className="w-full bg-black text-white py-2 rounded"
-            >
-              {isLoading
-                ? "Saving..."
-                : mode === "assign"
-                  ? "Assign Product"
-                  : "Update Product"}
-            </button>
-          </form>
-        </FormProvider>
-      </div>
-    </div>
+            {/* Form */}
+            <FormProvider {...methods}>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="px-6 py-5 space-y-5"
+              >
+                <FormInput name="price" label="Price" errors={errors.price} />
+
+                <FormInput
+                  name="discountPrice"
+                  label="Discount Price"
+                  required={false}
+                  errors={errors.discountPrice}
+                />
+
+                <FormInput
+                  name="quantity"
+                  label="Quantity"
+                  errors={errors.quantity}
+                />
+
+                {/* Toggle */}
+                <div className="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-3">
+                  <span
+                    className={`text-sm font-semibold transition-all duration-300 ${isActiveValue ? "text-[var(--color-primary)]" : "text-[var(--color-error)]"
+                      }`}
+                  >
+                    {isActiveValue ? "Product Active" : "Product Inactive"}
+                  </span>
+
+                  <Controller
+                    name="isActive"
+                    control={control}
+                    render={({ field }) => (
+                      <Switch
+                        checked={!!field.value}
+                        onChange={(e) =>
+                          field.onChange(e.target.checked)
+                        }
+                        sx={{
+                          "& .MuiSwitch-switchBase.Mui-checked": {
+                            color: "var(--color-secondary)",
+                          },
+                          "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
+                          {
+                            backgroundColor:
+                              "var(--color-secondary)",
+                          },
+                        }}
+                      />
+                    )}
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  disabled={isLoading}
+                  className="w-full bg-[var(--color-secondary)] text-white py-2.5 rounded-xl font-medium shadow-md hover:shadow-lg transition disabled:opacity-60"
+                >
+                  {isLoading ? (
+                    <span className="flex justify-center items-center gap-2">
+                      <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Saving...
+                    </span>
+                  ) : mode === "assign" ? (
+                    "Assign Product"
+                  ) : (
+                    "Update Product"
+                  )}
+                </motion.button>
+              </form>
+            </FormProvider>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
