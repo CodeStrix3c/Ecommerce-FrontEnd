@@ -1,4 +1,3 @@
-
 import { getAboutUsData } from "@/services/aboutUsServices";
 import { useQuery } from "@tanstack/react-query";
 

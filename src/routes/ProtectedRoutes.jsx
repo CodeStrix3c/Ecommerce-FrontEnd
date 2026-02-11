@@ -5,6 +5,10 @@ import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import ProtectedLayout from "@/app/layouts/ProtectedLayout";
 import DashboardLayout from "@/app/layouts/DashboardLayout";
 import VendorSettings from "@/supplier/pages/VendorSettings";
+import AboutUs from "@/features/about-us/pages/AboutUs";
+import { HelpCenter } from "@mui/icons-material";
+import VendorHelpCenter from "@/supplier/pages/VendorHelpCenter";
+import AgricultureHelpCenter from "@/features/help-center/pages/HelpCenter";
 
 /* ================= AUTH / COMMON ================= */
 const TalkWithExpert = lazy(
@@ -118,6 +122,8 @@ export default [
     <Route path="/dashboard" element={<DashboardLayout />}>
       <Route index element={<SupplierDashboard />} />
       <Route path="all-products" element={<AllProductList />} />
+      <Route path="about-us" element={<AboutUs />} />
+      <Route path="help-center" element={<AgricultureHelpCenter />} />
       <Route path="vendor-profile" element={<VendorSettings />} />
       <Route path="orchard" element={<OrchardPanel />} />
       <Route path="weather" element={<WeatherPanel />} />
@@ -127,6 +133,8 @@ export default [
       <Route path="financial" element={<FinancialPanel />} />
       <Route path="knowledge" element={<KnowledgePanel />} />
       <Route path="alerts" element={<AlertPanel />} />
+
+
     </Route>
   </Route>,
 ];

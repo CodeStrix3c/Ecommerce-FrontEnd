@@ -1,9 +1,16 @@
 import { useState } from "react";
-import { ShoppingCart, X } from "lucide-react";
+import { ShoppingCart, X, Check } from "lucide-react";
 import ImageGalleryModal from "@/components/shared/ImageGalleryModal";
+import QuantitySelector from "@/components/shared/QuantitySelector";
 
-const WishlistItem = ({ product, onRemove, onAddToCart }) => {
+const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
   const [showGallery, setShowGallery] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = () => {
+    // Pass both product and quantity to parent
+    onAddToCart(product, quantity);
+  };
 
   return (
     <>
@@ -29,10 +36,18 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
             </div>
           )}
 
+          {/* Added to Cart Badge */}
+          {isAddedToCart && (
+            <div className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 flex items-center gap-1 px-2 py-1 bg-[var(--color-primary)] text-[var(--color-white)] text-[10px] sm:text-xs font-bold rounded shadow-md">
+              <Check size={12} />
+              <span>In Cart</span>
+            </div>
+          )}
+
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onRemove(product.wishlistItemId); // ✅ CORRECT
+              onRemove(product.wishlistItemId);
             }}
             className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center 
         bg-[var(--color-white)] border border-[var(--color-black-hover)] rounded-full shadow-sm 
@@ -49,35 +64,41 @@ const WishlistItem = ({ product, onRemove, onAddToCart }) => {
           <h3 className="text-sm sm:text-base font-semibold text-[var(--color-black)] line-clamp-1 group-hover:text-[var(--color-secondary)] transition">
             {product.title}
           </h3>
-          {/* <p className="text-xs sm:text-sm text-[var(--color-black)]">
-            {product.category || "Agriculture Product"}
-          </p> */}
 
           <div className="flex items-center justify-between flex-wrap gap-1 mt-1">
             <p className="text-base sm:text-lg font-semibold text-[var(--color-black)]">
               ₹{product.price}
             </p>
-            <p
-              className={`text-[11px] sm:text-sm font-medium ${
-                product.inStock
-                  ? "text-[var(--color-primary)]"
-                  : "text-[var(--color-secondary-hover)]"
-              }`}
-            >
-              {product.inStock ? "In Stock" : "Out of Stock"}
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-[10px] sm:text-xs font-semibold text-[var(--color-black)] uppercase tracking-wide">
+                Qty:
+              </p>
+              <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+            </div>
           </div>
         </div>
 
         <div className="border-t border-[var(--color-gray)]">
           {product.inStock ? (
             <button
-              onClick={() => onAddToCart(product)}
-              className="w-full flex justify-center items-center gap-1.5 sm:gap-2 py-2.5 
-          text-[var(--color-secondary)] text-xs sm:text-sm font-medium 
-          hover:text-[var(--color-secondary-hover)] hover:bg-[var(--color-black-hover)] transition"
+              onClick={handleAddToCart}
+              disabled={isAddedToCart}
+              className={`w-full flex justify-center items-center gap-1.5 sm:gap-2 py-2.5 
+          text-xs sm:text-sm font-medium transition ${
+            isAddedToCart
+              ? "text-[var(--color-primary)] bg-[var(--color-primary)]/5 cursor-default"
+              : "text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)] hover:bg-[var(--color-black-hover)]"
+          }`}
             >
-              <ShoppingCart size={18} /> Add to Cart
+              {isAddedToCart ? (
+                <>
+                  <Check size={18} /> Added to Cart
+                </>
+              ) : (
+                <>
+                  <ShoppingCart size={18} /> Add to Cart
+                </>
+              )}
             </button>
           ) : (
             <span className="block text-center text-[var(--color-black)] text-xs sm:text-sm py-2">
