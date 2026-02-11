@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+import QRCode from "react-qr-code";
 
 import Spinner from "@/components/ui/Spinner";
 import BookingWidget from "@/features/bookings/components/BookingWidget";
@@ -9,7 +10,6 @@ import PlaceGallery from "@/features/places/components/PlaceGallery";
 import PerksWidget from "@/features/perks/components/PerksWidget";
 import ListingHeader from "@/components/shared/ListingHeader";
 import RatingSummary from "@/features/reviews/components/Ratings";
-import OverallRating from "@/features/reviews/components/OverallRating";
 import Testimonials from "@/features/reviews/pages/Testimonials";
 import HighlightBanner from "@/features/reviews/components/HighlightBanner";
 import ExploreNearby from "../components/ExploreNearby";
@@ -22,31 +22,25 @@ import { useCartList } from "@/providers/CartListProvider";
 import { requireLogin } from "@/utils/auth";
 import { useProductDetailsQuery } from "@/hooks/useProductsQuery";
 
-const IMAGE_BASE_URL =
-  "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net";
-
 const PlacePage = () => {
   const { id } = useParams();
   const { data: product, isLoading } = useProductDetailsQuery(id);
-  console.log(product, "this is product details");
+  console.log(product, "these are the product details");
 
   const [place, setPlace] = useState(null);
   const [sharePopUp, setSharePopUp] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
-  // const { data, isLoading } = useProductsQuery();
   const { toggleCartList, cartList } = useCartList();
 
   useEffect(() => {
-    if (!product || place) return;
+    if (!product) return;
 
-    const images =
-      product.images
-        ?.flatMap((img) => [img.url, img.thumbnailUrl])
-        .filter(Boolean)
-        .map((path) =>
-          path.startsWith("http") ? path : `${IMAGE_BASE_URL}${path}`,
-        ) ?? [];
+    const images = product.images?.map((img) => img.url).filter(Boolean) ?? [];
+
+    const giAttribute = product.attributes?.find(
+      (attr) => attr.name === "GI Tag",
+    );
 
     setPlace({
       _id: product.id,
@@ -57,12 +51,12 @@ const PlacePage = () => {
       rating: product.ratingAverage,
       stock: product.stockQuantity,
       inStock: product.stockQuantity > 0,
-      address: null,
-      perks: product.attributes ?? [], //gi tag as perks in attributes
+      perks: product.attributes ?? [],
       photos: images,
+      giTag: giAttribute?.value || null,
       raw: product,
     });
-  }, [product, place]);
+  }, [product]);
 
   if (isLoading || !place) return <Spinner />;
 
@@ -92,7 +86,6 @@ const PlacePage = () => {
 
       <motion.div className="overflow-x-hidden">
         <ListingHeader place={place} onShare={() => setSharePopUp(true)} />
-
         <PlaceGallery place={place} />
 
         <div className="mt-10 flex flex-col gap-8 lg:flex-row">
@@ -122,7 +115,6 @@ const PlacePage = () => {
         </div>
 
         <RatingSummary />
-        {/* <OverallRating /> */}
         <Testimonials />
 
         <ExploreNearby

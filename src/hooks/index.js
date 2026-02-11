@@ -200,3 +200,6 @@ export const useProvideAuth = () => {
 export const useAuth = () => {
   return useContext(UserContext);
 };
+// export const useAuth = () => {
+//   return useContext(UserContext);
+// };

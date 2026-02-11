@@ -7,7 +7,7 @@ const PlaceGallery = ({ place }) => {
 
   const photos = useMemo(
     () => (place.photos || []).filter(Boolean),
-    [place.photos]
+    [place.photos],
   );
 
   // Extract GI Tag from perks
@@ -22,19 +22,17 @@ const PlaceGallery = ({ place }) => {
   // }, [place.perks]);
 
   // Static GI Tag
-const giTag = "IICT-GI-2EKEKJN";
+  const giTag = "IICT-GI-2EKEKJN";
 
-const qrValue = "https://iictsrinagarcarpet-gi.org/verify/4140NUYRNNAHNHKYNH2";
+  const qrValue =
+    "https://iictsrinagarcarpet-gi.org/verify/4140NUYRNNAHNHKYNH2";
   // QR link → GI details page
-//  const qrValue = `${window.location.origin}/gi-details/${place._id}`;
-
-
+  //  const qrValue = `${window.location.origin}/gi-details/${place._id}`;
 
   if (!photos.length) return null;
 
   return (
     <div className="relative">
-      
       <div className="hidden lg:grid grid-cols-2 gap-6 h-[400px] py-2">
         {/* LEFT: Image */}
         <div className="flex items-center justify-center bg-gray-100 rounded-[12px] overflow-hidden">
@@ -62,7 +60,6 @@ const qrValue = "https://iictsrinagarcarpet-gi.org/verify/4140NUYRNNAHNHKYNH2";
         </div>
       </div>
 
-     
       <div className="lg:hidden space-y-4">
         {/* Image slider */}
         <div className="flex gap-2 overflow-x-auto">
@@ -88,7 +85,9 @@ const qrValue = "https://iictsrinagarcarpet-gi.org/verify/4140NUYRNNAHNHKYNH2";
               <span className="text-xs text-gray-400">{giTag}</span>
             </>
           ) : (
-            <span className="text-gray-400">QR not available please try again</span>
+            <span className="text-gray-400">
+              QR not available please try again
+            </span>
           )}
         </div>
       </div>

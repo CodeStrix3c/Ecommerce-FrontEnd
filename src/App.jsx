@@ -16,7 +16,7 @@ import axiosInstance from "./api/client/axiosInstance";
 function App() {
   useEffect(() => {
     axiosInstance.defaults.headers.common["Authorization"] =
-      `Bearer ${getItemFromLocalStorage("userLoginToken")}`;
+      `Bearer ${getItemFromLocalStorage("token")}`;
   }, []);
 
   return (
@@ -28,7 +28,15 @@ function App() {
           {protectedRoutes}
         </Routes>
       </Suspense>
-      <ToastContainer autoClose={2000} transition={Slide} />
+      <ToastContainer
+        autoClose={5000} // closes after 5s
+        closeOnClick={false} // prevent accidental close
+        pauseOnHover // pause timer on hover
+        draggable={false}
+        closeButton // show ❌ close button
+        hideProgressBar // ❌ no progress bar
+        transition={Slide} // smooth slide + fade
+      />
     </GoogleOAuthProvider>
   );
 }
