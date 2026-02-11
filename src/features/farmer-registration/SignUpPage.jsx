@@ -3,7 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box } from "@mui/material";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import SectionTitle from "@/components/shared/SectionTitle";
 import StepHeader from "@/features/auth/components/StepHeader";
@@ -133,45 +133,56 @@ export default function SupplierSignUp() {
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <FormProvider {...methods}>
-        <Box component="form" onSubmit={(e) => e.preventDefault()}>
-          <SectionTitle title="User Registration" centered />
+    <>
+      <Box
+        sx={{
+          minHeight: "90vh",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div className="w-full">
+          <FormProvider {...methods}>
+            <Box component="form" onSubmit={(e) => e.preventDefault()}>
+              <SectionTitle title="User Registration" centered />
 
-          <FormStepper activeStep={step} steps={labels} />
-          <StepHeader
-            activeStep={step}
-            labels={labels}
-            descriptions={descriptions}
-          />
+              <FormStepper activeStep={step} steps={labels} />
+              <StepHeader
+                activeStep={step}
+                labels={labels}
+                descriptions={descriptions}
+              />
 
-          {step === 0 && (
-            <ProfileSection
-              register={register}
-              errors={errors}
-              control={methods.control}
-            />
-          )}
+              {step === 0 && (
+                <ProfileSection
+                  register={register}
+                  errors={errors}
+                  control={methods.control}
+                />
+              )}
 
-          {step === 1 && (
-            <OtpVerificationSection register={register} errors={errors} />
-          )}
+              {step === 1 && (
+                <OtpVerificationSection register={register} errors={errors} />
+              )}
 
-          <FormNavigation
-            step={step}
-            totalSteps={2}
-            nextStep={nextStep}
-            prevStep={() => setStep(0)}
-            handleSubmit={handleSubmitClick}
-          />
-        </Box>
-      </FormProvider>
-    </Box>
+              <FormNavigation
+                step={step}
+                totalSteps={2}
+                nextStep={nextStep}
+                prevStep={() => setStep(0)}
+                handleSubmit={handleSubmitClick}
+              />
+            </Box>
+          </FormProvider>
+        </div>
+      </Box>
+
+      <p className="mb-5 text-center text-sm">
+        Already have an account?{" "}
+        <Link to="/login" className="font-medium underline">
+          Login
+        </Link>
+      </p>
+    </>
   );
 }

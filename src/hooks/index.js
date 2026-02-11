@@ -8,7 +8,6 @@ import {
   removeItemFromLocalStorage,
 } from "@/utils/localStorage";
 import { UserContext } from "@/providers/UserProvider";
-// import { UserContext } from "@/providers/UserProvider";
 
 // import { UserContext } from "@/providers/UserProvider";
 // import { PlaceContext } from "@/providers/PlaceProvider";
