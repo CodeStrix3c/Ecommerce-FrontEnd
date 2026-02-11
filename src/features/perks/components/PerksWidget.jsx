@@ -43,7 +43,7 @@ const PerksWidget = ({ perks }) => {
 
   return (
     <section>
-      <h2 className="text-2xl font-semibold mb-4">Specifications</h2>
+      <h2 className="text-2xl font-semibold mb-4">GI Tagging</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {perks.map((perk, index) => (
@@ -51,9 +51,9 @@ const PerksWidget = ({ perks }) => {
             key={index}
             className="flex justify-between rounded-lg border p-3"
           >
-            <span className="font-medium text-gray-700">{perk.name}</span>
+            <span className="font-medium text-[var(--color-black)]">{perk.name}</span>
 
-            <span className="text-gray-600">{perk.value}</span>
+            <span className="text-[var(--color-black)]">{perk.value}</span>
           </div>
         ))}
       </div>

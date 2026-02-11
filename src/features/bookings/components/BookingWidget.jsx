@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import { Tag } from "lucide-react";
 import { useCartList } from "@/providers/CartListProvider";
 import QuantitySelector from "@/components/shared/QuantitySelector";
@@ -13,25 +12,30 @@ const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
   const totalPrice = quantity * place.price;
 
   return (
-    <div className="mx-auto max-w-2xl w-full">
+  
+<div className="w-full md:mx-auto md:max-w-2xl md:pb-0">
+
       {/* Price notice */}
       <div className="hidden md:flex border rounded-lg mb-4 p-4 items-center">
-        <Tag color="red" />
+        <Tag className="text-[var(--color-secondary)]" />
         <p className="ms-4 font-semibold">Prices include all fees</p>
       </div>
 
-      {/* Desktop */}
+      {/* Desktop Card */}
       <div className="hidden md:flex flex-col border rounded-xl p-5 bg-[var(--color-white)] shadow-lg max-w-xl mx-auto">
         <div className="flex px-2 items-center">
           <span className="font-bold text-xl">₹{place.price}</span>
-          <span className="px-1 text-sm font-semibold">per unit</span>
+          <span className="px-1 text-sm font-semibold">per item</span>
         </div>
 
         <div className="mt-4">
           <div className="flex items-center mb-4">
             <p className="text-sm font-semibold">Quantity :</p>
             <div className="ms-3">
-              <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+              <QuantitySelector
+                quantity={quantity}
+                setQuantity={setQuantity}
+              />
             </div>
           </div>
 
@@ -58,7 +62,10 @@ const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
       </div>
 
       {/* Mobile Bottom Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t bg-[var(--color-white)] p-4 shadow-lg">
+     
+      <div className="md:hidden fixed bottom-16 left-0 right-0 z-50 border-t bg-[var(--color-white)] p-4 shadow-lg pb-[calc(env(safe-area-inset-bottom)+14px)]">
+        
+        {/* Total + Quantity */}
         <div className="flex justify-between mb-3">
           <div>
             <p className="text-lg font-bold">₹{totalPrice}</p>
@@ -66,9 +73,13 @@ const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
               {quantity} × ₹{place.price}
             </p>
           </div>
-          <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+          <QuantitySelector
+            quantity={quantity}
+            setQuantity={setQuantity}
+          />
         </div>
 
+        {/* Actions */}
         <div className="flex gap-2">
           <button
             onClick={() => onBuyNow(quantity)}
@@ -76,11 +87,12 @@ const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
           >
             Buy Now
           </button>
+
           <button
             onClick={onAddToCart}
             className="flex-1 rounded-md py-2 text-sm font-medium bg-[var(--color-black-hover)]"
           >
-            Add to cart
+            {isCartListed ? "Remove" : "Add to cart"}
           </button>
         </div>
       </div>
