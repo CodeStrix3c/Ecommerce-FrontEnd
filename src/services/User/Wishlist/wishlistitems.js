@@ -20,7 +20,7 @@ export const removeFromWishList = async (productId) => {
 
 // GET → wishlist items
 export const getWishlistItems = async ({ pageNumber = 1, pageSize = 50 }) => {
-  const res = await axiosInstance.get("/api/wishList/PublicList", {
+  const res = await axiosInstance.get("/api/wishList/PrivateList", {
     params: {
       pageNumber,
       pageSize,

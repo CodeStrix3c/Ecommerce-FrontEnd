@@ -33,7 +33,7 @@ const ImageGalleryModal = ({ photos = [], isOpen, onClose }) => {
               <img
                 src={photo}
                 alt={`Photo ${index + 1}`}
-                className="w-full h-auto object-cover cursor-pointer transform transition-transform duration-300 hover:scale-105"
+                className="w-full h-auto object-contain cursor-pointer transform transition-transform duration-300 hover:scale-105"
                 onClick={onClose}
                 loading="lazy"
               />
