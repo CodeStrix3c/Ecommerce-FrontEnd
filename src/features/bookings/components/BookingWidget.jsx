@@ -5,31 +5,37 @@ import QuantitySelector from "@/components/shared/QuantitySelector";
 
 const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
-
   const { cartList } = useCartList();
-  const isCartListed = cartList.some((item) => item._id === place._id);
 
-  const totalPrice = quantity * place.price;
+  if (!place) return null;
+
+  const price = place?.price || 0;
+  const isCartListed = cartList?.some((item) => item._id === place._id);
+  const totalPrice = quantity * price;
 
   return (
-  
-<div className="w-full md:mx-auto md:max-w-2xl md:pb-0">
-
-      {/* Price notice */}
-      <div className="hidden md:flex border rounded-lg mb-4 p-4 items-center">
-        <Tag className="text-[var(--color-secondary)]" />
-        <p className="ms-4 font-semibold">Prices include all fees</p>
-      </div>
+    <div className="w-full md:mx-auto md:max-w-2xl md:pb-0">
 
       {/* Desktop Card */}
-      <div className="hidden md:flex flex-col border rounded-xl p-5 bg-[var(--color-white)] shadow-lg max-w-xl mx-auto">
-        <div className="flex px-2 items-center">
-          <span className="font-bold text-xl">₹{place.price}</span>
+      <div className="hidden md:flex flex-col border rounded-xl p-4 bg-[var(--color-white)] shadow-lg mx-auto">
+
+        {/* Price include notice INSIDE card */}
+        <div className="flex items-center border rounded-lg p-3 mb-3 bg-gray-50">
+          <Tag className="text-[var(--color-secondary)]" size={18} />
+          <p className="ms-3 text-sm font-semibold">
+            Prices include all fees
+          </p>
+        </div>
+
+        {/* Price */}
+        <div className="flex px-1 items-center">
+          <span className="font-bold text-xl">₹{price}</span>
           <span className="px-1 text-sm font-semibold">per item</span>
         </div>
 
-        <div className="mt-4">
-          <div className="flex items-center mb-4">
+        {/* Quantity + Total in SAME ROW */}
+        <div className="mt-4 flex items-center justify-between">
+          <div className="flex items-center">
             <p className="text-sm font-semibold">Quantity :</p>
             <div className="ms-3">
               <QuantitySelector
@@ -40,10 +46,11 @@ const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
           </div>
 
           <div className="text-sm font-semibold">
-            Total price: ₹{totalPrice}
+            Total: ₹{totalPrice}
           </div>
         </div>
 
+        {/* Actions */}
         <div className="flex flex-col gap-2 mt-4">
           <button
             onClick={() => onBuyNow(quantity)}
@@ -61,16 +68,14 @@ const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
         </div>
       </div>
 
-      {/* Mobile Bottom Bar */}
-     
+      {/* Mobile Bottom Bar (unchanged) */}
       <div className="md:hidden fixed bottom-16 left-0 right-0 z-50 border-t bg-[var(--color-white)] p-4 shadow-lg pb-[calc(env(safe-area-inset-bottom)+14px)]">
         
-        {/* Total + Quantity */}
         <div className="flex justify-between mb-3">
           <div>
             <p className="text-lg font-bold">₹{totalPrice}</p>
             <p className="text-xs">
-              {quantity} × ₹{place.price}
+              {quantity} × ₹{price}
             </p>
           </div>
           <QuantitySelector
@@ -79,7 +84,6 @@ const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
           />
         </div>
 
-        {/* Actions */}
         <div className="flex gap-2">
           <button
             onClick={() => onBuyNow(quantity)}
