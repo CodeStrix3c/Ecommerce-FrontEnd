@@ -5,7 +5,6 @@ import { Box } from "@mui/material";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 
-import SectionTitle from "@/components/shared/SectionTitle";
 import StepHeader from "@/features/auth/components/StepHeader";
 import FormStepper from "@/components/shared/FormStepper";
 
@@ -60,9 +59,6 @@ export default function SupplierSignUp() {
 
   const values = watch();
 
-  /* =========================
-     STEP 0 → CHECK + SEND OTP
-     ========================= */
   const nextStep = async () => {
     const valid = await trigger(PROFILE_FIELDS);
     if (!valid) return;
@@ -83,26 +79,21 @@ export default function SupplierSignUp() {
       setStep(1);
     } catch (err) {
       toast.error(
-        err.response?.data?.message || "Email or phone verification failed",
+        err.response?.data?.message || "Email or phone verification failed"
       );
     }
   };
 
-  /* =========================
-     STEP 1 → OTP → SIGNUP → LOGIN
-     ========================= */
   const handleSubmitClick = async () => {
     const valid = await trigger(OTP_FIELDS);
     if (!valid) return toast.error("Enter OTP");
 
     try {
-      // 1️⃣ VERIFY OTP
       await verifyOtp({
         phoneNumber: formData.phone,
         otp: values.otp,
       });
 
-      // 2️⃣ SIGNUP
       await signup({
         FullName: formData.fullName,
         Email: formData.email,
@@ -113,13 +104,11 @@ export default function SupplierSignUp() {
         Gender: formData.gender,
       });
 
-      // 3️⃣ AUTO LOGIN (NO SCREEN)
       const loginResponse = await login({
         email: formData.email,
         password: formData.password,
         mobileNumber: formData.phone,
       });
-      console.log(loginResponse);
 
       
       // setItemsInLocalStorage("token", loginResponse.token);
@@ -148,14 +137,49 @@ setVendorId(loginResponse.vendorId);
           minHeight: "90vh",
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <div className="w-full">
+        {/* Responsive Container */}
+        <div className="w-full max-w-3xl px-4 sm:px-6 md:px-8">
+
           <FormProvider {...methods}>
             <Box component="form" onSubmit={(e) => e.preventDefault()}>
-              <SectionTitle title="User Registration" centered />
 
+              {/* ✅ Responsive Logo + Title */}
+              <div className="relative mb-6">
+
+                {/* Mobile Layout */}
+                <div className="flex flex-col items-center gap-2 md:hidden">
+                  <img
+                    src="/assets/images/logo6.png"
+                    alt="App Logo"
+                    className="h-10 sm:h-12 object-contain"
+                  />
+                  <h2 className="text-xl font-semibold text-center">
+                    User Registration
+                  </h2>
+                </div>
+
+                {/* Desktop Layout */}
+                <div className="hidden md:flex items-center justify-center relative">
+                  <h2 className="text-2xl font-semibold text-center">
+                    User Registration
+                  </h2>
+
+                  <img
+                    src="/assets/images/logo6.png"
+                    alt="App Logo"
+                    className="h-14 object-contain absolute left-0"
+                  />
+                </div>
+
+              </div>
+
+              {/* Stepper */}
               <FormStepper activeStep={step} steps={labels} />
+
+              {/* Step Header */}
               <StepHeader
                 activeStep={step}
                 labels={labels}
@@ -171,9 +195,13 @@ setVendorId(loginResponse.vendorId);
               )}
 
               {step === 1 && (
-                <OtpVerificationSection register={register} errors={errors} />
+                <OtpVerificationSection
+                  register={register}
+                  errors={errors}
+                />
               )}
 
+              {/* Navigation Buttons */}
               <FormNavigation
                 step={step}
                 totalSteps={2}
@@ -181,12 +209,14 @@ setVendorId(loginResponse.vendorId);
                 prevStep={() => setStep(0)}
                 handleSubmit={handleSubmitClick}
               />
+
             </Box>
           </FormProvider>
         </div>
       </Box>
 
-      <p className="mb-5 text-center text-sm">
+      {/* Login Link */}
+      <p className="mb-5 text-center text-sm px-4">
         Already have an account?{" "}
         <Link to="/login" className="font-medium underline">
           Login

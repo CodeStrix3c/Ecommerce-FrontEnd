@@ -23,6 +23,7 @@ export default function OtpVerificationSection({ register, errors, onResend }) {
             name="otp"
             label="Enter OTP"
             type="text"
+            placeholder="Enter 6-digits OTP"
             register={register}
             errors={errors.otp}
             icon={"Resend OTP"}
