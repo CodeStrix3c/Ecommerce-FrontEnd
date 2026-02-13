@@ -13,15 +13,14 @@ export default function DashboardLayout() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--color-white)]">
-      {/* ✅ Header */}
+
       <TopHeader vendorName={vendorName} loading={isLoading} />
 
-      {/* ✅ Main content */}
       <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
 
-      {/* ✅ Footer */}
+      ✅
       <footer className="text-center text-xs sm:text-sm text-[var(--color-black)]/50 py-5 border-t">
         © {new Date().getFullYear()} Art&Craft Panel. All rights reserved.
       </footer>

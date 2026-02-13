@@ -18,22 +18,23 @@ const PlaceGallery = ({ place }) => {
   if (!photos.length) return null;
 
   const mainImage = photos[0];
-  const thumbnails = photos.slice(1, 5); // next 4 images
+  const thumbnails = photos.slice(1, 5);
 
   return (
     <div className="relative bg-white mb-10">
-
       {/* ================= DESKTOP ================= */}
       <div className="hidden lg:block space-y-8">
-
-        {/* MAIN IMAGE (Taller) */}
-        <div className="relative aspect-[4/3.2] overflow-hidden border border-gray-200 rounded-lg">
-          <img
-            src={mainImage}
-            alt="main"
-            onClick={() => setShowGallery(true)}
-            className="w-full h-full object-cover cursor-pointer"
-          />
+        {/* MAIN IMAGE */}
+        <div className="relative aspect-[4/3.2] border border-gray-200 rounded-lg overflow-hidden">
+      
+            <img
+              src={mainImage}
+              alt="main"
+              onClick={() => setShowGallery(true)}
+              draggable={false}
+              className="w-full h-full object-cover cursor-pointer"
+            />
+      
 
           {/* QR Overlay */}
           {qrValue && (
@@ -49,7 +50,7 @@ const PlaceGallery = ({ place }) => {
           )}
         </div>
 
-        {/* THUMBNAILS (4 in row, same size) */}
+        {/* THUMBNAILS */}
         {thumbnails.length > 0 && (
           <div className="grid grid-cols-4 gap-3">
             {thumbnails.map((img, index) => (
@@ -71,16 +72,19 @@ const PlaceGallery = ({ place }) => {
 
       {/* ================= MOBILE ================= */}
       <div className="lg:hidden space-y-3">
+        {/* MAIN IMAGE */}
+        <div className="relative aspect-[4/3] border border-gray-200 rounded-lg overflow-hidden">
+          
+            <img
+              src={mainImage}
+              alt="main"
+              onClick={() => setShowGallery(true)}
+              draggable={false}
+              className="w-full h-full object-contain p-3 cursor-pointer"
+            />
+          
 
-        {/* MAIN */}
-        <div className="relative aspect-[4/3] overflow-hidden border border-gray-200 rounded-lg">
-          <img
-            src={mainImage}
-            alt="main"
-            onClick={() => setShowGallery(true)}
-            className="w-full h-full object-contain p-4 cursor-pointer"
-          />
-
+          {/* QR */}
           {qrValue && (
             <div className="absolute bottom-3 right-3 flex flex-col items-center bg-white/80 p-1 rounded">
               <QRCode value={qrValue} size={50} />
@@ -94,7 +98,7 @@ const PlaceGallery = ({ place }) => {
           )}
         </div>
 
-        {/* MOBILE THUMBNAILS */}
+        {/* THUMBNAILS */}
         {thumbnails.length > 0 && (
           <div className="grid grid-cols-4 gap-2">
             {thumbnails.map((img, index) => (
@@ -114,7 +118,7 @@ const PlaceGallery = ({ place }) => {
         )}
       </div>
 
-      {/* MODAL */}
+      {/* ================= MODAL ================= */}
       <ImageGalleryModal
         photos={photos}
         isOpen={showGallery}

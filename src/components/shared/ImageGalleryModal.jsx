@@ -1,45 +1,36 @@
 import React from "react";
 import { X } from "lucide-react";
+import ZoomControls from "@/components/shared/ZoomControls";
 
 const ImageGalleryModal = ({ photos = [], isOpen, onClose }) => {
-  if (!isOpen) return null;
+  if (!isOpen || !photos.length) return null;
+
+  const firstImage = photos[0];
 
   return (
-    <div
-      className="fixed inset-0 z-[9999] bg-[var(--color-white)] text-[var(--color-black-hover)] overflow-auto flex flex-col no-scrollbar"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className="sticky top-0 z-50 flex items-center justify-between bg-[var(--color-white)] shadow-sm px-4 py-4 md:px-12 md:py-5 border-b border-[var(--color-neutral-light)]">
-        <h2 className="text-lg font-semibold text-[var(--color-black)]">
-          Product Images
-        </h2>
+    <div className="fixed inset-0 z-[9999] bg-white flex flex-col">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-4 md:px-12 border-b border-gray-200 shadow-sm">
+        <h2 className="text-lg font-semibold">Product Image</h2>
+
         <button
           onClick={onClose}
-          className="flex items-center justify-center rounded-full p-2 hover:bg-[var(--color-white-hover)] transition-all"
-          aria-label="Close"
+          className="p-2 rounded-full hover:bg-gray-100 transition"
         >
-          <X className="h-5 w-5 text-[var(--color-secondary)]" />
+          <X className="h-5 w-5" />
         </button>
       </div>
 
-      <div className="px-4 py-8 md:px-12">
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
-          {photos.map((photo, index) => (
-            <div
-              key={index}
-              className="mb-6 break-inside-avoid overflow-hidden rounded-lg shadow-sm"
-            >
-              <img
-                src={photo}
-                alt={`Photo ${index + 1}`}
-                className="w-full h-auto object-contain cursor-pointer transform transition-transform duration-300 hover:scale-105"
-                onClick={onClose}
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
+      {/* Image Area */}
+      <div className="flex-1 overflow-hidden p-4">
+        <ZoomControls className="w-full h-full">
+          <img
+            src={firstImage}
+            alt="Product"
+            draggable={false}
+            className="w-full h-full object-contain select-none"
+          />
+        </ZoomControls>
       </div>
     </div>
   );

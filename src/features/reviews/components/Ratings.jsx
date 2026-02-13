@@ -3,7 +3,7 @@ import LeafTitleBlock from "@/components/shared/LeafTitleBlock";
 
 export default function RatingSummary() {
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-8 border border-lg border-[var(--color-gray)] rounded-2xl bg-[var(--color-white)] shadow-lg">
+    <div className="flex flex-col items-center justify-center px-6 py-8">
       <div className="text-center">
         <LeafTitleBlock title="4.8" leafSize="md" titleSize="md" />
         {/* <h1 className="font-bold text-[50px]">4.8</h1> */}

@@ -41,11 +41,11 @@ const PlaceCard = ({ place, loading }) => {
             />
           </div>
 
-          {oldPrice && (
+          {/* {oldPrice && (
             <span className="absolute left-2 top-2 rounded bg-red-500 px-2 py-1 text-xs text-white">
               SALE {discountPercent ? `-${discountPercent}%` : ""}
             </span>
-          )}
+          )} */}
 
           {/* ❤️ Wishlist */}
           <button
@@ -66,11 +66,11 @@ const PlaceCard = ({ place, loading }) => {
         <div className="mt-3 flex flex-col">
           <h3 className="truncate text-sm font-semibold">{title}</h3>
 
-          <p className="mt-1 h-4 truncate text-xs text-gray-500">
+          {/* <p className="mt-1 h-4 truncate text-xs text-gray-500">
             {category || "\u00A0"}
-          </p>
+          </p> */}
 
-          <div className="mt-2 flex items-baseline gap-2">
+          <div className="mt-1 flex items-baseline gap-2">
             <span className="flex items-center text-base font-semibold">
               <IndianRupee className="h-4 w-4" />
               {price}
@@ -85,19 +85,19 @@ const PlaceCard = ({ place, loading }) => {
 
           <div className="mt-2 h-5 flex items-center">
             {rating ? (
-              <StarRating size={12} rating={rating} count={ratingCount} />
+              <StarRating size={14} rating={rating} count={ratingCount} />
             ) : (
-              <span className="text-xs text-gray-400">No ratings yet</span>
+              <StarRating size={14} />
             )}
           </div>
 
-          <p
+          {/* <p
             className={`mt-2 text-xs font-medium ${
               stock > 0 ? "text-green-600" : "text-red-500"
             }`}
           >
             {stock > 0 ? "In Stock" : "Out of Stock"}
-          </p>
+          </p> */}
         </div>
       </Link>
     </div>

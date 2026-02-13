@@ -95,7 +95,7 @@ export default function Testimonials() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl py-10">
+    <div className="mx-auto">
    <div className="flex items-center justify-between mb-4">
   <h2 className="text-2xl font-semibold text-[var(--color-black)]">
     What People Say About Our Art & Craft Products

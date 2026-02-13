@@ -119,72 +119,78 @@ const AllProductList = () => {
 
   return (
 
-    <div className="mt-2 w-full bg-[var(--color-background)] pt-2 sm:pt-20 pb-5">
+    <div className=" mt-4 w-full bg-[var(--color-background)] pt-4 sm:pt-6 pb-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
 
 
-      <div className="max-w-7xl mx-auto px-4 relative">
-        <div className="mb-4 flex items-center justify-end ">
-          <ProductSearchBar
-            placeholder="Search products..."
-            onSearch={(query) => {
-              setSearchParams((prev) => ({ ...prev, query }));
-              setCurrentPage(1);
-            }}
-          />
+        <div className="mb-4 flex justify-center sm:justify-start lg:-mt-1">
+          <div className="w-full sm:w-[320px] md:w-[380px]">
+            <ProductSearchBar
+              placeholder="Search products..."
+              onSearch={(query) => {
+                setSearchParams((prev) => ({ ...prev, query }));
+                setCurrentPage(1);
+              }}
+            />
+          </div>
         </div>
 
 
-        {isLoading ? (
-          <LoadingSpinner message="Loading products..." />
-        ) : products.length === 0 ? (
-          <div className="text-center text-gray-500 mt-20">
-            No products available
-          </div>
-        ) : (
-          <>
-            <ProductTable
-              products={products}
-              sortBy={sortBy}
-              sortReverse={sortReverse}
-              onSort={(column) => {
-                if (sortBy === column) {
-                  setSortReverse((prev) => !prev);
-                } else {
-                  setSortBy(column);
-                  setSortReverse(false);
-                }
-                setCurrentPage(1);
-              }}
-              onEdit={handleEditProduct}
-              onDelete={handleDeleteProduct}
-            />
 
-            <div className="mt-4 flex justify-center">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
+        {
+          isLoading ? (
+            <LoadingSpinner message="Loading products..." />
+          ) : products.length === 0 ? (
+            <div className="text-center text-[var(--color-black)] mt-20">
+              No products available
             </div>
-          </>
-        )}
+          ) : (
+            <>
+              <ProductTable
+                products={products}
+                sortBy={sortBy}
+                sortReverse={sortReverse}
+                onSort={(column) => {
+                  if (sortBy === column) {
+                    setSortReverse((prev) => !prev);
+                  } else {
+                    setSortBy(column);
+                    setSortReverse(false);
+                  }
+                  setCurrentPage(1);
+                }}
+                onEdit={handleEditProduct}
+                onDelete={handleDeleteProduct}
+              />
+
+              <div className="mt-4 flex justify-center">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              </div>
+            </>
+          )
+        }
 
         <div
           onClick={() => setProductModalOpen(true)}
-          className="fixed bottom-8 right-8 h-12 w-12 rounded-full bg-black
-          flex items-center justify-center cursor-pointer shadow-lg"
-        >
-          <span className="text-white text-2xl font-bold">+</span>
+          className="fixed  bottom-20 sm:bottom-8 right-6 z-50 h-12 w-12 rounded-full bg-[var(--color-secondary)] flex items-center justify-center
+         cursor-pointer shadow-lg" >
+          <span className="text-[var(--color-white)] text-2xl font-bold">+</span>
         </div>
 
-        <ProductModal
+
+
+        <ProductModal //searchbar
           isOpen={productModalOpen}
           onClose={() => setProductModalOpen(false)}
           onSelectProduct={handleProductSelect}
           assignedProductIds={products.map((p) => p.productId)}
         />
 
-        <AssignProductModal
+        <AssignProductModal // update and assign
           isOpen={assignModalOpen}
           onClose={() => {
             setAssignModalOpen(false);
@@ -199,7 +205,7 @@ const AllProductList = () => {
           onSuccess={handleAssignSuccess}
         />
 
-        <ConfirmDialog
+        <ConfirmDialog //delete 
           isOpen={confirmOpen}
           title="Delete Product"
           message="Are you sure you want to remove this product?"
@@ -208,8 +214,8 @@ const AllProductList = () => {
           onCancel={() => setConfirmOpen(false)}
           loading={deleting}
         />
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

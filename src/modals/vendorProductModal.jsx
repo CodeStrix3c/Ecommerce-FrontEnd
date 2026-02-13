@@ -31,19 +31,28 @@ const ProductModal = ({
           <div className="mt-4 max-h-[300px] overflow-y-auto space-y-2">
             {Array.isArray(data) &&
               data.map((item) => {
-                const isAlreadyAssigned = assignedProductIds.includes(item.id);
+                // Safely detect correct ID field
+                const productId = item?.id ?? item?._id ?? null;
+
+                // Convert everything to string to avoid type mismatch
+                const assignedSet = new Set(
+                  (assignedProductIds || []).map((id) => String(id))
+                );
+
+                const isAlreadyAssigned =
+                  productId && assignedSet.has(String(productId));
 
                 return (
                   <div
-                    key={item.id}
-                    className={`p-2 border rounded ${
-                      isAlreadyAssigned
-                        ? "opacity-60 cursor-not-allowed"
-                        : "cursor-pointer hover:bg-gray-50"
-                    }`}
+                    key={productId}
+                    className={`p-2 border rounded ${isAlreadyAssigned
+                      ? "opacity-60 cursor-not-allowed"
+                      : "cursor-pointer hover:bg-gray-50"
+                      }`}
                     onClick={() => {
-                      if (isAlreadyAssigned) return; // ❌ BLOCK ADD
-                      onSelectProduct(item.id);
+                      if (isAlreadyAssigned) return;
+
+                      onSelectProduct(productId);
                       onClose();
                     }}
                   >
@@ -52,7 +61,6 @@ const ProductModal = ({
                       {!isAlreadyAssigned && <ArrowForward />}
                     </div>
 
-                    {/* 🔴 MESSAGE */}
                     {isAlreadyAssigned && (
                       <p className="text-xs text-red-500 mt-1">
                         This product is already assigned
@@ -61,15 +69,15 @@ const ProductModal = ({
                   </div>
                 );
               })}
-          </div>
 
-          {Array.isArray(data) && data.length === 0 && !isLoading && (
-            <p className="mt-4 text-sm text-gray-500">No product found</p>
-          )}
+
+            {Array.isArray(data) && data.length === 0 && !isLoading && (
+              <p className="mt-4 text-sm text-gray-500">No product found</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
-};
-
+}
 export default ProductModal;

@@ -35,56 +35,97 @@ const ProductInfoPanel = ({
 
   return (
     <div className="space-y-4">
-      {/* TITLE */}
-      {place.title && (
-        <section className="bg-[var(--color-white)]">
-          <div
-            className="text-3xl font-bold text-[var(--color-black)] leading-relaxed"
-            dangerouslySetInnerHTML={{
-              __html: place.title,
-            }}
-          />
-        </section>
+ <div className="bg-[var(--color-white)] space-y-2">
+
+  {/* TITLE */}
+  {place.title && (
+    <section>
+      <div
+        className="text-2xl font-bold text-[var(--color-black)]"
+        dangerouslySetInnerHTML={{
+          __html: place.title,
+        }}
+      />
+    </section>
+  )}
+
+    {/* BRAND */}
+  {place.brand && (
+    <div>
+      <p className="text-sm text-[var(--color-black)]">{place.brand}</p>
+    </div>
+  )}
+
+  {/* PRICE */}
+  <section>
+    <div className="flex items-center flex-wrap gap-2">
+      <span className="text-2xl font-bold text-[var(--color-primary)]">
+        ₹{place.price}
+      </span>
+
+      {place.oldPrice && (
+        <span className="text-[var(--color-black)] line-through text-base">
+          MRP ₹{place.oldPrice}
+        </span>
       )}
 
-      {/* PRICE */}
-      <section className="bg-[var(--color-white)]">
-        <div className="flex items-center flex-wrap gap-3">
-          <span className="text-3xl font-bold text-[var(--color-primary)]">
-            ₹{place.price}
+      {place.discount > 0 && (
+        <span className="bg-[var(--color-secondary)] text-[var(--color-white)] px-2 py-0.5 rounded-md text-xs font-semibold">
+          {place.discount}% OFF
+        </span>
+      )}
+    </div>
+
+    {place.oldPrice && place.discount > 0 && (
+      <p className="text-xs text-[var(--color-primary)] font-medium">
+        You save ₹{place.oldPrice - place.price}
+      </p>
+    )}
+  </section>
+
+  {/* STOCK */}
+  {(place.stockTracking || !place.isAllowToOrder) && (
+    <div className="text-sm space-y-1">
+      <p>
+        {place.inStock ? (
+          <span className="text-[var(--color-white)] bg-[var(--color-primary)] px-2 py-0.5 rounded-sm font-semibold text-xs">
+            In Stock
           </span>
-
-          {place.oldPrice && (
-            <span className="text-[var(--color-black)] line-through text-lg">
-              MRP ₹{place.oldPrice}
-            </span>
-          )}
-
-          {place.discount > 0 && (
-            <span className="bg-[var(--color-secondary)] text-[var(--color-white)] px-2 py-1 rounded-md text-sm font-semibold">
-              {place.discount}% OFF
-            </span>
-          )}
-        </div>
-
-        {place.oldPrice && place.discount > 0 && (
-          <p className="text-sm text-[var(--color-primary)] font-medium mt-2">
-            You save ₹{place.oldPrice - place.price}
-          </p>
+        ) : (
+          <span className="text-[var(--color-error)]">
+            Out of Stock
+          </span>
         )}
-      </section>
+      </p>
 
-      {/* SHORT DESCRIPTION */}
-      {place.shortDescription && (
-        <section className="bg-[var(--color-white)]">
-          <div
-            className="text-sm text-[var(--color-black)] leading-relaxed"
-            dangerouslySetInnerHTML={{
-              __html: place.shortDescription,
-            }}
-          />
-        </section>
+      {place.stockTracking && (
+        <p>Quantity Available: {place.stock}</p>
       )}
+
+      {!place.isAllowToOrder && (
+        <p className="text-[var(--color-error)]">
+          Ordering currently disabled
+        </p>
+      )}
+    </div>
+  )}
+
+ 
+
+  {/* SHORT DESCRIPTION */}
+  {place.shortDescription && (
+    <section>
+      <div
+        className="text-sm text-[var(--color-black)] leading-relaxed"
+        dangerouslySetInnerHTML={{
+          __html: place.shortDescription,
+        }}
+      />
+    </section>
+  )}
+
+</div>
+
 
       {/* ACCORDIONS */}
       <div className="mt-4 space-y-4">
@@ -99,7 +140,8 @@ const ProductInfoPanel = ({
             }}
           />
         </Accordion>
-       <Accordion
+
+        <Accordion
           title="specification"
           sectionKey="specification"
           show={!!place.specification}
@@ -109,42 +151,6 @@ const ProductInfoPanel = ({
               __html: place.specification,
             }}
           />
-        </Accordion>
-        <Accordion
-          title="Brand"
-          sectionKey="brand"
-          show={!!place.brand}
-        >
-          <p>{place.brand}</p>
-        </Accordion>
-
-        <Accordion
-          title="Availability"
-          sectionKey="stock"
-          show={place.stockTracking || !place.isAllowToOrder}
-        >
-          <p>
-            Status:{" "}
-            {place.inStock ? (
-              <span className="text-[var(--color-primary)]">
-                In Stock
-              </span>
-            ) : (
-              <span className="text-[var(--color-error)]">
-                Out of Stock
-              </span>
-            )}
-          </p>
-
-          {place.stockTracking && (
-            <p>Quantity Available: {place.stock}</p>
-          )}
-
-          {!place.isAllowToOrder && (
-            <p className="text-[var(--color-error)]">
-              Ordering currently disabled
-            </p>
-          )}
         </Accordion>
 
         <Accordion

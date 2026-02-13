@@ -51,21 +51,21 @@ const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
         </div>
 
         {/* Actions */}
-        <div className="flex flex-col gap-2 mt-4">
-          <button
-            onClick={() => onBuyNow(quantity)}
-            className="w-full rounded-md bg-[var(--color-primary)] py-3 text-sm font-semibold text-[var(--color-white)] hover:bg-[var(--color-primary-hover)]"
-          >
-            Buy Now
-          </button>
+          <div className="grid grid-cols-2 items-center gap-2 w-full mt-4">
+  <button
+    onClick={() => onBuyNow(quantity)}
+    className="w-full px-6 py-2 rounded-md text-sm font-semibold text-white bg-[var(--color-primary)]"
+  >
+    Buy Now
+  </button>
 
-          <button
-            onClick={onAddToCart}
-            className="w-full rounded-md py-3 text-sm font-medium bg-[var(--color-black-hover)]"
-          >
-            {isCartListed ? "Remove from your cart" : "Add to your cart"}
-          </button>
-        </div>
+  <button
+    onClick={onAddToCart}
+    className="w-full px-6 py-2 border border-[var(--color-dark)] rounded-md text-sm font-medium text-[var(--color-black)]"
+  >
+    {isCartListed ? "Remove" : "Add to cart"}
+  </button>
+</div>
       </div>
 
       {/* Mobile Bottom Bar (unchanged) */}
@@ -84,21 +84,23 @@ const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
           />
         </div>
 
-        <div className="flex gap-2">
-          <button
-            onClick={() => onBuyNow(quantity)}
-            className="flex-1 rounded-md bg-[var(--color-primary)] py-2 text-sm font-semibold text-[var(--color-white)]"
-          >
-            Buy Now
-          </button>
+    <div className="grid grid-cols-2 items-center gap-2 w-full">
+  <button
+    onClick={() => onBuyNow(quantity)}
+    className="w-full px-6 py-2 rounded-md text-sm font-semibold text-white bg-[var(--color-primary)]"
+  >
+    Buy Now
+  </button>
 
-          <button
-            onClick={onAddToCart}
-            className="flex-1 rounded-md py-2 text-sm font-medium bg-[var(--color-black-hover)]"
-          >
-            {isCartListed ? "Remove" : "Add to cart"}
-          </button>
-        </div>
+  <button
+    onClick={onAddToCart}
+    className="w-full px-6 py-2 rounded-md text-sm font-medium text-white "
+  >
+    {isCartListed ? "Remove" : "Add to cart"}
+  </button>
+</div>
+
+
       </div>
     </div>
   );
