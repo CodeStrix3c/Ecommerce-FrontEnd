@@ -8,8 +8,8 @@ import { Leaf, Palette } from "lucide-react";
 export default function LeafTitleBlock({
   title = "Guest Favourite",
   subtitle = "",
-  leafSize = "md",
-  titleSize = "md",
+  leafSize = "",
+  titleSize = "",
   isGray = false,
   titleColor = "text-[var(--color-black)]",
 }) {
@@ -23,7 +23,7 @@ export default function LeafTitleBlock({
           strokeWidth={1}
         />
         <h1
-          className={`font-bold ${titleSizeClasses[titleSize]} ${titleColor}`}
+          className={`font-semibold ${titleSizeClasses[titleSize]} ${titleColor}`}
         >
           {title}
         </h1>

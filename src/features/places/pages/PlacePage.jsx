@@ -1,131 +1,242 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import QRCode from "react-qr-code";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react";
 
 import Spinner from "@/components/ui/Spinner";
 import BookingWidget from "@/features/bookings/components/BookingWidget";
 import PlaceGallery from "@/features/places/components/PlaceGallery";
-import PerksWidget from "@/features/perks/components/PerksWidget";
 import ListingHeader from "@/components/shared/ListingHeader";
-import RatingSummary from "@/features/reviews/components/Ratings";
-import Testimonials from "@/features/reviews/pages/Testimonials";
 import HighlightBanner from "@/features/reviews/components/HighlightBanner";
-import ExploreNearby from "../components/ExploreNearby";
-import SharePopUp from "@/components/ui/SharePopUp";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import LoginPromptModal from "@/components/shared/LoginPromptModal";
-import agriculturalOptions from "@/data/agriculturalOptions";
-
 import { useCartList } from "@/providers/CartListProvider";
 import { requireLogin } from "@/utils/auth";
-import { useProductDetailsQuery } from "@/hooks/useProductsQuery";
+import {
+  useProductDetailsQuery,
+  useProductsQuery,
+} from "@/hooks/useProductsQuery";
+import ProductInfoPanel from "../components/ProductInfoPanel";
+import Testimonials from "@/features/reviews/pages/Testimonials";
+
+const IMAGE_BASE_URL =
+  "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net";
 
 const PlacePage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const { data: product, isLoading } = useProductDetailsQuery(id);
-  console.log(product, "these are the product details");
+
+  console.log("Product details:", product);
+  
+  const { data: productsData } = useProductsQuery({
+    page: 1,
+  });
 
   const [place, setPlace] = useState(null);
-  const [sharePopUp, setSharePopUp] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
-  const { toggleCartList, cartList } = useCartList();
+  const { toggleCartList } = useCartList();
 
+  const [openSections, setOpenSections] = useState({
+    shortDesc: false,
+    description: false,
+    attributes: false,
+    brand: false,
+    stock: false,
+  });
+
+  const toggleSection = (key) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  const [popularRef, popularInstanceRef] = useKeenSlider({
+    mode: "free",
+    rubberband: false,
+    slides: {
+      perView: 2.2,
+      spacing: 10,
+    },
+    breakpoints: {
+      "(min-width: 640px)": {
+        slides: { perView: 3.2, spacing: 12 },
+      },
+      "(min-width: 1024px)": {
+        slides: { perView: 4.2, spacing: 14 },
+      },
+    },
+  });
+
+  useEffect(() => {
+    popularInstanceRef.current?.update();
+  }, [productsData]);
+
+ 
   useEffect(() => {
     if (!product) return;
 
-    const images = product.images?.map((img) => img.url).filter(Boolean) ?? [];
-
-    const giAttribute = product.attributes?.find(
-      (attr) => attr.name === "GI Tag",
-    );
+    const images =
+      product.images
+        ?.flatMap((img) => [img.url, img.thumbnailUrl])
+        .filter(Boolean)
+        .map((path) =>
+          path.startsWith("http") ? path : `${IMAGE_BASE_URL}${path}`
+        ) ?? [];
 
     setPlace({
       _id: product.id,
       title: product.name,
       description: product.description,
+      shortDescription: product.shortDescription,
       price: product.calculatedProductPrice?.price ?? 0,
       oldPrice: product.calculatedProductPrice?.oldPrice ?? null,
-      rating: product.ratingAverage,
-      stock: product.stockQuantity,
-      inStock: product.stockQuantity > 0,
+      discount: product.calculatedProductPrice?.percentOfSaving ?? 0,
+      rating: product.ratingAverage ?? 0,
+      reviewsCount: product.reviewsCount ?? 0,
+      stock: product.stockQuantity ?? 0,
+      inStock: product.stockTrackingIsEnabled
+        ? product.stockQuantity > 0
+        : true,
+      brand: product.brand?.name || null,
       perks: product.attributes ?? [],
       photos: images,
-      giTag: giAttribute?.value || null,
       raw: product,
+      specification: product.specification,
+      isAllowToOrder: product.isAllowToOrder,
     });
   }, [product]);
 
   if (isLoading || !place) return <Spinner />;
 
-  const isCartListed = cartList.some((item) => item._id === place._id);
+  const productsList = productsData?.products || [];
 
-  const handleBuyNow = (quantity) => {
-    requireLogin(
-      () =>
-        toast.success(
-          `Proceeding to checkout for ${quantity} × ${place.title}`,
-        ),
-      () => setShowLoginPopup(true),
-    );
-  };
+  const popularItems = productsList
+    .filter((p) => String(p.id) !== String(id))
+    .slice(0, 10)
+    .map((p) => {
+      const imgPath =
+        p.thumbnailUrl ||
+        p.images?.[0]?.thumbnailUrl ||
+        p.images?.[0]?.url ||
+        null;
 
+      if (!imgPath) return null;
+
+      const fullUrl = imgPath.startsWith("http")
+        ? imgPath
+        : `${IMAGE_BASE_URL}${imgPath}`;
+
+      return {
+        id: p.id,
+        title: p.name,
+        image: fullUrl,
+      };
+    })
+    .filter(Boolean);
+
+  
   const handleAddToCart = () => {
     toggleCartList(place);
     toast.success("Cart updated");
   };
 
+  const handleBuyNow = (quantity) => {
+    requireLogin(
+      () =>
+        toast.success(
+          `Proceeding to checkout for ${quantity} × ${place.title}`
+        ),
+      () => setShowLoginPopup(true)
+    );
+  };
+
   return (
-    <ContentWrapper compactScreen topSpacing>
-      <LoginPromptModal
-        open={showLoginPopup}
-        onClose={() => setShowLoginPopup(false)}
-      />
+    <ContentWrapper>
+      <div className="pt-6 lg:pt-10 pb-6 lg:pb-8">
+        {/* Header */}
+        <ListingHeader place={place} />
 
-      <motion.div className="overflow-x-hidden">
-        <ListingHeader place={place} onShare={() => setSharePopUp(true)} />
-        <PlaceGallery place={place} />
-
+        {/* Gallery + Info */}
         <div className="mt-10 flex flex-col gap-8 lg:flex-row">
-          <div className="flex-1 space-y-8">
-            <HighlightBanner />
-
-            <section>
-              <h2 className="text-2xl font-semibold">Description</h2>
-              <div
-                className="mt-2 prose max-w-none"
-                dangerouslySetInnerHTML={{ __html: place.description }}
-              />
-            </section>
-
-            <PerksWidget perks={place.perks} />
+          <div className="lg:w-4/7 w-full ps-2">
+            <PlaceGallery place={place} />
           </div>
 
-          <aside className="w-full lg:w-1/3">
-            <div className="sticky top-28">
-              <BookingWidget
-                place={place}
-                onBuyNow={handleBuyNow}
-                onAddToCart={handleAddToCart}
-              />
-            </div>
-          </aside>
+          <div className="lg:w-2/7 w-full space-y-4">
+            <ProductInfoPanel
+              place={place}
+              openSections={openSections}
+              toggleSection={toggleSection}
+            />
+            <BookingWidget place={place} />
+          </div>
         </div>
 
-        <RatingSummary />
-        <Testimonials />
+        {/* Banner */}
+        <div className="mt-4 sm:mt-6 px-3 sm:px-0">
+          <HighlightBanner />
+        </div>
 
-        <ExploreNearby
-          title="Explore other popular Art & Craft products"
-          options={agriculturalOptions}
-        />
+        {/* -------------------------
+            Most Popular Items
+        ------------------------- */}
+        {popularItems.length > 0 && (
+          <div className="mt-10">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-xl sm:text-xl font-semibold">
+  Explore other popular Art & Craft products
+</h2>
 
-        {sharePopUp && (
-          <SharePopUp onClose={() => setSharePopUp(false)} placeData={place} />
+
+              <div className="flex gap-2">
+                <button
+                  onClick={() => popularInstanceRef.current?.prev()}
+                  className="rounded-full bg-white p-2 shadow hover:bg-gray-50"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+
+                <button
+                  onClick={() => popularInstanceRef.current?.next()}
+                  className="rounded-full bg-white p-2 shadow hover:bg-gray-50"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+            <div ref={popularRef} className="keen-slider">
+              {popularItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="keen-slider__slide cursor-pointer"
+                  onClick={() => navigate(`/product/${item.id}`)}
+                >
+                  <div className="w-full h-44 sm:h-48 lg:h-52 rounded-xl overflow-hidden bg-gray-100">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <p className="mt-2 text-sm font-medium line-clamp-1">
+                    {item.title}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
-      </motion.div>
+
+        <Testimonials/>
+      </div>
     </ContentWrapper>
   );
 };
