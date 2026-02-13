@@ -1,6 +1,4 @@
-
 import React from "react";
-import HeroSection from "../components/HeroSection";
 import WhoWeAre from "../components/WhoWeAre";
 import WhyChooseUs from "../components/WhyChooseUs";
 import OurMission from "../components/OurMission";
@@ -8,71 +6,39 @@ import FAQCard from "../components/FaqCard";
 import ImageHeaderSection from "@/components/shared/ImageHeaderSection";
 import { useAboutUsQuery } from "@/hooks/useAboutUsQuery";
 
-
-
-
-
 const AboutUs = () => {
 
-const {data} =  useAboutUsQuery();
-console.log(data, "About Data");
+  const { data, isLoading, isError } = useAboutUsQuery();
 
-
-
-//   const aboutUsFaqs = [
-//   {
-//     question: "What is Ziraat and what does it stand for?",
-//     answer:
-//       "Ziraat is an agri-tech brand dedicated to empowering farmers through sustainable and innovative crop protection solutions. Our name reflects our mission — to nurture the land and support those who cultivate it. At Ziraat, we believe that modern technology and traditional wisdom can coexist to create a healthier agricultural ecosystem. From pest management to soil nutrition, we focus on practical, eco-conscious methods that help farmers grow better, safer, and more profitable crops.",
-//   },
-//   {
-//     question: "How long has Ziraat been in operation?",
-//     answer:
-//       "Ziraat was founded with a vision to modernize Indian agriculture. Over the years, we’ve grown into a trusted partner for farmers nationwide, focusing on eco-safe pest management, soil improvement, and sustainable crop care. With our continuous R&D and field-based feedback approach, we ensure every product and service is tailored to local farming conditions. Today, Ziraat stands as a symbol of innovation, reliability, and farmer-first values.",
-//   },
-//   {
-//     question: "Where is Ziraat headquartered?",
-//     answer:
-//       "Our main office is based in India, with regional field teams and distributors operating across multiple agricultural zones to assist farmers locally. We work closely with rural communities through demo farms, training programs, and on-field support to ensure every farmer has access to expert guidance. Whether it’s a smallholder or a large-scale grower, Ziraat’s network ensures accessibility, quick delivery, and localized service for everyone.",
-//   },
-//   {
-//     question: "What makes Ziraat different from other agricultural companies?",
-//     answer:
-//       "We combine technology, sustainability, and field expertise to bring real change to agriculture. Unlike conventional suppliers, Ziraat focuses on long-term soil health, eco-friendly products, and personalized agronomy support. Our experts regularly conduct field trials, soil testing, and farmer training workshops to promote best practices. We also invest heavily in innovation — introducing smart agri-solutions that reduce input costs and improve yields while preserving nature’s balance.",
-//   },
-//   {
-//     question: "Do you collaborate with research institutions or universities?",
-//     answer:
-//       "Yes, absolutely! Ziraat actively partners with agricultural universities, government departments, and private research labs to develop and validate sustainable farming technologies. These collaborations ensure that our products meet the highest scientific standards and adapt to evolving agricultural challenges. Through joint research initiatives, we aim to make modern agri-innovations accessible to every farmer — from seed to harvest.",
-//   },
-//   {
-//     question: "Can I visit your facilities or meet your experts?",
-//     answer:
-//       "Of course! We warmly welcome farmers, distributors, and partners to visit our facilities or meet our agronomy experts. Our team provides guided tours, product demos, and personalized consultations to help you understand our solutions better. You can book an appointment easily through our contact page or customer support line. Whether you want expert advice, training, or partnership opportunities — Ziraat is always open to connect and collaborate.",
-//   },
-//   {
-//     question: "What are Ziraat’s future goals?",
-//     answer:
-//       "Ziraat aims to lead the transformation of Indian agriculture into a smart, sustainable, and digitally connected ecosystem. We are expanding our product range, investing in precision agri-tech, and building stronger partnerships with farmer communities. Our goal is to empower one million farmers by 2030 with modern tools, eco-safe solutions, and data-driven decision support systems — ensuring a prosperous and resilient future for agriculture.",
-//   },
-//   {
-//     question: "How does Ziraat support small and marginal farmers?",
-//     answer:
-//       "We understand the unique challenges faced by small and marginal farmers — limited access to resources, information, and finance. Ziraat provides affordable products, on-field training, and customized crop care programs to help them maximize yields sustainably. Through our Farmer Outreach Program, we offer expert guidance in local languages, distribute knowledge kits, and create awareness about safe and effective farming practices.",
-//   },
-// ];
-
+  // Handle different API formats safely
+  const faqs =
+    data?.data ||    // most common React Query format
+    data?.faqs ||    // custom backend format
+    data ||          // direct array
+    [];
 
   return (
-    <div className=" ">
+    <div>
 
-      <ImageHeaderSection title={"About Ziraat"} image={"/assets/images/about-us-img.avif"} description={" Ziraat is dedicated to empowering orchard farmers with safe, effective,and sustainable crop protection solutions. We blend scientific innovation with agricultural wisdom to create eco-friendly pesticides that nurturehealthier orchards."
+      {/* Hero Section */}
+      <ImageHeaderSection
+        title="About Art & Craft"
+        image="/assets/images/aboutus-home.jpg"
+        description="Art & Craft is dedicated to celebrating creativity through handmade artistry. We bring together passion, tradition, and modern design to create unique craft pieces that inspire creativity and add beauty to everyday life."
+      />
 
-      } />
+      {/* Sections */}
       <WhoWeAre />
+
       <WhyChooseUs />
+
       <OurMission />
-      <FAQCard faqs={data} />
+
+      {/* FAQ Section */}
+
+      <FAQCard faqs={data?.data} />
+
+
     </div>
   );
 };

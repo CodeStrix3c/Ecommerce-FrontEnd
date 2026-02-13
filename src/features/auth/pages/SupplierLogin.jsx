@@ -93,7 +93,7 @@ export default function SupplierLogin() {
             to="/supplier-register"
             className="text-[var(--color-primary)] font-medium underline"
           >
-            Register here
+            Register here.
           </Link>
         </footer>
       </section>
