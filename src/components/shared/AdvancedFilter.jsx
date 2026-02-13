@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { ChevronDown, Search, RotateCcw, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const FilterSection = ({ title, onClear, children, defaultOpen = true }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
-    <div className="border-b border-gray-100 py-4">
-      <div className="flex items-center justify-between mb-2">
+    <div className="border-b border-gray-100 py-6">
+      <div className="flex items-center justify-between mb-4">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 group"
+          className="flex items-center gap-3 group"
         >
           <ChevronDown
             size={14}
-            className={`transition-transform duration-300 ${isOpen ? "" : "-rotate-90 text-gray-400"}`}
+            className={`transition-transform duration-500 text-black ${isOpen ? "" : "-rotate-90 text-gray-400"}`}
           />
-          <span className="text-[11px] font-bold uppercase tracking-wider text-gray-800">
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-black">
             {title}
           </span>
         </button>
         {onClear && (
           <button
             onClick={onClear}
-            className="text-[9px] font-bold text-orange-600 hover:text-orange-700 uppercase tracking-tighter"
+            className="text-[10px] font-medium text-gray-400 hover:text-black uppercase tracking-widest transition-colors underline underline-offset-4"
           >
-            Clear
+            Reset
           </button>
         )}
       </div>
@@ -34,6 +34,7 @@ const FilterSection = ({ title, onClear, children, defaultOpen = true }) => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
             className="overflow-hidden"
           >
             {children}
@@ -51,9 +52,19 @@ const AdvancedFilter = ({
   onChange,
   mobileOpen = false,
   setMobileOpen,
+  selectedCategory = "",
 }) => {
   const [catSearch, setCatSearch] = useState("");
   const [brandSearch, setBrandSearch] = useState("");
+
+  const userHasSetPriceRef = useRef(false);
+  const isInitialMountRef = useRef(true);
+  const debounceTimer = useRef(null);
+
+  const [localPriceRange, setLocalPriceRange] = useState({
+    minPrice: priceLimits?.min || 0,
+    maxPrice: priceLimits?.max || 50000,
+  });
 
   const [filters, setFilters] = useState({
     category: "",
@@ -62,15 +73,46 @@ const AdvancedFilter = ({
     maxPrice: priceLimits?.max || 50000,
   });
 
+  const latestFiltersRef = useRef(filters);
+
+  useEffect(() => {
+    latestFiltersRef.current = filters;
+  }, [filters]);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      setFilters((prev) => ({ ...prev, category: selectedCategory }));
+    }
+  }, [selectedCategory]);
+
   useEffect(() => {
     if (priceLimits) {
-      setFilters((prev) => ({
-        ...prev,
-        minPrice: priceLimits.min,
-        maxPrice: priceLimits.max,
-      }));
+      if (isInitialMountRef.current || !userHasSetPriceRef.current) {
+        setLocalPriceRange({
+          minPrice: priceLimits.min,
+          maxPrice: priceLimits.max,
+        });
+        setFilters((prev) => ({
+          ...prev,
+          minPrice: priceLimits.min,
+          maxPrice: priceLimits.max,
+        }));
+        if (isInitialMountRef.current) isInitialMountRef.current = false;
+      }
     }
   }, [priceLimits?.min, priceLimits?.max]);
+
+  const debouncedPriceUpdate = useCallback(
+    (minPrice, maxPrice) => {
+      if (debounceTimer.current) clearTimeout(debounceTimer.current);
+      debounceTimer.current = setTimeout(() => {
+        const updated = { ...latestFiltersRef.current, minPrice, maxPrice };
+        setFilters(updated);
+        onChange?.(updated);
+      }, 1000);
+    },
+    [onChange],
+  );
 
   const updateFilter = (key, value) => {
     const updated = { ...filters, [key]: value };
@@ -78,7 +120,26 @@ const AdvancedFilter = ({
     onChange?.(updated);
   };
 
+  const handlePriceChange = useCallback(
+    (type, value) => {
+      const numValue = Number(value);
+      userHasSetPriceRef.current = true;
+      setLocalPriceRange((prev) => {
+        if (type === "min" && numValue >= prev.maxPrice - 500) return prev;
+        if (type === "max" && numValue <= prev.minPrice + 500) return prev;
+        const newRange = {
+          ...prev,
+          [type === "min" ? "minPrice" : "maxPrice"]: numValue,
+        };
+        debouncedPriceUpdate(newRange.minPrice, newRange.maxPrice);
+        return newRange;
+      });
+    },
+    [debouncedPriceUpdate],
+  );
+
   const clearAll = () => {
+    userHasSetPriceRef.current = false;
     const cleared = {
       category: "",
       brand: "",
@@ -86,18 +147,26 @@ const AdvancedFilter = ({
       maxPrice: priceLimits.max,
     };
     setFilters(cleared);
+    setLocalPriceRange({
+      minPrice: priceLimits.min,
+      maxPrice: priceLimits.max,
+    });
     setCatSearch("");
     setBrandSearch("");
     onChange?.(cleared);
   };
 
   const getPercentage = (value, min, max) => {
+    if (max === min) return 0;
     return ((value - min) / (max - min)) * 100;
   };
 
+  const isPriceFiltered =
+    localPriceRange.minPrice !== priceLimits.min ||
+    localPriceRange.maxPrice !== priceLimits.max;
+
   return (
     <>
-      {/* Mobile Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -105,68 +174,74 @@ const AdvancedFilter = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setMobileOpen(false)}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70] lg:hidden"
+            className="fixed inset-0 bg-black/40 backdrop-blur-md z-[70] lg:hidden"
           />
         )}
       </AnimatePresence>
 
-      {/* Main Filter Sidebar */}
       <div
         className={`
           fixed lg:relative
-          h-full lg:h-[calc(100vh-6rem)]
-          w-[280px] lg:w-full
+          h-full lg:h-[calc(100vh-4rem)]
+          w-[250px] lg:w-full
           bg-white
-          transition-transform duration-500 ease-in-out
-          ${mobileOpen ? "translate-x-0 z-[80] shadow-2xl" : "-translate-x-full lg:translate-x-0"}
-          top-0 left-0 lg:-top-6 lg:left-auto
-          flex flex-col
+          transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1)
+          ${mobileOpen ? "translate-x-0 z-[80] shadow-[40px_0_80px_-20px_rgba(0,0,0,0.1)]" : "-translate-x-full lg:translate-x-0"}
+          top-0 left-0 lg:left-auto
+          flex flex-col border-r border-gray-50
         `}
       >
-        {/* Header - Fixed */}
-        <div className="flex justify-between items-center p-6 border-b border-gray-100 shrink-0">
-          <h3 className="text-sm font-black uppercase tracking-widest text-black">
-            Filters
-          </h3>
-          <div className="flex items-center gap-3">
+        {/* Header */}
+        <div className="flex justify-between items-end p-8 pb-6 shrink-0">
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-black ">
+              Filter
+            </h3>
+          </div>
+          <div className="flex items-center gap-4">
             <button
               onClick={clearAll}
-              className="flex items-center gap-1.5 text-[10px] font-black text-gray-400 hover:text-black transition-colors"
+              className="group flex items-center gap-2 text-[10px] font-bold text-gray-400 hover:text-black transition-all uppercase tracking-widest"
             >
-              <RotateCcw size={12} /> CLEAR ALL
+              <RotateCcw
+                size={12}
+                className="group-hover:rotate-[-180deg] transition-transform duration-500"
+              />
+              Reset All
             </button>
-            {/* Close button for mobile */}
             <button
               onClick={() => setMobileOpen(false)}
-              className="lg:hidden p-1 hover:bg-gray-100 rounded-full transition-colors"
+              className="lg:hidden text-black"
             >
-              <X size={18} />
+              <X size={20} />
             </button>
           </div>
         </div>
 
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto px-6 custom-scrollbar">
-          <div className="space-y-2 py-2">
+        {/* Content - Scroll Width None */}
+        <div className="flex-1 overflow-y-auto px-8 no-scrollbar scroll-smooth">
+          <div className="space-y-2">
             {/* Categories */}
             <FilterSection
-              title="Categories"
-              onClear={() => updateFilter("category", "")}
+              title="Collection"
+              onClear={
+                filters.category ? () => updateFilter("category", "") : null
+              }
             >
-              <div className="relative my-3">
+              <div className="relative mb-4">
                 <Search
-                  className="absolute left-3 top-2.5 text-gray-400"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-300"
                   size={14}
                 />
                 <input
                   type="text"
-                  placeholder="Find category..."
+                  placeholder="Search collections..."
                   value={catSearch}
                   onChange={(e) => setCatSearch(e.target.value)}
-                  className="w-full bg-gray-100/50 border border-transparent focus:border-gray-200 text-[12px] p-2.5 pl-9 rounded-lg outline-none transition-all"
+                  className="w-full bg-transparent border-b border-gray-100 focus:border-black text-[12px] py-2 pl-6 outline-none transition-all placeholder:text-gray-300 placeholder:italic"
                 />
               </div>
-              <ul className="max-h-40 overflow-y-auto pr-2 space-y-1 custom-scrollbar">
+              <ul className="max-h-60 overflow-y-auto pr-2 space-y-1 no-scrollbar">
                 {availableCategories
                   .filter((c) =>
                     c.name.toLowerCase().includes(catSearch.toLowerCase()),
@@ -175,17 +250,23 @@ const AdvancedFilter = ({
                     <li
                       key={c.id}
                       onClick={() => updateFilter("category", c.slug)}
-                      className={`text-[12px] cursor-pointer px-3 py-2 rounded-lg transition-all flex justify-between items-center ${
+                      className={`text-[12px] cursor-pointer py-2 px-1 transition-all flex justify-between items-center group ${
                         filters.category === c.slug
-                          ? "bg-black text-white font-bold"
-                          : "text-gray-600 hover:bg-gray-100"
+                          ? "text-black font-bold"
+                          : "text-gray-500 hover:text-black"
                       }`}
                     >
-                      <span>{c.name}</span>
-                      <span
-                        className={`text-[10px] ${filters.category === c.slug ? "text-white/60" : "text-gray-400"}`}
-                      >
-                        {c.count}
+                      <span className="relative">
+                        {c.name}
+                        {filters.category === c.slug && (
+                          <motion.span
+                            layoutId="activeCat"
+                            className="absolute -left-3 top-1/2 -translate-y-1/2 w-1 h-1 bg-black rounded-full"
+                          />
+                        )}
+                      </span>
+                      <span className="text-[10px] opacity-40 group-hover:opacity-100 transition-opacity">
+                        ({c.count})
                       </span>
                     </li>
                   ))}
@@ -195,22 +276,22 @@ const AdvancedFilter = ({
             {/* Brands */}
             <FilterSection
               title="Brands"
-              onClear={() => updateFilter("brand", "")}
+              onClear={filters.brand ? () => updateFilter("brand", "") : null}
             >
-              <div className="relative my-3">
+              <div className="relative mb-4">
                 <Search
-                  className="absolute left-3 top-2.5 text-gray-400"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-300"
                   size={14}
                 />
                 <input
                   type="text"
-                  placeholder="Find brand..."
+                  placeholder="Find designer..."
                   value={brandSearch}
                   onChange={(e) => setBrandSearch(e.target.value)}
-                  className="w-full bg-gray-100/50 border border-transparent focus:border-gray-200 text-[12px] p-2.5 pl-9 rounded-lg outline-none transition-all"
+                  className="w-full bg-transparent border-b border-gray-100 focus:border-black text-[12px] py-2 pl-6 outline-none transition-all placeholder:text-gray-300 placeholder:italic"
                 />
               </div>
-              <ul className="max-h-40 overflow-y-auto pr-2 space-y-1 custom-scrollbar">
+              <ul className="max-h-60 overflow-y-auto pr-2 space-y-1 no-scrollbar">
                 {availableBrands
                   .filter((b) =>
                     b.name.toLowerCase().includes(brandSearch.toLowerCase()),
@@ -219,84 +300,67 @@ const AdvancedFilter = ({
                     <li
                       key={b.id}
                       onClick={() => updateFilter("brand", b.slug)}
-                      className={`text-[12px] cursor-pointer px-3 py-2 rounded-lg transition-all flex justify-between items-center ${
+                      className={`text-[12px] cursor-pointer py-2 px-1 transition-all flex justify-between items-center group ${
                         filters.brand === b.slug
-                          ? "bg-black text-white font-bold"
-                          : "text-gray-600 hover:bg-gray-100"
+                          ? "text-black font-bold"
+                          : "text-gray-500 hover:text-black"
                       }`}
                     >
                       <span>{b.name}</span>
-                      <span
-                        className={`text-[10px] ${filters.brand === b.slug ? "text-white/60" : "text-gray-400"}`}
-                      >
-                        {b.count}
+                      <span className="text-[10px] opacity-40">
+                        ({b.count})
                       </span>
                     </li>
                   ))}
               </ul>
             </FilterSection>
 
-            {/* Price Range Slider */}
-            <FilterSection title="Price Range">
-              <div className="pt-8 pb-4 px-2">
-                <div className="relative h-1.5 w-full bg-gray-200 rounded-full">
-                  {/* Active Range Track */}
+            {/* Price */}
+            <FilterSection
+              title="Price Range"
+              onClear={
+                isPriceFiltered
+                  ? () => handlePriceChange("min", priceLimits.min)
+                  : null
+              }
+            >
+              <div className="pt-2 pb-2 px-2">
+                <div className="relative h-[2px] w-full bg-gray-100">
                   <div
-                    className="absolute h-1.5 bg-black rounded-full transition-all duration-150"
+                    className="absolute h-[8px] bg-black transition-all duration-300"
                     style={{
-                      left: `${getPercentage(filters.minPrice, priceLimits.min, priceLimits.max)}%`,
-                      right: `${100 - getPercentage(filters.maxPrice, priceLimits.min, priceLimits.max)}%`,
+                      left: `${getPercentage(localPriceRange.minPrice, priceLimits.min, priceLimits.max)}%`,
+                      right: `${100 - getPercentage(localPriceRange.maxPrice, priceLimits.min, priceLimits.max)}%`,
                     }}
                   />
-
-                  {/* Min Range Input */}
                   <input
                     type="range"
                     min={priceLimits.min}
                     max={priceLimits.max}
-                    step="100"
-                    value={filters.minPrice}
-                    onChange={(e) => {
-                      const value = Number(e.target.value);
-                      if (value < filters.maxPrice - 500) {
-                        updateFilter("minPrice", value);
-                      }
-                    }}
-                    className="absolute w-full top-0 h-1.5 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-moz-range-thumb]:pointer-events-auto z-20 range-thumb"
+                    step="500"
+                    value={localPriceRange.minPrice}
+                    onChange={(e) => handlePriceChange("min", e.target.value)}
+                    className="absolute w-full -top-[7px] h-5 appearance-none bg-transparent pointer-events-none z-20 range-thumb-premium"
                   />
-
-                  {/* Max Range Input */}
                   <input
                     type="range"
                     min={priceLimits.min}
                     max={priceLimits.max}
-                    step="100"
-                    value={filters.maxPrice}
-                    onChange={(e) => {
-                      const value = Number(e.target.value);
-                      if (value > filters.minPrice + 500) {
-                        updateFilter("maxPrice", value);
-                      }
-                    }}
-                    className="absolute w-full top-0 h-1.5 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-moz-range-thumb]:pointer-events-auto z-30 range-thumb"
+                    step="500"
+                    value={localPriceRange.maxPrice}
+                    onChange={(e) => handlePriceChange("max", e.target.value)}
+                    className="absolute w-full -top-[7px] h-5 appearance-none  bg-transparent pointer-events-none z-30 range-thumb-premium"
                   />
                 </div>
-
-                <div className="flex justify-between mt-1 gap-2">
-                  <div className="">
-                    {/* <span className="block text-[8px] text-gray-400 font-black uppercase mb-0.5">
-                      From
-                    </span> */}
-                    <span className="text-[12px] font-black text-black">
-                      ₹{filters.minPrice.toLocaleString()}
+                <div className="flex justify-between items-center mt-3">
+                  <div className="flex flex-col">
+                    <span className="text-xs  text-black">
+                      ₹{localPriceRange.minPrice.toLocaleString()}
                     </span>
                   </div>
-                  <div className="">
-                    {/* <span className="block text-[8px] text-gray-400 font-black uppercase mb-0.5">
-                      To
-                    </span> */}
-                    <span className="text-[12px] font-black text-black">
-                      ₹{filters.maxPrice.toLocaleString()}
+                  <div className="flex flex-col text-right">
+                    <span className="text-xs  text-black">
+                      ₹{localPriceRange.maxPrice.toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -306,66 +370,43 @@ const AdvancedFilter = ({
         </div>
       </div>
 
-      <style jsx>{`
-        .range-thumb::-webkit-slider-thumb {
-          appearance: none;
-          height: 20px;
-          width: 20px;
-          border-radius: 50%;
+      <style>{`
+        /* Hide scrollbars for all browsers */
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+
+        /* Premium Range Slider Styling */
+        .range-thumb-premium {
+          -webkit-appearance: none;
+          pointer-events: none;
+        }
+
+        .range-thumb-premium::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          pointer-events: auto;
+          height: 18px;
+          width: 18px;
+          border-radius: 50%; /* Square for premium look */
           background: #000;
+          border: 2px solid #fff;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
           cursor: pointer;
-          border: 3px solid #fff;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-          transition: all 0.15s ease;
         }
 
-        .range-thumb::-webkit-slider-thumb:hover {
-          transform: scale(1.15);
-          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
-        }
-
-        .range-thumb::-webkit-slider-thumb:active {
-          transform: scale(1.05);
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .range-thumb::-moz-range-thumb {
-          appearance: none;
-          height: 20px;
-          width: 20px;
-          border-radius: 50%;
+        .range-thumb-premium::-moz-range-thumb {
+          pointer-events: auto;
+          height: 18px;
+          width: 18px;
+          border-radius: 0;
           background: #000;
+          border: 2px solid #fff;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
           cursor: pointer;
-          border: 3px solid #fff;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-          transition: all 0.15s ease;
-        }
-
-        .range-thumb::-moz-range-thumb:hover {
-          transform: scale(1.15);
-          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
-        }
-
-        .range-thumb::-moz-range-thumb:active {
-          transform: scale(1.05);
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 4px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #e5e5e5;
-          border-radius: 10px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #d4d4d4;
         }
       `}</style>
     </>
