@@ -53,7 +53,7 @@ export default function LeftPanel() {
   return (
     <>
       {/* ---------- Desktop View ---------- */}
-      <div className="custom-scrollbar hidden overflow-y-auto border-r border-gray-200 bg-white p-6 md:block">
+      <div className="custom-scrollbar hidden overflow-y-auto  bg-white p-6 md:block">
         <RatingSummary />
 
         {/* Star Distribution */}
