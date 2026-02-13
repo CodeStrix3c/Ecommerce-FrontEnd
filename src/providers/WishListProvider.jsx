@@ -40,8 +40,79 @@
 
 // export const useWishlist = () => useContext(WishListContext);
 
-import React, { createContext, useContext } from "react";
+
+
+
+//wishlist provider without login
+// import React, { createContext, useContext } from "react";
+// import { toast } from "react-toastify";
+// import {
+//   useAddWishlistItem,
+//   useGetWishlist,
+//   useRemoveWishlistItem,
+// } from "@/hooks/User/Wishlist/usewishlistitems";
+
+// const WishlistContext = createContext(null);
+
+// export const WishListProvider = ({ children }) => {
+//   const userId = localStorage.getItem("userId");
+
+//   const { data: wishlist = [], isLoading } = useGetWishlist(userId);
+//   const addMutation = useAddWishlistItem();
+//   const removeMutation = useRemoveWishlistItem();
+
+//   const toggleWishlist = (product) => {
+//     const productId = product.id;
+
+//     const existingItem = wishlist.find((item) => item.productId === productId);
+
+//     if (existingItem) {
+//       // ✅ USE wishlist-item id
+//       removeMutation.mutate(existingItem.id, {
+//         onSuccess: () => toast.success("Removed from wishlist"),
+//       });
+//     } else {
+//       addMutation.mutate(
+//         { productId, quantity: 1 },
+//         { onSuccess: () => toast.success("Added to wishlist ❤️") },
+//       );
+//     }
+//   };
+
+//   const removeFromWishlist = (wishlistItemId) => {
+//     removeMutation.mutate(wishlistItemId, {
+//       onSuccess: () => toast.success("Removed from wishlist"),
+//     });
+//   };
+
+//   return (
+//     <WishlistContext.Provider
+//       value={{
+//         wishlist,
+//         toggleWishlist,
+//         removeFromWishlist,
+//         isLoading,
+//       }}
+//     >
+//       {children}
+//     </WishlistContext.Provider>
+//   );
+// };
+
+// export const useWishlist = () => useContext(WishlistContext);
+
+
+
+
+
+
+
+
+
+import React, { createContext, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
+import { useUser } from "@/providers/UserProvider";
 import {
   useAddWishlistItem,
   useGetWishlist,
@@ -51,33 +122,62 @@ import {
 const WishlistContext = createContext(null);
 
 export const WishListProvider = ({ children }) => {
-  const userId = localStorage.getItem("userId");
+  const queryClient = useQueryClient();
+  const { userId } = useUser(); // ✅ REACTIVE
 
-  const { data: wishlist = [], isLoading } = useGetWishlist(userId);
+  const {
+    data: wishlist = [],
+    isLoading,
+  } = useGetWishlist(userId, {
+    enabled: !!userId,
+  });
+
   const addMutation = useAddWishlistItem();
   const removeMutation = useRemoveWishlistItem();
 
-  const toggleWishlist = (product) => {
-    const productId = product.id;
+  // 🔥 Clear wishlist when user logs out
+  useEffect(() => {
+    if (!userId) {
+      queryClient.removeQueries({ queryKey: ["wishlist"] });
+    }
+  }, [userId, queryClient]);
 
-    const existingItem = wishlist.find((item) => item.productId === productId);
+  const toggleWishlist = (product) => {
+    if (!userId) {
+      toast.error("Please login first");
+      return;
+    }
+
+    const existingItem = wishlist.find(
+      (item) => item.productId === product.id
+    );
 
     if (existingItem) {
-      // ✅ USE wishlist-item id
       removeMutation.mutate(existingItem.id, {
-        onSuccess: () => toast.success("Removed from wishlist"),
+        onSuccess: () => {
+          toast.success("Removed from wishlist");
+          queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+        },
       });
     } else {
       addMutation.mutate(
-        { productId, quantity: 1 },
-        { onSuccess: () => toast.success("Added to wishlist ❤️") },
+        { productId: product.id, quantity: 1 },
+        {
+          onSuccess: () => {
+            toast.success("Added to wishlist ❤️");
+            queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+          },
+        }
       );
     }
   };
 
   const removeFromWishlist = (wishlistItemId) => {
     removeMutation.mutate(wishlistItemId, {
-      onSuccess: () => toast.success("Removed from wishlist"),
+      onSuccess: () => {
+        toast.success("Removed from wishlist");
+        queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+      },
     });
   };
 

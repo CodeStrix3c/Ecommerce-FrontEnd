@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback ,useMemo } from "react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SearchBar from "@/components/shared/SearchBar";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
@@ -41,7 +41,8 @@ const UserHome = () => {
   const { toggleWishlist } = useWishlist();
 
   // Transform products from API
-  const products = (data?.products || []).map((item) => ({
+const products = useMemo(() => {
+  return (data?.products || []).map((item) => ({
     id: item.id,
     slug: item.slug,
     title: item.name,
@@ -54,6 +55,8 @@ const UserHome = () => {
     image: item.thumbnailUrl,
     discountPercent: item.calculatedProductPrice?.percentOfSaving ?? null,
   }));
+}, [data?.products]);
+
 
   const totalPages = Math.ceil(
     (data?.totalProduct ?? 0) / (data?.currentSearchOption?.pageSize ?? 10),
@@ -208,7 +211,7 @@ const UserHome = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 pt-6">
-        <aside className="hidden lg:block w-[260px] shrink-0">
+        <aside className="hidden lg:block w-[240px] shrink-0">
           <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
             <AdvancedFilter
               availableBrands={backendFilters?.brands || []}

@@ -19,8 +19,6 @@ export default function DashboardLayout() {
       <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
-
-      ✅
       <footer className="text-center text-xs sm:text-sm text-[var(--color-black)]/50 py-5 border-t">
         © {new Date().getFullYear()} Art&Craft Panel. All rights reserved.
       </footer>

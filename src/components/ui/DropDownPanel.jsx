@@ -15,6 +15,8 @@ import {
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { removeItem } from "framer-motion";
+import { useUser } from "@/providers/UserProvider";
+import { useQueryClient } from "@tanstack/react-query";
 
 const DropdownPanel = ({ open, onClose }) => {
   const isMobile = useIsMobile(1100);
@@ -22,21 +24,19 @@ const DropdownPanel = ({ open, onClose }) => {
 
   const token = getItemFromLocalStorage("token");
   const isAuthenticated = Boolean(token);
-
+const { logout } = useUser();
+const queryClient = useQueryClient();
   const handleAuthAction = () => {
-    onClose?.();
+   onClose?.();
 
-    if (isAuthenticated) {
-      removeItemFromLocalStorage("token");
-      removeItemFromLocalStorage("loginData");
-      removeItemFromLocalStorage("roles");
-      removeItemFromLocalStorage("userId");
-      removeItemFromLocalStorage("vendorId");
-      toast.success("Logged out successfully!");
-      navigate("/");
-    } else {
-      navigate("/login");
-    }
+  if (isAuthenticated) {
+    logout();           // 🔥 updates context state
+    queryClient.clear(); // 🔥 clears wishlist/cart cache
+    toast.success("Logged out successfully!");
+    navigate("/");
+  } else {
+    navigate("/login");
+  }
   };
 
   const handleOpenProfile = () => {

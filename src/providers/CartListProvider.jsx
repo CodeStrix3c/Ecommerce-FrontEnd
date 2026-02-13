@@ -68,72 +68,65 @@ import {
   useAddToCart,
   useGetCartItems,
   useRemoveFromCart,
+  useUpdateCartQuantity,
 } from "@/hooks/User/Cart/usecartitems";
-import { createContext, useContext } from "react";
+
+import { createContext, useContext, useEffect } from "react";
+
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { useUser } from "./UserProvider";
 
 const CartListContext = createContext();
 
 export const CartListProvider = ({ children }) => {
+  const { token } = useUser(); // 🔥 only to trigger re-render
+  const queryClient = useQueryClient();
+
   /* -------------------- API HOOKS -------------------- */
   const { data, isLoading } = useGetCartItems();
   const { mutate: addItem } = useAddToCart();
   const { mutate: removeItem } = useRemoveFromCart();
+  const { mutate: updateItemQuantity } = useUpdateCartQuantity();
 
   /* -------------------- CART DATA -------------------- */
   const cartList = data?.items || [];
-  // adjust based on your API response shape
+
+  /* -------------------- CLEAR CACHE ON LOGOUT -------------------- */
+  useEffect(() => {
+    if (!token) {
+      queryClient.removeQueries({ queryKey: ["cart"] });
+    }
+  }, [token, queryClient]);
 
   /* -------------------- ADD TO CART -------------------- */
   const addToCartList = (payload) => {
-    console.log("CartProvider addToCartList called with:", payload);
+    if (!token) {
+      toast.error("Please login first");
+      return;
+    }
 
-    // Ensure we have the correct structure
-    const cartPayload = {
+    addItem({
       productId: payload.productId,
       quantity: payload.quantity || 1,
       variationName: payload.variationName || "",
-    };
-
-    console.log("Calling addItem mutation with:", cartPayload);
-
-    addItem(cartPayload);
-  };
-
-  /* -------------------- TOGGLE CART -------------------- */
-  const toggleCartList = (product) => {
-    const exists = cartList.find(
-      (item) => item.productId === product.productId,
-    );
-
-    if (exists) {
-      removeItem({ productId: product.productId });
-    } else {
-      addItem({
-        productId: product.productId,
-        quantity: 1,
-        variationName: product.variationName || "",
-      });
-    }
+    });
   };
 
   /* -------------------- REMOVE -------------------- */
-  const removeFromCart = (id) => {
-    removeItem({ id });
+  const removeFromCart = (cartItemId) => {
+    removeItem({ cartItemId });
   };
 
   /* -------------------- UPDATE QUANTITY -------------------- */
-  const updateQuantity = (productId, quantity) => {
-    addItem({
-      productId,
-      quantity,
-      variationName: "",
-    });
+  const updateQuantity = (cartItemId, quantity) => {
+    updateItemQuantity({ cartItemId, quantity });
   };
 
   /* -------------------- CLEAR CART -------------------- */
   const clearCart = () => {
     cartList.forEach((item) => {
-      removeItem({ productId: item.productId });
+      removeItem({ cartItemId: item.id });
     });
   };
 
@@ -142,7 +135,6 @@ export const CartListProvider = ({ children }) => {
       value={{
         cartList,
         isLoading,
-        toggleCartList,
         addToCartList,
         removeFromCart,
         clearCart,
@@ -155,3 +147,5 @@ export const CartListProvider = ({ children }) => {
 };
 
 export const useCartList = () => useContext(CartListContext);
+
+

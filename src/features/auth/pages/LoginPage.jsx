@@ -26,6 +26,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
   const [tab, setTab] = useState(0);
+  const { setUserId, setToken, setRoles, setVendorId } = useUser();
 
   const { mutate: loginMutate, isPending } = useLoginMutation();
   // const { setUserId } = useUser();
@@ -71,10 +72,14 @@ const LoginPage = () => {
         console.log("Login response:", res);
 
         // Store token from backend
-        setItemsInLocalStorage("token", res.token);
-        setItemsInLocalStorage("userId", res.user);
-        setItemsInLocalStorage("roles", res.roles);
-        setItemsInLocalStorage("vendorId", res.vendorId);
+        // setItemsInLocalStorage("token", res.token);
+        // setItemsInLocalStorage("userId", res.user);
+        // setItemsInLocalStorage("roles", res.roles);
+        // setItemsInLocalStorage("vendorId", res.vendorId);
+          setToken(res.token);
+  setUserId(res.user);
+  setRoles(res.roles);
+  setVendorId(res.vendorId);
 
         // Optional: store user id if backend sends it
         // if (res?.user?.id) {
