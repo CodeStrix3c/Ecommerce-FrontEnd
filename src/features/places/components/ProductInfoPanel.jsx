@@ -84,8 +84,8 @@ const ProductInfoPanel = ({
   </section>
 
   {/* STOCK */}
-  {(place.stockTracking || !place.isAllowToOrder) && (
-    <div className="text-sm space-y-1">
+  {(place.stockTracking || place.isAllowToOrder !== null) &&(
+    <div className="text-sm space-y-1 ">
       <p>
         {place.inStock ? (
           <span className="text-[var(--color-white)] bg-[var(--color-primary)] px-2 py-0.5 rounded-sm font-semibold text-xs">
@@ -98,15 +98,19 @@ const ProductInfoPanel = ({
         )}
       </p>
 
-      {place.stockTracking && (
-        <p>Quantity Available: {place.stock}</p>
-      )}
+     {place.stockTracking && (
+      <p>Quantity Available: {place.stock}</p>
+    )}
 
-      {!place.isAllowToOrder && (
-        <p className="text-[var(--color-error)]">
-          Ordering currently disabled
-        </p>
-      )}
+      {place.isAllowToOrder ? (
+      <p className="bg-green-100 text-green-700 px-2 py-1  rounded text-xs font-semibold w-fit">
+        Ordering is currently enabled
+      </p>
+    ) : (
+      <p className="text-[var(--color-error)] ">
+        Ordering currently disabled
+      </p>
+    )}
     </div>
   )}
 
@@ -142,7 +146,7 @@ const ProductInfoPanel = ({
         </Accordion>
 
         <Accordion
-          title="specification"
+          title="Specification"
           sectionKey="specification"
           show={!!place.specification}
         >
