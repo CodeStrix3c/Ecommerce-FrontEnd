@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import {
   useVendorProducts,
@@ -11,12 +11,6 @@ import Pagination from "../components/paginationComponent";
 import ProductModal from "@/modals/vendorProductModal";
 import AssignProductModal from "@/modals/AssignProductModal";
 import ConfirmDialog from "@/components/shared/confirmDialog";
-import VendorSearchBar from "@/components/shared/VendorSearchBar";
-import SearchBar from "@/components/shared/SearchBar";
-import ViewToggle from "../components/toggleComponent";
-import SortControl from "../components/sortControlComponent";
-import DashboardHeader from "../components/dashboarHeader";
-import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import ProductSearchBar from "@/components/shared/productSearchBar";
 
 const AllProductList = () => {
@@ -38,16 +32,30 @@ const AllProductList = () => {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleteProductId, setDeleteProductId] = useState(null);
 
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  // Prevent duplicate fetches
+  const isFetchingRef = useRef(false);
+  const hasInitialFetchRef = useRef(false);
+
   const {
     mutate: fetchProducts,
     data,
     isLoading,
   } = useMutation({
     ...useVendorProducts(),
-    onError: () => toast.error("Failed to load products"),
+    onError: (error) => {
+      console.error("Failed to load products:", error);
+      toast.error("Failed to load products");
+      isFetchingRef.current = false;
+    },
+    onSuccess: () => {
+      isFetchingRef.current = false;
+    },
+    onSettled: () => {
+      setIsInitialLoad(false);
+    },
   });
-
-  console.log(data, "this is the vendors product data");
 
   const { mutate: deleteProduct, isLoading: deleting } = useMutation({
     ...useRemoveVendorProduct(),
@@ -57,7 +65,10 @@ const AllProductList = () => {
       setDeleteProductId(null);
       fetchProducts(buildRequestBody());
     },
-    onError: () => toast.error("Failed to remove product"),
+    onError: (error) => {
+      console.error("Failed to remove product:", error);
+      toast.error("Failed to remove product");
+    },
   });
 
   const buildRequestBody = useCallback(
@@ -72,97 +83,155 @@ const AllProductList = () => {
         },
       },
       sort: {
-        predicate: sortBy,
+        predicate: sortBy || null,
         reverse: sortReverse,
       },
     }),
-    [currentPage, searchParams, sortBy, sortReverse],
+    [currentPage, searchParams.query, sortBy, sortReverse]
   );
 
-  useEffect(() => {
+  // Stable fetch function that prevents duplicate calls
+  const safeFetchProducts = useCallback(() => {
     if (!vendorId) {
       toast.error("Vendor not found");
       return;
     }
 
+    if (isFetchingRef.current) {
+      return;
+    }
+
+    isFetchingRef.current = true;
     fetchProducts(buildRequestBody());
   }, [vendorId, buildRequestBody, fetchProducts]);
 
-  const products = data?.data?.items ?? [];
-  const totalPages = data?.data?.numberOfPages ?? 0;
+  // Initial fetch only
+  useEffect(() => {
+    if (!hasInitialFetchRef.current) {
+      hasInitialFetchRef.current = true;
+      safeFetchProducts();
+    }
+  }, [safeFetchProducts]);
 
-  const handleDeleteProduct = (productId) => {
+  // Fetch when dependencies change (but not on initial mount)
+  useEffect(() => {
+    if (hasInitialFetchRef.current) {
+      safeFetchProducts();
+    }
+  }, [currentPage, searchParams.query, sortBy, sortReverse]);
+
+  const products = useMemo(() => data?.data?.items ?? [], [data]);
+  const totalPages = useMemo(() => data?.data?.numberOfPages ?? 0, [data]);
+
+  const handleDeleteProduct = useCallback((productId) => {
     setDeleteProductId(productId);
     setConfirmOpen(true);
-  };
+  }, []);
 
-  const confirmDelete = () => {
+  const confirmDelete = useCallback(() => {
+    if (!vendorId || !deleteProductId) return;
     deleteProduct({ vendorId, productId: deleteProductId });
-  };
+  }, [vendorId, deleteProductId, deleteProduct]);
 
-  const handleEditProduct = (product) => {
+  const handleEditProduct = useCallback((product) => {
     setEditProduct(product);
     setAssignModalOpen(true);
-  };
+  }, []);
 
-  const handleProductSelect = (productId) => {
+  const handleProductSelect = useCallback((productId) => {
     setSelectedProductId(productId);
     setProductModalOpen(false);
     setAssignModalOpen(true);
-  };
+  }, []);
 
-  const handleAssignSuccess = () => {
-    toast.success("Product assigned successfully");
+  const handleAssignSuccess = useCallback(() => {
+    const isUpdate = !!editProduct;
+    toast.success(isUpdate ? "Product updated successfully" : "Product assigned successfully");
     setAssignModalOpen(false);
-    fetchProducts(buildRequestBody());
-  };
+    setEditProduct(null);
+    setSelectedProductId(null);
+    safeFetchProducts();
+  }, [editProduct, safeFetchProducts]);
+
+  const handleSearch = useCallback((query) => {
+    setSearchParams({ query });
+    setCurrentPage(1);
+  }, []);
+
+  const handleSort = useCallback(
+    (column) => {
+      if (sortBy === column) {
+        setSortReverse((prev) => !prev);
+      } else {
+        setSortBy(column);
+        setSortReverse(false);
+      }
+      setCurrentPage(1);
+    },
+    [sortBy]
+  );
+
+  const handleCloseAssignModal = useCallback(() => {
+    setAssignModalOpen(false);
+    setEditProduct(null);
+    setSelectedProductId(null);
+  }, []);
+
+  const handleCancelConfirm = useCallback(() => {
+    setConfirmOpen(false);
+    setDeleteProductId(null);
+  }, []);
+
+  const assignedProductIds = useMemo(
+    () => products.map((p) => p.productId),
+    [products]
+  );
+
+  // Early return if vendor not found
+  if (!vendorId) {
+    return (
+      <div className="mt-4 w-full bg-[var(--color-background)] pt-4 sm:pt-6 pb-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center text-red-600 mt-20">
+            Vendor not found. Please log in again.
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-
-    <div className=" mt-4 w-full bg-[var(--color-background)] pt-4 sm:pt-6 pb-6">
+    <div className="mt-4 w-full bg-[var(--color-background)] pt-4 sm:pt-6 pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
-
-
         <div className="mb-4 flex justify-center sm:justify-start lg:-mt-1">
           <div className="w-full sm:w-[320px] md:w-[380px]">
             <ProductSearchBar
               placeholder="Search products..."
-              onSearch={(query) => {
-                setSearchParams((prev) => ({ ...prev, query }));
-                setCurrentPage(1);
-              }}
+              onSearch={handleSearch}
             />
           </div>
         </div>
 
+        {isInitialLoad || (isLoading && !data) ? (
+          <LoadingSpinner message="Loading products..." />
+        ) : products.length === 0 ? (
+          <div className="text-center text-[var(--color-black)] mt-20">
+            {searchParams.query
+              ? "No products found matching your search"
+              : "No products available"}
+          </div>
+        ) : (
+          <>
+            <ProductTable
+              products={products}
+              sortBy={sortBy}
+              sortReverse={sortReverse}
+              onSort={handleSort}
+              onEdit={handleEditProduct}
+              onDelete={handleDeleteProduct}
+            />
 
-
-        {
-          isLoading ? (
-            <LoadingSpinner message="Loading products..." />
-          ) : products.length === 0 ? (
-            <div className="text-center text-[var(--color-black)] mt-20">
-              No products available
-            </div>
-          ) : (
-            <>
-              <ProductTable
-                products={products}
-                sortBy={sortBy}
-                sortReverse={sortReverse}
-                onSort={(column) => {
-                  if (sortBy === column) {
-                    setSortReverse((prev) => !prev);
-                  } else {
-                    setSortBy(column);
-                    setSortReverse(false);
-                  }
-                  setCurrentPage(1);
-                }}
-                onEdit={handleEditProduct}
-                onDelete={handleDeleteProduct}
-              />
-
+            {totalPages > 1 && (
               <div className="mt-4 flex justify-center">
                 <Pagination
                   currentPage={currentPage}
@@ -170,33 +239,31 @@ const AllProductList = () => {
                   onPageChange={setCurrentPage}
                 />
               </div>
-            </>
-          )
-        }
+            )}
+          </>
+        )}
 
-        <div
+        <button
           onClick={() => setProductModalOpen(true)}
-          className="fixed  bottom-20 sm:bottom-8 right-6 z-50 h-12 w-12 rounded-full bg-[var(--color-secondary)] flex items-center justify-center
-         cursor-pointer shadow-lg" >
-          <span className="text-[var(--color-white)] text-2xl font-bold">+</span>
-        </div>
+          className="fixed bottom-20 sm:bottom-8 right-6 z-50 h-12 w-12 rounded-full bg-[var(--color-secondary)] flex items-center justify-center cursor-pointer shadow-lg hover:shadow-xl transition-shadow duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] focus:ring-offset-2"
+          aria-label="Add new product"
+          type="button"
+        >
+          <span className="text-[var(--color-white)] text-2xl font-bold leading-none">
+            +
+          </span>
+        </button>
 
-
-
-        <ProductModal //searchbar
+        <ProductModal
           isOpen={productModalOpen}
           onClose={() => setProductModalOpen(false)}
           onSelectProduct={handleProductSelect}
-          assignedProductIds={products.map((p) => p.productId)}
+          assignedProductIds={assignedProductIds}
         />
 
-        <AssignProductModal // update and assign
+        <AssignProductModal
           isOpen={assignModalOpen}
-          onClose={() => {
-            setAssignModalOpen(false);
-            setEditProduct(null);
-            setSelectedProductId(null);
-          }}
+          onClose={handleCloseAssignModal}
           vendorId={vendorId}
           productId={editProduct?.productId ?? selectedProductId}
           assignmentId={editProduct?.id}
@@ -205,17 +272,18 @@ const AllProductList = () => {
           onSuccess={handleAssignSuccess}
         />
 
-        <ConfirmDialog //delete 
+        <ConfirmDialog
           isOpen={confirmOpen}
           title="Delete Product"
           message="Are you sure you want to remove this product?"
           confirmText="Delete"
           onConfirm={confirmDelete}
-          onCancel={() => setConfirmOpen(false)}
+          onCancel={handleCancelConfirm}
           loading={deleting}
         />
-      </div >
-    </div >
+      </div>
+    </div>
+    
   );
 };
 

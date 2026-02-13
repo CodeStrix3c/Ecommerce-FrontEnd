@@ -23,6 +23,7 @@ const CartPage = () => {
     return Array.isArray(cartList) ? cartList : [];
   }, [cartList]);
 
+  console.log(cartList ,"this list is from cart ")
   /* =========================
      CALCULATIONS
   ========================== */
@@ -86,23 +87,24 @@ const CartPage = () => {
           <div className="flex flex-col gap-6">
             {cartProducts.map((product) => (
               <React.Fragment key={product.id}>
-                <CartItem
-                  product={{
-                    cartItemId: product.id, // ✅ cart item id
-                    title: product.productName,
-                    photos: product.productImage ? [product.productImage] : [],
-                    price: Number(product.productPrice ?? 0),
-                    oldPrice: product.oldPrice ?? 0,
-                    savings: product.percentOfSaving ?? 0,
-                    quantity: Number(product.quantity ?? 1),
-                    rating: 0,
-                    inStock: product.isProductAvailabeToOrder,
-                  }}
-                  onRemove={(cartItemId) => removeFromCart(cartItemId)}
-                  onQuantityChange={
-                    (cartItemId, qty) => updateQuantity(cartItemId, qty) // ✅ send cart item id
-                  }
-                />
+               <CartItem
+  product={{
+    cartItemId: product.id,
+    title: product.productName,
+    photos: product.productImage ? [product.productImage] : [],
+    price: Number(product.calculatedProductPrice?.price ?? 0),
+    oldPrice: Number(product.calculatedProductPrice?.oldPrice ?? 0),
+    savings: Number(product.calculatedProductPrice?.percentOfSaving ?? 0),
+    quantity: Number(product.quantity ?? 1),
+    rating: 0,
+    inStock: product.isProductAvailabeToOrder,
+  }}
+  onRemove={(cartItemId) => removeFromCart(cartItemId)}
+  onQuantityChange={(cartItemId, qty) =>
+    updateQuantity(cartItemId, qty)
+  }
+/>
+
 
                 {isMobile && cartProducts.length > 1 && <hr />}
               </React.Fragment>

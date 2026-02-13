@@ -37,14 +37,7 @@ const WishlistPage = () => {
       await addToCartList(payload);
 
       // Show success toast
-      toast.success("Product added to cart!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toast.success("Product added to cart!")
 
       // Remove from wishlist after successfully adding to cart
       console.log("Removing from wishlist:", product.wishlistItemId);

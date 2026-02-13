@@ -1,100 +1,142 @@
 import ImageGalleryModal from "@/components/shared/ImageGalleryModal";
 import React, { useState, useMemo } from "react";
 import QRCode from "react-qr-code";
+import { BadgeCheck } from "lucide-react";
 
 const PlaceGallery = ({ place }) => {
   const [showGallery, setShowGallery] = useState(false);
+  const [hoverImage, setHoverImage] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const photos = useMemo(
     () => (place.photos || []).filter(Boolean),
-    [place.photos],
+    [place.photos]
   );
 
-  // Extract GI Tag from perks
-  // const giTag = useMemo(() => {
-  //   if (!place?.perks) return null;
-
-  //   const giAttr = place.perks.find((perk) =>
-  //     perk?.name?.toLowerCase().includes("gi")
-  //   );
-
-  //   return giAttr?.value || null;
-  // }, [place.perks]);
-
-  // Static GI Tag
   const giTag = "IICT-GI-2EKEKJN";
-
   const qrValue =
     "https://iictsrinagarcarpet-gi.org/verify/4140NUYRNNAHNHKYNH2";
-  // QR link → GI details page
-  //  const qrValue = `${window.location.origin}/gi-details/${place._id}`;
 
   if (!photos.length) return null;
 
+  const mainImage = photos[0];
+  const thumbnails = photos.slice(1, 5);
+
+  const displayImage = hoverImage || mainImage;
+
+  const openGalleryAt = (index) => {
+    setSelectedIndex(index);
+    setShowGallery(true);
+  };
+
   return (
-    <div className="relative">
-      <div className="hidden lg:grid grid-cols-2 gap-6 h-[400px] py-2">
-        {/* LEFT: Image */}
-        <div className="flex items-center justify-center bg-gray-100 rounded-[12px] overflow-hidden">
+    <div className="relative bg-white mb-10">
+      {/* ================= DESKTOP ================= */}
+      <div className="hidden lg:block space-y-8">
+        {/* MAIN IMAGE */}
+        <div className="relative aspect-[4/3.2] border border-gray-200 rounded-lg overflow-hidden">
           <img
-            src={photos[0]}
-            alt=""
-            onClick={() => setShowGallery(true)}
-            className="max-h-full max-w-full object-contain cursor-pointer"
+            src={displayImage}
+            alt="main"
+            onClick={() =>
+              openGalleryAt(
+                hoverImage ? photos.indexOf(hoverImage) : 0
+              )
+            }
+            draggable={false}
+            className="w-full h-full object-cover cursor-pointer transition-all duration-200"
           />
-        </div>
 
-        {/* RIGHT: QR */}
-        <div className="flex flex-col items-center justify-center border border-dashed rounded-[12px]">
-          {qrValue ? (
-            <>
-              <QRCode value={qrValue} size={170} />
-              <span className="text-sm text-gray-500 mt-3">
-                Scan to get GI Details
-              </span>
-              <span className="text-xs text-gray-400">{giTag}</span>
-            </>
-          ) : (
-            <span className="text-gray-400">QR not available</span>
+          {/* QR */}
+          {qrValue && (
+            <div className="absolute bottom-3 right-3 flex flex-col items-center bg-white p-2 rounded shadow">
+              <QRCode value={qrValue} size={60} />
+              <span className="text-[10px] mt-1">{giTag}</span>
+
+              <div className="flex items-center gap-1 text-green-600 mt-1">
+                <BadgeCheck size={12} />
+                <span className="text-[11px] font-medium">Verified</span>
+              </div>
+            </div>
           )}
         </div>
+
+        {/* THUMBNAILS */}
+        {thumbnails.length > 0 && (
+          <div className="grid grid-cols-4 gap-3">
+            {thumbnails.map((img, index) => {
+              const actualIndex = index + 1;
+              return (
+                <div
+                  key={index}
+                  className="aspect-square overflow-hidden border border-gray-200 rounded-lg cursor-pointer"
+                  onMouseEnter={() => setHoverImage(img)}
+                  onMouseLeave={() => setHoverImage(null)}
+                  onClick={() => openGalleryAt(actualIndex)}
+                >
+                  <img
+                    src={img}
+                    alt={`thumb-${index}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
-      <div className="lg:hidden space-y-4">
-        {/* Image slider */}
-        <div className="flex gap-2 overflow-x-auto">
-          {photos.map((img, i) => (
-            <img
-              key={i}
-              src={img}
-              alt=""
-              onClick={() => setShowGallery(true)}
-              className="h-52 w-[85%] object-contain bg-gray-100 rounded-lg cursor-pointer flex-shrink-0"
-            />
-          ))}
-        </div>
+      {/* ================= MOBILE ================= */}
+      <div className="lg:hidden space-y-3">
+        <div className="relative aspect-[4/3] border border-gray-200 rounded-lg overflow-hidden">
+          <img
+            src={mainImage}
+            alt="main"
+            onClick={() => openGalleryAt(0)}
+            draggable={false}
+            className="w-full h-full object-contain p-3 cursor-pointer"
+          />
 
-        {/* QR Section */}
-        <div className="flex flex-col items-center justify-center border border-dashed rounded-lg p-4 bg-white">
-          {qrValue ? (
-            <>
-              <QRCode value={qrValue} size={140} />
-              <span className="text-sm text-gray-500 mt-2">
-                Scan to get GI Details
-              </span>
-              <span className="text-xs text-gray-400">{giTag}</span>
-            </>
-          ) : (
-            <span className="text-gray-400">
-              QR not available please try again
-            </span>
+          {qrValue && (
+            <div className="absolute bottom-3 right-3 flex flex-col items-center bg-white/80 p-1 rounded">
+              <QRCode value={qrValue} size={50} />
+              <span className="text-[9px] mt-1">{giTag}</span>
+
+              <div className="flex items-center gap-1 text-green-600 mt-1">
+                <BadgeCheck size={12} />
+                <span className="text-[10px] font-medium">Verified</span>
+              </div>
+            </div>
           )}
         </div>
+
+        {thumbnails.length > 0 && (
+          <div className="grid grid-cols-4 gap-2">
+            {thumbnails.map((img, index) => {
+              const actualIndex = index + 1;
+              return (
+                <div
+                  key={index}
+                  className="aspect-square overflow-hidden border border-gray-200 rounded-md"
+                  onClick={() => openGalleryAt(actualIndex)}
+                >
+                  <img
+                    src={img}
+                    alt={`thumb-${index}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
+      {/* ================= MODAL ================= */}
       <ImageGalleryModal
-        photos={place.photos}
+        photos={photos}
         isOpen={showGallery}
+        startIndex={selectedIndex}
         onClose={() => setShowGallery(false)}
       />
     </div>
