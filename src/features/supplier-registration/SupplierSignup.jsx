@@ -28,6 +28,7 @@ import { useLoginMutation } from "@/hooks/useAuthMutation";
 import ProfileSection from "../farmer-registration/sections/ProfileSection";
 import OtpVerificationSection from "../farmer-registration/sections/OtpVerificationSection";
 import FormNavigation from "../farmer-registration/components/FormNavigation";
+import { useUser } from "@/providers/UserProvider";
 
 const stepSchemas = [profileSchema, otpSchema];
 
@@ -43,6 +44,13 @@ export default function SupplierSignUp() {
   const { mutateAsync: verifyOtp } = useOtpVerifyMutation();
   const { mutateAsync: signup } = useProfileMutation();
   const { mutateAsync: login } = useLoginMutation();
+   const {
+  setToken,
+  setUserId,
+  setRoles,
+  setVendorId
+} = useUser();
+
 
   const methods = useForm({
     resolver: zodResolver(stepSchemas[step]),
@@ -120,11 +128,16 @@ export default function SupplierSignUp() {
       });
 
       // 4️⃣ STORE TOKEN
-      setItemsInLocalStorage("token", loginResponse.token);
-      setItemsInLocalStorage("email");
-      setItemsInLocalStorage("userId", loginResponse.user);
-      setItemsInLocalStorage("vendorId", loginResponse.vendorId);
-      setItemsInLocalStorage("roles", loginResponse.roles);
+      // setItemsInLocalStorage("token", loginResponse.token);
+      // setItemsInLocalStorage("email");
+      // setItemsInLocalStorage("userId", loginResponse.user);
+      // setItemsInLocalStorage("vendorId", loginResponse.vendorId);
+      // setItemsInLocalStorage("roles", loginResponse.roles);
+
+        setToken(loginResponse.token);
+  setUserId(loginResponse.user);
+  setVendorId(loginResponse.vendorId);
+  setRoles(loginResponse.roles);
 
       toast.success("Account created & logged in successfully");
       navigate("/supplier-register");

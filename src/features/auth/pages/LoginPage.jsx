@@ -19,6 +19,8 @@ import { setItemsInLocalStorage } from "@/utils/localStorage";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
+  const [tab, setTab] = useState(0);
+  const { setUserId, setToken, setRoles, setVendorId } = useUser();
 
   const { mutate: loginMutate, isPending } = useLoginMutation();
 
@@ -39,10 +41,17 @@ const LoginPage = () => {
 
     loginMutate(payload, {
       onSuccess: (res) => {
-        setItemsInLocalStorage("token", res.token);
-        setItemsInLocalStorage("userId", res.user);
-        setItemsInLocalStorage("roles", res.roles);
-        setItemsInLocalStorage("vendorId", res.vendorId);
+        console.log("Login response:", res);
+
+        // Store token from backend
+        // setItemsInLocalStorage("token", res.token);
+        // setItemsInLocalStorage("userId", res.user);
+        // setItemsInLocalStorage("roles", res.roles);
+        // setItemsInLocalStorage("vendorId", res.vendorId);
+          setToken(res.token);
+  setUserId(res.user);
+  setRoles(res.roles);
+  setVendorId(res.vendorId);
 
         toast.success("Login successful!");
         setRedirect(true);
