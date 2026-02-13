@@ -65,14 +65,14 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
             {product.title}
           </h3>
 
-          <div className="flex items-center justify-between flex-wrap gap-1 mt-1">
-            <p className="text-base sm:text-lg font-semibold text-[var(--color-black)]">
+          <div className="flex justify-end mt-1">
+            {/* <p className="text-base sm:text-lg font-semibold text-[var(--color-black)]">
               ₹{product.price}
-            </p>
+            </p> */}
             <div className="flex items-center gap-2">
-              <p className="text-[10px] sm:text-xs font-semibold text-[var(--color-black)] uppercase tracking-wide">
-                Qty:
-              </p>
+              {/* <p className="text-[10px] sm:text-xs font-semibold text-[var(--color-black)] uppercase tracking-wide">
+                Quantity
+              </p> */}
               <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
             </div>
           </div>
