@@ -30,6 +30,7 @@ const PlacePage = () => {
 
   const { data: product, isLoading } = useProductDetailsQuery(id);
 
+  console.log("Product details:", product);
   
   const { data: productsData } = useProductsQuery({
     page: 1,
@@ -106,6 +107,8 @@ const PlacePage = () => {
       perks: product.attributes ?? [],
       photos: images,
       raw: product,
+      specification: product.specification,
+      isAllowToOrder: product.isAllowToOrder,
     });
   }, [product]);
 
