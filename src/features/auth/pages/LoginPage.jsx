@@ -5,81 +5,44 @@ import { toast } from "react-toastify";
 import {
   Button,
   Divider,
-  Tabs,
-  Tab,
-  Box,
   CircularProgress,
+  Paper,
+  Box,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  phoneLoginSchema,
-  emailLoginSchema,
-} from "@/features/farmer-registration/schemas/authSchemas";
+import { phoneLoginSchema } from "@/features/farmer-registration/schemas/authSchemas";
 import FormInput from "../../../components/shared/custom-inputs/FormInput";
 import { useLoginMutation } from "@/hooks/useFarmerProfileMutations";
 import { setItemsInLocalStorage } from "@/utils/localStorage";
-// import userCredentials from "../../../data/userCredentials.json"; ❌ FAKE DATA (COMMENTED)
-import { useUser } from "@/providers/UserProvider";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
-  const [tab, setTab] = useState(0);
 
   const { mutate: loginMutate, isPending } = useLoginMutation();
-  // const { setUserId } = useUser();
-
-  const schema = tab === 0 ? phoneLoginSchema : emailLoginSchema;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(schema) });
+  } = useForm({
+    resolver: zodResolver(phoneLoginSchema),
+    mode: "onBlur",
+  });
 
   const onSubmit = (data) => {
-    const payload =
-      tab === 0
-        ? { mobileNumber: data.mobileNumber, password: data.password }
-        : { email: data.email, password: data.password };
+    const payload = {
+      mobileNumber: data.mobileNumber,
+      password: data.password,
+    };
 
-    console.log(payload, "this is loging crdentilas ");
-
-    // ❌ FAKE FRONTEND CREDENTIAL CHECK (COMMENTED)
-    // /*
-    // const isEmailLogin = tab === 1;
-    // const { email, phone, password } = data;
-
-    // const isValid =
-    //   (isEmailLogin &&
-    //     email === userCredentials.email &&
-    //     password === userCredentials.password) ||
-    //   (!isEmailLogin &&
-    //     phone === userCredentials.phone &&
-    //     password === userCredentials.password);
-
-    // if (!isValid) {
-    //   toast.error("Invalid Credentials.");
-    //   return;
-    // }
-    // */
-
-    // ✅ REAL API LOGIN
     loginMutate(payload, {
       onSuccess: (res) => {
-        console.log("Login response:", res);
-
-        // Store token from backend
         setItemsInLocalStorage("token", res.token);
         setItemsInLocalStorage("userId", res.user);
         setItemsInLocalStorage("roles", res.roles);
         setItemsInLocalStorage("vendorId", res.vendorId);
-
-        // Optional: store user id if backend sends it
-        // if (res?.user?.id) {
-        //   setUserId(res.user.id);
-        // }
 
         toast.success("Login successful!");
         setRedirect(true);
@@ -87,135 +50,176 @@ const LoginPage = () => {
       onError: (err) => {
         toast.error(
           err?.response?.data?.error ||
-            err?.response?.data?.message ||
-            "Invalid credentials or network error",
+          err?.response?.data?.message ||
+          "Invalid credentials or network error"
         );
       },
     });
   };
 
-  // ✅ GOOGLE LOGIN KEPT AS-IS (NOT COMMENTED)
-  const handleGoogleLogin = async (credential) => {
-    const response = { success: true, message: "Google login successful!" };
-
-    if (response.success) {
-      // localStorage.setItem("token", "fake-google-token-12345");
-      toast.success(response.message);
-      navigate("/home");
-      setRedirect(true);
-    } else {
-      toast.error(response.message);
-    }
+  const handleGoogleLogin = async () => {
+    toast.success("Google login successful!");
+    navigate("/home");
+    setRedirect(true);
   };
 
   if (redirect) return <Navigate to="/home" replace />;
 
   return (
-    <div className="flex justify-center min-h-screen">
-      <div className="w-full max-w-md bg-var(--color-white) rounded-xl mt-20 lg:mt10 p-6">
-        <h1
-          className="text-2xl font-semibold mb-6 text-center"
-          style={{ color: "var(--color-black)" }}
-        >
-          Log in to your account
-        </h1>
+    <Box
+      className="
+        flex 
+        items-center 
+        justify-center 
+        min-h-screen 
+        bg-[var(--color-background)]
+        px-4 
+        sm:px-6 
+        md:px-8
+        py-6
+      "
+    >
+      <Paper
+        elevation={0}
+        className="
+          w-full 
+          max-w-sm 
+          sm:max-w-md
+          md:max-w-md
+          rounded-2xl
+        "
+        sx={{
+          backgroundColor: "var(--color-white)",
+          boxShadow: "none",
+          padding: {
+            xs: "20px",
+            sm: "28px",
+            md: "32px",
+          },
+        }}
+      >
 
-        {/* <Tabs
-          value={tab}
-          onChange={(e, val) => setTab(val)}
-          textColor="primary"
-          indicatorColor="primary"
-          centered
-        >
-          <Tab label="Phone" />
-          <Tab label="Email" />
-        </Tabs> */}
 
-        <Box className="mt-6">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
+        <div className="flex flex-col items-center mb-5 sm:mb-6">
+
+          <img
+            src="/assets/images/logo6.png"
+            alt="App Logo"
+            className="
+              object-contain
+              mb-2
+              h-14
+              sm:h-16
+              md:h-20
+            "
+          />
+
+          <h1
+            className="
+              font-semibold 
+              text-center
+              text-xl
+              sm:text-2xl
+              md:text-2xl
+            "
+            style={{ color: "var(--color-black)" }}
           >
-            {tab === 0 ? (
-              <>
-                <FormInput
-                  name="mobileNumber"
-                  label="Phone number"
-                  type="tel"
-                  register={register}
-                  errors={errors.mobileNumber}
-                />
+            Log in to your account
+          </h1>
 
-                <FormInput
-                  name="password"
-                  label="Password"
-                  type="password"
-                  register={register}
-                  errors={errors.password}
-                />
-              </>
+        </div>
+
+
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-3 sm:gap-4"
+        >
+          <FormInput
+            name="mobileNumber"
+            label="Phone number"
+            placeholder="Enter phone number"
+            type="tel"
+            prefix="+91"
+            register={register}
+            errors={errors.mobileNumber}
+          />
+
+          <FormInput
+            name="password"
+            label="Password"
+            placeholder="Enter password"
+            type="password"
+            register={register}
+            errors={errors.password}
+          />
+
+          <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            disabled={isPending}
+            sx={{
+              backgroundColor: "var(--color-primary)",
+              "&:hover": {
+                backgroundColor: "var(--color-primary-hover)",
+              },
+              textTransform: "none",
+              fontWeight: 600,
+              borderRadius: "12px",
+              py: {
+                xs: 1.3,
+                sm: 1.5,
+              },
+              fontSize: {
+                xs: "14px",
+                sm: "15px",
+              },
+              color: "var(--color-white)",
+            }}
+          >
+            {isPending ? (
+              <CircularProgress size={22} sx={{ color: "white" }} />
             ) : (
-              <>
-                <FormInput
-                  name="email"
-                  label="Email"
-                  type="email"
-                  register={register}
-                  errors={errors.email}
-                />
-                <FormInput
-                  name="password"
-                  label="Password"
-                  type="password"
-                  register={register}
-                  errors={errors.password}
-                />
-              </>
+              "Continue"
             )}
+          </Button>
+        </form>
 
-            <Button
-              fullWidth
-              type="submit"
-              variant="contained"
-              disabled={isPending}
-              sx={{
-                backgroundColor: "var(--color-primary)",
-                "&:hover": { backgroundColor: "var(--color-primary-hover)" },
-                textTransform: "none",
-                fontWeight: "600",
-                borderRadius: "12px",
-                py: 1.5,
-                color: "var(--color-white)",
-              }}
-            >
-              {isPending ? (
-                <CircularProgress size={24} sx={{ color: "white" }} />
-              ) : (
-                "Continue"
-              )}
-            </Button>
-          </form>
-        </Box>
+        {/* Divider */}
+        <Divider
+          sx={{
+            my: {
+              xs: 3,
+              sm: 4,
+            },
+          }}
+        >
+          or
+        </Divider>
 
-        <Divider sx={{ my: 4 }}>or</Divider>
-
-        <div className="flex flex-col gap-3">
+        {/* Google Login */}
+        <div className="flex justify-center">
           <GoogleLogin
-            onSuccess={(cred) => handleGoogleLogin(cred.credential)}
-            onError={() => console.log("Google login failed")}
+            onSuccess={handleGoogleLogin}
+            onError={() => toast.error("Google login failed")}
             text="continue_with"
             width="100%"
           />
         </div>
 
-        <p className="mt-6 text-center text-sm">
+        {/* Sign Up Link */}
+        <p className="mt-5 sm:mt-6 text-center text-sm">
           Don’t have an account?{" "}
-          <Link to="/sign-up" className="font-medium underline">
+          <Link
+            to="/sign-up"
+            className="font-medium underline"
+          >
             Sign up
           </Link>
         </p>
-      </div>
-    </div>
+
+      </Paper>
+    </Box>
   );
 };
 

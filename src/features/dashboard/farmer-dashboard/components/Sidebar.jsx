@@ -116,9 +116,8 @@ export default function Sidebar({ collapsed, setCollapsed }) {
           <aside
             ref={sidebarRef}
             id="sidebar-panel"
-            className={`fixed top-0 left-0 h-full w-72 z-[9999] transform transition-transform duration-300 ease-in-out ${
-              collapsed ? "-translate-x-full" : "translate-x-0"
-            }`}
+            className={`fixed top-0 left-0 h-full w-72 z-[9999] transform transition-transform duration-300 ease-in-out ${collapsed ? "-translate-x-full" : "translate-x-0"
+              }`}
             style={{
               backgroundColor: "var(--color-white)",
               color: "var(--color-black)",
@@ -129,19 +128,9 @@ export default function Sidebar({ collapsed, setCollapsed }) {
               className="flex items-center justify-between border-b py-4 cursor-pointer"
               style={{ borderColor: "var(--color-gray)" }}
             >
-              <div>
-                <img
-                  src={logo}
-                  alt="Logo"
-                  className="w-24 h-12 object-contain rounded"
-                  onClick={() => {
-                    navigate("/home");
-                    setCollapsed(true);
-                  }}
-                />
-              </div>
+
               <div className="pr-5 cursor-pointer " onClick={() => setCollapsed(true)}>
-                <X size={20} strokeWidth={2.5} stroke="var(--color-black)"/>
+                <X size={20} strokeWidth={2.5} stroke="var(--color-black)" />
               </div>
             </div>
             {/* Nav Items */}
@@ -152,10 +141,9 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                   to={item.to}
                   onClick={() => setCollapsed(true)}
                   className={({ isActive }) =>
-                    `flex items-center gap-3 p-3 mx-3 rounded-lg transition-colors duration-200 ${
-                      isActive
-                        ? "bg-[var(--color-black-hover)] text-[var(--color-black)]"
-                        : "text-[var(--color-black)] hover:bg-[var(--color-black-hover)]"
+                    `flex items-center gap-3 p-3 mx-3 rounded-lg transition-colors duration-200 ${isActive
+                      ? "bg-[var(--color-black-hover)] text-[var(--color-black)]"
+                      : "text-[var(--color-black)] hover:bg-[var(--color-black-hover)]"
                     }`
                   }
                 >
