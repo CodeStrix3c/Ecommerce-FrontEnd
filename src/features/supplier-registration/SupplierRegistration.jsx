@@ -106,11 +106,26 @@ export default function SupplierRegistration() {
               onSubmit={handleSubmit(handleSubmitClick)}
               className="space-y-6"
             >
-              <SectionTitle
-                title="Vendor Registration"
-                className="lg:text-4xl text-2xl font-bold text-center mb-10"
-                centered
-              />
+              <div className="flex flex-col items-center mb-10">
+                <img
+                  src="/assets/images/logo6.png"
+                  alt="App Logo"
+                  className="
+      object-contain
+      mb-2
+      h-14
+      sm:h-16
+      md:h-20
+    "
+                />
+
+                <SectionTitle
+                  title="Vendor Registration"
+                  className="lg:text-4xl text-2xl font-bold text-center"
+                  centered
+                />
+              </div>
+
 
               {/* <FormStepper activeStep={step} steps={labels} /> */}
 
