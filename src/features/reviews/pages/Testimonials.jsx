@@ -53,8 +53,6 @@
 //         />
 //       )}
 
-   
-
 // <div>
 //   <AddReview/>
 // </div>
@@ -70,23 +68,42 @@ import ReviewModal from "../components/ReviewModal";
 import AllReviewsModal from "../components/AllReviewModal";
 import { testimonials as initialData } from "@/data/testimonialsData";
 import AddReview from "../components/AddReview";
+import { useParams } from "react-router-dom";
+import { useAddReview } from "@/hooks/User/Reviews/usereviewproduct";
 
 export default function Testimonials() {
   const isMobile = useIsMobile();
   const [testimonials, setTestimonials] = useState(initialData);
   const [selectedReview, setSelectedReview] = useState(null);
   const [showAll, setShowAll] = useState(false);
+  const { id } = useParams();
+
+  const { mutate: addReviewMutation } = useAddReview();
 
   const handleShowAll = () => setShowAll(true);
   const handleShowMore = (review) => setSelectedReview(review);
 
   const handleAddReview = (newReview) => {
+    const payload = {
+      rating: newReview.rating,
+      title: null,
+      comment: newReview.text,
+      reviewerName: null,
+      entityId: Number(id), // productId
+      entityTypeId: "Product", // STATIC
+      hasBoughtProduct: false,
+      loggedUserName: null,
+    };
+
+    addReviewMutation(payload);
+
+    // Keep your local UI update
     setTestimonials((prev) => [newReview, ...prev]);
   };
 
   const handleUpdate = (updated) => {
     setTestimonials((prev) =>
-      prev.map((r) => (r.id === updated.id ? updated : r))
+      prev.map((r) => (r.id === updated.id ? updated : r)),
     );
   };
 
@@ -96,19 +113,19 @@ export default function Testimonials() {
 
   return (
     <div className="mx-auto">
-   <div className="flex items-center justify-between mb-4">
-  <h2 className="text-2xl font-semibold text-[var(--color-black)]">
-    What People Say About Our Art & Craft Products
-  </h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-semibold text-[var(--color-black)]">
+          What People Say About Our Art & Craft Products
+        </h2>
 
-  <AddReview onAdd={handleAddReview} />
-</div>
-
-    
-
+        <AddReview onAdd={handleAddReview} />
+      </div>
 
       {isMobile ? (
-        <TestimonialsCarousel testimonials={testimonials} onShowMore={handleShowMore} />
+        <TestimonialsCarousel
+          testimonials={testimonials}
+          onShowMore={handleShowMore}
+        />
       ) : (
         <TestimonialsGrid
           testimonials={testimonials}
@@ -134,8 +151,6 @@ export default function Testimonials() {
           onDelete={handleDelete}
         />
       )}
-
-      {/* Add Review */}
     </div>
   );
 }

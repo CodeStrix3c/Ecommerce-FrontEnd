@@ -2,19 +2,14 @@ import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
-import {
-  Button,
-  Divider,
-  CircularProgress,
-  Paper,
-  Box,
-} from "@mui/material";
+import { Button, Divider, CircularProgress, Paper, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { phoneLoginSchema } from "@/features/farmer-registration/schemas/authSchemas";
 import FormInput from "../../../components/shared/custom-inputs/FormInput";
 import { useLoginMutation } from "@/hooks/useFarmerProfileMutations";
 import { setItemsInLocalStorage } from "@/utils/localStorage";
+import { useUser } from "@/providers/UserProvider";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -48,10 +43,10 @@ const LoginPage = () => {
         // setItemsInLocalStorage("userId", res.user);
         // setItemsInLocalStorage("roles", res.roles);
         // setItemsInLocalStorage("vendorId", res.vendorId);
-          setToken(res.token);
-  setUserId(res.user);
-  setRoles(res.roles);
-  setVendorId(res.vendorId);
+        setToken(res.token);
+        setUserId(res.user);
+        setRoles(res.roles);
+        setVendorId(res.vendorId);
 
         toast.success("Login successful!");
         setRedirect(true);
@@ -59,8 +54,8 @@ const LoginPage = () => {
       onError: (err) => {
         toast.error(
           err?.response?.data?.error ||
-          err?.response?.data?.message ||
-          "Invalid credentials or network error"
+            err?.response?.data?.message ||
+            "Invalid credentials or network error",
         );
       },
     });
@@ -107,10 +102,7 @@ const LoginPage = () => {
           },
         }}
       >
-
-
         <div className="flex flex-col items-center mb-5 sm:mb-6">
-
           <img
             src="/assets/images/logo6.png"
             alt="App Logo"
@@ -135,9 +127,7 @@ const LoginPage = () => {
           >
             Log in to your account
           </h1>
-
         </div>
-
 
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -219,14 +209,10 @@ const LoginPage = () => {
         {/* Sign Up Link */}
         <p className="mt-5 sm:mt-6 text-center text-sm">
           Don’t have an account?{" "}
-          <Link
-            to="/sign-up"
-            className="font-medium underline"
-          >
+          <Link to="/sign-up" className="font-medium underline">
             Sign up
           </Link>
         </p>
-
       </Paper>
     </Box>
   );
