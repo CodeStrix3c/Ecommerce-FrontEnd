@@ -31,7 +31,7 @@ const PlacePage = () => {
   const { data: product, isLoading } = useProductDetailsQuery(id);
 
   console.log("Product details:", product);
-  
+
   const { data: productsData } = useProductsQuery({
     page: 1,
   });
@@ -77,7 +77,6 @@ const PlacePage = () => {
     popularInstanceRef.current?.update();
   }, [productsData]);
 
- 
   useEffect(() => {
     if (!product) return;
 
@@ -86,7 +85,7 @@ const PlacePage = () => {
         ?.flatMap((img) => [img.url, img.thumbnailUrl])
         .filter(Boolean)
         .map((path) =>
-          path.startsWith("http") ? path : `${IMAGE_BASE_URL}${path}`
+          path.startsWith("http") ? path : `${IMAGE_BASE_URL}${path}`,
         ) ?? [];
 
     setPlace({
@@ -140,7 +139,6 @@ const PlacePage = () => {
     })
     .filter(Boolean);
 
-  
   const handleAddToCart = () => {
     toggleCartList(place);
     toast.success("Cart updated");
@@ -150,9 +148,9 @@ const PlacePage = () => {
     requireLogin(
       () =>
         toast.success(
-          `Proceeding to checkout for ${quantity} × ${place.title}`
+          `Proceeding to checkout for ${quantity} × ${place.title}`,
         ),
-      () => setShowLoginPopup(true)
+      () => setShowLoginPopup(true),
     );
   };
 
@@ -186,13 +184,12 @@ const PlacePage = () => {
         {/* -------------------------
             Most Popular Items
         ------------------------- */}
-        {popularItems.length > 0 && (
+        {/* {popularItems.length > 0 && (
           <div className="mt-10">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-xl sm:text-xl font-semibold">
-  Explore other popular Art & Craft products
-</h2>
-
+                Recently Viewed Products
+              </h2>
 
               <div className="flex gap-2">
                 <button
@@ -233,9 +230,39 @@ const PlacePage = () => {
               ))}
             </div>
           </div>
-        )}
+        )} */}
+        <div className="mt-10">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-xl font-semibold">Recently Viewed Products</h2>
+          </div>
 
-        <Testimonials/>
+          <div className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth">
+            {popularItems.map((item) => (
+              <div
+                key={item.id}
+                /* FIX: Use fixed width classes instead of just min-width */
+                className="w-[160px] sm:w-[180px] lg:w-[200px] flex-shrink-0 cursor-pointer"
+                onClick={() => navigate(`/place/${item.id}`)}
+              >
+                <div className="w-full h-56 sm:h-64 lg:h-72 rounded-xl overflow-hidden bg-gray-100">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    /* FIX: Change object-contain to object-cover to fill the box uniformly */
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+
+                <p className="mt-2 text-sm font-medium line-clamp-1">
+                  {item.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Testimonials />
       </div>
     </ContentWrapper>
   );
