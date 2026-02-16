@@ -15,6 +15,7 @@ import { phoneLoginSchema } from "@/features/farmer-registration/schemas/authSch
 import FormInput from "../../../components/shared/custom-inputs/FormInput";
 import { useLoginMutation } from "@/hooks/useFarmerProfileMutations";
 import { setItemsInLocalStorage } from "@/utils/localStorage";
+import { useUser } from "@/providers/UserProvider";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -48,10 +49,10 @@ const LoginPage = () => {
         // setItemsInLocalStorage("userId", res.user);
         // setItemsInLocalStorage("roles", res.roles);
         // setItemsInLocalStorage("vendorId", res.vendorId);
-          setToken(res.token);
-  setUserId(res.user);
-  setRoles(res.roles);
-  setVendorId(res.vendorId);
+        setToken(res.token);
+        setUserId(res.user);
+        setRoles(res.roles);
+        setVendorId(res.vendorId);
 
         toast.success("Login successful!");
         setRedirect(true);
