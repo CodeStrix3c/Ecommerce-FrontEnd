@@ -1,16 +1,27 @@
 import axiosInstance from "@/api/client/axiosInstance";
 
+// ---------- ADD REVIEW ----------
 export const addReview = async (payload) => {
   const { data } = await axiosInstance.post("/api/reviews/AddReview", payload);
 
   return data;
 };
 
-export const getAllReviews = async () => {
-  const response = await axiosInstance.get("/api/reviews/List");
-  return response;
-};
+// ---------- GET ALL REVIEWS ----------
+export const getAllReviews = async ({
+  entityId,
+  entityTypeId,
+  pageNumber = 1,
+  pageSize = 20,
+}) => {
+  const { data } = await axiosInstance.get("/api/reviews/List", {
+    params: {
+      entityId,
+      entityTypeId,
+      pageNumber,
+      pageSize,
+    },
+  });
 
-export const updateReview = async () => {
-  const response = await axiosInstance.put;
+  return data;
 };
