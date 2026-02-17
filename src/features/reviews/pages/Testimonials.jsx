@@ -66,49 +66,54 @@ import TestimonialsCarousel from "../components/TestimonialsCarousal";
 import TestimonialsGrid from "../components/TestimonialsGrid";
 import ReviewModal from "../components/ReviewModal";
 import AllReviewsModal from "../components/AllReviewModal";
-import { testimonials as initialData } from "@/data/testimonialsData";
 import AddReview from "../components/AddReview";
 import { useParams } from "react-router-dom";
-import { useAddReview } from "@/hooks/User/Reviews/usereviewproduct";
+
+import {
+  useAddReview,
+  useGetAllReviews,
+} from "@/hooks/User/Reviews/usereviewproduct";
 
 export default function Testimonials() {
   const isMobile = useIsMobile();
-  const [testimonials, setTestimonials] = useState(initialData);
+  const { id } = useParams();
+
   const [selectedReview, setSelectedReview] = useState(null);
   const [showAll, setShowAll] = useState(false);
-  const { id } = useParams();
+
+  // ✅ GET REVIEWS FROM API
+  const { data, refetch } = useGetAllReviews({
+    entityId: Number(id),
+    entityTypeId: "Product",
+    pageNumber: 1,
+    pageSize: 20,
+  });
+
+  const reviews = data?.items?.data || [];
 
   const { mutate: addReviewMutation } = useAddReview();
 
   const handleShowAll = () => setShowAll(true);
   const handleShowMore = (review) => setSelectedReview(review);
 
+  // ---------- ADD REVIEW ----------
   const handleAddReview = (newReview) => {
     const payload = {
       rating: newReview.rating,
       title: null,
       comment: newReview.text,
       reviewerName: null,
-      entityId: Number(id), // productId
-      entityTypeId: "Product", // STATIC
+      entityId: Number(id),
+      entityTypeId: "Product",
       hasBoughtProduct: false,
       loggedUserName: null,
     };
 
-    addReviewMutation(payload);
-
-    // Keep your local UI update
-    setTestimonials((prev) => [newReview, ...prev]);
-  };
-
-  const handleUpdate = (updated) => {
-    setTestimonials((prev) =>
-      prev.map((r) => (r.id === updated.id ? updated : r)),
-    );
-  };
-
-  const handleDelete = (id) => {
-    setTestimonials((prev) => prev.filter((r) => r.id !== id));
+    addReviewMutation(payload, {
+      onSuccess: () => {
+        refetch(); // refresh list after posting
+      },
+    });
   };
 
   return (
@@ -123,12 +128,12 @@ export default function Testimonials() {
 
       {isMobile ? (
         <TestimonialsCarousel
-          testimonials={testimonials}
+          testimonials={reviews}
           onShowMore={handleShowMore}
         />
       ) : (
         <TestimonialsGrid
-          testimonials={testimonials}
+          testimonials={reviews}
           onShowMore={handleShowMore}
           onShowAll={handleShowAll}
         />
@@ -136,7 +141,7 @@ export default function Testimonials() {
 
       {selectedReview && (
         <ReviewModal
-          testimonials={testimonials}
+          testimonials={reviews}
           selectedReview={selectedReview}
           onClose={() => setSelectedReview(null)}
           onShowAll={handleShowAll}
@@ -145,10 +150,8 @@ export default function Testimonials() {
 
       {showAll && (
         <AllReviewsModal
-          testimonials={testimonials}
+          testimonials={reviews}
           onClose={() => setShowAll(false)}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
         />
       )}
     </div>
