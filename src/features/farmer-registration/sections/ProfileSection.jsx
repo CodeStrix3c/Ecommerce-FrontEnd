@@ -1,118 +1,111 @@
+import Inputs from "@/components/shared/Inputs";
 import FileUploadField from "@/components/shared/custom-inputs/FileUploadField";
-import FormInput from "@/components/shared/custom-inputs/FormInput";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PhoneIcon from "@mui/icons-material/Phone";
-import EmailIcon from "@mui/icons-material/Email";
-import LockIcon from "@mui/icons-material/Lock";
 import FormLayout from "@/components/shared/FormLayout";
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import SelectField from "@/components/shared/custom-inputs/SelectField";
 
-export default function ProfileSection({ register, errors, control }) {
-  const iconStyle = { color: "var(--color-secondary)", fontSize: 20 };
+export default function ProfileSection() {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <FormLayout>
-
-
-      <FormInput
+      {/* Full Name */}
+      <Inputs
+        required
         name="fullName"
-        label="Full Name"
-        placeholder="Enter your full name"
-        register={register}
+        label="Full Name :"
+        type="name"
         errors={errors.fullName}
-        icon={<AccountCircleIcon sx={iconStyle} />}
       />
 
-
-      <FormInput
+      {/* Email */}
+      <Inputs
         name="email"
-        label="Email(Optional)"
+        label="Email :"
         type="email"
-        placeholder="Email (Optional)"
-        register={register}
         errors={errors.email}
-        icon={<EmailIcon sx={iconStyle} />}
       />
 
-
-      <FormInput
+      {/* Phone */}
+      <Inputs
+        required
         name="phone"
-        label="Mobile Number (OTP Linked)"
-        type="tel"
-        placeholder="Mobile Number (OTP Linked)"
-        prefix="+91"
-        register={register}
+        label="Mobile Number :"
+        type="phone"
+        countryCode="+91"
         errors={errors.phone}
-        icon={<PhoneIcon sx={iconStyle} />}
       />
 
-
-      <FormInput
+      {/* Age */}
+      <Inputs
+        required
         name="age"
-        label="Age"
+        label="Age :"
         type="number"
-        placeholder="Age"
-        register={register}
         errors={errors.age}
       />
 
-
-      <SelectField
+      {/* Gender */}
+      <Controller
         name="gender"
-        register={register}
         control={control}
-        label="Gender"
-        errors={errors.gender}
-        options={[
-          { value: "", label: "Select Gender" },
-          { value: "male", label: "Male" },
-          { value: "female", label: "Female" },
-          { value: "other", label: "Other" },
-        ]}
+        defaultValue="" // IMPORTANT for placeholder
+        rules={{ required: "Gender is required" }}
+        render={({ field, fieldState }) => (
+         <SelectField
+  name="gender"
+  label="Gender :"
+  control={control}
+  errors={errors.gender}
+  placeholder="Select Gender"
+  options={[
+    { value: "male", label: "Male" },
+    { value: "female", label: "Female" },
+    { value: "other", label: "Other" },
+  ]}
+/>
+
+        )}
       />
 
-
+      {/* Profile Picture */}
+      {/*
       <Controller
         name="profilePic"
         control={control}
+        rules={{ required: "Profile picture is required" }}
         render={({ field, fieldState }) => (
           <FileUploadField
             {...field}
-            label="Upload Profile"
-            errors={
-              fieldState.error
-                ? { profilePic: fieldState.error }
-                : {}
-            }
+            label="Upload Profile :"
+            errors={fieldState.error}
             onFilesChange={(files) => field.onChange(files)}
             optional
           />
         )}
       />
+      */}
 
-
-      <FormInput
+      {/* Password */}
+      <Inputs
+        required
         name="password"
-        label="Password"
+        label="Password :"
         type="password"
-        placeholder="Enter your password"
-        register={register}
         errors={errors.password}
-        icon={<LockIcon sx={iconStyle} />}
       />
 
-
-      <FormInput
+      {/* Confirm Password */}
+      <Inputs
+        required
         name="confirmPassword"
-        label="Confirm Password"
+        label="Confirm Password :"
         type="password"
-        placeholder="Confirm Password"
-        register={register}
         errors={errors.confirmPassword}
-        icon={<LockIcon sx={iconStyle} />}
       />
-
     </FormLayout>
   );
 }

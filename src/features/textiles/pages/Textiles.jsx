@@ -320,7 +320,7 @@ const TextilesPage = () => {
         {/* Sidebar */}
         <aside className="hidden lg:block w-[240px] shrink-0">
           <AdvancedFilter
-            selectedCategory={filters.category}   // ✅ added
+            selectedCategory={filters.category}  
             availableBrands={backendFilters?.brands || []}
             availableCategories={backendFilters?.categories || []}
             priceLimits={{

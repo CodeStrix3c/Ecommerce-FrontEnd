@@ -9,29 +9,31 @@ import {
   Paper,
   Box,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { phoneLoginSchema } from "@/features/farmer-registration/schemas/authSchemas";
-import FormInput from "../../../components/shared/custom-inputs/FormInput";
+import Inputs from "@/components/shared/Inputs";
 import { useLoginMutation } from "@/hooks/useFarmerProfileMutations";
-import { setItemsInLocalStorage } from "@/utils/localStorage";
+import { useUser } from "@/providers/UserProvider";
+
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
-  const [tab, setTab] = useState(0);
   const { setUserId, setToken, setRoles, setVendorId } = useUser();
 
   const { mutate: loginMutate, isPending } = useLoginMutation();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(phoneLoginSchema),
-    mode: "onBlur",
-  });
+  const methods = useForm({
+  resolver: zodResolver(phoneLoginSchema),
+  mode: "onBlur",
+});
+
+const {
+  handleSubmit,
+  formState: { errors },
+} = methods;
+
 
   const onSubmit = (data) => {
     const payload = {
@@ -75,7 +77,8 @@ const LoginPage = () => {
   if (redirect) return <Navigate to="/home" replace />;
 
   return (
-    <Box
+    <FormProvider  {...methods}>
+      <Box
       className="
         flex 
         items-center 
@@ -143,24 +146,23 @@ const LoginPage = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-3 sm:gap-4"
         >
-          <FormInput
-            name="mobileNumber"
-            label="Phone number"
-            placeholder="Enter phone number"
-            type="tel"
-            prefix="+91"
-            register={register}
-            errors={errors.mobileNumber}
-          />
+        <Inputs
+        required
+  name="mobileNumber"
+  label="Phone number :"
+  type="phone"
+  countryCode="+91"
+  errors={errors.mobileNumber}
+/>
 
-          <FormInput
-            name="password"
-            label="Password"
-            placeholder="Enter password"
-            type="password"
-            register={register}
-            errors={errors.password}
-          />
+<Inputs
+  required
+  name="password"
+  label="Password :"
+  type="password"
+  errors={errors.password}
+/>
+
 
           <Button
             fullWidth
@@ -229,6 +231,8 @@ const LoginPage = () => {
 
       </Paper>
     </Box>
+    </FormProvider>
+    
   );
 };
 

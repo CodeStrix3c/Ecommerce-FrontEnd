@@ -106,6 +106,14 @@ export default function SupplierRegistration() {
               onSubmit={handleSubmit(handleSubmitClick)}
               className="space-y-6"
             >
+
+               <div className="flex flex-col items-center gap-2">
+                  <img
+                    src="/assets/images/logo6.png"
+                    alt="App Logo"
+                    className="h-14 sm:h-12 object-contain"
+                  />
+                </div>
               <SectionTitle
                 title="Vendor Registration"
                 className="lg:text-4xl text-2xl font-bold text-center mb-10"
