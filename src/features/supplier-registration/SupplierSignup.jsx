@@ -158,6 +158,14 @@ export default function SupplierSignUp() {
         <div className="w-full">
           <FormProvider {...methods}>
             <Box component="form" onSubmit={(e) => e.preventDefault()}>
+
+               <div className="flex flex-col items-center gap-2">
+                  <img
+                    src="/assets/images/logo6.png"
+                    alt="App Logo"
+                    className="h-14 sm:h-12 object-contain"
+                  />
+                </div>
               <SectionTitle title="Vendor Registration" centered />
 
               <FormStepper activeStep={step} steps={labels} />

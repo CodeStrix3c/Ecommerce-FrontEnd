@@ -1,144 +1,250 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "react-toastify";
-
-import UserProfileSection from "@/features/supplier-registration/sections/UserProfileSection";
-import { userProfileSchema } from "@/features/farmer-registration/schemas/userSchamas/userProfileSchema";
+import React, { useEffect, useState } from "react";
+import { Pencil } from "lucide-react";
+import { useForm, FormProvider } from "react-hook-form";
+import Inputs from "@/components/shared/Inputs";
 
 import {
-  useFileUploadMutation,
-  useFileDeleteMutation,
-} from "@/hooks/User/Profile/useFileUpload";
-
-import {
-  useUpdateUserProfile,
   useUserProfile,
-} from "@/hooks/User/Profile/useUserProfile";
+  useUpdateUserProfile,
+} from "@/hooks/Vendor/useUserProfile";
 
 export default function UserSupplier() {
   const userId = Number(localStorage.getItem("userId"));
-  const { data } = useUserProfile(userId);
-  const { mutateAsync: updateProfile } = useUpdateUserProfile();
+  const { data, refetch } = useUserProfile(userId);
+  const { mutate: updateProfile, isPending } = useUpdateUserProfile();
 
-  const { mutateAsync: uploadFileMutation } = useFileUploadMutation();
-  const { mutateAsync: deleteFileMutation } = useFileDeleteMutation();
+  const [profileId, setProfileId] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [toast, setToast] = useState("");
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    reset,
-    watch,
-    formState: { errors, isDirty },
-  } = useForm({
-    resolver: zodResolver(userProfileSchema),
-    mode: "onChange",
+  /* ================= FORM ================= */
+  const methods = useForm({
+    defaultValues: {
+      fullName: "",
+      email: "",
+      phone: "",
+      age: "",
+      gender: "",
+      profilePic: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
+  const {
+    reset,
+    handleSubmit,
+    watch,
+    formState: { errors, isDirty },
+  } = methods;
+
+  const form = watch();
+
+  /* ================= LOAD DATA ================= */
   useEffect(() => {
     if (data) {
-      reset({
-        ...data,
-        profilePic: data.profilePic || null,
-      });
+      const filled = {
+        fullName: data.fullName || "",
+        email: data.email || "",
+        phone: data.phone || "",
+        age: data.age || "",
+        gender: data.gender || "",
+        profilePic: data.profilePic || "",
+        password: "",
+        confirmPassword: "",
+      };
+
+      setProfileId(data.id);
+      reset(filled);
+      setIsEditing(false);
     }
   }, [data, reset]);
 
-  // ---------- SUBMIT ----------
-  const onSubmit = async (formData) => {
-    if (!data?.id) {
-      toast.error("Profile ID missing!");
-      return;
-    }
+  /* ================= IMAGE ================= */
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-    try {
-      let profilePicValue = data?.profilePic || "";
+    setIsEditing(true);
 
-      if (formData.profilePic instanceof File) {
-        const uploadResponse = await uploadFileMutation({
-          file: formData.profilePic,
-          UserType: "User",
-          UserId: userId,
-          FileCategory: "ProfilePicture",
-        });
+    const url = URL.createObjectURL(file);
+    methods.setValue("profilePic", url, { shouldDirty: true });
+  };
 
-        profilePicValue = uploadResponse?.fileUrl || uploadResponse?.data;
+  /* ================= VALIDATION + SAVE ================= */
+  const onSubmit = (values) => {
+    if (values.password || values.confirmPassword) {
+      if (values.password !== values.confirmPassword) {
+        return alert("Passwords do not match");
       }
+    }
 
-      await updateProfile({
-        id: data.id,
+    updateProfile(
+      {
+        id: profileId,
         payload: {
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          age: Number(formData.age),
-          gender: formData.gender,
-          profilePic: profilePicValue,
+          ...values,
+          age: Number(values.age),
         },
-      });
-
-      toast.success("Profile updated successfully");
-    } catch (error) {
-      toast.error("Something went wrong.");
-    }
+      },
+      {
+        onSuccess: () => {
+          setToast("Profile updated successfully");
+          setIsEditing(false);
+          refetch();
+          setTimeout(() => setToast(""), 2500);
+        },
+      }
+    );
   };
 
-  // ---------- DELETE IMAGE ----------
-  const handleDeleteProfilePic = async () => {
-    if (!data?.profilePic) return;
-
-    try {
-      await deleteFileMutation({
-        blobName: data.profilePic,
-        userId,
-      });
-
-      await updateProfile({
-        id: data.id,
-        payload: { ...data, profilePic: null },
-      });
-
-      reset({
-        ...watch(),
-        profilePic: null,
-      });
-
-      toast.success("Profile picture removed");
-    } catch (error) {
-      toast.error("Failed to delete profile picture");
-    }
+  const handleCancel = () => {
+    reset(data);
+    setIsEditing(false);
   };
 
+  /* ================= UI ================= */
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <UserProfileSection
-          register={register}
-          errors={errors}
-          control={control}
-          watch={watch}
-          onDeleteProfilePic={handleDeleteProfilePic}
-        />
+    <FormProvider {...methods}>
+      <div className="bg-white min-h-screen pt-[66px] md:pt-[94px] pb-12">
+        {toast && (
+          <div className="fixed top-5 right-5 bg-green-600 text-white px-4 py-2 rounded-lg z-50">
+            {toast}
+          </div>
+        )}
 
-        <div className="flex justify-end gap-4 pt-6 border-t border-gray-100">
-          <button
-            type="button"
-            onClick={() => reset()}
-            className="px-5 py-2 text-sm text-gray-500 hover:text-red-500"
-          >
-            Discard Changes
-          </button>
+        <div className="mx-auto w-full max-w-4xl">
+          {/* ===== HEADER ===== */}
+          <div className="px-6 py-6 border-b">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6">
+              {/* Avatar */}
+              <div className="flex justify-center sm:justify-start">
+                <div className="relative">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border">
+                    <img
+                      src={form.profilePic || "/default-avatar.png"}
+                      alt="Profile"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
 
-          <button
-            type="submit"
-            disabled={!isDirty}
-            className="px-8 py-2.5 bg-black text-white rounded-full"
+                  <label
+                    htmlFor="profilePicInput"
+                    className="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full cursor-pointer"
+                  >
+                    <Pencil size={14} />
+                  </label>
+
+                  <input
+                    id="profilePicInput"
+                    type="file"
+                    className="hidden"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
+                </div>
+              </div>
+
+              {/* Info */}
+              <div className="mt-4 sm:mt-0 text-center sm:text-left flex-1">
+                <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
+                  {form.fullName || "Your Name"}
+                </h1>
+                <p className="text-sm text-black">
+                  {form.email || "your@email.com"}
+                </p>
+                <span className="inline-block mt-2 px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">
+                  User Account
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* ===== FORM ===== */}
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="px-6 py-6 grid grid-cols-1 md:grid-cols-2 gap-4"
           >
-            Save Changes
-          </button>
+            <Inputs
+            required
+              name="fullName"
+              label="Full Name :"
+              type="name"
+              errors={errors.fullName}
+            />
+
+            <Inputs
+            required
+              name="age"
+              label="Age :"
+              type="age"
+              errors={errors.age}
+            />
+
+            <Inputs
+              name="email"
+              label="Email :"
+              type="email"
+              disabled
+              errors={errors.email}
+            />
+
+            <Inputs 
+            required
+              name="gender"
+              label="Gender :"
+              type="text"
+              errors={errors.gender}
+            />
+
+            <div className="md:col-span-2">
+              <Inputs
+              required
+                name="phone"
+                label="Phone :"
+                type="phone"
+                errors={errors.phone}
+              />
+            </div>
+
+            <Inputs
+            required
+              name="password"
+              label="New Password :"
+              type="password"
+              errors={errors.password}
+            />
+
+            <Inputs
+            required
+              name="confirmPassword"
+              label="Confirm Password :"
+              type="password"
+              errors={errors.confirmPassword}
+            />
+
+            {/* ===== ACTIONS ===== */}
+            <div className="md:col-span-2 flex gap-3 pt-4">
+              <button
+                type="submit"
+                disabled={!isDirty || isPending}
+                className="flex-1 bg-red-600 text-white py-2.5 rounded-lg disabled:opacity-40"
+              >
+                {isPending ? "Saving..." : "Save Changes"}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleCancel}
+                disabled={!isDirty}
+                className="flex-1 border py-2.5 rounded-lg disabled:opacity-40"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      </div>
+    </FormProvider>
   );
 }
