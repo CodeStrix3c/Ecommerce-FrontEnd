@@ -83,6 +83,7 @@ export default function ProfileSection() {
             label="Upload Profile :"
             errors={fieldState.error}
             onFilesChange={(files) => field.onChange(files)}
+            // showPreview
             optional
           />
         )}
