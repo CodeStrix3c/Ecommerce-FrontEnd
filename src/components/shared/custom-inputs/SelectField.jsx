@@ -1,8 +1,6 @@
 import React from "react";
 import { TextField, MenuItem } from "@mui/material";
 import { Controller } from "react-hook-form";
-import OptionalLabel from "@/components/ui/OptionalLabel";
-import RequiredLabel from "@/components/ui/RequiredLabel";
 
 const SelectField = ({
   name,
@@ -10,90 +8,121 @@ const SelectField = ({
   control,
   register,
   errors,
-  options,
-  optional = false,
-  showOptionalLabel = true,
-  size = "small",
-  value,
+  options = [],
+  required = false,
   isMultiple = false,
   disabled = false,
+  placeholder = "Select",
 }) => {
-  const isRequired = !optional;
   const errorMessage = errors?.message || errors || "";
+  const hasError = !!errors;
 
-  const shouldShrink = (val) =>
-    isMultiple ? Array.isArray(val) && val.length > 0 : Boolean(val);
+  // ===== Styles to match Inputs =====
+  const textFieldStyles = {
+    "& .MuiOutlinedInput-root": {
+      backgroundColor: disabled
+        ? "#f5f5f5"
+        : "var(--color-white)",
+      borderRadius: "10px",
+      height: "52px",
+      minHeight: "52px",
+      display: "flex",
+      alignItems: "center",
+      opacity: disabled ? 0.7 : 1,
+      fontSize: "14px",
 
-  const renderLabel = () => {
-    if (!optional) {
-      return <RequiredLabel label={label} required />;
-    }
+      "& fieldset": {
+        borderColor: hasError
+          ? "var(--color-error)"
+          : "rgba(0,0,0,0.4)",
+      },
+      "&:hover fieldset": {
+        borderColor: "var(--color-primary)",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "var(--color-primary)",
+      },
+    },
 
-    if (optional && showOptionalLabel) {
-      return <OptionalLabel label={label} />;
-    }
+    // Center selected text
+    "& .MuiSelect-select": {
+      display: "flex",
+      alignItems: "center",
+      height: "52px",
+      paddingTop: "0 !important",
+      paddingBottom: "0 !important",
+      fontSize: "14px",
+    },
 
-    return label;
+    // Error text size
+    "& .MuiFormHelperText-root": {
+      fontSize: "12px",
+      marginLeft: 0,
+      color: "var(--color-error)",
+    },
   };
 
+  // ===== Placeholder + value display =====
+  const selectSlotProps = {
+    select: {
+      multiple: isMultiple,
+      displayEmpty: true,
+      renderValue: (selected) => {
+        if (
+          !selected ||
+          selected === "" ||
+          (Array.isArray(selected) && selected.length === 0)
+        ) {
+          return (
+            <span style={{ color: "#9e9e9e", fontSize: 14 }}>
+              {placeholder}
+            </span>
+          );
+        }
+
+        if (isMultiple) {
+          return options
+            .filter((opt) => selected.includes(opt.value))
+            .map((opt) => opt.label)
+            .join(", ");
+        }
+
+        const selectedOption = options.find(
+          (opt) => opt.value === selected
+        );
+        return selectedOption?.label || "";
+      },
+    },
+  };
+
+  // ================= Controller (Recommended) =================
   if (control) {
     return (
-      <Controller
-        name={name}
-        control={control}
-        rules={{ required: isRequired ? `${label} is required` : false }}
-        render={({ field }) => {
-          const safeValue = isMultiple
-            ? Array.isArray(field.value)
-              ? field.value
-              : []
-            : field.value || "";
+      <div className="flex flex-col gap-1.5 w-full">
+        {/* Label (same as Inputs) */}
+        <label className="text-sm font-medium text-black">
+          {label}
+          {required && (
+            <span className="ml-1 text-red-500">*</span>
+          )}
+        </label>
 
-          return (
+        <Controller
+          name={name}
+          control={control}
+          defaultValue={isMultiple ? [] : ""}
+          render={({ field }) => (
             <TextField
               select
               fullWidth
-              size={size}
-              label={renderLabel()}
-              value={safeValue}
+              value={field.value ?? (isMultiple ? [] : "")}
               onChange={(e) => field.onChange(e.target.value)}
               helperText={errorMessage}
               disabled={disabled}
               variant="outlined"
-              slotProps={{
-                inputLabel: {
-                  shrink: shouldShrink(safeValue),
-                },
-                select: {
-                  multiple: isMultiple,
-                  MenuProps: {
-                    disableScrollLock: true,
-                    PaperProps: {
-                      sx: {
-                        maxHeight: 200,
-                        overflowY: "auto",
-                        borderRadius: 2,
-                      },
-                    },
-                  },
-                },
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "var(--color-white)",
-                  borderRadius: "0.5rem",
-                  "& fieldset": { borderColor: "var(--color-black)" },
-                  "&:hover fieldset": { borderColor: "var(--color-primary)" },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "var(--color-primary)",
-                  },
-                },
-                "& .MuiInputLabel-root": { color: "var(--color-black)" },
-                "& .MuiFormHelperText-root": {
-                  color: "var(--color-error)",
-                  fontWeight: 400,
-                },
-              }}
+              label={null}
+              slotProps={selectSlotProps}
+              sx={textFieldStyles}
             >
               {options.map((opt) => (
                 <MenuItem key={opt.value} value={opt.value}>
@@ -101,54 +130,41 @@ const SelectField = ({
                 </MenuItem>
               ))}
             </TextField>
-          );
-        }}
-      />
+          )}
+        />
+      </div>
     );
   }
 
+  // ================= Register version =================
   return (
-    <TextField
-      select
-      fullWidth
-      size={size}
-      label={renderLabel()}
-      value={value || (isMultiple ? [] : "")}
-      {...(register
-        ? register(name, {
-            required: isRequired ? `${label} is required` : false,
-          })
-        : {})}
-      helperText={errorMessage}
-      disabled={disabled}
-      variant="outlined"
-      slotProps={{
-        select: { multiple: isMultiple },
-        inputLabel: {
-          shrink: shouldShrink(value),
-        },
-      }}
-      sx={{
-        "& .MuiOutlinedInput-root": {
-          backgroundColor: "var(--color-white)",
-          borderRadius: "0.5rem",
-          "& fieldset": { borderColor: "var(--color-black)" },
-          "&:hover fieldset": { borderColor: "var(--color-primary)" },
-          "&.Mui-focused fieldset": { borderColor: "var(--color-primary)" },
-        },
-        "& .MuiInputLabel-root": { color: "var(--color-black)" },
-        "& .MuiFormHelperText-root": {
-          color: "var(--color-error)",
-          fontWeight: 400,
-        },
-      }}
-    >
-      {options.map((opt) => (
-        <MenuItem key={opt.value} value={opt.value}>
-          {opt.label}
-        </MenuItem>
-      ))}
-    </TextField>
+    <div className="flex flex-col gap-1.5 w-full">
+      <label className="text-sm font-medium text-black">
+        {label}
+        {required && (
+          <span className="ml-1 text-red-500">*</span>
+        )}
+      </label>
+
+      <TextField
+        select
+        fullWidth
+        defaultValue={isMultiple ? [] : ""}
+        {...(register ? register(name) : {})}
+        helperText={errorMessage}
+        disabled={disabled}
+        variant="outlined"
+        label={null}
+        slotProps={selectSlotProps}
+        sx={textFieldStyles}
+      >
+        {options.map((opt) => (
+          <MenuItem key={opt.value} value={opt.value}>
+            {opt.label}
+          </MenuItem>
+        ))}
+      </TextField>
+    </div>
   );
 };
 

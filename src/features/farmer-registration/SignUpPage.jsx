@@ -150,19 +150,19 @@ setVendorId(loginResponse.vendorId);
               <div className="relative mb-6">
 
                 {/* Mobile Layout */}
-                <div className="flex flex-col items-center gap-2 md:hidden">
+                <div className="flex flex-col items-center gap-2">
                   <img
                     src="/assets/images/logo6.png"
                     alt="App Logo"
-                    className="h-10 sm:h-12 object-contain"
+                    className="h-14 sm:h-12 object-contain"
                   />
-                  <h2 className="text-xl font-semibold text-center">
+                  <h2 className="text-2xl font-semibold text-center">
                     User Registration
                   </h2>
                 </div>
 
                 {/* Desktop Layout */}
-                <div className="hidden md:flex items-center justify-center relative">
+                {/* <div className=" md:flex items-center justify-center relative">
                   <h2 className="text-2xl font-semibold text-center">
                     User Registration
                   </h2>
@@ -172,7 +172,7 @@ setVendorId(loginResponse.vendorId);
                     alt="App Logo"
                     className="h-14 object-contain absolute left-0"
                   />
-                </div>
+                </div> */}
 
               </div>
 
