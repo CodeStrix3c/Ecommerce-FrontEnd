@@ -44,13 +44,7 @@ export default function SupplierSignUp() {
   const { mutateAsync: verifyOtp } = useOtpVerifyMutation();
   const { mutateAsync: signup } = useProfileMutation();
   const { mutateAsync: login } = useLoginMutation();
-   const {
-  setToken,
-  setUserId,
-  setRoles,
-  setVendorId
-} = useUser();
-
+  const { setToken, setUserId, setRoles, setVendorId } = useUser();
 
   const methods = useForm({
     resolver: zodResolver(stepSchemas[step]),
@@ -134,15 +128,29 @@ export default function SupplierSignUp() {
       // setItemsInLocalStorage("vendorId", loginResponse.vendorId);
       // setItemsInLocalStorage("roles", loginResponse.roles);
 
-        setToken(loginResponse.token);
-  setUserId(loginResponse.user);
-  setVendorId(loginResponse.vendorId);
-  setRoles(loginResponse.roles);
+      setToken(loginResponse.token);
+      setUserId(loginResponse.user);
+      setVendorId(loginResponse.vendorId);
+      setRoles(loginResponse.roles);
 
       toast.success("Account created & logged in successfully");
       navigate("/supplier-register");
     } catch (err) {
       toast.error(err.response?.data?.message || "Signup or login failed");
+    }
+  };
+
+  // ADD THIS FUNCTION inside SupplierSignUp component
+
+  const handleResendOtp = async () => {
+    try {
+      await sendOtp({
+        phoneNumber: formData.phone,
+      });
+
+      toast.success("OTP resent successfully");
+    } catch (err) {
+      toast.error("Failed to resend OTP");
     }
   };
 
@@ -158,14 +166,13 @@ export default function SupplierSignUp() {
         <div className="w-full">
           <FormProvider {...methods}>
             <Box component="form" onSubmit={(e) => e.preventDefault()}>
-
-               <div className="flex flex-col items-center gap-2">
-                  <img
-                    src="/assets/images/logo6.png"
-                    alt="App Logo"
-                    className="h-14 sm:h-12 object-contain"
-                  />
-                </div>
+              <div className="flex flex-col items-center gap-2">
+                <img
+                  src="/assets/images/logo6.png"
+                  alt="App Logo"
+                  className="h-14 sm:h-12 object-contain"
+                />
+              </div>
               <SectionTitle title="Vendor Registration" centered />
 
               <FormStepper activeStep={step} steps={labels} />
@@ -182,9 +189,13 @@ export default function SupplierSignUp() {
                   control={methods.control}
                 />
               )}
-
               {step === 1 && (
-                <OtpVerificationSection register={register} errors={errors} />
+                <OtpVerificationSection
+                  register={register}
+                  errors={errors}
+                  setValue={methods.setValue}
+                  onResend={handleResendOtp}
+                />
               )}
 
               <FormNavigation

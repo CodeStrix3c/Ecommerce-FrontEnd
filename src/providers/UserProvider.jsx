@@ -22,33 +22,24 @@
 
 // export const useUser = () => useContext(UserContext);
 
-
-
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
-  const [userId, setUserId] = useState(() =>
-    localStorage.getItem("userId")
-  );
+  const [userId, setUserId] = useState(() => localStorage.getItem("userId"));
 
   const [profileId, setProfileId] = useState(() =>
-    localStorage.getItem("profileId")
+    localStorage.getItem("profileId"),
   );
 
-  const [token, setToken] = useState(() =>
-    localStorage.getItem("token")
-  );
+  const [token, setToken] = useState(() => localStorage.getItem("token"));
 
   const [vendorId, setVendorId] = useState(() =>
-    localStorage.getItem("vendorId")
+    localStorage.getItem("vendorId"),
   );
 
-  const [roles, setRoles] = useState(() =>
-    localStorage.getItem("roles")
-  );
+  const [roles, setRoles] = useState(() => localStorage.getItem("roles"));
 
   // 🔥 Sync everything automatically
 
@@ -84,6 +75,7 @@ export const UserProvider = ({ children }) => {
 
   // 🔥 Proper logout function
   const logout = () => {
+    localStorage.clear();
     setUserId(null);
     setProfileId(null);
     setToken(null);
@@ -105,11 +97,7 @@ export const UserProvider = ({ children }) => {
     logout,
   };
 
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 export const useUser = () => useContext(UserContext);

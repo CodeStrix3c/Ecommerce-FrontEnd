@@ -179,11 +179,17 @@ const AssignProductModal = ({
                 onSubmit={handleSubmit(onSubmit)}
                 className="px-6 py-5 space-y-5"
               >
-                <FormInput name="price" label="Price" errors={errors.price} />
+                <FormInput
+                  name="price"
+                  label="Price"
+                  errors={errors.price}
+                  placeholder="Enter The Price"
+                />
 
                 <FormInput
                   name="discountPrice"
                   label="Discount Price"
+                  placeholder="Enter The Discount Price "
                   required={false}
                   errors={errors.discountPrice}
                 />
@@ -191,14 +197,18 @@ const AssignProductModal = ({
                 <FormInput
                   name="quantity"
                   label="Quantity"
+                  placeholder="Enter The quantity"
                   errors={errors.quantity}
                 />
 
                 {/* Toggle */}
                 <div className="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-3">
                   <span
-                    className={`text-sm font-semibold transition-all duration-300 ${isActiveValue ? "text-[var(--color-primary)]" : "text-[var(--color-error)]"
-                      }`}
+                    className={`text-sm font-semibold transition-all duration-300 ${
+                      isActiveValue
+                        ? "text-[var(--color-primary)]"
+                        : "text-[var(--color-error)]"
+                    }`}
                   >
                     {isActiveValue ? "Product Active" : "Product Inactive"}
                   </span>
@@ -209,18 +219,15 @@ const AssignProductModal = ({
                     render={({ field }) => (
                       <Switch
                         checked={!!field.value}
-                        onChange={(e) =>
-                          field.onChange(e.target.checked)
-                        }
+                        onChange={(e) => field.onChange(e.target.checked)}
                         sx={{
                           "& .MuiSwitch-switchBase.Mui-checked": {
                             color: "var(--color-secondary)",
                           },
                           "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
-                          {
-                            backgroundColor:
-                              "var(--color-secondary)",
-                          },
+                            {
+                              backgroundColor: "var(--color-secondary)",
+                            },
                         }}
                       />
                     )}
