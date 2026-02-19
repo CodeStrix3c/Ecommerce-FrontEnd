@@ -17,6 +17,7 @@ export default function ProfileSection() {
         required
         name="fullName"
         label="Full Name :"
+        placeholder="Enter Your Full Name"
         type="name"
         errors={errors.fullName}
       />
@@ -26,6 +27,7 @@ export default function ProfileSection() {
         name="email"
         label="Email :"
         type="email"
+        placeholder="Enter Your Email"
         errors={errors.email}
       />
 
@@ -34,6 +36,7 @@ export default function ProfileSection() {
         required
         name="phone"
         label="Mobile Number :"
+        placeholder="Enter Your Phone Number"
         type="phone"
         countryCode="+91"
         errors={errors.phone}
@@ -45,6 +48,7 @@ export default function ProfileSection() {
         name="age"
         label="Age :"
         type="number"
+        placeholder="Enter Your Age"
         errors={errors.age}
       />
 
@@ -55,19 +59,18 @@ export default function ProfileSection() {
         defaultValue="" // IMPORTANT for placeholder
         rules={{ required: "Gender is required" }}
         render={({ field, fieldState }) => (
-         <SelectField
-  name="gender"
-  label="Gender :"
-  control={control}
-  errors={errors.gender}
-  placeholder="Select Gender"
-  options={[
-    { value: "male", label: "Male" },
-    { value: "female", label: "Female" },
-    { value: "other", label: "Other" },
-  ]}
-/>
-
+          <SelectField
+            name="gender"
+            label="Gender :"
+            control={control}
+            errors={errors.gender}
+            placeholder="Select Gender"
+            options={[
+              { value: "male", label: "Male" },
+              { value: "female", label: "Female" },
+              { value: "other", label: "Other" },
+            ]}
+          />
         )}
       />
 
@@ -96,6 +99,7 @@ export default function ProfileSection() {
         name="password"
         label="Password :"
         type="password"
+        placeholder="Enter Your Password"
         errors={errors.password}
       />
 
@@ -104,6 +108,7 @@ export default function ProfileSection() {
         required
         name="confirmPassword"
         label="Confirm Password :"
+        placeholder="Enter Your Confirm Password"
         type="password"
         errors={errors.confirmPassword}
       />

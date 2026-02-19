@@ -42,7 +42,6 @@ const WishlistPage = () => {
         newSet.delete(product.wishlistItemId);
         return newSet;
       });
-
     } catch (error) {
       console.error("Error adding to cart:", error);
 
@@ -72,12 +71,9 @@ const WishlistPage = () => {
   return (
     <ContentWrapper compactScreen>
       <div className="py-10 lg:mt-24 md:mt-24">
-
         {/* Header with Heart Icon */}
         <div className="flex justify-between items-center mb-8">
-
           <div className="flex items-center gap-3">
-
             {/* Heart Icon */}
             <div className="bg-red-100 p-2 rounded-full">
               <Heart className="w-6 h-6 text-red-500 fill-red-500" />
@@ -90,15 +86,12 @@ const WishlistPage = () => {
                 {wishlist.length} item{wishlist.length > 1 ? "s" : ""} saved
               </p>
             </div>
-
           </div>
-
         </div>
 
         {/* Wishlist Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {wishlist.map((item) => {
-
             const imageUrl = item.productImage?.startsWith("http")
               ? item.productImage
               : IMAGE_BASE_URL + item.productImage;
@@ -122,7 +115,6 @@ const WishlistPage = () => {
             );
           })}
         </div>
-
       </div>
     </ContentWrapper>
   );

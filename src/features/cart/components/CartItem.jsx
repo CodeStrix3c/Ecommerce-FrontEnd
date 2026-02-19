@@ -67,7 +67,6 @@ const CartItem = ({ product, onRemove, onQuantityChange }) => {
 
           {/* CONTENT */}
           <div className="flex flex-col flex-grow justify-between">
-
             {/* TOP */}
             <div
               className="
@@ -169,9 +168,7 @@ const CartItem = ({ product, onRemove, onQuantityChange }) => {
                 <Trash2 size={16} />
                 Remove
               </button>
-
             </div>
-
           </div>
         </div>
       </div>

@@ -32,12 +32,12 @@ const CartPage = () => {
     const subtotalCalc = cartProducts.reduce(
       (sum, item) =>
         sum + Number(item.productPrice ?? 0) * Number(item.quantity ?? 1),
-      0
+      0,
     );
 
     const itemCount = cartProducts.reduce(
       (count, item) => count + Number(item.quantity ?? 1),
-      0
+      0,
     );
 
     const taxesCalc = subtotalCalc * 0.1;
@@ -164,17 +164,13 @@ const CartPage = () => {
                   product={{
                     cartItemId: product.id,
                     title: product.productName,
-                    photos: product.productImage
-                      ? [product.productImage]
-                      : [],
-                    price: Number(
-                      product.calculatedProductPrice?.price ?? 0
-                    ),
+                    photos: product.productImage ? [product.productImage] : [],
+                    price: Number(product.calculatedProductPrice?.price ?? 0),
                     oldPrice: Number(
-                      product.calculatedProductPrice?.oldPrice ?? 0
+                      product.calculatedProductPrice?.oldPrice ?? 0,
                     ),
                     savings: Number(
-                      product.calculatedProductPrice?.percentOfSaving ?? 0
+                      product.calculatedProductPrice?.percentOfSaving ?? 0,
                     ),
                     quantity: Number(product.quantity ?? 1),
                     rating: 0,
