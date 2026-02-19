@@ -8,13 +8,12 @@ export default function FormTextArea({
   rows = 4,
   register,
   errors,
-  required = true, // true = required, false = optional, null = plain
+  required = true,
 }) {
-  // Decide which label to render
   const getLabel = () => {
     if (required === true) return <RequiredLabel label={label} />;
     if (required === false) return <OptionalLabel label={label} />;
-    return label; // plain string if null
+    return label;
   };
 
   return (
@@ -27,6 +26,14 @@ export default function FormTextArea({
       variant="outlined"
       size="small"
       helperText={errors?.message}
+
+
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          borderRadius: "12px",
+        },
+      }}
+
       slotProps={{
         formHelperText: {
           sx: { color: "var(--color-error)" },
