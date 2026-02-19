@@ -3,12 +3,17 @@ import { lazy } from "react";
 import WebsiteLayout from "@/app/layouts/WebsiteLayout";
 import AuthLayout from "@/app/layouts/AuthLayout";
 import PublicRoute from "@/components/shared/PublicRoute";
-import Harvest from "@/features/Harvest/Pages/Harvest";
-import SprayHistory from "@/features/spray/components/SprayCard";
 import CartPage from "@/features/cart/pages/CartPage";
 import WishlistPage from "@/features/wishlist/pages/WishListPage";
 import SupplierSignUp from "@/features/supplier-registration/SupplierSignup";
 import GiDetails from "@/features/places/pages/GiDetails";
+import WoodcraftPage from "@/features/woodcraft/pages/WoodcraftPage";
+import TextilesPage from "@/features/textiles/pages/Textiles";
+import MetalsCraftPage from "@/features/metals/pages/Metalstone";
+
+
+
+
 
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
@@ -34,14 +39,7 @@ const CropProtectionPage = lazy(
 const WeatherPage = lazy(
   () => import("@/features/weather-info/pages/WeatherPage"),
 );
-const SprayPage = lazy(() => import("@/features/spray/pages/SprayPage"));
 
-const OrchardsPage = lazy(
-  () => import("@/features/orchards/pages/OrchardsPage"),
-);
-const SingleOrchardDetails = lazy(
-  () => import("@/features/orchards/pages/SingleOrchardDetails"),
-);
 const PlacePage = lazy(() => import("@/features/places/pages/PlacePage"));
 
 const NotFoundPage = lazy(() => import("@/features/errors/NotFoundPage"));
@@ -61,8 +59,8 @@ export default [
     <Route element={<WebsiteLayout />}>
       <Route index element={<Navigate to="/home" replace />} />
       <Route path="/home" element={<IndexPage />} />
-      <Route path="/wood-craft" element={<Harvest />} />
-      <Route path="/metal-craft" element={<SprayPage />} />
+      <Route path="/wood-craft" element={<WoodcraftPage/>} />
+      <Route path="/metal-craft" element={<MetalsCraftPage />} />
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/FAQ" element={<Faq />} />
       <Route path="/cart" element={<CartPage />} />
@@ -79,8 +77,8 @@ export default [
       />
       <Route path="/resources/weather" element={<WeatherPage />} />
       {/* Browsing */}
-      <Route path="/textitles" element={<OrchardsPage />} />
-      <Route path="/orchards/:id" element={<SingleOrchardDetails />} />
+      <Route path="/textitles" element={<TextilesPage />} />
+      
       <Route path="/place/:id" element={<PlacePage />} />
       <Route path="*" element={<NotFoundPage />} />
 

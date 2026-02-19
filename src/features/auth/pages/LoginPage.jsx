@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
+import { Button, Divider, CircularProgress, Paper, Box } from "@mui/material";
+import { useForm } from "react-hook-form";
 import {
   Button,
   Divider,
@@ -9,10 +11,10 @@ import {
   Paper,
   Box,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { phoneLoginSchema } from "@/features/farmer-registration/schemas/authSchemas";
-import FormInput from "../../../components/shared/custom-inputs/FormInput";
+import Inputs from "@/components/shared/Inputs";
 import { useLoginMutation } from "@/hooks/useFarmerProfileMutations";
 import { setItemsInLocalStorage } from "@/utils/localStorage";
 import { useUser } from "@/providers/UserProvider";
@@ -20,19 +22,20 @@ import { useUser } from "@/providers/UserProvider";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
-  const [tab, setTab] = useState(0);
   const { setUserId, setToken, setRoles, setVendorId } = useUser();
 
   const { mutate: loginMutate, isPending } = useLoginMutation();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(phoneLoginSchema),
-    mode: "onBlur",
-  });
+  const methods = useForm({
+  resolver: zodResolver(phoneLoginSchema),
+  mode: "onBlur",
+});
+
+const {
+  handleSubmit,
+  formState: { errors },
+} = methods;
+
 
   const onSubmit = (data) => {
     const payload = {
@@ -60,8 +63,8 @@ const LoginPage = () => {
       onError: (err) => {
         toast.error(
           err?.response?.data?.error ||
-          err?.response?.data?.message ||
-          "Invalid credentials or network error"
+            err?.response?.data?.message ||
+            "Invalid credentials or network error",
         );
       },
     });
@@ -76,7 +79,8 @@ const LoginPage = () => {
   if (redirect) return <Navigate to="/home" replace />;
 
   return (
-    <Box
+    <FormProvider  {...methods}>
+      <Box
       className="
         flex 
         items-center 
@@ -108,10 +112,7 @@ const LoginPage = () => {
           },
         }}
       >
-
-
         <div className="flex flex-col items-center mb-5 sm:mb-6">
-
           <img
             src="/assets/images/logo6.png"
             alt="App Logo"
@@ -136,32 +137,29 @@ const LoginPage = () => {
           >
             Log in to your account
           </h1>
-
         </div>
-
 
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-3 sm:gap-4"
         >
-          <FormInput
-            name="mobileNumber"
-            label="Phone number"
-            placeholder="Enter phone number"
-            type="tel"
-            prefix="+91"
-            register={register}
-            errors={errors.mobileNumber}
-          />
+        <Inputs
+        required
+  name="mobileNumber"
+  label="Phone number :"
+  type="phone"
+  countryCode="+91"
+  errors={errors.mobileNumber}
+/>
 
-          <FormInput
-            name="password"
-            label="Password"
-            placeholder="Enter password"
-            type="password"
-            register={register}
-            errors={errors.password}
-          />
+<Inputs
+  required
+  name="password"
+  label="Password :"
+  type="password"
+  errors={errors.password}
+/>
+
 
           <Button
             fullWidth
@@ -220,16 +218,14 @@ const LoginPage = () => {
         {/* Sign Up Link */}
         <p className="mt-5 sm:mt-6 text-center text-sm">
           Don’t have an account?{" "}
-          <Link
-            to="/sign-up"
-            className="font-medium underline"
-          >
+          <Link to="/sign-up" className="font-medium underline">
             Sign up
           </Link>
         </p>
-
       </Paper>
     </Box>
+    </FormProvider>
+    
   );
 };
 
