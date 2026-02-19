@@ -18,8 +18,6 @@ import Inputs from "@/components/shared/Inputs";
 import { useLoginMutation } from "@/hooks/useFarmerProfileMutations";
 import { setItemsInLocalStorage } from "@/utils/localStorage";
 import { useUser } from "@/providers/UserProvider";
-import { useUser } from "@/providers/UserProvider";
-
 
 const LoginPage = () => {
   const navigate = useNavigate();
