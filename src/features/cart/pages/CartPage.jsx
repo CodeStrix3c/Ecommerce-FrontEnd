@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { ShoppingCart } from "lucide-react";
 import useIsMobile from "@/hooks/useInMobile";
 import { useCartList } from "@/providers/CartListProvider";
 import CartItem from "../components/CartItem";
@@ -23,19 +24,21 @@ const CartPage = () => {
     return Array.isArray(cartList) ? cartList : [];
   }, [cartList]);
 
-  console.log(cartList, "this list is from cart ");
   /* =========================
      CALCULATIONS
   ========================== */
 
   const { subtotal, taxes, total, totalItems } = useMemo(() => {
-    const subtotalCalc = cartProducts.reduce((sum, item) => {
-      return sum + Number(item.productPrice ?? 0) * Number(item.quantity ?? 1);
-    }, 0);
+    const subtotalCalc = cartProducts.reduce(
+      (sum, item) =>
+        sum + Number(item.productPrice ?? 0) * Number(item.quantity ?? 1),
+      0,
+    );
 
-    const itemCount = cartProducts.reduce((count, item) => {
-      return count + Number(item.quantity ?? 1);
-    }, 0);
+    const itemCount = cartProducts.reduce(
+      (count, item) => count + Number(item.quantity ?? 1),
+      0,
+    );
 
     const taxesCalc = subtotalCalc * 0.1;
     const totalCalc = subtotalCalc + taxesCalc;
@@ -48,6 +51,10 @@ const CartPage = () => {
     };
   }, [cartProducts]);
 
+  /* =========================
+     CHECKOUT
+  ========================== */
+
   const checkoutAll = () => {
     if (!selectedPayment) {
       toast.error("Please select a payment method before checkout.");
@@ -57,34 +64,100 @@ const CartPage = () => {
     toast.success(`Proceeding to checkout with ${selectedPayment}`);
   };
 
+  /* =========================
+     LOADING
+  ========================== */
+
   if (isLoading) {
-    return <div className="text-center py-20">Loading cart...</div>;
+    return (
+      <ContentWrapper compactScreen>
+        <div className="py-16 sm:py-20 text-center text-base sm:text-lg font-medium">
+          Loading cart...
+        </div>
+      </ContentWrapper>
+    );
   }
+
+  /* =========================
+     EMPTY STATE
+  ========================== */
 
   if (cartProducts.length === 0) {
     return (
       <EmptyState
         title="Empty Cart"
-        subTitle="There is nothing in your cart. Let's add some items"
-        img="/assets/images/empty-cart.png"
+        subTitle="There is nothing in your cart. Let's add some items."
         btnText="Continue Shopping"
         redirectTo="/"
+        type="cart"
       />
     );
   }
 
+  /* =========================
+     MAIN UI
+  ========================== */
+
   return (
     <ContentWrapper compactScreen>
-      <div className="py-8 lg:mt-28 md:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div
+        className="
+        py-6 sm:py-8 
+        lg:mt-28 md:mt-28 
+        grid grid-cols-1 lg:grid-cols-3 
+        gap-6 sm:gap-8
+      "
+      >
         {/* LEFT SIDE */}
         <div
-          className={`col-span-2 flex flex-col gap-6 ${isMobile ? "pb-24" : ""}`}
+          className={`
+          col-span-1 lg:col-span-2 
+          flex flex-col 
+          gap-4 sm:gap-6
+          ${isMobile ? "pb-24" : ""}
+        `}
         >
-          <h1 className="text-2xl font-semibold text-[var(--color-black)]">
-            My Cart ({totalItems} {totalItems === 1 ? "item" : "items"})
-          </h1>
+          {/* Responsive Header */}
+          <div
+            className="
+            flex items-center 
+            gap-3 
+            flex-wrap
+          "
+          >
+            {/* Icon */}
+            <div
+              className="
+              bg-blue-100 
+              p-2 
+              sm:p-3 
+              rounded-full 
+              shadow-sm
+            "
+            >
+              <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
+            </div>
 
-          <div className="flex flex-col gap-6">
+            {/* Text */}
+            <div>
+              <h1
+                className="
+                text-lg sm:text-xl md:text-2xl 
+                font-semibold 
+                text-[var(--color-black)]
+              "
+              >
+                My Cart
+              </h1>
+
+              <p className="text-xs sm:text-sm text-gray-500">
+                {totalItems} {totalItems === 1 ? "item" : "items"} in your cart
+              </p>
+            </div>
+          </div>
+
+          {/* Cart Items */}
+          <div className="flex flex-col gap-4 sm:gap-6">
             {cartProducts.map((product) => (
               <React.Fragment key={product.id}>
                 <CartItem
@@ -103,13 +176,13 @@ const CartPage = () => {
                     rating: 0,
                     inStock: product.isProductAvailabeToOrder,
                   }}
-                  onRemove={(cartItemId) => removeFromCart(cartItemId)}
-                  onQuantityChange={(cartItemId, qty) =>
-                    updateQuantity(cartItemId, qty)
-                  }
+                  onRemove={removeFromCart}
+                  onQuantityChange={updateQuantity}
                 />
 
-                {isMobile && cartProducts.length > 1 && <hr />}
+                {isMobile && cartProducts.length > 1 && (
+                  <hr className="border-gray-200" />
+                )}
               </React.Fragment>
             ))}
           </div>
@@ -117,21 +190,23 @@ const CartPage = () => {
 
         {/* DESKTOP SUMMARY */}
         {!isMobile && (
-          <div className="col-span-1 mt-14">
-            <CartSummary
-              cart={cartProducts}
-              subtotal={subtotal}
-              taxes={taxes}
-              total={total}
-              onCheckout={checkoutAll}
-              onClear={clearCart}
-              selectedPayment={selectedPayment}
-              onPaymentChange={setSelectedPayment}
-            />
+          <div className="col-span-1">
+            <div className="sticky top-28">
+              <CartSummary
+                cart={cartProducts}
+                subtotal={subtotal}
+                taxes={taxes}
+                total={total}
+                onCheckout={checkoutAll}
+                onClear={clearCart}
+                selectedPayment={selectedPayment}
+                onPaymentChange={setSelectedPayment}
+              />
+            </div>
           </div>
         )}
 
-        {/* MOBILE BAR */}
+        {/* MOBILE BOTTOM BAR */}
         {isMobile && (
           <CartBottomBar
             cart={cartProducts}
