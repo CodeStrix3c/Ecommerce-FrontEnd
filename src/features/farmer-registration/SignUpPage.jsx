@@ -79,7 +79,7 @@ export default function SupplierSignUp() {
       setStep(1);
     } catch (err) {
       toast.error(
-        err.response?.data?.message || "Email or phone verification failed"
+        err.response?.data?.message || "Email or phone verification failed",
       );
     }
   };
@@ -110,23 +110,32 @@ export default function SupplierSignUp() {
         mobileNumber: formData.phone,
       });
 
-      
       // setItemsInLocalStorage("token", loginResponse.token);
       // setItemsInLocalStorage("userId", loginResponse.user);
       // setItemsInLocalStorage("roles", loginResponse.roles);
       // setItemsInLocalStorage("vendorId", loginResponse.vendorId);
 
       setToken(loginResponse.token);
-setUserId(loginResponse.user);
-setRoles(loginResponse.roles);
-setVendorId(loginResponse.vendorId);
-
-      
+      setUserId(loginResponse.user);
+      setRoles(loginResponse.roles);
+      setVendorId(loginResponse.vendorId);
 
       toast.success("Account created & logged in successfully");
       navigate("/");
     } catch (err) {
       toast.error(err.response?.data?.message || "Signup or login failed");
+    }
+  };
+
+  const handleResendOtp = async () => {
+    try {
+      await sendOtp({
+        phoneNumber: formData.phone,
+      });
+
+      toast.success("OTP resent successfully");
+    } catch (err) {
+      toast.error("Failed to resend OTP");
     }
   };
 
@@ -142,13 +151,10 @@ setVendorId(loginResponse.vendorId);
       >
         {/* Responsive Container */}
         <div className="w-full max-w-3xl px-4 sm:px-6 md:px-8">
-
           <FormProvider {...methods}>
             <Box component="form" onSubmit={(e) => e.preventDefault()}>
-
               {/* ✅ Responsive Logo + Title */}
               <div className="relative mb-6">
-
                 {/* Mobile Layout */}
                 <div className="flex flex-col items-center gap-2">
                   <img
@@ -173,7 +179,6 @@ setVendorId(loginResponse.vendorId);
                     className="h-14 object-contain absolute left-0"
                   />
                 </div> */}
-
               </div>
 
               {/* Stepper */}
@@ -198,6 +203,8 @@ setVendorId(loginResponse.vendorId);
                 <OtpVerificationSection
                   register={register}
                   errors={errors}
+                  setValue={methods.setValue}
+                  onResend={handleResendOtp}
                 />
               )}
 
@@ -209,7 +216,6 @@ setVendorId(loginResponse.vendorId);
                 prevStep={() => setStep(0)}
                 handleSubmit={handleSubmitClick}
               />
-
             </Box>
           </FormProvider>
         </div>

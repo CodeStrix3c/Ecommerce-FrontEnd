@@ -23,7 +23,7 @@ const CartPage = () => {
     return Array.isArray(cartList) ? cartList : [];
   }, [cartList]);
 
-  console.log(cartList ,"this list is from cart ")
+  console.log(cartList, "this list is from cart ");
   /* =========================
      CALCULATIONS
   ========================== */
@@ -87,24 +87,27 @@ const CartPage = () => {
           <div className="flex flex-col gap-6">
             {cartProducts.map((product) => (
               <React.Fragment key={product.id}>
-               <CartItem
-  product={{
-    cartItemId: product.id,
-    title: product.productName,
-    photos: product.productImage ? [product.productImage] : [],
-    price: Number(product.calculatedProductPrice?.price ?? 0),
-    oldPrice: Number(product.calculatedProductPrice?.oldPrice ?? 0),
-    savings: Number(product.calculatedProductPrice?.percentOfSaving ?? 0),
-    quantity: Number(product.quantity ?? 1),
-    rating: 0,
-    inStock: product.isProductAvailabeToOrder,
-  }}
-  onRemove={(cartItemId) => removeFromCart(cartItemId)}
-  onQuantityChange={(cartItemId, qty) =>
-    updateQuantity(cartItemId, qty)
-  }
-/>
-
+                <CartItem
+                  product={{
+                    cartItemId: product.id,
+                    title: product.productName,
+                    photos: product.productImage ? [product.productImage] : [],
+                    price: Number(product.calculatedProductPrice?.price ?? 0),
+                    oldPrice: Number(
+                      product.calculatedProductPrice?.oldPrice ?? 0,
+                    ),
+                    savings: Number(
+                      product.calculatedProductPrice?.percentOfSaving ?? 0,
+                    ),
+                    quantity: Number(product.quantity ?? 1),
+                    rating: 0,
+                    inStock: product.isProductAvailabeToOrder,
+                  }}
+                  onRemove={(cartItemId) => removeFromCart(cartItemId)}
+                  onQuantityChange={(cartItemId, qty) =>
+                    updateQuantity(cartItemId, qty)
+                  }
+                />
 
                 {isMobile && cartProducts.length > 1 && <hr />}
               </React.Fragment>

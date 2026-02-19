@@ -55,9 +55,7 @@ const CartItem = ({ product, onRemove, onQuantityChange }) => {
               <p className="text-base line-through font-medium text-[var(--color-primary)]">
                 ₹{product.oldPrice}
               </p>
-               <p className="text-green-600">
-    Save: {product.savings}%
-  </p>
+              <p className="text-green-600">Save: {product.savings}%</p>
 
               <button
                 onClick={() => onRemove(product.cartItemId)}

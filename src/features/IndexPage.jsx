@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback ,useMemo } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SearchBar from "@/components/shared/SearchBar";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
@@ -41,22 +41,21 @@ const UserHome = () => {
   const { toggleWishlist } = useWishlist();
 
   // Transform products from API
-const products = useMemo(() => {
-  return (data?.products || []).map((item) => ({
-    id: item.id,
-    slug: item.slug,
-    title: item.name,
-    category: item.category?.name ?? null,
-    price: item.price,
-    oldPrice: item.oldPrice,
-    rating: item.ratingAverage ?? null,
-    ratingCount: item.reviewsCount ?? 0,
-    stock: item.stockQuantity ?? 0,
-    image: item.thumbnailUrl,
-    discountPercent: item.calculatedProductPrice?.percentOfSaving ?? null,
-  }));
-}, [data?.products]);
-
+  const products = useMemo(() => {
+    return (data?.products || []).map((item) => ({
+      id: item.id,
+      slug: item.slug,
+      title: item.name,
+      category: item.category?.name ?? null,
+      price: item.price,
+      oldPrice: item.oldPrice,
+      rating: item.ratingAverage ?? null,
+      ratingCount: item.reviewsCount ?? 0,
+      stock: item.stockQuantity ?? 0,
+      image: item.thumbnailUrl,
+      discountPercent: item.calculatedProductPrice?.percentOfSaving ?? null,
+    }));
+  }, [data?.products]);
 
   const totalPages = Math.ceil(
     (data?.totalProduct ?? 0) / (data?.currentSearchOption?.pageSize ?? 10),
