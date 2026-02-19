@@ -170,10 +170,6 @@
 
 // export default SidebarMobile;
 
-
-
-
-
 import React from "react";
 import {
   Info,
@@ -197,7 +193,7 @@ const SidebarMobile = ({ open, onClose }) => {
   const queryClient = useQueryClient();
 
   // ✅ Use context instead of localStorage
-  const { token, roles, logout } = useUser();
+  const { token, roles, logout, userId, VendorId } = useUser();
 
   const isAuthenticated = Boolean(token);
 
@@ -206,8 +202,9 @@ const SidebarMobile = ({ open, onClose }) => {
 
   const handleAuthAction = () => {
     if (isAuthenticated) {
-      logout();               // 🔥 clears context state
-      queryClient.clear();    // 🔥 clears cart + wishlist cache
+      logout(); // 🔥 updates context state
+      queryClient.clear(); // 🔥 clears wishlist/cart cache
+      toast.success("Logged out successfully!");
       navigate("/");
     } else {
       navigate("/login");

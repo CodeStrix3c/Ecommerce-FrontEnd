@@ -118,10 +118,6 @@
 
 // export default DropdownMenu;
 
-
-
-
-
 import { useState, useRef, useEffect } from "react";
 import { Heart, ShoppingCart, Menu, Palette } from "lucide-react";
 import { useWishlist } from "@/providers/WishListProvider";
@@ -132,7 +128,6 @@ import SidebarMobile from "./SidebarMobile";
 import { AccountCircle } from "@mui/icons-material";
 import { useNavigate, Link } from "react-router-dom";
 import { useUser } from "@/providers/UserProvider";
-
 
 const DropdownMenu = () => {
   const [open, setOpen] = useState(false);
@@ -163,8 +158,7 @@ const DropdownMenu = () => {
   return (
     <div className="relative" ref={menuRef}>
       <div className="flex items-center gap-2">
-        {/* ✅ VENDOR / BECOME VENDOR SECTION */}
-        {!isBelow500 && (
+        {/* {!isBelow500 && (
           <div className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-black)] cursor-pointer">
             <Palette className="h-4 w-4" />
 
@@ -178,7 +172,7 @@ const DropdownMenu = () => {
               <Link to="/supplier-register">Become a Vendor</Link>
             )}
           </div>
-        )}
+        )} */}
 
         {/* Wishlist */}
         <button
