@@ -84,11 +84,10 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
               onClick={handleAddToCart}
               disabled={isAddedToCart}
               className={`w-full flex justify-center items-center gap-1.5 sm:gap-2 py-2.5 
-          text-xs sm:text-sm font-medium transition ${
-            isAddedToCart
-              ? "text-[var(--color-primary)] bg-[var(--color-primary)]/5 cursor-default"
-              : "text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)] hover:bg-[var(--color-black-hover)]"
-          }`}
+          text-xs sm:text-sm font-medium transition ${isAddedToCart
+                  ? "text-[var(--color-primary)] bg-[var(--color-primary)]/5 cursor-default"
+                  : "text-[var(--color-secondary)] hover:text-[var(--color-secondary-hover)] hover:bg-[var(--color-black-hover)]"
+                }`}
             >
               {isAddedToCart ? (
                 <>
