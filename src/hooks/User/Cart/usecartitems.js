@@ -8,10 +8,15 @@ import {
 } from "@/services/User/Cart/cartitems";
 
 /* -------------------- GET CART ITEMS -------------------- */
+import { useUser } from "@/providers/UserProvider";
+
 export const useGetCartItems = () => {
+  const { token } = useUser();
+
   return useQuery({
     queryKey: ["cart"],
     queryFn: getAllCartProducts,
+    enabled: !!token, // ✅ THIS IS THE FIX
   });
 };
 
@@ -58,8 +63,7 @@ export const useRemoveFromCart = () => {
     onError: (error) => {
       // ✅ Show error message
       toast.error(
-        error?.response?.data?.message ||
-          "Failed to remove product from cart"
+        error?.response?.data?.message || "Failed to remove product from cart",
       );
     },
   });

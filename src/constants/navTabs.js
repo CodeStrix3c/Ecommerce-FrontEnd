@@ -26,14 +26,14 @@ export const NAVBAR_TABS = [
     path: "/wood-craft",
     icon: Hammer,
     activeColor: "text-[var(--color-secondary)]",
-    badge: "NEW",
+   
   },
   {
-    name: "Metal & Stone",
+    name: "Metals",
     path: "/metal-craft",
     icon: HardHat,
     activeColor: "text-[var(--color-secondary)]",
-    badge: "NEW",
+  
 
   },
 ];
