@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
@@ -24,17 +24,14 @@ import Testimonials from "@/features/reviews/pages/Testimonials";
 const IMAGE_BASE_URL =
   "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net";
 
+const ZOOM_LEVEL = 3;
+
 const PlacePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const { data: product, isLoading } = useProductDetailsQuery(id);
-
-  console.log("Product details:", product);
-  
-  const { data: productsData } = useProductsQuery({
-    page: 1,
-  });
+  const { data: productsData } = useProductsQuery({ page: 1 });
 
   const [place, setPlace] = useState(null);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
@@ -49,12 +46,54 @@ const PlacePage = () => {
     stock: false,
   });
 
+  /* ===========================
+     MAGNIFIER STATES
+  ============================ */
+
+  const imageRef = useRef(null);
+
+  const [showZoom, setShowZoom] = useState(false);
+  const [zoomImage, setZoomImage] = useState(null);
+  const [zoomPos, setZoomPos] = useState("0px 0px");
+
+  const handleMouseEnter = () => {
+    if (!place?.photos?.length) return;
+    setZoomImage(place.photos[0]);
+    setShowZoom(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowZoom(false);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!imageRef.current) return;
+
+    const rect = imageRef.current.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const bgX = (x / rect.width) * rect.width * ZOOM_LEVEL;
+    const bgY = (y / rect.height) * rect.height * ZOOM_LEVEL;
+
+    setZoomPos(`-${bgX - 300}px -${bgY - 300}px`);
+  };
+
+  /* ===========================
+     SECTION TOGGLE
+  ============================ */
+
   const toggleSection = (key) => {
     setOpenSections((prev) => ({
       ...prev,
       [key]: !prev[key],
     }));
   };
+
+  /* ===========================
+     SLIDER
+  ============================ */
 
   const [popularRef, popularInstanceRef] = useKeenSlider({
     mode: "free",
@@ -77,7 +116,10 @@ const PlacePage = () => {
     popularInstanceRef.current?.update();
   }, [productsData]);
 
- 
+  /* ===========================
+     BUILD PLACE OBJECT
+  ============================ */
+
   useEffect(() => {
     if (!product) return;
 
@@ -106,13 +148,14 @@ const PlacePage = () => {
       brand: product.brand?.name || null,
       perks: product.attributes ?? [],
       photos: images,
-      raw: product,
-      specification: product.specification,
-      isAllowToOrder: product.isAllowToOrder,
     });
   }, [product]);
 
   if (isLoading || !place) return <Spinner />;
+
+  /* ===========================
+     POPULAR PRODUCTS
+  ============================ */
 
   const productsList = productsData?.products || [];
 
@@ -123,119 +166,154 @@ const PlacePage = () => {
       const imgPath =
         p.thumbnailUrl ||
         p.images?.[0]?.thumbnailUrl ||
-        p.images?.[0]?.url ||
-        null;
+        p.images?.[0]?.url;
 
       if (!imgPath) return null;
-
-      const fullUrl = imgPath.startsWith("http")
-        ? imgPath
-        : `${IMAGE_BASE_URL}${imgPath}`;
 
       return {
         id: p.id,
         title: p.name,
-        image: fullUrl,
+        image: imgPath.startsWith("http")
+          ? imgPath
+          : `${IMAGE_BASE_URL}${imgPath}`,
       };
     })
     .filter(Boolean);
 
-  
-  const handleAddToCart = () => {
-    toggleCartList(place);
-    toast.success("Cart updated");
-  };
-
-  const handleBuyNow = (quantity) => {
-    requireLogin(
-      () =>
-        toast.success(
-          `Proceeding to checkout for ${quantity} × ${place.title}`
-        ),
-      () => setShowLoginPopup(true)
-    );
-  };
+  /* ===========================
+     RENDER
+  ============================ */
 
   return (
     <ContentWrapper>
-      <div className="pt-6 lg:pt-10 pb-6 lg:pb-8">
-        {/* Header */}
+      <div className="pt-6 lg:pt-10 pb-6 lg:pb-8 relative">
+
         <ListingHeader place={place} />
 
-        {/* Gallery + Info */}
-        <div className="mt-10 flex flex-col gap-8 lg:flex-row">
-          <div className="lg:w-4/7 w-full ps-2">
+        {/* ===========================
+           GALLERY + INFO
+        ============================ */}
+
+        <div className="mt-10 flex flex-col gap-8 lg:flex-row relative">
+
+          {/* IMAGE */}
+          <div
+            ref={imageRef}
+            className="lg:w-4/7 w-full ps-2 relative"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onMouseMove={handleMouseMove}
+          >
             <PlaceGallery place={place} />
           </div>
 
-          <div className="lg:w-2/7 w-full space-y-4">
+          {/* INFO PANEL */}
+          {/* INFO PANEL */}
+          <div
+            className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${showZoom ? "opacity-0 pointer-events-none" : "opacity-100"
+              }`}
+          >
+
             <ProductInfoPanel
               place={place}
               openSections={openSections}
               toggleSection={toggleSection}
             />
+
             <BookingWidget place={place} />
           </div>
+
+          {/* ===========================
+             AMAZON STYLE ZOOM PANEL
+          ============================ */}
+
+          {showZoom && zoomImage && (
+            <div
+              className="hidden lg:block fixed z-30 bg-white border shadow-2xl rounded-lg"
+              style={{
+                top: imageRef.current?.getBoundingClientRect().top,
+                left: imageRef.current?.getBoundingClientRect().right + 20,
+                width: "600px",
+                height: "600px",
+                backgroundImage: `url(${zoomImage})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: `${imageRef.current?.offsetWidth * ZOOM_LEVEL}px ${imageRef.current?.offsetHeight * ZOOM_LEVEL}px`,
+                backgroundPosition: zoomPos,
+              }}
+            />
+          )}
+
+
         </div>
 
-        {/* Banner */}
-        <div className="mt-4 sm:mt-6 px-3 sm:px-0">
+        {/* ===========================
+           BANNER
+        ============================ */}
+
+        <div className="mt-6">
           <HighlightBanner />
         </div>
 
-        {/* -------------------------
-            Most Popular Items
-        ------------------------- */}
+        {/* ===========================
+           POPULAR PRODUCTS
+        ============================ */}
+
         {popularItems.length > 0 && (
           <div className="mt-10">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl sm:text-xl font-semibold">
-  Explore other popular Art & Craft products
-</h2>
 
+            <div className="flex justify-between mb-4">
+
+              <h2 className="text-xl font-semibold">
+                Explore other popular Art & Craft products
+              </h2>
 
               <div className="flex gap-2">
                 <button
                   onClick={() => popularInstanceRef.current?.prev()}
-                  className="rounded-full bg-white p-2 shadow hover:bg-gray-50"
+                  className="p-2 shadow bg-white rounded-full"
                 >
-                  <ChevronLeft className="h-5 w-5" />
+                  <ChevronLeft />
                 </button>
 
                 <button
                   onClick={() => popularInstanceRef.current?.next()}
-                  className="rounded-full bg-white p-2 shadow hover:bg-gray-50"
+                  className="p-2 shadow bg-white rounded-full"
                 >
-                  <ChevronRight className="h-5 w-5" />
+                  <ChevronRight />
                 </button>
               </div>
+
             </div>
 
             <div ref={popularRef} className="keen-slider">
+
               {popularItems.map((item) => (
                 <div
                   key={item.id}
                   className="keen-slider__slide cursor-pointer"
                   onClick={() => navigate(`/product/${item.id}`)}
                 >
-                  <div className="w-full h-44 sm:h-48 lg:h-52 rounded-xl overflow-hidden bg-gray-100">
+                  <div className="h-52 rounded-xl overflow-hidden">
                     <img
                       src={item.image}
-                      alt={item.title}
                       className="w-full h-full object-cover"
-                      loading="lazy"
                     />
                   </div>
-                  <p className="mt-2 text-sm font-medium line-clamp-1">
+
+                  <p className="mt-2 text-sm">
                     {item.title}
                   </p>
+
                 </div>
               ))}
+
             </div>
+
           </div>
         )}
 
-        <Testimonials/>
+        <Testimonials />
+
       </div>
     </ContentWrapper>
   );

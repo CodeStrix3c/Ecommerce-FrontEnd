@@ -1,113 +1,107 @@
-import React, { useState, useRef, useEffect } from "react";
-import { ZoomIn, ZoomOut } from "lucide-react";
+import React, { useRef, useState, useEffect } from "react";
 
 const ZoomControls = ({
   children,
+  src,
+  zoomLevel = 3,
   className = "",
-  controlsPosition = "top-right",
 }) => {
-  const [zoom, setZoom] = useState(1);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const containerRef = useRef(null);
 
-  const isDragging = useRef(false);
-  const lastPos = useRef({ x: 0, y: 0 });
+  const [showZoom, setShowZoom] = useState(false);
 
-  const MIN_ZOOM = 1;
-  const MAX_ZOOM = 3;
-  const STEP = 0.3;
+  const [bgPosition, setBgPosition] = useState("0px 0px");
 
-  // Zoom
-  const zoomIn = () => setZoom((z) => Math.min(z + STEP, MAX_ZOOM));
+  const [size, setSize] = useState({
+    width: 0,
+    height: 0,
+  });
 
-  const zoomOut = () => {
-    setZoom((z) => {
-      const newZoom = Math.max(z - STEP, MIN_ZOOM);
-      if (newZoom === 1) setPosition({ x: 0, y: 0 });
-      return newZoom;
-    });
-  };
+  const [lens, setLens] = useState({
+    x: 0,
+    y: 0,
+  });
 
-  // Start drag (LEFT click)
-  const handleMouseDown = (e) => {
-    if (e.button !== 0 || zoom === 1) return;
-
-    isDragging.current = true;
-    lastPos.current = { x: e.clientX, y: e.clientY };
-  };
+  const LENS_SIZE = 120;
 
   useEffect(() => {
-    const handleMove = (e) => {
-      if (!isDragging.current) return;
+    if (!containerRef.current) return;
 
-      const dx = e.clientX - lastPos.current.x;
-      const dy = e.clientY - lastPos.current.y;
+    const rect =
+      containerRef.current.getBoundingClientRect();
 
-      lastPos.current = { x: e.clientX, y: e.clientY };
+    setSize({
+      width: rect.width,
+      height: rect.height,
+    });
+  }, [src]);
 
-      setPosition((pos) => ({
-        x: pos.x + dx,
-        y: pos.y + dy,
-      }));
-    };
+  const handleMove = (e) => {
+    const rect =
+      containerRef.current.getBoundingClientRect();
 
-    const handleUp = () => {
-      isDragging.current = false;
-    };
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-    window.addEventListener("mousemove", handleMove);
-    window.addEventListener("mouseup", handleUp);
+    setLens({
+      x: x - LENS_SIZE / 2,
+      y: y - LENS_SIZE / 2,
+    });
 
-    return () => {
-      window.removeEventListener("mousemove", handleMove);
-      window.removeEventListener("mouseup", handleUp);
-    };
-  }, []);
+    const bgX =
+      (x / rect.width) *
+      rect.width *
+      zoomLevel;
 
-  const controlsClass =
-    controlsPosition === "top-right"
-      ? "absolute top-3 right-3"
-      : "absolute bottom-3 right-3";
+    const bgY =
+      (y / rect.height) *
+      rect.height *
+      zoomLevel;
+
+    setBgPosition(
+      `-${bgX - 200}px -${bgY - 200}px`
+    );
+  };
 
   return (
     <div
-      className={`relative overflow-hidden ${className}`}
-      onMouseDown={handleMouseDown}
+      ref={containerRef}
+      className={`relative ${className}`}
+      onMouseEnter={() => setShowZoom(true)}
+      onMouseLeave={() => setShowZoom(false)}
+      onMouseMove={handleMove}
     >
-      {/* Content */}
-      <div
-        className="w-full h-full"
-        style={{
-          transform: `translate(${position.x}px, ${position.y}px) scale(${zoom})`,
-          transformOrigin: "center",
-          transition: isDragging.current
-            ? "none"
-            : "transform 0.15s ease-out",
-          cursor: zoom > 1
-            ? isDragging.current
-              ? "grabbing"
-              : "grab"
-            : "default",
-        }}
-      >
-        {children}
-      </div>
+      {/* IMAGE */}
+      {children}
 
-      {/* Controls */}
-      <div
-        className={`flex items-center gap-1 bg-white/90 backdrop-blur p-1.5 rounded-md shadow z-10 ${controlsClass}`}
-      >
-        {zoom > 1 && (
-          <button onClick={zoomOut} className="p-1 rounded hover:bg-gray-100">
-            <ZoomOut size={18} />
-          </button>
-        )}
+      {/* HOVER LENS */}
+      {showZoom && (
+        <div
+          className="absolute border border-gray-400 bg-white/30 pointer-events-none"
+          style={{
+            width: LENS_SIZE,
+            height: LENS_SIZE,
+            left: lens.x,
+            top: lens.y,
+          }}
+        />
+      )}
 
-        {zoom < MAX_ZOOM && (
-          <button onClick={zoomIn} className="p-1 rounded hover:bg-gray-100">
-            <ZoomIn size={18} />
-          </button>
-        )}
-      </div>
+      {/* SIDE ZOOM PANEL */}
+      {showZoom && (
+        <div
+          className="absolute top-0 left-full ml-6 z-[9999] border bg-white shadow-lg"
+          style={{
+            width: 500,
+            height: 500,
+            backgroundImage: `url(${src})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: `${size.width * zoomLevel}px ${size.height * zoomLevel
+              }px`,
+            backgroundPosition: bgPosition,
+          }}
+        />
+      )}
     </div>
   );
 };
