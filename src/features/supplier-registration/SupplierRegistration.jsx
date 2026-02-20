@@ -23,6 +23,7 @@ import {
   setItemsInLocalStorage,
 } from "@/utils/localStorage";
 import useVendorBusinessReg from "@/hooks/Vendor/userVendorBusinessReg";
+import { useUser } from "@/providers/UserProvider";
 
 // const stepSchemas = [businessInformationSchema, otpSchema];
 
@@ -35,6 +36,7 @@ export default function SupplierRegistration() {
   const navigate = useNavigate();
   const { setBusinessComplete, setOtpComplete } = useSupplier();
   const { mutateAsync: SupplierReg, pending } = useVendorBusinessReg();
+  const { setUserId, setToken, setRoles, setVendorId } = useUser();
 
   const methods = useForm({
     resolver: zodResolver(businessInformationSchema),
@@ -83,6 +85,10 @@ export default function SupplierRegistration() {
       removeItemFromLocalStorage("roles");
       removeItemFromLocalStorage("userId");
       removeItemFromLocalStorage("vendorId");
+      setUserId("userId");
+      setVendorId("vendorId");
+      setToken("token");
+      setRoles("roles");
       toast.success("please login to see vendor dashboard");
       navigate("/");
     } catch (error) {
@@ -106,26 +112,18 @@ export default function SupplierRegistration() {
               onSubmit={handleSubmit(handleSubmitClick)}
               className="space-y-6"
             >
-              <div className="flex flex-col items-center mb-10">
+              <div className="flex flex-col items-center gap-2">
                 <img
                   src="/assets/images/logo6.png"
                   alt="App Logo"
-                  className="
-      object-contain
-      mb-2
-      h-14
-      sm:h-16
-      md:h-20
-    "
-                />
-
-                <SectionTitle
-                  title="Vendor Registration"
-                  className="lg:text-4xl text-2xl font-bold text-center"
-                  centered
+                  className="h-14 sm:h-12 object-contain"
                 />
               </div>
-
+              <SectionTitle
+                title="Vendor Registration"
+                className="lg:text-4xl text-2xl font-bold text-center mb-10"
+                centered
+              />
 
               {/* <FormStepper activeStep={step} steps={labels} /> */}
 

@@ -1,82 +1,80 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 import FormLayout from "@/components/shared/FormLayout";
-import FormInput from "@/components/shared/custom-inputs/FormInput";
-import FormTextArea from "@/components/shared/custom-inputs/FormTextArea";
-// import SelectField from "@/components/shared/custom-inputs/SelectField";
-// import { GpsFixed } from "@mui/icons-material";
-// import { getCurrentLocation } from "@/utils/getCurrentLocation";
-// import MapBox from "@/components/ui/MapBox";
+import Inputs from "@/components/shared/Inputs";
+
 
 export default function BusinessInformationSection() {
   const {
-    register,
     formState: { errors },
   } = useFormContext();
 
   return (
     <FormLayout>
-      <FormInput
+      {/* Business Name */}
+      <Inputs
         name="businessName"
-        label="Enter Your Business Name"
+        label="Enter Your Business Name :"
+        type="text"
         required={true}
-        register={register}
         errors={errors.businessName}
       />
 
-      <FormInput
+      {/* Slug */}
+      <Inputs
         name="slug"
-        label="Enter Your Business Slug Name"
+        label="Enter Your Business Slug Name :"
+        type="text"
         required={true}
-        register={register}
         errors={errors.slug}
       />
 
-      <FormInput
+      {/* Business Email */}
+      <Inputs
         name="businessEmail"
-        label="Enter Your Business Email"
+        label="Enter Your Business Email :"
         type="email"
         required={true}
-        register={register}
         errors={errors.businessEmail}
       />
 
-      <FormInput
+      {/* Registered Email (Optional) */}
+      <Inputs
         name="userEmail"
-        label="Enter Your Registered Email"
+        label="Enter Your Registered Email :"
         type="email"
-        required={null}
-        register={register}
+        required={false}
         errors={errors.userEmail}
       />
 
-      <FormTextArea
+      {/* Description */}
+      <Inputs
         name="description"
-        label="Enter Your Description"
+        label="Enter Your Description :"
+        type="textarea"
+        rows={4}
         required={true}
-        register={register}
         errors={errors.description}
       />
 
-      {/* <FormInput
+      {/* Optional fields if needed later */}
+      {/*
+      <Inputs
         name="primaryContact"
-        label="Contact Number (Primary, OTP Login)"
-        type="tel"
-        register={register}
+        label="Contact Number"
+        type="phone"
         errors={errors.primaryContact}
-      /> */}
+      />
 
-      {/* <FormInput
+      <Inputs
         name="alternateContact"
-        label="Alternate Contact (Optional)"
-        type="tel"
-        register={register}
+        label="Alternate Contact"
+        type="phone"
         errors={errors.alternateContact}
-      /> */}
-
-      {/* LOCATION / GPS CODE REMAINS COMMENTED */}
+      />
+      */}
     </FormLayout>
   );
 }

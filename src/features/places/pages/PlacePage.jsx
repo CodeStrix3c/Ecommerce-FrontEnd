@@ -128,7 +128,7 @@ const PlacePage = () => {
         ?.flatMap((img) => [img.url, img.thumbnailUrl])
         .filter(Boolean)
         .map((path) =>
-          path.startsWith("http") ? path : `${IMAGE_BASE_URL}${path}`
+          path.startsWith("http") ? path : `${IMAGE_BASE_URL}${path}`,
         ) ?? [];
 
     setPlace({
@@ -310,7 +310,37 @@ const PlacePage = () => {
             </div>
 
           </div>
-        )}
+        )} */}
+        <div className="mt-10">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-xl font-semibold">Recently Viewed Products</h2>
+          </div>
+
+          <div className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth">
+            {popularItems.map((item) => (
+              <div
+                key={item.id}
+                /* FIX: Use fixed width classes instead of just min-width */
+                className="w-[160px] sm:w-[180px] lg:w-[200px] flex-shrink-0 cursor-pointer"
+                onClick={() => navigate(`/place/${item.id}`)}
+              >
+                <div className="w-full h-56 sm:h-64 lg:h-72 rounded-xl overflow-hidden bg-gray-100">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    /* FIX: Change object-contain to object-cover to fill the box uniformly */
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+
+                <p className="mt-2 text-sm font-medium line-clamp-1">
+                  {item.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <Testimonials />
 
