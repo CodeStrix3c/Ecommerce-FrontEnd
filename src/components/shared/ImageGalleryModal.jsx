@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import ZoomControls from "@/components/shared/ZoomControls";
 
 const ImageGalleryModal = ({
   photos = [],
@@ -34,8 +33,10 @@ const ImageGalleryModal = ({
 
   return (
     <div className="fixed inset-0 z-[9999] bg-white flex flex-col">
+
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-4 md:px-12 border-b border-gray-200 shadow-sm">
+
         <h2 className="text-lg font-semibold">
           Product Image ({currentIndex + 1}/{photos.length})
         </h2>
@@ -46,10 +47,13 @@ const ImageGalleryModal = ({
         >
           <X className="h-5 w-5" />
         </button>
+
       </div>
 
       {/* Image Area */}
-      <div className="flex-1 overflow-hidden p-4 relative">
+      <div className="flex-1 overflow-hidden p-4 relative flex items-center justify-center">
+
+        {/* Prev */}
         {photos.length > 1 && (
           <button
             onClick={goPrev}
@@ -59,15 +63,15 @@ const ImageGalleryModal = ({
           </button>
         )}
 
-        <ZoomControls className="w-full h-full">
-          <img
-            src={currentImage}
-            alt="Product"
-            draggable={false}
-            className="w-full h-full object-contain select-none"
-          />
-        </ZoomControls>
+        {/* IMAGE WITHOUT MAGNIFIER */}
+        <img
+          src={currentImage}
+          alt="Product"
+          draggable={false}
+          className="max-w-full max-h-[85vh] object-contain select-none"
+        />
 
+        {/* Next */}
         {photos.length > 1 && (
           <button
             onClick={goNext}
@@ -76,7 +80,9 @@ const ImageGalleryModal = ({
             <ChevronRight />
           </button>
         )}
+
       </div>
+
     </div>
   );
 };
