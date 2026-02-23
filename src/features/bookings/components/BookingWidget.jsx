@@ -1,106 +1,88 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { Tag } from "lucide-react";
 import { useCartList } from "@/providers/CartListProvider";
 import QuantitySelector from "@/components/shared/QuantitySelector";
 
 const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
+
   const { cartList } = useCartList();
+  const isCartListed = cartList.some((item) => item._id === place._id);
 
-  if (!place) return null;
-
-  const price = place?.price || 0;
-  const isCartListed = cartList?.some((item) => item._id === place._id);
-  const totalPrice = quantity * price;
+  const totalPrice = quantity * place.price;
 
   return (
-    <div className="w-full md:mx-auto md:max-w-2xl md:pb-0">
+    <div className="mx-auto max-w-2xl w-full">
+      {/* Price notice */}
+      <div className="hidden md:flex border rounded-lg mb-4 p-4 items-center">
+        <Tag color="red" />
+        <p className="ms-4 font-semibold">Prices include all fees</p>
+      </div>
 
-      {/* Desktop Card */}
-      <div className="hidden md:flex flex-col border rounded-xl p-4 bg-[var(--color-white)] shadow-lg mx-auto">
-
-        {/* Price include notice INSIDE card */}
-        <div className="flex items-center border rounded-lg p-3 mb-3 bg-gray-50">
-          <Tag className="text-[var(--color-secondary)]" size={18} />
-          <p className="ms-3 text-sm font-semibold">
-            Prices include all fees
-          </p>
+      {/* Desktop */}
+      <div className="hidden md:flex flex-col border rounded-xl p-5 bg-[var(--color-white)] shadow-lg max-w-xl mx-auto">
+        <div className="flex px-2 items-center">
+          <span className="font-bold text-xl">₹{place.price}</span>
+          <span className="px-1 text-sm font-semibold">per unit</span>
         </div>
 
-        {/* Price */}
-        <div className="flex px-1 items-center">
-          <span className="font-bold text-xl">₹{price}</span>
-          <span className="px-1 text-sm font-semibold">per item</span>
-        </div>
-
-        {/* Quantity + Total in SAME ROW */}
-        <div className="mt-4 flex items-center justify-between">
-          <div className="flex items-center">
+        <div className="mt-4">
+          <div className="flex items-center mb-4">
             <p className="text-sm font-semibold">Quantity :</p>
             <div className="ms-3">
-              <QuantitySelector
-                quantity={quantity}
-                setQuantity={setQuantity}
-              />
+              <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
             </div>
           </div>
 
           <div className="text-sm font-semibold">
-            Total: ₹{totalPrice}
+            Total price: ₹{totalPrice}
           </div>
         </div>
 
-        {/* Actions */}
-          <div className="grid grid-cols-2 items-center gap-2 w-full mt-4">
-  <button
-    onClick={() => onBuyNow(quantity)}
-    className="w-full px-6 py-2 rounded-md text-sm font-semibold text-white bg-[var(--color-primary)]"
-  >
-    Buy Now
-  </button>
+        <div className="flex flex-col gap-2 mt-4">
+          <button
+            onClick={() => onBuyNow(quantity)}
+            className="w-full rounded-md bg-[var(--color-primary)] py-3 text-sm font-semibold text-[var(--color-white)] hover:bg-[var(--color-primary-hover)]"
+          >
+            Buy Now
+          </button>
 
-  <button
-    onClick={onAddToCart}
-    className="w-full px-6 py-2 border border-[var(--color-dark)] rounded-md text-sm font-medium text-[var(--color-black)]"
-  >
-    {isCartListed ? "Remove" : "Add to cart"}
-  </button>
-</div>
+          <button
+            onClick={onAddToCart}
+            className="w-full rounded-md py-3 text-sm font-medium bg-[var(--color-black-hover)]"
+          >
+            {isCartListed ? "Remove from your cart" : "Add to your cart"}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Bottom Bar (unchanged) */}
-      <div className="md:hidden fixed bottom-16 left-0 right-0 z-50 border-t bg-[var(--color-white)] p-4 shadow-lg pb-[calc(env(safe-area-inset-bottom)+14px)]">
-        
+      {/* Mobile Bottom Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t bg-[var(--color-white)] p-4 shadow-lg">
         <div className="flex justify-between mb-3">
           <div>
             <p className="text-lg font-bold">₹{totalPrice}</p>
             <p className="text-xs">
-              {quantity} × ₹{price}
+              {quantity} × ₹{place.price}
             </p>
           </div>
-          <QuantitySelector
-            quantity={quantity}
-            setQuantity={setQuantity}
-          />
+          <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
         </div>
 
-    <div className="grid grid-cols-2 items-center gap-2 w-full">
-  <button
-    onClick={() => onBuyNow(quantity)}
-    className="w-full px-6 py-2 rounded-md text-sm font-semibold text-white bg-[var(--color-primary)]"
-  >
-    Buy Now
-  </button>
-
-  <button
-    onClick={onAddToCart}
-    className="w-full px-6 py-2 rounded-md text-sm font-medium text-white "
-  >
-    {isCartListed ? "Remove" : "Add to cart"}
-  </button>
-</div>
-
-
+        <div className="flex gap-2">
+          <button
+            onClick={() => onBuyNow(quantity)}
+            className="flex-1 rounded-md bg-[var(--color-primary)] py-2 text-sm font-semibold text-[var(--color-white)]"
+          >
+            Buy Now
+          </button>
+          <button
+            onClick={onAddToCart}
+            className="flex-1 rounded-md py-2 text-sm font-medium bg-[var(--color-black-hover)]"
+          >
+            Add to cart
+          </button>
+        </div>
       </div>
     </div>
   );
