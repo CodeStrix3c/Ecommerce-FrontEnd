@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import { ShippingForm } from "./components/addressForm";
 import { OrderSummary } from "./components/orderSummary";
@@ -17,12 +18,13 @@ import {
 
 const AddressPage = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const checkoutId = localStorage.getItem("checkoutId");
 
   const [useNewAddress, setUseNewAddress] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
+  const [isInitialTaxLoaded, setIsInitialTaxLoaded] = useState(false);
 
-  /* ---------------- FORM ---------------- */
   const methods = useForm({
     mode: "onChange",
     defaultValues: {
@@ -44,134 +46,93 @@ const AddressPage = () => {
     formState: { errors },
     setValue,
   } = methods;
-
   const selectedCountry = watch("country");
   const selectedState = watch("state");
 
-  /* ---------------- API CALLS ---------------- */
-
-  // 1️⃣ Get checkout shipping data
+  /* ---------------- API ---------------- */
   const { data: checkoutData } = useCheckoutShipping(checkoutId);
-
-  // 2️⃣ Countries / States / Districts (keep as you requested)
   const { data: countries = [] } = useCountries();
   const { data: states = [] } = useStates(selectedCountry);
   const { data: districts = [] } = useDistricts(selectedState);
 
-  // 3️⃣ Mutations
-  const { mutateAsync: addShipping, isPending } = useAddShippingAddress();
-
+  const { mutateAsync: addShipping, isPending: isAddingAddress } =
+    useAddShippingAddress();
   const { mutateAsync: updatePrices } = useUpdateShippingPrices();
 
-  /* ---------------- RESET LOGIC ---------------- */
+  // Load initial summary/tax on mount
   useEffect(() => {
-    setValue("state", "");
-    setValue("district", "");
-  }, [selectedCountry, setValue]);
+    const loadInitialTax = async () => {
+      if (!checkoutId || isInitialTaxLoaded) return;
+      try {
+        const result = await updatePrices({ checkoutId, payload: {} });
+        queryClient.setQueryData(["checkout-shipping", checkoutId], result);
+        setIsInitialTaxLoaded(true);
+      } catch (err) {
+        console.error("Initial tax update failed:", err);
+      }
+    };
+    loadInitialTax();
+  }, [checkoutId, updatePrices, queryClient, isInitialTaxLoaded]);
 
-  useEffect(() => {
-    setValue("district", "");
-  }, [selectedState, setValue]);
-
-  /* ---------------- OPTIONS ---------------- */
-  const countryOptions = countries.map((c) => ({
-    label: c.name,
-    value: c.id,
-  }));
-
-  const stateOptions = states.map((s) => ({
-    label: s.name,
-    value: s.id,
-  }));
-
-  const districtOptions = districts.map((d) => ({
-    label: d.name,
-    value: d.id,
-  }));
-
-  /* ---------------- SUBMIT ---------------- */
   const onSubmit = async (formData) => {
     try {
-      if (useNewAddress) {
-        // 🔹 NEW ADDRESS
-        await addShipping({
-          checkoutId,
-          payload: {
-            newAddressForm: {
-              ContactName: formData.contactName,
-              Phone: formData.phone,
-              AddressLine1: formData.addressLine1,
-              AddressLine2: formData.addressLine2,
-              ZipCode: formData.zipCode,
-              City: formData.city,
-              StateOrProvinceId: Number(formData.state),
-              DistrictId: Number(formData.district),
-              CountryId: formData.country,
-            },
-            useShippingAddressAsBillingAddress: true,
-          },
-        });
-      } else {
-        // 🔹 EXISTING ADDRESS
-        await addShipping({
-          checkoutId,
-          payload: {
-            shippingAddressId: selectedAddressId,
-            billingAddressId: selectedAddressId,
-            useShippingAddressAsBillingAddress: true,
-          },
-        });
-      }
-
-      // 🔹 Update Tax & Shipping
-      await updatePrices({
+      const payload = {
+        shippingAddressId: useNewAddress ? 0 : selectedAddressId || 0,
+        billingAddressId: useNewAddress ? 0 : selectedAddressId || 0,
+        newAddressForm: useNewAddress
+          ? {
+              contactName: formData.contactName,
+              phone: formData.phone,
+              addressLine1: formData.addressLine1,
+              addressLine2: formData.addressLine2,
+              stateOrProvinceId: Number(formData.state),
+              districtId: Number(formData.district),
+              countryId: formData.country,
+              city: formData.city,
+              zipCode: formData.zipCode,
+            }
+          : null,
+        useShippingAddressAsBillingAddress: true,
         checkoutId,
-        payload: {
-          selectedShippingMethodName: "Standard",
-        },
-      });
+      };
 
-      // 🔹 Go to payment
-      navigate(`/checkout/${checkoutId}/payment`);
+      await addShipping({ checkoutId, payload });
+
+      // Navigate to the payment selection page
+      navigate(`/checkout/payment`);
     } catch (err) {
-      console.error("Checkout error:", err);
+      console.error("Checkout submission failed:", err);
     }
   };
 
-  /* ---------------- EXISTING ADDRESSES ---------------- */
   const existingAddresses = checkoutData?.existingShippingAddresses || [];
 
   return (
     <ContentWrapper>
-      <div className="py-24 lg:py-40 min-h-screen bg-[var(--color-white)]">
+      <div className="py-24 lg:py-40 min-h-screen bg-white">
         <div className="flex flex-col lg:flex-row gap-24 max-w-7xl mx-auto px-8">
           <div className="flex-1">
             <h2 className="text-2xl font-semibold mb-6">Shipping Address</h2>
 
-            {/* -------- EXISTING ADDRESS LIST -------- */}
-            {existingAddresses.length > 0 && (
+            {!useNewAddress && existingAddresses.length > 0 && (
               <div className="space-y-4 mb-8">
                 {existingAddresses.map((address) => (
                   <label
                     key={address.userAddressId}
-                    className="flex items-start gap-3 border p-4 rounded-lg cursor-pointer"
+                    className={`flex items-start gap-3 border p-4 rounded-lg cursor-pointer transition-all ${selectedAddressId === address.userAddressId ? "border-black bg-gray-50" : "border-gray-200"}`}
                   >
                     <input
                       type="radio"
-                      name="existingAddress"
-                      value={address.userAddressId}
-                      onChange={() => {
-                        setSelectedAddressId(address.userAddressId);
-                        setUseNewAddress(false);
-                      }}
+                      name="address"
+                      checked={selectedAddressId === address.userAddressId}
+                      onChange={() =>
+                        setSelectedAddressId(address.userAddressId)
+                      }
                     />
                     <div>
                       <p className="font-semibold">{address.contactName}</p>
-                      <p className="text-sm">{address.addressLine1}</p>
-                      <p className="text-sm">{address.phone}</p>
-                      <p className="text-sm">
-                        {address.stateOrProvinceName} - {address.cityName} -
-                        {address.districtName} - {address.zipCode}
+                      <p className="text-sm text-gray-600">
+                        {address.addressLine1}, {address.cityName}
                       </p>
                     </div>
                   </label>
@@ -179,44 +140,49 @@ const AddressPage = () => {
               </div>
             )}
 
-            {/* -------- ADD NEW ADDRESS BUTTON -------- */}
             <button
               type="button"
-              onClick={() => setUseNewAddress(true)}
-              className="text-sm underline mb-6"
+              onClick={() => setUseNewAddress(!useNewAddress)}
+              className="text-sm font-medium text-blue-600 underline mb-6 block"
             >
-              + Add New Address
+              {useNewAddress ? "← Use saved address" : "+ Add New Address"}
             </button>
 
-            {/* -------- NEW ADDRESS FORM -------- */}
-            {useNewAddress && (
-              <FormProvider {...methods}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+            <FormProvider {...methods}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {useNewAddress && (
                   <ShippingForm
                     errors={errors}
-                    countryOptions={countryOptions}
-                    stateOptions={stateOptions}
-                    districtOptions={districtOptions}
-                    isPending={isPending}
+                    countryOptions={countries.map((c) => ({
+                      label: c.name,
+                      value: c.id,
+                    }))}
+                    stateOptions={states.map((s) => ({
+                      label: s.name,
+                      value: s.id,
+                    }))}
+                    districtOptions={districts.map((d) => ({
+                      label: d.name,
+                      value: d.id,
+                    }))}
                   />
-                </form>
-              </FormProvider>
-            )}
+                )}
 
-            {/* -------- CONTINUE BUTTON FOR EXISTING -------- */}
-            {!useNewAddress && selectedAddressId && (
-              <button
-                onClick={() => onSubmit({})}
-                className="mt-6 bg-black text-white px-6 py-3 rounded-lg"
-              >
-                Continue to Payment
-              </button>
-            )}
+                <button
+                  type="submit"
+                  disabled={
+                    isAddingAddress || (!useNewAddress && !selectedAddressId)
+                  }
+                  className="mt-8 bg-black text-white px-10 py-4 rounded-lg font-semibold w-full disabled:bg-gray-400"
+                >
+                  {isAddingAddress ? "Saving..." : "Continue to Payment"}
+                </button>
+              </form>
+            </FormProvider>
           </div>
 
-          {/* -------- ORDER SUMMARY -------- */}
           <div className="w-full lg:w-96">
-            <OrderSummary orders={[]} />
+            <OrderSummary checkoutData={checkoutData} />
           </div>
         </div>
       </div>

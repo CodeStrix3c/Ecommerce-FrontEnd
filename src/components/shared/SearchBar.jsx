@@ -105,7 +105,7 @@ const SearchBar = ({ onChange, showCategory = false }) => {
       className={`flex items-center rounded-full border border-[var(--color-black-hover)]
       bg-[var(--color-white)] px-4 py-1 pt-1 shadow-[0_2px_4px_rgba(0,0,0,0.08)]
       hover:shadow-md transition-shadow duration-200
-      ${showCategory ? "w-[25vw]" : "w-[20vw]"}`}
+      ${showCategory ? "w-[35vw]" : "w-[20vw]"}`}
     >
       {/* Search */}
       <div
