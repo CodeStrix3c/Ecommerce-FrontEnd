@@ -7,7 +7,7 @@ const CartBottomBar = ({ cart, total, onCheckout, onPaymentChange }) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 border-t border-[var(--color-black)] bg-[var(--color-white)] shadow-md px-4 py-2 flex flex-col gap-2 z-50">
       <div className="relative">
-        <div className="mt-1 rounded-lg border-[var(--color-black)] py-2 bg-[var(--color-white)]">
+        {/* <div className="mt-1 rounded-lg border-[var(--color-black)] py-2 bg-[var(--color-white)]">
           <PaymentOptions
             selected={selectedPayment}
             onChange={(method) => {
@@ -15,7 +15,7 @@ const CartBottomBar = ({ cart, total, onCheckout, onPaymentChange }) => {
               setSelectedPayment(method);
             }}
           />
-        </div>
+        </div> */}
       </div>
       <div className="flex items-center justify-between">
         <div>
