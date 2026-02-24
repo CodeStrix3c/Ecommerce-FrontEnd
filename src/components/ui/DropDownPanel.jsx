@@ -14,29 +14,40 @@ import {
 } from "lucide-react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { removeItem } from "framer-motion";
 import { useUser } from "@/providers/UserProvider";
 import { useQueryClient } from "@tanstack/react-query";
+import { useLogoutMutation } from "@/hooks/useAuthMutation";
 
 const DropdownPanel = ({ open, onClose }) => {
   const isMobile = useIsMobile(1100);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { mutate: logoutMutation } = useLogoutMutation(); // ✅ rename to avoid conflict
+  const { logout } = useUser();
 
   const token = getItemFromLocalStorage("token");
   const isAuthenticated = Boolean(token);
-const { logout } = useUser();
-const queryClient = useQueryClient();
-  const handleAuthAction = () => {
-   onClose?.();
 
-  if (isAuthenticated) {
-    logout();           // 🔥 updates context state
-    queryClient.clear(); // 🔥 clears wishlist/cart cache
-    toast.success("Logged out successfully!");
-    navigate("/");
-  } else {
-    navigate("/login");
-  }
+  const handleAuthAction = () => {
+    onClose?.();
+
+    if (isAuthenticated) {
+      // ✅ CALL LOGOUT MUTATION
+      logoutMutation(undefined, {
+        onSuccess: () => {
+          logout(); // clear user context
+          queryClient.clear(); // clear all cached queries
+          toast.success("Logged out successfully!");
+          navigate("/");
+        },
+        onError: () => {
+          toast.error("Logout failed. Please try again.");
+        },
+      });
+    } else {
+      navigate("/login");
+    }
   };
 
   const handleOpenProfile = () => {
@@ -108,6 +119,7 @@ const queryClient = useQueryClient();
           <User size={16} />
           <span>Visitor Account</span>
         </div>
+
         <div
           onClick={handleAuthAction}
           className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-[var(--color-black-hover)] transition-colors"

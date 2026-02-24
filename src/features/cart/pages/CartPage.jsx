@@ -169,7 +169,7 @@ const CartPage = () => {
             cart={cartProducts}
             total={subTotalWithDiscount}
             onCheckout={checkoutAll}
-            // selectedPayment={selectedPayment}
+            selectedPayment={selectedPayment}
             onPaymentChange={setSelectedPayment}
           />
         )}
