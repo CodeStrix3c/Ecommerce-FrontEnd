@@ -9,6 +9,7 @@ import AboutUs from "@/features/about-us/pages/AboutUs";
 import { HelpCenter } from "@mui/icons-material";
 import VendorHelpCenter from "@/supplier/pages/VendorHelpCenter";
 import AgricultureHelpCenter from "@/features/help-center/pages/HelpCenter";
+import SettingsPage from "@/features/settings/SettingsPage";
 
 /* ================= AUTH / COMMON ================= */
 const TalkWithExpert = lazy(
@@ -102,6 +103,7 @@ export default [
       <Route path="/account/bookings" element={<BookingsPage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="/profile" element={<UserProfile />} />
+       <Route path="/settings" element={<SettingsPage/>} />
 
       {/* Profiles */}
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
@@ -133,7 +135,7 @@ export default [
       <Route path="financial" element={<FinancialPanel />} />
       <Route path="knowledge" element={<KnowledgePanel />} />
       <Route path="alerts" element={<AlertPanel />} />
-
+     
 
     </Route>
   </Route>,
