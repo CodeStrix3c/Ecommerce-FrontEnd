@@ -1,86 +1,106 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
+import React, { useState, useEffect } from "react";
 import { Tag } from "lucide-react";
 import { useCartList } from "@/providers/CartListProvider";
 import QuantitySelector from "@/components/shared/QuantitySelector";
 
-const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
+const BookingWidget = ({ place, onBuyNow }) => {
   const [quantity, setQuantity] = useState(1);
 
-  const { cartList } = useCartList();
-  const isCartListed = cartList.some((item) => item._id === place._id);
+  const { cartList, addToCartList, removeFromCart, updateQuantity } =
+    useCartList();
 
-  const totalPrice = quantity * place.price;
+  if (!place) return null;
+
+  const price = place?.price || 0;
+
+  // 🔎 Check if product exists in cart
+  const cartItem = cartList?.find((item) => item.productId === place._id);
+
+  const isCartListed = !!cartItem;
+
+  const totalPrice = quantity * price;
+
+  /* ===============================
+     HANDLE ADD / REMOVE
+  ================================= */
+
+  const handleCartAction = () => {
+    if (!isCartListed) {
+      addToCartList({
+        productId: place._id,
+        quantity,
+      });
+    } else {
+      removeFromCart(cartItem.id);
+    }
+  };
+
+  /* ===============================
+     HANDLE QUANTITY CHANGE
+  ================================= */
+
+  const handleQuantityChange = (newQty) => {
+    setQuantity(newQty);
+
+    // If item already in cart → update API
+    if (cartItem) {
+      updateQuantity(cartItem.id, newQty);
+    }
+  };
+
+  // Sync local quantity when cart already has item
+  useEffect(() => {
+    if (cartItem) {
+      setQuantity(cartItem.quantity);
+    }
+  }, [cartItem]);
 
   return (
-    <div className="mx-auto max-w-2xl w-full">
-      {/* Price notice */}
-      <div className="hidden md:flex border rounded-lg mb-4 p-4 items-center">
-        <Tag color="red" />
-        <p className="ms-4 font-semibold">Prices include all fees</p>
-      </div>
-
-      {/* Desktop */}
-      <div className="hidden md:flex flex-col border rounded-xl p-5 bg-[var(--color-white)] shadow-lg max-w-xl mx-auto">
-        <div className="flex px-2 items-center">
-          <span className="font-bold text-xl">₹{place.price}</span>
-          <span className="px-1 text-sm font-semibold">per unit</span>
+    <div className="w-full md:mx-auto md:max-w-2xl">
+      <div className="hidden md:flex flex-col border rounded-xl p-6 bg-white shadow-lg">
+        {/* Info Banner */}
+        <div className="flex items-center border rounded-lg p-3 mb-4 bg-gray-50">
+          <Tag className="text-[var(--color-secondary)]" size={18} />
+          <p className="ms-3 text-sm font-semibold">Prices include all fees</p>
         </div>
 
-        <div className="mt-4">
-          <div className="flex items-center mb-4">
+        {/* Price */}
+        <div className="flex items-center mb-4">
+          <span className="font-bold text-2xl">₹{price}</span>
+          <span className="px-2 text-sm font-medium text-gray-600">
+            per item
+          </span>
+        </div>
+
+        {/* Quantity + Total */}
+        <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center">
             <p className="text-sm font-semibold">Quantity :</p>
             <div className="ms-3">
-              <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+              <QuantitySelector
+                quantity={quantity}
+                setQuantity={handleQuantityChange}
+              />
             </div>
           </div>
 
-          <div className="text-sm font-semibold">
-            Total price: ₹{totalPrice}
-          </div>
+          <div className="text-sm font-semibold">Total: ₹{totalPrice}</div>
         </div>
 
-        <div className="flex flex-col gap-2 mt-4">
+        {/* Buttons */}
+        <div className="grid grid-cols-2 gap-3">
           <button
-            onClick={() => onBuyNow(quantity)}
-            className="w-full rounded-md bg-[var(--color-primary)] py-3 text-sm font-semibold text-[var(--color-white)] hover:bg-[var(--color-primary-hover)]"
+            onClick={() => onBuyNow?.(quantity)}
+            className="w-full px-6 py-3 rounded-lg text-sm font-semibold text-white bg-[var(--color-primary)] hover:opacity-90 transition"
           >
             Buy Now
           </button>
 
           <button
-            onClick={onAddToCart}
-            className="w-full rounded-md py-3 text-sm font-medium bg-[var(--color-black-hover)]"
+            onClick={handleCartAction}
+            className="w-full px-6 py-3 border border-gray-800 rounded-lg text-sm font-medium hover:bg-gray-100 transition"
           >
-            {isCartListed ? "Remove from your cart" : "Add to your cart"}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Bottom Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t bg-[var(--color-white)] p-4 shadow-lg">
-        <div className="flex justify-between mb-3">
-          <div>
-            <p className="text-lg font-bold">₹{totalPrice}</p>
-            <p className="text-xs">
-              {quantity} × ₹{place.price}
-            </p>
-          </div>
-          <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
-        </div>
-
-        <div className="flex gap-2">
-          <button
-            onClick={() => onBuyNow(quantity)}
-            className="flex-1 rounded-md bg-[var(--color-primary)] py-2 text-sm font-semibold text-[var(--color-white)]"
-          >
-            Buy Now
-          </button>
-          <button
-            onClick={onAddToCart}
-            className="flex-1 rounded-md py-2 text-sm font-medium bg-[var(--color-black-hover)]"
-          >
-            Add to cart
+            {isCartListed ? "Remove from cart" : "Add to cart"}
           </button>
         </div>
       </div>

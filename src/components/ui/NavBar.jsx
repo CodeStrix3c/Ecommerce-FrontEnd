@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import ContentWrapper from "../shared/ContentWrapper";
 import { NAVBAR_TABS } from "@/constants/navTabs";
 
-const NavBar = ({ }) => {
+const NavBar = ({}) => {
   const { pathname } = useLocation();
   const below1024 = useIsMobile(1024);
   const below600 = useIsMobile(600);
@@ -25,7 +25,8 @@ const NavBar = ({ }) => {
                 to={tab.path}
                 end={tab.path === "/"}
                 className={({ isActive }) =>
-                  `relative flex flex-col items-center text-xs font-medium transition-colors duration-300 py-1 ${isActive ? tab.activeColor : inactiveMobileColor
+                  `relative flex flex-col items-center text-xs font-medium transition-colors duration-300 py-1 ${
+                    isActive ? tab.activeColor : inactiveMobileColor
                   } ${hoverMobileColor}`
                 }
               >
@@ -47,34 +48,62 @@ const NavBar = ({ }) => {
 
   if (!below1024) {
     return (
-      <div>
+      <div className="relative">
         <nav className="flex items-center gap-8">
           {NAVBAR_TABS?.map((tab) => (
-            <NavLink
-              key={tab.name}
-              to={tab.path}
-              end={tab.path === "/"}
-              className={({ isActive }) =>
-                `relative flex flex-row gap-2 items-center px-3 py-2 text-sm font-medium transition-colors duration-300 ${isActive
-                  ? `border-b-2 border-[var(--color-black)] ${tab.activeColor}`
-                  : `${inactiveDesktopColor} ${hoverDesktopColor}`
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  {tab.badge && (
-                    <span className="absolute -top-3 rounded bg-[var(--color-secondary)] px-2 text-[8px] font-bold text-[var(--color-white)]">
-                      {tab.badge}
-                    </span>
-                  )}
-                  <tab.icon
-                    className={`h-6 w-6 ${isActive ? tab.activeColor : inactiveDesktopColor}`}
-                  />
-                  <span>{tab.name}</span>
-                </>
+            <div key={tab.name} className="relative group">
+              {/* Main Nav Link */}
+              <NavLink
+                to={tab.path}
+                end={tab.path === "/"}
+                className={({ isActive }) =>
+                  `relative flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors duration-300 ${
+                    isActive
+                      ? `border-b-2 border-[var(--color-black)] ${tab.activeColor}`
+                      : "text-[var(--color-neutral-dark)] hover:text-black"
+                  }`
+                }
+              >
+                <tab.icon className="h-5 w-5" />
+                <span>{tab.name}</span>
+              </NavLink>
+
+              {/* 🔥 DROPDOWN MENU */}
+              {tab.children && (
+                <div
+                  className="
+                  absolute left-0 top-full
+                  mt-2 w-48
+                  bg-white
+                  shadow-lg
+                  border border-gray-100
+                  rounded-md
+                  opacity-0 invisible
+                  translate-y-2
+                  transition-all duration-300
+                  group-hover:opacity-100
+                  group-hover:visible
+                  group-hover:translate-y-0
+                  z-50
+                "
+                >
+                  {tab.children.map((child) => (
+                    <NavLink
+                      key={child.name}
+                      to={child.path}
+                      className="
+                      block px-4 py-2 text-sm text-gray-700
+                      hover:bg-gray-100
+                      hover:text-black
+                      transition-colors
+                    "
+                    >
+                      {child.name}
+                    </NavLink>
+                  ))}
+                </div>
               )}
-            </NavLink>
+            </div>
           ))}
         </nav>
       </div>
