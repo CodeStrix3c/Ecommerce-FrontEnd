@@ -6,6 +6,7 @@ import { useUpdateUserProfile } from "@/hooks/User/Profile/useUserProfile";
 
 export default function UserProfileHeader({ data }) {
   const fileInputRef = useRef(null);
+  const menuRef = useRef(null);
 
   const [showMenu, setShowMenu] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -13,12 +14,10 @@ export default function UserProfileHeader({ data }) {
   const { mutateAsync: uploadFileAsync } = useFileUploadMutation();
   const { mutateAsync: updateProfile } = useUpdateUserProfile();
 
-  const isLoading = isUploading;
-
   const name = data?.fullName || "";
   const email = data?.email || "";
+  const hasImage = !!data?.profilePic;
 
-  // ✅ WhatsApp-style initials
   const initials = name
     .trim()
     .split(" ")
@@ -28,19 +27,22 @@ export default function UserProfileHeader({ data }) {
     .substring(0, 2)
     .toUpperCase();
 
-  const hasImage = !!data?.profilePic;
-
+  /* ================= CLOSE MENU OUTSIDE CLICK ================= */
   useEffect(() => {
-    const closeMenu = () => setShowMenu(false);
-    if (showMenu) window.addEventListener("click", closeMenu);
-    return () => window.removeEventListener("click", closeMenu);
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    if (showMenu) window.addEventListener("click", handleClickOutside);
+    return () => window.removeEventListener("click", handleClickOutside);
   }, [showMenu]);
 
-  // ---------------- HANDLERS ----------------
-
+  /* ================= MAIN BUTTON CLICK ================= */
   const handleMainButtonClick = (e) => {
     e.stopPropagation();
-    if (isLoading) return;
+    if (isUploading) return;
 
     if (!hasImage) {
       fileInputRef.current?.click();
@@ -70,6 +72,7 @@ export default function UserProfileHeader({ data }) {
     }
   };
 
+  /* ================= UPLOAD ================= */
   const handleProfilePicChange = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -102,12 +105,14 @@ export default function UserProfileHeader({ data }) {
   };
 
   return (
-    <div className="flex items-center gap-8 p-6 border border-gray-100 shadow-sm rounded-2xl transition-all duration-300 mb-2">
-      {/* ================= AVATAR ================= */}
-      <div className="relative group flex-shrink-0">
-        <div className="h-32 w-32 rounded-full overflow-hidden border-4 border-white shadow-xl ring-2 ring-black bg-gray-100 relative transition-all duration-500">
-          {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+    <div className="lg:mt-24 flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-10 p-6 sm:p-8 border border-gray-100 shadow-sm rounded-2xl mb-4">
+
+
+      <div className="relative flex-shrink-0" ref={menuRef}>
+        <div className="h-28 w-28 sm:h-32 sm:w-32 rounded-full overflow-hidden border-4 border-white shadow-xl ring-2 ring-[var(--color-secondary)] bg-gray-100 relative">
+
+          {isUploading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full">
               <Loader2 className="h-8 w-8 text-white animate-spin" />
             </div>
           )}
@@ -116,72 +121,73 @@ export default function UserProfileHeader({ data }) {
             <img
               src={data.profilePic}
               alt="Profile"
-              className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="h-full w-full object-cover"
             />
           ) : (
             <div className="h-full w-full flex items-center justify-center bg-black">
-              <span className="text-4xl font-black text-white">
+              <span className="text-3xl sm:text-4xl font-black text-white">
                 {initials || "NA"}
               </span>
             </div>
           )}
         </div>
 
-        {/* Action Button */}
-        <div className="absolute bottom-2 right-2 flex items-center">
-          <button
-            type="button"
-            onClick={handleMainButtonClick}
-            className={`
-              h-10 w-10 rounded-full bg-black text-white
-              flex items-center justify-center border-4 border-white shadow-lg
-              transition-all duration-300 hover:scale-105 active:scale-95
-              ${showMenu ? "rotate-90" : ""}
-            `}
-          >
-            {hasImage ? (
-              showMenu ? (
-                <X className="h-4 w-4" />
-              ) : (
-                <Pencil className="h-4 w-4" />
-              )
-            ) : (
-              <Camera className="h-4 w-4" />
-            )}
-          </button>
 
-          {/* Slide Menu */}
-          {hasImage && (
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className={`
-                absolute right-1/2 top-1/2 -translate-y-1/2
-                flex items-center gap-2 bg-white pl-8 pr-3 rounded-full shadow-md border
-                transition-all duration-300
-                ${
-                  showMenu
-                    ? "opacity-100 translate-x-[100%]"
-                    : "opacity-0 w-0 pointer-events-none"
-                }
-              `}
+        <div className="absolute bottom-2 right-0 flex items-center">
+
+          <div className="relative flex items-center">
+
+
+            <button
+              type="button"
+              onClick={handleMainButtonClick}
+              className="h-10 w-10 rounded-full bg-[var(--color-secondary)] text-white flex items-center justify-center border-4 border-white shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 z-20"
             >
-              <button
-                onClick={handleChangePhotoClick}
-                className="p-2 text-blue-600 hover:bg-blue-50 rounded-full"
-              >
-                <Camera className="w-4 h-4" />
-              </button>
+              {hasImage ? (
+                showMenu ? (
+                  <X className="h- w-4" />
+                ) : (
+                  <Pencil className="h-2 w-2" />
+                )
+              ) : (
+                <Camera className="h-4 w-4" />
+              )}
+            </button>
 
-              <div className="w-[1px] h-5 bg-gray-300"></div>
 
-              <button
-                onClick={handleRemoveClick}
-                className="p-2 text-red-500 hover:bg-red-50 rounded-full"
+            {hasImage && (
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className={`
+                  absolute left-full ml-3
+                  flex items-center gap-3
+                  bg-white px-3 py-2
+                  rounded-full shadow-lg border
+                  transition-all duration-300 ease-in-out
+                  ${showMenu
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-3 pointer-events-none"
+                  }
+                `}
               >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </div>
-          )}
+                <button
+                  onClick={handleChangePhotoClick}
+                  className="h-9 w-9 flex items-center justify-center rounded-full text-blue-600 hover:bg-blue-50 transition"
+                >
+                  <Camera className="w-4 h-4" />
+                </button>
+
+                <div className="h-5 w-[1px] bg-gray-300"></div>
+
+                <button
+                  onClick={handleRemoveClick}
+                  className="h-9 w-9 flex items-center justify-center rounded-full text-red-500 hover:bg-red-50 transition"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         <input
@@ -193,17 +199,18 @@ export default function UserProfileHeader({ data }) {
         />
       </div>
 
-      {/* ================= NAME + EMAIL ================= */}
-      <div className="flex flex-col justify-center">
-        <div className="flex items-center gap-2">
+
+      <div className="flex flex-col text-center sm:text-left">
+        <div className="flex items-center gap-2 justify-center sm:justify-start">
           <h2 className="text-2xl font-semibold text-gray-900 capitalize">
             {name || "Your Name"}
           </h2>
           <CheckCircle2 className="h-5 w-5 text-blue-500 fill-blue-50" />
         </div>
 
-        {/* ✅ Email stays exactly as stored (no uppercase) */}
-        <p className="text-sm text-gray-500 mt-1">{email || "N/A"}</p>
+        <p className="text-sm text-gray-500 mt-1 break-all">
+          {email || "N/A"}
+        </p>
       </div>
     </div>
   );
