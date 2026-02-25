@@ -72,7 +72,6 @@ import {
 } from "@/hooks/User/Cart/usecartitems";
 
 import { createContext, useContext, useEffect } from "react";
-
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useUser } from "./UserProvider";
@@ -80,7 +79,7 @@ import { useUser } from "./UserProvider";
 const CartListContext = createContext();
 
 export const CartListProvider = ({ children }) => {
-  const { token } = useUser(); // 🔥 only to trigger re-render
+  const { token } = useUser();
   const queryClient = useQueryClient();
 
   /* -------------------- API HOOKS -------------------- */
@@ -89,8 +88,11 @@ export const CartListProvider = ({ children }) => {
   const { mutate: removeItem } = useRemoveFromCart();
   const { mutate: updateItemQuantity } = useUpdateCartQuantity();
 
-  /* -------------------- CART DATA -------------------- */
-  const cartList = data?.items || [];
+  /* -------------------- FULL CART DATA -------------------- */
+  const cartItems = data?.items || [];
+  const subTotal = data?.subTotal || 0;
+  const discount = data?.discount || 0;
+  const subTotalWithDiscount = data?.subTotalWithDiscount || 0;
 
   /* -------------------- CLEAR CACHE ON LOGOUT -------------------- */
   useEffect(() => {
@@ -125,7 +127,7 @@ export const CartListProvider = ({ children }) => {
 
   /* -------------------- CLEAR CART -------------------- */
   const clearCart = () => {
-    cartList.forEach((item) => {
+    cartItems.forEach((item) => {
       removeItem({ cartItemId: item.id });
     });
   };
@@ -133,7 +135,10 @@ export const CartListProvider = ({ children }) => {
   return (
     <CartListContext.Provider
       value={{
-        cartList,
+        cartList: cartItems,
+        subTotal,
+        discount,
+        subTotalWithDiscount,
         isLoading,
         addToCartList,
         removeFromCart,
