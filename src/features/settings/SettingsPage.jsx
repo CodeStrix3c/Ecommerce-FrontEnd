@@ -5,7 +5,8 @@ import PasswordSettings from "./components/PasswordSettings";
 import AppearanceSettings from "./components/AppearanceSettings";
 import ManageAddress from "./components/ManageAddress";
 import MyReviews from "./components/MyReviews";
-
+import MyOrder from "./components/MyOrder";
+import HelpCenter from "./components/HelpCenter";
 
 const SettingsPage = () => {
   const [active, setActive] = useState("password");
@@ -23,6 +24,12 @@ const SettingsPage = () => {
 
          case "reviews":
         return <MyReviews/>;
+
+        case "orders":
+          return <MyOrder/>;
+
+          case "help-center":
+            return <HelpCenter/>;
 
       default:
         return null;

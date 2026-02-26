@@ -1,133 +1,108 @@
-import React, { useState } from "react";
+import React from "react";
 import SectionCard from "./SectionCard";
-import InputField from "./InputField";
+import Inputs from "@/components/shared/Inputs";
+import { useForm, FormProvider } from "react-hook-form";
+import { useChangePassword } from "@/hooks/User/ChangePassword/useChangePassword";
+import { toast } from "react-toastify";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { changePasswordSchema } from "@/features/farmer-registration/schemas/userSchamas/changePasswordSchema";
 
 const PasswordSettings = () => {
-  const [password, setPassword] = useState({
+  const { mutateAsync, isPending } = useChangePassword();
+
+  const methods = useForm({
+  resolver: zodResolver(changePasswordSchema),
+  mode: "onChange",
+  defaultValues: {
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
-  });
+  },
+});
+  const {
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = methods;
 
-  const [errors, setErrors] = useState({
-    newPassword: "",
-    confirmPassword: "",
-  });
+  const newPassword = watch("newPassword");
 
-  // Password validation function
-  const validatePassword = (value) => {
-    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+const onSubmit = async (data) => {
+  try {
+    const resp = await mutateAsync(data);
+    toast.success("Password saved successfully");
+    reset();
+  } catch (error) {
+    const status = error?.response?.status;
 
-    if (value.length < 8) {
-      return "Password must be at least 8 characters.";
+    if (status === 400) {
+      toast.error("Current password is incorrect");
+    } else if (status === 401) {
+      toast.error("Unauthorized request. Please login again");
+    } else if (status === 404) {
+      toast.error("User not found");
+    } else if (status === 500) {
+      toast.error("Server error. Please try later");
+    } else {
+      toast.error("Something went wrong, please try again");
     }
-    if (!specialCharRegex.test(value)) {
-      return "Password must include at least one special character.";
-    }
-    return "";
-  };
-
-  const handleChange = (field, value) => {
-    const updated = { ...password, [field]: value };
-    setPassword(updated);
-
-    // Live validation for new password
-    if (field === "newPassword") {
-      setErrors((prev) => ({
-        ...prev,
-        newPassword: validatePassword(value),
-      }));
-    }
-
-    // Live validation for confirm password
-    if (field === "confirmPassword") {
-      setErrors((prev) => ({
-        ...prev,
-        confirmPassword:
-          value && value !== updated.newPassword
-            ? "Passwords do not match"
-            : "",
-      }));
-    }
-  };
-
-  const handleSave = () => {
-    if (
-      !password.currentPassword ||
-      !password.newPassword ||
-      !password.confirmPassword
-    ) {
-      alert("Please fill all fields");
-      return;
-    }
-
-    if (errors.newPassword || errors.confirmPassword) {
-      alert("Please fix password errors before saving");
-      return;
-    }
-
-    alert("Password updated successfully!");
-    handleCancel();
-  };
-
-  const handleCancel = () => {
-    setPassword({
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
-    setErrors({
-      newPassword: "",
-      confirmPassword: "",
-    });
-  };
+  }
+};
 
   return (
     <SectionCard title="Change Password">
-      <InputField
-        label="Current Password"
-        type="password"
-        value={password.currentPassword}
-        onChange={(e) => handleChange("currentPassword", e.target.value)}
-      />
+      <FormProvider {...methods}>
+        <div>
+          <Inputs
+            required
+            name="currentPassword"
+            label="Current Password"
+            type="password"
+            errors={errors.currentPassword}
+          />
 
-      <InputField
-        label="New Password"
-        type="password"
-        value={password.newPassword}
-        onChange={(e) => handleChange("newPassword", e.target.value)}
-      />
-      {errors.newPassword && (
-        <p className="text-xs text-red-500 mt-1">{errors.newPassword}</p>
-      )}
+          <Inputs
+            required
+            name="newPassword"
+            label="New Password"
+            type="password"
+            errors={errors.newPassword}
+          />
 
-      <InputField
-        label="Confirm Password"
-        type="password"
-        value={password.confirmPassword}
-        onChange={(e) => handleChange("confirmPassword", e.target.value)}
-      />
-      {errors.confirmPassword && (
-        <p className="text-xs text-red-500 mt-1">
-          {errors.confirmPassword}
-        </p>
-      )}
+          <Inputs
+            required
+            name="confirmPassword"
+            label="Confirm Password"
+            type="password"
+            errors={errors.confirmPassword}
+          />
 
+          <div className="flex justify-end gap-3 mt-6">
 
-      <div className="flex gap-3 mt-6">
-        <button
-          onClick={handleSave}
-          className="bg-[var(--color-primary)] text-white px-4 py-2 rounded text-sm"
-        >
-          Save
-        </button>
-        <button
-          onClick={handleCancel}
-          className="border border-[var(--color-gray)] px-4 py-2 rounded text-sm"
-        >
-          Cancel
-        </button>
-      </div>
+             <button
+              type="button"
+              onClick={() => handleSubmit(onSubmit)()}
+              disabled={isPending}
+              className="bg-[var(--color-primary)] text-white px-4 py-2 rounded text-sm disabled:opacity-50"
+            >
+              {isPending ? "Saving..." : "Save"}
+            </button>
+
+              <button
+              type="button"
+              onClick={() => {
+          
+              }}
+              className="border border-[var(--color-gray)] px-4 py-2 rounded text-sm"
+            >
+              Cancel
+            </button>
+
+           
+          </div>
+        </div>
+      </FormProvider>
     </SectionCard>
   );
 };

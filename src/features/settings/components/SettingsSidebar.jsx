@@ -5,12 +5,15 @@ const SettingsSidebar = ({ active, setActive }) => {
     { id: "password", label: "Manage Password" },
      { id: "appearance", label: "Manage Appearance" },
         { id: "addresses", label: "Manage Address" },
-        { id: "reviews", label: "My Reviews" },       
+        { id: "reviews", label: "My Reviews" },
+          { id: "orders", label: "My Orders" },
+          {id: "help-center", label: "Help Center"},       
   
   ];
 
   return (
-    <div className="w-64 bg-[var(--color-white)] border border-[var(--color-gray)] rounded-lg p-3 h-fit">
+    <div className="w-64 bg-[var(--color-white)]  border border-[var(--color-gray)] rounded-lg p-3 h-fit">
+
       {menuItems.map((item) => (
         <button
           key={item.id}
