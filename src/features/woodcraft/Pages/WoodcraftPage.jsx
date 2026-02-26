@@ -10,7 +10,7 @@ import { ChevronDown, Loader2 } from "lucide-react";
 const WoodcraftPage = () => {
   const [searchParams, setSearchParams] = useState({
     query: "",
-    category: "woodcraft", // ✅ changed
+    category: "woodcraft",
   });
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,7 +24,7 @@ const WoodcraftPage = () => {
   const loadingRef = useRef(false);
 
   const [filters, setFilters] = useState({
-    category: "woodcraft", 
+    category: "woodcraft",
     brand: "",
     minPrice: 0,
     maxPrice: 100000,
@@ -63,10 +63,10 @@ const WoodcraftPage = () => {
 
   const totalPages = Math.ceil(
     (data?.totalProduct ?? 0) /
-      (data?.currentSearchOption?.pageSize ?? 10)
+    (data?.currentSearchOption?.pageSize ?? 10)
   );
 
-  
+
   useEffect(() => {
     setAllProducts([]);
     setCurrentPage(1);
@@ -82,7 +82,7 @@ const WoodcraftPage = () => {
     sortBy,
   ]);
 
- 
+
   useEffect(() => {
     if (data?.products) {
       setAllProducts((prev) => {
@@ -187,20 +187,20 @@ const WoodcraftPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                  />
-                ))
+                <div
+                  key={i}
+                  className="h-64 bg-gray-50 animate-pulse rounded-xl"
+                />
+              ))
               : allProducts.map((product) => (
-                  <PlaceCard
-                    key={product.id}
-                    place={product}
-                    onToggleWishlist={() =>
-                      toggleWishlist(product)
-                    }
-                  />
-                ))}
+                <PlaceCard
+                  key={product.id}
+                  place={product}
+                  onToggleWishlist={() =>
+                    toggleWishlist(product)
+                  }
+                />
+              ))}
           </div>
 
           {hasMore && (

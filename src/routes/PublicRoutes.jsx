@@ -10,6 +10,10 @@ import GiDetails from "@/features/places/pages/GiDetails";
 import WoodcraftPage from "@/features/woodcraft/pages/WoodcraftPage";
 import TextilesPage from "@/features/textiles/pages/Textiles";
 import MetalsCraftPage from "@/features/metals/pages/Metalstone";
+import PrivacyPolicy from "@/features/privacy-policies/pages/Privacy";
+import Terms from "@/features/privacy-policies/pages/Terms";
+import CompanyDetails from "@/features/suppliers/components/CompanyDetails";
+import Sitemap from "@/features/privacy-policies/pages/Sitemap";
 
 
 
@@ -53,18 +57,26 @@ export default [
       <Route path="/vendor-signup" element={<SupplierSignUp />} />
       <Route path="/supplier-login" element={<SupplierLogin />} />
       <Route path="/supplier-register" element={<SupplierRegistration />} />
+
+
     </Route>
 
     {/* WEBSITE PAGES */}
     <Route element={<WebsiteLayout />}>
       <Route index element={<Navigate to="/home" replace />} />
       <Route path="/home" element={<IndexPage />} />
-      <Route path="/wood-craft" element={<WoodcraftPage/>} />
+      <Route path="/wood-craft" element={<WoodcraftPage />} />
       <Route path="/metal-craft" element={<MetalsCraftPage />} />
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/FAQ" element={<Faq />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/wishlist" element={<WishlistPage />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/sitemap" element={<Sitemap />} />
+      <Route path="/company-details" element={<CompanyDetails />} />
+
+
       {/* Resources */}
       <Route
         path="/resources/farming-techniques"
@@ -78,7 +90,7 @@ export default [
       <Route path="/resources/weather" element={<WeatherPage />} />
       {/* Browsing */}
       <Route path="/textitles" element={<TextilesPage />} />
-      
+
       <Route path="/place/:id" element={<PlacePage />} />
       <Route path="*" element={<NotFoundPage />} />
 
