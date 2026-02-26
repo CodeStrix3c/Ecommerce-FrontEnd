@@ -164,9 +164,7 @@ const PlacePage = () => {
     .slice(0, 10)
     .map((p) => {
       const imgPath =
-        p.thumbnailUrl ||
-        p.images?.[0]?.thumbnailUrl ||
-        p.images?.[0]?.url;
+        p.thumbnailUrl || p.images?.[0]?.thumbnailUrl || p.images?.[0]?.url;
 
       if (!imgPath) return null;
 
@@ -187,7 +185,6 @@ const PlacePage = () => {
   return (
     <ContentWrapper>
       <div className="pt-6 lg:pt-10 pb-6 lg:pb-8 relative">
-
         <ListingHeader place={place} />
 
         {/* ===========================
@@ -195,7 +192,6 @@ const PlacePage = () => {
         ============================ */}
 
         <div className="mt-10 flex flex-col gap-8 lg:flex-row relative">
-
           {/* IMAGE */}
           <div
             ref={imageRef}
@@ -210,10 +206,10 @@ const PlacePage = () => {
           {/* INFO PANEL */}
           {/* INFO PANEL */}
           <div
-            className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${showZoom ? "opacity-0 pointer-events-none" : "opacity-100"
-              }`}
+            className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${
+              showZoom ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`}
           >
-
             <ProductInfoPanel
               place={place}
               openSections={openSections}
@@ -242,8 +238,6 @@ const PlacePage = () => {
               }}
             />
           )}
-
-
         </div>
 
         {/* ===========================
@@ -258,11 +252,9 @@ const PlacePage = () => {
            POPULAR PRODUCTS
         ============================ */}
 
-        {popularItems.length > 0 && (
+        {/* {popularItems.length > 0 && (
           <div className="mt-10">
-
             <div className="flex justify-between mb-4">
-
               <h2 className="text-xl font-semibold">
                 Explore other popular Art & Craft products
               </h2>
@@ -282,11 +274,9 @@ const PlacePage = () => {
                   <ChevronRight />
                 </button>
               </div>
-
             </div>
 
             <div ref={popularRef} className="keen-slider">
-
               {popularItems.map((item) => (
                 <div
                   key={item.id}
@@ -300,15 +290,10 @@ const PlacePage = () => {
                     />
                   </div>
 
-                  <p className="mt-2 text-sm">
-                    {item.title}
-                  </p>
-
+                  <p className="mt-2 text-sm">{item.title}</p>
                 </div>
               ))}
-
             </div>
-
           </div>
         )} */}
         <div className="mt-10">
@@ -343,7 +328,6 @@ const PlacePage = () => {
         </div>
 
         <Testimonials />
-
       </div>
     </ContentWrapper>
   );

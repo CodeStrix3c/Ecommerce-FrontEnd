@@ -10,6 +10,7 @@ import { HelpCenter } from "@mui/icons-material";
 import VendorHelpCenter from "@/supplier/pages/VendorHelpCenter";
 import AgricultureHelpCenter from "@/features/help-center/pages/HelpCenter";
 import SettingsPage from "@/features/settings/SettingsPage";
+import AddressPage from "@/features/address/addressPage";
 
 /* ================= AUTH / COMMON ================= */
 const TalkWithExpert = lazy(
@@ -95,6 +96,7 @@ export default [
       <Route path="/orders" element={<OrderHistoryPage />} />
       <Route path="/user-orders/:id" element={<UserOrderPage />} />
       <Route path="/order-details/:id" element={<OrderDetailsPage />} />
+      <Route path="/address" element={<AddressPage />} />
 
       {/* Account */}
       <Route path="/account/places" element={<PlacesPage />} />
