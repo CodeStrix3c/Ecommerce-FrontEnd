@@ -246,25 +246,25 @@ const UserHome = () => {
             {/* Initial Loading State */}
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                  />
-                ))
+                <div
+                  key={i}
+                  className="h-64 bg-gray-50 animate-pulse rounded-xl"
+                />
+              ))
               : allProducts.length > 0
                 ? allProducts.map((product) => (
-                    <PlaceCard
-                      key={product.id}
-                      place={product}
-                      loading={false}
-                      onToggleWishlist={() => toggleWishlist(product)}
-                    />
-                  ))
+                  <PlaceCard
+                    key={product.id}
+                    place={product}
+                    loading={false}
+                    onToggleWishlist={() => toggleWishlist(product)}
+                  />
+                ))
                 : !isLoading && (
-                    <div className="col-span-full py-20 text-center text-gray-400 text-sm italic font-medium">
-                      No products found matching your criteria.
-                    </div>
-                  )}
+                  <div className="col-span-full py-20 text-center text-gray-400 text-sm italic font-medium">
+                    No products found matching your criteria.
+                  </div>
+                )}
           </div>
 
           {/* Loading More Skeleton Cards */}
