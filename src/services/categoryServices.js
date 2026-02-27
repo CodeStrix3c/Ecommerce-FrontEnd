@@ -1,6 +1,6 @@
-const { default: axiosInstance } = require("@/api/client/axiosInstance");
+import axiosInstance from "@/api/client/axiosInstance";
 
 export const getCategories = async () => {
-  const { data } = await axiosInstance.get("//api/categories");
+  const { data } = await axiosInstance.get("/api/categories");
   return data;
 };

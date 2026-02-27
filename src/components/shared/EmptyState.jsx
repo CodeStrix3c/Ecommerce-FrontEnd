@@ -31,8 +31,8 @@ const EmptyState = ({
 
       case "cart":
         return (
-          <div className="bg-blue-100 p-3 rounded-full">
-            <ShoppingCart className="w-12 h-12 text-blue-600" />
+          <div className="bg-[var(--color-secondary)] p-3 rounded-full">
+            <ShoppingCart className="w-12 h-12 text-white" />
           </div>
         );
 
