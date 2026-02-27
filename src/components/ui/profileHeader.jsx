@@ -147,7 +147,7 @@ export default function UserProfileHeader({ data }) {
                 showMenu ? (
                   <X className="h- w-4" />
                 ) : (
-                  <Pencil className="h-2 w-2" />
+                  <Pencil className="h-4 w-4" />
                 )
               ) : (
                 <Camera className="h-4 w-4" />
