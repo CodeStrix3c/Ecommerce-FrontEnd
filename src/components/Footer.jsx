@@ -1,5 +1,6 @@
 import React from "react";
 import { Globe } from "lucide-react";
+import { Link } from "react-router-dom";
 import ContentWrapper from "./shared/ContentWrapper";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -9,8 +10,11 @@ const Footer = () => {
     <div className="flex w-full justify-center bg-[var(--color-black-hover)] pb-8 mt-10">
       <ContentWrapper>
         <div className="flex w-full flex-col items-end">
+
+          {/* Top Grid Section */}
           <div className="grid w-full grid-cols-2 gap-10 py-8 text-sm md:grid-cols-3">
-            {/* About Kashmir Art */}
+
+            {/* About */}
             <div className="flex flex-col gap-4">
               <strong className="font-medium text-[var(--color-black)]">
                 About Kashmir Art
@@ -24,7 +28,7 @@ const Footer = () => {
               ].map((item, idx) => (
                 <p
                   key={idx}
-                  className="font-normal text-[var(--color-black)] cursor-default"
+                  className="font-normal text-[var(--color-black)]"
                 >
                   {item}
                 </p>
@@ -45,7 +49,7 @@ const Footer = () => {
               ].map((item, idx) => (
                 <p
                   key={idx}
-                  className="font-normal text-[var(--color-black)] cursor-default"
+                  className="font-normal text-[var(--color-black)]"
                 >
                   {item}
                 </p>
@@ -66,7 +70,7 @@ const Footer = () => {
               ].map((item, idx) => (
                 <p
                   key={idx}
-                  className="font-normal text-[var(--color-black)] cursor-default"
+                  className="font-normal text-[var(--color-black)]"
                 >
                   {item}
                 </p>
@@ -74,9 +78,12 @@ const Footer = () => {
             </div>
           </div>
 
+          {/* Divider */}
           <div className="my-4 w-full border-t border-[var(--color-black)]"></div>
 
+          {/* Bottom Section */}
           <div className="flex w-full flex-col items-center justify-between gap-4 md:gap-0 lg:flex-row">
+
             {/* Language & Social */}
             <div className="mt-4 flex w-full justify-between gap-10 md:order-last md:w-auto">
               <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-black)]">
@@ -85,34 +92,63 @@ const Footer = () => {
               </div>
 
               <div className="flex gap-3 text-[var(--color-black)]">
-                <FaFacebook className="w-6 h-6 text-[#1877F2]" />
-                <FaLinkedin className="w-6 h-6 text-[#0A66C2]" />
-                <FaInstagram className="w-6 h-6 text-[#E4405F]" />
-                <FaXTwitter className="w-6 h-6 text-black" />
+                <FaFacebook className="w-6 h-6 text-[#1877F2] cursor-pointer hover:scale-110 transition" />
+                <FaLinkedin className="w-6 h-6 text-[#0A66C2] cursor-pointer hover:scale-110 transition" />
+                <FaInstagram className="w-6 h-6 text-[#E4405F] cursor-pointer hover:scale-110 transition" />
+                <FaXTwitter className="w-6 h-6 text-black cursor-pointer hover:scale-110 transition" />
               </div>
             </div>
 
-            {/* Footer Bottom */}
+            {/* Copyright + Links */}
             <div className="flex w-full flex-col gap-2 px-1 font-normal text-[var(--color-black)] md:w-auto md:flex-row md:items-center md:gap-8">
+
               <p className="text-sm">
-                &copy; {new Date().getFullYear()} Kashmir Art & Handicraft
-                Collective
+                &copy; {new Date().getFullYear()} Kashmir Art & Handicraft Collective
               </p>
 
               <ul className="flex gap-6 text-sm">
-                {["Privacy", "Terms", "Sitemap", "Company Details"].map(
-                  (item, idx) => (
-                    <li
-                      key={idx}
-                      className="cursor-default text-[var(--color-black)] md:list-disc"
-                    >
-                      {item}
-                    </li>
-                  )
-                )}
+
+                <li>
+                  <Link
+                    to="/privacy"
+                    className="hover:underline hover:text-black transition"
+                  >
+                    Privacy
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/terms"
+                    className="hover:underline hover:text-black transition"
+                  >
+                    Terms
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/sitemap"
+                    className="hover:underline hover:text-black transition"
+                  >
+                    Sitemap
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/company-details"
+                    className="hover:underline hover:text-black transition"
+                  >
+                    Company Details
+                  </Link>
+                </li>
+
               </ul>
             </div>
+
           </div>
+
         </div>
       </ContentWrapper>
     </div>
