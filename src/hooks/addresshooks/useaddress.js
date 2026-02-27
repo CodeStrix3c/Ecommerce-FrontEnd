@@ -2,6 +2,7 @@ import {
   addAddress,
   addShippingAddress,
   getExistingAddresses,
+  getUserAddresses,
   updateTaxAndShippingPrices,
 } from "@/services/addressServices/addressservice";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -9,6 +10,13 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 export const useAddAddress = () => {
   return useMutation({
     mutationFn: (payload) => addAddress(payload),
+  });
+};
+
+export const useUserAddresses = () => {
+  return useQuery({
+    queryKey: ["user-addresses"],
+    queryFn: getUserAddresses,
   });
 };
 

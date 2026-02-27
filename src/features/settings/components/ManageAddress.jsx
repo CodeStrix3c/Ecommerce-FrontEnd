@@ -1,44 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import Inputs from "@/components/shared/Inputs";
 import SelectInputs from "@/components/shared/SelectInput";
+import { useCountries } from "@/hooks/addresshooks/useCountry";
+import { useStates } from "@/hooks/addresshooks/useState";
+import { useDistricts } from "@/hooks/addresshooks/useDistricts";
+import {
+  useAddAddress,
+  useUserAddresses,
+} from "@/hooks/addresshooks/useaddress";
+import FormTextArea from "@/components/shared/custom-inputs/FormTextArea";
+import { X } from "lucide-react";
 
 const ManageAddress = () => {
-  const [addresses, setAddresses] = useState([
-    {
-      id: 1,
-      name: "Quarat ul Qadir",
-      phone: "9876543210",
-      address: "House 21, Main Road",
-      city: "Srinagar",
-      state: "Jammu & Kashmir",
-      country: "India",
-      pincode: "190001",
-      default: true,
-    },
-    {
-      id: 2,
-      name: "Quarat ul Qadir",
-      phone: "9876543210",
-      address: "Office, 5th Avenue",
-      city: "Srinagar",
-      state: "Jammu & Kashmir",
-      country: "India",
-      pincode: "190001",
-      default: false,
-    },
-  ]);
-
   const [showForm, setShowForm] = useState(false);
+  const queryClient = useQueryClient();
 
   const methods = useForm({
     mode: "onChange",
     defaultValues: {
       name: "",
       phone: "",
-      address: "",
+      addressLine1: "",
+      addressLine2: "",
       country: "",
       state: "",
+      district: "",
       city: "",
       pincode: "",
     },
@@ -47,205 +35,232 @@ const ManageAddress = () => {
   const {
     handleSubmit,
     reset,
+    watch,
+    register,
+    setValue,
     formState: { errors },
   } = methods;
 
+  const countryId = watch("country");
+  const stateId = watch("state");
+
+  
+  const { data: countriesData } = useCountries();
+  const { data: statesData } = useStates(countryId);
+  const { data: districtsData } = useDistricts(stateId);
+
+
+  const {
+    data: userAddresses,
+  } = useUserAddresses();
+
+
+  useEffect(() => {
+    setValue("state", "");
+    setValue("district", "");
+  }, [countryId]);
+
+  useEffect(() => {
+    setValue("district", "");
+  }, [stateId]);
+
+  const countryOptions =
+    countriesData?.map((item) => ({
+      label: item.name,
+      value: item.id,
+    })) || [];
+
+  const stateOptions =
+    statesData?.map((item) => ({
+      label: item.name,
+      value: item.id,
+    })) || [];
+
+  const districtOptions =
+    districtsData?.map((item) => ({
+      label: item.name,
+      value: item.id,
+    })) || [];
+
+  const { mutate: addAddressApi, isPending } = useAddAddress();
+
   /* ================= Save Address ================= */
   const saveAddress = (data) => {
-    const newEntry = {
-      id: Date.now(),
-      ...data,
-      default: false,
+    const payload = {
+      contactName: data.name,
+      phone: data.phone,
+      addressLine1: data.addressLine1,
+      addressLine2: data.addressLine2,
+      zipCode: data.pincode,
+      city: data.city,
+      stateOrProvinceId: Number(data.state),
+      districtId: Number(data.district),
+      countryId: data.country,
     };
+    console.log("Saving address with payload:", payload);
+    addAddressApi(payload, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["user-addresses"]);
 
-    setAddresses([...addresses, newEntry]);
-    reset();
-    setShowForm(false);
-  };
-
-  const removeAddress = (id) => {
-    setAddresses(addresses.filter((addr) => addr.id !== id));
-  };
-
-  const setDefault = (id) => {
-    const updated = addresses.map((addr) => ({
-      ...addr,
-      default: addr.id === id,
-    }));
-    setAddresses(updated);
+        reset();
+        setShowForm(false);
+      },
+    });
   };
 
   return (
-    <div className="min-h-screen px-6 md:px-12 py-8 border border-[var(--color-gray)] rounded-lg bg-[var(--color-white)]">
-      <h2 className="text-2xl font-semibold mb-6 text-[var(--color-black)]">
-        Your Addresses
-      </h2>
+  <div className="min-h-screen px-4 sm:px-6 md:px-12 py-6 bg-gray-50">
+    
+    {/* Header Row */}
+    <div className="flex items-center justify-between mb-6">
+      <h2 className="text-2xl font-semibold">Your Addresses</h2>
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {/* Add Address Card */}
-        <div
-          onClick={() => setShowForm(true)}
-          className="border-2 border-dashed border-[var(--color-gray)] rounded-md flex items-center justify-center cursor-pointer hover:border-[var(--color-primary)]"
-        >
-          <div className="text-center py-10">
-            <div className="text-3xl text-[var(--color-primary)]">+</div>
-            <p className="text-sm mt-2">Add Address</p>
-          </div>
-        </div>
+      <button
+        onClick={() => setShowForm(true)}
+        className="flex items-center gap-2 bg-[var(--color-primary)] text-white px-4 py-2 rounded-md hover:opacity-90"
+      >
+        <span className="text-lg font-bold">+</span>
+        Add Address
+      </button>
+    </div>
 
-        {/* Address Cards */}
-        {addresses.map((addr) => (
-          <div
-            key={addr.id}
-            className={`relative bg-[var(--color-white)] rounded-md p-4 border shadow-sm ${
-              addr.default
-                ? "border-2 border-[var(--color-primary)]"
-                : "border-[var(--color-gray)]"
-            }`}
-          >
-            {addr.default && (
-              <span className="absolute top-2 right-2 text-xs bg-[var(--color-primary)] text-white px-2 py-1 rounded">
-                Default
-              </span>
-            )}
-
-            <h4 className="font-semibold text-sm">{addr.name}</h4>
-            <p className="text-sm">{addr.address}</p>
-            <p className="text-sm">
-              {addr.city}, {addr.state}, {addr.country} - {addr.pincode}
-            </p>
-            <p className="text-sm">Phone: {addr.phone}</p>
-
-            <div className="mt-3 space-x-3 text-sm">
-              <button
-                onClick={() => setDefault(addr.id)}
-                className="text-[var(--color-primary)] hover:underline"
-              >
-                Set Default
-              </button>
-              <button
-                onClick={() => removeAddress(addr.id)}
-                className="text-[var(--color-error)] hover:underline"
-              >
-                Remove
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* ================= Modal Form ================= */}
-      {showForm && (
-        <div className="fixed inset-0 bg-[var(--color-overlay)] flex items-center justify-center z-50">
-          <div className="bg-[var(--color-white)] w-full max-w-lg rounded-md p-6 shadow-lg">
-            <h3 className="text-lg font-semibold mb-4 text-[var(--color-black)]">
-              Add New Address
-            </h3>
-
-            <FormProvider {...methods}>
-              <form
-                onSubmit={handleSubmit(saveAddress)}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4"
-              >
-                <Inputs
-                  required
-                  name="name"
-                  label="Full Name"
-                  type="text"
-                  errors={errors.name}
-                />
-
-                <Inputs
-                  required
-                  name="phone"
-                  label="Phone"
-                  type="text"
-                  errors={errors.phone}
-                />
-
-                <Inputs
-                  required
-                  name="address"
-                  label="Address"
-                  type="text"
-                  errors={errors.address}
-                />
-
-                {/* Country */}
-                <SelectInputs
-                  name="country"
-                  label="Country"
-                  options={["India"]}
-                  required
-                />
-
-                {/* State */}
-                <SelectInputs
-                  name="state"
-                  label="State"
-                  options={[
-                    "Jammu & Kashmir",
-                    "Delhi",
-                    "Punjab",
-                    "Haryana",
-                  ]}
-                  required
-                />
-
-                {/* City */}
-                <SelectInputs
-                  name="city"
-                  label="City"
-                  options={[
-                    "Srinagar",
-                    "Jammu",
-                    "Delhi",
-                    "Amritsar",
-                  ]}
-                  required
-                />
-
-                <Inputs
-                  required
-                  name="pincode"
-                  label="Pincode"
-                  type="text"
-                  rules={{
-                    minLength: {
-                      value: 6,
-                      message: "Invalid pincode",
-                    },
-                  }}
-                  errors={errors.pincode}
-                />
-
-                {/* Actions */}
-                <div className="md:col-span-2 flex justify-end gap-3 mt-4">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      reset();
-                      setShowForm(false);
-                    }}
-                    className="px-4 py-2 border border-[var(--color-gray)] rounded"
-                  >
-                    Cancel
-                  </button>
-
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-[var(--color-primary)] text-white rounded hover:bg-[var(--color-primary-hover)]"
-                  >
-                    Save Address
-                  </button>
-                </div>
-              </form>
-            </FormProvider>
-          </div>
+    {/* Address List - Single Column */}
+    <div className="grid grid-cols-1 gap-4">
+      {userAddresses?.length === 0 && (
+        <div className="text-center text-gray-500 py-10 bg-white rounded-lg border">
+          No address added yet
         </div>
       )}
+
+      {userAddresses?.map((addr) => (
+        <div
+          key={addr.id}
+          className="border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition"
+        >
+          <h4 className="font-semibold text-base">{addr.contactName}</h4>
+
+          <p className="text-sm mt-1">{addr.addressLine1}</p>
+
+        {addr.addressLine2?.trim() && (
+  <p className="text-sm">{addr.addressLine2}</p>
+)}
+          <p className="text-sm mt-1">
+            {addr.city} - {addr.zipCode}
+          </p>
+
+          {/* Added Missing Fields */}
+          <p className="text-sm">
+       {addr.stateOrProvinceName || addr.stateName}
+          </p>
+
+          <p className="text-sm">
+         {addr.districtName}
+          </p>
+
+          <p className="text-sm">
+         {addr.countryName}
+          </p>
+
+          <p className="text-sm mt-2 font-medium">
+            {addr.phone}
+          </p>
+        </div>
+      ))}
     </div>
-  );
+
+    {/* ================= Modal (unchanged) ================= */}
+    {showForm && (
+      <div className="fixed inset-0 bg-black/40 z-50 flex items-end sm:items-center justify-center">
+        <div className="bg-white w-full sm:max-w-lg rounded-t-xl sm:rounded-lg p-4 sm:p-6 max-h-[90vh] overflow-y-auto relative">
+          
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold">Add New Address</h3>
+
+            <button
+              type="button"
+              onClick={() => {
+                reset();
+                setShowForm(false);
+              }}
+              className="p-1 rounded-full"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          <FormProvider {...methods}>
+            <div className="grid grid-cols-1 gap-3">
+              
+              <Inputs name="name" label="Full Name" required errors={errors.name} />
+              <Inputs name="phone" label="Phone" required errors={errors.phone} />
+
+              <FormTextArea
+                name="addressLine1"
+                label="Address Line 1"
+                register={register}
+                required
+                errors={errors.addressLine1}
+              />
+
+              <FormTextArea
+                name="addressLine2"
+                label="Address Line 2"
+                register={register}
+              />
+
+              <SelectInputs
+                name="country"
+                label="Country"
+                options={countryOptions}
+              />
+
+              <SelectInputs
+                name="state"
+                label="State"
+                options={stateOptions}
+                disabled={!countryId}
+              />
+
+              <SelectInputs
+                name="district"
+                label="District"
+                options={districtOptions}
+                disabled={!stateId}
+              />
+
+              <Inputs name="city" label="City" required errors={errors.city} />
+              <Inputs name="pincode" label="Pincode" required errors={errors.pincode} />
+
+              {/* Buttons */}
+              <div className="flex flex-col sm:flex-row justify-end gap-3 mt-4">
+                <button
+                  type="button"
+                  onClick={handleSubmit(saveAddress)}
+                  disabled={isPending}
+                  className="bg-[var(--color-primary)] text-white px-4 py-2 rounded w-full sm:w-auto"
+                >
+                  {isPending ? "Saving..." : "Save Address"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    reset();
+                    setShowForm(false);
+                  }}
+                  className="border px-4 py-2 rounded w-full sm:w-auto"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </FormProvider>
+        </div>
+      </div>
+    )}
+  </div>
+);
 };
 
 export default ManageAddress;
