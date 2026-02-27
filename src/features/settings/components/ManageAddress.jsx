@@ -16,7 +16,10 @@ import {
   useDeleteUserAddress,
   useUserAddresses,
   useEditUserAddress,
+  useSetDefaultAddress
 } from "@/hooks/addresshooks/useaddress";
+
+
 
 const ManageAddress = () => {
   const queryClient = useQueryClient();
@@ -24,7 +27,7 @@ const ManageAddress = () => {
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState(null);
 
-  // ✅ Confirm dialog states
+  // Delete states
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -51,7 +54,6 @@ const ManageAddress = () => {
     watch,
     register,
     setValue,
-    formState: { errors },
   } = methods;
 
   const countryId = watch("country");
@@ -61,6 +63,24 @@ const ManageAddress = () => {
   const { data: statesData } = useStates(countryId);
   const { data: districtsData } = useDistricts(stateId);
   const { data: userAddresses } = useUserAddresses();
+
+  /* ================= Set Default ================= */
+  const {
+    mutate: setDefaultApi,
+    isPending: isDefaultPending,
+  } = useSetDefaultAddress();
+
+  const handleSetDefault = (id) => {
+    setDefaultApi(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["user-addresses"]);
+        toast.success("Default address updated");
+      },
+      onError: () => {
+        toast.error("Failed to update default address");
+      },
+    });
+  };
 
   useEffect(() => {
     setValue("state", "");
@@ -94,15 +114,12 @@ const ManageAddress = () => {
     useEditUserAddress();
   const { mutate: deleteAddressApi } = useDeleteUserAddress();
 
-  /* ================= Delete Logic ================= */
-
-  // Open confirmation
+  /* ================= Delete ================= */
   const handleDelete = (id) => {
     setDeleteId(id);
     setConfirmOpen(true);
   };
 
-  // Confirm delete
   const confirmDelete = () => {
     if (!deleteId) return;
 
@@ -115,17 +132,11 @@ const ManageAddress = () => {
         setConfirmOpen(false);
         setDeleteId(null);
       },
-      onError: () => {
-        toast.error("Failed to delete address");
-      },
-      onSettled: () => {
-        setIsDeleting(false);
-      },
+      onSettled: () => setIsDeleting(false),
     });
   };
 
   /* ================= Edit ================= */
-
   const handleEdit = (addr) => {
     setEditId(addr.userAddressId);
     setShowForm(true);
@@ -142,7 +153,6 @@ const ManageAddress = () => {
   };
 
   /* ================= Save ================= */
-
   const saveAddress = (data) => {
     const payload = {
       contactName: data.name,
@@ -167,9 +177,6 @@ const ManageAddress = () => {
             setEditId(null);
             setShowForm(false);
           },
-          onError: () => {
-            toast.error("Failed to update address");
-          },
         }
       );
       return;
@@ -182,13 +189,8 @@ const ManageAddress = () => {
         reset();
         setShowForm(false);
       },
-      onError: () => {
-        toast.error("Failed to save address");
-      },
     });
   };
-
-  /* ================= UI ================= */
 
   return (
     <div className="min-h-screen px-4 sm:px-6 md:px-12 py-6 border rounded-lg">
@@ -202,48 +204,49 @@ const ManageAddress = () => {
             reset();
             setShowForm(true);
           }}
-          className="flex items-center gap-2 bg-[var(--color-primary)] text-white px-4 py-2 rounded-md"
+          className="bg-[var(--color-primary)] text-white px-4 py-2 rounded-md"
         >
           + Add Address
         </button>
       </div>
 
       {/* Address List */}
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
-        {userAddresses?.length === 0 && (
-          <div className="text-center text-gray-500 py-10 bg-white rounded-lg border col-span-2">
-            No address added yet
-          </div>
-        )}
-
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-5">
         {userAddresses?.map((addr) => (
           <div
             key={addr.userAddressId}
-            className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition duration-200"
+            className={`bg-white border rounded-xl p-5 shadow-sm
+              ${
+                addr.isDefaultShippingAddress
+                  ? "border-green-600"
+                  : "border-gray-200"
+              }`}
           >
-            <div className="flex justify-between items-start">
+            <div className="flex justify-between">
               <div>
-                <h4 className="text-xl font-semibold text-black">
+                <h4 className="text-xl font-semibold flex items-center gap-2">
                   {addr.contactName}
+
+                  {addr.isDefaultShippingAddress && (
+                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
+                      Default
+                    </span>
+                  )}
                 </h4>
-                <p className="text-md text-black">{addr.phone}</p>
+                <p>{addr.phone}</p>
               </div>
 
               <div className="flex gap-3">
-                <button onClick={() => handleEdit(addr)} title="Edit">
+                <button onClick={() => handleEdit(addr)}>
                   <Pencil size={20} className="text-green-800" />
                 </button>
-
-                <button
-                  onClick={() => handleDelete(addr.userAddressId)}
-                  title="Delete"
-                >
+                <button onClick={() => handleDelete(addr.userAddressId)}>
                   <Trash2 size={20} className="text-red-800" />
                 </button>
               </div>
             </div>
 
-            <div className="mt-3 text-sm text-black leading-6">
+            <div className="mt-3 text-sm">
               <p>{addr.addressLine1}</p>
               {addr.addressLine2 && <p>{addr.addressLine2}</p>}
               <p>
@@ -254,6 +257,16 @@ const ManageAddress = () => {
                 {addr.countryName} - {addr.zipCode}
               </p>
             </div>
+
+            {!addr.isDefaultShippingAddress && (
+              <button
+                disabled={isDefaultPending}
+                onClick={() => handleSetDefault(addr.userAddressId)}
+                className="mt-4 text-sm text-blue-600 hover:underline disabled:opacity-50"
+              >
+                {isDefaultPending ? "Updating..." : "Set as Default"}
+              </button>
+            )}
           </div>
         ))}
       </div>
