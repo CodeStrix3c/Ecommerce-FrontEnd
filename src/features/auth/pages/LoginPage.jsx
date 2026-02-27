@@ -8,7 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { phoneLoginSchema } from "@/features/farmer-registration/schemas/authSchemas";
 import Inputs from "@/components/shared/Inputs";
 import { useLoginMutation } from "@/hooks/useFarmerProfileMutations";
-import { setItemsInLocalStorage } from "@/utils/localStorage";
 import { useUser } from "@/providers/UserProvider";
 
 const LoginPage = () => {
@@ -55,7 +54,7 @@ const LoginPage = () => {
         toast.error(
           err?.response?.data?.error ||
             err?.response?.data?.message ||
-            "Invalid credentials or network error",
+            "something went wrong",
         );
       },
     });

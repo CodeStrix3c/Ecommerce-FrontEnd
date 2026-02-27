@@ -83,38 +83,15 @@ const ProductInfoPanel = ({
     )}
   </section>
 
-  {/* STOCK */}
-  {(place.stockTracking || place.isAllowToOrder !== null) &&(
-    <div className="text-sm space-y-1 ">
-      <p>
-        {place.inStock ? (
-          <span className="text-[var(--color-white)] bg-[var(--color-primary)] px-2 py-0.5 rounded-sm font-semibold text-xs">
-            In Stock
-          </span>
-        ) : (
-          <span className="text-[var(--color-error)]">
-            Out of Stock
-          </span>
-        )}
-      </p>
-
-     {place.stockTracking && (
-      <p>Quantity Available: {place.stock}</p>
-    )}
-
-      {place.isAllowToOrder ? (
-      <p className="bg-green-100 text-green-700 px-2 py-1  rounded text-xs font-semibold w-fit">
-        Ordering is currently enabled
-      </p>
-    ) : (
-      <p className="text-[var(--color-error)] ">
-        Ordering currently disabled
-      </p>
-    )}
-    </div>
-  )}
-
- 
+{(place.stockTracking || place.isAllowToOrder !== null) && !place.inStock && (
+  <div className="text-sm">
+    <p>
+      <span className="text-[var(--color-error)] font-semibold">
+        Out of Stock
+      </span>
+    </p>
+  </div>
+)}
 
   {/* SHORT DESCRIPTION */}
   {place.shortDescription && (

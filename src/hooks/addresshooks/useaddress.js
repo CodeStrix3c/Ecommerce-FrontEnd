@@ -1,7 +1,10 @@
 import {
   addAddress,
   addShippingAddress,
+  deleteUserAddress,
+  editUserAddress,
   getExistingAddresses,
+  getUserAddresses,
   updateTaxAndShippingPrices,
 } from "@/services/addressServices/addressservice";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -11,6 +14,28 @@ export const useAddAddress = () => {
     mutationFn: (payload) => addAddress(payload),
   });
 };
+
+
+
+export const useUserAddresses = () => {
+  return useQuery({
+    queryKey: ["user-addresses"],
+    queryFn: getUserAddresses,
+  });
+};
+
+ export const useDeleteUserAddress = () => {
+  return useMutation({
+    mutationFn: (userAddressId) => deleteUserAddress(userAddressId),
+  });
+};
+
+export const useEditUserAddress = () => {
+  return useMutation({
+    mutationFn: ({ userAddressId, payload }) =>
+      editUserAddress({ userAddressId, payload }),
+  });
+}
 
 export const useCheckoutShipping = (checkoutId) => {
   return useQuery({
