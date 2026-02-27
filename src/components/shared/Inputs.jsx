@@ -2,7 +2,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { useState, useRef } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-export default function Inputs({
+export default function aInputs({
   name,
   label,
   type = "text", // phone | age | number | text | password | email | otp | textarea
@@ -60,7 +60,10 @@ export default function Inputs({
           }
 
           if (type === "gst") {
-            input = input.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 15);
+            input = input
+              .toUpperCase()
+              .replace(/[^A-Z0-9]/g, "")
+              .slice(0, 15);
           }
 
           if (type === "number") {
@@ -105,11 +108,17 @@ export default function Inputs({
           }
 
           if (type === "pan") {
-            input = input.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 10);
+            input = input
+              .toUpperCase()
+              .replace(/[^A-Z0-9]/g, "")
+              .slice(0, 10);
           }
 
           if (type === "ifsc") {
-            input = input.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 11);
+            input = input
+              .toUpperCase()
+              .replace(/[^A-Z0-9]/g, "")
+              .slice(0, 11);
           }
 
           if (type === "password") {
@@ -132,8 +141,8 @@ export default function Inputs({
               ? "text"
               : "password"
             : type === "email"
-            ? "email"
-            : "text";
+              ? "email"
+              : "text";
 
         return (
           <div className="flex flex-col gap-1.5 w-full">
@@ -159,9 +168,7 @@ export default function Inputs({
                     className="w-12 h-12 text-center text-lg rounded-lg outline-none"
                     style={{
                       border: `1px solid ${
-                        hasError
-                          ? "var(--color-error)"
-                          : "rgba(0,0,0,0.4)"
+                        hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
                       }`,
                     }}
                   />
@@ -173,14 +180,10 @@ export default function Inputs({
                 className="flex items-center w-full rounded-[10px] overflow-hidden"
                 style={{
                   minHeight: type === "textarea" ? "auto" : 52,
-                  backgroundColor: disabled
-                    ? "#f5f5f5"
-                    : "var(--color-white)",
+                  backgroundColor: disabled ? "#f5f5f5" : "var(--color-white)",
                   opacity: disabled ? 0.7 : 1,
                   border: `1px solid ${
-                    hasError
-                      ? "var(--color-error)"
-                      : "rgba(0,0,0,0.4)"
+                    hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
                   }`,
                 }}
               >
@@ -216,11 +219,7 @@ export default function Inputs({
                     onClick={() => setShowPassword(!showPassword)}
                     className="pr-4 text-gray-500"
                   >
-                    {!showPassword ? (
-                      <EyeOff size={18} />
-                    ) : (
-                      <Eye size={18} />
-                    )}
+                    {!showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 )}
               </div>

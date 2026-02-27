@@ -162,7 +162,7 @@ const UserHome = () => {
           </div>
 
           {/* Sort Dropdown - Right Side */}
-          <div className="w-full md:w-1/4 flex md:justify-end">
+          <div className="hidden md:flex md:w-1/4 md:justify-end">
             <div className="relative inline-block text-left">
               <select
                 value={sortBy}
