@@ -1,4 +1,5 @@
-import axiosInstance from "@/api/axiosInstance";
+import axiosInstance from "@/api/client/axiosInstance";
+
 
 export const privacyData = async () => {
   const { data } = await axiosInstance.get("/data/privacy/privacyData.json", {
