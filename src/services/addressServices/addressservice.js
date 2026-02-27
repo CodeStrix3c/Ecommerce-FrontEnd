@@ -28,6 +28,13 @@ export const editUserAddress = async ({ userAddressId, payload }) => {
   return data;
 };
 
+export const postSetDefaultAddress = async (userAddressId) => {
+  const { data } = await axiosInstance.post("/SetAsDefault", null, {
+    params: { id: userAddressId },
+  });
+  return data;
+};
+
 export const getExistingAddresses = async (checkoutId) => {
   const { data } = await axiosInstance.get(`/checkout/${checkoutId}/shipping`);
   return data;
