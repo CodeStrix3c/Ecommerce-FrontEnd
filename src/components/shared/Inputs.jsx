@@ -1,3 +1,4 @@
+
 import { Controller, useFormContext } from "react-hook-form";
 import { useState, useRef } from "react";
 import { Eye, EyeOff } from "lucide-react";
@@ -5,7 +6,7 @@ import { Eye, EyeOff } from "lucide-react";
 export default function Inputs({
   name,
   label,
-  type = "text", // phone | age | number | text | password | email | otp | textarea
+  type = "text",
   errors,
   required = false,
   countryCode = "+91",
@@ -22,9 +23,11 @@ export default function Inputs({
       name={name}
       control={control}
       defaultValue=""
-      render={({ field }) => {
+      render={({ field, fieldState }) => {
         const value = field.value || "";
-        const hasError = !!errors;
+
+        const error = errors || fieldState.error;
+        const hasError = !!error;
 
         /* ================= OTP HANDLING ================= */
         const handleOtpChange = (e, index) => {
@@ -138,12 +141,14 @@ export default function Inputs({
         return (
           <div className="flex flex-col gap-1.5 w-full">
             {/* Label */}
-            <label className="text-sm font-medium text-black">
-              {label}
-              {required && <span className="ml-1 text-red-500">*</span>}
-            </label>
+            {label && (
+              <label className="text-sm font-medium text-black">
+                {label}
+                {required && <span className="ml-1 text-red-500">*</span>}
+              </label>
+            )}
 
-            {/* ================= OTP ================= */}
+            {/* OTP */}
             {type === "otp" ? (
               <div className="flex justify-between">
                 {[...Array(6)].map((_, index) => (
@@ -168,7 +173,6 @@ export default function Inputs({
                 ))}
               </div>
             ) : (
-              /* ================= INPUT / TEXTAREA ================= */
               <div
                 className="flex items-center w-full rounded-[10px] overflow-hidden"
                 style={{
@@ -216,11 +220,7 @@ export default function Inputs({
                     onClick={() => setShowPassword(!showPassword)}
                     className="pr-4 text-gray-500"
                   >
-                    {!showPassword ? (
-                      <EyeOff size={18} />
-                    ) : (
-                      <Eye size={18} />
-                    )}
+                    {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                   </button>
                 )}
               </div>
@@ -229,7 +229,7 @@ export default function Inputs({
             {/* Error */}
             {hasError && (
               <span className="text-xs text-red-500">
-                {errors?.message || errors}
+                {error?.message}
               </span>
             )}
           </div>
@@ -238,3 +238,4 @@ export default function Inputs({
     />
   );
 }
+

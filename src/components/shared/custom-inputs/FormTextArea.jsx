@@ -9,6 +9,7 @@ export default function FormTextArea({
   register,
   errors,
   required = true,
+  placeholder = "",
 }) {
   const getLabel = () => {
     if (required === true) return <RequiredLabel label={label} />;
@@ -17,12 +18,14 @@ export default function FormTextArea({
   };
 
   return (
+ <div className="flex flex-col gap-1.5">
+ {label && getLabel()}
     <TextField
       fullWidth
       multiline
       rows={rows}
       defaultValue={""}
-      label={getLabel()}
+      label={placeholder}
       variant="outlined"
       size="small"
       helperText={errors?.message}
@@ -41,5 +44,6 @@ export default function FormTextArea({
       }}
       {...register(name)}
     />
+ </div>
   );
 }
