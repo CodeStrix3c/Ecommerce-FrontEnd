@@ -5,6 +5,11 @@ export const addAddress = async (payload) => {
   return data;
 };
 
+export const getUserAddresses = async () => {
+  const { data } = await axiosInstance.get("/list");
+  return data;
+}
+
 export const getExistingAddresses = async (checkoutId) => {
   const { data } = await axiosInstance.get(`/checkout/${checkoutId}/shipping`);
   return data;
