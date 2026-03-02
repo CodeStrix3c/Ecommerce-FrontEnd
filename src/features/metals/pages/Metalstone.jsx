@@ -120,9 +120,9 @@
 //                         {/* <span className="flex items-center gap-1 text-yellow-500">
 //                           {product.rating} <Star className="h-4 w-4" />
 //                         </span> */}
-                        
+
 //                                   <div className="mt-2 h-5 flex items-center">
-                                
+
 //                                       <StarRating size={14} rating={product.rating} count={0} />
 //                                   </div>
 //                       </div>
@@ -161,7 +161,7 @@ import AdvancedFilter from "@/components/shared/AdvancedFilter";
 import PlaceCard from "@/features/places/components/PlaceCard";
 import { ChevronDown, Loader2 } from "lucide-react";
 
-const MetalsCraftPage= () => {
+const MetalsCraftPage = () => {
   const [searchParams, setSearchParams] = useState({
     query: "",
     category: "Metals",
@@ -217,7 +217,7 @@ const MetalsCraftPage= () => {
 
   const totalPages = Math.ceil(
     (data?.totalProduct ?? 0) /
-      (data?.currentSearchOption?.pageSize ?? 10)
+    (data?.currentSearchOption?.pageSize ?? 10)
   );
 
   // Reset when filters change
@@ -319,18 +319,21 @@ const MetalsCraftPage= () => {
       <div className="flex flex-col  lg:flex-row gap-8 pt-6">
         {/* Sidebar */}
         <aside className="hidden lg:block w-[240px] shrink-0">
-          <AdvancedFilter
-            selectedCategory={filters.category}   // ✅ added
-            availableBrands={backendFilters?.brands || []}
-            availableCategories={backendFilters?.categories || []}
-            priceLimits={{
-              min: backendFilters?.price?.minPrice || 0,
-              max: backendFilters?.price?.maxPrice || 100000,
-            }}
-            onChange={handleFilterChange}
-            mobileOpen={mobileFilterOpen}
-            setMobileOpen={setMobileFilterOpen}
-          />
+          <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
+            <AdvancedFilter
+              selectedCategory={filters.category}   // ✅ added
+              availableBrands={backendFilters?.brands || []}
+              availableCategories={backendFilters?.categories || []}
+              priceLimits={{
+                min: backendFilters?.price?.minPrice || 0,
+                max: backendFilters?.price?.maxPrice || 100000,
+              }}
+              onChange={handleFilterChange}
+              mobileOpen={mobileFilterOpen}
+              setMobileOpen={setMobileFilterOpen}
+            />
+          </div>
+
         </aside>
 
         {/* Products */}
@@ -338,21 +341,21 @@ const MetalsCraftPage= () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                  />
-                ))
+                <div
+                  key={i}
+                  className="h-64 bg-gray-50 animate-pulse rounded-xl"
+                />
+              ))
               : allProducts.map((product) => (
-                  <PlaceCard
-                    key={product.id}
-                    place={product}
-                    loading={false}
-                    onToggleWishlist={() =>
-                      toggleWishlist(product)
-                    }
-                  />
-                ))}
+                <PlaceCard
+                  key={product.id}
+                  place={product}
+                  loading={false}
+                  onToggleWishlist={() =>
+                    toggleWishlist(product)
+                  }
+                />
+              ))}
           </div>
 
           {hasMore && (

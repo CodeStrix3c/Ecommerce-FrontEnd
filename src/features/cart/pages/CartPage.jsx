@@ -7,6 +7,7 @@ import CartSummary from "../components/CartSummary";
 import CartBottomBar from "../components/CartBottomBar";
 import EmptyState from "@/components/shared/EmptyState";
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "react-toastify";
 
 const CartPage = () => {
@@ -24,17 +25,19 @@ const CartPage = () => {
   const isMobile = useIsMobile();
   const [selectedPayment, setSelectedPayment] = useState("");
 
-  /* =========================
-     USE BACKEND ITEMS ARRAY
-  ========================== */
+
+
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedCartItemId, setSelectedCartItemId] = useState(null);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+
+
 
   const cartProducts = useMemo(() => {
     return Array.isArray(cartList) ? cartList : [];
   }, [cartList]);
 
-  /* =========================
-     TOTAL ITEMS COUNT
-  ========================== */
+
 
   const totalItems = useMemo(() => {
     return cartProducts.reduce(
@@ -43,9 +46,30 @@ const CartPage = () => {
     );
   }, [cartProducts]);
 
-  /* =========================
-     CHECKOUT
-  ========================== */
+
+
+  const handleRemoveClick = (cartItemId) => {
+    setSelectedCartItemId(cartItemId);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmRemove = async () => {
+    if (!selectedCartItemId) return;
+
+    try {
+      setConfirmLoading(true);
+      await removeFromCart(selectedCartItemId);
+      toast.success("Item removed from cart");
+    } catch (error) {
+      toast.error("Failed to remove item");
+    } finally {
+      setConfirmLoading(false);
+      setConfirmOpen(false);
+      setSelectedCartItemId(null);
+    }
+  };
+
+
 
   const checkoutAll = () => {
     if (!selectedPayment) {
@@ -56,9 +80,6 @@ const CartPage = () => {
     toast.success(`Proceeding to checkout with ${selectedPayment}`);
   };
 
-  /* =========================
-     LOADING
-  ========================== */
 
   if (isLoading) {
     return (
@@ -70,9 +91,7 @@ const CartPage = () => {
     );
   }
 
-  /* =========================
-     EMPTY STATE
-  ========================== */
+
 
   if (cartProducts.length === 0) {
     return (
@@ -86,95 +105,113 @@ const CartPage = () => {
     );
   }
 
-  /* =========================
-     MAIN UI
-  ========================== */
-
   return (
-    <ContentWrapper compactScreen>
-      <div className="py-6 lg:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* LEFT SIDE */}
-        <div
-          className={`col-span-1 lg:col-span-2 flex flex-col gap-6 ${
-            isMobile ? "pb-24" : ""
-          }`}
-        >
-          {/* Header */}
-          <div className="flex items-center gap-3">
-            <div className="bg-blue-100 p-3 rounded-full shadow-sm">
-              <ShoppingCart className="w-6 h-6 text-blue-600" />
+    <>
+      <ContentWrapper compactScreen>
+        <div className="py-6 lg:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <div
+            className={`col-span-1 lg:col-span-2 flex flex-col gap-6 ${isMobile ? "pb-24" : ""
+              }`}
+          >
+
+            <div className="flex items-center gap-3">
+              <div className="bg-blue-100 p-3 rounded-full shadow-sm">
+                <ShoppingCart className="w-6 h-6 text-blue-600" />
+              </div>
+
+              <div>
+                <h1 className="text-xl font-semibold">My Cart</h1>
+                <p className="text-sm text-gray-500">
+                  {totalItems} {totalItems === 1 ? "item" : "items"} in your cart
+                </p>
+              </div>
             </div>
 
-            <div>
-              <h1 className="text-xl font-semibold">My Cart</h1>
-              <p className="text-sm text-gray-500">
-                {totalItems} {totalItems === 1 ? "item" : "items"} in your cart
-              </p>
+
+            <div className="flex flex-col gap-6">
+              {cartProducts.map((product) => (
+                <React.Fragment key={product.id}>
+                  <CartItem
+                    product={{
+                      cartItemId: product.id,
+                      title: product.productName,
+                      photos: product.productImage
+                        ? [product.productImage]
+                        : [],
+                      price: Number(
+                        product.calculatedProductPrice?.price ?? 0,
+                      ),
+                      oldPrice: Number(
+                        product.calculatedProductPrice?.oldPrice ?? 0,
+                      ),
+                      savings: Number(
+                        product.calculatedProductPrice?.percentOfSaving ?? 0,
+                      ),
+                      quantity: Number(product.quantity ?? 1),
+                      rating: 0,
+                      inStock: product.isProductAvailabeToOrder,
+                    }}
+                    onRemove={handleRemoveClick}
+                    onQuantityChange={updateQuantity}
+                  />
+
+                  {isMobile && cartProducts.length > 1 && (
+                    <hr className="border-gray-200" />
+                  )}
+                </React.Fragment>
+              ))}
             </div>
           </div>
 
-          {/* Cart Items */}
-          <div className="flex flex-col gap-6">
-            {cartProducts.map((product) => (
-              <React.Fragment key={product.id}>
-                <CartItem
-                  product={{
-                    cartItemId: product.id,
-                    title: product.productName,
-                    photos: product.productImage ? [product.productImage] : [],
-                    price: Number(product.calculatedProductPrice?.price ?? 0),
-                    oldPrice: Number(
-                      product.calculatedProductPrice?.oldPrice ?? 0,
-                    ),
-                    savings: Number(
-                      product.calculatedProductPrice?.percentOfSaving ?? 0,
-                    ),
-                    quantity: Number(product.quantity ?? 1),
-                    rating: 0,
-                    inStock: product.isProductAvailabeToOrder,
-                  }}
-                  onRemove={removeFromCart}
-                  onQuantityChange={updateQuantity}
+
+          {!isMobile && (
+            <div className="col-span-1">
+              <div className="sticky top-28">
+                <CartSummary
+                  cart={cartProducts}
+                  subTotal={subTotal}
+                  discount={discount}
+                  total={subTotalWithDiscount}
+                  onCheckout={checkoutAll}
+                  onClear={clearCart}
+                  selectedPayment={selectedPayment}
+                  onPaymentChange={setSelectedPayment}
                 />
-
-                {isMobile && cartProducts.length > 1 && (
-                  <hr className="border-gray-200" />
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
-        {/* DESKTOP SUMMARY */}
-        {!isMobile && (
-          <div className="col-span-1">
-            <div className="sticky top-28">
-              <CartSummary
-                cart={cartProducts}
-                subTotal={subTotal}
-                discount={discount}
-                total={subTotalWithDiscount}
-                onCheckout={checkoutAll}
-                onClear={clearCart}
-                selectedPayment={selectedPayment}
-                onPaymentChange={setSelectedPayment}
-              />
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* MOBILE BOTTOM BAR */}
-        {isMobile && (
-          <CartBottomBar
-            cart={cartProducts}
-            total={subTotalWithDiscount}
-            onCheckout={checkoutAll}
-            // selectedPayment={selectedPayment}
-            onPaymentChange={setSelectedPayment}
-          />
-        )}
-      </div>
-    </ContentWrapper>
+          {/* MOBILE BOTTOM BAR */}
+          {isMobile && (
+            <CartBottomBar
+              cart={cartProducts}
+              total={subTotalWithDiscount}
+              onCheckout={checkoutAll}
+              onPaymentChange={setSelectedPayment}
+            />
+          )}
+        </div>
+      </ContentWrapper>
+
+
+      <ConfirmDialog
+        isOpen={confirmOpen}
+        title="Remove Item"
+        message="Are you sure you want to remove this item from your cart?"
+        confirmText="Remove"
+        cancelText="Cancel"
+        onConfirm={handleConfirmRemove}
+        onCancel={() => {
+          if (!confirmLoading) {
+            setConfirmOpen(false);
+            setSelectedCartItemId(null);
+          }
+        }}
+        loading={confirmLoading}
+        variant="danger"
+      />
+    </>
   );
 };
 
