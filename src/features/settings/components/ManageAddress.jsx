@@ -16,6 +16,8 @@ import {
   useDeleteUserAddress,
   useUserAddresses,
   useEditUserAddress,
+  useSetDefaultAddress,
+  useExistingAddress
 } from "@/hooks/addresshooks/useaddress";
 
 const ManageAddress = () => {
@@ -23,13 +25,10 @@ const ManageAddress = () => {
 
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState(null);
-
-  // ✅ Confirm dialog states
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  /* ================= Form ================= */
   const methods = useForm({
     mode: "onChange",
     defaultValues: {
@@ -45,14 +44,7 @@ const ManageAddress = () => {
     },
   });
 
-  const {
-    handleSubmit,
-    reset,
-    watch,
-    register,
-    setValue,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit, reset, watch, register, setValue } = methods;
 
   const countryId = watch("country");
   const stateId = watch("state");
@@ -62,15 +54,39 @@ const ManageAddress = () => {
   const { data: districtsData } = useDistricts(stateId);
   const { data: userAddresses } = useUserAddresses();
 
+  const {
+    data: existingAddress,
+    isLoading: isExistingLoading,
+  } = useExistingAddress(editId);
+
   useEffect(() => {
-    setValue("state", "");
-    setValue("district", "");
+    if (existingAddress && editId) {
+      setValue("name", existingAddress.contactName);
+      setValue("phone", existingAddress.phone);
+      setValue("addressLine1", existingAddress.addressLine1);
+      setValue("addressLine2", existingAddress.addressLine2);
+      setValue("city", existingAddress.city);
+      setValue("pincode", existingAddress.zipCode);
+      setValue("country", existingAddress.countryId);
+      setValue("state", String(existingAddress.stateOrProvinceId));
+      setValue("district", String(existingAddress.districtId));
+    }
+  }, [existingAddress, editId, setValue]);
+
+  useEffect(() => {
+    if (!editId) {
+      setValue("state", "");
+      setValue("district", "");
+    }
   }, [countryId]);
 
   useEffect(() => {
-    setValue("district", "");
+    if (!editId) {
+      setValue("district", "");
+    }
   }, [stateId]);
 
+  /* ================= Options ================= */
   const countryOptions =
     countriesData?.map((item) => ({
       label: item.name,
@@ -80,29 +96,40 @@ const ManageAddress = () => {
   const stateOptions =
     statesData?.map((item) => ({
       label: item.name,
-      value: item.id,
+      value: String(item.id),
     })) || [];
 
   const districtOptions =
     districtsData?.map((item) => ({
       label: item.name,
-      value: item.id,
+      value: String(item.id), 
     })) || [];
 
+  
   const { mutate: addAddressApi, isPending: isAddPending } = useAddAddress();
   const { mutate: editAddressApi, isPending: isEditPending } =
     useEditUserAddress();
   const { mutate: deleteAddressApi } = useDeleteUserAddress();
 
-  /* ================= Delete Logic ================= */
+  const {
+    mutate: setDefaultApi,
+    isPending: isDefaultPending,
+  } = useSetDefaultAddress();
 
-  // Open confirmation
+  const handleSetDefault = (id) => {
+    setDefaultApi(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["user-addresses"]);
+        toast.success("Default address updated");
+      },
+    });
+  };
+
   const handleDelete = (id) => {
     setDeleteId(id);
     setConfirmOpen(true);
   };
 
-  // Confirm delete
   const confirmDelete = () => {
     if (!deleteId) return;
 
@@ -115,34 +142,17 @@ const ManageAddress = () => {
         setConfirmOpen(false);
         setDeleteId(null);
       },
-      onError: () => {
-        toast.error("Failed to delete address");
-      },
-      onSettled: () => {
-        setIsDeleting(false);
-      },
+      onSettled: () => setIsDeleting(false),
     });
   };
 
-  /* ================= Edit ================= */
-
+  
   const handleEdit = (addr) => {
     setEditId(addr.userAddressId);
     setShowForm(true);
-
-    setValue("name", addr.contactName);
-    setValue("phone", addr.phone);
-    setValue("addressLine1", addr.addressLine1);
-    setValue("addressLine2", addr.addressLine2);
-    setValue("city", addr.city);
-    setValue("pincode", addr.zipCode);
-    setValue("country", addr.countryId);
-    setValue("state", addr.stateOrProvinceId);
-    setValue("district", addr.districtId);
   };
 
-  /* ================= Save ================= */
-
+  
   const saveAddress = (data) => {
     const payload = {
       contactName: data.name,
@@ -167,9 +177,6 @@ const ManageAddress = () => {
             setEditId(null);
             setShowForm(false);
           },
-          onError: () => {
-            toast.error("Failed to update address");
-          },
         }
       );
       return;
@@ -182,13 +189,8 @@ const ManageAddress = () => {
         reset();
         setShowForm(false);
       },
-      onError: () => {
-        toast.error("Failed to save address");
-      },
     });
   };
-
-  /* ================= UI ================= */
 
   return (
     <div className="min-h-screen px-4 sm:px-6 md:px-12 py-6 border rounded-lg">
@@ -202,58 +204,66 @@ const ManageAddress = () => {
             reset();
             setShowForm(true);
           }}
-          className="flex items-center gap-2 bg-[var(--color-primary)] text-white px-4 py-2 rounded-md"
+          className="bg-[var(--color-primary)] text-white px-4 py-2 rounded-md"
         >
           + Add Address
         </button>
       </div>
 
       {/* Address List */}
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
-        {userAddresses?.length === 0 && (
-          <div className="text-center text-gray-500 py-10 bg-white rounded-lg border col-span-2">
-            No address added yet
-          </div>
-        )}
-
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-5">
         {userAddresses?.map((addr) => (
           <div
             key={addr.userAddressId}
-            className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition duration-200"
+            className={`bg-white border rounded-xl p-5 shadow-sm ${
+              addr.isDefaultShippingAddress
+                ? "border-green-600"
+                : "border-gray-200"
+            }`}
           >
-            <div className="flex justify-between items-start">
+            <div className="flex justify-between">
               <div>
-                <h4 className="text-xl font-semibold text-black">
+                <h4 className="text-xl font-semibold flex items-center gap-2">
                   {addr.contactName}
+                  {addr.isDefaultShippingAddress && (
+                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
+                      Default
+                    </span>
+                  )}
                 </h4>
-                <p className="text-md text-black">{addr.phone}</p>
+                <p>{addr.phone}</p>
               </div>
 
               <div className="flex gap-3">
-                <button onClick={() => handleEdit(addr)} title="Edit">
+                <button onClick={() => handleEdit(addr)}>
                   <Pencil size={20} className="text-green-800" />
                 </button>
-
-                <button
-                  onClick={() => handleDelete(addr.userAddressId)}
-                  title="Delete"
-                >
+                <button onClick={() => handleDelete(addr.userAddressId)}>
                   <Trash2 size={20} className="text-red-800" />
                 </button>
               </div>
             </div>
 
-            <div className="mt-3 text-sm text-black leading-6">
+            <div className="mt-3 text-sm">
               <p>{addr.addressLine1}</p>
               {addr.addressLine2 && <p>{addr.addressLine2}</p>}
               <p>
-                {addr.city}, {addr.districtName},{" "}
-                {addr.stateOrProvinceName}
+                {addr.city}, {addr.districtName}, {addr.stateOrProvinceName}
               </p>
               <p>
                 {addr.countryName} - {addr.zipCode}
               </p>
             </div>
+
+            {!addr.isDefaultShippingAddress && (
+              <button
+                disabled={isDefaultPending}
+                onClick={() => handleSetDefault(addr.userAddressId)}
+                className="mt-4 text-sm text-blue-600 hover:underline"
+              >
+                {isDefaultPending ? "Updating..." : "Set as Default"}
+              </button>
+            )}
           </div>
         ))}
       </div>
@@ -278,76 +288,83 @@ const ManageAddress = () => {
               </button>
             </div>
 
-            <FormProvider {...methods}>
-              <div className="grid gap-3">
-                <Inputs name="name" label="Full Name" required />
-                <Inputs name="phone" label="Phone" required />
+            {editId && isExistingLoading ? (
+              <p className="text-center py-10">Loading address...</p>
+            ) : (
+              <FormProvider {...methods}>
+                <div className="grid gap-3">
+                  <Inputs name="name" label="Full Name" required />
+                  <Inputs name="phone" label="Phone" required />
 
-                <FormTextArea
-                  name="addressLine1"
-                  label="Address Line 1"
-                  register={register}
-                  required
-                />
+                  <FormTextArea
+                    name="addressLine1"
+                    label="Address Line 1"
+                    register={register}
+                    required
+                  />
 
-                <FormTextArea
-                  name="addressLine2"
-                  label="Address Line 2"
-                  register={register}
-                />
+                  <FormTextArea
+                    name="addressLine2"
+                    label="Address Line 2"
+                    register={register}
+                  />
 
-                <SelectInputs name="country" label="Country" options={countryOptions} />
-                <SelectInputs
-                  name="state"
-                  label="State"
-                  options={stateOptions}
-                  disabled={!countryId}
-                />
-                <SelectInputs
-                  name="district"
-                  label="District"
-                  options={districtOptions}
-                  disabled={!stateId}
-                />
+                  <SelectInputs
+                    name="country"
+                    label="Country"
+                    options={countryOptions}
+                  />
+                  <SelectInputs
+                    name="state"
+                    label="State"
+                    options={stateOptions}
+                    disabled={!countryId}
+                  />
+                  <SelectInputs
+                    name="district"
+                    label="District"
+                    options={districtOptions}
+                    disabled={!stateId}
+                  />
 
-                <Inputs name="city" label="City" required />
-                <Inputs name="pincode" label="Pincode" required />
+                  <Inputs name="city" label="City" required />
+                  <Inputs name="pincode" label="Pincode" required />
 
-                <div className="flex gap-3 mt-4 justify-end">
-                  <button
-                    onClick={handleSubmit(saveAddress)}
-                    disabled={isAddPending || isEditPending}
-                    className="bg-[var(--color-primary)] text-white px-4 py-2 rounded"
-                  >
-                    {isAddPending || isEditPending
-                      ? "Saving..."
-                      : editId
-                      ? "Update Address"
-                      : "Save Address"}
-                  </button>
+                  <div className="flex gap-3 mt-4 justify-end">
+                    <button
+                      onClick={handleSubmit(saveAddress)}
+                      disabled={isAddPending || isEditPending}
+                      className="bg-[var(--color-primary)] text-white px-4 py-2 rounded"
+                    >
+                      {isAddPending || isEditPending
+                        ? "Saving..."
+                        : editId
+                        ? "Update Address"
+                        : "Save Address"}
+                    </button>
 
-                  <button
-                    onClick={() => {
-                      reset();
-                      setEditId(null);
-                      setShowForm(false);
-                    }}
-                    className="border px-4 py-2 rounded"
-                  >
-                    Cancel
-                  </button>
+                    <button
+                      onClick={() => {
+                        reset();
+                        setEditId(null);
+                        setShowForm(false);
+                      }}
+                      className="border px-4 py-2 rounded"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </FormProvider>
+              </FormProvider>
+            )}
           </div>
         </div>
       )}
 
-  
       <ConfirmDialog
         isOpen={confirmOpen}
         title="Delete Address"
-        message="Are you sure you want to delete this address? This action cannot be undone."
+        message="Are you sure you want to delete this address?"
         confirmText="Delete"
         cancelText="Cancel"
         onConfirm={confirmDelete}
