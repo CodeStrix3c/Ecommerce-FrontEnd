@@ -11,11 +11,12 @@ export const passwordValidator = z
   .string()
   .regex(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{7,}$/,
-    "Password must be at least 7 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
+    "Password must be at least 7 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.",
   );
-
 export const phoneValidator = z
   .string()
+  .trim()
+  .min(1, "Phone number is required") // 🔥 REQUIRED
   .regex(/^[0-9]{10}$/, "Enter your registered 10-digit phone number");
 
 export const nameValidator = z.string().min(2, "Name is required");

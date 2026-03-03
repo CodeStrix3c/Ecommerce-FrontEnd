@@ -1,22 +1,30 @@
 import { Search } from "lucide-react";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function SecondarySearchBar({
   className = "",
   placeholder = "Search...",
-  value = "",
   onSearch,
+  defaultValue = "",
 }) {
-  const handleChange = (e) => {
-    const val = e.target.value;
-    onSearch?.(val); // 🔥 live search
-  };
+  const [query, setQuery] = useState(defaultValue);
+  const onSearchRef = useRef(onSearch);
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      onSearch?.(value.trim());
-    }
-  };
+  // keep latest onSearch without retriggering effect
+  useEffect(() => {
+    onSearchRef.current = onSearch;
+  }, [onSearch]);
+
+  // ✅ TRUE debounce
+  useEffect(() => {
+    if (!query.trim()) return;
+
+    const timer = setTimeout(() => {
+      onSearchRef.current?.(query.trim());
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [query]);
 
   return (
     <div className={`w-full flex justify-center ${className}`}>
@@ -24,15 +32,13 @@ function SecondarySearchBar({
         <input
           type="text"
           placeholder={placeholder}
-          value={value}
-          onChange={handleChange}
-          onKeyDown={handleKeyPress}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           className="flex-1 px-4 py-2.5 sm:py-3 text-sm sm:text-base outline-none bg-transparent text-[var(--color-black)] placeholder-gray"
         />
 
         <button
-          onClick={() => onSearch?.(value.trim())}
-          className="bg-[var(--color-secondary)] text-[var(--color-white)] p-2 sm:p-2.5 hover:bg-[var(--color-secondary-hover)] mr-1 transition-all duration-300 rounded-full flex items-center justify-center"
+          className="bg-[var(--color-secondary)] text-[var(--color-white)] p-2 sm:p-2.5 mr-1 rounded-full flex items-center justify-center cursor-default"
           aria-label="search"
         >
           <Search size={18} className="sm:w-5 sm:h-5" />

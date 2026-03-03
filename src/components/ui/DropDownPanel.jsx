@@ -1,8 +1,5 @@
 import useIsMobile from "@/hooks/useInMobile";
-import {
-  removeItemFromLocalStorage,
-  getItemFromLocalStorage,
-} from "@/utils/localStorage";
+import { getItemFromLocalStorage } from "@/utils/localStorage";
 import {
   Info,
   User,
@@ -11,28 +8,61 @@ import {
   Package,
   LogOut,
   LogIn,
+  Settings2,
 } from "lucide-react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@/providers/UserProvider";
+import { useQueryClient } from "@tanstack/react-query";
 
 const DropdownPanel = ({ open, onClose }) => {
   const isMobile = useIsMobile(1100);
   const navigate = useNavigate();
+  const { logout } = useUser();
+  const queryClient = useQueryClient();
 
   const token = getItemFromLocalStorage("token");
   const isAuthenticated = Boolean(token);
 
+  /* ================= AUTH ACTION ================= */
   const handleAuthAction = () => {
-    onClose();
+    onClose?.();
 
     if (isAuthenticated) {
-      removeItemFromLocalStorage("token");
-      removeItemFromLocalStorage("loginData");
+      logout();
+      queryClient.clear();
       toast.success("Logged out successfully!");
-      navigate("/login");
+      navigate("/");
     } else {
       navigate("/login");
     }
+  };
+
+  /* ================= SETTINGS ================= */
+  const handleSettings = () => {
+    onClose?.();
+
+    if (!isAuthenticated) {
+      toast.info("Please login to access settings");
+      navigate("/login");
+      return;
+    }
+
+    // Correct route
+    navigate("/settings");
+  };
+
+  /* ================= PROFILE ================= */
+  const handleOpenProfile = () => {
+    onClose?.();
+
+    if (!isAuthenticated) {
+      toast.info("Please login to view your profile");
+      navigate("/login");
+      return;
+    }
+
+    navigate("/profile");
   };
 
   return (
@@ -44,13 +74,16 @@ const DropdownPanel = ({ open, onClose }) => {
       }`}
     >
       <div className="flex flex-col py-2 text-[var(--color-black)]">
-        {/* About & Help */}
+        {/* About */}
         <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
-          <Info size={16} /> <span>About Our Heritage</span>
+          <Info size={16} />
+          <span>About Our Heritage</span>
         </div>
 
+        {/* Help */}
         <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
-          <HelpCircle size={16} /> <span>Visitor Support</span>
+          <HelpCircle size={16} />
+          <span>Visitor Support</span>
         </div>
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
@@ -70,29 +103,54 @@ const DropdownPanel = ({ open, onClose }) => {
 
         {/* Collections */}
         <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
-          <Package size={16} /> <span>Craft Collections</span>
+          <Package size={16} />
+          <span>Craft Collections</span>
         </div>
 
+        {/* Settings (Desktop) */}
+        <div
+          onClick={handleSettings}
+          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <Settings2 size={16} />
+          <span>Settings</span>
+        </div>
+
+        {/* Mobile Extra Options */}
         {isMobile && (
           <>
             <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
-              <Palette size={16} /> <span>Handicraft Categories</span>
+              <Palette size={16} />
+              <span>Handicraft Categories</span>
             </div>
 
             <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
-              <User size={16} /> <span>Artisan Profiles</span>
+              <User size={16} />
+              <span>Artisan Profiles</span>
+            </div>
+
+            <div
+              onClick={handleSettings}
+              className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+            >
+              <Settings2 size={16} />
+              <span>Settings</span>
             </div>
           </>
         )}
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
-        {/* Account */}
-        <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
-          <User size={16} /> <span>Visitor Account</span>
+        {/* Profile */}
+        <div
+          onClick={handleOpenProfile}
+          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <User size={16} />
+          <span>Visitor Account</span>
         </div>
 
-        {/* Auth Action */}
+        {/* Login / Logout */}
         <div
           onClick={handleAuthAction}
           className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-[var(--color-black-hover)] transition-colors"

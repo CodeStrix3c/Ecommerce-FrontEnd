@@ -8,6 +8,7 @@ import FormInput from "@/components/shared/custom-inputs/FormInput";
 import useIsMobile from "@/hooks/useInMobile";
 import CustomButton from "@/components/ui/CustomButton";
 import { loginSchema } from "@/features/farmer-registration/schemas/authSchemas";
+import { setItemsInLocalStorage } from "@/utils/localStorage";
 
 export default function SupplierLogin() {
   const [redirect, setRedirect] = useState(false);
@@ -33,7 +34,11 @@ export default function SupplierLogin() {
       console.log("Login Data:", data);
       await new Promise((res) => setTimeout(res, 1000));
       toast.success("Logged in successfully!");
-      localStorage.setItem("authToken", "dummyToken");
+      // localStorage.setItem("authToken", "dummyToken");
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("userId", res.userId);
+      localStorage.setItem("roles", res.roles);
+      localStorage.setItem("vendorId", res.vendorId);
       setRedirect(true);
     } catch (err) {
       toast.error("Login failed. Please check your credentials.");
@@ -88,7 +93,7 @@ export default function SupplierLogin() {
             to="/supplier-register"
             className="text-[var(--color-primary)] font-medium underline"
           >
-            Register here
+            Register here.
           </Link>
         </footer>
       </section>

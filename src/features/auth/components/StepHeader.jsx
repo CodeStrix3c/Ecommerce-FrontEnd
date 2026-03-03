@@ -67,7 +67,7 @@ const StepHeader = ({ activeStep, labels, descriptions }) => {
               fontSize: { xs: "0.85rem", sm: "0.875rem", md: "1rem" },
             }}
           >
-            Step {activeStep + 1} of {totalSteps}
+            {/* Step {activeStep + 1} of {totalSteps} */}
           </Typography>
         </Box>
       </Box>

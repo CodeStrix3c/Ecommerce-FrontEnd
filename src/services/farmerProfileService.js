@@ -31,11 +31,40 @@ export const getProfileSection = async (userId) => {
   return response.data;
 };
 
+//send otp
+export const sendOtp = async (data) => {
+  const response = await axiosInstance.post(
+    "/api/core/otpverification/send",
+    data,
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  return response.data;
+};
+
 // 🔢 VERIFY OTP
 export const verifyUserOtp = async (data) => {
-  const response = await axiosInstance.post("/api/core/verifyOtp", data, {
-    headers: { "Content-Type": "application/json" },
-  });
+  const response = await axiosInstance.post(
+    "/api/core/otpverification/verify",
+    data,
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  return response.data;
+};
+
+// verify email & phoneNumber
+
+export const verifyUserEmailandPhone = async (data) => {
+  const response = await axiosInstance.post(
+    "/api/core/userProfile/CheckExistingEmailandPhoneNumber",
+    data,
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
   return response.data;
 };
 
