@@ -1,106 +1,108 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tag } from "lucide-react";
 import { useCartList } from "@/providers/CartListProvider";
 import QuantitySelector from "@/components/shared/QuantitySelector";
 
-const BookingWidget = ({ place, onBuyNow, onAddToCart }) => {
+const BookingWidget = ({ place, onBuyNow }) => {
   const [quantity, setQuantity] = useState(1);
-  const { cartList } = useCartList();
+
+  const { cartList, addToCartList, removeFromCart, updateQuantity } =
+    useCartList();
 
   if (!place) return null;
 
   const price = place?.price || 0;
-  const isCartListed = cartList?.some((item) => item._id === place._id);
+
+  // 🔎 Check if product exists in cart
+  const cartItem = cartList?.find((item) => item.productId === place._id);
+
+  const isCartListed = !!cartItem;
+
   const totalPrice = quantity * price;
 
+  /* ===============================
+     HANDLE ADD / REMOVE
+  ================================= */
+
+  const handleCartAction = () => {
+    if (!isCartListed) {
+      addToCartList({
+        productId: place._id,
+        quantity,
+      });
+    } else {
+      removeFromCart(cartItem.id);
+    }
+  };
+
+  /* ===============================
+     HANDLE QUANTITY CHANGE
+  ================================= */
+
+  const handleQuantityChange = (newQty) => {
+    setQuantity(newQty);
+
+    // If item already in cart → update API
+    if (cartItem) {
+      updateQuantity(cartItem.id, newQty);
+    }
+  };
+
+  // Sync local quantity when cart already has item
+  useEffect(() => {
+    if (cartItem) {
+      setQuantity(cartItem.quantity);
+    }
+  }, [cartItem]);
+
   return (
-    <div className="w-full md:mx-auto md:max-w-2xl md:pb-0">
-
-      {/* Desktop Card */}
-      <div className="hidden md:flex flex-col border rounded-xl p-4 bg-[var(--color-white)] shadow-lg mx-auto">
-
-        {/* Price include notice INSIDE card */}
-        <div className="flex items-center border rounded-lg p-3 mb-3 bg-gray-50">
+    <div className="w-full md:mx-auto md:max-w-2xl">
+      <div className="hidden md:flex flex-col border rounded-xl p-6 bg-white shadow-lg">
+        {/* Info Banner */}
+        <div className="flex items-center border rounded-lg p-3 mb-4 bg-gray-50">
           <Tag className="text-[var(--color-secondary)]" size={18} />
-          <p className="ms-3 text-sm font-semibold">
-            Prices include all fees
-          </p>
+          <p className="ms-3 text-sm font-semibold">Prices include all fees</p>
         </div>
 
         {/* Price */}
-        <div className="flex px-1 items-center">
-          <span className="font-bold text-xl">₹{price}</span>
-          <span className="px-1 text-sm font-semibold">per item</span>
+        <div className="flex items-center mb-4">
+          <span className="font-bold text-2xl">₹{price}</span>
+          <span className="px-2 text-sm font-medium text-gray-600">
+            per item
+          </span>
         </div>
 
-        {/* Quantity + Total in SAME ROW */}
-        <div className="mt-4 flex items-center justify-between">
+        {/* Quantity + Total */}
+        <div className="flex items-center justify-between mb-5">
           <div className="flex items-center">
             <p className="text-sm font-semibold">Quantity :</p>
             <div className="ms-3">
               <QuantitySelector
                 quantity={quantity}
-                setQuantity={setQuantity}
+                setQuantity={handleQuantityChange}
               />
             </div>
           </div>
 
-          <div className="text-sm font-semibold">
-            Total: ₹{totalPrice}
-          </div>
+          <div className="text-sm font-semibold">Total: ₹{totalPrice}</div>
         </div>
 
-        {/* Actions */}
-          <div className="grid grid-cols-2 items-center gap-2 w-full mt-4">
-  <button
-    onClick={() => onBuyNow(quantity)}
-    className="w-full px-6 py-2 rounded-md text-sm font-semibold text-white bg-[var(--color-primary)]"
-  >
-    Buy Now
-  </button>
+        {/* Buttons */}
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={() => onBuyNow?.(quantity)}
+            className="w-full px-6 py-3 rounded-lg text-sm font-semibold text-white bg-[var(--color-primary)] hover:opacity-90 transition"
+          >
+            Buy Now
+          </button>
 
-  <button
-    onClick={onAddToCart}
-    className="w-full px-6 py-2 border border-[var(--color-dark)] rounded-md text-sm font-medium text-[var(--color-black)]"
-  >
-    {isCartListed ? "Remove" : "Add to cart"}
-  </button>
-</div>
-      </div>
-
-      {/* Mobile Bottom Bar (unchanged) */}
-      <div className="md:hidden fixed bottom-16 left-0 right-0 z-50 border-t bg-[var(--color-white)] p-4 shadow-lg pb-[calc(env(safe-area-inset-bottom)+14px)]">
-        
-        <div className="flex justify-between mb-3">
-          <div>
-            <p className="text-lg font-bold">₹{totalPrice}</p>
-            <p className="text-xs">
-              {quantity} × ₹{price}
-            </p>
-          </div>
-          <QuantitySelector
-            quantity={quantity}
-            setQuantity={setQuantity}
-          />
+          <button
+            onClick={handleCartAction}
+            className="w-full px-6 py-3 border border-gray-800 rounded-lg text-sm font-medium hover:bg-gray-100 transition"
+          >
+            {isCartListed ? "Remove from cart" : "Add to cart"}
+          </button>
         </div>
-
-    <div className="grid grid-cols-2 items-center gap-2 w-full">
-  <button
-    onClick={() => onBuyNow(quantity)}
-    className="w-full px-6 py-2 rounded-md text-sm font-semibold text-white bg-[var(--color-primary)]"
-  >
-    Buy Now
-  </button>
-
-  <button
-    onClick={onAddToCart}
-    className="w-full px-6 py-2 rounded-md text-sm font-medium text-white "
-  >
-    {isCartListed ? "Remove" : "Add to cart"}
-  </button>
-</div>
-
-
       </div>
     </div>
   );

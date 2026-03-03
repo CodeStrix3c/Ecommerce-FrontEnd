@@ -28,6 +28,7 @@ export const useAddToCart = () => {
     mutationFn: addToCart,
     onSuccess: () => {
       // Refetch cart after adding
+      toast.success("Product added to cart");
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });
