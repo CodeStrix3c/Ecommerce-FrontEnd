@@ -71,7 +71,7 @@ import {
   useUpdateCartQuantity,
 } from "@/hooks/User/Cart/usecartitems";
 
-import { createContext, useContext, useEffect, useMemo } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useUser } from "./UserProvider";
@@ -88,19 +88,11 @@ export const CartListProvider = ({ children }) => {
   const { mutate: removeItem } = useRemoveFromCart();
   const { mutate: updateItemQuantity } = useUpdateCartQuantity();
 
-  /* -------------------- CART DATA -------------------- */
-
-  // ✅ 1. Keep items array (NO BREAKING CHANGES)
-  const cartList = data?.items || [];
-
-  // ✅ 2. Also expose full response
-  const cartResponse = data || null;
-
-  // ✅ Optional helpers (safe defaults)
+  /* -------------------- FULL CART DATA -------------------- */
+  const cartItems = data?.items || [];
   const subTotal = data?.subTotal || 0;
   const discount = data?.discount || 0;
   const subTotalWithDiscount = data?.subTotalWithDiscount || 0;
-  const isValid = data?.isValid ?? true;
 
   /* -------------------- CLEAR CACHE ON LOGOUT -------------------- */
   useEffect(() => {
@@ -135,44 +127,25 @@ export const CartListProvider = ({ children }) => {
 
   /* -------------------- CLEAR CART -------------------- */
   const clearCart = () => {
-    cartList.forEach((item) => {
+    cartItems.forEach((item) => {
       removeItem({ cartItemId: item.id });
     });
   };
 
-  /* -------------------- CONTEXT VALUE -------------------- */
-  const value = useMemo(
-    () => ({
-      // 🔥 OLD STRUCTURE (unchanged)
-      cartList,
-      isLoading,
-
-      // 🔥 NEW STRUCTURE (full response)
-      cartResponse,
-      subTotal,
-      discount,
-      subTotalWithDiscount,
-      isValid,
-
-      // 🔥 Actions
-      addToCartList,
-      removeFromCart,
-      clearCart,
-      updateQuantity,
-    }),
-    [
-      cartList,
-      cartResponse,
-      subTotal,
-      discount,
-      subTotalWithDiscount,
-      isValid,
-      isLoading,
-    ],
-  );
-
   return (
-    <CartListContext.Provider value={value}>
+    <CartListContext.Provider
+      value={{
+        cartList: cartItems,
+        subTotal,
+        discount,
+        subTotalWithDiscount,
+        isLoading,
+        addToCartList,
+        removeFromCart,
+        clearCart,
+        updateQuantity,
+      }}
+    >
       {children}
     </CartListContext.Provider>
   );

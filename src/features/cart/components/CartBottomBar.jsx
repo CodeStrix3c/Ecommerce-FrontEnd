@@ -20,7 +20,7 @@ const CartBottomBar = ({ cart, total, onCheckout, onPaymentChange }) => {
       <div className="flex items-center justify-between">
         <div>
           <span className="text-lg font-semibold text-[var(--color-primary)]">
-            ₹{total.toFixed(2)}
+            ₹{total}
           </span>
           <span className="block text-xs text-[var(--color-black)]">
             {cart.length} {cart.length === 1 ? "item" : "items"}
