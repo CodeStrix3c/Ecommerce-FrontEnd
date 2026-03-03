@@ -10,8 +10,17 @@ export const getUserAddresses = async () => {
   return data;
 }
 
+
+
 export const deleteUserAddress = async (userAddressId) => {
   const { data } = await axiosInstance.post("/Delete", null, {
+    params: { id: userAddressId },
+  });
+  return data;
+};
+
+export const getExistingAddressess = async (userAddressId) => {
+  const { data } = await axiosInstance.get("/Edit", {
     params: { id: userAddressId },
   });
   return data;
