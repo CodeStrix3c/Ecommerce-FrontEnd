@@ -116,8 +116,8 @@ const CartPage = () => {
           >
 
             <div className="flex items-center gap-3">
-              <div className="bg-blue-100 p-3 rounded-full shadow-sm">
-                <ShoppingCart className="w-6 h-6 text-blue-600" />
+              <div className="bg-[var(--color-secondary)] p-3 rounded-full shadow-sm">
+                <ShoppingCart className="w-6 h-6 text-white" />
               </div>
 
               <div>
