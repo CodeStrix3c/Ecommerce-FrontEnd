@@ -1,8 +1,8 @@
 @import "react-loading-skeleton/dist/skeleton.css";
-
+/* 
 * {
   user-select: none;
-}
+} */
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -150,24 +150,28 @@ button.social {
 
 /* //////////////////////////////////////////// */
 .responsive-padding {
-  padding-top: 1rem; /* same as Tailwind pt-8 */
+  padding-top: 1rem;
+  /* same as Tailwind pt-8 */
 }
 
 @media (min-width: 640px) {
   .responsive-padding {
-    padding-top: 2.5rem; /* pt-10 */
+    padding-top: 2.5rem;
+    /* pt-10 */
   }
 }
 
 @media (min-width: 768px) {
   .responsive-padding {
-    padding-top: 2.5rem; /* still pt-10 */
+    padding-top: 2.5rem;
+    /* still pt-10 */
   }
 }
 
 @media (min-width: 1024px) {
   .responsive-padding {
-    padding-top: 10rem; /* pt-60 */
+    padding-top: 10rem;
+    /* pt-60 */
   }
 }
 
@@ -186,18 +190,21 @@ button.social {
 /* /////////////////////////////////////////////////////////// */
 
 .top-spacing {
-  margin-top: 4rem; /* similar to Tailwind mt-16 */
+  margin-top: 4rem;
+  /* similar to Tailwind mt-16 */
 }
 
 @media (min-width: 640px) {
   .top-spacing {
-    margin-top: 4rem; /* mt-16 */
+    margin-top: 4rem;
+    /* mt-16 */
   }
 }
 
 @media (min-width: 1024px) {
   .top-spacing {
-    margin-top: 10rem; /* mt-32 */
+    margin-top: 10rem;
+    /* mt-32 */
   }
 }
 

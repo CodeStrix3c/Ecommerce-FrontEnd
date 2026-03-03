@@ -2,155 +2,155 @@ import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
-import {
-  Button,
-  Divider,
-  Tabs,
-  Tab,
-  Box,
-  CircularProgress,
-} from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Button, Divider, CircularProgress, Paper, Box } from "@mui/material";
+import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  phoneLoginSchema,
-  emailLoginSchema,
-} from "@/features/farmer-registration/schemas/authSchemas";
-import FormInput from "../../../components/shared/custom-inputs/FormInput";
+import { phoneLoginSchema } from "@/features/farmer-registration/schemas/authSchemas";
+import Inputs from "@/components/shared/Inputs";
 import { useLoginMutation } from "@/hooks/useFarmerProfileMutations";
-import { setItemsInLocalStorage } from "@/utils/localStorage";
-import userCredentials from "../../../data/userCredentials.json";
 import { useUser } from "@/providers/UserProvider";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
-  const [tab, setTab] = useState(0);
+  const { setUserId, setToken, setRoles, setVendorId } = useUser();
 
   const { mutate: loginMutate, isPending } = useLoginMutation();
-  const { setUserId } = useUser();
 
-  const schema = tab === 0 ? phoneLoginSchema : emailLoginSchema;
+  const methods = useForm({
+    resolver: zodResolver(phoneLoginSchema),
+    mode: "onBlur",
+  });
 
   const {
-    register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(schema) });
+  } = methods;
 
   const onSubmit = (data) => {
-    // const isEmailLogin = tab === 1;
-    // const { email, phone, password } = data;
-    // const isValid =
-    //   (isEmailLogin &&
-    //     email === userCredentials.email &&
-    //     password === userCredentials.password) ||
-    //   (!isEmailLogin &&
-    //     phone === userCredentials.phone &&
-    //     password === userCredentials.password);
+    const payload = {
+      mobileNumber: data.mobileNumber,
+      password: data.password,
+    };
 
-    // if (!isValid) {
-    //   toast.error("Invalid Credentials.");
-    //   return;
-    // }
-    setItemsInLocalStorage("token", "demo-token-12345");
+    loginMutate(payload, {
+      onSuccess: (res) => {
+        console.log("Login response:", res);
 
-    setRedirect(true);
-    // const payload =
-    //   tab === 0
-    //     ? { phone: data.phone, password: data.password }
-    //     : { email: data.email, password: data.password };
+        // Store token from backend
+        // setItemsInLocalStorage("token", res.token);
+        // setItemsInLocalStorage("userId", res.user);
+        // setItemsInLocalStorage("roles", res.roles);
+        // setItemsInLocalStorage("vendorId", res.vendorId);
+        setToken(res.token);
+        setUserId(res.user);
+        setRoles(res.roles);
+        setVendorId(res.vendorId);
 
-    // loginMutate(payload, {
-    //   onSuccess: (res) => {
-    //     console.log(res, "res from login");
-    //     setItemsInLocalStorage("userLoginToken", res.token);
-    //     toast.success("Login successful!");
-    //     setRedirect(true);
-    //   },
-    //   onError: (err) => {
-    //     toast.error(
-    //       err?.response?.data?.error || "Network error. Please try again later."
-    //     );
-    //   },
-    // });
+        toast.success("Login successful!");
+        setRedirect(true);
+      },
+      onError: (err) => {
+        toast.error(
+          err?.response?.data?.error ||
+            err?.response?.data?.message ||
+            "something went wrong",
+        );
+      },
+    });
   };
 
-  const handleGoogleLogin = async (credential) => {
-    const response = { success: true, message: "Google login successful!" };
-    if (response.success) {
-      localStorage.setItem("token", "fake-google-token-12345");
-      toast.success(response.message);
-      navigate("/home");
-      setRedirect(true);
-    } else {
-      toast.error(response.message);
-    }
+  const handleGoogleLogin = async () => {
+    toast.success("Google login successful!");
+    navigate("/home");
+    setRedirect(true);
   };
 
   if (redirect) return <Navigate to="/home" replace />;
 
   return (
-    <div className="flex justify-center min-h-screen">
-      <div className="w-full max-w-md bg-var(--color-white) rounded-xl mt-20 lg:mt10 p-6">
-        <h1
-          className="text-2xl font-semibold mb-6 text-center"
-          style={{ color: "var(--color-black)" }}
+    <FormProvider {...methods}>
+      <Box
+        className="
+        flex 
+        items-center 
+        justify-center 
+        min-h-screen 
+        bg-[var(--color-background)]
+        px-4 
+        sm:px-6 
+        md:px-8
+        py-6
+      "
+      >
+        <Paper
+          elevation={0}
+          className="
+          w-full 
+          max-w-sm 
+          sm:max-w-md
+          md:max-w-md
+          rounded-2xl
+        "
+          sx={{
+            backgroundColor: "var(--color-white)",
+            boxShadow: "none",
+            padding: {
+              xs: "20px",
+              sm: "28px",
+              md: "32px",
+            },
+          }}
         >
-          Log in to your account
-        </h1>
+          <div className="flex flex-col items-center mb-5 sm:mb-6">
+            <img
+              src="/assets/images/logo6.png"
+              alt="App Logo"
+              className="
+              object-contain
+              mb-2
+              h-14
+              sm:h-16
+              md:h-20
+            "
+            />
 
-        <Tabs
-          value={tab}
-          onChange={(e, val) => setTab(val)}
-          textColor="primary"
-          indicatorColor="primary"
-          centered
-        >
-          <Tab label="Phone" />
-          <Tab label="Email" />
-        </Tabs>
+            <h1
+              className="
+              font-semibold 
+              text-center
+              text-xl
+              sm:text-2xl
+              md:text-2xl
+            "
+              style={{ color: "var(--color-black)" }}
+            >
+              Log in to your account
+            </h1>
+          </div>
 
-        <Box className="mt-6">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-3 sm:gap-4"
           >
-            {tab === 0 ? (
-              <>
-                <FormInput
-                  name="phone"
-                  label="Phone number"
-                  type="tel"
-                  register={register}
-                  errors={errors.phone}
-                />
-                <FormInput
-                  name="password"
-                  label="Password"
-                  type="password"
-                  register={register}
-                  errors={errors.password}
-                />
-              </>
-            ) : (
-              <>
-                <FormInput
-                  name="email"
-                  label="Email"
-                  type="email"
-                  register={register}
-                  errors={errors.email}
-                />
-                <FormInput
-                  name="password"
-                  label="Password"
-                  type="password"
-                  register={register}
-                  errors={errors.password}
-                />
-              </>
-            )}
+            <Inputs
+              required
+              name="mobileNumber"
+              label="Phone number"
+              placeholder="Enter Your Phone Number"
+              type="phone"
+              countryCode="+91"
+              errors={errors.mobileNumber}
+            />
+
+            <Inputs
+              required
+              name="password"
+              label="Password :"
+              placeholder="Enter Your Password"
+              type="password"
+              errors={errors.password}
+            />
 
             <Button
               fullWidth
@@ -159,60 +159,63 @@ const LoginPage = () => {
               disabled={isPending}
               sx={{
                 backgroundColor: "var(--color-primary)",
-                "&:hover": { backgroundColor: "var(--color-primary-hover)" },
+                "&:hover": {
+                  backgroundColor: "var(--color-primary-hover)",
+                },
                 textTransform: "none",
-                fontWeight: "600",
+                fontWeight: 600,
                 borderRadius: "12px",
-                py: 1.5,
+                py: {
+                  xs: 1.3,
+                  sm: 1.5,
+                },
+                fontSize: {
+                  xs: "14px",
+                  sm: "15px",
+                },
                 color: "var(--color-white)",
               }}
             >
               {isPending ? (
-                <CircularProgress size={24} sx={{ color: "white" }} />
+                <CircularProgress size={22} sx={{ color: "white" }} />
               ) : (
                 "Continue"
               )}
             </Button>
           </form>
-        </Box>
 
-        <Divider
-          sx={{
-            my: 4,
-            color: "var(--color-black)",
-            "&::before, &::after": { borderColor: "var(--color-black)" },
-          }}
-        >
-          or
-        </Divider>
-
-        <div className="flex flex-col gap-3">
-          <GoogleLogin
-            onSuccess={(cred) => handleGoogleLogin(cred.credential)}
-            onError={() => console.log("Login failed")}
-            text="continue_with"
-            width="100%"
-          />
-        </div>
-
-        <p
-          className="mt-6 text-center text-sm"
-          style={{ color: "var(--color-black)" }}
-        >
-          Don’t have an account?{" "}
-          <Link
-            to="/sign-up"
-            style={{
-              fontWeight: "500",
-              textDecoration: "underline",
-              color: "var(--color-black)",
+          {/* Divider */}
+          <Divider
+            sx={{
+              my: {
+                xs: 3,
+                sm: 4,
+              },
             }}
           >
-            Sign up
-          </Link>
-        </p>
-      </div>
-    </div>
+            or
+          </Divider>
+
+          {/* Google Login */}
+          <div className="flex justify-center">
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => toast.error("Google login failed")}
+              text="continue_with"
+              width="100%"
+            />
+          </div>
+
+          {/* Sign Up Link */}
+          <p className="mt-5 sm:mt-6 text-center text-sm">
+            Don’t have an account?{" "}
+            <Link to="/sign-up" className="font-medium underline">
+              Sign up
+            </Link>
+          </p>
+        </Paper>
+      </Box>
+    </FormProvider>
   );
 };
 

@@ -1,176 +1,334 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react";
 
 import Spinner from "@/components/ui/Spinner";
-import AddressLink from "@/components/shared/AddressLink";
 import BookingWidget from "@/features/bookings/components/BookingWidget";
 import PlaceGallery from "@/features/places/components/PlaceGallery";
-import PerksWidget from "@/features/perks/components/PerksWidget";
-import MapBox from "@/components/ui/MapBox";
 import ListingHeader from "@/components/shared/ListingHeader";
-import RatingSummary from "@/features/reviews/components/Ratings";
-import OverallRating from "@/features/reviews/components/OverallRating";
-import Testimonials from "@/features/reviews/pages/Testimonials";
 import HighlightBanner from "@/features/reviews/components/HighlightBanner";
-import ExploreNearby from "../components/ExploreNearby";
-import SharePopUp from "@/components/ui/SharePopUp";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import LoginPromptModal from "@/components/shared/LoginPromptModal";
-
-import agriculturalOptions from "@/data/agriculturalOptions";
-import { useProductsQuery } from "@/hooks/useProductsQuery";
 import { useCartList } from "@/providers/CartListProvider";
 import { requireLogin } from "@/utils/auth";
+import {
+  useProductDetailsQuery,
+  useProductsQuery,
+} from "@/hooks/useProductsQuery";
+import ProductInfoPanel from "../components/ProductInfoPanel";
+import Testimonials from "@/features/reviews/pages/Testimonials";
+
+const IMAGE_BASE_URL =
+  "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net";
+
+const ZOOM_LEVEL = 3;
 
 const PlacePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  // Use passed state first
-  const [place, setPlace] = useState(location.state?.place || null);
-  const [loading, setLoading] = useState(!place);
-  const [sharePopUp, setSharePopUp] = useState(false);
+  const { data: product, isLoading } = useProductDetailsQuery(id);
+  const { data: productsData } = useProductsQuery({ page: 1 });
+
+  const [place, setPlace] = useState(null);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
-  const { data: products, isLoading: productsLoading } = useProductsQuery();
-  const { toggleCartList, cartList } = useCartList();
+  const { toggleCartList } = useCartList();
 
-  const isCartListed = cartList.some((item) => item._id === place._id);
+  const [openSections, setOpenSections] = useState({
+    shortDesc: false,
+    description: false,
+    attributes: false,
+    brand: false,
+    stock: false,
+  });
 
-  // Fallback: find product from query if not passed via state
-  useEffect(() => {
-    if (place || !products) return;
+  /* ===========================
+     MAGNIFIER STATES
+  ============================ */
 
-    setLoading(true);
-    const foundPlace = products.find((p) => p._id === id);
+  const imageRef = useRef(null);
 
-    // optional delay for smoother UX
-    setTimeout(() => {
-      setPlace(foundPlace);
-      setLoading(false);
-    }, 400);
-  }, [id, products, place]);
+  const [showZoom, setShowZoom] = useState(false);
+  const [zoomImage, setZoomImage] = useState(null);
+  const [zoomPos, setZoomPos] = useState("0px 0px");
 
-  /* 🔐 LOGIN GATE (POPUP, NOT REDIRECT) */
+  const handleMouseEnter = () => {
+    if (!place?.photos?.length) return;
+    setZoomImage(place.photos[0]);
+    setShowZoom(true);
+  };
 
-  const handleBuyNow = (quantity) => {
-    requireLogin(
-      () => {
-        toast.success(
-          `Proceeding to checkout for ${quantity} × ${place.title}`
-        );
-        // navigate("/checkout");
+  const handleMouseLeave = () => {
+    setShowZoom(false);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!imageRef.current) return;
+
+    const rect = imageRef.current.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const bgX = (x / rect.width) * rect.width * ZOOM_LEVEL;
+    const bgY = (y / rect.height) * rect.height * ZOOM_LEVEL;
+
+    setZoomPos(`-${bgX - 300}px -${bgY - 300}px`);
+  };
+
+  /* ===========================
+     SECTION TOGGLE
+  ============================ */
+
+  const toggleSection = (key) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  /* ===========================
+     SLIDER
+  ============================ */
+
+  const [popularRef, popularInstanceRef] = useKeenSlider({
+    mode: "free",
+    rubberband: false,
+    slides: {
+      perView: 2.2,
+      spacing: 10,
+    },
+    breakpoints: {
+      "(min-width: 640px)": {
+        slides: { perView: 3.2, spacing: 12 },
       },
-      () => setShowLoginPopup(true) // pass the callback
-    );
-  };
+      "(min-width: 1024px)": {
+        slides: { perView: 4.2, spacing: 14 },
+      },
+    },
+  });
 
-  const handleAddToCart = () => {
-    if (isCartListed) {
-      toast.info("Item removed from cart");
-    } else {
-      toast.success("Item added to cart");
-    }
-    toggleCartList(place);
-  };
+  useEffect(() => {
+    popularInstanceRef.current?.update();
+  }, [productsData]);
 
-  const handleShare = () => setSharePopUp(true);
+  /* ===========================
+     BUILD PLACE OBJECT
+  ============================ */
 
-  if (loading || productsLoading) return <Spinner />;
-  if (!place) return <div className="p-8 text-center">Product not found</div>;
+  useEffect(() => {
+    if (!product) return;
+
+    const images =
+      product.images
+        ?.flatMap((img) => [img.url, img.thumbnailUrl])
+        .filter(Boolean)
+        .map((path) =>
+          path.startsWith("http") ? path : `${IMAGE_BASE_URL}${path}`,
+        ) ?? [];
+
+    setPlace({
+      _id: product.id,
+      title: product.name,
+      description: product.description,
+      shortDescription: product.shortDescription,
+      price: product.calculatedProductPrice?.price ?? 0,
+      oldPrice: product.calculatedProductPrice?.oldPrice ?? null,
+      discount: product.calculatedProductPrice?.percentOfSaving ?? 0,
+      rating: product.ratingAverage ?? 0,
+      reviewsCount: product.reviewsCount ?? 0,
+      stock: product.stockQuantity ?? 0,
+      inStock: product.stockTrackingIsEnabled
+        ? product.stockQuantity > 0
+        : true,
+      brand: product.brand?.name || null,
+      perks: product.attributes ?? [],
+      photos: images,
+    });
+  }, [product]);
+
+  if (isLoading || !place) return <Spinner />;
+
+  /* ===========================
+     POPULAR PRODUCTS
+  ============================ */
+
+  const productsList = productsData?.products || [];
+
+  const popularItems = productsList
+    .filter((p) => String(p.id) !== String(id))
+    .slice(0, 10)
+    .map((p) => {
+      const imgPath =
+        p.thumbnailUrl || p.images?.[0]?.thumbnailUrl || p.images?.[0]?.url;
+
+      if (!imgPath) return null;
+
+      return {
+        id: p.id,
+        title: p.name,
+        image: imgPath.startsWith("http")
+          ? imgPath
+          : `${IMAGE_BASE_URL}${imgPath}`,
+      };
+    })
+    .filter(Boolean);
+
+  /* ===========================
+     RENDER
+  ============================ */
 
   return (
-    <ContentWrapper compactScreen topSpacing>
-      {/* LOGIN POPUP */}
-      <LoginPromptModal
-        open={showLoginPopup}
-        onClose={() => setShowLoginPopup(false)}
-      />
+    <ContentWrapper>
+      <div className="pt-6 lg:pt-10 pb-6 lg:pb-8 relative">
+        <ListingHeader place={place} />
 
-      <motion.div
-        initial={false}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="overflow-x-hidden"
-      >
-        <ListingHeader place={place} onShare={handleShare} />
+        {/* ===========================
+           GALLERY + INFO
+        ============================ */}
 
-        <AddressLink placeAddress={place.address} />
-        <PlaceGallery place={place} />
-
-        <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-          {/* LEFT CONTENT */}
-          <div className="flex-1 space-y-8">
-            <HighlightBanner />
-
-            <section>
-              <h2 className="text-2xl font-semibold text-[var(--color-black)]">
-                Description
-              </h2>
-              <p className="mt-2 text-[var(--color-black)]/70 text-justify">
-                {place.description}
-              </p>
-
-              {place.extraInfo && (
-                <p className="mt-3 font-medium text-[var(--color-black)]/80">
-                  Extra Info: {place.extraInfo}
-                </p>
-              )}
-
-              <div className="mt-3">
-                {place.inStock ? (
-                  <span className="inline-block rounded-md bg-[var(--color-primary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
-                    In Stock
-                  </span>
-                ) : (
-                  <span className="inline-block rounded-md bg-[var(--color-secondary)] px-3 py-1 text-sm font-medium text-[var(--color-white)]">
-                    Out of Stock
-                  </span>
-                )}
-              </div>
-            </section>
-
-            <PerksWidget perks={place.perks} />
+        <div className="mt-10 flex flex-col gap-8 lg:flex-row relative">
+          {/* IMAGE */}
+          <div
+            ref={imageRef}
+            className="lg:w-4/7 w-full ps-2 relative"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onMouseMove={handleMouseMove}
+          >
+            <PlaceGallery place={place} />
           </div>
 
-          {/* RIGHT SIDEBAR */}
-          <aside className="w-full lg:w-1/3">
-            <div className="sticky top-28">
-              <BookingWidget
-                place={place}
-                onBuyNow={handleBuyNow}
-                onAddToCart={handleAddToCart}
-              />
+          {/* INFO PANEL */}
+          {/* INFO PANEL */}
+          <div
+            className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${
+              showZoom ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`}
+          >
+            <ProductInfoPanel
+              place={place}
+              openSections={openSections}
+              toggleSection={toggleSection}
+            />
+
+            <BookingWidget place={place} />
+          </div>
+
+          {/* ===========================
+             AMAZON STYLE ZOOM PANEL
+          ============================ */}
+
+          {showZoom && zoomImage && (
+            <div
+              className="hidden lg:block fixed z-30 bg-white border shadow-2xl rounded-lg"
+              style={{
+                top: imageRef.current?.getBoundingClientRect().top,
+                left: imageRef.current?.getBoundingClientRect().right + 20,
+                width: "600px",
+                height: "600px",
+                backgroundImage: `url(${zoomImage})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: `${imageRef.current?.offsetWidth * ZOOM_LEVEL}px ${imageRef.current?.offsetHeight * ZOOM_LEVEL}px`,
+                backgroundPosition: zoomPos,
+              }}
+            />
+          )}
+        </div>
+
+        {/* ===========================
+           BANNER
+        ============================ */}
+
+        <div className="mt-6">
+          <HighlightBanner />
+        </div>
+
+        {/* ===========================
+           POPULAR PRODUCTS
+        ============================ */}
+
+        {/* {popularItems.length > 0 && (
+          <div className="mt-10">
+            <div className="flex justify-between mb-4">
+              <h2 className="text-xl font-semibold">
+                Explore other popular Art & Craft products
+              </h2>
+
+              <div className="flex gap-2">
+                <button
+                  onClick={() => popularInstanceRef.current?.prev()}
+                  className="p-2 shadow bg-white rounded-full"
+                >
+                  <ChevronLeft />
+                </button>
+
+                <button
+                  onClick={() => popularInstanceRef.current?.next()}
+                  className="p-2 shadow bg-white rounded-full"
+                >
+                  <ChevronRight />
+                </button>
+              </div>
             </div>
-          </aside>
+
+            <div ref={popularRef} className="keen-slider">
+              {popularItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="keen-slider__slide cursor-pointer"
+                  onClick={() => navigate(`/product/${item.id}`)}
+                >
+                  <div className="h-52 rounded-xl overflow-hidden">
+                    <img
+                      src={item.image}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  <p className="mt-2 text-sm">{item.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )} */}
+        <div className="mt-10">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-xl font-semibold">Recently Viewed Products</h2>
+          </div>
+
+          <div className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth">
+            {popularItems.map((item) => (
+              <div
+                key={item.id}
+                /* FIX: Use fixed width classes instead of just min-width */
+                className="w-[160px] sm:w-[180px] lg:w-[200px] flex-shrink-0 cursor-pointer"
+                onClick={() => navigate(`/place/${item.id}`)}
+              >
+                <div className="w-full h-56 sm:h-64 lg:h-72 rounded-xl overflow-hidden bg-gray-100">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    /* FIX: Change object-contain to object-cover to fill the box uniformly */
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+
+                <p className="mt-2 text-sm font-medium line-clamp-1">
+                  {item.title}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* MOBILE STICKY WIDGET */}
-        <div className="md:hidden z-40">
-          <BookingWidget
-            place={place}
-            onBuyNow={handleBuyNow}
-            onAddToCart={handleAddToCart}
-          />
-        </div>
-
-        <RatingSummary />
-        <OverallRating />
         <Testimonials />
-
-        <MapBox address={place.address} />
-
-        <ExploreNearby
-          title="Explore other popular Art & Craft products"
-          options={agriculturalOptions}
-        />
-
-        {sharePopUp && (
-          <SharePopUp onClose={() => setSharePopUp(false)} placeData={place} />
-        )}
-      </motion.div>
+      </div>
     </ContentWrapper>
   );
 };

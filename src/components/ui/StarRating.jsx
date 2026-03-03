@@ -1,7 +1,7 @@
 import React from "react";
 import { Star } from "lucide-react";
 
-export default function StarRating({ rating = 4.2, size = 16 }) {
+export default function StarRating({ rating = 0, size = 16 }) {
   // Clamp rating between 0 and 5
   const safeRating = Math.min(5, Math.max(0, rating));
 
@@ -27,10 +27,14 @@ export default function StarRating({ rating = 4.2, size = 16 }) {
           className="relative inline-block"
           style={{ width: size, height: size }}
         >
+          {/* Empty background */}
           <Star
-            className="text-gray-300"
+            className="text-[var(--color-secondary)]"
+            fill="none"
             style={{ width: size, height: size }}
           />
+
+          {/* Filled portion */}
           <Star
             className="text-[var(--color-secondary)] fill-current absolute top-0 left-0 overflow-hidden"
             style={{
@@ -42,11 +46,12 @@ export default function StarRating({ rating = 4.2, size = 16 }) {
         </span>
       )}
 
-      {/* Empty Stars */}
+      {/* Empty Stars (secondary color, no fill) */}
       {[...Array(emptyStars)].map((_, i) => (
         <Star
           key={`empty-${i}`}
-          className="text-gray-300"
+          className="text-[var(--color-secondary)]"
+          fill="none"
           style={{ width: size, height: size }}
         />
       ))}

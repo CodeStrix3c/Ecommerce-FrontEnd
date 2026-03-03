@@ -11,6 +11,8 @@ import {
   getEducationSection,
   getProfessionSection,
   login,
+  verifyUserEmailandPhone,
+  sendOtp,
 } from "@/services/farmerProfileService";
 
 // 🔐 LOGIN
@@ -33,10 +35,20 @@ export const useProfileQuery = (userId) =>
     enabled: !!userId,
   });
 
+//send otp
+export const useSendOtpMutation = () =>
+  useMutation({
+    mutationFn: sendOtp,
+  });
 // 🔢 OTP VERIFY
 export const useOtpVerifyMutation = () =>
   useMutation({
     mutationFn: verifyUserOtp,
+  });
+
+export const useEmailandPhoneNumberMutation = () =>
+  useMutation({
+    mutationFn: verifyUserEmailandPhone,
   });
 
 // 🏠 ADDRESS SECTION

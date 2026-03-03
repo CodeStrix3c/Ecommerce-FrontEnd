@@ -1,9 +1,16 @@
-import { apiGet } from "@/api/client/request";
+import axiosInstance from "@/api/client/axiosInstance";
 
-export const getProducts = () => {
-  return apiGet("/products.json");
+export const getProducts = async (params) => {
+  const response = await axiosInstance.get("/search", {
+    params,
+  });
+
+  return response.data; // ✅ IMPORTANT
 };
 
-export const getProductById = (id) => {
-  return apiGet(`/api/products/${id}`);
+export const getProductDetails = async (id) => {
+  const response = await axiosInstance.get(
+    `/api/catalog/ProductsApi/detail/${id}`,
+  );
+  return response.data;
 };

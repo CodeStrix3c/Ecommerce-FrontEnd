@@ -43,7 +43,7 @@ const DesktopHeader = ({ location }) => {
           <NavLink to="/home" className="flex items-center gap-2">
             <img
               src="/assets/images/logo6.png"
-              alt="ziraat"
+              alt="Art&Craft"
               width={200}
               height={200}
             />
