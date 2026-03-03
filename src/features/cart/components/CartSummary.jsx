@@ -49,7 +49,7 @@ const CartSummary = ({
           localStorage.setItem("checkoutId", data.checkoutId);
         }
 
-        toast.success("Proceeding to address details...");
+        // toast.success("Proceeding to address details...");
 
         // Land the user on the address page
         navigate("/address");

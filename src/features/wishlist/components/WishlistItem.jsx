@@ -6,9 +6,16 @@ import QuantitySelector from "@/components/shared/QuantitySelector";
 const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
   const [showGallery, setShowGallery] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [isAdding, setIsAdding] = useState(false);
+  const handleAddToCart = async () => {
+    if (isAddedToCart || isAdding) return;
 
-  const handleAddToCart = () => {
-    onAddToCart(product, quantity);
+    try {
+      setIsAdding(true);
+      await onAddToCart(product, quantity);
+    } finally {
+      setIsAdding(false);
+    }
   };
 
   return (
@@ -86,7 +93,6 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
             </div>
           )}
 
-
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -106,13 +112,9 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
               hover:scale-110
             "
           >
-            <X
-              size={18}
-              className="text-gray-600 hover:text-red-500"
-            />
+            <X size={18} className="text-gray-600 hover:text-red-500" />
           </button>
         </div>
-
 
         <div
           className="
@@ -146,13 +148,9 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
               Qty: {quantity}
             </span>
 
-            <QuantitySelector
-              quantity={quantity}
-              setQuantity={setQuantity}
-            />
+            <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
           </div>
         </div>
-
 
         <div className="border-t border-gray-100 p-3 mt-auto">
           {product.inStock ? (
@@ -166,9 +164,10 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
                 text-sm font-medium
                 rounded-sm
                 transition-all duration-300
-                ${isAddedToCart
-                  ? "bg-green-50 text-green-600"
-                  : `
+                ${
+                  isAddedToCart
+                    ? "bg-green-50 text-green-600"
+                    : `
                       bg-[var(--color-secondary)]/10
                       text-[var(--color-secondary)]
                       hover:bg-[var(--color-secondary)]
@@ -198,7 +197,6 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
           )}
         </div>
       </div>
-
 
       <ImageGalleryModal
         photos={product.photos || []}

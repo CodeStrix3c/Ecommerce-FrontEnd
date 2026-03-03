@@ -1,4 +1,5 @@
-import { login, signup } from "@/services/authService";
+import { login, logout, signup } from "@/services/authService";
+import { KeyboardReturnTwoTone } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";
 
 export const useSignupMutation = () => {
@@ -11,7 +12,7 @@ export const useSignupMutation = () => {
       console.error("Signup error:", error);
     },
   });
-};  
+};
 
 export const useLoginMutation = () => {
   return useMutation({
@@ -25,4 +26,8 @@ export const useLoginMutation = () => {
   });
 };
 
-
+export const useLogoutMutation = () => {
+  return useMutation({
+    mutationFn: logout,
+  });
+};

@@ -10,7 +10,7 @@ import { ChevronDown, Loader2 } from "lucide-react";
 const WoodcraftPage = () => {
   const [searchParams, setSearchParams] = useState({
     query: "",
-    category: "woodcraft",
+    category: "woodcraft", // ✅ changed
   });
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,16 +56,13 @@ const WoodcraftPage = () => {
       ratingCount: item.reviewsCount ?? 0,
       stock: item.stockQuantity ?? 0,
       image: item.thumbnailUrl,
-      discountPercent:
-        item.calculatedProductPrice?.percentOfSaving ?? null,
+      discountPercent: item.calculatedProductPrice?.percentOfSaving ?? null,
     }));
   }, [data?.products]);
 
   const totalPages = Math.ceil(
-    (data?.totalProduct ?? 0) /
-    (data?.currentSearchOption?.pageSize ?? 10)
+    (data?.totalProduct ?? 0) / (data?.currentSearchOption?.pageSize ?? 10),
   );
-
 
   useEffect(() => {
     setAllProducts([]);
@@ -82,16 +79,13 @@ const WoodcraftPage = () => {
     sortBy,
   ]);
 
-
   useEffect(() => {
     if (data?.products) {
       setAllProducts((prev) => {
         if (currentPage === 1) return products;
 
         const existingIds = new Set(prev.map((p) => p.id));
-        const newProducts = products.filter(
-          (p) => !existingIds.has(p.id)
-        );
+        const newProducts = products.filter((p) => !existingIds.has(p.id));
         return [...prev, ...newProducts];
       });
 
@@ -116,7 +110,7 @@ const WoodcraftPage = () => {
           setCurrentPage((prev) => prev + 1);
         }
       },
-      { threshold: 0.1, rootMargin: "200px" }
+      { threshold: 0.1, rootMargin: "200px" },
     );
 
     const currentTarget = observerTarget.current;
@@ -136,27 +130,32 @@ const WoodcraftPage = () => {
       {/* Search */}
       <div className="responsive-padding -mt-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
-          <div className="w-full md:flex-1">
-            <SearchBar
-              onChange={setSearchParams}
-              showCategory
-              defaultCategory="woodcraft" // ✅ changed
-            />
+          {/* Left spacer (keeps search centered when filter exists) */}
+          <div className="hidden md:block md:w-1/4" />
+
+          {/* Center Search Bar */}
+          <div className="w-full md:w-1/2 flex justify-center">
+            <div className="w-full max-w-xl">
+              <SearchBar onChange={setSearchParams} showCategory />
+            </div>
           </div>
 
-          {/* Sort */}
-          <div className="hidden md:block">
+          {/* Sort Dropdown - Right Side */}
+          <div className="w-full md:w-1/4 flex md:justify-end">
             <div className="relative inline-block text-left">
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider"
+                onChange={(e) => {
+                  setSortBy(e.target.value);
+                }}
+                className="appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-pointer shadow-sm"
               >
                 <option value="">Sort By: Default</option>
-                <option value="price-asc">Low to High</option>
-                <option value="price-desc">High to Low</option>
+                <option value="price-asc">Sort By: Low to High</option>
+                <option value="price-desc">Sort By: High to Low</option>
               </select>
-              <div className="absolute inset-y-0 right-0 flex items-center px-4">
+
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
                 <ChevronDown size={14} />
               </div>
             </div>
@@ -190,20 +189,18 @@ const WoodcraftPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                />
-              ))
+                  <div
+                    key={i}
+                    className="h-64 bg-gray-50 animate-pulse rounded-xl"
+                  />
+                ))
               : allProducts.map((product) => (
-                <PlaceCard
-                  key={product.id}
-                  place={product}
-                  onToggleWishlist={() =>
-                    toggleWishlist(product)
-                  }
-                />
-              ))}
+                  <PlaceCard
+                    key={product.id}
+                    place={product}
+                    onToggleWishlist={() => toggleWishlist(product)}
+                  />
+                ))}
           </div>
 
           {hasMore && (

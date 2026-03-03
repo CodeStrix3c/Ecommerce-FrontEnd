@@ -194,24 +194,36 @@ const CartPage = () => {
         </div>
       </ContentWrapper>
 
+        {/* DESKTOP SUMMARY */}
+        {!isMobile && (
+          <div className="col-span-1">
+            <div className="sticky top-28">
+              <CartSummary
+                cart={cartProducts}
+                subTotal={subTotal}
+                discount={discount}
+                total={subTotalWithDiscount}
+                onCheckout={checkoutAll}
+                onClear={clearCart}
+                selectedPayment={selectedPayment}
+                onPaymentChange={setSelectedPayment}
+              />
+            </div>
+          </div>
+        )}
 
-      <ConfirmDialog
-        isOpen={confirmOpen}
-        title="Remove Item"
-        message="Are you sure you want to remove this item from your cart?"
-        confirmText="Remove"
-        cancelText="Cancel"
-        onConfirm={handleConfirmRemove}
-        onCancel={() => {
-          if (!confirmLoading) {
-            setConfirmOpen(false);
-            setSelectedCartItemId(null);
-          }
-        }}
-        loading={confirmLoading}
-        variant="danger"
-      />
-    </>
+        {/* MOBILE BOTTOM BAR */}
+        {isMobile && (
+          <CartBottomBar
+            cart={cartProducts}
+            total={subTotalWithDiscount}
+            onCheckout={checkoutAll}
+            selectedPayment={selectedPayment}
+            onPaymentChange={setSelectedPayment}
+          />
+        )}
+      </div>
+    </ContentWrapper>
   );
 };
 
