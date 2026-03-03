@@ -20,7 +20,7 @@ export const login = async (credentials) => {
     credentials,
     {
       headers: { "Content-Type": "application/json" },
-    }
+    },
   );
 
   // if (!loginRes?.success || !loginRes?.userId) {
@@ -40,6 +40,7 @@ export const login = async (credentials) => {
   return data;
 };
 
-export const logout = () => {
-  //   localStorage.removeItem("jwtToken");
+export const logout = async () => {
+  const { data } = await axiosInstance.post("/api/core/account/logout");
+  return data;
 };

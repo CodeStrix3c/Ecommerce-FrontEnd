@@ -149,9 +149,6 @@
 //   );
 // }
 
-
-
-
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SearchBar from "@/components/shared/SearchBar";
@@ -210,14 +207,12 @@ const TextilesPage = () => {
       ratingCount: item.reviewsCount ?? 0,
       stock: item.stockQuantity ?? 0,
       image: item.thumbnailUrl,
-      discountPercent:
-        item.calculatedProductPrice?.percentOfSaving ?? null,
+      discountPercent: item.calculatedProductPrice?.percentOfSaving ?? null,
     }));
   }, [data?.products]);
 
   const totalPages = Math.ceil(
-    (data?.totalProduct ?? 0) /
-    (data?.currentSearchOption?.pageSize ?? 10)
+    (data?.totalProduct ?? 0) / (data?.currentSearchOption?.pageSize ?? 10),
   );
 
   // Reset when filters change
@@ -243,9 +238,7 @@ const TextilesPage = () => {
         if (currentPage === 1) return products;
 
         const existingIds = new Set(prev.map((p) => p.id));
-        const newProducts = products.filter(
-          (p) => !existingIds.has(p.id)
-        );
+        const newProducts = products.filter((p) => !existingIds.has(p.id));
         return [...prev, ...newProducts];
       });
 
@@ -270,7 +263,7 @@ const TextilesPage = () => {
           setCurrentPage((prev) => prev + 1);
         }
       },
-      { threshold: 0.1, rootMargin: "200px" }
+      { threshold: 0.1, rootMargin: "200px" },
     );
 
     const currentTarget = observerTarget.current;
@@ -289,26 +282,32 @@ const TextilesPage = () => {
     <ContentWrapper>
       <div className="responsive-padding -mt-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
-          <div className="w-full md:flex-1">
-            <SearchBar
-              onChange={setSearchParams}
-              showCategory
-              defaultCategory="textiles"
-            />
+          {/* Left spacer (keeps search centered when filter exists) */}
+          <div className="hidden md:block md:w-1/4" />
+
+          {/* Center Search Bar */}
+          <div className="w-full md:w-1/2 flex justify-center">
+            <div className="w-full max-w-xl">
+              <SearchBar onChange={setSearchParams} showCategory />
+            </div>
           </div>
 
-          <div className="hidden md:block">
+          {/* Sort Dropdown - Right Side */}
+          <div className="w-full md:w-1/4 flex md:justify-end">
             <div className="relative inline-block text-left">
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider"
+                onChange={(e) => {
+                  setSortBy(e.target.value);
+                }}
+                className="appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-pointer shadow-sm"
               >
                 <option value="">Sort By: Default</option>
-                <option value="price-asc">Low to High</option>
-                <option value="price-desc">High to Low</option>
+                <option value="price-asc">Sort By: Low to High</option>
+                <option value="price-desc">Sort By: High to Low</option>
               </select>
-              <div className="absolute inset-y-0 right-0 flex items-center px-4">
+
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
                 <ChevronDown size={14} />
               </div>
             </div>
@@ -318,22 +317,19 @@ const TextilesPage = () => {
 
       <div className="flex flex-col  lg:flex-row gap-8 pt-6">
         {/* Sidebar */}
-        <aside className="hidden  lg:block w-[240px] shrink-0">
-          <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
-            <AdvancedFilter
-              selectedCategory={filters.category}
-              availableBrands={backendFilters?.brands || []}
-              availableCategories={backendFilters?.categories || []}
-              priceLimits={{
-                min: backendFilters?.price?.minPrice || 0,
-                max: backendFilters?.price?.maxPrice || 100000,
-              }}
-              onChange={handleFilterChange}
-              mobileOpen={mobileFilterOpen}
-              setMobileOpen={setMobileFilterOpen}
-            />
-          </div>
-
+        <aside className="hidden lg:block w-[240px] shrink-0">
+          <AdvancedFilter
+            selectedCategory={filters.category}
+            availableBrands={backendFilters?.brands || []}
+            availableCategories={backendFilters?.categories || []}
+            priceLimits={{
+              min: backendFilters?.price?.minPrice || 0,
+              max: backendFilters?.price?.maxPrice || 100000,
+            }}
+            onChange={handleFilterChange}
+            mobileOpen={mobileFilterOpen}
+            setMobileOpen={setMobileFilterOpen}
+          />
         </aside>
 
         {/* Products */}
@@ -347,15 +343,13 @@ const TextilesPage = () => {
                 />
               ))
               : allProducts.map((product) => (
-                <PlaceCard
-                  key={product.id}
-                  place={product}
-                  loading={false}
-                  onToggleWishlist={() =>
-                    toggleWishlist(product)
-                  }
-                />
-              ))}
+                  <PlaceCard
+                    key={product.id}
+                    place={product}
+                    loading={false}
+                    onToggleWishlist={() => toggleWishlist(product)}
+                  />
+                ))}
           </div>
 
           {hasMore && (

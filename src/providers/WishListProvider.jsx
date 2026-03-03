@@ -40,9 +40,6 @@
 
 // export const useWishlist = () => useContext(WishListContext);
 
-
-
-
 //wishlist provider without login
 // import React, { createContext, useContext } from "react";
 // import { toast } from "react-toastify";
@@ -101,14 +98,6 @@
 
 // export const useWishlist = () => useContext(WishlistContext);
 
-
-
-
-
-
-
-
-
 import React, { createContext, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
@@ -125,10 +114,7 @@ export const WishListProvider = ({ children }) => {
   const queryClient = useQueryClient();
   const { userId } = useUser(); // ✅ REACTIVE
 
-  const {
-    data: wishlist = [],
-    isLoading,
-  } = useGetWishlist(userId, {
+  const { data: wishlist = [], isLoading } = useGetWishlist(userId, {
     enabled: !!userId,
   });
 
@@ -148,9 +134,7 @@ export const WishListProvider = ({ children }) => {
       return;
     }
 
-    const existingItem = wishlist.find(
-      (item) => item.productId === product.id
-    );
+    const existingItem = wishlist.find((item) => item.productId === product.id);
 
     if (existingItem) {
       removeMutation.mutate(existingItem.id, {
@@ -164,10 +148,10 @@ export const WishListProvider = ({ children }) => {
         { productId: product.id, quantity: 1 },
         {
           onSuccess: () => {
-            toast.success("Added to wishlist ❤️");
+            toast.success("Added to wishlist");
             queryClient.invalidateQueries({ queryKey: ["wishlist"] });
           },
-        }
+        },
       );
     }
   };
@@ -175,7 +159,7 @@ export const WishListProvider = ({ children }) => {
   const removeFromWishlist = (wishlistItemId) => {
     removeMutation.mutate(wishlistItemId, {
       onSuccess: () => {
-        toast.success("Removed from wishlist");
+        // toast.success("Removed from wishlist");
         queryClient.invalidateQueries({ queryKey: ["wishlist"] });
       },
     });
