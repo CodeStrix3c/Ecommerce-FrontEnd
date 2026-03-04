@@ -25,19 +25,13 @@ const CartPage = () => {
   const isMobile = useIsMobile();
   const [selectedPayment, setSelectedPayment] = useState("");
 
-
-
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [selectedCartItemId, setSelectedCartItemId] = useState(null);
   const [confirmLoading, setConfirmLoading] = useState(false);
 
-
-
   const cartProducts = useMemo(() => {
     return Array.isArray(cartList) ? cartList : [];
   }, [cartList]);
-
-
 
   const totalItems = useMemo(() => {
     return cartProducts.reduce(
@@ -45,8 +39,6 @@ const CartPage = () => {
       0,
     );
   }, [cartProducts]);
-
-
 
   const handleRemoveClick = (cartItemId) => {
     setSelectedCartItemId(cartItemId);
@@ -69,8 +61,6 @@ const CartPage = () => {
     }
   };
 
-
-
   const checkoutAll = () => {
     if (!selectedPayment) {
       toast.error("Please select a payment method before checkout.");
@@ -79,7 +69,6 @@ const CartPage = () => {
 
     toast.success(`Proceeding to checkout with ${selectedPayment}`);
   };
-
 
   if (isLoading) {
     return (
@@ -90,8 +79,6 @@ const CartPage = () => {
       </ContentWrapper>
     );
   }
-
-
 
   if (cartProducts.length === 0) {
     return (
@@ -109,12 +96,11 @@ const CartPage = () => {
     <>
       <ContentWrapper compactScreen>
         <div className="py-6 lg:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-6">
-
           <div
-            className={`col-span-1 lg:col-span-2 flex flex-col gap-6 ${isMobile ? "pb-24" : ""
-              }`}
+            className={`col-span-1 lg:col-span-2 flex flex-col gap-6 ${
+              isMobile ? "pb-24" : ""
+            }`}
           >
-
             <div className="flex items-center gap-3">
               <div className="bg-blue-100 p-3 rounded-full shadow-sm">
                 <ShoppingCart className="w-6 h-6 text-blue-600" />
@@ -123,11 +109,11 @@ const CartPage = () => {
               <div>
                 <h1 className="text-xl font-semibold">My Cart</h1>
                 <p className="text-sm text-gray-500">
-                  {totalItems} {totalItems === 1 ? "item" : "items"} in your cart
+                  {totalItems} {totalItems === 1 ? "item" : "items"} in your
+                  cart
                 </p>
               </div>
             </div>
-
 
             <div className="flex flex-col gap-6">
               {cartProducts.map((product) => (
@@ -139,9 +125,7 @@ const CartPage = () => {
                       photos: product.productImage
                         ? [product.productImage]
                         : [],
-                      price: Number(
-                        product.calculatedProductPrice?.price ?? 0,
-                      ),
+                      price: Number(product.calculatedProductPrice?.price ?? 0),
                       oldPrice: Number(
                         product.calculatedProductPrice?.oldPrice ?? 0,
                       ),
@@ -152,7 +136,7 @@ const CartPage = () => {
                       rating: 0,
                       inStock: product.isProductAvailabeToOrder,
                     }}
-                    onRemove={handleRemoveClick}
+                    onRemove={() => handleRemoveClick(product.id)}
                     onQuantityChange={updateQuantity}
                   />
 
@@ -163,7 +147,6 @@ const CartPage = () => {
               ))}
             </div>
           </div>
-
 
           {!isMobile && (
             <div className="col-span-1">
@@ -182,7 +165,6 @@ const CartPage = () => {
             </div>
           )}
 
-          {/* MOBILE BOTTOM BAR */}
           {isMobile && (
             <CartBottomBar
               cart={cartProducts}
@@ -194,36 +176,15 @@ const CartPage = () => {
         </div>
       </ContentWrapper>
 
-        {/* DESKTOP SUMMARY */}
-        {!isMobile && (
-          <div className="col-span-1">
-            <div className="sticky top-28">
-              <CartSummary
-                cart={cartProducts}
-                subTotal={subTotal}
-                discount={discount}
-                total={subTotalWithDiscount}
-                onCheckout={checkoutAll}
-                onClear={clearCart}
-                selectedPayment={selectedPayment}
-                onPaymentChange={setSelectedPayment}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* MOBILE BOTTOM BAR */}
-        {isMobile && (
-          <CartBottomBar
-            cart={cartProducts}
-            total={subTotalWithDiscount}
-            onCheckout={checkoutAll}
-            selectedPayment={selectedPayment}
-            onPaymentChange={setSelectedPayment}
-          />
-        )}
-      </div>
-    </ContentWrapper>
+      <ConfirmDialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={handleConfirmRemove}
+        loading={confirmLoading}
+        title="Remove Item"
+        description="Are you sure you want to remove this item from your cart?"
+      />
+    </>
   );
 };
 

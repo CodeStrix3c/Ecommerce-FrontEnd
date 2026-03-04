@@ -1,4 +1,3 @@
-// components/OrderSummary.jsx
 import React from "react";
 import { ShoppingBag, Tag, Truck, Receipt, Loader2 } from "lucide-react";
 
@@ -6,6 +5,8 @@ export const OrderSummary = ({ checkoutData, isUpdating }) => {
   const rootData = checkoutData?.data || checkoutData;
   const vm = rootData?.checkoutVm;
   const items = vm?.items || [];
+  const shippingMethods = rootData?.shippingPrices || [];
+  const selectedShippingName = rootData?.selectedShippingMethodName;
 
   if (!vm) {
     return (
@@ -19,9 +20,10 @@ export const OrderSummary = ({ checkoutData, isUpdating }) => {
     );
   }
 
+  const formatINR = (value) => `₹${Number(value || 0).toLocaleString("en-IN")}`;
+
   return (
     <div className="bg-white border-2 border-gray-200 rounded-2xl p-6 shadow-lg relative">
-      {/* Updating Overlay */}
       {isUpdating && (
         <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-2xl flex items-center justify-center z-10">
           <div className="flex flex-col items-center gap-2">
@@ -57,7 +59,7 @@ export const OrderSummary = ({ checkoutData, isUpdating }) => {
               <p className="text-xs text-gray-500 mt-1">Qty: {item.quantity}</p>
             </div>
             <p className="font-bold text-sm whitespace-nowrap text-gray-900">
-              {item.totalString}
+              {formatINR(item.total)}
             </p>
           </div>
         ))}
@@ -68,7 +70,7 @@ export const OrderSummary = ({ checkoutData, isUpdating }) => {
         <div className="flex justify-between items-center">
           <span className="text-gray-600">Subtotal</span>
           <span className="font-semibold text-gray-900">
-            {vm.subTotalString}
+            {formatINR(vm.subTotal)}
           </span>
         </div>
 
@@ -78,43 +80,43 @@ export const OrderSummary = ({ checkoutData, isUpdating }) => {
               <Tag size={14} />
               Discount
             </span>
-            <span className="font-semibold">-{vm.discountString}</span>
+            <span className="font-semibold">-{formatINR(vm.discount)}</span>
           </div>
         )}
 
+        {/* Shipping Method */}
         <div className="flex justify-between items-center">
           <span className="flex items-center gap-1 text-gray-600">
             <Truck size={14} />
-            Shipping
+            Shipping {selectedShippingName && `(${selectedShippingName})`}
           </span>
-          <span
-            className={
-              vm.shippingAmount === null || vm.shippingAmount === undefined
-                ? "text-orange-500 italic text-xs"
-                : "font-semibold text-gray-900"
-            }
-          >
-            {vm.shippingAmount === null || vm.shippingAmount === undefined
-              ? "Select address first"
-              : vm.shippingAmountString}
+          <span className="font-semibold text-gray-900">
+            {formatINR(vm.shippingAmount)}
           </span>
         </div>
 
+        {/* Tax */}
         <div className="flex justify-between items-center">
           <span className="flex items-center gap-1 text-gray-600">
             <Receipt size={14} />
             Tax
           </span>
           <span className="font-semibold text-gray-900">
-            {vm.taxAmountString || "₹0.00"}
+            {formatINR(vm.taxAmount)}
           </span>
         </div>
 
+        {/* Total */}
         <div className="flex justify-between items-center font-bold text-lg border-t-2 border-gray-200 pt-4 mt-4">
           <span className="text-gray-900">Total</span>
-          <span className="text-black">{vm.orderTotalString}</span>
+          <span className="text-black">{formatINR(vm.orderTotal)}</span>
         </div>
       </div>
+
+      {/* Place Order Button */}
+      <button className="w-full mt-6 bg-gradient-to-r from-black to-gray-900 text-white py-3 rounded-xl font-semibold hover:shadow-xl transition-all duration-300">
+        Place Order
+      </button>
 
       {/* Security Badge */}
       <div className="mt-6 pt-4 border-t border-gray-100">
