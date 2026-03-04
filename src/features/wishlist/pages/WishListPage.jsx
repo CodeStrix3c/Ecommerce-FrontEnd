@@ -68,8 +68,9 @@ const WishlistPage = () => {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-3">
-            <div className="bg-red-100 p-2 rounded-full">
-              <Heart className="w-6 h-6 text-red-500 fill-red-500" />
+            {/* Heart Icon */}
+            <div className="bg-[var(--color-secondary)] p-2 rounded-full">
+              <Heart className="w-6 h-6 text-white fill-white" />
             </div>
 
             <div>
