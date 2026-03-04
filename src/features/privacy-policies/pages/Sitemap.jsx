@@ -37,10 +37,10 @@ const sitemap = {
       title: "Shop & Collections",
       icon: Star,
       items: [
-        { text: "Shop All Products", path: "/shop" },
-        { text: "Pashmina Shawls", path: "/category/pashmina" },
-        { text: "Handwoven Carpets", path: "/category/carpets" },
-        { text: "Wood Carving Art", path: "/category/wood" },
+        { text: "Shop All Products", path: "/" },
+        { text: "Pashmina Shawls", path: "/textitles" },
+        { text: "Handwoven Carpets", path: "/wood-craft" },
+        { text: "Wood Carving Art", path: "/wood-craft" },
       ],
     },
     {
