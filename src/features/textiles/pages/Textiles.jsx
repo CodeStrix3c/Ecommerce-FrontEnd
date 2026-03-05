@@ -281,28 +281,36 @@ const TextilesPage = () => {
   return (
     <ContentWrapper>
       <div className="responsive-padding -mt-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
-          {/* Left spacer (keeps search centered when filter exists) */}
-          <div className=" text-black text-md italic font-semibold tracking-wide">
-            Find  here the best Handcrafted Textiles & Artisan Crafts
+        <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
 
+          {/* TEXT */}
+          <div className="flex-1">
+            <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
+              Discover
+            </p>
+
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">
+              The Best Products
+            </h2>
+
+            <p className="text-sm text-gray-500 mt-1">
+              Crafted by Kashmir's finest artisans
+            </p>
           </div>
 
           {/* Center Search Bar */}
-          <div className="w-full md:w-1/2 flex justify-center">
+          <div className="flex-1 flex justify-center">
             <div className="w-full max-w-xl">
               <SearchBar onChange={setSearchParams} showCategory />
             </div>
           </div>
 
           {/* Sort Dropdown - Right Side */}
-          <div className="w-full md:w-1/4 flex md:justify-end">
+          <div className="flex-1 flex justify-end">
             <div className="relative inline-block text-left">
               <select
                 value={sortBy}
-                onChange={(e) => {
-                  setSortBy(e.target.value);
-                }}
+                onChange={(e) => setSortBy(e.target.value)}
                 className="appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-pointer shadow-sm"
               >
                 <option value="">Sort By: Default</option>
