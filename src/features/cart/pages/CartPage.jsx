@@ -52,7 +52,7 @@ const CartPage = () => {
       setConfirmLoading(true);
       await removeFromCart(selectedCartItemId);
       toast.success("Item removed from cart");
-    } catch (error) {
+    } catch {
       toast.error("Failed to remove item");
     } finally {
       setConfirmLoading(false);
@@ -96,14 +96,15 @@ const CartPage = () => {
     <>
       <ContentWrapper compactScreen>
         <div className="py-6 lg:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* LEFT SIDE - CART ITEMS */}
           <div
             className={`col-span-1 lg:col-span-2 flex flex-col gap-6 ${
               isMobile ? "pb-24" : ""
             }`}
           >
             <div className="flex items-center gap-3">
-              <div className="bg-blue-100 p-3 rounded-full shadow-sm">
-                <ShoppingCart className="w-6 h-6 text-blue-600" />
+              <div className="bg-[var(--color-secondary)] p-3 rounded-full shadow-sm">
+                <ShoppingCart className="w-6 h-6 text-white" />
               </div>
 
               <div>
@@ -148,6 +149,7 @@ const CartPage = () => {
             </div>
           </div>
 
+          {/* RIGHT SIDE - DESKTOP SUMMARY */}
           {!isMobile && (
             <div className="col-span-1">
               <div className="sticky top-28">
@@ -164,18 +166,21 @@ const CartPage = () => {
               </div>
             </div>
           )}
-
-          {isMobile && (
-            <CartBottomBar
-              cart={cartProducts}
-              total={subTotalWithDiscount}
-              onCheckout={checkoutAll}
-              onPaymentChange={setSelectedPayment}
-            />
-          )}
         </div>
       </ContentWrapper>
 
+      {/* MOBILE BOTTOM BAR */}
+      {isMobile && (
+        <CartBottomBar
+          cart={cartProducts}
+          total={subTotalWithDiscount}
+          onCheckout={checkoutAll}
+          selectedPayment={selectedPayment}
+          onPaymentChange={setSelectedPayment}
+        />
+      )}
+
+      {/* CONFIRM REMOVE DIALOG */}
       <ConfirmDialog
         open={confirmOpen}
         onClose={() => setConfirmOpen(false)}

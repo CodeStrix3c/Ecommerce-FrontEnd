@@ -6,12 +6,16 @@ const FilterSection = ({ title, onClear, children, defaultOpen = true }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
+
     <div className="border-b border-gray-100/70 py-7">
+
+
       <div className="flex items-center justify-between mb-5">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-3 group"
         >
+
           <ChevronDown
             size={14}
             className={`transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isOpen ? "rotate-0 text-black" : "-rotate-90 text-gray-400"
@@ -31,6 +35,7 @@ const FilterSection = ({ title, onClear, children, defaultOpen = true }) => {
           </button>
         )}
       </div>
+
 
       <AnimatePresence>
         {isOpen && (
@@ -183,6 +188,7 @@ const AdvancedFilter = ({
         )}
       </AnimatePresence>
 
+
       <div
         className={`
           fixed lg:relative
@@ -195,8 +201,19 @@ const AdvancedFilter = ({
           flex flex-col border-r border-gray-100
         `}
       >
-        {/* Header */}
-        <div className="flex justify-between items-end px-8 pt-8 pb-6 shrink-0">
+        {/* Main Heading */}
+        <div className="px-8 mt-[-6px] pb-2">
+          <h2 className="text-lg font-semibold text-black">
+            Advanced Filter
+          </h2>
+          <p className="text-xs text-gray-400">
+            Refine your search results
+          </p>
+        </div>
+
+
+        {/* Filter Controls Header */}
+        <div className="flex justify-between items-end px-8 pt-4 pb-6 shrink-0 border-b border-gray-100">
           <h3 className="text-sm font-bold uppercase tracking-[0.35em] text-black">
             Filter
           </h3>
@@ -269,7 +286,7 @@ const AdvancedFilter = ({
               </ul>
             </FilterSection>
 
-            {/* Brands */}
+
             <FilterSection
               title="Brands"
               onClear={filters.brand ? () => updateFilter("brand", "") : null}
@@ -311,7 +328,7 @@ const AdvancedFilter = ({
               </ul>
             </FilterSection>
 
-            {/* Price */}
+
             <FilterSection
               title="Price Range"
               onClear={
@@ -394,7 +411,8 @@ const AdvancedFilter = ({
           box-shadow: 0 6px 14px rgba(0,0,0,0.15);
           cursor: pointer;
         } 
-      `}</style>
+      `}
+      </style>
     </>
   );
 };
