@@ -1,9 +1,8 @@
 import axiosInstance from "@/api/client/axiosInstance";
 
-export const createOrder = async ({ checkoutId, payload }) => {
+export const createOrder = async ({ checkoutId }) => {
   const { data } = await axiosInstance.post(
-    `/api/checkout/checkoutId=${checkoutId}/order`,
-    payload,
+    `/api/CoD/CoDCheckout?checkoutId=${checkoutId}`,
   );
 
   return data;

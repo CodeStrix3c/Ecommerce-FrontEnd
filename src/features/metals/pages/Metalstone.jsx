@@ -277,20 +277,32 @@ const MetalsCraftPage = () => {
   return (
     <ContentWrapper>
       <div className="responsive-padding -mt-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
-          <div className=" text-black text-md italic font-semibold tracking-wide">
-            Find  here for the best Metalcraft & Artisan Crafts.
+        <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
 
+          {/* TEXT */}
+          <div className="flex-1">
+            <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
+              Discover
+            </p>
+
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">
+              The Best Products
+            </h2>
+
+            <p className="text-sm text-gray-500 mt-1">
+              Crafted by Kashmir's finest artisans
+            </p>
           </div>
 
-          <div className="w-full md:w-1/2 flex justify-center">
+
+          <div className="flex-1 flex justify-center">
             <div className="w-full max-w-xl">
               <SearchBar onChange={setSearchParams} showCategory />
             </div>
           </div>
 
           {/* ✅ FIXED (hidden on mobile) */}
-          <div className="hidden md:flex md:w-1/4 md:justify-end">
+          <div className="flex-1 flex justify-end">
             <div className="relative inline-block text-left">
               <select
                 value={sortBy}
@@ -307,6 +319,7 @@ const MetalsCraftPage = () => {
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
