@@ -11,6 +11,7 @@ import VendorHelpCenter from "@/supplier/pages/VendorHelpCenter";
 import AgricultureHelpCenter from "@/features/help-center/pages/HelpCenter";
 import SettingsPage from "@/features/settings/SettingsPage";
 import AddressPage from "@/features/address/addressPage";
+import PaymentPage from "@/features/payment/paymentPage";
 
 /* ================= AUTH / COMMON ================= */
 const TalkWithExpert = lazy(
@@ -97,6 +98,7 @@ export default [
       <Route path="/user-orders/:id" element={<UserOrderPage />} />
       <Route path="/order-details/:id" element={<OrderDetailsPage />} />
       <Route path="/address" element={<AddressPage />} />
+      <Route path="payment" element={<PaymentPage />} />
 
       {/* Account */}
       <Route path="/account/places" element={<PlacesPage />} />
@@ -105,7 +107,7 @@ export default [
       <Route path="/account/bookings" element={<BookingsPage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="/profile" element={<UserProfile />} />
-       <Route path="/settings" element={<SettingsPage/>} />
+      <Route path="/settings" element={<SettingsPage />} />
 
       {/* Profiles */}
       <Route path="/farmer-profile" element={<FarmerProfilePage />} />
@@ -137,8 +139,6 @@ export default [
       <Route path="financial" element={<FinancialPanel />} />
       <Route path="knowledge" element={<KnowledgePanel />} />
       <Route path="alerts" element={<AlertPanel />} />
-     
-
     </Route>
   </Route>,
 ];

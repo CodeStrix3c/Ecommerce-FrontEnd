@@ -8,9 +8,7 @@ export const addAddress = async (payload) => {
 export const getUserAddresses = async () => {
   const { data } = await axiosInstance.get("/list");
   return data;
-}
-
-
+};
 
 export const deleteUserAddress = async (userAddressId) => {
   const { data } = await axiosInstance.post("/Delete", null, {
@@ -27,13 +25,9 @@ export const getExistingAddressess = async (userAddressId) => {
 };
 
 export const editUserAddress = async ({ userAddressId, payload }) => {
-  const { data } = await axiosInstance.post(
-    "/Edit",
-    payload,
-    {
-      params: { id: userAddressId }, 
-    }
-  );
+  const { data } = await axiosInstance.post("/Edit", payload, {
+    params: { id: userAddressId },
+  });
   return data;
 };
 
