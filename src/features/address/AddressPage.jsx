@@ -66,6 +66,7 @@ const AddressPage = () => {
 
       const payload = {
         existingShippingAddressId: userAddressId,
+        selectedShippingMethodName: "FreeShip",
       };
 
       const result = await updatePrices({ checkoutId, payload });
@@ -160,54 +161,19 @@ const AddressPage = () => {
     }
 
     try {
-      const selectedAddress = checkoutData?.existingShippingAddresses?.find(
-        (a) => a.userAddressId === selectedAddressId,
-      );
-
-      if (!selectedAddress) {
-        toast.error("Selected address not found");
-        return;
-      }
-
-      const rootPricingData = updatedCheckoutData || checkoutData;
-
-      const addressFormPayload = {
-        contactName: selectedAddress.contactName,
-        phone: selectedAddress.phone,
-        addressLine1: selectedAddress.addressLine1,
-        addressLine2: selectedAddress.addressLine2 || "",
-        stateOrProvinceId: selectedAddress.stateOrProvinceId,
-        districtId: selectedAddress.districtId,
-        countryId: selectedAddress.countryId,
-        city: selectedAddress.cityName,
-        zipCode: selectedAddress.zipCode,
-        stateOrProvinces: [],
-        districts: [],
-        shipableContries: [],
-      };
-
-      const orderPayload = {
-        existingShippingAddresses: [],
-        shippingAddressId: selectedAddressId,
-        billingAddressId: selectedAddressId,
-        shippingMethod: rootPricingData?.selectedShippingMethodName || "Free",
-        newAddressForm: addressFormPayload,
-        useShippingAddressAsBillingAddress: true,
-        newBillingAddressForm: addressFormPayload,
-        orderNote: "",
-        checkoutId,
-      };
-
-      await createOrder({
-        checkoutId,
-        payload: orderPayload,
-      });
+      await createOrder({ checkoutId });
 
       toast.success("Order placed successfully!");
-      navigate("/order-success");
+      navigate("/order");
     } catch (err) {
       console.log(err);
-      toast.error("Failed to place order");
+
+      const message =
+        err?.response?.data?.message ||
+        err?.response?.data ||
+        "Failed to place order";
+
+      toast.error(message);
     }
   };
 

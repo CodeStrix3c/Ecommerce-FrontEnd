@@ -23,6 +23,7 @@ const CartPage = () => {
   } = useCartList();
 
   const isMobile = useIsMobile();
+
   const [selectedPayment, setSelectedPayment] = useState("");
 
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -50,10 +51,10 @@ const CartPage = () => {
 
     try {
       setConfirmLoading(true);
+
       await removeFromCart(selectedCartItemId);
-      toast.success("Item removed from cart");
     } catch {
-      toast.error("Failed to remove item");
+      // toast.error("Failed to remove item");
     } finally {
       setConfirmLoading(false);
       setConfirmOpen(false);
@@ -96,7 +97,7 @@ const CartPage = () => {
     <>
       <ContentWrapper compactScreen>
         <div className="py-6 lg:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* LEFT SIDE - CART ITEMS */}
+          {/* LEFT SIDE */}
           <div
             className={`col-span-1 lg:col-span-2 flex flex-col gap-6 ${
               isMobile ? "pb-24" : ""
@@ -149,7 +150,7 @@ const CartPage = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE - DESKTOP SUMMARY */}
+          {/* DESKTOP SUMMARY */}
           {!isMobile && (
             <div className="col-span-1">
               <div className="sticky top-28">
@@ -169,7 +170,7 @@ const CartPage = () => {
         </div>
       </ContentWrapper>
 
-      {/* MOBILE BOTTOM BAR */}
+      {/* MOBILE BAR */}
       {isMobile && (
         <CartBottomBar
           cart={cartProducts}
@@ -180,14 +181,17 @@ const CartPage = () => {
         />
       )}
 
-      {/* CONFIRM REMOVE DIALOG */}
+      {/* CONFIRM REMOVE */}
       <ConfirmDialog
-        open={confirmOpen}
-        onClose={() => setConfirmOpen(false)}
+        isOpen={confirmOpen}
+        onCancel={() => setConfirmOpen(false)}
         onConfirm={handleConfirmRemove}
         loading={confirmLoading}
         title="Remove Item"
-        description="Are you sure you want to remove this item from your cart?"
+        message="Are you sure you want to remove this item from your cart?"
+        confirmText="Remove"
+        cancelText="Cancel"
+        variant="danger"
       />
     </>
   );
