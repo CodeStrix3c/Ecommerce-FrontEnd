@@ -19,6 +19,8 @@ import {
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { shippingAddressSchema } from "../farmer-registration/schemas/addressSchema";
+import { useCreateOrder } from "@/hooks/Orders/useOrders";
+import { usePaymentProviders } from "@/services/User/paymenthooks/getPaymentProviders";
 
 const AddressPage = () => {
   const navigate = useNavigate();
@@ -27,6 +29,8 @@ const AddressPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [updatedCheckoutData, setUpdatedCheckoutData] = useState(null);
+  const [selectedPayment, setSelectedPayment] = useState(null);
+
   const hasCalculatedPricesRef = useRef(false);
 
   const methods = useForm({
@@ -44,6 +48,10 @@ const AddressPage = () => {
     refetch: refetchCheckout,
   } = useCheckoutShipping(checkoutId);
 
+  const { data: paymentMethods = [] } = usePaymentProviders();
+  const { mutateAsync: createOrder, isPending: placingOrder } =
+    useCreateOrder();
+
   const { data: countries = [] } = useCountries();
   const { data: states = [] } = useStates(selectedCountry);
   const { data: districts = [] } = useDistricts(selectedState);
@@ -52,13 +60,10 @@ const AddressPage = () => {
   const { mutateAsync: updatePrices, isPending: updatingPrices } =
     useUpdateShippingPrices();
 
-  /* -------------------- ADDRESS SELECTION -------------------- */
-
   const handleAddressSelection = async (userAddressId) => {
     try {
       setSelectedAddressId(userAddressId);
 
-      // ✅ FIX: Only send what tax API expects
       const payload = {
         existingShippingAddressId: userAddressId,
       };
@@ -71,8 +76,6 @@ const AddressPage = () => {
       toast.error("Failed to update tax & shipping");
     }
   };
-
-  /* -------------------- AUTO SELECT FIRST ADDRESS -------------------- */
 
   useEffect(() => {
     const addresses =
@@ -88,8 +91,6 @@ const AddressPage = () => {
       handleAddressSelection(addresses[0].userAddressId);
     }
   }, [checkoutData]);
-
-  /* -------------------- ADD NEW ADDRESS FLOW -------------------- */
 
   const onModalSubmit = async (formData) => {
     try {
@@ -122,7 +123,6 @@ const AddressPage = () => {
 
       await addShipping({ checkoutId, payload });
 
-      // ✅ Refetch updated checkout after adding address
       const { data: freshCheckout } = await refetchCheckout();
 
       const newAddresses =
@@ -135,10 +135,8 @@ const AddressPage = () => {
         return;
       }
 
-      // ✅ Select newest address
       const newestAddress = newAddresses[newAddresses.length - 1].userAddressId;
 
-      // ✅ Call tax API properly
       await handleAddressSelection(newestAddress);
 
       toast.success("Address added & tax calculated");
@@ -150,10 +148,68 @@ const AddressPage = () => {
     }
   };
 
-  const existingAddresses =
-    checkoutData?.existingShippingAddresses?.filter(
-      (a) => a.userAddressId !== 0,
-    ) || [];
+  const handlePlaceOrder = async () => {
+    if (!selectedPayment) {
+      toast.error("Please select payment method");
+      return;
+    }
+
+    if (!selectedAddressId) {
+      toast.error("Please select address");
+      return;
+    }
+
+    try {
+      const selectedAddress = checkoutData?.existingShippingAddresses?.find(
+        (a) => a.userAddressId === selectedAddressId,
+      );
+
+      if (!selectedAddress) {
+        toast.error("Selected address not found");
+        return;
+      }
+
+      const rootPricingData = updatedCheckoutData || checkoutData;
+
+      const addressFormPayload = {
+        contactName: selectedAddress.contactName,
+        phone: selectedAddress.phone,
+        addressLine1: selectedAddress.addressLine1,
+        addressLine2: selectedAddress.addressLine2 || "",
+        stateOrProvinceId: selectedAddress.stateOrProvinceId,
+        districtId: selectedAddress.districtId,
+        countryId: selectedAddress.countryId,
+        city: selectedAddress.cityName,
+        zipCode: selectedAddress.zipCode,
+        stateOrProvinces: [],
+        districts: [],
+        shipableContries: [],
+      };
+
+      const orderPayload = {
+        existingShippingAddresses: [],
+        shippingAddressId: selectedAddressId,
+        billingAddressId: selectedAddressId,
+        shippingMethod: rootPricingData?.selectedShippingMethodName || "Free",
+        newAddressForm: addressFormPayload,
+        useShippingAddressAsBillingAddress: true,
+        newBillingAddressForm: addressFormPayload,
+        orderNote: "",
+        checkoutId,
+      };
+
+      await createOrder({
+        checkoutId,
+        payload: orderPayload,
+      });
+
+      toast.success("Order placed successfully!");
+      navigate("/order-success");
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to place order");
+    }
+  };
 
   if (loadingCheckout) {
     return (
@@ -165,6 +221,13 @@ const AddressPage = () => {
     );
   }
 
+  const existingAddresses =
+    checkoutData?.existingShippingAddresses?.filter(
+      (a) => a.userAddressId !== 0,
+    ) || [];
+
+  const newAddress = checkoutData?.newAddressForm;
+
   const displayCheckoutData = updatedCheckoutData || checkoutData;
 
   return (
@@ -173,11 +236,42 @@ const AddressPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
             <div className="lg:col-span-2">
-              <div className="bg-white p-8 rounded-2xl shadow-lg space-y-4">
+              <div className="bg-white p-8 rounded-2xl shadow-lg space-y-6">
+                {newAddress && (
+                  <>
+                    <h2 className="text-lg font-semibold">Shipping Address</h2>
+
+                    <div className="border rounded-xl p-4 bg-gray-50">
+                      <div className="text-sm space-y-1">
+                        <p className="font-semibold">
+                          {newAddress.contactName}
+                        </p>
+                        <p>📞 {newAddress.phone}</p>
+                        <p>{newAddress.addressLine1}</p>
+                        {newAddress.addressLine2 && (
+                          <p>{newAddress.addressLine2}</p>
+                        )}
+                        <p>
+                          {newAddress.city}, {newAddress.districtId}
+                        </p>
+                        <p>
+                          {newAddress.stateOrProvinceId} - {newAddress.zipCode}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                <h2 className="text-lg font-semibold">Existing Addresses</h2>
+
                 {existingAddresses.map((address) => (
                   <label
                     key={address.userAddressId}
-                    className="flex items-center gap-3 cursor-pointer"
+                    className={`border rounded-xl p-4 flex gap-4 cursor-pointer transition ${
+                      selectedAddressId === address.userAddressId
+                        ? "border-black bg-gray-50"
+                        : "border-gray-200"
+                    }`}
                   >
                     <input
                       type="radio"
@@ -185,8 +279,22 @@ const AddressPage = () => {
                       onChange={() =>
                         handleAddressSelection(address.userAddressId)
                       }
+                      className="mt-1"
                     />
-                    <span>{address.contactName}</span>
+
+                    <div className="text-sm space-y-1">
+                      <p className="font-semibold">{address.contactName}</p>
+                      <p>📞 {address.phone}</p>
+                      <p>{address.addressLine1}</p>
+                      {address.addressLine2 && <p>{address.addressLine2}</p>}
+                      <p>
+                        {address.cityName}, {address.districtName}
+                      </p>
+                      <p>
+                        {address.stateOrProvinceName} - {address.zipCode}
+                      </p>
+                      <p>{address.countryName}</p>
+                    </div>
                   </label>
                 ))}
 
@@ -196,14 +304,6 @@ const AddressPage = () => {
                 >
                   <Plus size={16} /> Add New Address
                 </button>
-
-                {/* <button
-                  onClick={() => navigate(`/checkout/${checkoutId}/payment`)}
-                  disabled={!selectedAddressId}
-                  className="w-full bg-black text-white py-3 rounded-xl mt-6"
-                >
-                  Continue to Payment →
-                </button> */}
               </div>
             </div>
 
@@ -211,6 +311,11 @@ const AddressPage = () => {
               <OrderSummary
                 checkoutData={displayCheckoutData}
                 isUpdating={updatingPrices}
+                paymentMethods={paymentMethods}
+                selectedPayment={selectedPayment}
+                setSelectedPayment={setSelectedPayment}
+                onPlaceOrder={handlePlaceOrder}
+                placingOrder={placingOrder}
               />
             </div>
           </div>

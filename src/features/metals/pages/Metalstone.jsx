@@ -309,18 +309,21 @@ const MetalsCraftPage = () => {
 
       <div className="flex flex-col lg:flex-row gap-8 pt-6">
         <aside className="hidden lg:block w-[240px] shrink-0">
-          <AdvancedFilter
-            selectedCategory={filters.category}
-            availableBrands={backendFilters?.brands || []}
-            availableCategories={backendFilters?.categories || []}
-            priceLimits={{
-              min: backendFilters?.price?.minPrice || 0,
-              max: backendFilters?.price?.maxPrice || 100000,
-            }}
-            onChange={handleFilterChange}
-            mobileOpen={mobileFilterOpen}
-            setMobileOpen={setMobileFilterOpen}
-          />
+          <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
+            <AdvancedFilter
+              selectedCategory={filters.category}
+              availableBrands={backendFilters?.brands || []}
+              availableCategories={backendFilters?.categories || []}
+              priceLimits={{
+                min: backendFilters?.price?.minPrice || 0,
+                max: backendFilters?.price?.maxPrice || 100000,
+              }}
+              onChange={handleFilterChange}
+              mobileOpen={mobileFilterOpen}
+              setMobileOpen={setMobileFilterOpen}
+            />
+          </div>
+
         </aside>
 
         <main className="flex-1">
@@ -333,12 +336,12 @@ const MetalsCraftPage = () => {
                 />
               ))
               : allProducts.map((product) => (
-                  <PlaceCard
-                    key={product.id}
-                    place={product}
-                    onToggleWishlist={() => toggleWishlist(product)}
-                  />
-                ))}
+                <PlaceCard
+                  key={product.id}
+                  place={product}
+                  onToggleWishlist={() => toggleWishlist(product)}
+                />
+              ))}
           </div>
 
           {hasMore && (
