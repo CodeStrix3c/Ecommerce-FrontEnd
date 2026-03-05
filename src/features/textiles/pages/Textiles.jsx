@@ -283,7 +283,10 @@ const TextilesPage = () => {
       <div className="responsive-padding -mt-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
           {/* Left spacer (keeps search centered when filter exists) */}
-          <div className="hidden md:block md:w-1/4" />
+          <div className=" text-black text-md italic font-semibold tracking-wide">
+            Find  here the best Handcrafted Textiles & Artisan Crafts
+
+          </div>
 
           {/* Center Search Bar */}
           <div className="w-full md:w-1/2 flex justify-center">

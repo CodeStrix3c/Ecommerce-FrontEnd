@@ -131,7 +131,10 @@ const WoodcraftPage = () => {
       <div className="responsive-padding -mt-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
           {/* Left spacer (keeps search centered when filter exists) */}
-          <div className="hidden md:block md:w-1/4" />
+          <div className=" text-black text-md italic font-semibold tracking-wide">
+            Find  here for the best Woodcraft & Artisan Crafts.
+
+          </div>
 
           {/* Center Search Bar */}
           <div className="w-full md:w-1/2 flex justify-center">
@@ -189,18 +192,18 @@ const WoodcraftPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                  />
-                ))
+                <div
+                  key={i}
+                  className="h-64 bg-gray-50 animate-pulse rounded-xl"
+                />
+              ))
               : allProducts.map((product) => (
-                  <PlaceCard
-                    key={product.id}
-                    place={product}
-                    onToggleWishlist={() => toggleWishlist(product)}
-                  />
-                ))}
+                <PlaceCard
+                  key={product.id}
+                  place={product}
+                  onToggleWishlist={() => toggleWishlist(product)}
+                />
+              ))}
           </div>
 
           {hasMore && (
