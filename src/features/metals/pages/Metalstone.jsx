@@ -278,7 +278,10 @@ const MetalsCraftPage = () => {
     <ContentWrapper>
       <div className="responsive-padding -mt-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
-          <div className="hidden md:block md:w-1/4" />
+          <div className=" text-black text-md italic font-semibold tracking-wide">
+            Find  here for the best Metalcraft & Artisan Crafts.
+
+          </div>
 
           <div className="w-full md:w-1/2 flex justify-center">
             <div className="w-full max-w-xl">
