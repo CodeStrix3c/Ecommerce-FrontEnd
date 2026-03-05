@@ -151,12 +151,18 @@ const UserHome = () => {
       <div className="responsive-padding -mt-4">
         {/* Search Bar & Sort - Same Row on Desktop/Tablet, Stacked on Mobile */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
-          <div className="w-full md:flex-1">
-            <SearchBar onChange={setSearchParams} showCategory />
+          {/* Left spacer (keeps search centered when filter exists) */}
+          <div className="hidden md:block md:w-1/4" />
+
+          {/* Center Search Bar */}
+          <div className="w-full md:w-1/2 flex justify-center">
+            <div className="w-full max-w-xl">
+              <SearchBar onChange={setSearchParams} showCategory />
+            </div>
           </div>
 
-          {/* Sort Dropdown - Desktop/Tablet */}
-          <div className="hidden md:block">
+          {/* Sort Dropdown - Right Side */}
+          <div className="hidden md:flex md:w-1/4 md:justify-end">
             <div className="relative inline-block text-left">
               <select
                 value={sortBy}
@@ -169,6 +175,7 @@ const UserHome = () => {
                 <option value="price-asc">Sort By: Low to High</option>
                 <option value="price-desc">Sort By: High to Low</option>
               </select>
+
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
                 <ChevronDown size={14} />
               </div>

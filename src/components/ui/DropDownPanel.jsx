@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/providers/UserProvider";
 import { useQueryClient } from "@tanstack/react-query";
+import { useLogoutMutation } from "@/hooks/useAuthMutation";
 
 const DropdownPanel = ({ open, onClose }) => {
   const isMobile = useIsMobile(1100);

@@ -25,28 +25,20 @@ const CartPage = () => {
   const isMobile = useIsMobile();
   const [selectedPayment, setSelectedPayment] = useState("");
 
-
-
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [selectedCartItemId, setSelectedCartItemId] = useState(null);
   const [confirmLoading, setConfirmLoading] = useState(false);
-
-
 
   const cartProducts = useMemo(() => {
     return Array.isArray(cartList) ? cartList : [];
   }, [cartList]);
 
-
-
   const totalItems = useMemo(() => {
     return cartProducts.reduce(
       (count, item) => count + Number(item.quantity ?? 1),
-      0,
+      0
     );
   }, [cartProducts]);
-
-
 
   const handleRemoveClick = (cartItemId) => {
     setSelectedCartItemId(cartItemId);
@@ -60,7 +52,7 @@ const CartPage = () => {
       setConfirmLoading(true);
       await removeFromCart(selectedCartItemId);
       toast.success("Item removed from cart");
-    } catch (error) {
+    } catch {
       toast.error("Failed to remove item");
     } finally {
       setConfirmLoading(false);
@@ -68,8 +60,6 @@ const CartPage = () => {
       setSelectedCartItemId(null);
     }
   };
-
-
 
   const checkoutAll = () => {
     if (!selectedPayment) {
@@ -80,7 +70,6 @@ const CartPage = () => {
     toast.success(`Proceeding to checkout with ${selectedPayment}`);
   };
 
-
   if (isLoading) {
     return (
       <ContentWrapper compactScreen>
@@ -90,8 +79,6 @@ const CartPage = () => {
       </ContentWrapper>
     );
   }
-
-
 
   if (cartProducts.length === 0) {
     return (
@@ -110,14 +97,14 @@ const CartPage = () => {
       <ContentWrapper compactScreen>
         <div className="py-6 lg:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
+          {/* LEFT SIDE - CART ITEMS */}
           <div
             className={`col-span-1 lg:col-span-2 flex flex-col gap-6 ${isMobile ? "pb-24" : ""
               }`}
           >
-
             <div className="flex items-center gap-3">
-              <div className="bg-blue-100 p-3 rounded-full shadow-sm">
-                <ShoppingCart className="w-6 h-6 text-blue-600" />
+              <div className="bg-[var(--color-secondary)] p-3 rounded-full shadow-sm">
+                <ShoppingCart className="w-6 h-6 text-white" />
               </div>
 
               <div>
@@ -127,7 +114,6 @@ const CartPage = () => {
                 </p>
               </div>
             </div>
-
 
             <div className="flex flex-col gap-6">
               {cartProducts.map((product) => (
@@ -140,13 +126,13 @@ const CartPage = () => {
                         ? [product.productImage]
                         : [],
                       price: Number(
-                        product.calculatedProductPrice?.price ?? 0,
+                        product.calculatedProductPrice?.price ?? 0
                       ),
                       oldPrice: Number(
-                        product.calculatedProductPrice?.oldPrice ?? 0,
+                        product.calculatedProductPrice?.oldPrice ?? 0
                       ),
                       savings: Number(
-                        product.calculatedProductPrice?.percentOfSaving ?? 0,
+                        product.calculatedProductPrice?.percentOfSaving ?? 0
                       ),
                       quantity: Number(product.quantity ?? 1),
                       rating: 0,
@@ -164,7 +150,7 @@ const CartPage = () => {
             </div>
           </div>
 
-
+          {/* RIGHT SIDE - DESKTOP SUMMARY */}
           {!isMobile && (
             <div className="col-span-1">
               <div className="sticky top-28">
@@ -181,35 +167,28 @@ const CartPage = () => {
               </div>
             </div>
           )}
-
-          {/* MOBILE BOTTOM BAR */}
-          {isMobile && (
-            <CartBottomBar
-              cart={cartProducts}
-              total={subTotalWithDiscount}
-              onCheckout={checkoutAll}
-              onPaymentChange={setSelectedPayment}
-            />
-          )}
         </div>
       </ContentWrapper>
 
+      {/* MOBILE BOTTOM BAR */}
+      {isMobile && (
+        <CartBottomBar
+          cart={cartProducts}
+          total={subTotalWithDiscount}
+          onCheckout={checkoutAll}
+          selectedPayment={selectedPayment}
+          onPaymentChange={setSelectedPayment}
+        />
+      )}
 
+      {/* CONFIRM REMOVE DIALOG */}
       <ConfirmDialog
-        isOpen={confirmOpen}
-        title="Remove Item"
-        message="Are you sure you want to remove this item from your cart?"
-        confirmText="Remove"
-        cancelText="Cancel"
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
         onConfirm={handleConfirmRemove}
-        onCancel={() => {
-          if (!confirmLoading) {
-            setConfirmOpen(false);
-            setSelectedCartItemId(null);
-          }
-        }}
         loading={confirmLoading}
-        variant="danger"
+        title="Remove Item"
+        description="Are you sure you want to remove this item from your cart?"
       />
     </>
   );

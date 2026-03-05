@@ -7,17 +7,18 @@ import EmptyState from "@/components/shared/EmptyState";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const IMAGE_BASE_URL =
   "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net/";
 
 const WishlistPage = () => {
+  const navigate = useNavigate(); // ✅ MUST BE INSIDE COMPONENT
+
   const { addToCartList } = useCartList();
   const { wishlist, removeFromWishlist } = useWishlist();
 
   const [addingToCart, setAddingToCart] = useState(new Set());
-
-  console.log(wishlist, "this is the wishlist data");
 
   const handleAddToCart = async (product, quantity) => {
     try {
@@ -29,24 +30,17 @@ const WishlistPage = () => {
         variationName: "",
       };
 
-      console.log("Adding to cart with payload:", payload);
-
       await addToCartList(payload);
 
-      toast.success("Product added to cart!");
+      // remove from wishlist WITHOUT toast
+      await removeFromWishlist(product.wishlistItemId, { showToast: false });
 
-      await removeFromWishlist(product.wishlistItemId);
-
-      setAddingToCart((prev) => {
-        const newSet = new Set(prev);
-        newSet.delete(product.wishlistItemId);
-        return newSet;
-      });
+      // ✅ Navigate AFTER success
+      navigate("/cart", { replace: true });
     } catch (error) {
       console.error("Error adding to cart:", error);
-
       toast.error("Failed to add product to cart. Please try again.");
-
+    } finally {
       setAddingToCart((prev) => {
         const newSet = new Set(prev);
         newSet.delete(product.wishlistItemId);
@@ -71,15 +65,14 @@ const WishlistPage = () => {
   return (
     <ContentWrapper compactScreen>
       <div className="py-10 lg:mt-24 md:mt-24">
-        {/* Header with Heart Icon */}
+        {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-3">
             {/* Heart Icon */}
-            <div className="bg-red-100 p-2 rounded-full">
-              <Heart className="w-6 h-6 text-red-500 fill-red-500" />
+            <div className="bg-[var(--color-secondary)] p-2 rounded-full">
+              <Heart className="w-6 h-6 text-white fill-white" />
             </div>
 
-            {/* Title and Count */}
             <div>
               <SectionTitle title="My Wishlist" />
               <p className="text-sm text-gray-500">
@@ -89,7 +82,7 @@ const WishlistPage = () => {
           </div>
         </div>
 
-        {/* Wishlist Grid */}
+        {/* Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {wishlist.map((item) => {
             const imageUrl = item.productImage?.startsWith("http")
