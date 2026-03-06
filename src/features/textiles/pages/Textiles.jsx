@@ -1,5 +1,6 @@
+
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SearchBar from "@/components/shared/SearchBar";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
@@ -10,9 +11,10 @@ import { ChevronDown, Loader2 } from "lucide-react";
 
 const TextilesPage = () => {
 
-  // ✅ URL category sync
-  const [urlParams, setUrlParams] = useSearchParams();
-  const categoryFromURL = urlParams.get("category") || "textiles";
+  // ✅ category from URL path (FIXED)
+  const { pathname } = useLocation();
+  const categoryFromURL =
+    pathname.split("/").filter(Boolean).pop() || "textiles";
 
   const [searchParams, setSearchParams] = useState({
     query: "",
@@ -71,7 +73,25 @@ const TextilesPage = () => {
       (data?.currentSearchOption?.pageSize ?? 10)
   );
 
-  // Reset when filters change
+  // ✅ Sync category when route changes (FIXED)
+  useEffect(() => {
+
+    const newCategory =
+      pathname.split("/").filter(Boolean).pop() || "textiles";
+
+    setFilters((prev) => ({
+      ...prev,
+      category: newCategory,
+    }));
+
+    setSearchParams((prev) => ({
+      ...prev,
+      category: newCategory,
+    }));
+
+  }, [pathname]);
+
+  // reset products when filters change
   useEffect(() => {
     setAllProducts([]);
     setCurrentPage(1);
@@ -87,37 +107,49 @@ const TextilesPage = () => {
     sortBy,
   ]);
 
-  // Append products
+  // append products
   useEffect(() => {
+
     if (data?.products) {
+
       setAllProducts((prev) => {
+
         if (currentPage === 1) return products;
 
         const existingIds = new Set(prev.map((p) => p.id));
         const newProducts = products.filter((p) => !existingIds.has(p.id));
+
         return [...prev, ...newProducts];
+
       });
 
       setHasMore(currentPage < totalPages);
       loadingRef.current = false;
       setIsLoadingMore(false);
+
     }
+
   }, [data?.products, currentPage, totalPages, products]);
 
-  // Infinite scroll
+  // infinite scroll
   useEffect(() => {
+
     const observer = new IntersectionObserver(
       (entries) => {
+
         if (
           entries[0].isIntersecting &&
           hasMore &&
           !loadingRef.current &&
           !isLoading
         ) {
+
           loadingRef.current = true;
           setIsLoadingMore(true);
           setCurrentPage((prev) => prev + 1);
+
         }
+
       },
       { threshold: 0.1, rootMargin: "200px" }
     );
@@ -129,52 +161,60 @@ const TextilesPage = () => {
     return () => {
       if (currentTarget) observer.unobserve(currentTarget);
     };
+
   }, [hasMore, isLoading]);
 
-  // ✅ Sync filter change with URL
+  // filter change
   const handleFilterChange = useCallback((updatedFilters) => {
-    setFilters((prev) => {
-      const newFilters = { ...prev, ...updatedFilters };
 
-      if (updatedFilters.category !== undefined) {
-        setUrlParams({ category: updatedFilters.category });
-      }
+    setFilters((prev) => ({
+      ...prev,
+      ...updatedFilters,
+    }));
 
-      return newFilters;
-    });
-  }, [setUrlParams]);
+  }, []);
 
   return (
     <ContentWrapper>
-      <div className="responsive-padding -mt-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
-          {/* Left spacer (keeps search centered when filter exists) */}
-          <div className=" text-black text-md italic font-semibold tracking-wide">
-            Find  here the best Handcrafted Textiles & Artisan Crafts
 
+      <div className="responsive-padding -mt-4">
+
+        <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
+
+          <div className="flex-1">
+            <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
+              Discover
+            </p>
+
+            <h2 className="text-lg md:text-xl font-bold text-gray-900">
+              The Best Products
+            </h2>
+
+            <p className="text-sm text-gray-500 mt-1">
+              Crafted by Kashmir's finest artisans
+            </p>
           </div>
 
-          {/* Search Bar */}
-          <div className="w-full md:w-1/2 flex justify-center">
+          <div className="flex-1 flex justify-center">
             <div className="w-full max-w-xl">
               <SearchBar onChange={setSearchParams} showCategory />
             </div>
           </div>
 
-          {/* Sort Dropdown */}
-          <div className="w-full md:w-1/4 flex md:justify-end">
+          <div className="flex-1 flex justify-end">
+
             <div className="relative inline-block text-left">
 
               <select
                 value={sortBy}
-                onChange={(e) => {
-                  setSortBy(e.target.value);
-                }}
-                className="appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-pointer shadow-sm"
+                onChange={(e) => setSortBy(e.target.value)}
+                className="appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none"
               >
+
                 <option value="">Sort By: Default</option>
                 <option value="price-asc">Sort By: Low to High</option>
                 <option value="price-desc">Sort By: High to Low</option>
+
               </select>
 
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
@@ -182,15 +222,17 @@ const TextilesPage = () => {
               </div>
 
             </div>
+
           </div>
 
         </div>
+
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 pt-6">
 
-        {/* Sidebar */}
         <aside className="hidden lg:block w-[240px] shrink-0">
+
           <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
 
             <AdvancedFilter
@@ -207,9 +249,9 @@ const TextilesPage = () => {
             />
 
           </div>
+
         </aside>
 
-        {/* Products */}
         <main className="flex-1">
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -246,9 +288,12 @@ const TextilesPage = () => {
           )}
 
         </main>
+
       </div>
+
     </ContentWrapper>
   );
 };
 
 export default TextilesPage;
+

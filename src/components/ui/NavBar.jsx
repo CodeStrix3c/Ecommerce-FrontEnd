@@ -163,6 +163,7 @@ const NavBar = () => {
         .map((child) => ({
           id: child.id,
           name: child.name,
+          slug: child.slug.toLowerCase(),
           path:
             CATEGORY_PATH_MAP[child.slug.toLowerCase()] ||
             `/${child.slug.toLowerCase()}`,
@@ -171,6 +172,7 @@ const NavBar = () => {
       return {
         id: cat.id,
         name: cat.name,
+        slug,
         path,
         icon,
         activeColor: "text-[var(--color-secondary)]",
@@ -185,24 +187,29 @@ const NavBar = () => {
   const inactiveMobileColor = "text-[var(--color-neutral-dark)]";
   const hoverMobileColor = "hover:text-[var(--color-black)]";
 
-  // ✅ Mobile bottom nav
+  const isTabActive = (tabSlug) => {
+    if (tabSlug === "home") return pathname === "/home";
+
+    return categoryFromURL?.toLowerCase() === tabSlug;
+  };
+
+  // ✅ Mobile Navbar
   if (below600) {
     return (
       <nav className="fixed bottom-0 z-10 w-full border-t bg-[var(--color-white)] py-2">
         <ContentWrapper>
           <div className="flex justify-between">
             {NAVBAR_TABS.map((tab) => {
-              const tabSlug = tab.path.replace("/", "");
-
-              const active =
-                pathname === tab.path ||
-                (categoryFromURL &&
-                  categoryFromURL.toLowerCase() === tabSlug);
+              const active = isTabActive(tab.slug);
 
               return (
                 <NavLink
                   key={tab.name}
-                  to={tab.path}
+                  to={
+                    tab.slug
+                      ? `${tab.path}?category=${tab.slug}`
+                      : tab.path
+                  }
                   end={tab.path === "/home"}
                   className={`relative flex flex-col items-center text-xs font-medium transition-colors duration-300 py-1 ${
                     active ? tab.activeColor : inactiveMobileColor
@@ -223,23 +230,21 @@ const NavBar = () => {
     );
   }
 
-  // ✅ Desktop + Tablet nav
+  // ✅ Desktop Navbar
   return (
     <div className="relative">
       <nav className="flex items-center gap-4 lg:gap-8">
         {NAVBAR_TABS.map((tab) => {
-          const tabSlug = tab.path.replace("/", "");
-
-          const active =
-            pathname === tab.path ||
-            (categoryFromURL &&
-              categoryFromURL.toLowerCase() === tabSlug);
+          const active = isTabActive(tab.slug);
 
           return (
             <div key={tab.name} className="relative group">
-              {/* Main nav link */}
               <NavLink
-                to={tab.path}
+                to={
+                  tab.slug
+                    ? `${tab.path}?category=${tab.slug}`
+                    : tab.path
+                }
                 end={tab.path === "/home"}
                 className={`relative flex items-center gap-1 lg:gap-2 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 ${
                   active
@@ -251,7 +256,7 @@ const NavBar = () => {
                 <span>{tab.name}</span>
               </NavLink>
 
-              {/* Dropdown */}
+              {/* Sub Categories */}
               {tab.children && (
                 <div
                   className="
@@ -266,7 +271,7 @@ const NavBar = () => {
                   {tab.children.map((child) => (
                     <NavLink
                       key={child.id}
-                      to={child.path}
+                      to={`${tab.path}?category=${child.slug}`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black transition-colors"
                     >
                       {child.name}
