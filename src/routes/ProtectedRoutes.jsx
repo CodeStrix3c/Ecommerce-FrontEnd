@@ -13,6 +13,7 @@ import SettingsPage from "@/features/settings/SettingsPage";
 import AddressPage from "@/features/address/addressPage";
 import OrdersPage from "@/supplier/pages/OrdersPage";
 
+import PaymentPage from "@/features/payment/paymentPage";
 
 /* ================= AUTH / COMMON ================= */
 const TalkWithExpert = lazy(
@@ -99,6 +100,7 @@ export default [
       <Route path="/user-orders/:id" element={<UserOrderPage />} />
       <Route path="/order-details/:id" element={<OrderDetailsPage />} />
       <Route path="/address" element={<AddressPage />} />
+      <Route path="payment" element={<PaymentPage />} />
 
       {/* Account */}
       <Route path="/account/places" element={<PlacesPage />} />

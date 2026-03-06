@@ -64,7 +64,7 @@ const CartSummary = ({
   return (
     <div className="sticky top-36 border rounded-sm p-6 bg-[var(--color-white)] flex flex-col gap-4 shadow-sm">
       <h2 className="text-lg font-semibold text-[var(--color-black)]">
-        Order Summary
+        Cart Summary
       </h2>
 
       <p className="text-sm text-[var(--color-black)]">
