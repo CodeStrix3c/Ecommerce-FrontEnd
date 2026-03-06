@@ -26,8 +26,7 @@ const UserHome = () => {
     maxPrice: 100000,
   });
 
-  // 🔹 Products API call with sorting and range
-  const { data, isLoading, isFetching } = useProductsQuery({
+  const { data, isLoading } = useProductsQuery({
     query: searchParams.query,
     category: filters.category || searchParams.category,
     brand: filters.brand,
@@ -40,7 +39,6 @@ const UserHome = () => {
   const backendFilters = data?.filterOption;
   const { toggleWishlist } = useWishlist();
 
-  // Transform products from API
   const products = useMemo(() => {
     return (data?.products || []).map((item) => ({
       id: item.id,
@@ -58,10 +56,10 @@ const UserHome = () => {
   }, [data?.products]);
 
   const totalPages = Math.ceil(
-    (data?.totalProduct ?? 0) / (data?.currentSearchOption?.pageSize ?? 10),
+    (data?.totalProduct ?? 0) /
+    (data?.currentSearchOption?.pageSize ?? 10),
   );
 
-  // Reset products when filters change
   useEffect(() => {
     setAllProducts([]);
     setCurrentPage(1);
@@ -78,35 +76,32 @@ const UserHome = () => {
     sortBy,
   ]);
 
-  // Append new products when data changes
   useEffect(() => {
     if (data?.products && products.length > 0) {
       setAllProducts((prev) => {
-        // If it's page 1, replace all products
         if (currentPage === 1) {
           loadingRef.current = false;
           setIsLoadingMore(false);
           return products;
         }
-        // Otherwise, append new products (avoid duplicates)
+
         const existingIds = new Set(prev.map((p) => p.id));
         const newProducts = products.filter((p) => !existingIds.has(p.id));
+
         loadingRef.current = false;
         setIsLoadingMore(false);
+
         return [...prev, ...newProducts];
       });
 
-      // Check if there are more pages
       setHasMore(currentPage < totalPages);
     } else if (data?.products && products.length === 0 && currentPage > 1) {
-      // No more products available
       setHasMore(false);
       loadingRef.current = false;
       setIsLoadingMore(false);
     }
   }, [data?.products, currentPage, totalPages, products]);
 
-  // Infinite scroll observer with earlier trigger
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -124,51 +119,58 @@ const UserHome = () => {
       },
       {
         threshold: 0.1,
-        rootMargin: "200px", // Start loading 200px before reaching the target
+        rootMargin: "200px",
       },
     );
 
     const currentTarget = observerTarget.current;
-    if (currentTarget) {
-      observer.observe(currentTarget);
-    }
+
+    if (currentTarget) observer.observe(currentTarget);
 
     return () => {
-      if (currentTarget) {
-        observer.unobserve(currentTarget);
-      }
+      if (currentTarget) observer.unobserve(currentTarget);
     };
   }, [hasMore, isLoading, allProducts.length]);
 
-  // Handle filter changes
   const handleFilterChange = useCallback((updatedFilters) => {
     setFilters((prev) => ({ ...prev, ...updatedFilters }));
   }, []);
 
   return (
     <ContentWrapper>
-      {/* HEADER SECTION: SEARCH & SORT */}
-      <div className="responsive-padding -mt-4">
-        {/* Search Bar & Sort - Same Row on Desktop/Tablet, Stacked on Mobile */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
-          {/* Left spacer (keeps search centered when filter exists) */}
-          <div className="hidden md:block md:w-1/4" />
 
-          {/* Center Search Bar */}
-          <div className="w-full md:w-1/2 flex justify-center">
+      {/* HEADER SECTION */}
+      <div className="responsive-padding -mt-4">
+        <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
+
+          {/* TEXT */}
+          <div className="flex-1">
+            <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
+              Discover
+            </p>
+
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">
+              The Best Products
+            </h2>
+
+            <p className="text-sm text-gray-500 mt-1">
+              Crafted by Kashmir's finest artisans
+            </p>
+          </div>
+
+          {/* SEARCH */}
+          <div className="flex-1 flex justify-center">
             <div className="w-full max-w-xl">
               <SearchBar onChange={setSearchParams} showCategory />
             </div>
           </div>
 
-          {/* Sort Dropdown - Right Side */}
-          <div className="hidden md:flex md:w-1/4 md:justify-end">
+          {/* SORT */}
+          <div className="flex-1 flex justify-end">
             <div className="relative inline-block text-left">
               <select
                 value={sortBy}
-                onChange={(e) => {
-                  setSortBy(e.target.value);
-                }}
+                onChange={(e) => setSortBy(e.target.value)}
                 className="appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-pointer shadow-sm"
               >
                 <option value="">Sort By: Default</option>
@@ -181,29 +183,28 @@ const UserHome = () => {
               </div>
             </div>
           </div>
+
         </div>
 
-        {/* Sort & Filter Button Row - Mobile Only */}
+        {/* MOBILE SORT + FILTER */}
         <div className="flex md:hidden items-center justify-between gap-3 pb-4">
-          {/* SORT DROPDOWN */}
+
           <div className="relative flex-1">
             <select
               value={sortBy}
-              onChange={(e) => {
-                setSortBy(e.target.value);
-              }}
+              onChange={(e) => setSortBy(e.target.value)}
               className="w-full appearance-none bg-white border border-gray-200 rounded-full px-5 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-pointer shadow-sm"
             >
               <option value="">Sort By: Default</option>
               <option value="price-asc">Sort By: Low to High</option>
               <option value="price-desc">Sort By: High to Low</option>
             </select>
+
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
               <ChevronDown size={14} />
             </div>
           </div>
 
-          {/* Filter Button */}
           <button
             onClick={() => setMobileFilterOpen(true)}
             className="bg-black text-white px-5 py-2.5 rounded-full shadow-sm flex items-center gap-2"
@@ -213,10 +214,12 @@ const UserHome = () => {
               Filter
             </span>
           </button>
+
         </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 pt-6">
+
         <aside className="hidden lg:block w-[240px] shrink-0">
           <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
             <AdvancedFilter
@@ -233,7 +236,6 @@ const UserHome = () => {
           </div>
         </aside>
 
-        {/* Mobile Filter */}
         <div className="lg:hidden">
           <AdvancedFilter
             availableBrands={backendFilters?.brands || []}
@@ -249,8 +251,9 @@ const UserHome = () => {
         </div>
 
         <main className="flex-1">
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {/* Initial Loading State */}
+
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
                 <div
@@ -272,31 +275,27 @@ const UserHome = () => {
                     No products found matching your criteria.
                   </div>
                 )}
+
           </div>
 
-          {/* Loading More Skeleton Cards */}
           {isLoadingMore && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div
-                  key={`skeleton-${i}`}
+                  key={i}
                   className="h-64 bg-gray-50 animate-pulse rounded-xl"
                 />
               ))}
             </div>
           )}
 
-          {/* Infinite Scroll Trigger Point */}
           {hasMore && allProducts.length > 0 && !isLoadingMore && (
             <div
               ref={observerTarget}
               className="h-20 flex justify-center items-center"
-            >
-              {/* Invisible trigger point */}
-            </div>
+            />
           )}
 
-          {/* Infinite Scroll Loader - Only show if actively fetching */}
           {isLoadingMore && (
             <div className="flex justify-center items-center py-8">
               <div className="flex flex-col items-center gap-3">
@@ -308,7 +307,6 @@ const UserHome = () => {
             </div>
           )}
 
-          {/* End of Results */}
           {!hasMore && allProducts.length > 0 && (
             <div className="flex justify-center items-center py-12">
               <div className="flex flex-col items-center gap-2">
@@ -319,8 +317,10 @@ const UserHome = () => {
               </div>
             </div>
           )}
+
         </main>
       </div>
+
     </ContentWrapper>
   );
 };

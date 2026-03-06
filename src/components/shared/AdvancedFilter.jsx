@@ -201,15 +201,6 @@ const AdvancedFilter = ({
           flex flex-col border-r border-gray-100
         `}
       >
-        {/* Main Heading */}
-        <div className="px-8 mt-[-6px] pb-2">
-          <h2 className="text-lg font-semibold text-black">
-            Advanced Filter
-          </h2>
-          <p className="text-xs text-gray-400">
-            Refine your search results
-          </p>
-        </div>
 
 
         {/* Filter Controls Header */}
