@@ -1,6 +1,5 @@
-
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SearchBar from "@/components/shared/SearchBar";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
@@ -10,20 +9,26 @@ import PlaceCard from "@/features/places/components/PlaceCard";
 import { ChevronDown, Loader2 } from "lucide-react";
 
 const TextilesPage = () => {
+  const CATEGORY = "textiles";
 
-  // ✅ category from URL path (FIXED)
-  const { pathname } = useLocation();
-  const categoryFromURL =
-    pathname.split("/").filter(Boolean).pop() || "textiles";
+  const [urlParams] = useSearchParams();
+  const categoryFromUrl = urlParams.get("category") || CATEGORY;
 
   const [searchParams, setSearchParams] = useState({
     query: "",
-    category: categoryFromURL,
+  });
+
+  const [filters, setFilters] = useState({
+    category: categoryFromUrl,
+    brand: "",
+    minPrice: 0,
+    maxPrice: 100000,
   });
 
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+
   const [allProducts, setAllProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -31,14 +36,14 @@ const TextilesPage = () => {
   const observerTarget = useRef(null);
   const loadingRef = useRef(false);
 
-  const [filters, setFilters] = useState({
-    category: categoryFromURL,
-    brand: "",
-    minPrice: 0,
-    maxPrice: 100000,
-  });
-
   const { toggleWishlist } = useWishlist();
+
+  useEffect(() => {
+    setFilters((prev) => ({
+      ...prev,
+      category: categoryFromUrl,
+    }));
+  }, [categoryFromUrl]);
 
   const { data, isLoading } = useProductsQuery({
     query: searchParams.query,
@@ -69,29 +74,9 @@ const TextilesPage = () => {
   }, [data?.products]);
 
   const totalPages = Math.ceil(
-    (data?.totalProduct ?? 0) /
-      (data?.currentSearchOption?.pageSize ?? 10)
+    (data?.totalProduct ?? 0) / (data?.currentSearchOption?.pageSize ?? 10),
   );
 
-  // ✅ Sync category when route changes (FIXED)
-  useEffect(() => {
-
-    const newCategory =
-      pathname.split("/").filter(Boolean).pop() || "textiles";
-
-    setFilters((prev) => ({
-      ...prev,
-      category: newCategory,
-    }));
-
-    setSearchParams((prev) => ({
-      ...prev,
-      category: newCategory,
-    }));
-
-  }, [pathname]);
-
-  // reset products when filters change
   useEffect(() => {
     setAllProducts([]);
     setCurrentPage(1);
@@ -100,58 +85,45 @@ const TextilesPage = () => {
     setIsLoadingMore(false);
   }, [
     searchParams.query,
-    filters.category,
     filters.brand,
     filters.minPrice,
     filters.maxPrice,
+    filters.category,
     sortBy,
   ]);
 
-  // append products
   useEffect(() => {
+    if (!data?.products) return;
 
-    if (data?.products) {
+    setAllProducts((prev) => {
+      if (currentPage === 1) return products;
 
-      setAllProducts((prev) => {
+      const existingIds = new Set(prev.map((p) => p.id));
+      const newProducts = products.filter((p) => !existingIds.has(p.id));
 
-        if (currentPage === 1) return products;
+      return [...prev, ...newProducts];
+    });
 
-        const existingIds = new Set(prev.map((p) => p.id));
-        const newProducts = products.filter((p) => !existingIds.has(p.id));
-
-        return [...prev, ...newProducts];
-
-      });
-
-      setHasMore(currentPage < totalPages);
-      loadingRef.current = false;
-      setIsLoadingMore(false);
-
-    }
-
+    setHasMore(currentPage < totalPages);
+    loadingRef.current = false;
+    setIsLoadingMore(false);
   }, [data?.products, currentPage, totalPages, products]);
 
-  // infinite scroll
   useEffect(() => {
-
     const observer = new IntersectionObserver(
       (entries) => {
-
         if (
           entries[0].isIntersecting &&
           hasMore &&
           !loadingRef.current &&
           !isLoading
         ) {
-
           loadingRef.current = true;
           setIsLoadingMore(true);
           setCurrentPage((prev) => prev + 1);
-
         }
-
       },
-      { threshold: 0.1, rootMargin: "200px" }
+      { threshold: 0.1, rootMargin: "200px" },
     );
 
     const currentTarget = observerTarget.current;
@@ -161,26 +133,19 @@ const TextilesPage = () => {
     return () => {
       if (currentTarget) observer.unobserve(currentTarget);
     };
-
   }, [hasMore, isLoading]);
 
-  // filter change
   const handleFilterChange = useCallback((updatedFilters) => {
-
     setFilters((prev) => ({
       ...prev,
       ...updatedFilters,
     }));
-
   }, []);
 
   return (
     <ContentWrapper>
-
       <div className="responsive-padding -mt-4">
-
         <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
-
           <div className="flex-1">
             <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
               Discover
@@ -202,39 +167,28 @@ const TextilesPage = () => {
           </div>
 
           <div className="flex-1 flex justify-end">
-
             <div className="relative inline-block text-left">
-
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none"
               >
-
                 <option value="">Sort By: Default</option>
                 <option value="price-asc">Sort By: Low to High</option>
                 <option value="price-desc">Sort By: High to Low</option>
-
               </select>
 
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
                 <ChevronDown size={14} />
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 pt-6">
-
         <aside className="hidden lg:block w-[240px] shrink-0">
-
           <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
-
             <AdvancedFilter
               selectedCategory={filters.category}
               availableBrands={backendFilters?.brands || []}
@@ -247,15 +201,11 @@ const TextilesPage = () => {
               mobileOpen={mobileFilterOpen}
               setMobileOpen={setMobileFilterOpen}
             />
-
           </div>
-
         </aside>
 
         <main className="flex-1">
-
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
                   <div
@@ -271,7 +221,6 @@ const TextilesPage = () => {
                     onToggleWishlist={() => toggleWishlist(product)}
                   />
                 ))}
-
           </div>
 
           {hasMore && (
@@ -286,14 +235,10 @@ const TextilesPage = () => {
               <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
             </div>
           )}
-
         </main>
-
       </div>
-
     </ContentWrapper>
   );
 };
 
 export default TextilesPage;
-

@@ -205,11 +205,7 @@ const NavBar = () => {
               return (
                 <NavLink
                   key={tab.name}
-                  to={
-                    tab.slug
-                      ? `${tab.path}?category=${tab.slug}`
-                      : tab.path
-                  }
+                  to={tab.slug ? `${tab.path}?category=${tab.slug}` : tab.path}
                   end={tab.path === "/home"}
                   className={`relative flex flex-col items-center text-xs font-medium transition-colors duration-300 py-1 ${
                     active ? tab.activeColor : inactiveMobileColor
@@ -240,11 +236,7 @@ const NavBar = () => {
           return (
             <div key={tab.name} className="relative group">
               <NavLink
-                to={
-                  tab.slug
-                    ? `${tab.path}?category=${tab.slug}`
-                    : tab.path
-                }
+                to={tab.slug ? `${tab.path}?category=${tab.slug}` : tab.path}
                 end={tab.path === "/home"}
                 className={`relative flex items-center gap-1 lg:gap-2 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 ${
                   active
