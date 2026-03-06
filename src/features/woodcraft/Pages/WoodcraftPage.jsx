@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SearchBar from "@/components/shared/SearchBar";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
@@ -8,14 +9,27 @@ import PlaceCard from "@/features/places/components/PlaceCard";
 import { ChevronDown, Loader2 } from "lucide-react";
 
 const WoodcraftPage = () => {
+
+  const CATEGORY = "woodcraft";
+
+  const [urlParams] = useSearchParams();
+  const categoryFromUrl = urlParams.get("category") || CATEGORY;
+
   const [searchParams, setSearchParams] = useState({
     query: "",
-    category: "woodcraft", // ✅ changed
+  });
+
+  const [filters, setFilters] = useState({
+    category: categoryFromUrl,
+    brand: "",
+    minPrice: 0,
+    maxPrice: 100000,
   });
 
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+
   const [allProducts, setAllProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -23,14 +37,20 @@ const WoodcraftPage = () => {
   const observerTarget = useRef(null);
   const loadingRef = useRef(false);
 
-  const [filters, setFilters] = useState({
-    category: "woodcraft",
-    brand: "",
-    minPrice: 0,
-    maxPrice: 100000,
-  });
-
   const { toggleWishlist } = useWishlist();
+
+  /*
+  ----------------------------
+  SYNC CATEGORY FROM URL
+  ----------------------------
+  */
+
+  useEffect(() => {
+    setFilters((prev) => ({
+      ...prev,
+      category: categoryFromUrl,
+    }));
+  }, [categoryFromUrl]);
 
   const { data, isLoading } = useProductsQuery({
     query: searchParams.query,
@@ -56,49 +76,77 @@ const WoodcraftPage = () => {
       ratingCount: item.reviewsCount ?? 0,
       stock: item.stockQuantity ?? 0,
       image: item.thumbnailUrl,
-      discountPercent: item.calculatedProductPrice?.percentOfSaving ?? null,
+      discountPercent:
+        item.calculatedProductPrice?.percentOfSaving ?? null,
     }));
   }, [data?.products]);
 
   const totalPages = Math.ceil(
-    (data?.totalProduct ?? 0) / (data?.currentSearchOption?.pageSize ?? 10),
+    (data?.totalProduct ?? 0) /
+      (data?.currentSearchOption?.pageSize ?? 10)
   );
 
+  /*
+  ----------------------------
+  RESET PRODUCTS WHEN FILTERS CHANGE
+  ----------------------------
+  */
+
   useEffect(() => {
+
     setAllProducts([]);
     setCurrentPage(1);
     setHasMore(true);
     loadingRef.current = false;
     setIsLoadingMore(false);
+
   }, [
     searchParams.query,
-    filters.category,
     filters.brand,
     filters.minPrice,
     filters.maxPrice,
+    filters.category,
     sortBy,
   ]);
 
+  /*
+  ----------------------------
+  APPEND PRODUCTS
+  ----------------------------
+  */
+
   useEffect(() => {
-    if (data?.products) {
-      setAllProducts((prev) => {
-        if (currentPage === 1) return products;
 
-        const existingIds = new Set(prev.map((p) => p.id));
-        const newProducts = products.filter((p) => !existingIds.has(p.id));
-        return [...prev, ...newProducts];
-      });
+    if (!data?.products) return;
 
-      setHasMore(currentPage < totalPages);
-      loadingRef.current = false;
-      setIsLoadingMore(false);
-    }
+    setAllProducts((prev) => {
+
+      if (currentPage === 1) return products;
+
+      const existingIds = new Set(prev.map((p) => p.id));
+      const newProducts = products.filter((p) => !existingIds.has(p.id));
+
+      return [...prev, ...newProducts];
+
+    });
+
+    setHasMore(currentPage < totalPages);
+    loadingRef.current = false;
+    setIsLoadingMore(false);
+
   }, [data?.products, currentPage, totalPages, products]);
 
-  // Infinite scroll
+  /*
+  ----------------------------
+  INFINITE SCROLL
+  ----------------------------
+  */
+
   useEffect(() => {
+
     const observer = new IntersectionObserver(
       (entries) => {
+
         if (
           entries[0].isIntersecting &&
           hasMore &&
@@ -109,68 +157,114 @@ const WoodcraftPage = () => {
           setIsLoadingMore(true);
           setCurrentPage((prev) => prev + 1);
         }
+
       },
-      { threshold: 0.1, rootMargin: "200px" },
+      { threshold: 0.1, rootMargin: "200px" }
     );
 
     const currentTarget = observerTarget.current;
+
     if (currentTarget) observer.observe(currentTarget);
 
     return () => {
       if (currentTarget) observer.unobserve(currentTarget);
     };
+
   }, [hasMore, isLoading]);
 
+  /*
+  ----------------------------
+  FILTER CHANGE
+  ----------------------------
+  */
+
   const handleFilterChange = useCallback((updatedFilters) => {
-    setFilters((prev) => ({ ...prev, ...updatedFilters }));
+
+    setFilters((prev) => ({
+      ...prev,
+      ...updatedFilters,
+    }));
+
   }, []);
 
   return (
     <ContentWrapper>
-      {/* Search */}
+
       <div className="responsive-padding -mt-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-4">
-          {/* Left spacer (keeps search centered when filter exists) */}
-          <div className=" text-black text-md italic font-semibold tracking-wide">
-            Find  here for the best Woodcraft & Artisan Crafts.
+
+        <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
+
+          {/* TEXT */}
+
+          <div className="flex-1">
+
+            <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
+              Discover
+            </p>
+
+            <h2 className="text-lg md:text-xl font-bold text-gray-900">
+              The Best Products
+            </h2>
+
+            <p className="text-sm text-gray-500 mt-1">
+              Crafted by Kashmir's finest artisans
+            </p>
 
           </div>
 
-          {/* Center Search Bar */}
-          <div className="w-full md:w-1/2 flex justify-center">
+          {/* SEARCH */}
+
+          <div className="flex-1 flex justify-center">
+
             <div className="w-full max-w-xl">
-              <SearchBar onChange={setSearchParams} showCategory />
+
+              <SearchBar
+                onChange={setSearchParams}
+                showCategory
+              />
+
             </div>
+
           </div>
 
-          {/* Sort Dropdown - Right Side */}
-          <div className="w-full md:w-1/4 flex md:justify-end">
+          {/* SORT */}
+
+          <div className="flex-1 flex justify-end">
+
             <div className="relative inline-block text-left">
+
               <select
                 value={sortBy}
-                onChange={(e) => {
-                  setSortBy(e.target.value);
-                }}
+                onChange={(e) => setSortBy(e.target.value)}
                 className="appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-pointer shadow-sm"
               >
+
                 <option value="">Sort By: Default</option>
                 <option value="price-asc">Sort By: Low to High</option>
                 <option value="price-desc">Sort By: High to Low</option>
+
               </select>
 
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
                 <ChevronDown size={14} />
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
 
-      {/* Layout */}
       <div className="flex flex-col lg:flex-row gap-8 pt-6">
-        {/* Sidebar */}
+
+        {/* SIDEBAR */}
+
         <aside className="hidden lg:block w-[240px] shrink-0">
+
           <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
+
             <AdvancedFilter
               selectedCategory={filters.category}
               availableBrands={backendFilters?.brands || []}
@@ -183,27 +277,32 @@ const WoodcraftPage = () => {
               mobileOpen={mobileFilterOpen}
               setMobileOpen={setMobileFilterOpen}
             />
+
           </div>
 
         </aside>
 
-        {/* Products */}
+        {/* PRODUCTS */}
+
         <main className="flex-1">
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                />
-              ))
+                  <div
+                    key={i}
+                    className="h-64 bg-gray-50 animate-pulse rounded-xl"
+                  />
+                ))
               : allProducts.map((product) => (
-                <PlaceCard
-                  key={product.id}
-                  place={product}
-                  onToggleWishlist={() => toggleWishlist(product)}
-                />
-              ))}
+                  <PlaceCard
+                    key={product.id}
+                    place={product}
+                    onToggleWishlist={() => toggleWishlist(product)}
+                  />
+                ))}
+
           </div>
 
           {hasMore && (
@@ -218,8 +317,11 @@ const WoodcraftPage = () => {
               <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
             </div>
           )}
+
         </main>
+
       </div>
+
     </ContentWrapper>
   );
 };
