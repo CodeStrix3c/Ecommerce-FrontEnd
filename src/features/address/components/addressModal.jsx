@@ -17,7 +17,6 @@ export const AddressModal = ({
   isSaving,
 }) => {
   if (!isOpen) return null;
-
   const {
     handleSubmit,
     formState: { errors, isValid, isDirty },

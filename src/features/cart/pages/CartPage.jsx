@@ -23,6 +23,7 @@ const CartPage = () => {
   } = useCartList();
 
   const isMobile = useIsMobile();
+
   const [selectedPayment, setSelectedPayment] = useState("");
 
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -36,7 +37,7 @@ const CartPage = () => {
   const totalItems = useMemo(() => {
     return cartProducts.reduce(
       (count, item) => count + Number(item.quantity ?? 1),
-      0
+      0,
     );
   }, [cartProducts]);
 
@@ -50,10 +51,10 @@ const CartPage = () => {
 
     try {
       setConfirmLoading(true);
+
       await removeFromCart(selectedCartItemId);
-      toast.success("Item removed from cart");
     } catch {
-      toast.error("Failed to remove item");
+      // toast.error("Failed to remove item");
     } finally {
       setConfirmLoading(false);
       setConfirmOpen(false);
@@ -96,11 +97,11 @@ const CartPage = () => {
     <>
       <ContentWrapper compactScreen>
         <div className="py-6 lg:mt-28 grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          {/* LEFT SIDE - CART ITEMS */}
+          {/* LEFT SIDE */}
           <div
-            className={`col-span-1 lg:col-span-2 flex flex-col gap-6 ${isMobile ? "pb-24" : ""
-              }`}
+            className={`col-span-1 lg:col-span-2 flex flex-col gap-6 ${
+              isMobile ? "pb-24" : ""
+            }`}
           >
             <div className="flex items-center gap-3">
               <div className="bg-[var(--color-secondary)] p-3 rounded-full shadow-sm">
@@ -110,7 +111,8 @@ const CartPage = () => {
               <div>
                 <h1 className="text-xl font-semibold">My Cart</h1>
                 <p className="text-sm text-gray-500">
-                  {totalItems} {totalItems === 1 ? "item" : "items"} in your cart
+                  {totalItems} {totalItems === 1 ? "item" : "items"} in your
+                  cart
                 </p>
               </div>
             </div>
@@ -125,20 +127,18 @@ const CartPage = () => {
                       photos: product.productImage
                         ? [product.productImage]
                         : [],
-                      price: Number(
-                        product.calculatedProductPrice?.price ?? 0
-                      ),
+                      price: Number(product.calculatedProductPrice?.price ?? 0),
                       oldPrice: Number(
-                        product.calculatedProductPrice?.oldPrice ?? 0
+                        product.calculatedProductPrice?.oldPrice ?? 0,
                       ),
                       savings: Number(
-                        product.calculatedProductPrice?.percentOfSaving ?? 0
+                        product.calculatedProductPrice?.percentOfSaving ?? 0,
                       ),
                       quantity: Number(product.quantity ?? 1),
                       rating: 0,
                       inStock: product.isProductAvailabeToOrder,
                     }}
-                    onRemove={handleRemoveClick}
+                    onRemove={() => handleRemoveClick(product.id)}
                     onQuantityChange={updateQuantity}
                   />
 
@@ -150,7 +150,7 @@ const CartPage = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE - DESKTOP SUMMARY */}
+          {/* DESKTOP SUMMARY */}
           {!isMobile && (
             <div className="col-span-1">
               <div className="sticky top-28">
@@ -170,7 +170,7 @@ const CartPage = () => {
         </div>
       </ContentWrapper>
 
-      {/* MOBILE BOTTOM BAR */}
+      {/* MOBILE BAR */}
       {isMobile && (
         <CartBottomBar
           cart={cartProducts}
@@ -181,13 +181,17 @@ const CartPage = () => {
         />
       )}
 
+      {/* CONFIRM REMOVE */}
       <ConfirmDialog
-        open={confirmOpen}
-        onClose={() => setConfirmOpen(false)}
+        isOpen={confirmOpen}
+        onCancel={() => setConfirmOpen(false)}
         onConfirm={handleConfirmRemove}
         loading={confirmLoading}
         title="Remove Item"
-        description="Are you sure you want to remove this item from your cart?"
+        message="Are you sure you want to remove this item from your cart?"
+        confirmText="Remove"
+        cancelText="Cancel"
+        variant="danger"
       />
     </>
   );
