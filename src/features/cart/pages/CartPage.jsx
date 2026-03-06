@@ -181,7 +181,6 @@ const CartPage = () => {
         />
       )}
 
-      {/* CONFIRM REMOVE DIALOG */}
       <ConfirmDialog
         open={confirmOpen}
         onClose={() => setConfirmOpen(false)}

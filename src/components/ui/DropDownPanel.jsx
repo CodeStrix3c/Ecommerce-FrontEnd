@@ -67,6 +67,16 @@ const DropdownPanel = ({ open, onClose }) => {
     navigate("/profile");
   };
 
+  const handleOrdersPage = () => {
+    onClose?.();
+    if (!isAuthenticated) {
+      toast.info("Please login to view your orders");
+      navigate("/login");
+      return;
+    }
+    navigate("/order");
+  };
+
   return (
     <div
       className={`absolute right-0 mt-4 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${open
@@ -152,7 +162,7 @@ const DropdownPanel = ({ open, onClose }) => {
         </div>
 
         <div
-          onClick={handleOpenProfile}
+          onClick={handleOrdersPage}
           className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
         >
           <ShoppingBag size={16} />
