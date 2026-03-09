@@ -21,7 +21,7 @@ export const profileSchema = z
       .string()
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{7,}$/,
-        "Password must be at least 7 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
+        "Paassord must be Min 7 chars with upper, lower, number & special char."
       ),
     confirmPassword: z.string().min(1, "Confirm password is required"),
     profilePic: z.any().optional(),
