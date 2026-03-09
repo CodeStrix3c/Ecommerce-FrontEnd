@@ -7,6 +7,7 @@ import { useWishlist } from "@/providers/WishListProvider";
 import AdvancedFilter from "@/components/shared/AdvancedFilter";
 import PlaceCard from "@/features/places/components/PlaceCard";
 import { ChevronDown, Loader2 } from "lucide-react";
+import ProductSkeleton from "@/components/ui/ProductSkelton";
 
 const WoodcraftPage = () => {
 
@@ -52,15 +53,15 @@ const WoodcraftPage = () => {
     }));
   }, [categoryFromUrl]);
 
-  const { data, isLoading } = useProductsQuery({
-    query: searchParams.query,
-    category: filters.category,
-    brand: filters.brand,
-    minPrice: filters.minPrice,
-    maxPrice: filters.maxPrice,
-    sort: sortBy,
-    page: currentPage,
-  });
+const { data, isLoading } = useProductsQuery({
+  query: searchParams.query,
+  category: !filters.brand ? filters.category : undefined,
+  brand: filters.brand || undefined,
+  minPrice: filters.minPrice,
+  maxPrice: filters.maxPrice,
+  sort: sortBy,
+  page: currentPage,
+});
 
   const backendFilters = data?.filterOption;
 
@@ -290,10 +291,7 @@ const WoodcraftPage = () => {
 
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                  />
+                  <ProductSkeleton key={i} />
                 ))
               : allProducts.map((product) => (
                   <PlaceCard
