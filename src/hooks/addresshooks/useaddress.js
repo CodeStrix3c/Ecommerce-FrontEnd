@@ -5,6 +5,7 @@ import {
   editUserAddress,
   getExistingAddresses,
   getExistingAddressess,
+  getShippingMethods,
   getUserAddresses,
   postSetDefaultAddress,
   updateTaxAndShippingPrices,
@@ -17,8 +18,6 @@ export const useAddAddress = () => {
   });
 };
 
-
-
 export const useUserAddresses = () => {
   return useQuery({
     queryKey: ["user-addresses"],
@@ -26,7 +25,7 @@ export const useUserAddresses = () => {
   });
 };
 
- export const useDeleteUserAddress = () => {
+export const useDeleteUserAddress = () => {
   return useMutation({
     mutationFn: (userAddressId) => deleteUserAddress(userAddressId),
   });
@@ -35,7 +34,7 @@ export const useUserAddresses = () => {
 export const useExistingAddress = (userAddressId) => {
   return useQuery({
     queryKey: ["existing-addresses", userAddressId],
-    queryFn: () => getExistingAddressess(userAddressId), 
+    queryFn: () => getExistingAddressess(userAddressId),
     enabled: !!userAddressId,
   });
 };
@@ -45,12 +44,20 @@ export const useEditUserAddress = () => {
     mutationFn: ({ userAddressId, payload }) =>
       editUserAddress({ userAddressId, payload }),
   });
-}
+};
 
 export const useSetDefaultAddress = () => {
   return useMutation({
-    mutationFn: (userAddressId) => postSetDefaultAddress(userAddressId),});
-  }
+    mutationFn: (userAddressId) => postSetDefaultAddress(userAddressId),
+  });
+};
+
+export const useGetShippingMethods = () => {
+  return useQuery({
+    queryKey: ["shipping-methods"],
+    queryFn: getShippingMethods,
+  });
+};
 
 export const useCheckoutShipping = (checkoutId) => {
   return useQuery({
