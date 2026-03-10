@@ -6,6 +6,7 @@ import { useWishlist } from "@/providers/WishListProvider";
 import AdvancedFilter from "@/components/shared/AdvancedFilter";
 import PlaceCard from "@/features/places/components/PlaceCard";
 import { ChevronDown, Filter, Loader2 } from "lucide-react";
+import ProductSkeleton from "@/components/ui/ProductSkelton";
 
 const UserHome = () => {
   const [searchParams, setSearchParams] = useState({ query: "", category: "" });
@@ -140,6 +141,7 @@ const UserHome = () => {
       {/* HEADER SECTION */}
       <div className="responsive-padding -mt-4">
         <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
+
           {/* TEXT */}
           <div className="flex-1">
             <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
@@ -180,10 +182,12 @@ const UserHome = () => {
               </div>
             </div>
           </div>
+
         </div>
 
         {/* MOBILE SORT + FILTER */}
         <div className="flex md:hidden items-center justify-between gap-3 pb-4">
+
           <div className="relative flex-1">
             <select
               value={sortBy}
@@ -209,10 +213,13 @@ const UserHome = () => {
               Filter
             </span>
           </button>
+
         </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 pt-6">
+
+        {/* FILTER SIDEBAR */}
         <aside className="hidden lg:block w-[240px] shrink-0">
           <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
             <AdvancedFilter
@@ -243,14 +250,14 @@ const UserHome = () => {
           />
         </div>
 
+        {/* PRODUCTS */}
         <main className="flex-1">
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                  />
+                  <ProductSkeleton key={i} />
                 ))
               : allProducts.length > 0
                 ? allProducts.map((product) => (
@@ -266,19 +273,19 @@ const UserHome = () => {
                       No products found matching your criteria.
                     </div>
                   )}
+
           </div>
 
+          {/* LOAD MORE SKELETON */}
           {isLoadingMore && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                />
+                <ProductSkeleton key={i} />
               ))}
             </div>
           )}
 
+          {/* OBSERVER */}
           {hasMore && allProducts.length > 0 && !isLoadingMore && (
             <div
               ref={observerTarget}
@@ -286,6 +293,7 @@ const UserHome = () => {
             />
           )}
 
+          {/* SPINNER */}
           {isLoadingMore && (
             <div className="flex justify-center items-center py-8">
               <div className="flex flex-col items-center gap-3">
@@ -297,6 +305,7 @@ const UserHome = () => {
             </div>
           )}
 
+          {/* END */}
           {!hasMore && allProducts.length > 0 && (
             <div className="flex justify-center items-center py-12">
               <div className="flex flex-col items-center gap-2">
@@ -307,7 +316,9 @@ const UserHome = () => {
               </div>
             </div>
           )}
+
         </main>
+
       </div>
     </ContentWrapper>
   );
