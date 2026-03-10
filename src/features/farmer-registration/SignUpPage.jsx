@@ -162,13 +162,14 @@ export default function SupplierSignUp() {
                     alt="App Logo"
                     className="h-14 sm:h-12 object-contain"
                   />
-                  <h2 className="text-2xl font-semibold text-center">
-                    User Registration
+                  <h2 className="text-3xl font-semibold text-center">
+                    {step === 0 ? "User Registration" : "OTP Verification"}
                   </h2>
                 </div>
+              </div>
 
-                {/* Desktop Layout */}
-                {/* <div className=" md:flex items-center justify-center relative">
+              {/* Desktop Layout */}
+              {/* <div className=" md:flex items-center justify-center relative">
                   <h2 className="text-2xl font-semibold text-center">
                     User Registration
                   </h2>
@@ -179,7 +180,7 @@ export default function SupplierSignUp() {
                     className="h-14 object-contain absolute left-0"
                   />
                 </div> */}
-              </div>
+
 
               {/* Stepper */}
               <FormStepper activeStep={step} steps={labels} />
@@ -192,11 +193,19 @@ export default function SupplierSignUp() {
               />
 
               {step === 0 && (
-                <ProfileSection
-                  register={register}
-                  errors={errors}
-                  control={methods.control}
-                />
+                <>
+                  <h3 className="text-xl font-bold -mt-14 mb-4">Profile Information
+                    <p className="text-sm font-normal text-gray-600">
+                      Please provide your profile information to continue.
+                    </p>
+                  </h3>
+
+                  <ProfileSection
+                    register={register}
+                    errors={errors}
+                    control={methods.control}
+                  />
+                </>
               )}
 
               {step === 1 && (

@@ -1,6 +1,5 @@
 import CustomButton from "@/components/ui/CustomButton";
 import useIsMobile from "@/hooks/useInMobile";
-import { useTheme } from "@mui/material";
 
 export default function FormNavigation({
   step,
@@ -11,34 +10,38 @@ export default function FormNavigation({
 }) {
   const isMobile = useIsMobile();
 
+  // example: OTP is last step
+  const isOtpStep = step === totalSteps - 1;
+
   return (
     <div
-      className={`flex justify-between items-center gap-3 mt-5 ${
-        isMobile ? "flex-row" : "flex-row"
-      }`}
+      className={`flex items-center w-full mt-5 mb-7 ${isMobile
+        ? "flex-col gap-3"
+        : isOtpStep
+          ? "flex-row justify-center gap-8 mt-12"
+          : "flex-row justify-between gap-6"
+        }`}
     >
-      {step > 0 ? (
-        <CustomButton
-          text="Back"
-          onClick={prevStep}
-          variant="outlined"
-          fullWidth={false}
-          sx={{
-            minWidth: isMobile ? "48%" : 140,
-          }}
-        />
-      ) : (
-        <div style={{ minWidth: isMobile ? "48%" : 100 }} />
-      )}
+      {/* Back Button */}
+      <CustomButton
+        text="Back"
+        onClick={prevStep}
+        variant="outlined"
+        fullWidth={isMobile}
+        sx={{
+          minWidth: isMobile ? "100%" : 140,
+        }}
+      />
+
 
       {step < totalSteps - 1 ? (
         <CustomButton
           text="Next"
           onClick={nextStep}
           variant="contained"
-          fullWidth={false}
+          fullWidth={isMobile}
           sx={{
-            minWidth: isMobile ? "48%" : 140,
+            minWidth: isMobile ? "100%" : 140,
           }}
         />
       ) : (
@@ -46,9 +49,9 @@ export default function FormNavigation({
           text="Submit"
           onClick={handleSubmit}
           variant="contained"
-          fullWidth={false}
+          fullWidth={isMobile}
           sx={{
-            minWidth: isMobile ? "48%" : 140,
+            minWidth: isMobile ? "100%" : 140,
           }}
         />
       )}

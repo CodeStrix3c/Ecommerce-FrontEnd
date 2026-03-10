@@ -24,11 +24,8 @@ export const ORCHARD_STEPS = {
 };
 
 export const PROFILE_STEPS = {
-  labels: ["Profile Information", "OTP Verification"],
-  descriptions: [
-    "Set up your personal profile with basic details like name and contact info.",
-    "Verify your identity by entering the OTP sent to your registered mobile number.",
-  ],
+  labels: [],
+  descriptions: [],
 };
 
 export const SUPPLIER_COMPLETION_STEPS = {
@@ -39,7 +36,6 @@ export const SUPPLIER_COMPLETION_STEPS = {
     "Operational Details",
     "Financial & Payment",
     "Support & Services",
-
   ],
   descriptions: [
     "Provide shop/business details and contact info",
@@ -48,9 +44,9 @@ export const SUPPLIER_COMPLETION_STEPS = {
     "Record years in business, company tie-ups, and service areas",
     "Add bank/UPI details, payout preferences, and credit facility",
     "Indicate advisory, staff availability, after-sales service, and logistics",
-
   ],
 };
+
 export const PROFILE_COMPLETION_STEPS = {
   labels: [
     "Profile Information",
@@ -70,6 +66,5 @@ export const SUPPLIER_STEPS = {
   labels: ["Business Information", "OTP Verification"],
   descriptions: [
     "Provide shop/business details and contact info",
-    // "Verify your identity by entering the OTP sent to your registered mobile number. </br>OTP expires in 5:00 minutes",
   ],
 };
