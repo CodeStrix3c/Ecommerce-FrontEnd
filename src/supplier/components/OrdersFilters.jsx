@@ -1,9 +1,17 @@
+import DatePickerWithRange from "@/components/ui/DatePickerWithRange";
 import { Search } from "lucide-react";
 
-export default function OrdersFilters({ search, setSearch, status, setStatus }) {
-    return (
-        <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
 
+export default function OrdersFilters({
+    search,
+    setSearch,
+    status,
+    setStatus,
+    dateRange,
+    setDateRange,
+}) {
+    return (
+        <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between mb-4">
 
 
             <div className="relative w-full max-w-sm">
@@ -11,7 +19,7 @@ export default function OrdersFilters({ search, setSearch, status, setStatus }) 
 
                 <input
                     type="text"
-                    placeholder="Search Products..."
+                    placeholder="Search Orders or Products..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="w-full pl-10 pr-8 py-2.5 rounded-xl border border-[var(--color-gray)] bg-[var(--color-white)] focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] text-sm"
@@ -20,35 +28,33 @@ export default function OrdersFilters({ search, setSearch, status, setStatus }) 
                 {search && (
                     <button
                         onClick={() => setSearch("")}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-error)] text-sm"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-red-500 text-sm"
                     >
                         ✕
                     </button>
                 )}
             </div>
+            <div className="flex flex-wrap gap-3 items-center">
 
-
-            <div className="flex gap-3">
 
                 <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="border rounded-lg px-3 py-2"
+                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm "
                 >
                     <option value="all">All Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="shipped">Shipped</option>
-                    <option value="delivered">Delivered</option>
+                    <option value="1">Pending</option>
+                    <option value="2">Processed</option>
+                    <option value="3">Shipped</option>
+                    <option value="4">Delivered</option>
                 </select>
 
-                <input
-                    type="date"
-                    className="border rounded-lg px-3 py-2"
-                />
+
+                <div className="w-full md:w-auto border border-gray-300 rounded-lg px-3 py-2 text-sm ">
+                    <DatePickerWithRange setDateRange={setDateRange} />
+                </div>
 
             </div>
         </div>
-
-
     );
 }
