@@ -7,3 +7,8 @@ export const createOrder = async ({ checkoutId }) => {
 
   return data;
 };
+
+export const getOrders = async () => {
+  const { data } = await axiosInstance.get("/user/orders");
+  return data;
+};

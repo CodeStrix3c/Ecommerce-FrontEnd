@@ -51,6 +51,12 @@ export const addShippingAddress = async ({ checkoutId, payload }) => {
   return data;
 };
 
+export const getShippingMethods = async () => {
+  const { data } = await axiosInstance.get(
+    "/api/shipping-providers/GetShippmentMethods",
+  );
+  return data;
+};
 export const updateTaxAndShippingPrices = async ({ checkoutId, payload }) => {
   const { data } = await axiosInstance.post(
     `/checkout/${checkoutId}/update-tax-and-shipping-prices`,

@@ -25,13 +25,20 @@ export const OrderSummary = ({
     orderTotal = 0,
   } = vm;
 
-  const shippingMethodName = rootData?.selectedShippingMethodName || "Free";
+  const shippingMethodName =
+    rootData?.selectedShippingMethodName ||
+    rootData?.shippingPrices?.[0]?.name ||
+    "Shipping";
+
+  const shippingPrice =
+    rootData?.shippingPrices?.find(
+      (p) => p.name === rootData?.selectedShippingMethodName,
+    )?.price ?? shippingAmount;
 
   return (
     <div className="bg-white shadow-lg rounded-xl p-6 border max-w-xl">
       <h2 className="text-xl font-semibold mb-5">Order Summary</h2>
 
-      {/* Items */}
       <div className="space-y-4 max-h-64 overflow-y-auto">
         {items.map((item) => (
           <div key={item.id} className="flex gap-3 items-center">
@@ -46,38 +53,37 @@ export const OrderSummary = ({
               <p className="text-gray-500 text-xs">Qty: {item.quantity}</p>
             </div>
 
-            <p className="font-semibold text-sm">
-              ₹{Number(item.total).toFixed(2)}
-            </p>
+            <p className="font-semibold text-sm">₹{Number(item.total)}</p>
           </div>
         ))}
       </div>
 
       <hr className="my-5" />
 
-      {/* Pricing */}
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
           <span>Subtotal</span>
-          <span>₹{subTotal.toFixed(2)}</span>
+          <span>₹{subTotal}</span>
         </div>
 
         <div className="flex justify-between">
           <span>Shipping ({shippingMethodName})</span>
           <span>
-            {shippingAmount === 0 ? "Free" : `₹${shippingAmount.toFixed(2)}`}
+            {!shippingPrice || shippingPrice === 0
+              ? "Free"
+              : `₹${shippingPrice}`}
           </span>
         </div>
 
         <div className="flex justify-between">
           <span>Tax</span>
-          <span>₹{taxAmount.toFixed(2)}</span>
+          <span>₹{taxAmount}</span>
         </div>
 
         {discount > 0 && (
           <div className="flex justify-between text-green-600">
             <span>Discount</span>
-            <span>- ₹{discount.toFixed(2)}</span>
+            <span>- ₹{discount}</span>
           </div>
         )}
 
@@ -85,11 +91,10 @@ export const OrderSummary = ({
 
         <div className="flex justify-between font-semibold text-base">
           <span>Total</span>
-          <span>₹{orderTotal.toFixed(2)}</span>
+          <span>₹{orderTotal}</span>
         </div>
       </div>
 
-      {/* Payment */}
       <div className="mt-5">
         <label className="block text-sm font-medium mb-2">
           Select Payment Method
