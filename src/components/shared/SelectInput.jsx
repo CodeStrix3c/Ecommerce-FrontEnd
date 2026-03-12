@@ -35,7 +35,7 @@ export default function SelectInput({
         const liveError = fieldState?.error || error;
 
         useEffect(() => {
-          const match = options.find((o) => o.value === value);
+          const match = options.find((o) => String(o.value) === String(value));
           setSelectedLabel(match ? match.label : "");
         }, [value, options]);
 
@@ -84,7 +84,7 @@ export default function SelectInput({
 
             {/* Error */}
             {liveError && (
-              <p className="text-xs text-red-500 mt-1">Required field</p>
+              <p className="text-xs text-red-500 mt-1">{liveError?.message}</p>
             )}
 
             {/* Modal */}
@@ -158,8 +158,8 @@ export default function SelectInput({
                       <div
                         key={item.value}
                         onClick={() => {
-                          onChange(item.value);
-                          onValueChange?.(item.value);
+                          onChange(String(item.value));          // FIX
+                          onValueChange?.(String(item.value));   // FIX
                           setVisible(false);
                           setSearchText("");
                         }}
@@ -167,7 +167,7 @@ export default function SelectInput({
                           px-5 py-3 text-sm cursor-pointer
                           hover:bg-green-50
                           ${
-                            item.value === value
+                            String(item.value) === String(value)
                               ? "text-green-700 font-medium bg-white"
                               : "text-gray-800"
                           }
