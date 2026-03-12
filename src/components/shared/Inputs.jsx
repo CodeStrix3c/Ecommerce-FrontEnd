@@ -2,7 +2,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { useState, useRef } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-export default function aInputs({
+export default function Inputs({
   name,
   label,
   type = "text",
