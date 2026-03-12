@@ -25,7 +25,7 @@ export default function ProfileSection() {
       {/* Email */}
       <Inputs
         name="email"
-        label="Email :"
+        label="Email (Optional) :"
         type="email"
         placeholder="Enter Your Email"
         errors={errors.email}
