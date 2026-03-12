@@ -1,9 +1,8 @@
 import * as React from "react";
-import { addDays, format } from "date-fns";
+import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -12,21 +11,17 @@ import {
 } from "@/components/shared/popover";
 
 export default function DatePickerWithRange({ className, setDateRange }) {
-  const [date, setDate] = React.useState({
-    from: new Date(),
-    to: addDays(new Date(), 5),
-  });
+
+  const [date, setDate] = React.useState();
 
   React.useEffect(() => {
-    if (!date) {
-      setDate({ from: new Date(), to: new Date() });
-    } else {
+    if (date) {
       setDateRange(date);
     }
   }, [date, setDateRange]);
 
   return (
-    <div className={cn("grid gap-2 ", className)}>
+    <div className={cn("grid gap-2", className)}>
       <Popover>
         <PopoverTrigger
           asChild
@@ -34,13 +29,13 @@ export default function DatePickerWithRange({ className, setDateRange }) {
         >
           <button
             id="date"
-            variant="outline"
             className={cn(
-              "w-[300px] justify-start text-left font-normal flex",
+              "w-[260px] justify-start text-left font-normal flex items-center",
               !date && "text-muted-foreground"
             )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4 mt-1 " />
+            <CalendarIcon className="mr-2 h-4 w-4" />
+
             {date?.from ? (
               date.to ? (
                 <>
@@ -51,21 +46,18 @@ export default function DatePickerWithRange({ className, setDateRange }) {
                 format(date.from, "LLL dd, y")
               )
             ) : (
-              <span className="text-base font-semibold">Pick a date</span>
+              <span className="text-sm">Pick a date</span>
             )}
           </button>
         </PopoverTrigger>
+
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
             initialFocus
             mode="range"
-            defaultMonth={date?.from}
             selected={date}
             onSelect={setDate}
             numberOfMonths={1}
-            disabled={
-              (d) => d < new Date(new Date().setDate(new Date().getDate() - 1)) //
-            }
           />
         </PopoverContent>
       </Popover>
