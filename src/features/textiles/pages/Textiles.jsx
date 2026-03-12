@@ -7,6 +7,8 @@ import { useWishlist } from "@/providers/WishListProvider";
 import AdvancedFilter from "@/components/shared/AdvancedFilter";
 import PlaceCard from "@/features/places/components/PlaceCard";
 import { ChevronDown, Loader2 } from "lucide-react";
+import ProductSkeleton from "@/components/ui/ProductSkelton";
+
 
 const TextilesPage = () => {
   const CATEGORY = "textiles";
@@ -28,7 +30,6 @@ const TextilesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-
   const [allProducts, setAllProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -39,21 +40,29 @@ const TextilesPage = () => {
   const { toggleWishlist } = useWishlist();
 
   useEffect(() => {
+    const category = urlParams.get("category") || CATEGORY;
+    const brand = urlParams.get("brand") || "";
+    const minPrice = Number(urlParams.get("minPrice")) || 0;
+    const maxPrice = Number(urlParams.get("maxPrice")) || 100000;
+
     setFilters((prev) => ({
       ...prev,
-      category: categoryFromUrl,
+      category,
+      brand,
+      minPrice,
+      maxPrice,
     }));
-  }, [categoryFromUrl]);
+  }, [urlParams]);
 
-  const { data, isLoading } = useProductsQuery({
-    query: searchParams.query,
-    category: filters.category,
-    brand: filters.brand,
-    minPrice: filters.minPrice,
-    maxPrice: filters.maxPrice,
-    sort: sortBy,
-    page: currentPage,
-  });
+const { data, isLoading } = useProductsQuery({
+  query: searchParams.query,
+  category: !filters.brand ? filters.category : undefined,
+  brand: filters.brand || undefined,
+  minPrice: filters.minPrice,
+  maxPrice: filters.maxPrice,
+  sort: sortBy,
+  page: currentPage,
+});
 
   const backendFilters = data?.filterOption;
 
@@ -74,7 +83,8 @@ const TextilesPage = () => {
   }, [data?.products]);
 
   const totalPages = Math.ceil(
-    (data?.totalProduct ?? 0) / (data?.currentSearchOption?.pageSize ?? 10),
+    (data?.totalProduct ?? 0) /
+      (data?.currentSearchOption?.pageSize ?? 10)
   );
 
   useEffect(() => {
@@ -123,7 +133,7 @@ const TextilesPage = () => {
           setCurrentPage((prev) => prev + 1);
         }
       },
-      { threshold: 0.1, rootMargin: "200px" },
+      { threshold: 0.1, rootMargin: "200px" }
     );
 
     const currentTarget = observerTarget.current;
@@ -146,6 +156,7 @@ const TextilesPage = () => {
     <ContentWrapper>
       <div className="responsive-padding -mt-4">
         <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
+
           <div className="flex-1">
             <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
               Discover
@@ -183,10 +194,12 @@ const TextilesPage = () => {
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 pt-6">
+
         <aside className="hidden lg:block w-[240px] shrink-0">
           <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
             <AdvancedFilter
@@ -205,13 +218,12 @@ const TextilesPage = () => {
         </aside>
 
         <main className="flex-1">
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                  />
+                  <ProductSkeleton key={i} />
                 ))
               : allProducts.map((product) => (
                   <PlaceCard
@@ -221,6 +233,7 @@ const TextilesPage = () => {
                     onToggleWishlist={() => toggleWishlist(product)}
                   />
                 ))}
+
           </div>
 
           {hasMore && (
@@ -235,7 +248,9 @@ const TextilesPage = () => {
               <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
             </div>
           )}
+
         </main>
+
       </div>
     </ContentWrapper>
   );

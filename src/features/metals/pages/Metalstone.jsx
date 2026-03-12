@@ -7,6 +7,7 @@ import { useWishlist } from "@/providers/WishListProvider";
 import AdvancedFilter from "@/components/shared/AdvancedFilter";
 import PlaceCard from "@/features/places/components/PlaceCard";
 import { ChevronDown, Loader2 } from "lucide-react";
+import ProductSkeleton from "@/components/ui/ProductSkelton";
 
 const MetalsCraftPage = () => {
 
@@ -52,15 +53,15 @@ const MetalsCraftPage = () => {
     }));
   }, [categoryFromUrl]);
 
-  const { data, isLoading } = useProductsQuery({
-    query: searchParams.query,
-    category: filters.category,
-    brand: filters.brand,
-    minPrice: filters.minPrice,
-    maxPrice: filters.maxPrice,
-    sort: sortBy,
-    page: currentPage,
-  });
+const { data, isLoading } = useProductsQuery({
+  query: searchParams.query,
+  category: !filters.brand ? filters.category : undefined,
+  brand: filters.brand || undefined,
+  minPrice: filters.minPrice,
+  maxPrice: filters.maxPrice,
+  sort: sortBy,
+  page: currentPage,
+});
 
   const backendFilters = data?.filterOption;
 
@@ -194,8 +195,6 @@ const MetalsCraftPage = () => {
 
         <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
 
-          {/* TEXT */}
-
           <div className="flex-1">
 
             <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
@@ -212,8 +211,6 @@ const MetalsCraftPage = () => {
 
           </div>
 
-          {/* SEARCH */}
-
           <div className="flex-1 flex justify-center">
 
             <div className="w-full max-w-xl">
@@ -226,8 +223,6 @@ const MetalsCraftPage = () => {
             </div>
 
           </div>
-
-          {/* SORT */}
 
           <div className="flex-1 flex justify-end">
 
@@ -259,8 +254,6 @@ const MetalsCraftPage = () => {
 
       <div className="flex flex-col lg:flex-row gap-8 pt-6">
 
-        {/* SIDEBAR */}
-
         <aside className="hidden lg:block w-[240px] shrink-0">
 
           <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
@@ -282,18 +275,13 @@ const MetalsCraftPage = () => {
 
         </aside>
 
-        {/* PRODUCTS */}
-
         <main className="flex-1">
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-64 bg-gray-50 animate-pulse rounded-xl"
-                  />
+                  <ProductSkeleton key={i} />
                 ))
               : allProducts.map((product) => (
                   <PlaceCard

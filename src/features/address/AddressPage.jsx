@@ -1039,6 +1039,7 @@ import {
   useCheckoutShipping,
   useAddShippingAddress,
   useUpdateShippingPrices,
+  useAddAddress,
 } from "@/hooks/addresshooks/useaddress";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -1055,6 +1056,7 @@ const AddressPage = () => {
   const [updatedCheckoutData, setUpdatedCheckoutData] = useState(null);
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [selectedShippingMethod, setSelectedShippingMethod] = useState("");
+  const [addressList, setAddressList] = useState([]);
 
   const methods = useForm({
     resolver: zodResolver(shippingAddressSchema),
@@ -1074,43 +1076,31 @@ const AddressPage = () => {
   const { data: paymentMethods = [] } = usePaymentProviders();
   const { mutateAsync: createOrder, isPending: placingOrder } =
     useCreateOrder();
+  const { mutateAsync: createAddress } = useAddAddress();
 
   const { data: countries = [] } = useCountries();
   const { data: states = [] } = useStates(selectedCountry);
   const { data: districts = [] } = useDistricts(selectedState);
 
   const { mutateAsync: addShipping } = useAddShippingAddress();
-
   const { mutateAsync: updatePrices, isPending: updatingPrices } =
     useUpdateShippingPrices();
 
   const rootData = updatedCheckoutData || checkoutData;
   const shippingPrices = rootData?.shippingPrices || [];
 
-  const existingAddresses =
-    checkoutData?.existingShippingAddresses?.filter(
-      (a) => a.userAddressId !== 0,
-    ) || [];
+  /* ---------------- INITIALIZE ADDRESS LIST ---------------- */
 
-  /* ---------------- MAP ADDRESS ---------------- */
+  useEffect(() => {
+    if (checkoutData?.existingShippingAddresses) {
+      const filtered =
+        checkoutData.existingShippingAddresses.filter(
+          (a) => a.userAddressId !== 0,
+        ) || [];
 
-  const mapAddressToForm = (address) => ({
-    userAddressId: address.userAddressId || 0,
-    contactName: address.contactName,
-    phone: address.phone,
-    addressLine1: address.addressLine1,
-    districtId: Number(address.districtId) || 0,
-    districtName: address.districtName || "",
-    zipCode: address.zipCode,
-    stateOrProvinceId: Number(address.stateOrProvinceId) || 0,
-    stateOrProvinceName: address.stateOrProvinceName || "",
-    cityName: address.cityName,
-    countryId: String(address.countryId || "IN"),
-    countryName: address.countryName || "India",
-    isDistrictEnabled: true,
-    isZipCodeEnabled: true,
-    isCityEnabled: true,
-  });
+      setAddressList(filtered);
+    }
+  }, [checkoutData]);
 
   /* ---------------- SHIPPING METHOD ---------------- */
 
@@ -1125,24 +1115,16 @@ const AddressPage = () => {
 
   /* ---------------- POST SHIPPING ---------------- */
 
-  const callPostShipping = async (addressId, addressObject = null) => {
+  const callPostShipping = async (addressId, isNew = false) => {
     try {
-      let selectedAddress =
-        addressObject ||
-        existingAddresses.find((a) => a.userAddressId === addressId);
-
-      if (!selectedAddress) return;
-
-      const shippingForm = mapAddressToForm(selectedAddress);
-
       const payload = {
         existingShippingAddresses: [],
-        shippingAddressId: 0,
+        shippingAddressId: isNew ? 0 : addressId,
         billingAddressId: 0,
         shippingMethod: getShippingMethod(),
-        newAddressForm: shippingForm,
+        newAddressForm: null,
         useShippingAddressAsBillingAddress: true,
-        newBillingAddressForm: shippingForm,
+        newBillingAddressForm: null,
         orderNote: "",
         checkoutId,
       };
@@ -1161,14 +1143,14 @@ const AddressPage = () => {
 
       const payload = {
         existingShippingAddressId: userAddressId,
-        selectedShippingMethodName: getShippingMethod(),
+        // selectedShippingMethodName: getShippingMethod(),
       };
 
       const result = await updatePrices({ checkoutId, payload });
 
       setUpdatedCheckoutData(result);
 
-      await callPostShipping(userAddressId);
+      await callPostShipping(userAddressId, false);
     } catch {
       toast.error("Failed to update tax & shipping");
     }
@@ -1196,41 +1178,21 @@ const AddressPage = () => {
 
   const onModalSubmit = async (formData) => {
     try {
-      const newAddress = {
-        userAddressId: 0,
+      const payload = {
         contactName: formData.contactName,
         phone: formData.phone,
         addressLine1: formData.addressLine1,
         districtId: Number(formData.district),
-        districtName:
-          districts.find((d) => d.id === Number(formData.district))?.name || "",
         zipCode: formData.zipCode,
         stateOrProvinceId: Number(formData.state),
-        stateOrProvinceName:
-          states.find((s) => s.id === Number(formData.state))?.name || "",
         cityName: formData.city,
         countryId: String(formData.country),
-        countryName:
-          countries.find((c) => c.id === String(formData.country))?.name ||
-          "India",
-        isDistrictEnabled: true,
-        isZipCodeEnabled: true,
-        isCityEnabled: true,
       };
 
-      const payload = {
-        selectedShippingMethodName: getShippingMethod(),
-        newShippingAddress: newAddress,
-        newBillingAddress: newAddress,
-        existingShippingAddressId: 0,
-      };
+      /* 1️⃣ CREATE ADDRESS */
+      await createAddress(payload);
 
-      const result = await updatePrices({ checkoutId, payload });
-
-      setUpdatedCheckoutData(result);
-
-      /* REFRESH CHECKOUT TO GET NEW ADDRESS */
-
+      /* 2️⃣ REFETCH CHECKOUT */
       const { data: freshCheckout } = await refetchCheckout();
 
       const newAddresses =
@@ -1238,12 +1200,14 @@ const AddressPage = () => {
           (a) => a.userAddressId !== 0,
         ) || [];
 
+      setAddressList(newAddresses);
+
+      /* 3️⃣ GET NEW ADDRESS */
       const newestAddress = newAddresses[newAddresses.length - 1];
 
       if (newestAddress) {
-        setSelectedAddressId(newestAddress.userAddressId);
-
-        await callPostShipping(newestAddress.userAddressId, newestAddress);
+        /* 4️⃣ SELECT ADDRESS (same logic as existing) */
+        await handleAddressSelection(newestAddress.userAddressId);
       }
 
       toast.success("Address added successfully");
@@ -1315,7 +1279,7 @@ const AddressPage = () => {
 
                 <h2 className="text-lg font-semibold">Existing Addresses</h2>
 
-                {existingAddresses.map((address) => (
+                {addressList.map((address) => (
                   <label
                     key={address.userAddressId}
                     className={`border rounded-xl p-4 flex gap-4 ${
@@ -1334,6 +1298,7 @@ const AddressPage = () => {
 
                     <div>
                       <p className="font-semibold">{address.contactName}</p>
+                      <p className="font-semibold">{address.phone}</p>
                       <p>{address.addressLine1}</p>
                     </div>
                   </label>
