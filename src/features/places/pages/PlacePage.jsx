@@ -206,8 +206,9 @@ const PlacePage = () => {
           {/* INFO PANEL */}
           {/* INFO PANEL */}
           <div
-            className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${showZoom ? "opacity-0 pointer-events-none" : "opacity-100"
-              }`}
+            className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${
+              showZoom ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`}
           >
             <ProductInfoPanel
               place={place}
@@ -244,7 +245,10 @@ const PlacePage = () => {
         ============================ */}
 
         <div className="mt-6">
-          <HighlightBanner />
+          <HighlightBanner
+            rating={place.rating}
+            reviewCount={place.reviewsCount}
+          />
         </div>
 
         {/* ===========================
