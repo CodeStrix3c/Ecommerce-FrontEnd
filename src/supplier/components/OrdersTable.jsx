@@ -4,10 +4,13 @@ export default function OrdersTable({
   orders,
   search,
   status,
-  startDate,
-  endDate,
+  dateRange,
   isLoading,
 }) {
+
+  const startDate = dateRange?.from;
+  const endDate = dateRange?.to;
+
   const filteredOrders = orders.filter((order) => {
     const matchesStatus =
       status === "all" || order.orderStatus.toString() === status;
@@ -60,7 +63,6 @@ export default function OrdersTable({
                   ORD-{order.id}
                 </td>
 
-
                 <td className="p-4 align-top">
                   <div className="space-y-3">
                     {order.orderItems.map((item, idx) => (
@@ -79,7 +81,6 @@ export default function OrdersTable({
                   </div>
                 </td>
 
-
                 <td className="p-4 text-center align-top">
                   <div className="space-y-10 font-medium text-gray-700">
                     {order.orderItems.map((item, idx) => (
@@ -88,16 +89,13 @@ export default function OrdersTable({
                   </div>
                 </td>
 
-
                 <td className="p-4 text-center text-gray-600 align-top">
                   {new Date(order.createdOn).toLocaleDateString("en-IN")}
                 </td>
 
-
                 <td className="p-4 text-center font-semibold text-gray-900 align-top">
                   ₹ {order.subTotalString.replace("$", "")}
                 </td>
-
 
                 <td className="p-4 text-center align-top">
                   <span
@@ -120,6 +118,7 @@ export default function OrdersTable({
                           : "Delivered"}
                   </span>
                 </td>
+
               </tr>
             ))
           ) : (
