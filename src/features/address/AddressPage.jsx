@@ -254,11 +254,11 @@ const AddressPage = () => {
     }
 
     try {
-      await createOrder({ checkoutId });
+      const orderResponse = await createOrder({ checkoutId });
 
       toast.success("Order placed successfully!");
 
-      navigate("/success");
+      navigate("/success", { state: { order: orderResponse } });
     } catch (err) {
       const message =
         err?.response?.data?.message ||
