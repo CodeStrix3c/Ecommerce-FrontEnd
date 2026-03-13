@@ -119,7 +119,7 @@ export const OrderSummary = ({
       <button
         onClick={onPlaceOrder}
         disabled={placingOrder || isUpdating}
-        className="w-full mt-5 bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-900 disabled:opacity-50"
+        className="w-full mt-5 bg-[var(--color-primary)] text-white py-3 rounded-lg font-medium disabled:opacity-50"
       >
         {placingOrder ? "Placing Order..." : "Place Order"}
       </button>
