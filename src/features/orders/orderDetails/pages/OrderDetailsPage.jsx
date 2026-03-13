@@ -15,7 +15,7 @@ export default function OrderDetailsPage() {
   const order = state?.order;
 
   // console.log(order,"detalsrder");
-  
+
   const product = state?.product;
 
   if (!order || !product) {

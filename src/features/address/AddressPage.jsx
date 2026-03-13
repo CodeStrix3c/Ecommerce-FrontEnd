@@ -16,7 +16,7 @@ import {
   useUpdateShippingPrices,
   useAddAddress,
   useExistingAddress,
-  useEditUserAddress
+  useEditUserAddress,
 } from "@/hooks/addresshooks/useaddress";
 
 import { useCreateOrder } from "@/hooks/Orders/useOrders";
@@ -88,7 +88,7 @@ const AddressPage = () => {
     if (checkoutData?.existingShippingAddresses) {
       const filtered =
         checkoutData.existingShippingAddresses.filter(
-          (a) => a.userAddressId !== 0
+          (a) => a.userAddressId !== 0,
         ) || [];
 
       setAddressList(filtered);
@@ -254,11 +254,11 @@ const AddressPage = () => {
     }
 
     try {
-      await createOrder({ checkoutId });
+      const orderResponse = await createOrder({ checkoutId });
 
       toast.success("Order placed successfully!");
 
-      navigate("/order");
+      navigate("/success", { state: { order: orderResponse } });
     } catch (err) {
       const message =
         err?.response?.data?.message ||
@@ -284,25 +284,22 @@ const AddressPage = () => {
       <div className="min-h-screen py-8 lg:mt-28 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
-
             <div className="lg:col-span-2 space-y-6">
-
               {/* Shipping Method */}
 
               <div className="bg-[var(--color-white)] p-6 rounded-xl shadow-sm border border-[var(--color-gray)]">
-                <h2 className="text-lg font-semibold mb-4">
-                  Shipping Method
-                </h2>
+                <h2 className="text-lg font-semibold mb-4">Shipping Method</h2>
 
                 <div className="space-y-3">
                   {shippingPrices.map((method) => (
                     <label
                       key={method.name}
                       className={`flex items-center justify-between border rounded-lg px-4 py-3 cursor-pointer
-                  ${getShippingMethod() === method.name
-                          ? "border-[var(--color-primary)] bg-[var(--color-black-hover)]"
-                          : "border-[var(--color-gray)]"
-                        }`}
+                  ${
+                    getShippingMethod() === method.name
+                      ? "border-[var(--color-primary)] bg-[var(--color-black-hover)]"
+                      : "border-[var(--color-gray)]"
+                  }`}
                     >
                       <div className="flex items-center gap-3">
                         <input
@@ -318,7 +315,7 @@ const AddressPage = () => {
                         </span>
                       </div>
 
-                      <span className="text-sm">{method.priceText}</span>
+                      <span className="text-sm">₹ {method.price}</span>
                     </label>
                   ))}
                 </div>
@@ -327,9 +324,7 @@ const AddressPage = () => {
               {/* Address Section */}
 
               <div className="bg-[var(--color-white)] p-6 rounded-xl shadow-sm border border-[var(--color-gray)]">
-
                 <div className="flex items-center justify-between mb-4">
-
                   <h2 className="text-lg font-semibold">
                     Select Delivery Address
                   </h2>
@@ -341,57 +336,59 @@ const AddressPage = () => {
                     }}
                     className="flex items-center gap-2 text-white bg-[var(--color-primary)] px-4 py-2 rounded-xl "
                   >
-                    <Plus size={16} />New Address
+                    <Plus size={16} />
+                    New Address
                   </button>
-
                 </div>
 
                 <div className="space-y-4">
-
                   {addressList.map((address) => (
-                 <div
-  key={address.userAddressId}
-  onClick={() => handleAddressSelection(address.userAddressId)}
-  className={`relative flex gap-4 border rounded-lg p-4 cursor-pointer
+                    <div
+                      key={address.userAddressId}
+                      onClick={() =>
+                        handleAddressSelection(address.userAddressId)
+                      }
+                      className={`relative flex gap-4 border rounded-lg p-4 cursor-pointer
   ${
     selectedAddressId === address.userAddressId
       ? "border-[var(--color-primary)] bg-[var(--color-black-hover)]"
       : "border-[var(--color-gray)]"
   }`}
->
-  <button
-    type="button"
-    onClick={(e) => {
-      e.stopPropagation(); // prevents parent click
-      setEditId(address.userAddressId); // open edit modal
-    }}
-    className="absolute top-5 right-4 text-[var(--color-primary)]"
-  >
-    <Pencil size={18} />
-  </button>
+                    >
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation(); // prevents parent click
+                          setEditId(address.userAddressId); // open edit modal
+                        }}
+                        className="absolute top-5 right-4 text-[var(--color-primary)]"
+                      >
+                        <Pencil size={18} />
+                      </button>
 
-  <input
-    type="radio"
-    checked={selectedAddressId === address.userAddressId}
-    onChange={() => handleAddressSelection(address.userAddressId)}
-    onClick={(e) => e.stopPropagation()}
-    className="mt-1"
-  />
+                      <input
+                        type="radio"
+                        checked={selectedAddressId === address.userAddressId}
+                        onChange={() =>
+                          handleAddressSelection(address.userAddressId)
+                        }
+                        onClick={(e) => e.stopPropagation()}
+                        className="mt-1"
+                      />
 
-  <div className="text-sm">
-    <p className="font-semibold">
-      {address.contactName} <br />
-      {address.phone}
-    </p>
+                      <div className="text-sm">
+                        <p className="font-semibold">
+                          {address.contactName} <br />
+                          {address.phone}
+                        </p>
 
-    <p className="mt-1">
-      {address.addressLine1} <br />
-      {address.addressLine2}
-    </p>
-  </div>
-</div>
+                        <p className="mt-1">
+                          {address.addressLine1} <br />
+                          {address.addressLine2}
+                        </p>
+                      </div>
+                    </div>
                   ))}
-
                 </div>
               </div>
             </div>
@@ -409,7 +406,6 @@ const AddressPage = () => {
                 placingOrder={placingOrder}
               />
             </div>
-
           </div>
         </div>
       </div>
