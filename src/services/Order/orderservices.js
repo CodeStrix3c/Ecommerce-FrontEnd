@@ -1,4 +1,5 @@
 import axiosInstance from "@/api/client/axiosInstance";
+import axios from "axios";
 
 export const createOrder = async ({ checkoutId }) => {
   const { data } = await axiosInstance.post(
@@ -10,5 +11,10 @@ export const createOrder = async ({ checkoutId }) => {
 
 export const getOrders = async () => {
   const { data } = await axiosInstance.get("/user/orders");
+  return data;
+};
+
+export const getOrderDetails = async (orderId) => {
+  const { data } = await axiosInstance.get(`/user/orders/${orderId}`);
   return data;
 };

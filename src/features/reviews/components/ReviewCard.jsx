@@ -40,7 +40,7 @@ export default function ReviewCard({ review, onUpdate, onDelete }) {
     <>
       <div className="relative rounded-2xl border border-gray-200 bg-white shadow-md hover:shadow-lg transition-all duration-300 p-6">
         {/* Edit / Delete */}
-        <div className="absolute top-3 right-3 flex gap-2">
+        {/* <div className="absolute top-3 right-3 flex gap-2">
           <button
             onClick={() => setIsEditOpen(true)}
             className="p-1.5 rounded-full hover:bg-gray-100"
@@ -53,7 +53,7 @@ export default function ReviewCard({ review, onUpdate, onDelete }) {
           >
             <Trash2 size={18} className="text-red-500" />
           </button>
-        </div>
+        </div> */}
 
         {/* Reviewer Info */}
         <div className="mb-3">
@@ -89,7 +89,7 @@ export default function ReviewCard({ review, onUpdate, onDelete }) {
       </div>
 
       {/* Edit Modal */}
-      {isEditOpen && (
+      {/* {isEditOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
           <div className="relative bg-white rounded-2xl shadow-2xl w-[90%] max-w-lg p-6">
             <button
@@ -140,10 +140,10 @@ export default function ReviewCard({ review, onUpdate, onDelete }) {
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Delete Modal */}
-      {isDeleteOpen && (
+      {/* {isDeleteOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
           <div className="bg-white rounded-2xl shadow-2xl w-[90%] max-w-sm p-6 text-center">
             <h2 className="text-lg font-semibold mb-3">Delete Review?</h2>
@@ -164,7 +164,7 @@ export default function ReviewCard({ review, onUpdate, onDelete }) {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }

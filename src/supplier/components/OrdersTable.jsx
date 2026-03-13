@@ -1,4 +1,20 @@
-import { Loader2 } from "lucide-react";
+import { Check, XCircle, Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
+const STATUS_CONFIG = {
+  1: { label: "New", class: "bg-yellow-100 text-yellow-700" },
+  10: { label: "On Hold", class: "bg-gray-200 text-gray-700" },
+  20: { label: "Pending Payment", class: "bg-orange-100 text-orange-700" },
+  30: { label: "Payment Received", class: "bg-green-100 text-green-700" },
+  35: { label: "Payment Failed", class: "bg-red-100 text-red-700" },
+  40: { label: "Invoiced", class: "bg-blue-100 text-blue-700" },
+  50: { label: "Shipping", class: "bg-purple-100 text-purple-700" },
+  60: { label: "Shipped", class: "bg-indigo-100 text-indigo-700" },
+  70: { label: "Complete", class: "bg-green-100 text-green-700" },
+  80: { label: "Canceled", class: "bg-red-100 text-red-700" },
+  90: { label: "Refunded", class: "bg-pink-100 text-pink-700" },
+  100: { label: "Closed", class: "bg-gray-300 text-gray-800" },
+};
 
 export default function OrdersTable({
   orders,
@@ -7,9 +23,7 @@ export default function OrdersTable({
   dateRange,
   isLoading,
 }) {
-
-  const startDate = dateRange?.from;
-  const endDate = dateRange?.to;
+  const navigate = useNavigate();
 
   const filteredOrders = orders.filter((order) => {
     const matchesStatus =
@@ -20,14 +34,17 @@ export default function OrdersTable({
     const matchesSearch =
       order.id.toString().includes(searchLower) ||
       order.orderItems.some((item) =>
-        item.productName.toLowerCase().includes(searchLower)
+        item.productName.toLowerCase().includes(searchLower),
       );
 
-    const orderDate = new Date(order.createdOn);
+    // DATE FILTER
+    let matchesDate = true;
 
-    const matchesDate =
-      (!startDate || orderDate >= new Date(startDate)) &&
-      (!endDate || orderDate <= new Date(endDate));
+    if (dateRange?.from && dateRange?.to) {
+      const orderDate = new Date(order.createdOn);
+
+      matchesDate = orderDate >= dateRange.from && orderDate <= dateRange.to;
+    }
 
     return matchesStatus && matchesSearch && matchesDate;
   });
@@ -56,71 +73,67 @@ export default function OrdersTable({
 
         <tbody>
           {filteredOrders.length > 0 ? (
-            filteredOrders.map((order) => (
-              <tr key={order.id} className="border-b hover:bg-gray-50">
+            filteredOrders.map((order) => {
+              const statusInfo =
+                STATUS_CONFIG[order.orderStatus] || STATUS_CONFIG[1];
 
-                <td className="p-4 font-medium text-gray-800 align-top">
-                  ORD-{order.id}
-                </td>
+              return (
+                <tr key={order.id} className="border-b hover:bg-gray-50">
+                  <td className="p-4 font-medium text-gray-800 align-top">
+                    ORD-{order.id}
+                  </td>
 
-                <td className="p-4 align-top">
-                  <div className="space-y-3">
-                    {order.orderItems.map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-6">
-                        <img
-                          src={item.thumbnailImage}
-                          alt={item.productName}
-                          className="w-10 h-10 rounded-md object-cover border"
-                        />
+                  <td className="p-4 align-top">
+                    <div className="space-y-3">
+                      {order.orderItems.map((item, idx) => (
+                        <div key={idx} className="flex items-center gap-6">
+                          <img
+                            src={item.thumbnailImage}
+                            alt={item.productName}
+                            className="w-10 h-10 rounded-md object-cover border"
+                          />
 
-                        <span className="text-sm text-gray-700">
-                          {item.productName}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </td>
+                          <span className="text-sm text-gray-700">
+                            {item.productName}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </td>
 
-                <td className="p-4 text-center align-top">
-                  <div className="space-y-10 font-medium text-gray-700">
-                    {order.orderItems.map((item, idx) => (
-                      <div key={idx}>{item.quantity}</div>
-                    ))}
-                  </div>
-                </td>
+                  <td className="p-4 text-center align-top">
+                    <div className="space-y-10 font-medium text-gray-700">
+                      {order.orderItems.map((item, idx) => (
+                        <div key={idx}>{item.quantity}</div>
+                      ))}
+                    </div>
+                  </td>
 
-                <td className="p-4 text-center text-gray-600 align-top">
-                  {new Date(order.createdOn).toLocaleDateString("en-IN")}
-                </td>
+                  <td className="p-4 text-center text-gray-600 align-top">
+                    {new Date(order.createdOn).toLocaleDateString("en-IN")}
+                  </td>
 
-                <td className="p-4 text-center font-semibold text-gray-900 align-top">
-                  ₹ {order.subTotalString.replace("$", "")}
-                </td>
+                  <td className="p-4 text-center font-semibold text-gray-900 align-top">
+                    ₹ {order.subTotal}
+                  </td>
 
-                <td className="p-4 text-center align-top">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium
-                    ${order.orderStatus === 1
-                        ? "bg-yellow-100 text-[var(--color-secondary)]"
-                        : order.orderStatus === 2
-                          ? "bg-blue-100 text-[var(--color-secondary)]"
-                          : order.orderStatus === 3
-                            ? "bg-purple-100 text-[var(--color-secondary)]"
-                            : "bg-green-100 text-[var(--color-secondary)]"
-                      }`}
-                  >
-                    {order.orderStatus === 1
-                      ? "Pending"
-                      : order.orderStatus === 2
-                        ? "Processed"
-                        : order.orderStatus === 3
-                          ? "Shipped"
-                          : "Delivered"}
-                  </span>
-                </td>
+                  <td className="p-4 text-center align-top">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${statusInfo.class}`}
+                    >
+                      {statusInfo.label}
+                    </span>
 
-              </tr>
-            ))
+                    <button
+                      onClick={() => navigate(`/orderdetails/${order.id}`)}
+                      className="text-blue-600 text-xs pl-5"
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              );
+            })
           ) : (
             <tr>
               <td colSpan="6" className="p-10 text-center text-gray-500">

@@ -26,7 +26,6 @@ export default function OrdersPage() {
   return (
     <ContentWrapper>
       <div className="p-6 space-y-6">
-
         <div className="lg:mt-28 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <ShoppingCart className="w-6 h-6 text-[var(--color-secondary)]" />
@@ -52,7 +51,6 @@ export default function OrdersPage() {
           dateRange={dateRange}
           isLoading={isLoading}
         />
-
       </div>
     </ContentWrapper>
   );

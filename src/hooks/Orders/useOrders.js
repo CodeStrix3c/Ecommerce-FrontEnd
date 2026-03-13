@@ -1,4 +1,8 @@
-import { createOrder, getOrders } from "@/services/Order/orderservices";
+import {
+  createOrder,
+  getOrderDetails,
+  getOrders,
+} from "@/services/Order/orderservices";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useCreateOrder = () => {
@@ -11,5 +15,13 @@ export const useGetOrders = () => {
   return useQuery({
     queryKey: ["orders"],
     queryFn: () => getOrders(),
+  });
+};
+
+export const useGetOrderDetails = (orderId) => {
+  return useQuery({
+    queryKey: ["order-details", orderId],
+    queryFn: () => getOrderDetails(orderId),
+    enabled: !!orderId,
   });
 };
