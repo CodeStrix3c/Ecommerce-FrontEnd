@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { X, Pencil, Trash2 } from "lucide-react";
+
 import Inputs from "@/components/shared/Inputs";
 import SelectInputs from "@/components/shared/SelectInput";
 import FormTextArea from "@/components/shared/custom-inputs/FormTextArea";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
+
+
 import { useCountries } from "@/hooks/addresshooks/useCountry";
 import { useStates } from "@/hooks/addresshooks/useState";
 import { useDistricts } from "@/hooks/addresshooks/useDistricts";
@@ -19,6 +23,7 @@ import {
   useSetDefaultAddress,
   useExistingAddress
 } from "@/hooks/addresshooks/useaddress";
+import { ManageAddressSchema } from "@/features/farmer-registration/schemas/userSchamas/ManagePasswordSchema";
 
 const ManageAddress = () => {
   const queryClient = useQueryClient();
@@ -30,6 +35,7 @@ const ManageAddress = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const methods = useForm({
+    resolver: zodResolver(ManageAddressSchema),
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -44,7 +50,7 @@ const ManageAddress = () => {
     },
   });
 
-  const { handleSubmit, reset, watch, register, setValue } = methods;
+  const { handleSubmit, reset, watch, register, setValue , formState: { errors },} = methods;
 
   const countryId = watch("country");
   const stateId = watch("state");
@@ -86,7 +92,6 @@ const ManageAddress = () => {
     }
   }, [stateId]);
 
-
   const countryOptions =
     countriesData?.map((item) => ({
       label: item.name,
@@ -102,10 +107,9 @@ const ManageAddress = () => {
   const districtOptions =
     districtsData?.map((item) => ({
       label: item.name,
-      value: String(item.id), 
+      value: String(item.id),
     })) || [];
 
-  
   const { mutate: addAddressApi, isPending: isAddPending } = useAddAddress();
   const { mutate: editAddressApi, isPending: isEditPending } =
     useEditUserAddress();
@@ -146,13 +150,11 @@ const ManageAddress = () => {
     });
   };
 
-  
   const handleEdit = (addr) => {
     setEditId(addr.userAddressId);
     setShowForm(true);
   };
 
-  
   const saveAddress = (data) => {
     const payload = {
       contactName: data.name,
@@ -194,7 +196,6 @@ const ManageAddress = () => {
 
   return (
     <div className="min-h-screen px-4 sm:px-6 md:px-12 py-6 border rounded-lg">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-semibold">Your Addresses</h2>
 
@@ -210,7 +211,6 @@ const ManageAddress = () => {
         </button>
       </div>
 
-      {/* Address List */}
       <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-5">
         {userAddresses?.map((addr) => (
           <div
@@ -268,7 +268,6 @@ const ManageAddress = () => {
         ))}
       </div>
 
-      {/* Modal Form */}
       {showForm && (
         <div className="fixed inset-0 bg-black/40 z-50 flex justify-center items-center">
           <div className="bg-white w-full sm:max-w-lg rounded-lg p-6 max-h-[90vh] overflow-y-auto relative">
@@ -300,6 +299,7 @@ const ManageAddress = () => {
                     name="addressLine1"
                     label="Address Line 1"
                     register={register}
+                      errors={errors.addressLine1}
                     required
                   />
 
@@ -307,6 +307,7 @@ const ManageAddress = () => {
                     name="addressLine2"
                     label="Address Line 2"
                     register={register}
+                    required={false}
                   />
 
                   <SelectInputs
@@ -314,12 +315,14 @@ const ManageAddress = () => {
                     label="Country"
                     options={countryOptions}
                   />
+
                   <SelectInputs
                     name="state"
                     label="State"
                     options={stateOptions}
                     disabled={!countryId}
                   />
+
                   <SelectInputs
                     name="district"
                     label="District"
@@ -331,6 +334,18 @@ const ManageAddress = () => {
                   <Inputs name="pincode" label="Pincode" required />
 
                   <div className="flex gap-3 mt-4 justify-end">
+
+                      <button
+                      onClick={() => {
+                        reset();
+                        setEditId(null);
+                        setShowForm(false);
+                      }}
+                      className="border px-4 py-2 rounded"
+                    >
+                      Cancel
+                    </button>
+                    
                     <button
                       onClick={handleSubmit(saveAddress)}
                       disabled={isAddPending || isEditPending}
@@ -343,16 +358,7 @@ const ManageAddress = () => {
                         : "Save Address"}
                     </button>
 
-                    <button
-                      onClick={() => {
-                        reset();
-                        setEditId(null);
-                        setShowForm(false);
-                      }}
-                      className="border px-4 py-2 rounded"
-                    >
-                      Cancel
-                    </button>
+                  
                   </div>
                 </div>
               </FormProvider>
