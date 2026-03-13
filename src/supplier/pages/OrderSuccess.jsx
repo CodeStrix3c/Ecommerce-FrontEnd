@@ -87,7 +87,7 @@ export default function OrderSuccessPage() {
 
         {/* Shipping Address */}
         <div className="bg-white shadow rounded-xl p-6">
-          <h2 className="text-lg font-semibold mb-3">Shipping Address</h2>
+          <h2 className="text-lg font-semibold mb-3">Delivery Address</h2>
 
           <p>{data.shippingAddress.contactName}</p>
 

@@ -20,7 +20,7 @@ export const useGetOrders = () => {
 
 export const useGetOrderDetails = (orderId) => {
   return useQuery({
-    queryKey: ["orderDetails", orderId],
+    queryKey: ["order-details", orderId],
     queryFn: () => getOrderDetails(orderId),
     enabled: !!orderId,
   });
