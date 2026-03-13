@@ -86,7 +86,7 @@ const ManageAddress = () => {
     }
   }, [stateId]);
 
-  /* ================= Options ================= */
+
   const countryOptions =
     countriesData?.map((item) => ({
       label: item.name,
