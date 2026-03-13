@@ -1,6 +1,5 @@
 import DatePickerWithRange from "@/components/ui/DatePickerWithRange";
-import { Search } from "lucide-react";
-
+import { Search, X } from "lucide-react";
 
 export default function OrdersFilters({
     search,
@@ -10,9 +9,15 @@ export default function OrdersFilters({
     dateRange,
     setDateRange,
 }) {
-    return (
-        <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between mb-4">
 
+    const clearFilters = () => {
+        setSearch("");
+        setStatus("all");
+        setDateRange(null);
+    };
+
+    return (
+        <div className="flex flex-col md:flex-row gap-4 md:items-center mb-4">
 
             <div className="relative w-full max-w-sm">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-secondary)]" />
@@ -34,13 +39,12 @@ export default function OrdersFilters({
                     </button>
                 )}
             </div>
-            <div className="flex flex-wrap gap-3 items-center">
 
-
+            <div className="border border-gray-300 rounded-lg px-3 py-2">
                 <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm "
+                    className="text-sm outline-none bg-transparent"
                 >
                     <option value="all">All Status</option>
                     <option value="1">Pending</option>
@@ -48,13 +52,22 @@ export default function OrdersFilters({
                     <option value="3">Shipped</option>
                     <option value="4">Delivered</option>
                 </select>
-
-
-                <div className="w-full md:w-auto border border-gray-300 rounded-lg px-3 py-2 text-sm ">
-                    <DatePickerWithRange setDateRange={setDateRange} />
-                </div>
-
             </div>
+
+            <div className="ml-auto border border-gray-300 rounded-lg px-3 py-2 flex items-center gap-2">
+                <DatePickerWithRange
+                    dateRange={dateRange}
+                    setDateRange={setDateRange}
+                />
+
+                <button
+                    onClick={clearFilters}
+                    className="p-1 rounded hover:bg-red-50"
+                >
+                    <X className="w-4 h-4 text-red-500" />
+                </button>
+            </div>
+
         </div>
     );
 }

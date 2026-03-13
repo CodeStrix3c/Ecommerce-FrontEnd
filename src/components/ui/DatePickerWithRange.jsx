@@ -10,27 +10,30 @@ import {
   PopoverTrigger,
 } from "@/components/shared/popover";
 
-export default function DatePickerWithRange({ className, setDateRange }) {
+export default function DatePickerWithRange({
+  className,
+  dateRange,
+  setDateRange,
+}) {
 
-  const [date, setDate] = React.useState();
+  const [date, setDate] = React.useState(dateRange);
 
   React.useEffect(() => {
-    if (date) {
-      setDateRange(date);
-    }
-  }, [date, setDateRange]);
+    setDate(dateRange);
+  }, [dateRange]);
+
+  const handleSelect = (range) => {
+    setDate(range);
+    setDateRange(range);
+  };
 
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>
-        <PopoverTrigger
-          asChild
-          className="border-none text-[var(--color-black)] hover:bg-transparent"
-        >
+        <PopoverTrigger asChild>
           <button
-            id="date"
             className={cn(
-              "w-[260px] justify-start text-left font-normal flex items-center",
+              "w-[260px] flex items-center text-left font-normal",
               !date && "text-muted-foreground"
             )}
           >
@@ -56,7 +59,7 @@ export default function DatePickerWithRange({ className, setDateRange }) {
             initialFocus
             mode="range"
             selected={date}
-            onSelect={setDate}
+            onSelect={handleSelect}
             numberOfMonths={1}
           />
         </PopoverContent>
