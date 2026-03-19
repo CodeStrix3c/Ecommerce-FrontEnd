@@ -14,6 +14,7 @@ import PrivacyPolicy from "@/features/privacy-policies/pages/Privacy";
 import Terms from "@/features/privacy-policies/pages/Terms";
 import CompanyDetails from "@/features/suppliers/components/CompanyDetails";
 import Sitemap from "@/features/privacy-policies/pages/Sitemap";
+import ForgotPasswordPage from "@/features/auth/pages/ForgotPassword";
 
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
@@ -53,6 +54,7 @@ export default [
       <Route path="/vendor-signup" element={<SupplierSignUp />} />
       <Route path="/supplier-login" element={<SupplierLogin />} />
       <Route path="/supplier-register" element={<SupplierRegistration />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
     </Route>
 
     {/* WEBSITE PAGES */}
