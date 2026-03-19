@@ -20,6 +20,7 @@ import {
 } from "@/hooks/useProductsQuery";
 import ProductInfoPanel from "../components/ProductInfoPanel";
 import Testimonials from "@/features/reviews/pages/Testimonials";
+import YouMayAlsoLike from "../components/YouMayAlsoLike";
 
 const IMAGE_BASE_URL =
   "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net";
@@ -299,6 +300,10 @@ const PlacePage = () => {
             </div>
           </div>
         )} */}
+
+        <YouMayAlsoLike
+          products={product.relatedProducts?.filter((p) => p.id !== product.id)}
+        />
         <div className="mt-10">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-xl font-semibold">Recently Viewed Products</h2>

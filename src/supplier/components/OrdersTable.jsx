@@ -1,19 +1,19 @@
-import { Check, XCircle, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const STATUS_CONFIG = {
-  1: { label: "New", class: "bg-yellow-100 text-yellow-700" },
-  10: { label: "On Hold", class: "bg-gray-200 text-gray-700" },
-  20: { label: "Pending Payment", class: "bg-orange-100 text-orange-700" },
-  30: { label: "Payment Received", class: "bg-green-100 text-green-700" },
-  35: { label: "Payment Failed", class: "bg-red-100 text-red-700" },
-  40: { label: "Invoiced", class: "bg-blue-100 text-blue-700" },
-  50: { label: "Shipping", class: "bg-purple-100 text-purple-700" },
-  60: { label: "Shipped", class: "bg-indigo-100 text-indigo-700" },
-  70: { label: "Complete", class: "bg-green-100 text-green-700" },
-  80: { label: "Canceled", class: "bg-red-100 text-red-700" },
-  90: { label: "Refunded", class: "bg-pink-100 text-pink-700" },
-  100: { label: "Closed", class: "bg-gray-300 text-gray-800" },
+const STATUS_COLOR = {
+  1: "bg-yellow-100 text-yellow-700",
+  10: "bg-gray-200 text-gray-700",
+  20: "bg-orange-100 text-orange-700",
+  30: "bg-green-100 text-green-700",
+  35: "bg-red-100 text-red-700",
+  40: "bg-blue-100 text-blue-700",
+  50: "bg-purple-100 text-purple-700",
+  60: "bg-indigo-100 text-indigo-700",
+  70: "bg-green-100 text-green-700",
+  80: "bg-red-100 text-red-700",
+  90: "bg-pink-100 text-pink-700",
+  100: "bg-gray-300 text-gray-800",
 };
 
 export default function OrdersTable({
@@ -37,13 +37,16 @@ export default function OrdersTable({
         item.productName.toLowerCase().includes(searchLower),
       );
 
-    // DATE FILTER
     let matchesDate = true;
 
     if (dateRange?.from && dateRange?.to) {
       const orderDate = new Date(order.createdOn);
 
-      matchesDate = orderDate >= dateRange.from && orderDate <= dateRange.to;
+      const from = new Date(dateRange.from);
+      const to = new Date(dateRange.to);
+      to.setHours(23, 59, 59, 999);
+
+      matchesDate = orderDate >= from && orderDate <= to;
     }
 
     return matchesStatus && matchesSearch && matchesDate;
@@ -74,8 +77,8 @@ export default function OrdersTable({
         <tbody>
           {filteredOrders.length > 0 ? (
             filteredOrders.map((order) => {
-              const statusInfo =
-                STATUS_CONFIG[order.orderStatus] || STATUS_CONFIG[1];
+              const statusColor =
+                STATUS_COLOR[order.orderStatus] || "bg-gray-100 text-gray-700";
 
               return (
                 <tr key={order.id} className="border-b hover:bg-gray-50">
@@ -114,14 +117,14 @@ export default function OrdersTable({
                   </td>
 
                   <td className="p-4 text-center font-semibold text-gray-900 align-top">
-                    ₹ {order.subTotal}
+                    {order.subTotalString}
                   </td>
 
                   <td className="p-4 text-center align-top">
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${statusInfo.class}`}
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${statusColor}`}
                     >
-                      {statusInfo.label}
+                      {order.orderStatusString}
                     </span>
 
                     <button
