@@ -151,6 +151,14 @@ const LoginPage = () => {
               type="password"
               errors={errors.password}
             />
+            <div className="w-full flex justify-end  ">
+              <p
+                className="text-[var(--color-primary)] cursor-pointer"
+                onClick={() => navigate("/forgot-password")}
+              >
+                Frogot Passowrd?
+              </p>
+            </div>
 
             <Button
               fullWidth
