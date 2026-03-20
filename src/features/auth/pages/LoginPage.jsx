@@ -53,8 +53,8 @@ const LoginPage = () => {
       onError: (err) => {
         toast.error(
           err?.response?.data?.error ||
-            err?.response?.data?.message ||
-            "something went wrong",
+          err?.response?.data?.message ||
+          "something went wrong",
         );
       },
     });

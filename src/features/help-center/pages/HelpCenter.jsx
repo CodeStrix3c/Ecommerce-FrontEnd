@@ -15,15 +15,15 @@ import { useBottomCardDataQuery, useCardsDataQuery, useFaqDataQuery, useGuidesAn
 
 
 export default function AgricultureHelpCenter() {
-  const {data:FaqData} = useFaqDataQuery();
+  const { data: FaqData } = useFaqDataQuery();
 
-  const {data:CardData} = useCardsDataQuery();
- 
-  
+  const { data: CardData } = useCardsDataQuery();
 
-  const {data: TopArticlesData} = useTopArticlesDataQuery();
-  const {data: GuidesData} = useGuidesAndResourcesDataQuery();
-  const {data: BottomCardData} = useBottomCardDataQuery();
+
+
+  const { data: TopArticlesData } = useTopArticlesDataQuery();
+  const { data: GuidesData } = useGuidesAndResourcesDataQuery();
+  const { data: BottomCardData } = useBottomCardDataQuery();
 
   const handleClick = (link) => {
     if (link) window.location.href = link;
