@@ -6,11 +6,17 @@ export default function OtpVerificationSection({
   errors,
   onResend,
   setValue,
-  handleSubmit,
 }) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(60);
   const inputsRef = useRef([]);
+
+  /* =========================
+     REGISTER OTP FIELD (IMPORTANT)
+  ========================= */
+  useEffect(() => {
+    register("otp");
+  }, [register]);
 
   /* =========================
      COUNTDOWN TIMER
@@ -41,16 +47,21 @@ export default function OtpVerificationSection({
     newOtp[index] = value;
     setOtp(newOtp);
 
-    setValue("otp", newOtp.join(""));
+    const joinedOtp = newOtp.join("");
+
+    // ✅ Update form value + trigger validation
+    setValue("otp", joinedOtp, {
+      shouldValidate: true,
+    });
 
     if (value && index < 5) {
-      inputsRef.current[index + 1].focus();
+      inputsRef.current[index + 1]?.focus();
     }
   };
 
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
-      inputsRef.current[index - 1].focus();
+      inputsRef.current[index - 1]?.focus();
     }
   };
 
@@ -60,15 +71,19 @@ export default function OtpVerificationSection({
   const handleResend = async () => {
     await onResend();
     setTimeLeft(120);
+    setOtp(["", "", "", "", "", ""]);
+
+    setValue("otp", "", {
+      shouldValidate: true,
+    });
   };
 
   return (
     <div className="flex items-start justify-center px-4">
-
       <div className="w-full max-w-md text-center flex flex-col items-center gap-4 mt-[-20px]">
 
         <p className="text-gray-600 text-sm -m-14 mb-2">
-          Enter the 6-digit  verification  code sent to your registered <br></br>
+          Enter the 6-digit verification code sent to your registered <br />
           mobile number to continue.
         </p>
 
@@ -89,13 +104,10 @@ export default function OtpVerificationSection({
               ref={(el) => (inputsRef.current[index] = el)}
               onChange={(e) => handleChange(e.target.value, index)}
               onKeyDown={(e) => handleKeyDown(e, index)}
-              className="w-12 h-12 text-center border  border-gray-400 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
+              className="w-12 h-12 text-center border border-gray-400 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
             />
           ))}
         </div>
-
-
-
 
         {/* ERROR */}
         {errors?.otp && (
@@ -103,7 +115,6 @@ export default function OtpVerificationSection({
             {errors.otp.message}
           </p>
         )}
-
 
         {/* RESEND */}
         {timeLeft === 0 ? (
@@ -132,7 +143,6 @@ export default function OtpVerificationSection({
         )}
 
       </div>
-
     </div>
   );
 }

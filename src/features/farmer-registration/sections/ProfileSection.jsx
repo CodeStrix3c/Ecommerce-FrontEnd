@@ -1,5 +1,4 @@
 import Inputs from "@/components/shared/Inputs";
-import FileUploadField from "@/components/shared/custom-inputs/FileUploadField";
 import FormLayout from "@/components/shared/FormLayout";
 import { Controller, useFormContext } from "react-hook-form";
 import SelectField from "@/components/shared/custom-inputs/SelectField";
@@ -47,7 +46,7 @@ export default function ProfileSection() {
         required
         name="age"
         label="Age :"
-        type="number"
+        type="age"
         placeholder="Enter Your Age"
         errors={errors.age}
       />
@@ -56,7 +55,7 @@ export default function ProfileSection() {
       <Controller
         name="gender"
         control={control}
-        defaultValue="" // IMPORTANT for placeholder
+        defaultValue="" 
         rules={{ required: "Gender is required" }}
         render={({ field, fieldState }) => (
           <SelectField
