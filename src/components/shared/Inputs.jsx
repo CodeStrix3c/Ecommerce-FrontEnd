@@ -54,7 +54,7 @@ export default function Inputs({
           let input = e.target.value;
 
           if (type === "phone") input = input.replace(/\D/g, "").slice(0, 10);
-          if (type === "age") input = input.replace(/\D/g, "").slice(0, 3);
+          if (type === "age") input = input.replace(/\D/g, "").slice(0, 2);
           if (type === "pincode") input = input.replace(/\D/g, "").slice(0, 6);
 
           if (type === "bankaccount") {
@@ -81,6 +81,8 @@ export default function Inputs({
 
           if (type === "email") {
             input = input
+              .trimStart()
+              .replace(/\s/g, "")
               .replace(/[^a-zA-Z0-9@._-]/g, "")
               .replace(/@(?=.*@)/g, "")
               .slice(0, 50);
@@ -171,9 +173,8 @@ export default function Inputs({
                     onKeyDown={(e) => handleOtpKeyDown(e, index)}
                     className="w-12 h-12 text-center text-lg rounded-lg outline-none"
                     style={{
-                      border: `1px solid ${
-                        hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
-                      }`,
+                      border: `1px solid ${hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
+                        }`,
                     }}
                   />
                 ))}
@@ -185,9 +186,8 @@ export default function Inputs({
                   minHeight: type === "textarea" ? "auto" : 52,
                   backgroundColor: disabled ? "#f5f5f5" : "var(--color-white)",
                   opacity: disabled ? 0.7 : 1,
-                  border: `1px solid ${
-                    hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
-                  }`,
+                  border: `1px solid ${hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
+                    }`,
                 }}
               >
                 {type === "phone" && (
@@ -212,6 +212,11 @@ export default function Inputs({
                     placeholder={placeholder}
                     onChange={handleChange}
                     disabled={disabled}
+                    onKeyDown={(e) => {
+                      if (type === "email" && e.key === " ") {
+                        e.preventDefault();
+                      }
+                    }}
                     className="flex-1 px-2 outline-none bg-transparent"
                   />
                 )}

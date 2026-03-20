@@ -298,7 +298,7 @@ const AdvancedFilter = ({
           ) : (
             <>
               {/* CATEGORY */}
-              <FilterSection title="Collection">
+              <FilterSection title="Categories">
                 <div className="relative mb-5">
                   <Search
                     className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-300"
@@ -307,7 +307,7 @@ const AdvancedFilter = ({
 
                   <input
                     type="text"
-                    placeholder="Search collections..."
+                    placeholder="Search Products..."
                     value={catSearch}
                     onChange={(e) => setCatSearch(e.target.value)}
                     className="w-full bg-transparent border-b border-gray-200 text-[13px] py-2.5 pl-6 outline-none"
