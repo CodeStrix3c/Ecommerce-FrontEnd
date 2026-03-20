@@ -90,7 +90,7 @@ const ZoomControls = ({
       {/* SIDE ZOOM PANEL */}
       {showZoom && (
         <div
-          className="absolute top-0 left-full ml-6 z-[9999] border bg-white shadow-lg"
+          className="absolute top-0 left-full ml-6 z-[9999] "
           style={{
             width: 500,
             height: 500,

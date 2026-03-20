@@ -72,5 +72,37 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    function ({ addBase }) {
+      addBase({
+        'input[type="range"]::-webkit-slider-thumb': {
+          '-webkit-appearance': 'none',
+          appearance: 'none',
+          width: '14px',
+          height: '14px',
+          borderRadius: '50%',
+          background: 'var(--color-secondary)',
+          border: '2px solid white',
+          boxShadow: '0 0 0 1px var(--color-secondary)',
+          cursor: 'pointer',
+        },
+        'input[type="range"]::-moz-range-thumb': {
+          appearance: 'none',
+          width: '14px',
+          height: '14px',
+          borderRadius: '50%',
+          background: 'var(--color-secondary)',
+          border: '2px solid white',
+          boxShadow: '0 0 0 1px var(--color-secondary)',
+          cursor: 'pointer',
+        },
+        'input[type="range"]::-webkit-slider-runnable-track': {
+          background: 'transparent',
+        },
+        'input[type="range"]::-moz-range-track': {
+          background: 'transparent',
+        },
+      });
+    },
+  ],
 };
