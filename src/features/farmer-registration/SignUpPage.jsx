@@ -149,13 +149,11 @@ export default function SupplierSignUp() {
           alignItems: "center",
         }}
       >
-        {/* Responsive Container */}
+
         <div className="w-full max-w-3xl px-4 sm:px-6 md:px-8">
           <FormProvider {...methods}>
             <Box component="form" onSubmit={(e) => e.preventDefault()}>
-              {/* ✅ Responsive Logo + Title */}
               <div className="relative mb-6">
-                {/* Mobile Layout */}
                 <div className="flex flex-col items-center gap-2">
                   <img
                     src="/assets/images/logo6.png"
@@ -182,10 +180,10 @@ export default function SupplierSignUp() {
                 </div> */}
 
 
-              {/* Stepper */}
+
               <FormStepper activeStep={step} steps={labels} />
 
-              {/* Step Header */}
+
               <StepHeader
                 activeStep={step}
                 labels={labels}
@@ -217,12 +215,18 @@ export default function SupplierSignUp() {
                 />
               )}
 
-              {/* Navigation Buttons */}
+
               <FormNavigation
                 step={step}
                 totalSteps={2}
                 nextStep={nextStep}
-                prevStep={() => setStep(0)}
+                prevStep={() => {
+                  if (step === 0) {
+                    navigate("/login");
+                  } else {
+                    setStep(step - 1);
+                  }
+                }}
                 handleSubmit={handleSubmitClick}
               />
             </Box>

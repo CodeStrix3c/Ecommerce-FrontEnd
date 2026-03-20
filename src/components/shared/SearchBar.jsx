@@ -77,9 +77,8 @@ const SearchBar = ({ onChange, showCategory = false }) => {
       ${showCategory ? "w-[90vw]" : "w-[60vw]"}`}
         >
           <div
-            className={`flex-[7] px-3 relative ${
-              showCategory ? " border-[var(--color-black-hover)]" : ""
-            }`}
+            className={`flex-[7] px-3 relative ${showCategory ? " border-[var(--color-black-hover)]" : ""
+              }`}
           >
             <div className="absolute top-2 left-2 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-secondary)] text-[var(--color-white)]">
               <Search className="h-4 w-4" />
@@ -87,7 +86,7 @@ const SearchBar = ({ onChange, showCategory = false }) => {
 
             <input
               type="text"
-              placeholder="Search products"
+              placeholder="Search..."
               className="w-full mt-2 px-12 py-2 rounded-full text-sm text-[var(--color-black)]
           placeholder-[var(--color-black)] focus:outline-none"
               value={searchText}
@@ -109,9 +108,8 @@ const SearchBar = ({ onChange, showCategory = false }) => {
     >
       {/* Search */}
       <div
-        className={`flex-[7] px-3 relative ${
-          showCategory ? " border-[var(--color-black-hover)]" : ""
-        }`}
+        className={`flex-[7] px-3 relative ${showCategory ? " border-[var(--color-black-hover)]" : ""
+          }`}
       >
         <div className="absolute top-1 left-2 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-secondary)] text-[var(--color-white)]">
           <Search className="h-4 w-4" />

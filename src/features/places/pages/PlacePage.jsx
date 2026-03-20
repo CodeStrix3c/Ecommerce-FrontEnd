@@ -26,6 +26,8 @@ const IMAGE_BASE_URL =
   "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net";
 
 const ZOOM_LEVEL = 3;
+const ZOOM_PANEL_SIZE = 500;
+const ZOOM_GAP = 20;
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -56,10 +58,45 @@ const PlacePage = () => {
   const [showZoom, setShowZoom] = useState(false);
   const [zoomImage, setZoomImage] = useState(null);
   const [zoomPos, setZoomPos] = useState("0px 0px");
+  const [zoomPanelPos, setZoomPanelPos] = useState({ top: 0, left: 0, size: ZOOM_PANEL_SIZE });
+  const [zoomImageSize, setZoomImageSize] = useState({ width: 0, height: 0 });
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const handleMouseEnter = () => {
     if (!place?.photos?.length) return;
-    setZoomImage(place.photos[0]);
+    if (window.innerWidth < 1024) return;
+
+    const rect = imageRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    setZoomImageSize({ width: rect.width, height: rect.height });
+
+    // Use visualViewport width to exclude scrollbar from available space
+    const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
+    const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+
+    const spaceOnRight = viewportWidth - rect.right - ZOOM_GAP;
+    const spaceOnLeft = rect.left - ZOOM_GAP;
+
+    let panelSize, left;
+
+    if (spaceOnRight >= spaceOnLeft) {
+      panelSize = Math.floor(Math.min(ZOOM_PANEL_SIZE, spaceOnRight - 4));
+      left = rect.right + ZOOM_GAP;
+    } else {
+      panelSize = Math.floor(Math.min(ZOOM_PANEL_SIZE, spaceOnLeft - 4));
+      left = rect.left - panelSize - ZOOM_GAP;
+    }
+
+    // rect.top is already viewport-relative (correct for position:fixed)
+    // Clamp so panel never goes above viewport top or below viewport bottom
+    const clampedTop = Math.max(
+      0,
+      Math.min(rect.top, viewportHeight - panelSize)
+    );
+
+    setZoomPanelPos({ top: clampedTop, left, size: panelSize });
+    setZoomImage(selectedPhoto || place.photos[0]);
     setShowZoom(true);
   };
 
@@ -72,13 +109,25 @@ const PlacePage = () => {
 
     const rect = imageRef.current.getBoundingClientRect();
 
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    if (
+      e.clientX < rect.left ||
+      e.clientX > rect.right ||
+      e.clientY < rect.top ||
+      e.clientY > rect.bottom
+    ) {
+      setShowZoom(false);
+      return;
+    }
+
+    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+    const y = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
 
     const bgX = (x / rect.width) * rect.width * ZOOM_LEVEL;
     const bgY = (y / rect.height) * rect.height * ZOOM_LEVEL;
 
-    setZoomPos(`-${bgX - 300}px -${bgY - 300}px`);
+    setZoomPos(
+      `-${bgX - zoomPanelPos.size / 2}px -${bgY - zoomPanelPos.size / 2}px`
+    );
   };
 
   /* ===========================
@@ -137,6 +186,9 @@ const PlacePage = () => {
       title: product.name,
       description: product.description,
       shortDescription: product.shortDescription,
+      specification: product.specification ?? null,
+      weight: product.weight ?? null,
+      dimensions: product.dimensions ?? null,
       price: product.calculatedProductPrice?.price ?? 0,
       oldPrice: product.calculatedProductPrice?.oldPrice ?? null,
       discount: product.calculatedProductPrice?.percentOfSaving ?? 0,
@@ -150,6 +202,8 @@ const PlacePage = () => {
       perks: product.attributes ?? [],
       photos: images,
     });
+
+    setSelectedPhoto(null);
   }, [product]);
 
   if (isLoading || !place) return <Spinner />;
@@ -194,22 +248,24 @@ const PlacePage = () => {
 
         <div className="mt-10 flex flex-col gap-8 lg:flex-row relative">
           {/* IMAGE */}
-          <div
-            ref={imageRef}
-            className="lg:w-4/7 w-full ps-2 relative"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            onMouseMove={handleMouseMove}
-          >
-            <PlaceGallery place={place} />
+          <div className="lg:w-4/7 w-full ps-2 relative">
+            <PlaceGallery
+              place={place}
+              zoomRef={imageRef}
+              onZoomEnter={handleMouseEnter}
+              onZoomLeave={handleMouseLeave}
+              onZoomMove={handleMouseMove}
+              onPhotoChange={(photo) => {
+                setSelectedPhoto(photo);
+                setZoomImage(photo);
+              }}
+            />
           </div>
 
           {/* INFO PANEL */}
-          {/* INFO PANEL */}
           <div
-            className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${
-              showZoom ? "opacity-0 pointer-events-none" : "opacity-100"
-            }`}
+            className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${showZoom ? "opacity-0 pointer-events-none" : "opacity-100"
+              }`}
           >
             <ProductInfoPanel
               place={place}
@@ -226,15 +282,15 @@ const PlacePage = () => {
 
           {showZoom && zoomImage && (
             <div
-              className="hidden lg:block fixed z-30 bg-white border shadow-2xl rounded-lg"
+              className="hidden lg:block fixed z-[9999] bg-white border shadow-2xl rounded-lg overflow-hidden pointer-events-none"
               style={{
-                top: imageRef.current?.getBoundingClientRect().top,
-                left: imageRef.current?.getBoundingClientRect().right + 20,
-                width: "600px",
-                height: "600px",
+                top: zoomPanelPos.top,
+                left: zoomPanelPos.left,
+                width: `${zoomPanelPos.size}px`,
+                height: `${zoomPanelPos.size}px`,
                 backgroundImage: `url(${zoomImage})`,
                 backgroundRepeat: "no-repeat",
-                backgroundSize: `${imageRef.current?.offsetWidth * ZOOM_LEVEL}px ${imageRef.current?.offsetHeight * ZOOM_LEVEL}px`,
+                backgroundSize: `${zoomImageSize.width * ZOOM_LEVEL}px ${zoomImageSize.height * ZOOM_LEVEL}px`,
                 backgroundPosition: zoomPos,
               }}
             />
@@ -304,6 +360,7 @@ const PlacePage = () => {
         <YouMayAlsoLike
           products={product.relatedProducts?.filter((p) => p.id !== product.id)}
         />
+
         <div className="mt-10">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-xl font-semibold">Recently Viewed Products</h2>
@@ -313,7 +370,6 @@ const PlacePage = () => {
             {popularItems.map((item) => (
               <div
                 key={item.id}
-                /* FIX: Use fixed width classes instead of just min-width */
                 className="w-[160px] sm:w-[180px] lg:w-[200px] flex-shrink-0 cursor-pointer"
                 onClick={() => navigate(`/place/${item.id}`)}
               >
@@ -321,7 +377,6 @@ const PlacePage = () => {
                   <img
                     src={item.image}
                     alt={item.title}
-                    /* FIX: Change object-contain to object-cover to fill the box uniformly */
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     loading="lazy"
                   />

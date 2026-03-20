@@ -307,7 +307,7 @@ const SidebarMobile = ({ open, onClose }) => {
             }}
             className="flex items-center gap-3 px-2 py-2 rounded-lg cursor-pointer hover:bg-[var(--color-gray-light)]"
           >
-            <User size={18} /> Visitor Account
+            <User size={18} /> My Profile
           </div>
 
           <div

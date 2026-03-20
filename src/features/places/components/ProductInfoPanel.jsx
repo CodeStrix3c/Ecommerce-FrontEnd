@@ -18,9 +18,8 @@ const ProductInfoPanel = ({
           {title}
           <ChevronDown
             size={18}
-            className={`transition-transform ${
-              openSections[sectionKey] ? "rotate-180" : ""
-            }`}
+            className={`transition-transform ${openSections[sectionKey] ? "rotate-180" : ""
+              }`}
           />
         </button>
 
@@ -35,78 +34,89 @@ const ProductInfoPanel = ({
 
   return (
     <div className="space-y-4">
- <div className="bg-[var(--color-white)] space-y-2">
+      <div className="bg-[var(--color-white)] space-y-2">
 
-  {/* TITLE */}
-  {place.title && (
-    <section>
-      <div
-        className="text-2xl font-bold text-[var(--color-black)]"
-        dangerouslySetInnerHTML={{
-          __html: place.title,
-        }}
-      />
-    </section>
-  )}
+        {/* TITLE */}
+        {place.title && (
+          <section>
+            <div
+              className="text-2xl font-bold text-[var(--color-black)]"
+              dangerouslySetInnerHTML={{ __html: place.title }}
+            />
+          </section>
+        )}
 
-    {/* BRAND */}
-  {place.brand && (
-    <div>
-      <p className="text-sm text-[var(--color-black)]">{place.brand}</p>
-    </div>
-  )}
+        {/* BRAND */}
+        {place.brand && (
+          <div>
+            <p className="text-sm text-[var(--color-black)]">{place.brand}</p>
+          </div>
+        )}
 
-  {/* PRICE */}
-  <section>
-    <div className="flex items-center flex-wrap gap-2">
-      <span className="text-2xl font-bold text-[var(--color-primary)]">
-        ₹{place.price}
-      </span>
+        {/* PRICE */}
+        <section>
+          <div className="flex items-center flex-wrap gap-2">
+            <span className="text-2xl font-bold text-[var(--color-primary)]">
+              ₹{place.price}
+            </span>
 
-      {place.oldPrice && (
-        <span className="text-[var(--color-black)] line-through text-base">
-          MRP ₹{place.oldPrice}
-        </span>
-      )}
+            {place.oldPrice && (
+              <span className="text-[var(--color-black)] line-through text-base">
+                MRP ₹{place.oldPrice}
+              </span>
+            )}
 
-      {place.discount > 0 && (
-        <span className="bg-[var(--color-secondary)] text-[var(--color-white)] px-2 py-0.5 rounded-md text-xs font-semibold">
-          {place.discount}% OFF
-        </span>
-      )}
-    </div>
+            {place.discount > 0 && (
+              <span className="bg-[var(--color-secondary)] text-[var(--color-white)] px-2 py-0.5 rounded-md text-xs font-semibold">
+                {place.discount}% OFF
+              </span>
+            )}
+          </div>
 
-    {place.oldPrice && place.discount > 0 && (
-      <p className="text-xs text-[var(--color-primary)] font-medium">
-        You save ₹{place.oldPrice - place.price}
-      </p>
-    )}
-  </section>
+          {place.oldPrice && place.discount > 0 && (
+            <p className="text-xs text-[var(--color-primary)] font-medium">
+              You save ₹{place.oldPrice - place.price}
+            </p>
+          )}
+        </section>
 
-{(place.stockTracking || place.isAllowToOrder !== null) && !place.inStock && (
-  <div className="text-sm">
-    <p>
-      <span className="text-[var(--color-error)] font-semibold">
-        Out of Stock
-      </span>
-    </p>
-  </div>
-)}
+        {/* QUICK SPECS */}
+        {(place.dimensions || place.weight) && (
+          <section className="flex flex-wrap gap-3 pt-1">
+            {place.dimensions && (
+              <span className="text-xs text-[var(--color-black)] bg-gray-100 px-3 py-1 rounded-full">
+                📐 {place.dimensions}
+              </span>
+            )}
+            {place.weight && (
+              <span className="text-xs text-[var(--color-black)] bg-gray-100 px-3 py-1 rounded-full">
+                ⚖️ {place.weight}
+              </span>
+            )}
+          </section>
+        )}
 
-  {/* SHORT DESCRIPTION */}
-  {place.shortDescription && (
-    <section>
-      <div
-        className="text-sm text-[var(--color-black)] leading-relaxed"
-        dangerouslySetInnerHTML={{
-          __html: place.shortDescription,
-        }}
-      />
-    </section>
-  )}
+        {(place.stockTracking || place.isAllowToOrder !== null) &&
+          !place.inStock && (
+            <div className="text-sm">
+              <p>
+                <span className="text-[var(--color-error)] font-semibold">
+                  Out of Stock
+                </span>
+              </p>
+            </div>
+          )}
 
-</div>
-
+        {/* SHORT DESCRIPTION */}
+        {place.shortDescription && (
+          <section>
+            <div
+              className="text-sm text-[var(--color-black)] leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: place.shortDescription }}
+            />
+          </section>
+        )}
+      </div>
 
       {/* ACCORDIONS */}
       <div className="mt-4 space-y-4">
@@ -115,11 +125,7 @@ const ProductInfoPanel = ({
           sectionKey="description"
           show={!!place.description}
         >
-          <div
-            dangerouslySetInnerHTML={{
-              __html: place.description,
-            }}
-          />
+          <div dangerouslySetInnerHTML={{ __html: place.description }} />
         </Accordion>
 
         <Accordion
@@ -127,11 +133,7 @@ const ProductInfoPanel = ({
           sectionKey="specification"
           show={!!place.specification}
         >
-          <div
-            dangerouslySetInnerHTML={{
-              __html: place.specification,
-            }}
-          />
+          <div dangerouslySetInnerHTML={{ __html: place.specification }} />
         </Accordion>
 
         <Accordion
