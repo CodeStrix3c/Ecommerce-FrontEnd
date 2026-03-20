@@ -136,7 +136,7 @@ const LoginPage = () => {
             <Inputs
               required
               name="mobileNumber"
-              label="Phone number"
+              label="Phone number :"
               placeholder="Enter Your Phone Number"
               type="phone"
               countryCode="+91"
@@ -156,7 +156,7 @@ const LoginPage = () => {
                 className="text-[var(--color-primary)] cursor-pointer"
                 onClick={() => navigate("/forgot-password")}
               >
-                Forgot Password?
+                Forgot Passowrd?
               </p>
             </div>
 

@@ -26,6 +26,7 @@ export const fullNameValidator = z.string().min(2, "Full name is required");
 
 export const otpValidator = z
   .string()
+  .min(1, "OTP is required") // ✅ handles empty
   .regex(/^[0-9]{6}$/, "Enter a valid 6-digit OTP");
 
 export const loginPasswordValidator = z.string().min(1, "Password is required");
