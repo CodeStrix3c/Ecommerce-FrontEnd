@@ -48,6 +48,10 @@ export default function SupplierSignUp() {
   const methods = useForm({
     resolver: zodResolver(stepSchemas[step]),
     mode: "onChange",
+      defaultValues: {
+    otp: "", // ✅ IMPORTANT FIX
+  },
+
   });
 
   const {
@@ -84,9 +88,9 @@ export default function SupplierSignUp() {
     }
   };
 
-  const handleSubmitClick = async () => {
-    const valid = await trigger(OTP_FIELDS);
-    if (!valid) return toast.error("Enter OTP");
+ const handleSubmitClick = async () => {
+  const valid = await trigger(OTP_FIELDS);
+  if (!valid) return;
 
     try {
       await verifyOtp({
