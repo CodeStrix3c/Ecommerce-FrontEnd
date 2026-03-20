@@ -11,14 +11,14 @@ const PasswordSettings = () => {
   const { mutateAsync, isPending } = useChangePassword();
 
   const methods = useForm({
-  resolver: zodResolver(changePasswordSchema),
-  mode: "onChange",
-  defaultValues: {
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  },
-});
+    resolver: zodResolver(changePasswordSchema),
+    mode: "onChange",
+    defaultValues: {
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    },
+  });
   const {
     handleSubmit,
     watch,
@@ -28,27 +28,27 @@ const PasswordSettings = () => {
 
   const newPassword = watch("newPassword");
 
-const onSubmit = async (data) => {
-  try {
-    const resp = await mutateAsync(data);
-    toast.success("Password saved successfully");
-    reset();
-  } catch (error) {
-    const status = error?.response?.status;
+  const onSubmit = async (data) => {
+    try {
+      const resp = await mutateAsync(data);
+      toast.success("Password saved successfully");
+      reset();
+    } catch (error) {
+      const status = error?.response?.status;
 
-    if (status === 400) {
-      toast.error("Current password is incorrect");
-    } else if (status === 401) {
-      toast.error("Unauthorized request. Please login again");
-    } else if (status === 404) {
-      toast.error("User not found");
-    } else if (status === 500) {
-      toast.error("Server error. Please try later");
-    } else {
-      toast.error("Something went wrong, please try again");
+      if (status === 400) {
+        toast.error("Current password is incorrect");
+      } else if (status === 401) {
+        toast.error("Unauthorized request. Please login again");
+      } else if (status === 404) {
+        toast.error("User not found");
+      } else if (status === 500) {
+        toast.error("Server error. Please try later");
+      } else {
+        toast.error("Something went wrong, please try again");
+      }
     }
-  }
-};
+  };
 
   return (
     <SectionCard title="Change Password">
@@ -80,7 +80,7 @@ const onSubmit = async (data) => {
 
           <div className="flex justify-end gap-3 mt-6">
 
-             <button
+            <button
               type="button"
               onClick={() => handleSubmit(onSubmit)()}
               disabled={isPending}
@@ -89,17 +89,17 @@ const onSubmit = async (data) => {
               {isPending ? "Saving..." : "Save"}
             </button>
 
-              <button
+            <button
               type="button"
               onClick={() => {
-          
+                reset();
               }}
               className="border border-[var(--color-gray)] px-4 py-2 rounded text-sm"
             >
               Cancel
             </button>
 
-           
+
           </div>
         </div>
       </FormProvider>
