@@ -11,16 +11,10 @@ export default function OtpVerificationSection({
   const [timeLeft, setTimeLeft] = useState(60);
   const inputsRef = useRef([]);
 
-  /* =========================
-     REGISTER OTP FIELD (IMPORTANT)
-  ========================= */
   useEffect(() => {
     register("otp");
   }, [register]);
 
-  /* =========================
-     COUNTDOWN TIMER
-  ========================= */
   useEffect(() => {
     if (timeLeft <= 0) return;
 
@@ -37,9 +31,7 @@ export default function OtpVerificationSection({
     return `${minutes}:${seconds}`;
   };
 
-  /* =========================
-     HANDLE OTP CHANGE
-  ========================= */
+
   const handleChange = (value, index) => {
     if (!/^[0-9]?$/.test(value)) return;
 
@@ -49,7 +41,6 @@ export default function OtpVerificationSection({
 
     const joinedOtp = newOtp.join("");
 
-    // ✅ Update form value + trigger validation
     setValue("otp", joinedOtp, {
       shouldValidate: true,
     });
@@ -65,9 +56,7 @@ export default function OtpVerificationSection({
     }
   };
 
-  /* =========================
-     RESEND OTP
-  ========================= */
+
   const handleResend = async () => {
     await onResend();
     setTimeLeft(120);
@@ -88,10 +77,10 @@ export default function OtpVerificationSection({
         </p>
 
         {/* TIMER */}
-        <p className="text-sm text-gray-500">
+        {/* <p className="text-sm text-gray-500">
           OTP expires in{" "}
           <span className="font-semibold text-black">{formatTime()}</span>
-        </p>
+        </p> */}
 
         {/* OTP INPUTS */}
         <div className="flex gap-3 justify-center">
@@ -109,14 +98,14 @@ export default function OtpVerificationSection({
           ))}
         </div>
 
-        {/* ERROR */}
+
         {errors?.otp && (
           <p className="text-red-500 text-sm">
             {errors.otp.message}
           </p>
         )}
 
-        {/* RESEND */}
+
         {timeLeft === 0 ? (
           <Button
             variant="text"
