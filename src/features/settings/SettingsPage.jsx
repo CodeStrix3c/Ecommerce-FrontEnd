@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSearchParams } from "react-router-dom";
+
 import SettingsSidebar from "./components/SettingsSidebar";
 import PasswordSettings from "./components/PasswordSettings";
-
 import AppearanceSettings from "./components/AppearanceSettings";
 import ManageAddress from "./components/ManageAddress";
 import MyReviews from "./components/MyReviews";
@@ -9,30 +10,30 @@ import MyOrder from "./components/MyOrder";
 import HelpCenter from "./components/HelpCenter";
 
 const SettingsPage = () => {
-  const [active, setActive] = useState("password");
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  const active = searchParams.get("tab") || "password";
+
+  const setActive = (tab) => {
+    setSearchParams({ tab });
+  };
+  
   const renderContent = () => {
     switch (active) {
       case "password":
         return <PasswordSettings />;
-
-      case "appearance":       
+      case "appearance":
         return <AppearanceSettings />;
-     
-        case "addresses":
-        return <ManageAddress/>;
-
-         case "reviews":
-        return <MyReviews/>;
-
-        case "orders":
-          return <MyOrder/>;
-
-          case "help-center":
-            return <HelpCenter/>;
-
+      case "addresses":
+        return <ManageAddress />;
+      case "reviews":
+        return <MyReviews />;
+      case "orders":
+        return <MyOrder />;
+      case "help-center":
+        return <HelpCenter />;
       default:
-        return null;
+        return <PasswordSettings />;
     }
   };
 
