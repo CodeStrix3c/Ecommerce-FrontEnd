@@ -1,4 +1,5 @@
 import React from "react";
+import { useQueryClient } from "@tanstack/react-query"; // ✅ ADDED
 
 export const OrderSummary = ({
   checkoutData,
@@ -9,6 +10,8 @@ export const OrderSummary = ({
   onPlaceOrder,
   placingOrder,
 }) => {
+  const queryClient = useQueryClient(); // ✅ ADDED
+
   if (!checkoutData) return null;
 
   const rootData = checkoutData?.data || checkoutData;
@@ -34,6 +37,18 @@ export const OrderSummary = ({
     rootData?.shippingPrices?.find(
       (p) => p.name === rootData?.selectedShippingMethodName,
     )?.price ?? shippingAmount;
+
+  
+  const handlePlaceOrder = async () => {
+    try {
+      await onPlaceOrder(); 
+
+
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    } catch (err) {
+      
+    }
+  };
 
   return (
     <div className="bg-white shadow-lg rounded-xl p-6 border max-w-xl">
@@ -117,8 +132,8 @@ export const OrderSummary = ({
       </div>
 
       <button
-        onClick={onPlaceOrder}
-        disabled={placingOrder || isUpdating}
+        onClick={handlePlaceOrder} 
+        disabled={placingOrder}
         className="w-full mt-5 bg-[var(--color-primary)] text-white py-3 rounded-lg font-medium disabled:opacity-50"
       >
         {placingOrder ? "Placing Order..." : "Place Order"}

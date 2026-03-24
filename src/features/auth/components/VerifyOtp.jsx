@@ -49,7 +49,12 @@ const VerifyOtpStep = ({
       </div>
 
       <div className="flex justify-between items-center mt-4 text-sm">
-        <span>{expired ? "OTP expired" : `Resend in ${formatTime()}`}</span>
+        {/* FIX: Show only expired text OR timer */}
+        {expired ? (
+          <span className="text-red-500 font-medium">OTP expired</span>
+        ) : (
+          <span>Resend in {formatTime()}</span>
+        )}
 
         {expired && (
           <button
