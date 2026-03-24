@@ -36,6 +36,6 @@ export const addressSchema = z.object({
 
   zipCode: z
     .string()
-    .min(6, "Zip code must be 6 digits")
-    .max(6, "Zip code must be 6 digits"),
+    .min(6, "Please enter a valid 6-digit PIN Code.”.")
+    .max(6, "Please enter a valid 6-digit PIN Code.”."),
 });

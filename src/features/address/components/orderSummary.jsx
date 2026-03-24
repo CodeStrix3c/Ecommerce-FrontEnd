@@ -67,7 +67,7 @@ export const OrderSummary = ({
         </div>
 
         <div className="flex justify-between">
-          <span>Shipping ({shippingMethodName})</span>
+          <span>Shipping </span>
           <span>
             {!shippingPrice || shippingPrice === 0
               ? "Free"
@@ -76,7 +76,7 @@ export const OrderSummary = ({
         </div>
 
         <div className="flex justify-between">
-          <span>Tax</span>
+          <span>Tax (18%)</span>
           <span>₹{taxAmount}</span>
         </div>
 
