@@ -71,6 +71,7 @@ export default function OrdersTable({
             <th className="p-4 text-center w-[140px]">Date</th>
             <th className="p-4 text-center w-[140px]">Amount</th>
             <th className="p-4 text-center w-[140px]">Status</th>
+            <th className="p-4 text-center w-[140px]">Order Details</th>
           </tr>
         </thead>
 
@@ -89,7 +90,7 @@ export default function OrdersTable({
                   <td className="p-4 align-top">
                     <div className="space-y-3">
                       {order.orderItems.map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-6">
+                        <div key={idx} className="flex items-center gap-5">
                           <img
                             src={item.thumbnailImage}
                             alt={item.productName}
@@ -126,10 +127,13 @@ export default function OrdersTable({
                     >
                       {order.orderStatusString}
                     </span>
+                  </td>
 
+                  {/* ✅ Order Details Column */}
+                  <td className="p-4 text-center align-top">
                     <button
                       onClick={() => navigate(`/orderdetails/${order.id}`)}
-                      className="text-blue-600 text-xs pl-5"
+                      className="text-blue-600 text-sm font-medium hover:underline"
                     >
                       View
                     </button>
@@ -139,7 +143,7 @@ export default function OrdersTable({
             })
           ) : (
             <tr>
-              <td colSpan="6" className="p-10 text-center text-gray-500">
+              <td colSpan="7" className="p-10 text-center text-gray-500">
                 No orders found.
               </td>
             </tr>
