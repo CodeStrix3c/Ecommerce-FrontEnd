@@ -10,7 +10,6 @@ import SelectInputs from "@/components/shared/SelectInput";
 import FormTextArea from "@/components/shared/custom-inputs/FormTextArea";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 
-
 import { useCountries } from "@/hooks/addresshooks/useCountry";
 import { useStates } from "@/hooks/addresshooks/useState";
 import { useDistricts } from "@/hooks/addresshooks/useDistricts";
@@ -21,7 +20,7 @@ import {
   useUserAddresses,
   useEditUserAddress,
   useSetDefaultAddress,
-  useExistingAddress
+  useExistingAddress,
 } from "@/hooks/addresshooks/useaddress";
 import { ManageAddressSchema } from "@/features/farmer-registration/schemas/userSchamas/ManagePasswordSchema";
 
@@ -50,7 +49,14 @@ const ManageAddress = () => {
     },
   });
 
-  const { handleSubmit, reset, watch, register, setValue , formState: { errors },} = methods;
+  const {
+    handleSubmit,
+    reset,
+    watch,
+    register,
+    setValue,
+    formState: { errors },
+  } = methods;
 
   const countryId = watch("country");
   const stateId = watch("state");
@@ -60,10 +66,8 @@ const ManageAddress = () => {
   const { data: districtsData } = useDistricts(stateId);
   const { data: userAddresses } = useUserAddresses();
 
-  const {
-    data: existingAddress,
-    isLoading: isExistingLoading,
-  } = useExistingAddress(editId);
+  const { data: existingAddress, isLoading: isExistingLoading } =
+    useExistingAddress(editId);
 
   useEffect(() => {
     if (existingAddress && editId) {
@@ -91,11 +95,12 @@ const ManageAddress = () => {
       setValue("district", "");
     }
   }, [stateId]);
+  console.log(countriesData);
 
   const countryOptions =
     countriesData?.map((item) => ({
       label: item.name,
-      value: item.id,
+      value: String(item.id),
     })) || [];
 
   const stateOptions =
@@ -115,10 +120,8 @@ const ManageAddress = () => {
     useEditUserAddress();
   const { mutate: deleteAddressApi } = useDeleteUserAddress();
 
-  const {
-    mutate: setDefaultApi,
-    isPending: isDefaultPending,
-  } = useSetDefaultAddress();
+  const { mutate: setDefaultApi, isPending: isDefaultPending } =
+    useSetDefaultAddress();
 
   const handleSetDefault = (id) => {
     setDefaultApi(id, {
@@ -156,6 +159,9 @@ const ManageAddress = () => {
   };
 
   const saveAddress = (data) => {
+    // ✅ FORCE correct value from RHF
+    const countryValue = methods.getValues("country");
+
     const payload = {
       contactName: data.name,
       phone: data.phone,
@@ -163,10 +169,14 @@ const ManageAddress = () => {
       addressLine2: data.addressLine2,
       zipCode: data.pincode,
       city: data.city,
-      stateOrProvinceId: Number(data.state),
-      districtId: Number(data.district),
-      countryId: data.country,
+      stateOrProvinceId: data.state ? Number(data.state) : null,
+      districtId: data.district ? Number(data.district) : null,
+
+      // ✅ FIXED
+      countryId: countryValue || null,
     };
+
+    console.log("PAYLOAD:", payload); // debug
 
     if (editId) {
       editAddressApi(
@@ -179,7 +189,7 @@ const ManageAddress = () => {
             setEditId(null);
             setShowForm(false);
           },
-        }
+        },
       );
       return;
     }
@@ -299,7 +309,7 @@ const ManageAddress = () => {
                     name="addressLine1"
                     label="Address Line 1"
                     register={register}
-                      errors={errors.addressLine1}
+                    errors={errors.addressLine1}
                     required
                   />
 
@@ -334,8 +344,7 @@ const ManageAddress = () => {
                   <Inputs name="pincode" label="Pincode" required />
 
                   <div className="flex gap-3 mt-4 justify-end">
-
-                      <button
+                    <button
                       onClick={() => {
                         reset();
                         setEditId(null);
@@ -345,7 +354,7 @@ const ManageAddress = () => {
                     >
                       Cancel
                     </button>
-                    
+
                     <button
                       onClick={handleSubmit(saveAddress)}
                       disabled={isAddPending || isEditPending}
@@ -354,11 +363,9 @@ const ManageAddress = () => {
                       {isAddPending || isEditPending
                         ? "Saving..."
                         : editId
-                        ? "Update Address"
-                        : "Save Address"}
+                          ? "Update Address"
+                          : "Save Address"}
                     </button>
-
-                  
                   </div>
                 </div>
               </FormProvider>
