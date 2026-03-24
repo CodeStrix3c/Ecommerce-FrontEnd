@@ -10,6 +10,7 @@ export default function OrderDetails() {
 
   const { data: order, isLoading } = useGetOrderDetails(orderId);
 
+
   if (isLoading) {
     return (
       <ContentWrapper>
@@ -23,18 +24,27 @@ export default function OrderDetails() {
   return (
     <ContentWrapper>
       <div className="pt-10 lg:pt-36 max-w-5xl mx-auto px-4 space-y-8">
+        
         {/* Success Message */}
-        <div className="bg-green-50 border border-green-200 rounded-xl p-6 flex items-center gap-4">
-          <CheckCircle className="text-green-600 w-8 h-8" />
-          <div>
-            <h2 className="text-lg font-semibold text-green-700">
-              Order Details
-            </h2>
-            {/* <p className="text-sm text-gray-600">
-              Your order <span className="font-medium">#{order.id}</span> has
-              been placed.
-            </p> */}
+        <div className="bg-green-50 border border-green-200 rounded-xl p-6 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <CheckCircle className="text-green-600 w-8 h-8" />
+            <div>
+              <h2 className="text-lg font-semibold text-green-700">
+                Order Details
+              </h2>
+            </div>
           </div>
+
+          {/* 👉 Cancel Button */}
+          
+            <button
+              
+              className="px-4 py-2 rounded-lg border border-red-500 text-white bg-[var(--color-error)] font-medium transition"
+            >
+              Cancel Order
+            </button>
+          
         </div>
 
         {/* Order Info */}
