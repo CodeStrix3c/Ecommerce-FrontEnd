@@ -50,7 +50,6 @@ const DropdownPanel = ({ open, onClose }) => {
       return;
     }
 
-    // Correct route
     navigate("/settings");
   };
 
@@ -85,6 +84,39 @@ const DropdownPanel = ({ open, onClose }) => {
         }`}
     >
       <div className="flex flex-col py-2 text-[var(--color-black)]">
+
+        {/* ================= IMPORTANT ITEMS AT TOP ================= */}
+
+        {/* Settings */}
+        <div
+          onClick={handleSettings}
+          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <Settings2 size={16} />
+          <span>Settings</span>
+        </div>
+
+        {/* Profile */}
+        <div
+          onClick={handleOpenProfile}
+          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <User size={16} />
+          <span>My Profile</span>
+        </div>
+
+        <div
+          onClick={handleOrdersPage}
+          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+        >
+          <ShoppingBag size={16} />
+          <span>My Orders</span>
+        </div>
+
+        <hr className="my-1 border-[var(--color-black-hover)]" />
+
+        {/* ================= REST (UNCHANGED) ================= */}
+
         {/* About */}
         <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
           <Info size={16} />
@@ -118,15 +150,6 @@ const DropdownPanel = ({ open, onClose }) => {
           <span>Craft Collections</span>
         </div>
 
-        {/* Settings (Desktop) */}
-        <div
-          onClick={handleSettings}
-          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <Settings2 size={16} />
-          <span>Settings</span>
-        </div>
-
         {/* Mobile Extra Options */}
         {isMobile && (
           <>
@@ -150,26 +173,10 @@ const DropdownPanel = ({ open, onClose }) => {
           </>
         )}
 
+        {/* ================= SIGN OUT AT LAST ================= */}
+
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
-        {/* Profile */}
-        <div
-          onClick={handleOpenProfile}
-          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <User size={16} />
-          <span>My Profile</span>
-        </div>
-
-        <div
-          onClick={handleOrdersPage}
-          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <ShoppingBag size={16} />
-          <span>My Orders</span>
-        </div>
-
-        {/* Login / Logout */}
         <div
           onClick={handleAuthAction}
           className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-[var(--color-black-hover)] transition-colors"
@@ -177,6 +184,7 @@ const DropdownPanel = ({ open, onClose }) => {
           {isAuthenticated ? <LogOut size={16} /> : <LogIn size={16} />}
           <span>{isAuthenticated ? "Sign Out" : "Sign In"}</span>
         </div>
+
       </div>
     </div>
   );

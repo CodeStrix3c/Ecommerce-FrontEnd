@@ -116,7 +116,7 @@ export default function OrderSuccessPage() {
             onClick={() => navigate(`/order`)}
             className="px-6 py-2 bg-black text-white rounded-lg"
           >
-            View Order
+            View Orders
           </button>
 
           <button
