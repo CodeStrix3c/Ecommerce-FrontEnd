@@ -17,7 +17,7 @@ const SettingsPage = () => {
   const setActive = (tab) => {
     setSearchParams({ tab });
   };
-  
+
   const renderContent = () => {
     switch (active) {
        case "addresses":
@@ -28,8 +28,6 @@ const SettingsPage = () => {
         return <AppearanceSettings />;
      case "reviews":
         return <MyReviews />;
-      case "orders":
-        return <MyOrder />;
       case "help-center":
         return <HelpCenter />;
       default:

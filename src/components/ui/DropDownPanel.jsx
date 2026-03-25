@@ -78,11 +78,10 @@ const DropdownPanel = ({ open, onClose }) => {
 
   return (
     <div
-      className={`absolute right-0 mt-4 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
-        open
-          ? "translate-y-0 scale-100 opacity-100"
-          : "pointer-events-none -translate-y-1 scale-95 opacity-0"
-      }`}
+      className={`absolute right-0 mt-4 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${open
+        ? "translate-y-0 scale-100 opacity-100"
+        : "pointer-events-none -translate-y-1 scale-95 opacity-0"
+        }`}
     >
       <div className="flex flex-col py-2 text-[var(--color-black)]">
 
@@ -127,7 +126,7 @@ const DropdownPanel = ({ open, onClose }) => {
         {/* Help */}
         <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
           <HelpCircle size={16} />
-          <span>Visitor Support</span>
+          <span>Help Support</span>
         </div>
 
         <hr className="my-1 border-[var(--color-black-hover)]" />

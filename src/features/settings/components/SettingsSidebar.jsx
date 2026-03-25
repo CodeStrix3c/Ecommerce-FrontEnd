@@ -9,6 +9,11 @@ const SettingsSidebar = ({ active, setActive }) => {
           { id: "orders", label: "My Orders" },
           {id: "help-center", label: "Help Center"},       
   
+    { id: "appearance", label: "Manage Appearance" },
+    { id: "addresses", label: "Manage Address" },
+    { id: "reviews", label: "My Reviews" },
+    { id: "help-center", label: "Help Center" },
+
   ];
 
   return (
@@ -19,10 +24,9 @@ const SettingsSidebar = ({ active, setActive }) => {
           key={item.id}
           onClick={() => setActive(item.id)}
           className={`w-full text-left px-3 py-2 rounded mb-1 text-sm transition
-            ${
-              active === item.id
-                ? "bg-[var(--color-primary)] text-white"
-                : "text-[var(--color-black)] hover:bg-[var(--color-gray)]"
+            ${active === item.id
+              ? "bg-[var(--color-primary)] text-white"
+              : "text-[var(--color-black)] hover:bg-[var(--color-gray)]"
             }`}
         >
           {item.label}
