@@ -12,7 +12,7 @@ import HelpCenter from "./components/HelpCenter";
 const SettingsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const active = searchParams.get("tab") || "password";
+  const active = searchParams.get("tab") || "addresses";
 
   const setActive = (tab) => {
     setSearchParams({ tab });
@@ -20,13 +20,13 @@ const SettingsPage = () => {
   
   const renderContent = () => {
     switch (active) {
+       case "addresses":
+        return <ManageAddress />;
       case "password":
         return <PasswordSettings />;
       case "appearance":
         return <AppearanceSettings />;
-      case "addresses":
-        return <ManageAddress />;
-      case "reviews":
+     case "reviews":
         return <MyReviews />;
       case "orders":
         return <MyOrder />;
