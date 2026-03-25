@@ -43,9 +43,8 @@ export default function ProfileSection() {
 
       {/* Age */}
       <Inputs
-        required
         name="age"
-        label="Age :"
+        label="Age (Optional) :"
         type="age"
         placeholder="Enter Your Age"
         errors={errors.age}
@@ -55,12 +54,12 @@ export default function ProfileSection() {
       <Controller
         name="gender"
         control={control}
-        defaultValue="" 
-        rules={{ required: "Gender is required" }}
+        defaultValue=""
+        // rules={{ required: "Gender is required" }}
         render={({ field, fieldState }) => (
           <SelectField
             name="gender"
-            label="Gender :"
+            label="Gender (Optional) :"
             control={control}
             errors={errors.gender}
             placeholder="Select Gender"
