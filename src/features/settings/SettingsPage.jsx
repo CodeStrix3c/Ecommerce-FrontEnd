@@ -20,13 +20,15 @@ const SettingsPage = () => {
 
   const renderContent = () => {
     switch (active) {
-       case "addresses":
+
+           case "addresses":
         return <ManageAddress />;
       case "password":
         return <PasswordSettings />;
       case "appearance":
         return <AppearanceSettings />;
-     case "reviews":
+ 
+      case "reviews":
         return <MyReviews />;
       case "help-center":
         return <HelpCenter />;

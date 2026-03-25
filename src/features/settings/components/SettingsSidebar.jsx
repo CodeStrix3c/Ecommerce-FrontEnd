@@ -2,17 +2,15 @@ import React from "react";
 
 const SettingsSidebar = ({ active, setActive }) => {
   const menuItems = [
-            { id: "addresses", label: "Manage Address" },
+        { id: "addresses", label: "Manage Address" },
     { id: "password", label: "Manage Password" },
      { id: "appearance", label: "Manage Appearance" },
-{ id: "reviews", label: "My Reviews" },
+    
+        { id: "reviews", label: "My Reviews" },
           { id: "orders", label: "My Orders" },
           {id: "help-center", label: "Help Center"},       
   
-    { id: "appearance", label: "Manage Appearance" },
-    { id: "addresses", label: "Manage Address" },
-    { id: "reviews", label: "My Reviews" },
-    { id: "help-center", label: "Help Center" },
+  
 
   ];
 
