@@ -85,6 +85,11 @@ const DropdownPanel = ({ open, onClose }) => {
     >
       <div className="flex flex-col py-2 text-[var(--color-black)]">
 
+        {/* ================= IMPORTANT ITEMS AT TOP ================= */}
+
+        {/* Settings */}
+        
+        {/* Profile */}
         <div
           onClick={handleOpenProfile}
           className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
@@ -92,8 +97,7 @@ const DropdownPanel = ({ open, onClose }) => {
           <User size={16} />
           <span>My Profile</span>
         </div>
-
-        <div
+           <div
           onClick={handleOrdersPage}
           className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
         >
@@ -109,9 +113,7 @@ const DropdownPanel = ({ open, onClose }) => {
           <span>Settings</span>
         </div>
 
-        
-
-        
+     
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
