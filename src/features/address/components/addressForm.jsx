@@ -17,22 +17,28 @@ export const ShippingForm = ({
     formState: { errors },
   } = useFormContext();
 
- 
-
   return (
     <div className="">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
         {/* Full Name */}
         <div>
-          <Inputs name="contactName" label="Full Name" required errors={errors.contactName} />
-        
+          <Inputs
+            name="contactName"
+            label="Full Name"
+            required
+            errors={errors.contactName}
+          />
         </div>
 
         {/* Phone */}
         <div>
-          <Inputs name="phone" label="Phone Number" required errors={errors.phone} />
-         
+          <Inputs
+            name="phone"
+            type="phone"
+            label="Phone Number"
+            required
+            errors={errors.phone}
+          />
         </div>
 
         {/* Country */}
@@ -43,7 +49,6 @@ export const ShippingForm = ({
             options={countryOptions}
             errors={errors.country}
           />
-      
         </div>
 
         {/* State */}
@@ -56,7 +61,6 @@ export const ShippingForm = ({
             disabled={!stateOptions.length || loadingStates}
             error={errors.state}
           />
-         
         </div>
 
         {/* District */}
@@ -69,16 +73,9 @@ export const ShippingForm = ({
             disabled={!districtOptions.length || loadingDistricts}
             error={errors.district}
           />
-         
         </div>
 
-
-      <Inputs
-  name="city"
-  label="City"
-  required
-  errors={errors.city}
-/>
+        <Inputs name="city" label="City" required errors={errors.city} />
 
         {/* Address Line 1 */}
         <div className="md:col-span-2">
@@ -89,7 +86,6 @@ export const ShippingForm = ({
             errors={errors.addressLine1}
             required
           />
-        
         </div>
 
         {/* Address Line 2 */}
@@ -97,20 +93,18 @@ export const ShippingForm = ({
           <FormTextArea
             name="addressLine2"
             label="Address Line 2"
-required={false}
-              register={register}
+            required={false}
+            register={register}
           />
- 
         </div>
 
         {/* Pincode */}
         <Inputs
-  name="zipCode"
-  label="Pincode"
-  required
-  errors={errors.zipCode}
-/>
-
+          name="zipCode"
+          label="Pincode"
+          required
+          errors={errors.zipCode}
+        />
       </div>
     </div>
   );
