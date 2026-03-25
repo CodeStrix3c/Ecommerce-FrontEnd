@@ -28,6 +28,7 @@ import ProfileSection from "../farmer-registration/sections/ProfileSection";
 import OtpVerificationSection from "../farmer-registration/sections/OtpVerificationSection";
 import FormNavigation from "../farmer-registration/components/FormNavigation";
 import { useUser } from "@/providers/UserProvider";
+import { AlertTriangle } from "lucide-react";
 
 const stepSchemas = [profileSchema, otpSchema];
 
@@ -48,10 +49,9 @@ export default function SupplierSignUp() {
   const methods = useForm({
     resolver: zodResolver(stepSchemas[step]),
     mode: "onChange",
-      defaultValues: {
-    otp: "", // ✅ IMPORTANT FIX
-  },
-
+    defaultValues: {
+      otp: "", // ✅ IMPORTANT FIX
+    },
   });
 
   const {
@@ -88,9 +88,9 @@ export default function SupplierSignUp() {
     }
   };
 
- const handleSubmitClick = async () => {
-  const valid = await trigger(OTP_FIELDS);
-  if (!valid) return;
+  const handleSubmitClick = async () => {
+    const valid = await trigger(OTP_FIELDS);
+    if (!valid) return;
 
     try {
       await verifyOtp({
@@ -153,7 +153,6 @@ export default function SupplierSignUp() {
           alignItems: "center",
         }}
       >
-
         <div className="w-full max-w-3xl px-4 sm:px-6 md:px-8">
           <FormProvider {...methods}>
             <Box component="form" onSubmit={(e) => e.preventDefault()}>
@@ -183,10 +182,7 @@ export default function SupplierSignUp() {
                   />
                 </div> */}
 
-
-
               <FormStepper activeStep={step} steps={labels} />
-
 
               <StepHeader
                 activeStep={step}
@@ -196,7 +192,8 @@ export default function SupplierSignUp() {
 
               {step === 0 && (
                 <>
-                  <h3 className="text-xl font-bold -mt-14 mb-4">Profile Information
+                  <h3 className="text-xl font-bold -mt-14 mb-4">
+                    Profile Information
                     <p className="text-sm font-normal text-gray-600">
                       Please provide your profile information to continue.
                     </p>
@@ -219,6 +216,12 @@ export default function SupplierSignUp() {
                 />
               )}
 
+              {/* {step === 1 && (
+                <p className="flex justify-center items-center gap-2 mt-100">
+                  <AlertTriangle className="w-5 h-5 text-yellow-500" />
+                  Please don't refresh the page
+                </p>
+              )} */}
 
               <FormNavigation
                 step={step}
@@ -239,6 +242,7 @@ export default function SupplierSignUp() {
       </Box>
 
       {/* Login Link */}
+
       <p className="mb-5 text-center text-sm px-4">
         Already have an account?{" "}
         <Link to="/login" className="font-medium underline">
