@@ -1,5 +1,3 @@
-
-
 import useIsMobile from "@/hooks/useInMobile";
 import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import ContentWrapper from "../shared/ContentWrapper";
@@ -82,14 +80,14 @@ const NavBar = () => {
   const inactiveMobileColor = "text-[var(--color-neutral-dark)]";
   const hoverMobileColor = "hover:text-[var(--color-black)]";
 
-const isTabActive = (tabSlug) => {
-  // Home active when no category is selected
-  if (tabSlug === "home") {
-    return pathname === "/home" && !params.get("category");
-  }
+  const isTabActive = (tabSlug) => {
+    // Home active when no category is selected
+    if (tabSlug === "home") {
+      return pathname === "/home" && !params.get("category");
+    }
 
-  return params.get("category")?.toLowerCase() === tabSlug;
-};
+    return params.get("category")?.toLowerCase() === tabSlug;
+  };
 
   // ✅ Mobile Navbar
   if (below600) {
@@ -103,7 +101,16 @@ const isTabActive = (tabSlug) => {
               return (
                 <NavLink
                   key={tab.name}
-                 to={tab.slug === "home" ? "/home" : `${tab.path}?category=${tab.slug}`}
+                  to={
+                    tab.slug === "home"
+                      ? "/home"
+                      : `${tab.path}?category=${tab.slug}`
+                  }
+                  onClick={
+                    tab.slug === "home"
+                      ? () => window.dispatchEvent(new Event("reset-home"))
+                      : undefined
+                  }
                   end={tab.path === "/home"}
                   className={`relative flex flex-col items-center text-xs font-medium transition-colors duration-300 py-1 ${
                     active ? tab.activeColor : inactiveMobileColor
@@ -134,8 +141,17 @@ const isTabActive = (tabSlug) => {
           return (
             <div key={tab.name} className="relative group">
               <NavLink
-               to={tab.slug === "home" ? "/home" : `${tab.path}?category=${tab.slug}`}
+                to={
+                  tab.slug === "home"
+                    ? "/home"
+                    : `${tab.path}?category=${tab.slug}`
+                }
                 end={tab.path === "/home"}
+                onClick={
+                  tab.slug === "home"
+                    ? () => window.dispatchEvent(new Event("reset-home"))
+                    : undefined
+                }
                 className={`relative flex items-center gap-1 lg:gap-2 px-2 lg:px-3 py-2 text-sm font-medium transition-colors duration-300 ${
                   active
                     ? `border-b-2 border-[var(--color-black)] ${tab.activeColor}`
