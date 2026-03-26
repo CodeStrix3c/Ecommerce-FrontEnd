@@ -1,5 +1,6 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
+import StarRating from "@/components/ui/StarRating"; // ✅ ADD
 
 const ProductInfoPanel = ({
   place,
@@ -36,7 +37,7 @@ const ProductInfoPanel = ({
     <div className="space-y-4">
       <div className="bg-[var(--color-white)] space-y-2">
 
-        {/* TITLE */}
+
         {place.title && (
           <section>
             <div
@@ -46,14 +47,34 @@ const ProductInfoPanel = ({
           </section>
         )}
 
-        {/* BRAND */}
+
         {place.brand && (
-          <div>
-            <p className="text-sm text-[var(--color-black)]">{place.brand}</p>
+          <div className="flex flex-col gap-1">
+
+            <p className="text-sm text-[var(--color-black)]">
+              {place.brand}
+            </p>
+
+
+            <div className="flex items-center gap-2">
+              <StarRating rating={place.rating} size={14} />
+
+              {/* <span className="text-sm font-medium text-[var(--color-black)]">
+                {place.rating?.toFixed(1)}
+              </span> */}
+
+              <span className="text-gray-400">•</span>
+
+              <span className="text-sm text-[var(--color-overlay)]">
+                {place.reviewsCount > 0
+                  ? `${place.reviewsCount} ${place.reviewsCount === 1 ? "review" : "reviews"
+                  }`
+                  : "No reviews yet"}
+              </span>
+            </div>
           </div>
         )}
 
-        {/* PRICE */}
         <section>
           <div className="flex items-center flex-wrap gap-2">
             <span className="text-2xl font-bold text-[var(--color-primary)]">
@@ -80,7 +101,6 @@ const ProductInfoPanel = ({
           )}
         </section>
 
-        {/* QUICK SPECS */}
         {(place.dimensions || place.weight) && (
           <section className="flex flex-wrap gap-3 pt-1">
             {place.dimensions && (
@@ -107,18 +127,20 @@ const ProductInfoPanel = ({
             </div>
           )}
 
-        {/* SHORT DESCRIPTION */}
+
         {place.shortDescription && (
           <section>
             <div
               className="text-sm text-[var(--color-black)] leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: place.shortDescription }}
+              dangerouslySetInnerHTML={{
+                __html: place.shortDescription,
+              }}
             />
           </section>
         )}
       </div>
 
-      {/* ACCORDIONS */}
+
       <div className="mt-4 space-y-4">
         <Accordion
           title="Description"
