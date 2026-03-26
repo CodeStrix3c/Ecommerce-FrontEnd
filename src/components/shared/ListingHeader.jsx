@@ -41,9 +41,8 @@ export default function ListingHeader({ place, onShare }) {
             aria-label="Save"
           >
             <Heart
-              className={`size-5 ${
-                isSaved ? "fill-current text-[var(--color-secondary)]" : ""
-              }`}
+              className={`size-5 ${isSaved ? "fill-current text-[var(--color-secondary)]" : ""
+                }`}
               aria-hidden="true"
             />
             <span className="hidden underline sm:inline">Save</span>
