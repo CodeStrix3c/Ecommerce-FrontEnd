@@ -27,6 +27,26 @@ const UserHome = () => {
     maxPrice: 100000,
   });
 
+  useEffect(() => {
+    const resetHandler = () => {
+      setFilters({
+        category: "",
+        brand: "",
+        minPrice: 0,
+        maxPrice: 100000,
+      });
+
+      setSearchParams({ query: "", category: "" });
+      setSortBy("");
+    };
+
+    window.addEventListener("reset-home", resetHandler);
+
+    return () => {
+      window.removeEventListener("reset-home", resetHandler);
+    };
+  }, []);
+
   const { data, isLoading } = useProductsQuery({
     query: searchParams.query,
     category: filters.category || searchParams.category,
@@ -141,7 +161,6 @@ const UserHome = () => {
       {/* HEADER SECTION */}
       <div className="responsive-padding -mt-4">
         <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
-
           {/* TEXT */}
           <div className="flex-1">
             <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
@@ -182,12 +201,10 @@ const UserHome = () => {
               </div>
             </div>
           </div>
-
         </div>
 
         {/* MOBILE SORT + FILTER */}
         <div className="flex md:hidden items-center justify-between gap-3 pb-4">
-
           <div className="relative flex-1">
             <select
               value={sortBy}
@@ -213,12 +230,10 @@ const UserHome = () => {
               Filter
             </span>
           </button>
-
         </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 pt-6">
-
         {/* FILTER SIDEBAR */}
         <aside className="hidden lg:block w-[240px] shrink-0">
           <div className="sticky top-20 h-[calc(100vh-6rem)] overflow-hidden">
@@ -252,9 +267,7 @@ const UserHome = () => {
 
         {/* PRODUCTS */}
         <main className="flex-1">
-
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
                   <ProductSkeleton key={i} />
@@ -270,10 +283,9 @@ const UserHome = () => {
                   ))
                 : !isLoading && (
                     <div className="col-span-full py-20 text-center text-gray-400 text-sm italic font-medium">
-                      No products found matching your criteria.
+                      No product found...
                     </div>
                   )}
-
           </div>
 
           {/* LOAD MORE SKELETON */}
@@ -316,9 +328,7 @@ const UserHome = () => {
               </div>
             </div>
           )}
-
         </main>
-
       </div>
     </ContentWrapper>
   );
