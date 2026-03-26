@@ -49,9 +49,6 @@ const PlacePage = () => {
     stock: false,
   });
 
-  /* ===========================
-     MAGNIFIER STATES
-  ============================ */
 
   const imageRef = useRef(null);
 
@@ -61,41 +58,11 @@ const PlacePage = () => {
   const [zoomPanelPos, setZoomPanelPos] = useState({ top: 0, left: 0, size: ZOOM_PANEL_SIZE });
   const [zoomImageSize, setZoomImageSize] = useState({ width: 0, height: 0 });
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  // Replace your existing handleMouseEnter, handleMouseMove handlers with these:
 
   const handleMouseEnter = () => {
     if (!place?.photos?.length) return;
     if (window.innerWidth < 1024) return;
-
-    const rect = imageRef.current?.getBoundingClientRect();
-    if (!rect) return;
-
-    setZoomImageSize({ width: rect.width, height: rect.height });
-
-    // Use visualViewport width to exclude scrollbar from available space
-    const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
-    const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
-
-    const spaceOnRight = viewportWidth - rect.right - ZOOM_GAP;
-    const spaceOnLeft = rect.left - ZOOM_GAP;
-
-    let panelSize, left;
-
-    if (spaceOnRight >= spaceOnLeft) {
-      panelSize = Math.floor(Math.min(ZOOM_PANEL_SIZE, spaceOnRight - 4));
-      left = rect.right + ZOOM_GAP;
-    } else {
-      panelSize = Math.floor(Math.min(ZOOM_PANEL_SIZE, spaceOnLeft - 4));
-      left = rect.left - panelSize - ZOOM_GAP;
-    }
-
-    // rect.top is already viewport-relative (correct for position:fixed)
-    // Clamp so panel never goes above viewport top or below viewport bottom
-    const clampedTop = Math.max(
-      0,
-      Math.min(rect.top, viewportHeight - panelSize)
-    );
-
-    setZoomPanelPos({ top: clampedTop, left, size: panelSize });
     setZoomImage(selectedPhoto || place.photos[0]);
     setShowZoom(true);
   };
@@ -119,20 +86,39 @@ const PlacePage = () => {
       return;
     }
 
+    // ✅ Recalculate panel position on every move (fixes stale position after scroll)
+    const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
+    const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+
+    const spaceOnRight = viewportWidth - rect.right - ZOOM_GAP;
+    const spaceOnLeft = rect.left - ZOOM_GAP;
+
+    let panelSize, left;
+    if (spaceOnRight >= spaceOnLeft) {
+      panelSize = Math.floor(Math.min(ZOOM_PANEL_SIZE, spaceOnRight - 4));
+      left = rect.right + ZOOM_GAP;
+    } else {
+      panelSize = Math.floor(Math.min(ZOOM_PANEL_SIZE, spaceOnLeft - 4));
+      left = rect.left - panelSize - ZOOM_GAP;
+    }
+
+    const clampedTop = Math.max(0, Math.min(rect.top, viewportHeight - panelSize));
+
+    setZoomPanelPos({ top: clampedTop, left, size: panelSize });
+    setZoomImageSize({ width: rect.width, height: rect.height });
+
+
     const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
     const y = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
 
     const bgX = (x / rect.width) * rect.width * ZOOM_LEVEL;
     const bgY = (y / rect.height) * rect.height * ZOOM_LEVEL;
 
-    setZoomPos(
-      `-${bgX - zoomPanelPos.size / 2}px -${bgY - zoomPanelPos.size / 2}px`
-    );
+    setZoomPos(`-${bgX - panelSize / 2}px -${bgY - panelSize / 2}px`);
   };
 
-  /* ===========================
-     SECTION TOGGLE
-  ============================ */
+
+
 
   const toggleSection = (key) => {
     setOpenSections((prev) => ({
@@ -141,9 +127,7 @@ const PlacePage = () => {
     }));
   };
 
-  /* ===========================
-     SLIDER
-  ============================ */
+
 
   const [popularRef, popularInstanceRef] = useKeenSlider({
     mode: "free",
@@ -165,10 +149,6 @@ const PlacePage = () => {
   useEffect(() => {
     popularInstanceRef.current?.update();
   }, [productsData]);
-
-  /* ===========================
-     BUILD PLACE OBJECT
-  ============================ */
 
   useEffect(() => {
     if (!product) return;
@@ -233,21 +213,17 @@ const PlacePage = () => {
     })
     .filter(Boolean);
 
-  /* ===========================
-     RENDER
-  ============================ */
+
 
   return (
     <ContentWrapper>
       <div className="pt-6 lg:pt-10 pb-6 lg:pb-8 relative">
         <ListingHeader place={place} />
 
-        {/* ===========================
-           GALLERY + INFO
-        ============================ */}
+
 
         <div className="mt-10 flex flex-col gap-8 lg:flex-row relative">
-          {/* IMAGE */}
+
           <div className="lg:w-4/7 w-full ps-2 relative">
             <PlaceGallery
               place={place}
@@ -262,7 +238,7 @@ const PlacePage = () => {
             />
           </div>
 
-          {/* INFO PANEL */}
+
           <div
             className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${showZoom ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
@@ -275,14 +251,9 @@ const PlacePage = () => {
 
             <BookingWidget place={place} />
           </div>
-
-          {/* ===========================
-             AMAZON STYLE ZOOM PANEL
-          ============================ */}
-
           {showZoom && zoomImage && (
             <div
-              className="hidden lg:block fixed z-[9999] bg-white border shadow-2xl rounded-lg overflow-hidden pointer-events-none"
+              className="hidden lg:block fixed z-[9] bg-white border shadow-2xl rounded-lg overflow-hidden pointer-events-none"
               style={{
                 top: zoomPanelPos.top,
                 left: zoomPanelPos.left,
@@ -297,16 +268,13 @@ const PlacePage = () => {
           )}
         </div>
 
-        {/* ===========================
-           BANNER
-        ============================ */}
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <HighlightBanner
             rating={place.rating}
             reviewCount={place.reviewsCount}
           />
-        </div>
+        </div> */}
 
         {/* ===========================
            POPULAR PRODUCTS
