@@ -281,13 +281,13 @@ const AddressPage = () => {
 
   return (
     <ContentWrapper>
-      <div className="min-h-screen py-8 lg:mt-28 sm:py-12">
+      <div className="min-h-screen py-8 lg:mt-28 `sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
             <div className="lg:col-span-2 space-y-6">
-              {/* Shipping Method */}
 
-              <div className="bg-[var(--color-white)] p-6 rounded-xl shadow-sm border border-[var(--color-gray)]">
+
+              <div className="bg-[var(--color-white)] p-6 rounded-xl shadow-sm bobrder border-[var(--color-gray)]">
                 <h2 className="text-lg font-semibold mb-4">Shipping Charges</h2>
 
                 <div className="space-y-3">

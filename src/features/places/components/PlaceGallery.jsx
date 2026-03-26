@@ -57,9 +57,20 @@ const PlaceGallery = ({
             alt="product"
             draggable={false}
             onClick={() => openGalleryAt(selectedIndex)}
-            className="w-full h-full object-cover cursor-pointer"
+            className="w-full h-full object-cover cursor-pointer select-none"
           />
 
+          {/* 🔍 AMAZON LENS */}
+          <div
+            id="zoom-lens"
+            className="hidden lg:block absolute border border-gray-400 bg-white/30 backdrop-blur-[2px] pointer-events-none"
+            style={{
+              width: "120px",
+              height: "120px",
+            }}
+          />
+
+          {/* QR stays same */}
           {qrValue && (
             <div className="absolute bottom-3 right-3 flex flex-col items-center bg-white p-2 rounded shadow">
               <QRCode value={qrValue} size={60} />
