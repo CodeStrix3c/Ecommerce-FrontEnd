@@ -51,7 +51,6 @@ const CartPage = () => {
 
     try {
       setConfirmLoading(true);
-
       await removeFromCart(selectedCartItemId);
     } catch {
       // toast.error("Failed to remove item");
@@ -67,7 +66,6 @@ const CartPage = () => {
       toast.error("Please select a payment method before checkout.");
       return;
     }
-
     toast.success(`Proceeding to checkout with ${selectedPayment}`);
   };
 
@@ -107,13 +105,8 @@ const CartPage = () => {
               <div className="bg-[var(--color-secondary)] p-3 rounded-full shadow-sm">
                 <ShoppingCart className="w-6 h-6 text-white" />
               </div>
-
               <div>
                 <h1 className="text-xl font-semibold">My Cart</h1>
-                <p className="text-sm text-gray-500">
-                  {totalItems} {totalItems === 1 ? "item" : "items"} in your
-                  cart
-                </p>
               </div>
             </div>
 
@@ -127,6 +120,7 @@ const CartPage = () => {
                       photos: product.productImage
                         ? [product.productImage]
                         : [],
+                      // ✅ Unit prices only — CartItem multiplies by quantity internally
                       price: Number(product.calculatedProductPrice?.price ?? 0),
                       oldPrice: Number(
                         product.calculatedProductPrice?.oldPrice ?? 0,

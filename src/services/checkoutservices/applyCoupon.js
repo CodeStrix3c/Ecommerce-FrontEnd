@@ -6,3 +6,8 @@ export const applyCoupon = async (couponCode) => {
   });
   return response.data;
 };
+
+export const getCoupons = async () => {
+  const response = await axiosInstance.get("/api/coupons/available");
+  return response.data; // ✅ was: return response
+};

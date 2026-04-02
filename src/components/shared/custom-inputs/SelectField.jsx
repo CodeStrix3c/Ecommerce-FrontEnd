@@ -17,44 +17,58 @@ const SelectField = ({
   const errorMessage = errors?.message || errors || "";
   const hasError = !!errors;
 
-  // ===== Styles to match Inputs =====
+  // ✅ MATCH INPUT BORDER STYLE
   const textFieldStyles = {
     "& .MuiOutlinedInput-root": {
-      backgroundColor: disabled
-        ? "#f5f5f5"
-        : "var(--color-white)",
+      backgroundColor: disabled ? "#f5f5f5" : "var(--color-white)",
       borderRadius: "10px",
       height: "52px",
-      minHeight: "52px",
       display: "flex",
       alignItems: "center",
       opacity: disabled ? 0.7 : 1,
       fontSize: "14px",
 
+      // ✅ Simple border like your Inputs
       "& fieldset": {
-        borderColor: hasError
-          ? "var(--color-error)"
-          : "rgba(0,0,0,0.4)",
+        border: `1px solid ${
+          hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
+        } !important`,
       },
+
+      // Keep same border on hover
       "&:hover fieldset": {
-        borderColor: "var(--color-primary)",
+        border: `1px solid ${
+          hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
+        } !important`,
       },
+
+      // Keep same border on focus
       "&.Mui-focused fieldset": {
-        borderColor: "var(--color-primary)",
+        border: `1px solid ${
+          hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
+        } !important`,
+      },
+
+      "& .MuiOutlinedInput-notchedOutline": {
+        borderColor: "transparent",
       },
     },
 
-    // Center selected text
+    // Text inside select
     "& .MuiSelect-select": {
       display: "flex",
       alignItems: "center",
       height: "52px",
       paddingTop: "0 !important",
       paddingBottom: "0 !important",
+      backgroundColor: "transparent !important",
       fontSize: "14px",
     },
 
-    // Error text size
+    "& .MuiSelect-select:focus": {
+      backgroundColor: "transparent !important",
+    },
+
     "& .MuiFormHelperText-root": {
       fontSize: "12px",
       marginLeft: 0,
@@ -62,7 +76,6 @@ const SelectField = ({
     },
   };
 
-  // ===== Placeholder + value display =====
   const selectSlotProps = {
     select: {
       multiple: isMultiple,
@@ -87,24 +100,19 @@ const SelectField = ({
             .join(", ");
         }
 
-        const selectedOption = options.find(
-          (opt) => opt.value === selected
-        );
+        const selectedOption = options.find((opt) => opt.value === selected);
         return selectedOption?.label || "";
       },
     },
   };
 
-  // ================= Controller (Recommended) =================
+  // ================= Controller Version =================
   if (control) {
     return (
       <div className="flex flex-col gap-1.5 w-full">
-        {/* Label (same as Inputs) */}
         <label className="text-sm font-medium text-black">
           {label}
-          {required && (
-            <span className="ml-1 text-red-500">*</span>
-          )}
+          {required && <span className="ml-1 text-red-500">*</span>}
         </label>
 
         <Controller
@@ -136,14 +144,12 @@ const SelectField = ({
     );
   }
 
-  // ================= Register version =================
+  // ================= Register Version =================
   return (
     <div className="flex flex-col gap-1.5 w-full">
       <label className="text-sm font-medium text-black">
         {label}
-        {required && (
-          <span className="ml-1 text-red-500">*</span>
-        )}
+        {required && <span className="ml-1 text-red-500">*</span>}
       </label>
 
       <TextField

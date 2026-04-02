@@ -17,7 +17,6 @@ export default function OrdersFilters({
 
   return (
     <div className="flex flex-col md:flex-row gap-4 md:items-center mb-4">
-      
       {/* Search */}
       <div className="relative w-full max-w-sm">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-secondary)]" />
@@ -53,8 +52,8 @@ export default function OrdersFilters({
           <option value="50">Shipping</option>
           <option value="60">Shipped</option>
           <option value="70">Complete</option>
-          <option value="80">Cancel</option>
-          <option value="90">Canceled</option>
+          {/* <option value="80">Cancel</option> */}
+          <option value="90">Cancelled</option>
         </select>
 
         {/* Always Visible Clear Button */}
@@ -73,10 +72,7 @@ export default function OrdersFilters({
           setDateRange={setDateRange}
         />
 
-        <button
-          onClick={clearFilters}
-          className="p-1 rounded hover:bg-red-50"
-        >
+        <button onClick={clearFilters} className="p-1 rounded hover:bg-red-50">
           <X className="w-4 h-4 text-red-500" />
         </button>
       </div>

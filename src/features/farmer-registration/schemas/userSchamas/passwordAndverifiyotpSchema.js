@@ -8,7 +8,7 @@ export const forgotPasswordSchema = z.object({
 
 export const verifyOtpSchema = z
   .object({
-    otp: z.string().regex(/^\d{6}$/, "OTP must be exactly 6 digits"),
+    otp: z.string().regex(/^\d{6}$/, "Please enter a valid 6 digit OTP"),
 
     newPassword: z
       .string()

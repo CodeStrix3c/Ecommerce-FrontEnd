@@ -1,21 +1,51 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import { useWishlist } from "@/providers/WishListProvider";
 
 export default function YouMayAlsoLike({ products }) {
   const navigate = useNavigate();
   const { wishlist, toggleWishlist } = useWishlist();
+  const scrollRef = useRef(null);
 
   if (!products?.length) return null;
+
+  const scroll = (direction) => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const scrollAmount = 300;
+    container.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div className="mt-12">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-xl lg:text-2xl font-semibold">You May Also Like</h2>
+
+        {/* Arrow Buttons */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => scroll("left")}
+            className="p-2 rounded-full border border-[var(--color-gray)] hover:bg-[var(--color-black-hover)] transition"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="p-2 rounded-full border border-[var(--color-gray)] hover:bg-[var(--color-black-hover)] transition"
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
       </div>
 
-      <div className="flex gap-6 overflow-x-auto no-scrollbar pb-2">
+      <div
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-auto no-scrollbar pb-2 scroll-smooth"
+      >
         {products.map((item) => {
           const isWishlisted = wishlist.some((w) => w.productId === item.id);
 
@@ -33,10 +63,10 @@ export default function YouMayAlsoLike({ products }) {
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
 
-                {/* ❤️ WISHLIST BUTTON */}
+                {/* WISHLIST BUTTON */}
                 <button
                   onClick={(e) => {
-                    e.stopPropagation(); // prevent navigation
+                    e.stopPropagation();
                     toggleWishlist({
                       id: item.id,
                       title: item.name,

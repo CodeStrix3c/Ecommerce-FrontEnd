@@ -5,6 +5,9 @@ import { useWishlist } from "@/providers/WishListProvider";
 import PlaceCardSkeletonUi from "./PlaceCardSkeletonUi";
 import StarRating from "@/components/ui/StarRating";
 
+// ── helper: formats 1234567 → "12,34,567"
+const formatINR = (value) => Number(value).toLocaleString("en-IN");
+
 const PlaceCard = ({ place, loading }) => {
   const { wishlist, toggleWishlist } = useWishlist();
 
@@ -25,7 +28,6 @@ const PlaceCard = ({ place, loading }) => {
     stock,
   } = place;
 
-  // ✅ FIXED: productId vs _id
   const isWishlisted = wishlist.some((item) => item.productId === id);
 
   return (
@@ -40,12 +42,6 @@ const PlaceCard = ({ place, loading }) => {
               className="h-full w-full object-cover transition-transform hover:scale-105"
             />
           </div>
-
-          {/* {oldPrice && (
-            <span className="absolute left-2 top-2 rounded bg-red-500 px-2 py-1 text-xs text-white">
-              SALE {discountPercent ? `-${discountPercent}%` : ""}
-            </span>
-          )} */}
 
           {/* ❤️ Wishlist */}
           <button
@@ -66,19 +62,15 @@ const PlaceCard = ({ place, loading }) => {
         <div className="mt-3 flex flex-col">
           <h3 className="truncate text-sm font-semibold">{title}</h3>
 
-          {/* <p className="mt-1 h-4 truncate text-xs text-gray-500">
-            {category || "\u00A0"}
-          </p> */}
-
           <div className="mt-1 flex items-baseline gap-2">
             <span className="flex items-center text-base font-semibold">
               <IndianRupee className="h-4 w-4" />
-              {price}
+              {formatINR(price)} {/* ← formatted */}
             </span>
 
             {oldPrice && (
               <span className="text-sm text-gray-400 line-through">
-                ₹{oldPrice}
+                ₹{formatINR(oldPrice)} {/* ← formatted */}
               </span>
             )}
           </div>
@@ -90,14 +82,6 @@ const PlaceCard = ({ place, loading }) => {
               <StarRating size={14} />
             )}
           </div>
-
-          {/* <p
-            className={`mt-2 text-xs font-medium ${
-              stock > 0 ? "text-green-600" : "text-red-500"
-            }`}
-          >
-            {stock > 0 ? "In Stock" : "Out of Stock"}
-          </p> */}
         </div>
       </Link>
     </div>

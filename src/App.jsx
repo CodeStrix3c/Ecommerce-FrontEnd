@@ -29,7 +29,7 @@ function App() {
         </Routes>
       </Suspense>
       <ToastContainer
-        autoClose={300}
+        autoClose={500}
         closeOnClick={false} // prevent accidental close
         pauseOnHover // pause timer on hover
         draggable={false}

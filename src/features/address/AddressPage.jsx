@@ -285,20 +285,19 @@ const AddressPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
             <div className="lg:col-span-2 space-y-6">
-
-
               <div className="bg-[var(--color-white)] p-6 rounded-xl shadow-sm bobrder border-[var(--color-gray)]">
-                <h2 className="text-lg font-semibold mb-4">Shipping Charges</h2>
+                <h2 className="text-lg font-semibold mb-4">Shipping Methods</h2>
 
                 <div className="space-y-3">
                   {shippingPrices.map((method) => (
                     <label
                       key={method.name}
                       className={`flex items-center justify-between border rounded-lg px-4 py-3 cursor-pointer
-                  ${getShippingMethod() === method.name
-                          ? "border-[var(--color-primary)] bg-[var(--color-black-hover)]"
-                          : "border-[var(--color-gray)]"
-                        }`}
+                  ${
+                    getShippingMethod() === method.name
+                      ? "border-[var(--color-primary)] bg-[var(--color-black-hover)]"
+                      : "border-[var(--color-gray)]"
+                  }`}
                     >
                       <div className="flex items-center gap-3">
                         <input
@@ -348,10 +347,11 @@ const AddressPage = () => {
                         handleAddressSelection(address.userAddressId)
                       }
                       className={`relative flex gap-4 border rounded-lg p-4 cursor-pointer
-  ${selectedAddressId === address.userAddressId
-                          ? "border-[var(--color-primary)] bg-[var(--color-black-hover)]"
-                          : "border-[var(--color-gray)]"
-                        }`}
+  ${
+    selectedAddressId === address.userAddressId
+      ? "border-[var(--color-primary)] bg-[var(--color-black-hover)]"
+      : "border-[var(--color-gray)]"
+  }`}
                     >
                       <button
                         type="button"

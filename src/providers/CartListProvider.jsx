@@ -1,69 +1,3 @@
-// import { createContext, useState, useContext } from "react";
-
-// const CartListContext = createContext();
-
-// export const CartListProvider = ({ children }) => {
-//   const [cartList, setCartList] = useState([]);
-
-//   const toggleCartList = (place) => {
-//     setCartList((prev) => {
-//       const exists = prev.find((item) => item._id === place._id);
-//       if (exists) {
-//         return prev.filter((item) => item._id !== place._id);
-//       } else {
-
-//         return [...prev, { ...place, quantity: 1 }];
-//       }
-//     });
-//   };
-
-//   const addToCartList = (place) => {
-//     setCartList((prev) => {
-//       const exists = prev.find((item) => item._id === place._id);
-//       if (exists) {
-
-//         return prev.map((item) =>
-//           item._id === place._id
-//             ? { ...item, quantity: (item.quantity || 1) + 1 }
-//             : item
-//         );
-//       }
-//       return [...prev, { ...place, quantity: 1 }];
-//     });
-//   };
-
-//   const removeFromCart = (id) => {
-//     setCartList((prev) => prev.filter((item) => item._id !== id));
-//   };
-
-//   const clearCart = () => setCartList([]);
-
-//   const updateQuantity = (id, quantity) => {
-//     setCartList((prev) =>
-//       prev.map((item) =>
-//         item._id === id ? { ...item, quantity: Math.max(1, quantity) } : item
-//       )
-//     );
-//   };
-
-//   return (
-//     <CartListContext.Provider
-//       value={{
-//         cartList,
-//         toggleCartList,
-//         addToCartList,
-//         removeFromCart,
-//         clearCart,
-//         updateQuantity,
-//       }}
-//     >
-//       {children}
-//     </CartListContext.Provider>
-//   );
-// };
-
-// export const useCartList = () => useContext(CartListContext);
-
 import {
   useAddToCart,
   useGetCartItems,
@@ -84,9 +18,9 @@ export const CartListProvider = ({ children }) => {
 
   /* -------------------- API HOOKS -------------------- */
   const { data, isLoading } = useGetCartItems();
-  const { mutate: addItem } = useAddToCart();
-  const { mutate: removeItem } = useRemoveFromCart();
-  const { mutate: updateItemQuantity } = useUpdateCartQuantity();
+  const { mutateAsync: addItem } = useAddToCart();
+  const { mutateAsync: removeItem } = useRemoveFromCart();
+  const { mutateAsync: updateItemQuantity } = useUpdateCartQuantity();
 
   /* -------------------- FULL CART DATA -------------------- */
   const cartItems = data?.items || [];
@@ -102,13 +36,13 @@ export const CartListProvider = ({ children }) => {
   }, [token, queryClient]);
 
   /* -------------------- ADD TO CART -------------------- */
-  const addToCartList = (payload) => {
+  const addToCartList = async (payload) => {
     if (!token) {
       toast.error("Please login first");
       return;
     }
 
-    addItem({
+    await addItem({
       productId: payload.productId,
       quantity: payload.quantity || 1,
       variationName: payload.variationName || "",
@@ -116,20 +50,20 @@ export const CartListProvider = ({ children }) => {
   };
 
   /* -------------------- REMOVE -------------------- */
-  const removeFromCart = (cartItemId) => {
-    removeItem({ cartItemId });
+  const removeFromCart = async (cartItemId) => {
+    await removeItem({ cartItemId });
   };
 
   /* -------------------- UPDATE QUANTITY -------------------- */
-  const updateQuantity = (cartItemId, quantity) => {
-    updateItemQuantity({ cartItemId, quantity });
+  const updateQuantity = async (cartItemId, quantity) => {
+    await updateItemQuantity({ cartItemId, quantity });
   };
 
   /* -------------------- CLEAR CART -------------------- */
-  const clearCart = () => {
-    cartItems.forEach((item) => {
-      removeItem({ cartItemId: item.id });
-    });
+  const clearCart = async () => {
+    await Promise.all(
+      cartItems.map((item) => removeItem({ cartItemId: item.id })),
+    );
   };
 
   return (
