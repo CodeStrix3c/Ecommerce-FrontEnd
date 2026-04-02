@@ -21,6 +21,7 @@ import {
 import ProductInfoPanel from "../components/ProductInfoPanel";
 import Testimonials from "@/features/reviews/pages/Testimonials";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
+import CrossSellProducts from "../components/CrossSellProducts";
 
 const IMAGE_BASE_URL =
   "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net";
@@ -49,26 +50,51 @@ const PlacePage = () => {
     stock: false,
   });
 
-
   const imageRef = useRef(null);
 
   const [showZoom, setShowZoom] = useState(false);
+  const [zoomReady, setZoomReady] = useState(false);
   const [zoomImage, setZoomImage] = useState(null);
   const [zoomPos, setZoomPos] = useState("0px 0px");
-  const [zoomPanelPos, setZoomPanelPos] = useState({ top: 0, left: 0, size: ZOOM_PANEL_SIZE });
+  const [zoomPanelPos, setZoomPanelPos] = useState({
+    top: 0,
+    left: 0,
+    size: ZOOM_PANEL_SIZE,
+  });
   const [zoomImageSize, setZoomImageSize] = useState({ width: 0, height: 0 });
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  // Replace your existing handleMouseEnter, handleMouseMove handlers with these:
+
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowZoom(false);
+      setZoomReady(false);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scroll = (direction) => {
+    const container = scrollRef.current;
+    if (!container) return;
+    container.scrollBy({
+      left: direction === "left" ? -300 : 300,
+      behavior: "smooth",
+    });
+  };
 
   const handleMouseEnter = () => {
     if (!place?.photos?.length) return;
     if (window.innerWidth < 1024) return;
     setZoomImage(selectedPhoto || place.photos[0]);
     setShowZoom(true);
+    setZoomReady(false);
   };
 
   const handleMouseLeave = () => {
     setShowZoom(false);
+    setZoomReady(false);
   };
 
   const handleMouseMove = (e) => {
@@ -86,7 +112,6 @@ const PlacePage = () => {
       return;
     }
 
-    // ✅ Recalculate panel position on every move (fixes stale position after scroll)
     const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
     const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
 
@@ -102,11 +127,13 @@ const PlacePage = () => {
       left = rect.left - panelSize - ZOOM_GAP;
     }
 
-    const clampedTop = Math.max(0, Math.min(rect.top, viewportHeight - panelSize));
+    const clampedTop = Math.max(
+      0,
+      Math.min(rect.top, viewportHeight - panelSize),
+    );
 
     setZoomPanelPos({ top: clampedTop, left, size: panelSize });
     setZoomImageSize({ width: rect.width, height: rect.height });
-
 
     const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
     const y = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
@@ -115,10 +142,8 @@ const PlacePage = () => {
     const bgY = (y / rect.height) * rect.height * ZOOM_LEVEL;
 
     setZoomPos(`-${bgX - panelSize / 2}px -${bgY - panelSize / 2}px`);
+    setZoomReady(true);
   };
-
-
-
 
   const toggleSection = (key) => {
     setOpenSections((prev) => ({
@@ -126,8 +151,6 @@ const PlacePage = () => {
       [key]: !prev[key],
     }));
   };
-
-
 
   const [popularRef, popularInstanceRef] = useKeenSlider({
     mode: "free",
@@ -188,10 +211,6 @@ const PlacePage = () => {
 
   if (isLoading || !place) return <Spinner />;
 
-  /* ===========================
-     POPULAR PRODUCTS
-  ============================ */
-
   const productsList = productsData?.products || [];
 
   const popularItems = productsList
@@ -213,17 +232,12 @@ const PlacePage = () => {
     })
     .filter(Boolean);
 
-
-
   return (
     <ContentWrapper>
       <div className="pt-6 lg:pt-10 pb-6 lg:pb-8 relative">
         <ListingHeader place={place} />
 
-
-
         <div className="mt-10 flex flex-col gap-8 lg:flex-row relative">
-
           <div className="lg:w-4/7 w-full ps-2 relative">
             <PlaceGallery
               place={place}
@@ -238,10 +252,12 @@ const PlacePage = () => {
             />
           </div>
 
-
           <div
-            className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${showZoom ? "opacity-0 pointer-events-none" : "opacity-100"
-              }`}
+            className={`lg:w-2/7 w-full space-y-4 relative z-10 transition-opacity duration-200 ${
+              showZoom && zoomReady
+                ? "opacity-0 pointer-events-none"
+                : "opacity-100"
+            }`}
           >
             <ProductInfoPanel
               place={place}
@@ -251,7 +267,8 @@ const PlacePage = () => {
 
             <BookingWidget place={place} />
           </div>
-          {showZoom && zoomImage && (
+
+          {showZoom && zoomImage && zoomReady && (
             <div
               className="hidden lg:block fixed z-[9] bg-white border shadow-2xl rounded-lg overflow-hidden pointer-events-none"
               style={{
@@ -267,7 +284,6 @@ const PlacePage = () => {
             />
           )}
         </div>
-
 
         {/* <div className="mt-6">
           <HighlightBanner
@@ -329,12 +345,32 @@ const PlacePage = () => {
           products={product.relatedProducts?.filter((p) => p.id !== product.id)}
         />
 
+        <CrossSellProducts products={product.crossSellProducts} />
+
         <div className="mt-10">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-xl font-semibold">Recently Viewed Products</h2>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => scroll("left")}
+                className="p-2 rounded-full border border-[var(--color-gray)] hover:bg-[var(--color-black-hover)] transition"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                onClick={() => scroll("right")}
+                className="p-2 rounded-full border border-[var(--color-gray)] hover:bg-[var(--color-black-hover)] transition"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
           </div>
 
-          <div className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth">
+          <div
+            ref={scrollRef}
+            className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth"
+          >
             {popularItems.map((item) => (
               <div
                 key={item.id}

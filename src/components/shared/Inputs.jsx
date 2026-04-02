@@ -54,7 +54,7 @@ export default function Inputs({
           let input = e.target.value;
 
           if (type === "phone") input = input.replace(/\D/g, "").slice(0, 10);
-          if (type === "age") input = input.replace(/\D/g, "").slice(0, 2);
+          if (type === "age") input = input.replace(/\D/g, "").slice(0, 3);
           if (type === "pincode") input = input.replace(/\D/g, "").slice(0, 6);
 
           if (type === "bankaccount") {
@@ -75,8 +75,11 @@ export default function Inputs({
           }
 
           if (type === "text") {
-            input = input.slice(0, 32);
-            input = input.replace(/[^a-zA-Z0-9\s,./-]/g, "");
+            input = input
+              .replace(/[^a-zA-Z\s,./-]/g, "") // remove numbers & invalid chars
+              .replace(/^\s+/, "") // no leading spaces
+              .replace(/\s{2,}/g, " ") // collapse multiple spaces into one
+              .slice(0, 32);
           }
 
           if (type === "email") {
@@ -173,8 +176,9 @@ export default function Inputs({
                     onKeyDown={(e) => handleOtpKeyDown(e, index)}
                     className="w-12 h-12 text-center text-lg rounded-lg outline-none"
                     style={{
-                      border: `1px solid ${hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
-                        }`,
+                      border: `1px solid ${
+                        hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
+                      }`,
                     }}
                   />
                 ))}
@@ -186,8 +190,9 @@ export default function Inputs({
                   minHeight: type === "textarea" ? "auto" : 52,
                   backgroundColor: disabled ? "#f5f5f5" : "var(--color-white)",
                   opacity: disabled ? 0.7 : 1,
-                  border: `1px solid ${hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
-                    }`,
+                  border: `1px solid ${
+                    hasError ? "var(--color-error)" : "rgba(0,0,0,0.4)"
+                  }`,
                 }}
               >
                 {type === "phone" && (

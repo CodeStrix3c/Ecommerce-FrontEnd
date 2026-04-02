@@ -45,7 +45,6 @@ const helpCategories = [
 const HelpCenter = () => {
   return (
     <div className="min-h-screen border border-[var(--color-gray)] rounded-lg bg-[var(--color-white)]">
-      
       {/* Header Section */}
       <div className="py-4 px-4 text-center text-[var(--color-black)]">
         <h1 className="text-3xl font-bold mb-4">Help Center</h1>
@@ -55,7 +54,7 @@ const HelpCenter = () => {
 
         {/* Search Bar */}
         <div className="flex justify-center max-w-xl mx-auto">
-          <SearchBar />
+          {/* <SearchBar /> */}
         </div>
       </div>
 
@@ -76,15 +75,12 @@ const HelpCenter = () => {
                 {item.title}
               </h3>
 
-              <p className="text-sm text-[var(--color-black)]">
-                {item.desc}
-              </p>
+              <p className="text-sm text-[var(--color-black)]">{item.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      
       <div className="bg-[var(--color-white)] py-4 text-center border-t border-[var(--color-gray)]">
         <h3 className="text-xl font-semibold mb-2 text-[var(--color-black)]">
           Still need help?

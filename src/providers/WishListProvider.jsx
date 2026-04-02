@@ -112,7 +112,7 @@ const WishlistContext = createContext(null);
 
 export const WishListProvider = ({ children }) => {
   const queryClient = useQueryClient();
-  const { userId } = useUser(); // ✅ REACTIVE
+  const { userId } = useUser();
 
   const { data: wishlist = [], isLoading } = useGetWishlist(userId, {
     enabled: !!userId,
@@ -121,14 +121,15 @@ export const WishListProvider = ({ children }) => {
   const addMutation = useAddWishlistItem();
   const removeMutation = useRemoveWishlistItem();
 
-  // 🔥 Clear wishlist when user logs out
+  /* -------------------- CLEAR CACHE ON LOGOUT -------------------- */
   useEffect(() => {
     if (!userId) {
       queryClient.removeQueries({ queryKey: ["wishlist"] });
     }
   }, [userId, queryClient]);
 
-  const toggleWishlist = (product) => {
+  /* -------------------- TOGGLE WISHLIST -------------------- */
+  const toggleWishlist = async (product) => {
     if (!userId) {
       toast.error("Please login first");
       return;
@@ -137,14 +138,14 @@ export const WishListProvider = ({ children }) => {
     const existingItem = wishlist.find((item) => item.productId === product.id);
 
     if (existingItem) {
-      removeMutation.mutate(existingItem.id, {
+      await removeMutation.mutateAsync(existingItem.id, {
         onSuccess: () => {
           toast.success("Removed from wishlist");
           queryClient.invalidateQueries({ queryKey: ["wishlist"] });
         },
       });
     } else {
-      addMutation.mutate(
+      await addMutation.mutateAsync(
         { productId: product.id, quantity: 1 },
         {
           onSuccess: () => {
@@ -156,10 +157,10 @@ export const WishListProvider = ({ children }) => {
     }
   };
 
-  const removeFromWishlist = (wishlistItemId) => {
-    removeMutation.mutate(wishlistItemId, {
+  /* -------------------- REMOVE FROM WISHLIST -------------------- */
+  const removeFromWishlist = async (wishlistItemId) => {
+    await removeMutation.mutateAsync(wishlistItemId, {
       onSuccess: () => {
-        // toast.success("Removed from wishlist");
         queryClient.invalidateQueries({ queryKey: ["wishlist"] });
       },
     });

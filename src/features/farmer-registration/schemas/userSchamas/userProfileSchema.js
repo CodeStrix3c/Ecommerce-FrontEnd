@@ -3,13 +3,13 @@
 import { z } from "zod";
 
 export const userProfileSchema = z.object({
-  fullName: z.string().min(2, "Full name must be at least 2 characters"),
+  fullName: z.string().min(3, "Full name must be at least 3 characters"),
 
   email: z.string().email("Invalid email").optional().or(z.literal("")),
 
   phone: z.string().min(10, "Phone number must be 10 digits"),
 
-  age: z.coerce.number().min(18, "Minimum age is 18").max(100, "Invalid age"),
+  age: z.coerce.number().min(18, "Minimum age is 18").max(120, "Invalid age"),
 
   gender: z.string().min(1, "Gender is required"),
 

@@ -52,9 +52,13 @@ export const profileSchema = z
     // ✅ Optional Age
     age: z.preprocess(
       (val) => (val === "" || val === null ? undefined : Number(val)),
-      z.number().int().min(1, "Age must be at least 1").optional(),
+      z
+        .number()
+        .int()
+        .min(18, "Age must be at least 18")
+        .max(120, "Age cannot exceed 120")
+        .optional(),
     ),
-
     // ✅ Optional Gender
     gender: z.preprocess(
       (val) => (val === "" ? undefined : val),
@@ -65,7 +69,7 @@ export const profileSchema = z
       .string()
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{7,}$/,
-        "Paassord must be Min 7 chars with upper, lower, number & special char.",
+        "Password must be Min 7 chars with upper, lower, number & special char.",
       ),
 
     confirmPassword: z.string().min(1, "Confirm password is required"),

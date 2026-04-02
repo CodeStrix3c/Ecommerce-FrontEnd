@@ -188,15 +188,23 @@ export default function AddReview({ onAdd }) {
 
               {/* Review */}
               <div>
-                <label className="block mb-1 font-medium text-gray-700 text-sm">
+                {/* <label className="block mb-1 font-medium text-gray-700 text-sm">
                   Your Review
-                </label>
+                </label> */}
                 <textarea
                   placeholder="Write your review..."
                   value={reviewText}
-                  onChange={(e) => setReviewText(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 h-24 text-sm"
+                  onChange={(e) => {
+                    if (e.target.value.length <= 300) {
+                      setReviewText(e.target.value);
+                    }
+                  }}
+                  maxLength={300}
+                  className="w-full border border-gray-100 rounded-lg px-3 py-2 h-24 text-sm"
                 />
+                <p className="text-xs text-gray-400 text-right mt-1">
+                  {reviewText.length}/300
+                </p>
               </div>
 
               <button

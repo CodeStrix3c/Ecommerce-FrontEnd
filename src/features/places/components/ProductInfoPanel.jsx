@@ -1,12 +1,10 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
-import StarRating from "@/components/ui/StarRating"; // ✅ ADD
+import StarRating from "@/components/ui/StarRating";
 
-const ProductInfoPanel = ({
-  place,
-  openSections,
-  toggleSection,
-}) => {
+const formatINR = (value) => Number(value).toLocaleString("en-IN");
+
+const ProductInfoPanel = ({ place, openSections, toggleSection }) => {
   const Accordion = ({ title, sectionKey, children, show }) => {
     if (!show) return null;
 
@@ -19,8 +17,9 @@ const ProductInfoPanel = ({
           {title}
           <ChevronDown
             size={18}
-            className={`transition-transform ${openSections[sectionKey] ? "rotate-180" : ""
-              }`}
+            className={`transition-transform ${
+              openSections[sectionKey] ? "rotate-180" : ""
+            }`}
           />
         </button>
 
@@ -36,8 +35,6 @@ const ProductInfoPanel = ({
   return (
     <div className="space-y-4">
       <div className="bg-[var(--color-white)] space-y-2">
-
-
         {place.title && (
           <section>
             <div
@@ -47,28 +44,17 @@ const ProductInfoPanel = ({
           </section>
         )}
 
-
         {place.brand && (
           <div className="flex flex-col gap-1">
-
-            <p className="text-sm text-[var(--color-black)]">
-              {place.brand}
-            </p>
-
-
+            <p className="text-sm text-[var(--color-black)]">{place.brand}</p>
             <div className="flex items-center gap-2">
               <StarRating rating={place.rating} size={14} />
-
-              {/* <span className="text-sm font-medium text-[var(--color-black)]">
-                {place.rating?.toFixed(1)}
-              </span> */}
-
               <span className="text-gray-400">•</span>
-
               <span className="text-sm text-[var(--color-overlay)]">
                 {place.reviewsCount > 0
-                  ? `${place.reviewsCount} ${place.reviewsCount === 1 ? "review" : "reviews"
-                  }`
+                  ? `${place.reviewsCount} ${
+                      place.reviewsCount === 1 ? "review" : "reviews"
+                    }`
                   : "No reviews yet"}
               </span>
             </div>
@@ -78,12 +64,12 @@ const ProductInfoPanel = ({
         <section>
           <div className="flex items-center flex-wrap gap-2">
             <span className="text-2xl font-bold text-[var(--color-primary)]">
-              ₹{place.price}
+              ₹{formatINR(place.price)} {/* ← formatted */}
             </span>
 
             {place.oldPrice && (
               <span className="text-[var(--color-black)] line-through text-base">
-                MRP ₹{place.oldPrice}
+                MRP ₹{formatINR(place.oldPrice)} {/* ← formatted */}
               </span>
             )}
 
@@ -96,7 +82,8 @@ const ProductInfoPanel = ({
 
           {place.oldPrice && place.discount > 0 && (
             <p className="text-xs text-[var(--color-primary)] font-medium">
-              You save ₹{place.oldPrice - place.price}
+              You save ₹{formatINR(place.oldPrice - place.price)}{" "}
+              {/* ← formatted */}
             </p>
           )}
         </section>
@@ -127,19 +114,15 @@ const ProductInfoPanel = ({
             </div>
           )}
 
-
         {place.shortDescription && (
           <section>
             <div
               className="text-sm text-[var(--color-black)] leading-relaxed"
-              dangerouslySetInnerHTML={{
-                __html: place.shortDescription,
-              }}
+              dangerouslySetInnerHTML={{ __html: place.shortDescription }}
             />
           </section>
         )}
       </div>
-
 
       <div className="mt-4 space-y-4">
         <Accordion
