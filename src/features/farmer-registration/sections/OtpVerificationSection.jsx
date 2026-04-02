@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "@mui/material/Button";
-import { AlertTriangle } from "lucide-react";
 
 export default function OtpVerificationSection({
   register,
@@ -42,7 +41,7 @@ export default function OtpVerificationSection({
     const joinedOtp = newOtp.join("");
 
     setValue("otp", joinedOtp, {
-      shouldValidate: true,
+      shouldValidate: joinedOtp.length === 6, // ← only validate when complete
     });
 
     if (value && index < 5) {
@@ -58,11 +57,11 @@ export default function OtpVerificationSection({
 
   const handleResend = async () => {
     await onResend();
-    setTimeLeft(120);
+    setTimeLeft(60); // ← fixed from 120
     setOtp(["", "", "", "", "", ""]);
 
     setValue("otp", "", {
-      shouldValidate: true,
+      shouldValidate: false, // ← don't trigger validation on clear
     });
   };
 
@@ -74,12 +73,6 @@ export default function OtpVerificationSection({
             Enter the 6-digit verification code sent to your registered <br />
             mobile number to continue.
           </p>
-
-          {/* TIMER */}
-          {/* <p className="text-sm text-gray-500">
-          OTP expires in{" "}
-          <span className="font-semibold text-black">{formatTime()}</span>
-        </p> */}
 
           {/* OTP INPUTS */}
           <div className="flex gap-3 justify-center">
@@ -119,17 +112,12 @@ export default function OtpVerificationSection({
             </Button>
           ) : (
             <p className="text-sm text-gray-600">
-              Didn’t receive the code?{" "}
+              Didn't receive the code?{" "}
               <span className="text-[var(--color-primary)] font-medium">
                 Resend in {formatTime()}
               </span>
             </p>
           )}
-
-          <p className="flex justify-center items-center gap-2 mb-5">
-            <AlertTriangle className="w-5 h-5 text-yellow-500" />
-            Please don't refresh the page
-          </p>
         </div>
       </div>
     </>

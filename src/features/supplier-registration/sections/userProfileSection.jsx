@@ -10,7 +10,6 @@ export default function UserProfileSection({ disabled = false }) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
       <Inputs
         required
         name="fullName"
@@ -32,7 +31,7 @@ export default function UserProfileSection({ disabled = false }) {
         required
         name="age"
         label="Age :"
-        type="number"
+        type="age"
         errors={errors?.age}
         disabled={disabled}
       />

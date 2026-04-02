@@ -15,7 +15,6 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/providers/UserProvider";
 import { useQueryClient } from "@tanstack/react-query";
-import { useLogoutMutation } from "@/hooks/useAuthMutation";
 
 const DropdownPanel = ({ open, onClose }) => {
   const isMobile = useIsMobile(1100);
@@ -29,7 +28,6 @@ const DropdownPanel = ({ open, onClose }) => {
   /* ================= AUTH ACTION ================= */
   const handleAuthAction = () => {
     onClose?.();
-
     if (isAuthenticated) {
       logout();
       queryClient.clear();
@@ -43,81 +41,59 @@ const DropdownPanel = ({ open, onClose }) => {
   /* ================= SETTINGS ================= */
   const handleSettings = () => {
     onClose?.();
-
-    if (!isAuthenticated) {
-      toast.info("Please login to access settings");
-      navigate("/login");
-      return;
-    }
-
     navigate("/settings");
   };
 
   /* ================= PROFILE ================= */
   const handleOpenProfile = () => {
     onClose?.();
-
-    if (!isAuthenticated) {
-      toast.info("Please login to view your profile");
-      navigate("/login");
-      return;
-    }
-
     navigate("/profile");
   };
 
   const handleOrdersPage = () => {
     onClose?.();
-    if (!isAuthenticated) {
-      toast.info("Please login to view your orders");
-      navigate("/login");
-      return;
-    }
     navigate("/order");
   };
 
   return (
     <div
-      className={`absolute right-0 mt-4 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${open
-        ? "translate-y-0 scale-100 opacity-100"
-        : "pointer-events-none -translate-y-1 scale-95 opacity-0"
-        }`}
+      className={`absolute right-0 mt-4 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
+        open
+          ? "translate-y-0 scale-100 opacity-100"
+          : "pointer-events-none -translate-y-1 scale-95 opacity-0"
+      }`}
     >
       <div className="flex flex-col py-2 text-[var(--color-black)]">
+        {/* ── Show only when logged in ── */}
+        {isAuthenticated && (
+          <>
+            <div
+              onClick={handleOpenProfile}
+              className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+            >
+              <User size={16} />
+              <span>My Profile</span>
+            </div>
 
-        {/* ================= IMPORTANT ITEMS AT TOP ================= */}
+            <div
+              onClick={handleOrdersPage}
+              className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+            >
+              <ShoppingBag size={16} />
+              <span>My Orders</span>
+            </div>
 
-        {/* Settings */}
-        
-        {/* Profile */}
-        <div
-          onClick={handleOpenProfile}
-          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <User size={16} />
-          <span>My Profile</span>
-        </div>
-           <div
-          onClick={handleOrdersPage}
-          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <ShoppingBag size={16} />
-          <span>My Orders</span>
-        </div>
+            <div
+              onClick={handleSettings}
+              className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+            >
+              <Settings2 size={16} />
+              <span>Settings</span>
+            </div>
 
-        <div
-          onClick={handleSettings}
-          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
-        >
-          <Settings2 size={16} />
-          <span>Settings</span>
-        </div>
-
-     
-
-        <hr className="my-1 border-[var(--color-black-hover)]" />
-
-        {/* ================= REST (UNCHANGED) ================= */}
+            <hr className="my-1 border-[var(--color-black-hover)]" />
+          </>
+        )}
 
         {/* About */}
         <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
@@ -128,7 +104,7 @@ const DropdownPanel = ({ open, onClose }) => {
         {/* Help */}
         <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
           <HelpCircle size={16} />
-          <span>Help Support</span>
+          <span>Help & Support</span>
         </div>
 
         <hr className="my-1 border-[var(--color-black-hover)]" />
@@ -165,20 +141,22 @@ const DropdownPanel = ({ open, onClose }) => {
               <span>Artisan Profiles</span>
             </div>
 
-            <div
-              onClick={handleSettings}
-              className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
-            >
-              <Settings2 size={16} />
-              <span>Settings</span>
-            </div>
+            {/* Settings in mobile only shown when logged in */}
+            {isAuthenticated && (
+              <div
+                onClick={handleSettings}
+                className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+              >
+                <Settings2 size={16} />
+                <span>Settings</span>
+              </div>
+            )}
           </>
         )}
 
-        {/* ================= SIGN OUT AT LAST ================= */}
-
         <hr className="my-1 border-[var(--color-black-hover)]" />
 
+        {/* Sign In / Sign Out */}
         <div
           onClick={handleAuthAction}
           className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-[var(--color-black-hover)] transition-colors"
@@ -186,7 +164,6 @@ const DropdownPanel = ({ open, onClose }) => {
           {isAuthenticated ? <LogOut size={16} /> : <LogIn size={16} />}
           <span>{isAuthenticated ? "Sign Out" : "Sign In"}</span>
         </div>
-
       </div>
     </div>
   );

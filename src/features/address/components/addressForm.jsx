@@ -25,6 +25,7 @@ export const ShippingForm = ({
           <Inputs
             name="contactName"
             label="Full Name"
+            type="text"
             required
             errors={errors.contactName}
           />
@@ -78,6 +79,7 @@ export const ShippingForm = ({
         <Inputs name="city" label="City" required errors={errors.city} />
 
         {/* Address Line 1 */}
+        {/* Address Line 1 */}
         <div className="md:col-span-2">
           <FormTextArea
             name="addressLine1"
@@ -85,6 +87,7 @@ export const ShippingForm = ({
             register={register}
             errors={errors.addressLine1}
             required
+            wordLimit={20} // ← hard limit
           />
         </div>
 
@@ -95,16 +98,10 @@ export const ShippingForm = ({
             label="Address Line 2"
             required={false}
             register={register}
+            errors={errors.addressLine2} // ← was missing!
+            wordLimit={20} // ← hard limit
           />
         </div>
-
-        {/* Pincode */}
-        <Inputs
-          name="zipCode"
-          label="Pincode"
-          required
-          errors={errors.zipCode}
-        />
       </div>
     </div>
   );

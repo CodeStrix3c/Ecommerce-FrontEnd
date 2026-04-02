@@ -11,15 +11,18 @@ import {
 import SecondarySearchBar from "@/components/shared/SecondarySearchBar";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import FaqCard from "@/features/about-us/components/FaqCard";
-import { useBottomCardDataQuery, useCardsDataQuery, useFaqDataQuery, useGuidesAndResourcesDataQuery, useTopArticlesDataQuery, } from "@/hooks/useHelpCenterQuery";
-
+import {
+  useBottomCardDataQuery,
+  useCardsDataQuery,
+  useFaqDataQuery,
+  useGuidesAndResourcesDataQuery,
+  useTopArticlesDataQuery,
+} from "@/hooks/useHelpCenterQuery";
 
 export default function AgricultureHelpCenter() {
   const { data: FaqData } = useFaqDataQuery();
 
   const { data: CardData } = useCardsDataQuery();
-
-
 
   const { data: TopArticlesData } = useTopArticlesDataQuery();
   const { data: GuidesData } = useGuidesAndResourcesDataQuery();
@@ -27,7 +30,7 @@ export default function AgricultureHelpCenter() {
 
   const handleClick = (link) => {
     if (link) window.location.href = link;
-  }
+  };
 
   // const helpCenterfaqs = [
   //   {
@@ -72,7 +75,7 @@ export default function AgricultureHelpCenter() {
           </h1>
           <div className="flex justify-center w-full px-4">
             <div className="w-full max-w-xl">
-              <SecondarySearchBar />
+              {/* <SecondarySearchBar /> */}
             </div>
           </div>
         </div>

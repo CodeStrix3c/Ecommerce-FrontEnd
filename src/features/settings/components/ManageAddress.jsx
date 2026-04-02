@@ -303,7 +303,7 @@ const ManageAddress = () => {
               <FormProvider {...methods}>
                 <div className="grid gap-3">
                   <Inputs name="name" label="Full Name" required />
-                  <Inputs name="phone" label="Phone" required />
+                  <Inputs name="phone" label="Phone" required type="phone" />
 
                   <FormTextArea
                     name="addressLine1"
@@ -318,6 +318,7 @@ const ManageAddress = () => {
                     label="Address Line 2"
                     register={register}
                     required={false}
+                    errors={errors.addressLine2}
                   />
 
                   <SelectInputs
