@@ -38,16 +38,12 @@ export const OrderSummary = ({
       (p) => p.name === rootData?.selectedShippingMethodName,
     )?.price ?? shippingAmount;
 
-  
   const handlePlaceOrder = async () => {
     try {
-      await onPlaceOrder(); 
-
+      await onPlaceOrder();
 
       queryClient.invalidateQueries({ queryKey: ["cart"] });
-    } catch (err) {
-      
-    }
+    } catch (err) {}
   };
 
   return (
@@ -91,7 +87,7 @@ export const OrderSummary = ({
         </div>
 
         <div className="flex justify-between">
-          <span>Tax (18%)</span>
+          <span>Tax</span>
           <span>₹{taxAmount}</span>
         </div>
 
@@ -132,7 +128,7 @@ export const OrderSummary = ({
       </div>
 
       <button
-        onClick={handlePlaceOrder} 
+        onClick={handlePlaceOrder}
         disabled={placingOrder}
         className="w-full mt-5 bg-[var(--color-primary)] text-white py-3 rounded-lg font-medium disabled:opacity-50"
       >

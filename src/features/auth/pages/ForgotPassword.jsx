@@ -77,6 +77,7 @@ const ForgotPasswordPage = () => {
     } catch (error) {
       const message =
         error?.response?.data?.message ||
+        error?.response?.data?.error || // ✅ FIXED
         error?.response?.data ||
         "Failed to resend OTP";
 
@@ -123,6 +124,7 @@ const ForgotPasswordPage = () => {
     } catch (error) {
       const message =
         error?.response?.data?.message ||
+        error?.response?.data?.error || // ✅ FIXED
         error?.response?.data ||
         "Something went wrong";
 

@@ -53,8 +53,8 @@ const LoginPage = () => {
       onError: (err) => {
         toast.error(
           err?.response?.data?.error ||
-          err?.response?.data?.message ||
-          "something went wrong",
+            err?.response?.data?.message ||
+            "something went wrong",
         );
       },
     });
@@ -156,7 +156,7 @@ const LoginPage = () => {
                 className="text-[var(--color-primary)] cursor-pointer"
                 onClick={() => navigate("/forgot-password")}
               >
-                Forgot Passowrd?
+                Forgot Password?
               </p>
             </div>
 
