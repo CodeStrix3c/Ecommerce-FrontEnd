@@ -50,13 +50,25 @@ const CartSummary = ({
       return;
     }
     applyCoupon(couponCode.trim(), {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        // Handle case where request succeeds (2xx) but coupon application failed
+        if (data?.succeeded === false) {
+          setAppliedCoupon(null);
+          toast.error(data?.errorMessage || "Coupon could not be applied");
+          return;
+        }
         setAppliedCoupon(couponCode.trim());
         toast.success("Coupon applied successfully!");
       },
       onError: (error) => {
         setAppliedCoupon(null);
-        toast.error(error?.response?.data?.message || "Failed to apply coupon");
+        // Check all possible error message locations
+        const message =
+          error?.response?.data?.errorMessage ||
+          error?.response?.data?.message ||
+          error?.message ||
+          "Failed to apply coupon";
+        toast.error(message);
       },
     });
   };
@@ -81,7 +93,15 @@ const CartSummary = ({
         navigate("/address");
       },
       onError: (error) => {
-        toast.error(error?.response?.data?.message || "Checkout failed");
+        const data = error?.response?.data;
+        // Handle plain string response, object with errorMessage, or object with message
+        const message =
+          (typeof data === "string" && data) ||
+          data?.errorMessage ||
+          data?.message ||
+          error?.message ||
+          "Checkout failed";
+        toast.error(message);
       },
     });
   };
@@ -188,9 +208,9 @@ const CartSummary = ({
                       <span className="text-[11px] font-medium text-gray-500">
                         {c.ruleName}
                       </span>
-                      <span className="text-[10px] text-blue-500">
+                      {/* <span className="text-[10px] text-blue-500">
                         Applies to {c.appliesTo}
-                      </span>
+                      </span> */}
                       <span className="text-[10px] text-gray-400">
                         Valid till {formatExpiry(c.endDate)}
                       </span>
@@ -202,7 +222,7 @@ const CartSummary = ({
                         className={`text-[11px] font-semibold px-2 py-0.5 rounded-full
                           ${isSelected ? "bg-green-100 text-green-700" : "bg-orange-50 text-orange-600"}`}
                       >
-                        {getRuleLabel(c)} up to ₹{c.maxDiscountAmount}
+                        ₹{c.maxDiscountAmount}
                       </span>
 
                       {/* Check circle */}
