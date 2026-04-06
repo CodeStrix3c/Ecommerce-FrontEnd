@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Tag } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 
@@ -8,7 +8,6 @@ export default function OrderSuccessPage() {
   const location = useLocation();
 
   const order = location?.state?.order;
-
   const data = order?.value;
 
   if (!data) return null;
@@ -19,13 +18,10 @@ export default function OrderSuccessPage() {
         {/* Success Message */}
         <div className="text-center space-y-3">
           <CheckCircle className="mx-auto text-green-500 w-16 h-16" />
-
           <h1 className="text-3xl font-semibold">Order Placed Successfully!</h1>
-
           <p className="text-gray-500">
             Thank you for your purchase. Your order has been confirmed.
           </p>
-
           <p className="text-lg font-medium">
             Order ID:
             <span className="ml-1 text-[var(--color-secondary)]">
@@ -34,20 +30,40 @@ export default function OrderSuccessPage() {
           </p>
         </div>
 
+        {/* Coupon Code — shown only if present */}
+        {data.couponCode && (
+          <div className="flex items-center gap-3 bg-green-50 border border-green-200 rounded-xl px-5 py-4">
+            <Tag className="text-green-600 w-5 h-5 shrink-0" />
+            <div className="flex-1">
+              <p className="text-sm text-green-700 font-medium">
+                Coupon Applied
+              </p>
+              <p className="text-base font-semibold tracking-widest text-green-800">
+                {data.couponCode}
+              </p>
+            </div>
+            <span className="text-green-700 font-semibold text-sm whitespace-nowrap">
+              - ₹ {Number(data.discountAmount).toFixed(2)} off
+            </span>
+          </div>
+        )}
+
         {/* Order Items */}
         <div className="bg-white shadow rounded-xl p-6">
           <h2 className="text-lg font-semibold mb-4">Order Items</h2>
-
           {data.orderItems.map((item) => (
             <div key={item.id} className="flex justify-between border-b py-3">
               <div>
                 <p className="font-medium">Product ID: {item.productId}</p>
-
                 <p className="text-sm text-gray-500">
                   Quantity: {item.quantity}
                 </p>
+                {item.discountAmount > 0 && (
+                  <p className="text-sm text-green-600">
+                    Discount: - ₹ {Number(item.discountAmount).toFixed(2)}
+                  </p>
+                )}
               </div>
-
               <p className="font-medium">
                 ₹ {Number(item.productPrice).toFixed(2)}
               </p>
@@ -64,10 +80,15 @@ export default function OrderSuccessPage() {
             <span>₹ {Number(data.subTotal).toFixed(2)}</span>
           </div>
 
-          <div className="flex justify-between">
-            <span>Discount</span>
-            <span>- ₹ {Number(data.discountAmount).toFixed(2)}</span>
-          </div>
+          {data.couponCode && (
+            <div className="flex justify-between text-green-600">
+              <span className="flex items-center gap-1">
+                <Tag className="w-4 h-4" />
+                Coupon ({data.couponCode})
+              </span>
+              <span>- ₹ {Number(data.discountAmount).toFixed(2)}</span>
+            </div>
+          )}
 
           <div className="flex justify-between">
             <span>Tax</span>
@@ -88,16 +109,12 @@ export default function OrderSuccessPage() {
         {/* Shipping Address */}
         <div className="bg-white shadow rounded-xl p-6">
           <h2 className="text-lg font-semibold mb-3">Delivery Address</h2>
-
           <p>{data.shippingAddress.contactName}</p>
-
           <p>{data.shippingAddress.phone}</p>
-
           <p>
             {data.shippingAddress.addressLine1},{" "}
             {data.shippingAddress.addressLine2}
           </p>
-
           <p>
             {data.shippingAddress.city} - {data.shippingAddress.zipCode}
           </p>
@@ -106,7 +123,6 @@ export default function OrderSuccessPage() {
         {/* Payment */}
         <div className="bg-white shadow rounded-xl p-6">
           <h2 className="text-lg font-semibold mb-2">Payment Method</h2>
-
           <p>{data.paymentMethod}</p>
         </div>
 
@@ -118,7 +134,6 @@ export default function OrderSuccessPage() {
           >
             View Orders
           </button>
-
           <button
             onClick={() => navigate("/")}
             className="px-6 py-2 border rounded-lg"

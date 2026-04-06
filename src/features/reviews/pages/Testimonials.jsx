@@ -123,7 +123,7 @@ export default function Testimonials() {
           What People Say About Our Art & Craft Products
         </h2>
 
-        <AddReview onAdd={handleAddReview} />
+        <AddReview onAdd={handleAddReview} reviews={reviews} />
       </div>
 
       {isMobile ? (
