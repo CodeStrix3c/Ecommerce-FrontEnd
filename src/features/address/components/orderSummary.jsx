@@ -147,11 +147,11 @@ export const OrderSummary = ({
           <span>₹{Number(orderTotal).toLocaleString()}</span>
         </div>
 
-        {discount > 0 && (
+        {/* {discount > 0 && (
           <p className="text-green-600 text-xs text-right">
             🎉 You saved ₹{Number(discount).toLocaleString()} on this order!
           </p>
-        )}
+        )} */}
       </div>
 
       {/* Payment Method */}

@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/providers/UserProvider";
 import { useQueryClient } from "@tanstack/react-query";
+import { useLogoutMutation } from "@/hooks/useAuthMutation";
 
 const DropdownPanel = ({ open, onClose }) => {
   const isMobile = useIsMobile(1100);
@@ -22,20 +23,39 @@ const DropdownPanel = ({ open, onClose }) => {
   const { logout } = useUser();
   const queryClient = useQueryClient();
 
+  const { mutate: logoutMutate, isPending: isLogoutPending } =
+    useLogoutMutation();
+
   const token = getItemFromLocalStorage("token");
   const isAuthenticated = Boolean(token);
 
   /* ================= AUTH ACTION ================= */
   const handleAuthAction = () => {
-    onClose?.();
-    if (isAuthenticated) {
-      logout();
-      queryClient.clear();
-      toast.success("Logged out successfully!");
-      navigate("/");
-    } else {
+    if (!isAuthenticated) {
+      onClose?.();
       navigate("/login");
+      return;
     }
+
+    logoutMutate(undefined, {
+      onSuccess: () => {
+        onClose?.();
+        logout();
+        queryClient.clear();
+        toast.success("Logged out successfully!");
+        navigate("/");
+      },
+      onError: (err) => {
+        // Still clear local state even if API call fails
+        onClose?.();
+        logout();
+        queryClient.clear();
+        toast.error(
+          err?.response?.data?.message || "Logout failed, signed out locally.",
+        );
+        navigate("/");
+      },
+    });
   };
 
   /* ================= SETTINGS ================= */
@@ -158,11 +178,19 @@ const DropdownPanel = ({ open, onClose }) => {
 
         {/* Sign In / Sign Out */}
         <div
-          onClick={handleAuthAction}
-          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer text-red-600 hover:bg-[var(--color-black-hover)] transition-colors"
+          onClick={!isLogoutPending ? handleAuthAction : undefined}
+          className={`flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-[var(--color-black-hover)] transition-colors ${
+            isLogoutPending ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+          }`}
         >
           {isAuthenticated ? <LogOut size={16} /> : <LogIn size={16} />}
-          <span>{isAuthenticated ? "Sign Out" : "Sign In"}</span>
+          <span>
+            {isLogoutPending
+              ? "Signing out..."
+              : isAuthenticated
+                ? "Sign Out"
+                : "Sign In"}
+          </span>
         </div>
       </div>
     </div>

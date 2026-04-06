@@ -204,8 +204,8 @@ const LoginPage = () => {
             or
           </Divider>
 
-          {/* Google Login */}
-          <div className="flex justify-center">
+          {/* Google Login - visually disabled */}
+          <div className="flex justify-center pointer-events-none opacity-50 cursor-not-allowed select-none">
             <GoogleLogin
               onSuccess={handleGoogleLogin}
               onError={() => toast.error("Google login failed")}
@@ -216,7 +216,7 @@ const LoginPage = () => {
 
           {/* Sign Up Link */}
           <p className="mt-5 sm:mt-6 text-center text-sm">
-            Don’t have an account?{" "}
+            Don't have an account?{" "}
             <Link to="/sign-up" className="font-medium underline">
               Sign up
             </Link>
