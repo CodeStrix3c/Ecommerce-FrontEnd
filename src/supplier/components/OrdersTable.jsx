@@ -118,7 +118,7 @@ export default function OrdersTable({
                   </td>
 
                   <td className="p-4 text-center font-semibold text-gray-900 align-top">
-                    {order.subTotalString}
+                    ₹{order.subTotal}
                   </td>
 
                   <td className="p-4 text-center align-top">
