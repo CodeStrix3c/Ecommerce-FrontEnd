@@ -10,7 +10,7 @@ export default function FormTextArea({
   errors,
   required = true,
   placeholder = "",
-  charLimit = null, // ← renamed from wordLimit to charLimit
+  charLimit = null,
 }) {
   const getLabel = () => {
     if (required === true) return <RequiredLabel label={label} />;
@@ -23,13 +23,10 @@ export default function FormTextArea({
   const handleChange = (e) => {
     if (charLimit) {
       const value = e.target.value;
-
       if (value.length > charLimit) {
-        // Hard stop — truncate to charLimit characters
         e.target.value = value.slice(0, charLimit);
       }
     }
-
     registered.onChange(e);
   };
 
@@ -38,6 +35,7 @@ export default function FormTextArea({
   return (
     <div className="flex flex-col gap-1.5">
       {label && getLabel()}
+
       <TextField
         fullWidth
         multiline
@@ -46,15 +44,37 @@ export default function FormTextArea({
         label={placeholder}
         variant="outlined"
         size="small"
+        error={Boolean(errors)}
         helperText={
           errors?.message ?? (charLimit ? `Max ${charLimit} characters` : "")
         }
         inputProps={{
-          maxLength: charLimit ?? undefined, // native hard stop as backup
+          maxLength: charLimit ?? undefined,
         }}
         sx={{
           "& .MuiOutlinedInput-root": {
             borderRadius: "12px",
+
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "rgba(0,0,0,0.4)",
+            },
+
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "rgba(0,0,0,0.4)",
+            },
+
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: errors ? "var(--color-error)" : "rgba(0,0,0,0.4)",
+              borderWidth: "1px",
+            },
+
+            "&.Mui-focused": {
+              boxShadow: "none",
+            },
+
+            "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+              borderColor: "var(--color-error)",
+            },
           },
         }}
         slotProps={{

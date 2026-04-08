@@ -142,6 +142,7 @@ const CartSummary = ({
           <input
             type="text"
             placeholder="Enter coupon code"
+            maxLength={12}
             value={couponCode}
             onChange={(e) => {
               setCouponCode(e.target.value.toUpperCase());

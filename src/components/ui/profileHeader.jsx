@@ -3,12 +3,11 @@ import { useRef, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useFileUploadMutation } from "@/hooks/User/Profile/useFileUpload";
 import { useUpdateUserProfile } from "@/hooks/User/Profile/useUserProfile";
+import { isPlaceholderEmail } from "@/features/supplier-registration/sections/userProfileSection";
 
 export default function UserProfileHeader({ data, onAvatarClick }) {
-  // ← added onAvatarClick
   const fileInputRef = useRef(null);
   const menuRef = useRef(null);
-
   const [showMenu, setShowMenu] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -18,6 +17,9 @@ export default function UserProfileHeader({ data, onAvatarClick }) {
   const name = data?.fullName || "";
   const email = data?.email || "";
   const hasImage = !!data?.profilePic;
+
+  // Hide placeholder emails from the user
+  const displayEmail = isPlaceholderEmail(email) ? "" : email;
 
   const initials = name
     .trim()
@@ -94,7 +96,6 @@ export default function UserProfileHeader({ data, onAvatarClick }) {
     }
   };
 
-  /* ── avatar click handler: open lightbox, but not when menu is open ── */
   const handleAvatarClick = () => {
     if (isUploading || showMenu) return;
     onAvatarClick?.();
@@ -103,7 +104,7 @@ export default function UserProfileHeader({ data, onAvatarClick }) {
   return (
     <div className="lg:mt-24 flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-10 p-6 sm:p-8 border border-gray-100 shadow-sm rounded-2xl mb-4">
       <div className="relative flex-shrink-0" ref={menuRef}>
-        {/* ── Avatar — now clickable ── */}
+        {/* ── Avatar ── */}
         <div
           onClick={handleAvatarClick}
           className="h-28 w-28 sm:h-32 sm:w-32 rounded-full overflow-hidden border-4 border-white shadow-xl ring-2 ring-[var(--color-secondary)] bg-gray-100 relative cursor-pointer"
@@ -201,7 +202,10 @@ export default function UserProfileHeader({ data, onAvatarClick }) {
           </h2>
           <CheckCircle2 className="h-5 w-5 text-blue-500 fill-blue-50" />
         </div>
-        <p className="text-sm text-gray-500 mt-1 break-all">{email || "N/A"}</p>
+        {/* Only show email if it's a real one */}
+        {displayEmail && (
+          <p className="text-sm text-gray-500 mt-1 break-all">{displayEmail}</p>
+        )}
       </div>
     </div>
   );

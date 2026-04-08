@@ -225,26 +225,26 @@ const ManageAddress = () => {
         {userAddresses?.map((addr) => (
           <div
             key={addr.userAddressId}
-            className={`bg-white border rounded-xl p-5 shadow-sm ${
+            className={`bg-white border rounded-xl p-5 shadow-sm overflow-hidden ${
               addr.isDefaultShippingAddress
                 ? "border-green-600"
                 : "border-gray-200"
             }`}
           >
-            <div className="flex justify-between">
-              <div>
-                <h4 className="text-xl font-semibold flex items-center gap-2">
-                  {addr.contactName}
+            <div className="flex justify-between gap-3">
+              <div className="min-w-0 flex-1">
+                <h4 className="text-xl font-semibold flex items-center gap-2 flex-wrap">
+                  <span className="break-words">{addr.contactName}</span>
                   {addr.isDefaultShippingAddress && (
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
+                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded shrink-0">
                       Default
                     </span>
                   )}
                 </h4>
-                <p>{addr.phone}</p>
+                <p className="break-words">{addr.phone}</p>
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-3 items-start shrink-0 ">
                 <button onClick={() => handleEdit(addr)}>
                   <Pencil size={20} className="text-green-800" />
                 </button>
@@ -254,7 +254,7 @@ const ManageAddress = () => {
               </div>
             </div>
 
-            <div className="mt-3 text-sm">
+            <div className="mt-3 text-sm overflow-hidden break-words">
               <p>{addr.addressLine1}</p>
               {addr.addressLine2 && <p>{addr.addressLine2}</p>}
               <p>
@@ -342,7 +342,13 @@ const ManageAddress = () => {
                   />
 
                   <Inputs name="city" label="City" required />
-                  <Inputs name="pincode" label="Pincode" required />
+                  <Inputs
+                    name="pincode"
+                    label="Pincode"
+                    type="pincode"
+                    required
+                    errors={errors.pincode}
+                  />
 
                   <div className="flex gap-3 mt-4 justify-end">
                     <button

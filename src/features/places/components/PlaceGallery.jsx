@@ -16,7 +16,7 @@ const PlaceGallery = ({
 
   const photos = useMemo(
     () => (place.photos || []).filter(Boolean),
-    [place.photos]
+    [place.photos],
   );
 
   const giTag = "IICT-GI-2EKEKJN";
@@ -40,14 +40,12 @@ const PlaceGallery = ({
 
   return (
     <div className="relative bg-white mb-10">
-
       {/* ================= DESKTOP ================= */}
       <div className="hidden lg:block space-y-6">
-
         {/* MAIN IMAGE — zoom handlers on this div only */}
         <div
           ref={zoomRef}
-          className="relative aspect-[4/3.2] border border-gray-200 rounded-lg overflow-hidden"
+          className="relative aspect-[4/3.4] border border-gray-200 rounded-lg overflow-hidden bg-white"
           onMouseEnter={onZoomEnter}
           onMouseLeave={onZoomLeave}
           onMouseMove={onZoomMove}
@@ -70,7 +68,7 @@ const PlaceGallery = ({
             }}
           />
 
-          {/* QR stays same */}
+          {/* QR */}
           {qrValue && (
             <div className="absolute bottom-3 right-3 flex flex-col items-center bg-white p-2 rounded shadow">
               <QRCode value={qrValue} size={60} />
@@ -92,9 +90,10 @@ const PlaceGallery = ({
                 onClick={() => handleThumbnailClick(index)}
                 className={`
                   aspect-square overflow-hidden border rounded-lg cursor-pointer transition
-                  ${selectedIndex === index
-                    ? "border-black"
-                    : "border-gray-200 hover:border-gray-400"
+                  ${
+                    selectedIndex === index
+                      ? "border-black"
+                      : "border-gray-200 hover:border-gray-400"
                   }
                 `}
               >
@@ -111,7 +110,7 @@ const PlaceGallery = ({
 
       {/* ================= MOBILE ================= */}
       <div className="lg:hidden space-y-3">
-        <div className="relative aspect-[4/3] border border-gray-200 rounded-lg overflow-hidden">
+        <div className="relative aspect-[4/3] border border-gray-200 rounded-lg overflow-hidden bg-white">
           <img
             src={mainImage}
             alt="product"
