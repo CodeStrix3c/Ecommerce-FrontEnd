@@ -7,7 +7,7 @@ export default function SelectInput({
   label,
   options,
   optional = false,
-  error,
+  errors,
   modalLabel = "",
   showInputLabel = true,
   onValueChange,
@@ -32,7 +32,7 @@ export default function SelectInput({
       name={name}
       defaultValue=""
       render={({ field: { value, onChange }, fieldState }) => {
-        const liveError = fieldState?.error || error;
+        const liveError = fieldState?.error || errors;
 
         useEffect(() => {
           const match = options.find((o) => String(o.value) === String(value));
@@ -55,17 +55,17 @@ export default function SelectInput({
                 if (!disabled) setVisible(true);
               }}
               className={`
-                flex items-center justify-between
-                rounded-lg border px-4 min-h-[52px] text-sm
-                transition cursor-pointer bg-white
-                ${
-                  disabled
-                    ? "bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200"
-                    : liveError
-                      ? "border-red-500"
-                      : "border-gray-300 hover:border-gray-400 focus-within:border-primary"
-                }
-              `}
+  flex items-center justify-between
+  rounded-lg border px-4 min-h-[52px] text-sm
+  transition cursor-pointer bg-white
+  ${
+    disabled
+      ? "bg-gray-100 text-gray-400 cursor-not-allowed border-[rgba(0,0,0,0.4)]"
+      : liveError
+        ? "border-[var(--color-error)]"
+        : "border-[rgba(0,0,0,0.4)] hover:border-gray-400 focus-within:border-primary"
+  }
+`}
             >
               <span
                 className={`${
@@ -158,8 +158,8 @@ export default function SelectInput({
                       <div
                         key={item.value}
                         onClick={() => {
-                          onChange(String(item.value));          // FIX
-                          onValueChange?.(String(item.value));   // FIX
+                          onChange(String(item.value)); // FIX
+                          onValueChange?.(String(item.value)); // FIX
                           setVisible(false);
                           setSearchText("");
                         }}

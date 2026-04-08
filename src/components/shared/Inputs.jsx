@@ -79,7 +79,7 @@ export default function Inputs({
               .replace(/[^a-zA-Z\s,./-]/g, "") // remove numbers & invalid chars
               .replace(/^\s+/, "") // no leading spaces
               .replace(/\s{2,}/g, " ") // collapse multiple spaces into one
-              .slice(0, 32);
+              .slice(0, 24);
           }
 
           if (type === "email") {
@@ -137,6 +137,12 @@ export default function Inputs({
               .replace(/[^a-zA-Z\s]/g, "")
               .replace(/\s+/g, " ")
               .slice(0, 30);
+          }
+          if (type === "coupon") {
+            input = input
+              .toUpperCase()
+              .replace(/[^A-Z0-9]/g, "")
+              .slice(0, 10); // restrict max 10 characters
           }
 
           field.onChange(input);
