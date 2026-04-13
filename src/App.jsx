@@ -29,13 +29,13 @@ function App() {
         </Routes>
       </Suspense>
       <ToastContainer
-        autoClose={500}
-        closeOnClick={false} // prevent accidental close
-        pauseOnHover // pause timer on hover
+        autoClose={4000} // was 500 — give users time to read
+        closeOnClick={false}
+        pauseOnHover
         draggable={false}
-        closeButton // show ❌ close button
-        hideProgressBar // ❌ no progress bar
-        transition={Slide} // smooth slide + fade
+        closeButton
+        hideProgressBar
+        transition={Slide}
       />
     </GoogleOAuthProvider>
   );

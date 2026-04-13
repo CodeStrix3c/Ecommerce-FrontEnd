@@ -74,6 +74,7 @@ export default function AgricultureHelpCenter() {
             Hi, how can we help?
           </h1>
           <div className="flex justify-center w-full px-4">
+            d
             <div className="w-full max-w-xl">
               {/* <SecondarySearchBar /> */}
             </div>

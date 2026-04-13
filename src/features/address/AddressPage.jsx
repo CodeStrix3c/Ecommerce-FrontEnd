@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import { AddressModal } from "./components/addressModal";
 import { OrderSummary } from "./components/OrderSummary";
-import { Plus, Pencil } from "lucide-react";
+import { Plus, Pencil, MapPin } from "lucide-react";
 import { useCountries } from "@/hooks/addresshooks/useCountry";
 import { useStates } from "@/hooks/addresshooks/useState";
 import { useDistricts } from "@/hooks/addresshooks/useDistricts";
@@ -23,6 +23,20 @@ import { useCreateOrder } from "@/hooks/Orders/useOrders";
 import { usePaymentProviders } from "@/services/User/paymenthooks/getPaymentProviders";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addressSchema } from "../farmer-registration/schemas/addressSchema";
+import { ShippingForm } from "./components/addressForm";
+import Spinner from "@/components/ui/Spinner";
+
+const defaultValues = {
+  contactName: "",
+  phone: "",
+  country: "",
+  state: "",
+  district: "",
+  city: "",
+  zipCode: "",
+  addressLine1: "",
+  addressLine2: "",
+};
 
 const AddressPage = () => {
   const navigate = useNavigate();
@@ -35,16 +49,15 @@ const AddressPage = () => {
   const [selectedShippingMethod, setSelectedShippingMethod] = useState("");
   const [addressList, setAddressList] = useState([]);
 
-  /* ----------- NEW STATE FOR EDIT ----------- */
-
   const [editId, setEditId] = useState(null);
 
   const methods = useForm({
     resolver: zodResolver(addressSchema),
     mode: "onChange",
+    defaultValues,
   });
 
-  const { watch, reset } = methods;
+  const { watch, reset, handleSubmit } = methods;
 
   const selectedCountry = watch("country");
   const selectedState = watch("state");
@@ -62,11 +75,7 @@ const AddressPage = () => {
 
   const { mutateAsync: createAddress } = useAddAddress();
 
-  /* ----------- EDIT HOOK ----------- */
-
   const { mutateAsync: editAddress } = useEditUserAddress();
-
-  /* ----------- FETCH EXISTING ADDRESS ----------- */
 
   const { data: existingAddress } = useExistingAddress(editId);
 
@@ -80,7 +89,6 @@ const AddressPage = () => {
     useUpdateShippingPrices();
 
   const rootData = updatedCheckoutData || checkoutData;
-
   const shippingPrices = rootData?.shippingPrices || [];
 
   /* ---------------- INITIALIZE ADDRESS LIST ---------------- */
@@ -93,7 +101,6 @@ const AddressPage = () => {
 
       setAddressList(filtered);
 
-      // Select first address automatically
       if (filtered.length > 0 && !selectedAddressId) {
         setSelectedAddressId(filtered[0].userAddressId);
         handleAddressSelection(filtered[0].userAddressId);
@@ -102,7 +109,6 @@ const AddressPage = () => {
   }, [checkoutData]);
 
   /* ---------------- LOAD EXISTING ADDRESS INTO FORM ---------------- */
-
   useEffect(() => {
     if (existingAddress && editId) {
       reset({
@@ -122,7 +128,6 @@ const AddressPage = () => {
   }, [existingAddress, editId, reset]);
 
   /* ---------------- SHIPPING METHOD ---------------- */
-
   const getShippingMethod = () => {
     return (
       selectedShippingMethod ||
@@ -133,7 +138,6 @@ const AddressPage = () => {
   };
 
   /* ---------------- POST SHIPPING ---------------- */
-
   const callPostShipping = async (addressId, isNew = false) => {
     try {
       const payload = {
@@ -155,19 +159,14 @@ const AddressPage = () => {
   };
 
   /* ---------------- ADDRESS SELECT ---------------- */
-
   const handleAddressSelection = async (userAddressId) => {
     try {
       setSelectedAddressId(userAddressId);
 
-      const payload = {
-        existingShippingAddressId: userAddressId,
-      };
-
+      const payload = { existingShippingAddressId: userAddressId };
       const result = await updatePrices({ checkoutId, payload });
 
       setUpdatedCheckoutData(result);
-
       await callPostShipping(userAddressId, false);
     } catch {
       toast.error("Failed to update tax & shipping");
@@ -175,17 +174,13 @@ const AddressPage = () => {
   };
 
   /* ---------------- SHIPPING METHOD CHANGE ---------------- */
-
   const handleShippingMethodChange = async (methodName) => {
     setSelectedShippingMethod(methodName);
-
     if (!selectedAddressId) return;
-
     await handleAddressSelection(selectedAddressId);
   };
 
   /* ---------------- INITIAL METHOD ---------------- */
-
   useEffect(() => {
     if (shippingPrices.length > 0 && !selectedShippingMethod) {
       setSelectedShippingMethod(shippingPrices[0].name);
@@ -193,7 +188,6 @@ const AddressPage = () => {
   }, [shippingPrices]);
 
   /* ---------------- ADD / EDIT ADDRESS ---------------- */
-
   const onModalSubmit = async (formData) => {
     try {
       const payload = {
@@ -209,17 +203,11 @@ const AddressPage = () => {
       };
 
       if (editId) {
-        await editAddress({
-          userAddressId: editId,
-          payload,
-        });
-
+        await editAddress({ userAddressId: editId, payload });
         toast.success("Address updated successfully");
-
         setEditId(null);
       } else {
         await createAddress(payload);
-
         toast.success("Address added successfully");
       }
 
@@ -231,17 +219,14 @@ const AddressPage = () => {
         ) || [];
 
       setAddressList(newAddresses);
-
       setIsModalOpen(false);
-
-      reset();
+      reset(defaultValues);
     } catch (err) {
       toast.error(err?.response?.data?.message || "Failed to save address");
     }
   };
 
   /* ---------------- PLACE ORDER ---------------- */
-
   const handlePlaceOrder = async () => {
     if (!selectedPayment) {
       toast.error("Please select payment method");
@@ -255,16 +240,13 @@ const AddressPage = () => {
 
     try {
       const orderResponse = await createOrder({ checkoutId });
-
       toast.success("Order placed successfully!");
-
       navigate("/success", { state: { order: orderResponse } });
     } catch (err) {
       const message =
         err?.response?.data?.message ||
         err?.response?.data ||
         "Failed to place order";
-
       toast.error(message);
     }
   };
@@ -272,13 +254,68 @@ const AddressPage = () => {
   if (loadingCheckout) {
     return (
       <ContentWrapper>
-        <div className="min-h-screen flex items-center justify-center">
-          Loading...
+        <Spinner />
+      </ContentWrapper>
+    );
+  }
+
+  /* ---------------- NO ADDRESS — INLINE FORM ---------------- */
+  if (addressList.length === 0) {
+    return (
+      <ContentWrapper>
+        <div className="py-8 lg:mt-10">
+          {/* Increased max width for full page layout */}
+          <div className="w-full max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--color-primary)]/10 mb-4">
+                <MapPin size={28} className="text-[var(--color-primary)]" />
+              </div>
+              <h1 className="text-2xl font-semibold mb-2">
+                Add a delivery address
+              </h1>
+              <p className="text-sm text-gray-500">
+                You need at least one shipping address before placing an order.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-sm border border-[var(--color-gray)] p-6 w-full">
+              <h2 className="text-base font-semibold mb-5">Shipping Address</h2>
+
+              <FormProvider {...methods}>
+                <form onSubmit={handleSubmit(onModalSubmit)}>
+                  <ShippingForm
+                    countryOptions={countries.map((c) => ({
+                      label: c.name,
+                      value: c.id,
+                    }))}
+                    stateOptions={states.map((s) => ({
+                      label: s.name,
+                      value: s.id,
+                    }))}
+                    districtOptions={districts.map((d) => ({
+                      label: d.name,
+                      value: d.id,
+                    }))}
+                  />
+
+                  <div className="flex justify-end mt-6">
+                    <button
+                      type="submit"
+                      className="bg-[var(--color-primary)] text-white px-6 py-2 rounded-lg"
+                    >
+                      Save & Continue
+                    </button>
+                  </div>
+                </form>
+              </FormProvider>
+            </div>
+          </div>
         </div>
       </ContentWrapper>
     );
   }
 
+  /* ---------------- NORMAL CHECKOUT LAYOUT ---------------- */
   return (
     <ContentWrapper>
       <div className="min-h-screen py-8 lg:mt-28 `sm:py-12">
@@ -307,12 +344,10 @@ const AddressPage = () => {
                             handleShippingMethodChange(method.name)
                           }
                         />
-
                         <span className="text-sm font-medium">
                           {method.name}
                         </span>
                       </div>
-
                       <span className="text-sm">₹ {method.price}</span>
                     </label>
                   ))}
@@ -320,7 +355,6 @@ const AddressPage = () => {
               </div>
 
               {/* Address Section */}
-
               <div className="bg-[var(--color-white)] p-6 rounded-xl shadow-sm border border-[var(--color-gray)]">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold">
@@ -332,7 +366,7 @@ const AddressPage = () => {
                       setEditId(null);
                       setIsModalOpen(true);
                     }}
-                    className="flex items-center gap-2 text-white bg-[var(--color-primary)] px-4 py-2 rounded-xl "
+                    className="flex items-center gap-2 text-white bg-[var(--color-primary)] px-4 py-2 rounded-xl"
                   >
                     <Plus size={16} />
                     New Address
@@ -356,8 +390,8 @@ const AddressPage = () => {
                       <button
                         type="button"
                         onClick={(e) => {
-                          e.stopPropagation(); // prevents parent click
-                          setEditId(address.userAddressId); // open edit modal
+                          e.stopPropagation();
+                          setEditId(address.userAddressId);
                         }}
                         className="absolute top-5 right-4 text-[var(--color-primary)]"
                       >
@@ -379,7 +413,6 @@ const AddressPage = () => {
                           {address.contactName} <br />
                           {address.phone}
                         </p>
-
                         <p className="mt-1">
                           {address.addressLine1} <br />
                           {address.addressLine2}
@@ -392,7 +425,6 @@ const AddressPage = () => {
             </div>
 
             {/* RIGHT SECTION */}
-
             <div className="lg:sticky lg:top-24 h-fit">
               <OrderSummary
                 checkoutData={rootData}
@@ -414,7 +446,7 @@ const AddressPage = () => {
           onClose={() => {
             setIsModalOpen(false);
             setEditId(null);
-            reset();
+            reset(defaultValues);
           }}
           methods={methods}
           onSubmit={onModalSubmit}

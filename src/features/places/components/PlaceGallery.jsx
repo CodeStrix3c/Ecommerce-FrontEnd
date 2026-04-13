@@ -1,5 +1,5 @@
 import ImageGalleryModal from "@/components/shared/ImageGalleryModal";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import QRCode from "react-qr-code";
 import { BadgeCheck } from "lucide-react";
 
@@ -13,10 +13,12 @@ const PlaceGallery = ({
 }) => {
   const [showGallery, setShowGallery] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const hasMovedRef = useRef(false);
+  const lensRef = useRef(null);
 
   const photos = useMemo(
     () => (place.photos || []).filter(Boolean),
-    [place.photos]
+    [place.photos],
   );
 
   const giTag = "IICT-GI-2EKEKJN";
@@ -38,19 +40,37 @@ const PlaceGallery = ({
     onPhotoChange?.(photos[index]);
   };
 
+  const handleMouseEnter = (e) => {
+    hasMovedRef.current = false;
+    if (lensRef.current) lensRef.current.style.opacity = "0";
+    onZoomEnter?.(e);
+  };
+
+  const handleMouseLeave = (e) => {
+    hasMovedRef.current = false;
+    if (lensRef.current) lensRef.current.style.opacity = "0";
+    onZoomLeave?.(e);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!hasMovedRef.current) {
+      hasMovedRef.current = true;
+      if (lensRef.current) lensRef.current.style.opacity = "1";
+    }
+    onZoomMove?.(e);
+  };
+
   return (
     <div className="relative bg-white mb-10">
-
       {/* ================= DESKTOP ================= */}
       <div className="hidden lg:block space-y-6">
-
         {/* MAIN IMAGE — zoom handlers on this div only */}
         <div
           ref={zoomRef}
-          className="relative aspect-[4/3.2] border border-gray-200 rounded-lg overflow-hidden"
-          onMouseEnter={onZoomEnter}
-          onMouseLeave={onZoomLeave}
-          onMouseMove={onZoomMove}
+          className="relative aspect-[4/3.4] border border-gray-200 rounded-lg overflow-hidden bg-white"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseMove}
         >
           <img
             src={mainImage}
@@ -62,15 +82,18 @@ const PlaceGallery = ({
 
           {/* 🔍 AMAZON LENS */}
           <div
+            ref={lensRef}
             id="zoom-lens"
             className="hidden lg:block absolute border border-gray-400 bg-white/30 backdrop-blur-[2px] pointer-events-none"
             style={{
               width: "120px",
               height: "120px",
+              opacity: 0,
+              transition: "opacity 0.05s",
             }}
           />
 
-          {/* QR stays same */}
+          {/* QR */}
           {qrValue && (
             <div className="absolute bottom-3 right-3 flex flex-col items-center bg-white p-2 rounded shadow">
               <QRCode value={qrValue} size={60} />
@@ -92,9 +115,10 @@ const PlaceGallery = ({
                 onClick={() => handleThumbnailClick(index)}
                 className={`
                   aspect-square overflow-hidden border rounded-lg cursor-pointer transition
-                  ${selectedIndex === index
-                    ? "border-black"
-                    : "border-gray-200 hover:border-gray-400"
+                  ${
+                    selectedIndex === index
+                      ? "border-black"
+                      : "border-gray-200 hover:border-gray-400"
                   }
                 `}
               >
@@ -111,7 +135,7 @@ const PlaceGallery = ({
 
       {/* ================= MOBILE ================= */}
       <div className="lg:hidden space-y-3">
-        <div className="relative aspect-[4/3] border border-gray-200 rounded-lg overflow-hidden">
+        <div className="relative aspect-[4/3] border border-gray-200 rounded-lg overflow-hidden bg-white">
           <img
             src={mainImage}
             alt="product"

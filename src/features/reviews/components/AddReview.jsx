@@ -9,11 +9,9 @@ export default function AddReview({ onAdd, reviews }) {
   const [reviewText, setReviewText] = useState("");
   const [hasReviewed, setHasReviewed] = useState(false);
 
-  // Check on mount (and whenever reviews change) if user already reviewed
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (userId && reviews?.length) {
-      // Use == (loose equality) to handle string vs number mismatch
       const alreadyReviewed = reviews.some((r) => r.userId == userId);
       setHasReviewed(alreadyReviewed);
     }
@@ -24,7 +22,6 @@ export default function AddReview({ onAdd, reviews }) {
 
     const userId = localStorage.getItem("userId");
 
-    // Double-check before submitting — loose equality to handle type mismatch
     const alreadyReviewed = reviews?.some((r) => r.userId == userId);
     if (alreadyReviewed) {
       toast.error("You have already submitted a review!");
@@ -47,17 +44,16 @@ export default function AddReview({ onAdd, reviews }) {
       yearsOn: "Verified Buyer",
     };
 
-    // Pass a success callback — only mark as reviewed if onAdd succeeds
+    // 🔥 FIX: Close modal immediately
+    setShowModal(false);
+
     onAdd(newReview, {
       onSuccess: () => {
         setHasReviewed(true);
-        setShowModal(false);
         setReviewText("");
         setRating(0);
       },
       onError: () => {
-        // API rejected (e.g. not ordered) — do NOT mark as reviewed
-        setShowModal(false);
         setReviewText("");
         setRating(0);
       },
@@ -68,9 +64,7 @@ export default function AddReview({ onAdd, reviews }) {
     <>
       <div className="mt-8 max-w-xl bg-white p-6">
         {hasReviewed ? (
-          <p className="text-sm text-gray-500 border border-gray-200 rounded-lg py-2 px-5 inline-block">
-            ✅ You've already reviewed this product
-          </p>
+          <p></p>
         ) : (
           <button
             onClick={() => setShowModal(true)}

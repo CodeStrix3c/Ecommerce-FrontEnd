@@ -7,7 +7,6 @@ export default function PrivacyPolicy() {
     <ContentWrapper>
       <div className="min-h-screen py-12 sm:px-10 px-6">
         <div className="space-y-8 justify-start">
-
           <div className="lg:mt-24">
             <Link
               to="/privacy"
@@ -18,11 +17,11 @@ export default function PrivacyPolicy() {
           </div>
 
           <div className="space-y-6 text-black text-[15px] leading-relaxed justify-start">
-
             <p>
-              We firmly believe in your privacy and the security of your personal
-              information. We do not rent, sell, or distribute our customer base or
-              newsletter emails to anyone. Your privacy is important to us.
+              We firmly believe in your privacy and the security of your
+              personal information. We do not rent, sell, or distribute our
+              customer base or newsletter emails to anyone. Your privacy is
+              important to us.
             </p>
 
             <div>
@@ -30,12 +29,12 @@ export default function PrivacyPolicy() {
                 Personal Information We Collect
               </h2>
               <p>
-                We collect your personal information when you provide it to us as you
-                place your order, including your name, shipping and billing address,
-                email address, and any other details you submit. We use this
-                information to process your order, provide support, and update you
-                about your order. We do not sell your personal information to other
-                parties.
+                We collect your personal information when you provide it to us
+                as you place your order, including your name, shipping and
+                billing address, email address, and any other details you
+                submit. We use this information to process your order, provide
+                support, and update you about your order. We do not sell your
+                personal information to other parties.
               </p>
             </div>
 
@@ -44,11 +43,11 @@ export default function PrivacyPolicy() {
                 Anonymous Information
               </h2>
               <p>
-                We also collect non-personal information from you, including your
-                browser type, the URL of the previous site you visited, your ISP,
-                operating system, etc. This information is anonymous and is used to
-                analyze trends, administer the site, track user movements, and gather
-                demographic data about our user base.
+                We also collect non-personal information from you, including
+                your browser type, the URL of the previous site you visited,
+                your ISP, operating system, etc. This information is anonymous
+                and is used to analyze trends, administer the site, track user
+                movements, and gather demographic data about our user base.
               </p>
             </div>
 
@@ -57,10 +56,11 @@ export default function PrivacyPolicy() {
                 Cookies
               </h2>
               <p>
-                Like almost all e-commerce sites, we use cookies. Our cookies do not
-                store your personal information, but they help us keep items in your
-                cart during your visit and personalize your experience. We may also
-                use selected third-party tools for marketing and analytics.
+                Like almost all e-commerce sites, we use cookies. Our cookies do
+                not store your personal information, but they help us keep items
+                in your cart during your visit and personalize your experience.
+                We may also use selected third-party tools for marketing and
+                analytics.
               </p>
             </div>
 
@@ -70,9 +70,9 @@ export default function PrivacyPolicy() {
               </h2>
               <p>
                 We follow best practices to protect your information, including
-                physical and electronic security measures. We use SSL technology to
-                encrypt your private data during order placement so it cannot be
-                read by others.
+                physical and electronic security measures. We use SSL technology
+                to encrypt your private data during order placement so it cannot
+                be read by others.
               </p>
             </div>
 
@@ -81,9 +81,9 @@ export default function PrivacyPolicy() {
                 Information We Don't Collect
               </h2>
               <p>
-                We do not retain your credit/debit card information on our servers —
-                that data goes directly to a secure third-party payment gateway and
-                is not stored with us.
+                We do not retain your credit/debit card information on our
+                servers — that data goes directly to a secure third-party
+                payment gateway and is not stored with us.
               </p>
             </div>
 
@@ -93,21 +93,24 @@ export default function PrivacyPolicy() {
               </h2>
               <p>
                 Although we use security measures to protect your personal
-                information, we cannot guarantee complete protection. Any data you
-                provide is at your own risk.
+                information, we cannot guarantee complete protection. Any data
+                you provide is at your own risk.
               </p>
             </div>
-
           </div>
 
           <div className="border-t pt-4 text-black text-[15px] space-y-2">
             <p className="font-semibold">Get in Touch</p>
-            <p>Artcraft Decor Pvt Ltd</p>
-            <p>381 Pace City 2, Sector 37, Gurgaon, India, 122001</p>
-            <p>Email: <span className="text-[var(--color-secondary)]">info@artcraftdecor.com</span></p>
-            <p>Phone: +91 9990737679</p>
+            <p>Art&craft Pvt Ltd</p>
+            <p>Sidco Complex Rangreth</p>
+            <p>
+              Email:{" "}
+              <span className="text-[var(--color-secondary)]">
+                mail@artandcraft.com
+              </span>
+            </p>
+            <p>Phone: +91 6006615250</p>
           </div>
-
         </div>
       </div>
     </ContentWrapper>

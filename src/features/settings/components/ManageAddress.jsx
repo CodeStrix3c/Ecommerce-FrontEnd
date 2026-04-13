@@ -69,6 +69,17 @@ const ManageAddress = () => {
   const { data: existingAddress, isLoading: isExistingLoading } =
     useExistingAddress(editId);
 
+  // ✅ AUTO-SET DEFAULT LOGIC
+  // If there is exactly 1 address and it's not default, set it as default automatically
+  useEffect(() => {
+    if (userAddresses && userAddresses.length === 1) {
+      const singleAddress = userAddresses[0];
+      if (!singleAddress.isDefaultShippingAddress) {
+        handleSetDefault(singleAddress.userAddressId, true);
+      }
+    }
+  }, [userAddresses]);
+
   useEffect(() => {
     if (existingAddress && editId) {
       setValue("name", existingAddress.contactName);
@@ -95,20 +106,15 @@ const ManageAddress = () => {
       setValue("district", "");
     }
   }, [stateId]);
-  console.log(countriesData);
 
   const countryOptions =
     countriesData?.map((item) => ({
       label: item.name,
       value: String(item.id),
     })) || [];
-
   const stateOptions =
-    statesData?.map((item) => ({
-      label: item.name,
-      value: String(item.id),
-    })) || [];
-
+    statesData?.map((item) => ({ label: item.name, value: String(item.id) })) ||
+    [];
   const districtOptions =
     districtsData?.map((item) => ({
       label: item.name,
@@ -119,15 +125,14 @@ const ManageAddress = () => {
   const { mutate: editAddressApi, isPending: isEditPending } =
     useEditUserAddress();
   const { mutate: deleteAddressApi } = useDeleteUserAddress();
-
   const { mutate: setDefaultApi, isPending: isDefaultPending } =
     useSetDefaultAddress();
 
-  const handleSetDefault = (id) => {
+  const handleSetDefault = (id, silent = false) => {
     setDefaultApi(id, {
       onSuccess: () => {
         queryClient.invalidateQueries(["user-addresses"]);
-        toast.success("Default address updated");
+        if (!silent) toast.success("Default address updated");
       },
     });
   };
@@ -139,17 +144,17 @@ const ManageAddress = () => {
 
   const confirmDelete = () => {
     if (!deleteId) return;
-
     setIsDeleting(true);
-
     deleteAddressApi(deleteId, {
       onSuccess: () => {
         queryClient.invalidateQueries(["user-addresses"]);
         toast.success("Address deleted successfully");
+      },
+      onSettled: () => {
+        setIsDeleting(false);
         setConfirmOpen(false);
         setDeleteId(null);
       },
-      onSettled: () => setIsDeleting(false),
     });
   };
 
@@ -159,8 +164,8 @@ const ManageAddress = () => {
   };
 
   const saveAddress = (data) => {
-    // ✅ FORCE correct value from RHF
     const countryValue = methods.getValues("country");
+    const isFirstAddress = !userAddresses || userAddresses.length === 0;
 
     const payload = {
       contactName: data.name,
@@ -171,12 +176,9 @@ const ManageAddress = () => {
       city: data.city,
       stateOrProvinceId: data.state ? Number(data.state) : null,
       districtId: data.district ? Number(data.district) : null,
-
-      // ✅ FIXED
       countryId: countryValue || null,
+      isDefaultShippingAddress: isFirstAddress,
     };
-
-    console.log("PAYLOAD:", payload); // debug
 
     if (editId) {
       editAddressApi(
@@ -208,7 +210,6 @@ const ManageAddress = () => {
     <div className="min-h-screen px-4 sm:px-6 md:px-12 py-6 border rounded-lg">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-semibold">Your Addresses</h2>
-
         <button
           onClick={() => {
             setEditId(null);
@@ -225,26 +226,26 @@ const ManageAddress = () => {
         {userAddresses?.map((addr) => (
           <div
             key={addr.userAddressId}
-            className={`bg-white border rounded-xl p-5 shadow-sm ${
+            className={`bg-white border rounded-xl p-5 shadow-sm overflow-hidden ${
               addr.isDefaultShippingAddress
                 ? "border-green-600"
                 : "border-gray-200"
             }`}
           >
-            <div className="flex justify-between">
-              <div>
-                <h4 className="text-xl font-semibold flex items-center gap-2">
-                  {addr.contactName}
+            <div className="flex justify-between gap-3">
+              <div className="min-w-0 flex-1">
+                <h4 className="text-xl font-semibold flex items-center gap-2 flex-wrap">
+                  <span className="break-words">{addr.contactName}</span>
                   {addr.isDefaultShippingAddress && (
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
+                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded shrink-0">
                       Default
                     </span>
                   )}
                 </h4>
-                <p>{addr.phone}</p>
+                <p className="break-words">{addr.phone}</p>
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-3 items-start shrink-0">
                 <button onClick={() => handleEdit(addr)}>
                   <Pencil size={20} className="text-green-800" />
                 </button>
@@ -254,7 +255,7 @@ const ManageAddress = () => {
               </div>
             </div>
 
-            <div className="mt-3 text-sm">
+            <div className="mt-3 text-sm overflow-hidden break-words">
               <p>{addr.addressLine1}</p>
               {addr.addressLine2 && <p>{addr.addressLine2}</p>}
               <p>
@@ -276,6 +277,11 @@ const ManageAddress = () => {
             )}
           </div>
         ))}
+        {userAddresses?.length === 0 && (
+          <div className="col-span-full py-10 text-center text-gray-500 border-2 border-dashed rounded-xl">
+            No addresses found. Add your first address to get started.
+          </div>
+        )}
       </div>
 
       {showForm && (
@@ -285,7 +291,6 @@ const ManageAddress = () => {
               <h3 className="text-lg font-semibold">
                 {editId ? "Edit Address" : "Add New Address"}
               </h3>
-
               <button
                 onClick={() => {
                   reset();
@@ -296,7 +301,6 @@ const ManageAddress = () => {
                 <X size={20} />
               </button>
             </div>
-
             {editId && isExistingLoading ? (
               <p className="text-center py-10">Loading address...</p>
             ) : (
@@ -304,7 +308,6 @@ const ManageAddress = () => {
                 <div className="grid gap-3">
                   <Inputs name="name" label="Full Name" required />
                   <Inputs name="phone" label="Phone" required type="phone" />
-
                   <FormTextArea
                     name="addressLine1"
                     label="Address Line 1"
@@ -312,7 +315,6 @@ const ManageAddress = () => {
                     errors={errors.addressLine1}
                     required
                   />
-
                   <FormTextArea
                     name="addressLine2"
                     label="Address Line 2"
@@ -320,32 +322,35 @@ const ManageAddress = () => {
                     required={false}
                     errors={errors.addressLine2}
                   />
-
                   <SelectInputs
                     name="country"
                     label="Country"
                     options={countryOptions}
                   />
-
                   <SelectInputs
                     name="state"
                     label="State"
                     options={stateOptions}
                     disabled={!countryId}
                   />
-
                   <SelectInputs
                     name="district"
                     label="District"
                     options={districtOptions}
                     disabled={!stateId}
                   />
-
                   <Inputs name="city" label="City" required />
-                  <Inputs name="pincode" label="Pincode" required />
+                  <Inputs
+                    name="pincode"
+                    label="Pincode"
+                    type="pincode"
+                    required
+                    errors={errors.pincode}
+                  />
 
                   <div className="flex gap-3 mt-4 justify-end">
                     <button
+                      type="button"
                       onClick={() => {
                         reset();
                         setEditId(null);
@@ -355,8 +360,8 @@ const ManageAddress = () => {
                     >
                       Cancel
                     </button>
-
                     <button
+                      type="button"
                       onClick={handleSubmit(saveAddress)}
                       disabled={isAddPending || isEditPending}
                       className="bg-[var(--color-primary)] text-white px-4 py-2 rounded"
@@ -383,10 +388,8 @@ const ManageAddress = () => {
         cancelText="Cancel"
         onConfirm={confirmDelete}
         onCancel={() => {
-          if (!isDeleting) {
-            setConfirmOpen(false);
-            setDeleteId(null);
-          }
+          setConfirmOpen(false);
+          setDeleteId(null);
         }}
         loading={isDeleting}
         variant="danger"

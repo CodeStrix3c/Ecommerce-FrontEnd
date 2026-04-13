@@ -4,7 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import { Pencil, X, Mail, Phone, User, Users } from "lucide-react";
 
-import UserProfileSection from "@/features/supplier-registration/sections/userProfileSection";
+import UserProfileSection, {
+  isPlaceholderEmail,
+  generatePlaceholderEmail,
+} from "@/features/supplier-registration/sections/userProfileSection";
 import { userProfileSchema } from "@/features/farmer-registration/schemas/userSchamas/userProfileSchema";
 import { useFileUploadMutation } from "@/hooks/User/Profile/useFileUpload";
 import {
@@ -29,7 +32,6 @@ const InfoRow = ({ icon: Icon, label, value }) => (
 
 // ─── Profile Picture Lightbox ───────────────────────────────────────────────
 const ProfilePicLightbox = ({ src, name, onClose }) => {
-  // Close on Escape key
   useEffect(() => {
     const handler = (e) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", handler);
@@ -39,9 +41,8 @@ const ProfilePicLightbox = ({ src, name, onClose }) => {
   return (
     <div
       className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-md"
-      onClick={onClose} // clicking the backdrop closes it
+      onClick={onClose}
     >
-      {/* Close button */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 text-white hover:text-gray-300 transition"
@@ -50,7 +51,6 @@ const ProfilePicLightbox = ({ src, name, onClose }) => {
         <X size={28} />
       </button>
 
-      {/* Image card — stop propagation so clicking the image itself doesn't close */}
       <div
         className="relative flex flex-col items-center gap-4"
         onClick={(e) => e.stopPropagation()}
@@ -62,7 +62,6 @@ const ProfilePicLightbox = ({ src, name, onClose }) => {
             className="max-h-[80vh] max-w-[90vw] rounded-2xl object-contain shadow-2xl"
           />
         ) : (
-          /* Fallback avatar when no image URL exists */
           <div className="h-64 w-64 rounded-2xl bg-green-600 flex items-center justify-center shadow-2xl">
             <span className="text-7xl font-semibold text-white select-none">
               {name ? name.charAt(0).toUpperCase() : "U"}
@@ -85,7 +84,7 @@ export default function UserSupplier() {
   const { mutateAsync: uploadFileMutation } = useFileUploadMutation();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false); // ← new
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const methods = useForm({
     resolver: zodResolver(userProfileSchema),
@@ -95,14 +94,13 @@ export default function UserSupplier() {
   const {
     handleSubmit,
     reset,
-    formState: { isDirty },
+    formState: { isSubmitting },
   } = methods;
 
   useEffect(() => {
     if (data) reset({ ...data, profilePic: data.profilePic || null });
   }, [data, reset]);
 
-  // Lock body scroll when any overlay is open
   useEffect(() => {
     document.body.style.overflow =
       isModalOpen || isLightboxOpen ? "hidden" : "auto";
@@ -124,7 +122,20 @@ export default function UserSupplier() {
         profilePicValue = uploadResponse?.fileUrl || uploadResponse?.data;
       }
 
-      const payload = { ...formData, profilePic: profilePicValue };
+      // Always guarantee a placeholder email is sent when the field is empty.
+      // Re-use the existing server-side placeholder to avoid burning a new counter slot.
+      const resolvedEmail =
+        !formData.email || formData.email.trim() === ""
+          ? isPlaceholderEmail(data?.email)
+            ? data.email // keep the one already stored on the server
+            : generatePlaceholderEmail() // first time — mint a new one
+          : formData.email;
+
+      const payload = {
+        ...formData,
+        email: resolvedEmail,
+        profilePic: profilePicValue,
+      };
 
       updateProfile(
         { id: data.id, payload },
@@ -141,18 +152,17 @@ export default function UserSupplier() {
     }
   };
 
+  // Hide placeholder emails — show empty string so InfoRow renders "—"
+  const displayEmail = isPlaceholderEmail(data?.email) ? "" : data?.email;
+
+  // Only show lightbox if user actually has a profile picture
+  const handleAvatarClick = () => {
+    if (data?.profilePic) setIsLightboxOpen(true);
+  };
+
   return (
     <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 py-8 sm:py-12">
-      {/*
-        Pass an onAvatarClick prop to UserProfileHeader so the avatar
-        inside it can trigger the lightbox.
-        If you can't edit UserProfileHeader, wrap it and overlay a
-        transparent click target on top of the avatar (see note below).
-      */}
-      <UserProfileHeader
-        data={data}
-        onAvatarClick={() => setIsLightboxOpen(true)} // ← new prop
-      />
+      <UserProfileHeader data={data} onAvatarClick={handleAvatarClick} />
 
       {/* Personal Details Card */}
       <div className="mt-6 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
@@ -167,17 +177,17 @@ export default function UserSupplier() {
         </div>
 
         <div className="space-y-1 bg-white">
-          <InfoRow icon={Mail} label="Email" value={data?.email} />
+          <InfoRow icon={Mail} label="Email" value={displayEmail} />
           <InfoRow icon={Phone} label="Phone" value={data?.phone} />
           <InfoRow icon={User} label="Age" value={data?.age} />
           <InfoRow icon={Users} label="Gender" value={data?.gender} />
         </div>
       </div>
 
-      {/* ── Lightbox ──────────────────────────────────────────── */}
-      {isLightboxOpen && (
+      {/* ── Lightbox — only renders if user has a real profile pic ── */}
+      {isLightboxOpen && data?.profilePic && (
         <ProfilePicLightbox
-          src={data?.profilePic}
+          src={data.profilePic}
           name={data?.name || data?.fullName}
           onClose={() => setIsLightboxOpen(false)}
         />
@@ -217,10 +227,10 @@ export default function UserSupplier() {
                   </button>
                   <button
                     type="submit"
-                    disabled={!isDirty}
+                    disabled={isSubmitting}
                     className="px-8 py-2.5 bg-green-600 text-white rounded-full disabled:opacity-50 hover:opacity-90 transition"
                   >
-                    Save Changes
+                    {isSubmitting ? "Saving..." : "Save Changes"}
                   </button>
                 </div>
               </form>

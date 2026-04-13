@@ -29,12 +29,18 @@ const VerifyOtpStep = ({
 
       <div className="space-y-6">
         {/* OTP INPUT */}
-        <Inputs name="otp" label="OTP" type="otp" errors={formErrors.otp} />
+        <Inputs
+          name="otp"
+          label="Enter Your OTP :"
+          type="otp"
+          errors={formErrors.otp}
+        />
 
         {/* NEW PASSWORD */}
         <Inputs
           name="newPassword"
-          label="New Password"
+          label="New Password :"
+          placeholder="Enter your password"
           type="password"
           errors={formErrors.newPassword}
         />
@@ -42,7 +48,8 @@ const VerifyOtpStep = ({
         {/* CONFIRM PASSWORD */}
         <Inputs
           name="confirmPassword"
-          label="Confirm Password"
+          label="Confirm Password :"
+          placeholder="Enter your confirm password"
           type="password"
           errors={formErrors.confirmPassword}
         />
