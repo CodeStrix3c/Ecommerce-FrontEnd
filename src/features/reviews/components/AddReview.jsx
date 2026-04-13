@@ -64,9 +64,7 @@ export default function AddReview({ onAdd, reviews }) {
     <>
       <div className="mt-8 max-w-xl bg-white p-6">
         {hasReviewed ? (
-          <p className="text-sm text-gray-500 border border-gray-200 rounded-lg py-2 px-5 inline-block">
-            ✅ You've already reviewed this product
-          </p>
+          <p></p>
         ) : (
           <button
             onClick={() => setShowModal(true)}

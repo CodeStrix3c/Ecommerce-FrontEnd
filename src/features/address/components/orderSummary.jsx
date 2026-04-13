@@ -43,6 +43,13 @@ export const OrderSummary = ({
     } catch (err) {}
   };
 
+  // Calculate tax percentage based on subtotal after discount (if any), else subtotal
+  const taxBase = discount > 0 ? subTotalWithDiscount : subTotal;
+  const taxPercent =
+    taxAmount > 0 && taxBase > 0
+      ? Math.round((taxAmount / taxBase) * 100)
+      : null;
+
   return (
     <div className="bg-white shadow-lg rounded-xl p-6 border max-w-xl">
       <h2 className="text-xl font-semibold mb-5">Order Summary</h2>
@@ -103,7 +110,12 @@ export const OrderSummary = ({
         </div>
 
         <div className="flex justify-between">
-          <span className="text-gray-600">Tax</span>
+          <span className="text-gray-600 flex items-center gap-1">
+            Tax
+            {taxPercent !== null && (
+              <span className="text-gray-400 text-xs">@ {taxPercent}%</span>
+            )}
+          </span>
           <span>₹{Number(taxAmount).toLocaleString()}</span>
         </div>
 
@@ -146,12 +158,6 @@ export const OrderSummary = ({
           <span>Total</span>
           <span>₹{Number(orderTotal).toLocaleString()}</span>
         </div>
-
-        {/* {discount > 0 && (
-          <p className="text-green-600 text-xs text-right">
-            🎉 You saved ₹{Number(discount).toLocaleString()} on this order!
-          </p>
-        )} */}
       </div>
 
       {/* Payment Method */}

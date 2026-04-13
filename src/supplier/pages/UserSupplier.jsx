@@ -6,6 +6,7 @@ import { Pencil, X, Mail, Phone, User, Users } from "lucide-react";
 
 import UserProfileSection, {
   isPlaceholderEmail,
+  generatePlaceholderEmail,
 } from "@/features/supplier-registration/sections/userProfileSection";
 import { userProfileSchema } from "@/features/farmer-registration/schemas/userSchamas/userProfileSchema";
 import { useFileUploadMutation } from "@/hooks/User/Profile/useFileUpload";
@@ -93,7 +94,7 @@ export default function UserSupplier() {
   const {
     handleSubmit,
     reset,
-    formState: { isDirty },
+    formState: { isSubmitting },
   } = methods;
 
   useEffect(() => {
@@ -121,7 +122,20 @@ export default function UserSupplier() {
         profilePicValue = uploadResponse?.fileUrl || uploadResponse?.data;
       }
 
-      const payload = { ...formData, profilePic: profilePicValue };
+      // Always guarantee a placeholder email is sent when the field is empty.
+      // Re-use the existing server-side placeholder to avoid burning a new counter slot.
+      const resolvedEmail =
+        !formData.email || formData.email.trim() === ""
+          ? isPlaceholderEmail(data?.email)
+            ? data.email // keep the one already stored on the server
+            : generatePlaceholderEmail() // first time — mint a new one
+          : formData.email;
+
+      const payload = {
+        ...formData,
+        email: resolvedEmail,
+        profilePic: profilePicValue,
+      };
 
       updateProfile(
         { id: data.id, payload },
@@ -213,10 +227,10 @@ export default function UserSupplier() {
                   </button>
                   <button
                     type="submit"
-                    disabled={!isDirty}
+                    disabled={isSubmitting}
                     className="px-8 py-2.5 bg-green-600 text-white rounded-full disabled:opacity-50 hover:opacity-90 transition"
                   >
-                    Save Changes
+                    {isSubmitting ? "Saving..." : "Save Changes"}
                   </button>
                 </div>
               </form>

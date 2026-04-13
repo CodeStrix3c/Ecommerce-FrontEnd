@@ -279,7 +279,7 @@ const UserHome = () => {
                     />
                   ))
                 : !isLoading && (
-                    <div className="col-span-full py-20 text-center text-gray-400 text-sm italic font-medium">
+                    <div className="col-span-full py-20 text-center text-gray-700 text-sm  font-medium">
                       No product found...
                     </div>
                   )}
