@@ -3,7 +3,6 @@ import Inputs from "@/components/shared/Inputs";
 import { useFormContext, Controller } from "react-hook-form";
 import { useEffect } from "react";
 
-// Simple incrementing counter stored in localStorage — gives nomail_1, nomail_2, nomail_3...
 const generatePlaceholderEmail = () => {
   const key = "placeholder_email_counter";
   const current = parseInt(localStorage.getItem(key) || "0", 10);
@@ -11,6 +10,8 @@ const generatePlaceholderEmail = () => {
   localStorage.setItem(key, String(next));
   return `nomail_${next}@placeholder.internal`;
 };
+
+export { generatePlaceholderEmail };
 
 export const isPlaceholderEmail = (email) =>
   typeof email === "string" && email.endsWith("@placeholder.internal");
@@ -35,8 +36,7 @@ export default function UserProfileSection({ disabled = false }) {
   const handleEmailBlur = () => {
     const current = watch("email");
     if (!current || current.trim() === "") {
-      // Silently assign next number in sequence — never shown to the user
-      setValue("email", generatePlaceholderEmail(), { shouldDirty: true });
+      setValue("email", "", { shouldDirty: false }); // keep blank in UI — resolved at submit
     }
   };
 

@@ -12,6 +12,16 @@ export default function OrderSuccessPage() {
 
   if (!data) return null;
 
+  // Calculate tax percentage
+  const taxBase =
+    data.discountAmount > 0
+      ? data.subTotal - data.discountAmount
+      : data.subTotal;
+  const taxPercent =
+    data.taxAmount > 0 && taxBase > 0
+      ? Math.round((data.taxAmount / taxBase) * 100)
+      : null;
+
   return (
     <ContentWrapper>
       <div className="lg:mt-28 max-w-4xl mx-auto p-6 space-y-8">
@@ -24,7 +34,10 @@ export default function OrderSuccessPage() {
           </p>
           <p className="text-lg font-medium">
             Order ID:
-            <span className="ml-1 text-[var(--color-secondary)]">
+            <span
+              onClick={() => navigate(`/orderdetails/${data.id}`)}
+              className="ml-1 text-[var(--color-secondary)] underline underline-offset-2 cursor-pointer hover:opacity-75 transition-opacity"
+            >
               #{data.id}
             </span>
           </p>
@@ -91,7 +104,12 @@ export default function OrderSuccessPage() {
           )}
 
           <div className="flex justify-between">
-            <span>Tax</span>
+            <span className="flex items-center gap-1">
+              Tax
+              {taxPercent !== null && (
+                <span className="text-gray-400 text-xs">@ {taxPercent}%</span>
+              )}
+            </span>
             <span>₹ {Number(data.taxAmount).toFixed(2)}</span>
           </div>
 

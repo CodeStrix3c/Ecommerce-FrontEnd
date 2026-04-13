@@ -16,21 +16,20 @@ export default function Terms() {
           </p>
         </div>
 
-
         <div className="space-y-12 text-black text-[15px] leading-relaxed">
-
           {/* Introduction */}
           <section>
             <p>
-              Welcome to CraftGully.com, an arts & crafts marketplace and community platform
-              operated by Chingari Ventures LLP, located at Carlen, 1st Floor,
-              St Mary's Colony, Miramar, Panjim, Goa – 403001.
+              Welcome to Art&Craft.com, an arts & crafts marketplace and
+              community platform operated CodeStrix.in , located at sidco
+              complex Rangreth Jammu&Kashmir.
             </p>
             <p className="mt-4">
-              By accessing or using this website, creating an account, or purchasing
-              products, you agree to comply with and be bound by these Terms &
-              Conditions. If you do not agree with any part of these terms, you
-              should discontinue use of the website immediately.
+              By accessing or using this website, creating an account, or
+              purchasing products, you agree to comply with and be bound by
+              these Terms & Conditions. If you do not agree with any part of
+              these terms, you should discontinue use of the website
+              immediately.
             </p>
           </section>
 
@@ -40,10 +39,10 @@ export default function Terms() {
               Eligibility
             </h2>
             <p>
-              Use of this website is available only to individuals who are legally
-              capable of entering into binding contracts under applicable laws.
-              Users under 18 years of age must access the website under supervision
-              of a parent or legal guardian.
+              Use of this website is available only to individuals who are
+              legally capable of entering into binding contracts under
+              applicable laws. Users under 18 years of age must access the
+              website under supervision of a parent or legal guardian.
             </p>
           </section>
 
@@ -54,8 +53,8 @@ export default function Terms() {
             </h2>
             <p>
               You are responsible for maintaining the confidentiality of your
-              login credentials and for restricting access to your devices.
-              All activities conducted under your account are your responsibility.
+              login credentials and for restricting access to your devices. All
+              activities conducted under your account are your responsibility.
               We reserve the right to suspend or terminate accounts containing
               inaccurate or misleading information.
             </p>
@@ -80,10 +79,11 @@ export default function Terms() {
               Handmade Product Disclaimer
             </h2>
             <p>
-              Many products available on our platform are handcrafted by artisans.
-              Variations in color, texture, design, and finish are natural
-              characteristics of handmade products and are not considered defects.
-              Product images are indicative and may slightly vary from actual items.
+              Many products available on our platform are handcrafted by
+              artisans. Variations in color, texture, design, and finish are
+              natural characteristics of handmade products and are not
+              considered defects. Product images are indicative and may slightly
+              vary from actual items.
             </p>
           </section>
 
@@ -93,10 +93,11 @@ export default function Terms() {
               Pricing & Payments
             </h2>
             <p>
-              All prices are listed in Indian Rupees (INR) and are subject to change
-              without prior notice. Full payment must be received before dispatch,
-              except where Cash on Delivery is applicable. We are not responsible
-              for transaction failures caused by banking institutions or payment gateways.
+              All prices are listed in Indian Rupees (INR) and are subject to
+              change without prior notice. Full payment must be received before
+              dispatch, except where Cash on Delivery is applicable. We are not
+              responsible for transaction failures caused by banking
+              institutions or payment gateways.
             </p>
           </section>
 
@@ -106,10 +107,11 @@ export default function Terms() {
               Shipping & Delivery
             </h2>
             <p>
-              Delivery timelines are estimates and may vary depending on location
-              and external factors. Risk of loss and title for products pass to
-              you upon delivery to the shipping carrier. Incorrect shipping details
-              provided by the customer may result in additional charges.
+              Delivery timelines are estimates and may vary depending on
+              location and external factors. Risk of loss and title for products
+              pass to you upon delivery to the shipping carrier. Incorrect
+              shipping details provided by the customer may result in additional
+              charges.
             </p>
           </section>
 
@@ -119,9 +121,10 @@ export default function Terms() {
               Cancellation & Refunds
             </h2>
             <p>
-              Orders may be cancelled before processing. Once processed, cancellation
-              may not be possible. Refunds, if applicable, will be issued in a
-              reasonable timeframe through the original payment method.
+              Orders may be cancelled before processing. Once processed,
+              cancellation may not be possible. Refunds, if applicable, will be
+              issued in a reasonable timeframe through the original payment
+              method.
             </p>
           </section>
 
@@ -132,8 +135,9 @@ export default function Terms() {
             </h2>
             <p>
               All logos, designs, artwork, text, graphics, and other materials
-              displayed on this website are protected by intellectual property laws.
-              Unauthorized reproduction, distribution, or commercial use is strictly prohibited.
+              displayed on this website are protected by intellectual property
+              laws. Unauthorized reproduction, distribution, or commercial use
+              is strictly prohibited.
             </p>
           </section>
 
@@ -155,8 +159,8 @@ export default function Terms() {
               Disclaimer of Warranties
             </h2>
             <p>
-              The website is provided on an “as is” and “as available” basis.
-              We do not guarantee uninterrupted access or error-free functionality.
+              The website is provided on an “as is” and “as available” basis. We
+              do not guarantee uninterrupted access or error-free functionality.
               We disclaim all warranties, express or implied, to the fullest
               extent permitted by law.
             </p>
@@ -180,9 +184,9 @@ export default function Terms() {
               Governing Law
             </h2>
             <p>
-              These Terms & Conditions are governed by the laws of India.
-              Any disputes shall be subject to the exclusive jurisdiction
-              of courts located in Mumbai, India.
+              These Terms & Conditions are governed by the laws of India. Any
+              disputes shall be subject to the exclusive jurisdiction of courts
+              located in Mumbai, India.
             </p>
           </section>
 
@@ -192,9 +196,9 @@ export default function Terms() {
               Changes to Terms
             </h2>
             <p>
-              We reserve the right to modify these Terms at any time.
-              Continued use of the website after changes are posted
-              constitutes acceptance of those changes.
+              We reserve the right to modify these Terms at any time. Continued
+              use of the website after changes are posted constitutes acceptance
+              of those changes.
             </p>
           </section>
 
@@ -204,15 +208,14 @@ export default function Terms() {
               Contact Information
             </h2>
             <p>
-              If you have questions regarding these Terms & Conditions,
-              please contact us at:
+              If you have questions regarding these Terms & Conditions, please
+              contact us at:
             </p>
             <p className="mt-2 font-medium text-[var(--color-secondary)]">
-              mail@artcraft.com
+              mail@artandcraft.com
             </p>
             Thank you for using Art&Craft.
           </section>
-
         </div>
       </div>
     </ContentWrapper>

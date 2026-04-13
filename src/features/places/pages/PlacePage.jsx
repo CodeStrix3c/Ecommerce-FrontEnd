@@ -43,18 +43,12 @@ const PlacePage = () => {
 
   const imageRef = useRef(null);
   const rightColRef = useRef(null);
+  const hasMovedRef = useRef(false);
+  const zoomPanelRef = useRef(null);
+  const rightPanelRef = useRef(null);
 
   const [showZoom, setShowZoom] = useState(false);
-  const [zoomReady, setZoomReady] = useState(false);
   const [zoomImage, setZoomImage] = useState(null);
-  const [zoomPos, setZoomPos] = useState("0px 0px");
-  const [zoomImageSize, setZoomImageSize] = useState({ width: 0, height: 0 });
-  const [zoomPanelRect, setZoomPanelRect] = useState({
-    top: 0,
-    left: 0,
-    width: 0,
-    height: 0,
-  });
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const scrollRef = useRef(null);
@@ -62,7 +56,11 @@ const PlacePage = () => {
   useEffect(() => {
     const handleScroll = () => {
       setShowZoom(false);
-      setZoomReady(false);
+      hasMovedRef.current = false;
+      if (rightPanelRef.current) {
+        rightPanelRef.current.style.opacity = "1";
+        rightPanelRef.current.style.pointerEvents = "auto";
+      }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -80,14 +78,18 @@ const PlacePage = () => {
   const handleMouseEnter = () => {
     if (!place?.photos?.length) return;
     if (window.innerWidth < 1024) return;
+    hasMovedRef.current = false;
     setZoomImage(selectedPhoto || place.photos[0]);
-    setShowZoom(true);
-    setZoomReady(false);
+    // Do NOT show zoom yet — wait for first mousemove
   };
 
   const handleMouseLeave = () => {
+    hasMovedRef.current = false;
     setShowZoom(false);
-    setZoomReady(false);
+    if (rightPanelRef.current) {
+      rightPanelRef.current.style.opacity = "1";
+      rightPanelRef.current.style.pointerEvents = "auto";
+    }
   };
 
   const handleMouseMove = (e) => {
@@ -102,6 +104,10 @@ const PlacePage = () => {
       e.clientY > imgRect.bottom
     ) {
       setShowZoom(false);
+      if (rightPanelRef.current) {
+        rightPanelRef.current.style.opacity = "1";
+        rightPanelRef.current.style.pointerEvents = "auto";
+      }
       return;
     }
 
@@ -112,23 +118,49 @@ const PlacePage = () => {
     const panelWidth = rightRect.width;
     const panelHeight = imgRect.height;
 
-    setZoomPanelRect({
-      top: panelTop,
-      left: panelLeft,
-      width: panelWidth,
-      height: panelHeight,
-    });
-
-    setZoomImageSize({ width: imgRect.width, height: imgRect.height });
-
     const x = Math.max(0, Math.min(e.clientX - imgRect.left, imgRect.width));
     const y = Math.max(0, Math.min(e.clientY - imgRect.top, imgRect.height));
 
-    const bgX = (x / imgRect.width) * imgRect.width * ZOOM_LEVEL;
-    const bgY = (y / imgRect.height) * imgRect.height * ZOOM_LEVEL;
+    // Correct formula: map cursor ratio to zoomed image offset
+    // so the point under the cursor is centered in the zoom panel
+    const bgX = (x / imgRect.width) * (imgRect.width * ZOOM_LEVEL - panelWidth);
+    const bgY =
+      (y / imgRect.height) * (imgRect.height * ZOOM_LEVEL - panelHeight);
 
-    setZoomPos(`-${bgX - panelWidth / 2}px -${bgY - panelHeight / 2}px`);
-    setZoomReady(true);
+    const bgPos = `-${bgX}px -${bgY}px`;
+    const bgSize = `${imgRect.width * ZOOM_LEVEL}px ${imgRect.height * ZOOM_LEVEL}px`;
+
+    if (!hasMovedRef.current) {
+      hasMovedRef.current = true;
+
+      // Write position directly to DOM before making panel visible
+      if (zoomPanelRef.current) {
+        zoomPanelRef.current.style.top = `${panelTop}px`;
+        zoomPanelRef.current.style.left = `${panelLeft}px`;
+        zoomPanelRef.current.style.width = `${panelWidth}px`;
+        zoomPanelRef.current.style.height = `${panelHeight}px`;
+        zoomPanelRef.current.style.backgroundSize = bgSize;
+        zoomPanelRef.current.style.backgroundPosition = bgPos;
+      }
+
+      setShowZoom(true);
+
+      if (rightPanelRef.current) {
+        rightPanelRef.current.style.opacity = "0";
+        rightPanelRef.current.style.pointerEvents = "none";
+      }
+      return;
+    }
+
+    // Subsequent moves — update DOM directly, zero React overhead
+    if (zoomPanelRef.current) {
+      zoomPanelRef.current.style.top = `${panelTop}px`;
+      zoomPanelRef.current.style.left = `${panelLeft}px`;
+      zoomPanelRef.current.style.width = `${panelWidth}px`;
+      zoomPanelRef.current.style.height = `${panelHeight}px`;
+      zoomPanelRef.current.style.backgroundSize = bgSize;
+      zoomPanelRef.current.style.backgroundPosition = bgPos;
+    }
   };
 
   const toggleSection = (key) => {
@@ -162,7 +194,6 @@ const PlacePage = () => {
   useEffect(() => {
     if (!product) return;
 
-    // Use image URLs exactly as they come from the backend
     const images =
       product.images
         ?.map((img) => img.url || img.thumbnailUrl)
@@ -197,21 +228,14 @@ const PlacePage = () => {
 
   const productsList = productsData?.products || [];
 
-  // Use thumbnail URLs exactly as they come from the backend
   const popularItems = productsList
     .filter((p) => String(p.id) !== String(id))
     .slice(0, 10)
     .map((p) => {
       const imgPath =
         p.thumbnailUrl || p.images?.[0]?.thumbnailUrl || p.images?.[0]?.url;
-
       if (!imgPath) return null;
-
-      return {
-        id: p.id,
-        title: p.name,
-        image: imgPath,
-      };
+      return { id: p.id, title: p.name, image: imgPath };
     })
     .filter(Boolean);
 
@@ -236,14 +260,12 @@ const PlacePage = () => {
             />
           </div>
 
-          {/* RIGHT — always rendered so rightColRef has real dimensions */}
+          {/* RIGHT */}
           <div ref={rightColRef} className="lg:w-2/7 w-full relative z-10">
             <div
-              className={`space-y-4 transition-opacity duration-200 ${
-                showZoom && zoomReady
-                  ? "opacity-0 pointer-events-none"
-                  : "opacity-100"
-              }`}
+              ref={rightPanelRef}
+              className="space-y-4 transition-opacity duration-200"
+              style={{ opacity: 1 }}
             >
               <ProductInfoPanel
                 place={place}
@@ -254,19 +276,14 @@ const PlacePage = () => {
             </div>
           </div>
 
-          {/* ZOOM PANEL */}
-          {showZoom && zoomImage && zoomReady && (
+          {/* ZOOM PANEL — position/size set via ref, never stale */}
+          {showZoom && zoomImage && (
             <div
-              className="hidden lg:block fixed z-3 bg-white border shadow-2xl rounded-lg overflow-hidden pointer-events-none"
+              ref={zoomPanelRef}
+              className="hidden lg:block fixed z-30 bg-white border shadow-2xl rounded-lg overflow-hidden pointer-events-none"
               style={{
-                top: zoomPanelRect.top,
-                left: zoomPanelRect.left,
-                width: zoomPanelRect.width,
-                height: zoomPanelRect.height,
                 backgroundImage: `url(${zoomImage})`,
                 backgroundRepeat: "no-repeat",
-                backgroundSize: `${zoomImageSize.width * ZOOM_LEVEL}px ${zoomImageSize.height * ZOOM_LEVEL}px`,
-                backgroundPosition: zoomPos,
               }}
             />
           )}
@@ -281,7 +298,6 @@ const PlacePage = () => {
         <div className="mt-10">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-xl font-semibold">Recently Viewed Products</h2>
-
             <div className="flex items-center gap-2">
               <button
                 onClick={() => scroll("left")}
@@ -316,7 +332,6 @@ const PlacePage = () => {
                     loading="lazy"
                   />
                 </div>
-
                 <p className="mt-2 text-sm font-medium line-clamp-1">
                   {item.title}
                 </p>

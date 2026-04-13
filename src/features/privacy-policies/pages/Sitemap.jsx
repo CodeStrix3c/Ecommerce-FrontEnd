@@ -38,17 +38,23 @@ const sitemap = {
       icon: Star,
       items: [
         { text: "Shop All Products", path: "/" },
-        { text: "Pashmina Shawls", path: "/textitles" },
-        { text: "Handwoven Carpets", path: "/wood-craft" },
-        { text: "Wood Carving Art", path: "/wood-craft" },
+        {
+          text: "Pashmina Shawls",
+          path: "/textiles?category=pashmina-shawls",
+        },
+        { text: "Handwoven Crafts", path: "/woodcraft?category=woodcraft" },
+        {
+          text: "wooden-sculptures",
+          path: "/woodcraft?category=wooden-sculptures",
+        },
       ],
     },
     {
       title: "User Account",
       icon: User,
       items: [
-        { text: "Dashboard", path: "/dashboard" },
-        { text: "My Orders", path: "/orders" },
+        { text: "Dashboard", path: "/flkdjfkasd" },
+        { text: "My Orders", path: "/order" },
         { text: "Profile Settings", path: "/profile" },
         { text: "Wishlist", path: "/wishlist" },
       ],
@@ -73,10 +79,10 @@ export default function SitemapFinal() {
         <div className="text-center mb-14 px-4">
           <h2 className="text-4xl font-bold">Sitemap</h2>
           <p className="text-black mt-2">
-            Explore all sections of our Art & Craft platform in a visual tree layout.
+            Explore all sections of our Art & Craft platform in a visual tree
+            layout.
           </p>
         </div>
-
 
         <div className="flex flex-col items-center">
           <BoxMain text="Access" icon={User} />
@@ -89,7 +95,6 @@ export default function SitemapFinal() {
           </div>
         </div>
 
-
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -97,12 +102,15 @@ export default function SitemapFinal() {
           className="relative w-full max-w-5xl mt-8 border-t-2 border-black"
         >
           {["12%", "37%", "62%", "87%"].map((pos, i) => (
-            <div key={i} className="absolute" style={{ left: pos, bottom: -12 }}>
+            <div
+              key={i}
+              className="absolute"
+              style={{ left: pos, bottom: -12 }}
+            >
               <ArrowDown />
             </div>
           ))}
         </motion.div>
-
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-14 mt-8">
           {sitemap.sections.map((sec, index) => (

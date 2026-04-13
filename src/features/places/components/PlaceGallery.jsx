@@ -1,5 +1,5 @@
 import ImageGalleryModal from "@/components/shared/ImageGalleryModal";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import QRCode from "react-qr-code";
 import { BadgeCheck } from "lucide-react";
 
@@ -13,6 +13,8 @@ const PlaceGallery = ({
 }) => {
   const [showGallery, setShowGallery] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const hasMovedRef = useRef(false);
+  const lensRef = useRef(null);
 
   const photos = useMemo(
     () => (place.photos || []).filter(Boolean),
@@ -38,6 +40,26 @@ const PlaceGallery = ({
     onPhotoChange?.(photos[index]);
   };
 
+  const handleMouseEnter = (e) => {
+    hasMovedRef.current = false;
+    if (lensRef.current) lensRef.current.style.opacity = "0";
+    onZoomEnter?.(e);
+  };
+
+  const handleMouseLeave = (e) => {
+    hasMovedRef.current = false;
+    if (lensRef.current) lensRef.current.style.opacity = "0";
+    onZoomLeave?.(e);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!hasMovedRef.current) {
+      hasMovedRef.current = true;
+      if (lensRef.current) lensRef.current.style.opacity = "1";
+    }
+    onZoomMove?.(e);
+  };
+
   return (
     <div className="relative bg-white mb-10">
       {/* ================= DESKTOP ================= */}
@@ -46,9 +68,9 @@ const PlaceGallery = ({
         <div
           ref={zoomRef}
           className="relative aspect-[4/3.4] border border-gray-200 rounded-lg overflow-hidden bg-white"
-          onMouseEnter={onZoomEnter}
-          onMouseLeave={onZoomLeave}
-          onMouseMove={onZoomMove}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseMove}
         >
           <img
             src={mainImage}
@@ -60,11 +82,14 @@ const PlaceGallery = ({
 
           {/* 🔍 AMAZON LENS */}
           <div
+            ref={lensRef}
             id="zoom-lens"
             className="hidden lg:block absolute border border-gray-400 bg-white/30 backdrop-blur-[2px] pointer-events-none"
             style={{
               width: "120px",
               height: "120px",
+              opacity: 0,
+              transition: "opacity 0.05s",
             }}
           />
 

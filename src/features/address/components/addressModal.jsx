@@ -15,7 +15,7 @@ export const AddressModal = ({
   loadingStates,
   loadingDistricts,
   isSaving,
-    editId,
+  editId,
 }) => {
   if (!isOpen) return null;
 
@@ -104,11 +104,11 @@ export const AddressModal = ({
                 </button>
 
                 <button
-  type="submit"
-  className="bg-[var(--color-primary)] text-white px-4 py-2 rounded-lg"
->
-  {editId ? "Update Address" : "Save Address"}
-</button>
+                  type="submit"
+                  className="bg-[var(--color-primary)] text-white px-4 py-2 rounded-lg"
+                >
+                  {editId ? "Update Address" : "Save Address"}
+                </button>
               </div>
             </form>
           </FormProvider>
