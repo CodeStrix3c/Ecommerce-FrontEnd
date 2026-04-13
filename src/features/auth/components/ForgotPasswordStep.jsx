@@ -20,7 +20,8 @@ const ForgotPasswordStep = ({ errors, onSubmit, isSubmitting }) => {
 
       <div className="space-y-6">
         <Inputs
-          label="Phone Number"
+          label="Phone Number : "
+          placeholder="Enter your registered phone number"
           type="phone"
           {...register("phoneNumber")}
           error={errors.phoneNumber?.message}

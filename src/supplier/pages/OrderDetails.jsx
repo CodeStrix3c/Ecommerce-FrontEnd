@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import { useGetOrderDetails } from "@/hooks/Orders/useOrders";
 import { CheckCircle } from "lucide-react";
+import Spinner from "@/components/ui/Spinner";
 
 export default function OrderDetails() {
   const { orderId } = useParams();
@@ -10,21 +11,30 @@ export default function OrderDetails() {
 
   const { data: order, isLoading } = useGetOrderDetails(orderId);
 
-
   if (isLoading) {
     return (
       <ContentWrapper>
-        <div className="pt-40 text-center text-lg">Loading order...</div>
+        {/* <div className="pt-40 text-center text-lg">Loading order...</div> */}
+        <Spinner />
       </ContentWrapper>
     );
   }
 
   if (!order) return null;
 
+  // Calculate tax percentage
+  const taxBase =
+    order.discountAmount > 0
+      ? order.subtotal - order.discountAmount
+      : order.subtotal;
+  const taxPercent =
+    order.taxAmount > 0 && taxBase > 0
+      ? Math.round((order.taxAmount / taxBase) * 100)
+      : null;
+
   return (
     <ContentWrapper>
       <div className="pt-10 lg:pt-36 max-w-5xl mx-auto px-4 space-y-8">
-        
         {/* Success Message */}
         <div className="bg-green-50 border border-green-200 rounded-xl p-6 flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
@@ -36,15 +46,10 @@ export default function OrderDetails() {
             </div>
           </div>
 
-          {/* 👉 Cancel Button */}
-          
-            <button
-              
-              className="px-4 py-2 rounded-lg border border-red-500 text-white bg-[var(--color-error)] font-medium transition"
-            >
-              Cancel Order
-            </button>
-          
+          {/* Cancel Button */}
+          <button className="px-4 py-2 rounded-lg border border-red-500 text-white bg-[var(--color-error)] font-medium transition">
+            Cancel Order
+          </button>
         </div>
 
         {/* Order Info */}
@@ -104,7 +109,12 @@ export default function OrderDetails() {
           </div>
 
           <div className="flex justify-between text-gray-600">
-            <span>Tax</span>
+            <span className="flex items-center gap-1">
+              Tax
+              {taxPercent !== null && (
+                <span className="text-gray-400 text-xs">@ {taxPercent}%</span>
+              )}
+            </span>
             <span>₹{order.taxAmount.toFixed(2)}</span>
           </div>
 

@@ -52,31 +52,32 @@ export const ShippingForm = ({
           />
         </div>
 
-        {/* State */}
-        <div>
-          <SelectInputs
-            name="state"
-            label="State / Province"
-            options={stateOptions}
-            placeholder={loadingStates ? "Loading..." : "Select State"}
-            disabled={!stateOptions.length || loadingStates}
-            error={errors.state}
-          />
-        </div>
+        <SelectInputs
+          name="state"
+          label="State / Province"
+          options={stateOptions}
+          placeholder={loadingStates ? "Loading..." : "Select State"}
+          disabled={!stateOptions.length || loadingStates}
+          error={errors.state} // FIX
+        />
 
-        {/* District */}
-        <div>
-          <SelectInputs
-            name="district"
-            label="District"
-            options={districtOptions}
-            placeholder={loadingDistricts ? "Loading..." : "Select District"}
-            disabled={!districtOptions.length || loadingDistricts}
-            error={errors.district}
-          />
-        </div>
+        <SelectInputs
+          name="district"
+          label="District"
+          options={districtOptions}
+          placeholder={loadingDistricts ? "Loading..." : "Select District"}
+          disabled={!districtOptions.length || loadingDistricts}
+          error={errors.district} // FIX
+        />
 
         <Inputs name="city" label="City" required errors={errors.city} />
+        <Inputs
+          name="zipCode"
+          label="Pincode"
+          type="pincode"
+          required
+          errors={errors.zipCode}
+        />
 
         {/* Address Line 1 */}
         {/* Address Line 1 */}

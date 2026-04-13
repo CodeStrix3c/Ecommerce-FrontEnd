@@ -3,7 +3,7 @@ import { z } from "zod";
 export const forgotPasswordSchema = z.object({
   phoneNumber: z
     .string()
-    .regex(/^\d{10}$/, "Phone number must be exactly 10 digits"),
+    .regex(/^\d{10}$/, "Please enter a valid 10 digit phone number"),
 });
 
 export const verifyOtpSchema = z
