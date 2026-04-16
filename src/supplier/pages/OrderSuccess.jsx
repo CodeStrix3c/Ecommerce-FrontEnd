@@ -12,15 +12,8 @@ export default function OrderSuccessPage() {
 
   if (!data) return null;
 
-  // Calculate tax percentage
-  const taxBase =
-    data.discountAmount > 0
-      ? data.subTotal - data.discountAmount
-      : data.subTotal;
-  const taxPercent =
-    data.taxAmount > 0 && taxBase > 0
-      ? Math.round((data.taxAmount / taxBase) * 100)
-      : null;
+  // Read taxPercent directly from backend — it's on each order item
+  const taxPercent = data.orderItems?.[0]?.taxPercent ?? null;
 
   return (
     <ContentWrapper>
@@ -32,14 +25,24 @@ export default function OrderSuccessPage() {
           <p className="text-gray-500">
             Thank you for your purchase. Your order has been confirmed.
           </p>
-          <p className="text-lg font-medium">
-            Order ID:
-            <span
-              onClick={() => navigate(`/orderdetails/${data.id}`)}
-              className="ml-1 text-[var(--color-secondary)] underline underline-offset-2 cursor-pointer hover:opacity-75 transition-opacity"
-            >
-              #{data.id}
+
+          <p className="text-lg font-medium flex items-center justify-between flex-wrap ">
+            <span>
+              Order ID:
+              <span
+                onClick={() => navigate(`/orderdetails/${data.id}`)}
+                className="ml-1 text-[var(--color-secondary)] underline underline-offset-2 cursor-pointer hover:opacity-75 transition-opacity"
+              >
+                #{data.id}
+              </span>
             </span>
+
+            <button
+              onClick={() => navigate(`/orderdetails/${data.id}`)}
+              className="px-6 py-2 border rounded-lg text-sm "
+            >
+              View your item
+            </button>
           </p>
         </div>
 
@@ -104,11 +107,9 @@ export default function OrderSuccessPage() {
           )}
 
           <div className="flex justify-between">
-            <span className="flex items-center gap-1">
+            <span className="flex items-center">
               Tax
-              {taxPercent !== null && (
-                <span className="text-gray-400 text-xs">@ {taxPercent}%</span>
-              )}
+              {taxPercent !== null && <span>@{taxPercent}%</span>}
             </span>
             <span>₹ {Number(data.taxAmount).toFixed(2)}</span>
           </div>
@@ -125,15 +126,18 @@ export default function OrderSuccessPage() {
         </div>
 
         {/* Shipping Address */}
-        <div className="bg-white shadow rounded-xl p-6">
+        <div className="bg-white shadow rounded-xl p-6 overflow-hidden">
           <h2 className="text-lg font-semibold mb-3">Delivery Address</h2>
-          <p>{data.shippingAddress.contactName}</p>
-          <p>{data.shippingAddress.phone}</p>
-          <p>
+
+          <p className="break-words">{data.shippingAddress.contactName}</p>
+          <p className="break-words">{data.shippingAddress.phone}</p>
+
+          <p className="break-words">
             {data.shippingAddress.addressLine1},{" "}
             {data.shippingAddress.addressLine2}
           </p>
-          <p>
+
+          <p className="break-words">
             {data.shippingAddress.city} - {data.shippingAddress.zipCode}
           </p>
         </div>

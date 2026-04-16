@@ -29,11 +29,14 @@ const PlaceCard = ({ place, loading }) => {
   } = place;
 
   const isWishlisted = wishlist.some((item) => item.productId === id);
+  const isOutOfStock = stock === 0;
 
   const handleWishlistToggle = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+
     if (isToggling) return;
+
     setIsToggling(true);
     try {
       await toggleWishlist(place);
@@ -51,19 +54,28 @@ const PlaceCard = ({ place, loading }) => {
               src={image}
               alt={title}
               loading="lazy"
-              className="h-full w-full object-cover transition-transform hover:scale-105"
+              className={`h-full w-full object-cover transition-transform hover:scale-105 ${
+                isOutOfStock ? "grayscale-[0.5]" : ""
+              }`}
             />
           </div>
 
-          {/* ❤️ Wishlist */}
+          {/* 🔴 Out of Stock Badge */}
+          {isOutOfStock && (
+            <span className="absolute left-2 top-2 z-10 bg-red-600 text-white text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded shadow-sm">
+              Out of Stock
+            </span>
+          )}
+
+          {/* ❤️ Wishlist Button */}
           <button
             onClick={handleWishlistToggle}
-            className={`absolute right-2 top-2 rounded-full bg-white/80 p-1 shadow ${
-              isToggling ? "pointer-events-none" : ""
-            }`}
+            disabled={isToggling}
+            className="absolute right-2 top-2 z-10 rounded-full bg-white/90 p-1.5 shadow-md transition-all active:scale-90 hover:bg-white disabled:cursor-not-allowed"
+            aria-label="Toggle Wishlist"
           >
             <Heart
-              className={`h-5 w-5 transition ${
+              className={`h-5 w-5 transition-colors ${
                 isWishlisted ? "fill-red-500 stroke-red-500" : "stroke-gray-700"
               }`}
             />
@@ -71,16 +83,18 @@ const PlaceCard = ({ place, loading }) => {
         </div>
 
         <div className="mt-3 flex flex-col">
-          <h3 className="truncate text-sm font-semibold">{title}</h3>
+          <h3 className="truncate text-sm font-semibold text-gray-800">
+            {title}
+          </h3>
 
           <div className="mt-1 flex items-baseline gap-2">
-            <span className="flex items-center text-base font-semibold">
-              <IndianRupee className="h-4 w-4" />
+            <span className="flex items-center text-base font-bold text-[var(--color-primary)]">
+              <IndianRupee className="h-3.5 w-3.5" />
               {formatINR(price)}
             </span>
 
             {oldPrice && (
-              <span className="text-sm text-gray-400 line-through">
+              <span className="text-xs text-gray-400 line-through">
                 ₹{formatINR(oldPrice)}
               </span>
             )}

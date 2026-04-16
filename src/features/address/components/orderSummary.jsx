@@ -1,6 +1,6 @@
 import React from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Tag } from "lucide-react";
+import { Tag, AlertCircle } from "lucide-react";
 
 export const OrderSummary = ({
   checkoutData,
@@ -10,6 +10,8 @@ export const OrderSummary = ({
   setSelectedPayment,
   onPlaceOrder,
   placingOrder,
+  // Inline error message passed down from AddressPage (e.g. "This product is currently out of stock")
+  orderError,
 }) => {
   const queryClient = useQueryClient();
 
@@ -43,7 +45,6 @@ export const OrderSummary = ({
     } catch (err) {}
   };
 
-  // Calculate tax percentage based on subtotal after discount (if any), else subtotal
   const taxBase = discount > 0 ? subTotalWithDiscount : subTotal;
   const taxPercent =
     taxAmount > 0 && taxBase > 0
@@ -110,16 +111,15 @@ export const OrderSummary = ({
         </div>
 
         <div className="flex justify-between">
-          <span className="text-gray-600 flex items-center gap-1">
+          <span className="text-gray-600 flex items-center">
             Tax
             {taxPercent !== null && (
-              <span className="text-gray-400 text-xs">@ {taxPercent}%</span>
+              <span className="text-gray-600 text-l">@{taxPercent}%</span>
             )}
           </span>
           <span>₹{Number(taxAmount).toLocaleString()}</span>
         </div>
 
-        {/* Discount Row — always show if discount exists, independent of coupon */}
         {discount > 0 && (
           <div className="flex justify-between text-green-600">
             <span>Discount</span>
@@ -127,7 +127,6 @@ export const OrderSummary = ({
           </div>
         )}
 
-        {/* Coupon Row — only show coupon code badge, no amount here */}
         {couponCode && (
           <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg px-3 py-2 mt-1">
             <div className="flex items-center gap-2">
@@ -146,7 +145,6 @@ export const OrderSummary = ({
 
         <hr className="my-2" />
 
-        {/* Subtotal after discount */}
         {discount > 0 && (
           <div className="flex justify-between text-gray-500 text-xs">
             <span>Subtotal after discount</span>
@@ -180,6 +178,14 @@ export const OrderSummary = ({
             ))}
         </select>
       </div>
+
+      {/* Inline order error — shown directly below payment, above the button */}
+      {orderError && (
+        <div className="mt-4 flex items-start gap-2 bg-red-50 border border-red-200 rounded-lg px-3 py-2.5">
+          <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+          <p className="text-sm text-red-600">{orderError}</p>
+        </div>
+      )}
 
       <button
         onClick={handlePlaceOrder}

@@ -63,10 +63,10 @@ const sitemap = {
       title: "Support & Legal",
       icon: ShieldCheck,
       items: [
-        { text: "FAQ", path: "/faq" },
+        { text: "FAQs", path: "/faq" },
         { text: "Privacy Policy", path: "/privacy" },
         { text: "Terms & Conditions", path: "/terms" },
-        { text: "Sitemap", path: "/sitemap" },
+        { text: "About Us", path: "/about" },
       ],
     },
   ],
