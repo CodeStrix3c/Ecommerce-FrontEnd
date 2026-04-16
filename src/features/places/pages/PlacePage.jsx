@@ -121,8 +121,6 @@ const PlacePage = () => {
     const x = Math.max(0, Math.min(e.clientX - imgRect.left, imgRect.width));
     const y = Math.max(0, Math.min(e.clientY - imgRect.top, imgRect.height));
 
-    // Correct formula: map cursor ratio to zoomed image offset
-    // so the point under the cursor is centered in the zoom panel
     const bgX = (x / imgRect.width) * (imgRect.width * ZOOM_LEVEL - panelWidth);
     const bgY =
       (y / imgRect.height) * (imgRect.height * ZOOM_LEVEL - panelHeight);
@@ -133,7 +131,6 @@ const PlacePage = () => {
     if (!hasMovedRef.current) {
       hasMovedRef.current = true;
 
-      // Write position directly to DOM before making panel visible
       if (zoomPanelRef.current) {
         zoomPanelRef.current.style.top = `${panelTop}px`;
         zoomPanelRef.current.style.left = `${panelLeft}px`;
@@ -152,7 +149,6 @@ const PlacePage = () => {
       return;
     }
 
-    // Subsequent moves — update DOM directly, zero React overhead
     if (zoomPanelRef.current) {
       zoomPanelRef.current.style.top = `${panelTop}px`;
       zoomPanelRef.current.style.left = `${panelLeft}px`;
@@ -213,12 +209,20 @@ const PlacePage = () => {
       rating: product.ratingAverage ?? 0,
       reviewsCount: product.reviewsCount ?? 0,
       stock: product.stockQuantity ?? 0,
-      inStock: product.stockTrackingIsEnabled
-        ? product.stockQuantity > 0
-        : true,
+
+      // --- UPDATED LOGIC HERE ---
+      // If quantity is 0, it's out of stock NO MATTER WHAT.
+      // If tracking is enabled, check quantity.
+      // Otherwise, if tracking is off, we only trust the quantity isn't 0.
+      inStock: product.stockQuantity > 0,
+      stockQuantity: product.stockQuantity, // Pass this to use in ProductInfoPanel logic
+      // --------------------------
+
       brand: product.brand?.name || null,
       perks: product.attributes ?? [],
+      attributes: product.attributes ?? [],
       photos: images,
+      images: product.images ?? [],
     });
 
     setSelectedPhoto(null);

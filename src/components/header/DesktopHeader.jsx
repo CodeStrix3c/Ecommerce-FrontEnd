@@ -40,7 +40,7 @@ const DesktopHeader = ({ location }) => {
           transition={{ duration: 0.4, ease: "easeInOut" }}
           className="py-3 grid grid-cols-[auto_1fr_auto] items-center gap-6"
         >
-          <NavLink to="/home" className="flex items-center gap-2">
+          <NavLink to="/" className="flex items-center gap-2">
             <img
               src="/assets/images/logo6.png"
               alt="Art&Craft"

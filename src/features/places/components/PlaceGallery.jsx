@@ -16,14 +16,24 @@ const PlaceGallery = ({
   const hasMovedRef = useRef(false);
   const lensRef = useRef(null);
 
-  const photos = useMemo(
-    () => (place.photos || []).filter(Boolean),
-    [place.photos],
-  );
+  // Backend sends place.images[].url — fall back to place.photos for legacy
+  const photos = useMemo(() => {
+    if (place.images?.length) {
+      return place.images.map((img) => img.url).filter(Boolean);
+    }
+    return (place.photos || []).filter(Boolean);
+  }, [place.images, place.photos]);
 
-  const giTag = "IICT-GI-2EKEKJN";
-  const qrValue =
+  // Static QR for now — will be made dynamic once accepted
+  const STATIC_GI_TAG = "IICT-GI-2EKEKJN";
+  const STATIC_QR_VALUE =
     "https://iictsrinagarcarpet-gi.org/verify/4140NUYRNNAHNHKYNH2";
+
+  const hasGiTag = place.attributes?.some(
+    (attr) =>
+      attr.name?.trim().toLowerCase() === "gi tag" &&
+      attr.value?.trim().length > 0,
+  );
 
   if (!photos.length) return null;
 
@@ -60,11 +70,26 @@ const PlaceGallery = ({
     onZoomMove?.(e);
   };
 
+  const QRBadge = ({
+    size = 60,
+    textSizeClass = "text-[10px]",
+    iconSize = 12,
+    badgeTextClass = "text-[11px]",
+  }) => (
+    <div className="absolute bottom-3 right-3 flex flex-col items-center bg-white p-2 rounded shadow z-10">
+      <QRCode value={STATIC_QR_VALUE} size={size} />
+      <span className={`${textSizeClass} mt-1`}>{STATIC_GI_TAG}</span>
+      <div className="flex items-center gap-1 text-green-600 mt-1">
+        <BadgeCheck size={iconSize} />
+        <span className={`${badgeTextClass} font-medium`}>Verified</span>
+      </div>
+    </div>
+  );
+
   return (
     <div className="relative bg-white mb-10">
       {/* ================= DESKTOP ================= */}
       <div className="hidden lg:block space-y-6">
-        {/* MAIN IMAGE — zoom handlers on this div only */}
         <div
           ref={zoomRef}
           className="relative aspect-[4/3.4] border border-gray-200 rounded-lg overflow-hidden bg-white"
@@ -93,20 +118,16 @@ const PlaceGallery = ({
             }}
           />
 
-          {/* QR */}
-          {qrValue && (
-            <div className="absolute bottom-3 right-3 flex flex-col items-center bg-white p-2 rounded shadow">
-              <QRCode value={qrValue} size={60} />
-              <span className="text-[10px] mt-1">{giTag}</span>
-              <div className="flex items-center gap-1 text-green-600 mt-1">
-                <BadgeCheck size={12} />
-                <span className="text-[11px] font-medium">Verified</span>
-              </div>
-            </div>
+          {hasGiTag && (
+            <QRBadge
+              size={60}
+              textSizeClass="text-[10px]"
+              iconSize={12}
+              badgeTextClass="text-[11px]"
+            />
           )}
         </div>
 
-        {/* THUMBNAILS — no zoom handlers */}
         {thumbnails.length > 0 && (
           <div className="grid grid-cols-5 gap-3">
             {thumbnails.map((img, index) => (
@@ -143,6 +164,15 @@ const PlaceGallery = ({
             onClick={() => openGalleryAt(selectedIndex)}
             className="w-full h-full object-contain p-3 cursor-pointer"
           />
+
+          {hasGiTag && (
+            <QRBadge
+              size={50}
+              textSizeClass="text-[9px]"
+              iconSize={11}
+              badgeTextClass="text-[10px]"
+            />
+          )}
         </div>
 
         <div className="grid grid-cols-4 gap-2">

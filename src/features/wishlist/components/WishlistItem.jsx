@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ShoppingCart, X, Check } from "lucide-react";
+import { ShoppingCart, X, Check, AlertCircle } from "lucide-react";
 import ImageGalleryModal from "@/components/shared/ImageGalleryModal";
 import QuantitySelector from "@/components/shared/QuantitySelector";
 
@@ -7,8 +7,9 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
   const [showGallery, setShowGallery] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
+
   const handleAddToCart = async () => {
-    if (isAddedToCart || isAdding) return;
+    if (isAddedToCart || isAdding || !product.inStock) return;
 
     try {
       setIsAdding(true);
@@ -49,14 +50,24 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
             alt={product.title}
             loading="lazy"
             onError={(e) => (e.currentTarget.src = "/placeholder.jpg")}
-            className="
+            className={`
               w-full
               aspect-square
               object-cover
               transition-transform duration-500
               group-hover:scale-105
-            "
+              ${!product.inStock ? "grayscale opacity-60" : ""}
+            `}
           />
+
+          {/* Out of Stock Overlay Badge */}
+          {!product.inStock && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/5">
+              <span className="bg-red-600 text-white text-[10px] uppercase font-bold px-2 py-1 rounded-sm shadow-lg">
+                Out of Stock
+              </span>
+            </div>
+          )}
 
           {/* More photos */}
           {product.photos?.length > 1 && (
@@ -110,6 +121,7 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
               hover:bg-red-50
               hover:border-red-400
               hover:scale-110
+              z-10
             "
           >
             <X size={18} className="text-gray-600 hover:text-red-500" />
@@ -125,14 +137,13 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
           "
         >
           <h3
-            className="
+            className={`
             text-sm sm:text-base
             font-semibold
-            text-gray-800
             line-clamp-2
-            group-hover:text-[var(--color-secondary)]
             min-h-[40px]
-            "
+            ${product.inStock ? "text-gray-800 group-hover:text-[var(--color-secondary)]" : "text-gray-400"}
+            `}
           >
             {product.title}
           </h3>
@@ -148,7 +159,10 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
               Qty: {quantity}
             </span>
 
-            <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+            {/* Disable quantity selection if out of stock */}
+            {product.inStock && (
+              <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+            )}
           </div>
         </div>
 
@@ -156,7 +170,7 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
           {product.inStock ? (
             <button
               onClick={handleAddToCart}
-              disabled={isAddedToCart}
+              disabled={isAddedToCart || isAdding}
               className={`
                 w-full
                 flex items-center justify-center gap-2
@@ -186,13 +200,14 @@ const WishlistItem = ({ product, onRemove, onAddToCart, isAddedToCart }) => {
               ) : (
                 <>
                   <ShoppingCart size={18} />
-                  Add to Cart
+                  {isAdding ? "Adding..." : "Add to Cart"}
                 </>
               )}
             </button>
           ) : (
-            <div className="text-center text-sm text-gray-400 py-2">
-              Not Available
+            <div className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-red-500 bg-red-50 rounded-sm border border-red-100">
+              <AlertCircle size={16} />
+              Out of Stock
             </div>
           )}
         </div>

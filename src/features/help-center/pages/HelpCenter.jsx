@@ -205,13 +205,13 @@ export default function AgricultureHelpCenter() {
                     {
                       icon: Mail,
                       title: "Email Us",
-                      desc: "Zirat Customer Support",
+                      desc: "Art&Craft Customer Support",
                       href: "https://mail.google.com/mail/?view=cm&fs=1&to=test@gmail.com",
                     },
                     {
                       icon: MessageCircle,
                       title: "WhatsApp Us",
-                      desc: "Zirat Customer Support",
+                      desc: "Art&Craft Customer Support",
                       href: "https://wa.me/+1234567890",
                     },
                   ].map((item, idx) => (
