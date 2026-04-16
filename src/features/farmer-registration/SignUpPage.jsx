@@ -32,6 +32,11 @@ import { AlertTriangle } from "lucide-react";
 
 const stepSchemas = [profileSchema, otpSchema];
 
+// ✅ Generates email using phone number
+const generateEmailFromPhone = (phone) => {
+  return `${phone}@handicraft.com`;
+};
+
 export default function SupplierSignUp() {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState(null);
@@ -50,7 +55,7 @@ export default function SupplierSignUp() {
     resolver: zodResolver(stepSchemas[step]),
     mode: "onChange",
     defaultValues: {
-      otp: "", // ✅ IMPORTANT FIX
+      otp: "",
     },
   });
 
@@ -68,10 +73,16 @@ export default function SupplierSignUp() {
     if (!valid) return;
 
     try {
-      setFormData(values);
+      // ✅ Use phone-based email if empty
+      const emailToUse = values.email?.trim()
+        ? values.email
+        : generateEmailFromPhone(values.phone);
+
+      const enrichedValues = { ...values, email: emailToUse };
+      setFormData(enrichedValues);
 
       await checkEmailPhone({
-        email: values.email,
+        email: emailToUse,
         phone: values.phone,
       });
 
@@ -113,11 +124,6 @@ export default function SupplierSignUp() {
         password: formData.password,
         mobileNumber: formData.phone,
       });
-
-      // setItemsInLocalStorage("token", loginResponse.token);
-      // setItemsInLocalStorage("userId", loginResponse.user);
-      // setItemsInLocalStorage("roles", loginResponse.roles);
-      // setItemsInLocalStorage("vendorId", loginResponse.vendorId);
 
       setToken(loginResponse.token);
       setUserId(loginResponse.user);
@@ -169,19 +175,6 @@ export default function SupplierSignUp() {
                 </div>
               </div>
 
-              {/* Desktop Layout */}
-              {/* <div className=" md:flex items-center justify-center relative">
-                  <h2 className="text-2xl font-semibold text-center">
-                    User Registration
-                  </h2>
-
-                  <img
-                    src="/assets/images/logo6.png"
-                    alt="App Logo"
-                    className="h-14 object-contain absolute left-0"
-                  />
-                </div> */}
-
               <FormStepper activeStep={step} steps={labels} />
 
               <StepHeader
@@ -216,13 +209,6 @@ export default function SupplierSignUp() {
                 />
               )}
 
-              {/* {step === 1 && (
-                <p className="flex justify-center items-center gap-2 mt-100">
-                  <AlertTriangle className="w-5 h-5 text-yellow-500" />
-                  Please don't refresh the page
-                </p>
-              )} */}
-
               <FormNavigation
                 step={step}
                 totalSteps={2}
@@ -240,8 +226,6 @@ export default function SupplierSignUp() {
           </FormProvider>
         </div>
       </Box>
-
-      {/* Login Link */}
 
       <p className="mb-5 text-center text-sm px-4">
         Already have an account?{" "}

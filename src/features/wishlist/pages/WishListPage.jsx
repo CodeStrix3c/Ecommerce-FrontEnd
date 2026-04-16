@@ -36,7 +36,7 @@ const WishlistPage = () => {
       await removeFromWishlist(product.wishlistItemId, { showToast: false });
 
       // ✅ Navigate AFTER success
-      navigate("/cart", { replace: true });
+      // navigate("/cart", { replace: true });
     } catch (error) {
       console.error("Error adding to cart:", error);
       toast.error("Failed to add product to cart. Please try again.");
@@ -98,7 +98,8 @@ const WishlistPage = () => {
                   title: item.productName,
                   image: imageUrl,
                   price: item.price ?? 0,
-                  inStock: true,
+                  // CHANGED: Use the quantity from your API response
+                  inStock: item.quantity > 0,
                   photos: [imageUrl],
                 }}
                 onRemove={removeFromWishlist}

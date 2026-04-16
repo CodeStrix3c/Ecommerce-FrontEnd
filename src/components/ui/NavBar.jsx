@@ -21,10 +21,10 @@ const CATEGORY_PATH_MAP = {
 const getIcon = (slug = "") => CATEGORY_ICON_MAP[slug.toLowerCase()] || Package;
 
 const HOME_TAB = {
-  name: "Home",
+  name: "Products",
   slug: "home",
   path: "/home",
-  icon: Home,
+  icon: Package,
   activeColor: "text-[var(--color-secondary)]",
 };
 
