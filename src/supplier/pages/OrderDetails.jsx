@@ -22,15 +22,8 @@ export default function OrderDetails() {
 
   if (!order) return null;
 
-  // Calculate tax percentage
-  const taxBase =
-    order.discountAmount > 0
-      ? order.subtotal - order.discountAmount
-      : order.subtotal;
-  const taxPercent =
-    order.taxAmount > 0 && taxBase > 0
-      ? Math.round((order.taxAmount / taxBase) * 100)
-      : null;
+  // FIX: Use backend taxPercent directly
+  const taxPercent = order?.orderItems?.[0]?.taxPercent ?? null;
 
   return (
     <ContentWrapper>
@@ -109,10 +102,10 @@ export default function OrderDetails() {
           </div>
 
           <div className="flex justify-between text-gray-600">
-            <span className="flex items-center gap-1">
+            <span className="flex items-center">
               Tax
               {taxPercent !== null && (
-                <span className="text-gray-400 text-xs">@ {taxPercent}%</span>
+                <span className="text-gray-600 text-l">@{taxPercent}%</span>
               )}
             </span>
             <span>₹{order.taxAmount.toFixed(2)}</span>
@@ -130,7 +123,7 @@ export default function OrderDetails() {
         </div>
 
         {/* Shipping Address */}
-        <div className="bg-white border rounded-xl p-6">
+        <div className="bg-white border rounded-xl p-6 break-words">
           <h3 className="text-lg font-semibold mb-3">Delivery Address</h3>
 
           <p className="font-medium">{order.shippingAddress.contactName}</p>

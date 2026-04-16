@@ -15,6 +15,7 @@ import Terms from "@/features/privacy-policies/pages/Terms";
 import CompanyDetails from "@/features/suppliers/components/CompanyDetails";
 import Sitemap from "@/features/privacy-policies/pages/Sitemap";
 import ForgotPasswordPage from "@/features/auth/pages/ForgotPassword";
+import LandingPage from "@/features/landingpage/landingPage";
 
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
@@ -59,6 +60,7 @@ export default [
 
     {/* WEBSITE PAGES */}
     <Route element={<WebsiteLayout />}>
+      <Route index element={<LandingPage />} />
       <Route index element={<Navigate to="/home" replace />} />
       <Route path="/home" element={<IndexPage />} />
       <Route path="/woodcraft" element={<WoodcraftPage />} />

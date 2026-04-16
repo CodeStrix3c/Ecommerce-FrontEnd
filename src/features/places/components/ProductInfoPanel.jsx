@@ -5,6 +5,9 @@ import StarRating from "@/components/ui/StarRating";
 const formatINR = (value) => Number(value).toLocaleString("en-IN");
 
 const ProductInfoPanel = ({ place, openSections, toggleSection }) => {
+  // Logic to force "Out of Stock" if the quantity is 0, regardless of tracking flags
+  const isOutOfStock = place.stockQuantity === 0 || place.inStock === false;
+
   const Accordion = ({ title, sectionKey, children, show }) => {
     if (!show) return null;
 
@@ -64,12 +67,12 @@ const ProductInfoPanel = ({ place, openSections, toggleSection }) => {
         <section>
           <div className="flex items-center flex-wrap gap-2">
             <span className="text-2xl font-bold text-[var(--color-primary)]">
-              ₹{formatINR(place.price)} {/* ← formatted */}
+              ₹{formatINR(place.price)}
             </span>
 
             {place.oldPrice && (
               <span className="text-[var(--color-black)] line-through text-base">
-                MRP ₹{formatINR(place.oldPrice)} {/* ← formatted */}
+                MRP ₹{formatINR(place.oldPrice)}
               </span>
             )}
 
@@ -82,8 +85,7 @@ const ProductInfoPanel = ({ place, openSections, toggleSection }) => {
 
           {place.oldPrice && place.discount > 0 && (
             <p className="text-xs text-[var(--color-primary)] font-medium">
-              You save ₹{formatINR(place.oldPrice - place.price)}{" "}
-              {/* ← formatted */}
+              You save ₹{formatINR(place.oldPrice - place.price)}
             </p>
           )}
         </section>
@@ -103,16 +105,16 @@ const ProductInfoPanel = ({ place, openSections, toggleSection }) => {
           </section>
         )}
 
-        {(place.stockTracking || place.isAllowToOrder !== null) &&
-          !place.inStock && (
-            <div className="text-sm">
-              <p>
-                <span className="text-[var(--color-error)] font-semibold">
-                  Out of Stock
-                </span>
-              </p>
-            </div>
-          )}
+        {/* Updated Stock Logic: Shows "Out of Stock" if isOutOfStock is true */}
+        {isOutOfStock && (
+          <div className="text-sm">
+            <p>
+              <span className="text-[var(--color-error)] font-semibold">
+                Out of Stock
+              </span>
+            </p>
+          </div>
+        )}
 
         {place.shortDescription && (
           <section>
@@ -147,7 +149,7 @@ const ProductInfoPanel = ({ place, openSections, toggleSection }) => {
           show={place.perks && place.perks.length > 0}
         >
           <ul className="list-disc pl-5 space-y-1">
-            {place.perks.map((attr, index) => (
+            {place.perks?.map((attr, index) => (
               <li key={index}>
                 <strong>{attr.name}:</strong> {attr.value}
               </li>

@@ -6,8 +6,9 @@ import { Pencil, X, Mail, Phone, User, Users } from "lucide-react";
 
 import UserProfileSection, {
   isPlaceholderEmail,
-  generatePlaceholderEmail,
+  isHandicraftEmail,
 } from "@/features/supplier-registration/sections/userProfileSection";
+
 import { userProfileSchema } from "@/features/farmer-registration/schemas/userSchamas/userProfileSchema";
 import { useFileUploadMutation } from "@/hooks/User/Profile/useFileUpload";
 import {
@@ -30,51 +31,8 @@ const InfoRow = ({ icon: Icon, label, value }) => (
   </div>
 );
 
-// ─── Profile Picture Lightbox ───────────────────────────────────────────────
-const ProfilePicLightbox = ({ src, name, onClose }) => {
-  useEffect(() => {
-    const handler = (e) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-md"
-      onClick={onClose}
-    >
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 text-white hover:text-gray-300 transition"
-        aria-label="Close"
-      >
-        <X size={28} />
-      </button>
-
-      <div
-        className="relative flex flex-col items-center gap-4"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {src ? (
-          <img
-            src={src}
-            alt={name || "Profile picture"}
-            className="max-h-[80vh] max-w-[90vw] rounded-2xl object-contain shadow-2xl"
-          />
-        ) : (
-          <div className="h-64 w-64 rounded-2xl bg-green-600 flex items-center justify-center shadow-2xl">
-            <span className="text-7xl font-semibold text-white select-none">
-              {name ? name.charAt(0).toUpperCase() : "U"}
-            </span>
-          </div>
-        )}
-
-        {name && (
-          <p className="text-white text-lg font-medium tracking-wide">{name}</p>
-        )}
-      </div>
-    </div>
-  );
+const generateEmailFromPhone = (phone) => {
+  return `${phone}@handicraft.com`;
 };
 
 export default function UserSupplier() {
@@ -91,14 +49,21 @@ export default function UserSupplier() {
     mode: "onChange",
   });
 
-  const {
-    handleSubmit,
-    reset,
-    formState: { isSubmitting },
-  } = methods;
+  const { handleSubmit, reset } = methods;
 
   useEffect(() => {
-    if (data) reset({ ...data, profilePic: data.profilePic || null });
+    if (data) {
+      const cleanedEmail =
+        isPlaceholderEmail(data.email) || isHandicraftEmail(data.email)
+          ? ""
+          : data.email;
+
+      reset({
+        ...data,
+        email: cleanedEmail,
+        profilePic: data.profilePic || null,
+      });
+    }
   }, [data, reset]);
 
   useEffect(() => {
@@ -122,13 +87,9 @@ export default function UserSupplier() {
         profilePicValue = uploadResponse?.fileUrl || uploadResponse?.data;
       }
 
-      // Always guarantee a placeholder email is sent when the field is empty.
-      // Re-use the existing server-side placeholder to avoid burning a new counter slot.
       const resolvedEmail =
         !formData.email || formData.email.trim() === ""
-          ? isPlaceholderEmail(data?.email)
-            ? data.email // keep the one already stored on the server
-            : generatePlaceholderEmail() // first time — mint a new one
+          ? generateEmailFromPhone(data?.phone)
           : formData.email;
 
       const payload = {
@@ -145,26 +106,38 @@ export default function UserSupplier() {
             setIsModalOpen(false);
             refetch();
           },
+          onError: (err) => {
+            const errorMessage =
+              err?.response?.data?.errors?.[0]?.description ||
+              err?.response?.data?.message ||
+              "Something went wrong.";
+
+            toast.error(errorMessage);
+          },
         },
       );
-    } catch {
-      toast.error("Something went wrong.");
+    } catch (err) {
+      const errorMessage =
+        err?.response?.data?.errors?.[0]?.description ||
+        err?.response?.data?.message ||
+        "Something went wrong.";
+
+      toast.error(errorMessage);
     }
   };
 
-  // Hide placeholder emails — show empty string so InfoRow renders "—"
-  const displayEmail = isPlaceholderEmail(data?.email) ? "" : data?.email;
-
-  // Only show lightbox if user actually has a profile picture
-  const handleAvatarClick = () => {
-    if (data?.profilePic) setIsLightboxOpen(true);
-  };
+  const displayEmail =
+    isPlaceholderEmail(data?.email) || isHandicraftEmail(data?.email)
+      ? "NA"
+      : data?.email;
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 py-8 sm:py-12">
-      <UserProfileHeader data={data} onAvatarClick={handleAvatarClick} />
+      <UserProfileHeader
+        data={data}
+        onAvatarClick={() => setIsLightboxOpen(true)}
+      />
 
-      {/* Personal Details Card */}
       <div className="mt-6 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-black">Personal Details</h2>
@@ -184,16 +157,14 @@ export default function UserSupplier() {
         </div>
       </div>
 
-      {/* ── Lightbox — only renders if user has a real profile pic ── */}
-      {isLightboxOpen && data?.profilePic && (
+      {isLightboxOpen && (
         <ProfilePicLightbox
-          src={data.profilePic}
+          src={data?.profilePic}
           name={data?.name || data?.fullName}
           onClose={() => setIsLightboxOpen(false)}
         />
       )}
 
-      {/* ── Edit Profile Modal ─────────────────────────────────── */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center">
           <div className="bg-white w-full h-full sm:h-auto sm:max-w-2xl rounded-none sm:rounded-2xl p-6 sm:p-8 overflow-y-auto shadow-2xl relative">
@@ -227,10 +198,9 @@ export default function UserSupplier() {
                   </button>
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="px-8 py-2.5 bg-green-600 text-white rounded-full disabled:opacity-50 hover:opacity-90 transition"
+                    className="px-8 py-2.5 bg-green-600 text-white rounded-full hover:opacity-90 transition"
                   >
-                    {isSubmitting ? "Saving..." : "Save Changes"}
+                    Save Changes
                   </button>
                 </div>
               </form>

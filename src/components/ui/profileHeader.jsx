@@ -3,7 +3,10 @@ import { useRef, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useFileUploadMutation } from "@/hooks/User/Profile/useFileUpload";
 import { useUpdateUserProfile } from "@/hooks/User/Profile/useUserProfile";
-import { isPlaceholderEmail } from "@/features/supplier-registration/sections/userProfileSection";
+import {
+  isPlaceholderEmail,
+  isHandicraftEmail, // ✅ added
+} from "@/features/supplier-registration/sections/userProfileSection";
 
 export default function UserProfileHeader({ data, onAvatarClick }) {
   const fileInputRef = useRef(null);
@@ -18,8 +21,9 @@ export default function UserProfileHeader({ data, onAvatarClick }) {
   const email = data?.email || "";
   const hasImage = !!data?.profilePic;
 
-  // Hide placeholder emails from the user
-  const displayEmail = isPlaceholderEmail(email) ? "" : email;
+  // ✅ UPDATED LOGIC
+  const displayEmail =
+    isPlaceholderEmail(email) || isHandicraftEmail(email) ? "NA" : email;
 
   const initials = name
     .trim()
@@ -104,7 +108,6 @@ export default function UserProfileHeader({ data, onAvatarClick }) {
   return (
     <div className="lg:mt-24 flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-10 p-6 sm:p-8 border border-gray-100 shadow-sm rounded-2xl mb-4">
       <div className="relative flex-shrink-0" ref={menuRef}>
-        {/* ── Avatar ── */}
         <div
           onClick={handleAvatarClick}
           className="h-28 w-28 sm:h-32 sm:w-32 rounded-full overflow-hidden border-4 border-white shadow-xl ring-2 ring-[var(--color-secondary)] bg-gray-100 relative cursor-pointer"
@@ -130,7 +133,6 @@ export default function UserProfileHeader({ data, onAvatarClick }) {
           )}
         </div>
 
-        {/* ── Edit button + menu ── */}
         <div className="absolute bottom-2 right-0 flex items-center">
           <div className="relative flex items-center">
             <button
@@ -194,7 +196,6 @@ export default function UserProfileHeader({ data, onAvatarClick }) {
         />
       </div>
 
-      {/* ── Name & Email ── */}
       <div className="flex flex-col text-center sm:text-left">
         <div className="flex items-center gap-2 justify-center sm:justify-start">
           <h2 className="text-2xl font-semibold text-gray-900 capitalize">
@@ -202,10 +203,9 @@ export default function UserProfileHeader({ data, onAvatarClick }) {
           </h2>
           <CheckCircle2 className="h-5 w-5 text-blue-500 fill-blue-50" />
         </div>
-        {/* Only show email if it's a real one */}
-        {displayEmail && (
-          <p className="text-sm text-gray-500 mt-1 break-all">{displayEmail}</p>
-        )}
+
+        {/* ✅ ALWAYS SHOW (NA or real email) */}
+        <p className="text-sm text-gray-500 mt-1 break-all">{displayEmail}</p>
       </div>
     </div>
   );

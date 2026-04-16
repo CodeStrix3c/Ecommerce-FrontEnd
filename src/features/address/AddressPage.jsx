@@ -49,6 +49,9 @@ const AddressPage = () => {
   const [selectedShippingMethod, setSelectedShippingMethod] = useState("");
   const [addressList, setAddressList] = useState([]);
 
+  // Holds an error message to display inline in the UI (e.g. out of stock)
+  const [orderError, setOrderError] = useState(null);
+
   const [editId, setEditId] = useState(null);
 
   const methods = useForm({
@@ -228,6 +231,9 @@ const AddressPage = () => {
 
   /* ---------------- PLACE ORDER ---------------- */
   const handlePlaceOrder = async () => {
+    // Clear any previous order error
+    setOrderError(null);
+
     if (!selectedPayment) {
       toast.error("Please select payment method");
       return;
@@ -243,11 +249,19 @@ const AddressPage = () => {
       toast.success("Order placed successfully!");
       navigate("/success", { state: { order: orderResponse } });
     } catch (err) {
+      const data = err?.response?.data;
+
+      // API returns { value, success, error } — extract the "error" field first,
+      // then fall back to other common shapes, then a generic message.
       const message =
-        err?.response?.data?.message ||
-        err?.response?.data ||
+        data?.error ||
+        data?.message ||
+        (typeof data === "string" ? data : null) ||
+        err?.message ||
         "Failed to place order";
-      toast.error(message);
+
+      // Show inline in the UI instead of (or in addition to) a toast
+      setOrderError(message);
     }
   };
 
@@ -264,7 +278,6 @@ const AddressPage = () => {
     return (
       <ContentWrapper>
         <div className="py-8 lg:mt-10">
-          {/* Increased max width for full page layout */}
           <div className="w-full max-w-5xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--color-primary)]/10 mb-4">
@@ -318,11 +331,11 @@ const AddressPage = () => {
   /* ---------------- NORMAL CHECKOUT LAYOUT ---------------- */
   return (
     <ContentWrapper>
-      <div className="min-h-screen py-8 lg:mt-28 `sm:py-12">
+      <div className="min-h-screen py-8 lg:mt-28 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
             <div className="lg:col-span-2 space-y-6">
-              <div className="bg-[var(--color-white)] p-6 rounded-xl shadow-sm bobrder border-[var(--color-gray)]">
+              <div className="bg-[var(--color-white)] p-6 rounded-xl shadow-sm border border-[var(--color-gray)]">
                 <h2 className="text-lg font-semibold mb-4">Shipping Methods</h2>
 
                 <div className="space-y-3">
@@ -408,7 +421,7 @@ const AddressPage = () => {
                         className="mt-1"
                       />
 
-                      <div className="text-sm">
+                      <div className="text-sm overflow-hidden break-words">
                         <p className="font-semibold">
                           {address.contactName} <br />
                           {address.phone}
@@ -434,6 +447,7 @@ const AddressPage = () => {
                 setSelectedPayment={setSelectedPayment}
                 onPlaceOrder={handlePlaceOrder}
                 placingOrder={placingOrder}
+                orderError={orderError}
               />
             </div>
           </div>

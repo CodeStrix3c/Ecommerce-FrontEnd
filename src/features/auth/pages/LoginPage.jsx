@@ -62,11 +62,11 @@ const LoginPage = () => {
 
   const handleGoogleLogin = async () => {
     toast.success("Google login successful!");
-    navigate("/home");
+    navigate("/");
     setRedirect(true);
   };
 
-  if (redirect) return <Navigate to="/home" replace />;
+  if (redirect) return <Navigate to="/" replace />;
 
   return (
     <FormProvider {...methods}>

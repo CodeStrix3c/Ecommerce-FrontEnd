@@ -16,6 +16,10 @@ export { generatePlaceholderEmail };
 export const isPlaceholderEmail = (email) =>
   typeof email === "string" && email.endsWith("@placeholder.internal");
 
+// ✅ NEW CHECK
+export const isHandicraftEmail = (email) =>
+  typeof email === "string" && email.endsWith("@handicraft.com");
+
 export default function UserProfileSection({ disabled = false }) {
   const {
     control,
@@ -26,17 +30,21 @@ export default function UserProfileSection({ disabled = false }) {
 
   const emailValue = watch("email");
 
-  // On mount: if email is a placeholder or empty, clear it so user sees blank
+  // ✅ UPDATED
   useEffect(() => {
-    if (!emailValue || isPlaceholderEmail(emailValue)) {
+    if (
+      !emailValue ||
+      isPlaceholderEmail(emailValue) ||
+      isHandicraftEmail(emailValue)
+    ) {
       setValue("email", "", { shouldDirty: false });
     }
-  }, []); // runs only on mount
+  }, []);
 
   const handleEmailBlur = () => {
     const current = watch("email");
     if (!current || current.trim() === "") {
-      setValue("email", "", { shouldDirty: false }); // keep blank in UI — resolved at submit
+      setValue("email", "", { shouldDirty: false });
     }
   };
 

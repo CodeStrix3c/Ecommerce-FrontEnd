@@ -294,7 +294,7 @@ const TextilesPage = () => {
                   ))
                 : !isLoading && (
                     <div className="col-span-full py-20 text-center text-gray-700 text-sm font-medium">
-                      No product found...
+                      No products found...
                     </div>
                   )}
           </div>
