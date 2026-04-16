@@ -1,0 +1,1 @@
+import{D as r,G as t,az as e}from"./index-CCXvX6I4.js";const n=r("StarHalf",[["path",{d:"M12 17.8 5.8 21 7 14.1 2 9.3l7-1L12 2",key:"nare05"}]]),s=async()=>{const{data:a}=await t.get("/data/orderHistoryPage/orderHistoryData.json",{auth:!1});return a},u=()=>e({queryKey:["expertCardsData"],queryFn:s});export{n as S,u};

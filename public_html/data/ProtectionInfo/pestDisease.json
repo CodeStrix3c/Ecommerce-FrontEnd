@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Locusts",
+    "icon": "Locusts",
+    "desc": "Destroy crops rapidly. Use bio-pesticides and timely monitoring.",
+    "details": "Locusts are migratory pests that can devastate crops quickly. Control involves early monitoring, mechanical control, and eco-friendly bio-pesticides such as Metarhizium anisopliae. Avoid over-irrigation which encourages breeding."
+  },
+  {
+    "name": "Rice Blast",
+    "icon": "RiceBlast",
+    "desc": "Fungal disease reducing yield. Resistant varieties help.",
+    "details": "Rice blast, caused by the fungus Magnaporthe oryzae, affects leaves, nodes, and panicles. Use resistant rice varieties, ensure proper spacing for ventilation, and apply tricyclazole if necessary."
+  },
+  {
+    "name": "Aphids",
+    "icon": "Aphids",
+    "desc": "Suck sap and spread viruses. Neem spray helps control.",
+    "details": "Aphids cluster on the underside of leaves, sucking plant sap. They transmit viruses. Regular neem oil or soap sprays and encouraging natural predators like ladybugs can help reduce infestation."
+  },
+  {
+    "name": "Powdery Mildew",
+    "icon": "PowderyMildew",
+    "desc": "White fungal growth. Sulfur-based sprays are effective.",
+    "details": "Powdery mildew appears as white powdery spots on leaves and stems. It thrives in dry, warm conditions. Ensure proper air circulation and use sulfur-based or potassium bicarbonate sprays."
+  },
+  {
+    "name": "Stem Borers",
+    "icon": "StemBorers",
+    "desc": "Damage maize & rice stems. Use pheromone traps & resistant seeds.",
+    "details": "Stem borers bore into plant stems, weakening the structure and reducing yield. Prevent using pheromone traps, timely irrigation, and resistant hybrids. Remove infested stems after harvest."
+  },
+  {
+    "name": "Leaf Rust",
+    "icon": "LeafRust",
+    "desc": "Affects wheat leaves. Apply fungicides as per guidelines.",
+    "details": "Leaf rust is caused by Puccinia triticina fungus, forming orange pustules on leaves. Use resistant varieties and apply fungicides like propiconazole as per agricultural recommendations."
+  }
+]
