@@ -54,7 +54,7 @@ const PlaceCard = ({ place, loading }) => {
               src={image}
               alt={title}
               loading="lazy"
-              className={`h-full w-full object-cover transition-transform hover:scale-105 ${
+              className={`h-full w-full object-fill transition-transform hover:scale-105 ${
                 isOutOfStock ? "grayscale-[0.5]" : ""
               }`}
             />
