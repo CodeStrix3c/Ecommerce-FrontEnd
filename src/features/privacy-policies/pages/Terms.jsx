@@ -21,7 +21,7 @@ export default function Terms() {
           <section>
             <p>
               Welcome to Art&Craft.com, an arts & crafts marketplace and
-              community platform operated CodeStrix.in , located at sidco
+              community platform operated by Art&Craft , located at sidco
               complex Rangreth, Jammu&Kashmir.
             </p>
             <p className="mt-4">
