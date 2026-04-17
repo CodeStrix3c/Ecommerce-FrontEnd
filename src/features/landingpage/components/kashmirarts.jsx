@@ -7,14 +7,14 @@ const CRAFTS_DATA = [
     title: "Pashmina Shawls",
     description:
       "Known as 'Soft Gold', these shawls are hand-spun from the fine fleece of Changthangi goats. A single shawl can take months of meticulous hand-embroidery (Sozni).",
-    image: "/assets/images/pashmiashawlimage.png",
+    image: "/assets/images/pashminashawlimage.png",
   },
   {
     id: 2,
-    title: "Papier-Mâché",
+    title: "Papier-Machee",
     description:
       "Introduced by Persian saints in the 14th century, this art involves transforming paper pulp into decorative masterpieces painted with 'Naqashi' patterns.",
-    image: "/assets/images/silkimage.png",
+    image: "/assets/images/papermachie.webp",
   },
   {
     id: 3,
@@ -45,9 +45,9 @@ const KashmirArts = () => {
   }, []);
 
   return (
-    <div className="bg-stone-50 text-stone-900 font-serif min-h-screen">
+    <div className="bg-stone-50 text-stone-900 min-h-screen">
       {/* HERO */}
-      <section className="relative h-[70vh] w-full flex items-center justify-center overflow-hidden bg-stone-900">
+      <section className="relative h-[80vh] w-full flex items-center justify-center overflow-hidden bg-stone-900">
         <motion.video
           ref={videoRef}
           autoPlay
@@ -55,38 +55,39 @@ const KashmirArts = () => {
           muted
           playsInline
           initial={{ scale: 1 }}
-          animate={{ scale: 1.15 }}
+          animate={{ scale: 1.80 }}
           transition={{
             duration: 20,
             repeat: Infinity,
             repeatType: "reverse",
             ease: "easeInOut",
           }}
-          className="absolute inset-0 w-full h-full object-cover brightness-[0.4]"
+          className="absolute inset-0 w-full h-full object-cover brightness-[0.8]"
         >
           <source
-            src="https://www.w3schools.com/html/mov_bbb.mp4"
+            src="/assets/images/handicraft.mp4"
             type="video/mp4"
           />
         </motion.video>
 
         <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4">
+          <h1 className="text-3xl md:text-7xl font-semibold pb-8">
             Kashmir Heritage
           </h1>
-          <p className="text-xl md:text-2xl italic opacity-90">
-            The Soul of the Valley, Handcrafted.
-          </p>
+       <p className="text-lg md:text-2xl opacity-90 text-center max-w-2xl mx-auto italic">
+  The Soul of the Valley, handicraft. Kashmiri handicrafts are known for their intricate designs,
+  patience-driven processes, and cultural richness. Every product is handcrafted using traditional techniques.
+</p>
         </div>
       </section>
 
       {/* CONTENT */}
       <section className="w-full py-16">
-        <div className="text-center mb-16 px-6">
-          <h2 className="text-4xl font-semibold border-b-2 border-amber-600 inline-block pb-2">
+        <div className="mb-16 px-6">
+          <h2 className="text-4xl  inline-block pb-2">
             Ancient Crafts
           </h2>
-          <p className="mt-4 text-stone-600 max-w-2xl mx-auto">
+          <p className="mt-2  text-[var(--color-black)] text-lg ">
             Explore the artistic legacy of Kashmir.
           </p>
         </div>
@@ -94,7 +95,7 @@ const KashmirArts = () => {
         {/* 50/50 LAYOUT */}
         <div className="w-full flex flex-col md:flex-row min-h-[500px] bg-stone-200  overflow-hidden shadow-lg">
           {/* LEFT CONTENT */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center px-8 md:px-16">
+          <div className="w-full md:w-1/2 flex flex-col justify-center px-8  md:px-16">
             <div className="space-y-6">
               {CRAFTS_DATA.map((craft) => (
                 <div
@@ -147,12 +148,12 @@ const KashmirArts = () => {
 
       {/* FOOTER */}
       <footer className="bg-black py-20 text-center px-6">
-        <blockquote className="italic text-3xl md:text-5xl text-white max-w-4xl mx-auto mb-8 leading-relaxed">
+        <blockquote className=" text-3xl md:text-5xl text-white max-w-4xl mx-auto mb-8 leading-relaxed">
           "Gar firdaus bar-rue zamin ast, hamin asto, hamin asto, hamin asto."
         </blockquote>
 
         <p className="text-lg md:text-2xl text-white font-light tracking-wide">
-          — If there is a heaven on earth, it is here.
+          — If there is a heaven on earth, it is here, it is here, it is here.
         </p>
       </footer>
     </div>

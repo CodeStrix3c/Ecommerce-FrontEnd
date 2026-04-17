@@ -16,6 +16,7 @@ import CompanyDetails from "@/features/suppliers/components/CompanyDetails";
 import Sitemap from "@/features/privacy-policies/pages/Sitemap";
 import ForgotPasswordPage from "@/features/auth/pages/ForgotPassword";
 import LandingPage from "@/features/landingpage/landingPage";
+import Heritage from "@/features/heritage/Heritage";
 
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
@@ -73,6 +74,7 @@ export default [
       <Route path="/terms" element={<Terms />} />
       <Route path="/sitemap" element={<Sitemap />} />
       <Route path="/company-details" element={<CompanyDetails />} />
+       <Route path="/heritage" element={<Heritage/>} />
 
       {/* Resources */}
       <Route
