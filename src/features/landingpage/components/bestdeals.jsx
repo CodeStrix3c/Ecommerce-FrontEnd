@@ -32,7 +32,7 @@ const BestDeals = ({ data, isLoading }) => {
           <h2 className="text-3xl md:text-4xl font-serif text-[var(--color-black)] mb-2">
             Timeless Treasures
           </h2>
-          <p className="text-[var(--color-primary)] font-light italic">
+          <p className=" text-[var(--color-black)] text-lg pb-10">
             Exquisite hand-crafted pieces at exceptional value.
           </p>
         </div>

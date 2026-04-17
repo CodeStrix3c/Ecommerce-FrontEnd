@@ -437,7 +437,7 @@ const slides = [
     id: 4,
     title: "The Pashmina Shawl",
     desc: "Experience the ultimate warmth and softness with our Grade-A Changthangi goat wool wraps.",
-    img: "/assets/images/pashmiashawlimage.png",
+    img: "/assets/images/pashminashawlimage.png",
     link: "/collections/pashmina",
     bgColor: "#4A5D4E",
     textColor: "text-white",

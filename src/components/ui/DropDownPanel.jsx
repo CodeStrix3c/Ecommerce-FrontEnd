@@ -75,6 +75,11 @@ const DropdownPanel = ({ open, onClose }) => {
     navigate("/order");
   };
 
+  const handleHeritage = () => {
+    onClose?.();
+    navigate("/heritage");
+  };
+
   return (
     <div
       className={`absolute right-0 mt-4 w-64 rounded-lg bg-[var(--color-white)] shadow-lg transition-all duration-200 ease-out ${
@@ -115,8 +120,9 @@ const DropdownPanel = ({ open, onClose }) => {
           </>
         )}
 
-        {/* About */}
-        <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
+       
+        <div     onClick={handleHeritage}
+              className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors">
           <Info size={16} />
           <span>About Our Heritage</span>
         </div>
