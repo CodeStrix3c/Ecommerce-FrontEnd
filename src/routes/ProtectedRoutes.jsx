@@ -112,6 +112,7 @@ export default [
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="/profile" element={<UserProfile />} />
       <Route path="/settings/" element={<SettingsPage />} />
+     
       <Route path="/order" element={<OrdersPage />} />
       <Route path="/success" element={<OrderSuccess />} />
       <Route path="/orderdetails/:orderId" element={<OrderDetails />} />
