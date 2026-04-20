@@ -34,14 +34,14 @@ export const AddressModal = ({
       />
 
       {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none ">
         <div
-          className="bg-white  max-w-xl w-full max-h-[90vh] overflow-y-auto pointer-events-auto"
+          className="bg-white max-w-xl w-full max-h-[90vh] flex flex-col pointer-events-auto rounded-lg"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
           <div
-            className="px-6 py-4 flex items-center justify-between border-b"
+            className="px-6 py-4 flex items-center justify-between border-b flex-shrink-0"
             style={{ borderColor: "var(--color-gray)" }}
           >
             <div>
@@ -67,27 +67,37 @@ export const AddressModal = ({
 
           {/* Form */}
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)} className="p-6">
-              <ShippingForm
-                countryOptions={countries.map((c) => ({
-                  label: c.name,
-                  value: c.id,
-                }))}
-                stateOptions={states.map((s) => ({
-                  label: s.name,
-                  value: s.id,
-                }))}
-                districtOptions={districts.map((d) => ({
-                  label: d.name,
-                  value: d.id,
-                }))}
-                loadingStates={loadingStates}
-                loadingDistricts={loadingDistricts}
-              />
-
-              {/* Footer */}
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col flex-1 min-h-0"
+            >
+              {/* Scrollable form fields */}
               <div
-                className="flex justify-end gap-3 mt-6 pt-4 border-t"
+                className="p-6 flex-1 overflow-y-auto"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+                <ShippingForm
+                  countryOptions={countries.map((c) => ({
+                    label: c.name,
+                    value: c.id,
+                  }))}
+                  stateOptions={states.map((s) => ({
+                    label: s.name,
+                    value: s.id,
+                  }))}
+                  districtOptions={districts.map((d) => ({
+                    label: d.name,
+                    value: d.id,
+                  }))}
+                  loadingStates={loadingStates}
+                  loadingDistricts={loadingDistricts}
+                />
+              </div>
+
+              {/* Sticky Footer */}
+              <div
+                className="flex justify-end gap-3 px-6 py-4 border-t flex-shrink-0"
                 style={{ borderColor: "var(--color-gray)" }}
               >
                 <button

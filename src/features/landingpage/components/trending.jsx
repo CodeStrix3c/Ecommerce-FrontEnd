@@ -77,7 +77,7 @@ const TrendingProducts = ({ data, isLoading }) => {
               </div>
 
               <img
-                src={`https://placehold.co/600x800?text=${encodeURIComponent(product.productName)}`}
+                src={product.thumbnail}
                 alt={product.productName}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -110,10 +110,10 @@ const TrendingProducts = ({ data, isLoading }) => {
                   )}
               </div>
 
-              <div className="mt-2 text-[10px] text-stone-400 uppercase tracking-widest font-semibold">
+              {/* <div className="mt-2 text-[10px] text-stone-400 uppercase tracking-widest font-semibold">
                 {product.vendorCount}{" "}
                 {product.vendorCount === 1 ? "Vendor" : "Vendors"} Available
-              </div>
+              </div> */}
             </div>
           </div>
         ))}

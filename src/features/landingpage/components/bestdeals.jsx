@@ -67,12 +67,12 @@ const BestDeals = ({ data, isLoading }) => {
             className="min-w-[280px] md:min-w-[320px] group cursor-pointer"
           >
             {/* Image Container */}
-            <div className="relative h-[400px] overflow-hidden bg-stone-100 mb-4">
+            <div className="relative h-[400px] overflow-hidden bg-stone-100 mb-4 rounded-lg">
               <div className="absolute top-3 right-3 z-10 bg-[var(--color-secondary)] text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider">
                 {Math.round(item.savingsPercentage)}% Off
               </div>
               <img
-                src={`https://placehold.co/600x800?text=${encodeURIComponent(item.productName)}`}
+                src={item.thumbnail}
                 alt={item.productName}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
