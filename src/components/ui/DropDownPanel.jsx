@@ -133,26 +133,9 @@ const DropdownPanel = ({ open, onClose }) => {
           <span>Help & Support</span>
         </div>
 
-        <hr className="my-1 border-[var(--color-black-hover)]" />
+       
 
-        {/* Artisan Section */}
-        <div className="flex flex-col gap-1 px-4 py-2 text-sm cursor-default">
-          <div className="flex items-center gap-3">
-            <Palette size={16} />
-            <span>Artisan Stories</span>
-          </div>
-          <p className="ml-7 text-xs opacity-80">
-            Discover the legacy and craftsmanship of Kashmiri artisans.
-          </p>
-        </div>
-
-        <hr className="my-1 border-[var(--color-black-hover)]" />
-
-        {/* Collections */}
-        <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
-          <Package size={16} />
-          <span>Craft Collections</span>
-        </div>
+  
 
         {/* Mobile Extra Options */}
         {isMobile && (
@@ -162,10 +145,6 @@ const DropdownPanel = ({ open, onClose }) => {
               <span>Handicraft Categories</span>
             </div>
 
-            <div className="flex items-center gap-3 px-4 py-2 text-sm cursor-default">
-              <User size={16} />
-              <span>Artisan Profiles</span>
-            </div>
 
             {/* Settings in mobile only shown when logged in */}
             {isAuthenticated && (
