@@ -1,7 +1,9 @@
-import React from "react";
-import { CheckCircle, Tag } from "lucide-react";
+import React, { useRef } from "react";
+import { CheckCircle, Printer } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 import ContentWrapper from "@/components/shared/ContentWrapper";
+import Invoice from "@/components/shared/Invoice";
 
 export default function OrderSuccessPage() {
   const navigate = useNavigate();
@@ -10,159 +12,188 @@ export default function OrderSuccessPage() {
   const order = location?.state?.order;
   const data = order?.value;
 
+  const invoiceRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    contentRef: invoiceRef,
+  });
+
   if (!data) return null;
 
-  // Read taxPercent directly from backend — it's on each order item
   const taxPercent = data.orderItems?.[0]?.taxPercent ?? null;
 
   return (
     <ContentWrapper>
-      <div className="lg:mt-28 max-w-4xl mx-auto p-6 space-y-8">
-        {/* Success Message */}
-        <div className="text-center space-y-3">
-          <CheckCircle className="mx-auto text-green-500 w-16 h-16" />
-          <h1 className="text-3xl font-semibold">Order Placed Successfully!</h1>
-          <p className="text-gray-500">
-            Thank you for your purchase. Your order has been confirmed.
-          </p>
+      <div className="lg:mt-28 max-w-5xl mx-auto px-4 pt-8">
 
-          <p className="text-lg font-medium flex items-center justify-between flex-wrap ">
-            <span>
-              Order ID:
-              <span
-                onClick={() => navigate(`/orderdetails/${data.id}`)}
-                className="ml-1 text-[var(--color-secondary)] underline underline-offset-2 cursor-pointer hover:opacity-75 transition-opacity"
+    
+        <div className="bg-white border rounded-md shadow-sm">
+
+          {/* HEADER */}
+          <div className="p-6 border-b">
+            <div className="flex flex-col sm:flex-row justify-between gap-4">
+
+              <div className="flex items-start gap-3">
+                <CheckCircle className="text-green-600 w-7 h-7 mt-1" />
+                <div>
+                  <h1 className="text-lg font-semibold text-green-700">
+                    Order placed successfully
+                  </h1>
+                  <p className="text-sm text-gray-600">
+                    Thank you for shopping with us.
+                  </p>
+                  <p className="text-sm mt-1">
+                    Order ID:
+                    <span
+                      onClick={() => navigate(`/orderdetails/${data.id}`)}
+                      className="ml-1 text-blue-600 cursor-pointer hover:underline"
+                    >
+                      #{data.id}
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <button
+                  onClick={() => navigate(`/orderdetails/${data.id}`)}
+                  className="px-2 py-1 text-sm  hover:bg-gray-50"
+                >
+                  View Order
+                </button>
+
+                <button
+                  onClick={handlePrint}
+                  className="px-2 py-1 text-sm  flex items-center gap-2 hover:bg-gray-50"
+                >
+                  <Printer className="w-4 h-4" />
+                  Invoice
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          {/* ITEMS */}
+          <div className="p-6 border-b">
+            <h2 className="font-semibold mb-4 text-gray-800">
+              Order Items
+            </h2>
+
+            {data.orderItems.map((item) => (
+              <div
+                key={item.id}
+                className="flex justify-between py-3 border-b last:border-none"
               >
-                #{data.id}
-              </span>
-            </span>
+                <div>
+                  <p className="text-sm font-medium text-gray-800">
+                    Product ID: {item.productId}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    Qty: {item.quantity}
+                  </p>
+                </div>
+
+                <p className="text-sm font-medium text-gray-800">
+                  ₹{Number(item.productPrice).toFixed(2)}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* SUMMARY */}
+          <div className="p-6 border-b">
+            <h2 className="font-semibold mb-3 text-gray-800">
+              Order Summary
+            </h2>
+
+            <div className="space-y-2 text-sm">
+
+              <div className="flex justify-between">
+                <span>Subtotal</span>
+                <span>₹{Number(data.subTotal).toFixed(2)}</span>
+              </div>
+
+              {data.couponCode && (
+                <div className="flex justify-between text-green-600">
+                  <span>Discount ({data.couponCode})</span>
+                  <span>- ₹{Number(data.discountAmount).toFixed(2)}</span>
+                </div>
+              )}
+
+              <div className="flex justify-between">
+                <span>
+                  Tax {taxPercent && `(${taxPercent}%)`}
+                </span>
+                <span>₹{Number(data.taxAmount).toFixed(2)}</span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>Shipping</span>
+                <span>{data.shippingMethod}</span>
+              </div>
+
+              <div className="flex justify-between font-semibold border-t pt-2">
+                <span>Total</span>
+                <span>₹{Number(data.orderTotal).toFixed(2)}</span>
+              </div>
+
+            </div>
+          </div>
+
+          {/* ADDRESS + PAYMENT */}
+          <div className="p-6 grid md:grid-cols-2 gap-6 border-b">
+
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-2">
+                Delivery Address
+              </h3>
+              <p className="text-sm">{data.shippingAddress.contactName}</p>
+              <p className="text-sm text-gray-600">
+                {data.shippingAddress.phone}
+              </p>
+              <p className="text-sm text-gray-700 mt-1">
+                {data.shippingAddress.addressLine1}
+              </p>
+              <p className="text-sm text-gray-700">
+                {data.shippingAddress.city} -{" "}
+                {data.shippingAddress.zipCode}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-2">
+                Payment Method
+              </h3>
+              <p className="text-sm">{data.paymentMethod}</p>
+            </div>
+
+          </div>
+
+          {/* ACTIONS */}
+          <div className="p-6 flex justify-between items-center">
+            <button
+              onClick={() => navigate("/")}
+              className="text-sm text-blue-600 hover:underline"
+            >
+              Continue Shopping
+            </button>
 
             <button
-              onClick={() => navigate(`/orderdetails/${data.id}`)}
-              className="px-6 py-2 border rounded-lg text-sm "
+              onClick={() => navigate("/order")}
+              className="px-5 py-2 bg-yellow-400 hover:bg-yellow-500 text-black text-sm font-medium rounded-md"
             >
-              View your item
+              Your Orders
             </button>
-          </p>
-        </div>
-
-        {/* Coupon Code — shown only if present */}
-        {data.couponCode && (
-          <div className="flex items-center gap-3 bg-green-50 border border-green-200 rounded-xl px-5 py-4">
-            <Tag className="text-green-600 w-5 h-5 shrink-0" />
-            <div className="flex-1">
-              <p className="text-sm text-green-700 font-medium">
-                Coupon Applied
-              </p>
-              <p className="text-base font-semibold tracking-widest text-green-800">
-                {data.couponCode}
-              </p>
-            </div>
-            <span className="text-green-700 font-semibold text-sm whitespace-nowrap">
-              - ₹ {Number(data.discountAmount).toFixed(2)} off
-            </span>
-          </div>
-        )}
-
-        {/* Order Items */}
-        <div className="bg-white shadow rounded-xl p-6">
-          <h2 className="text-lg font-semibold mb-4">Order Items</h2>
-          {data.orderItems.map((item) => (
-            <div key={item.id} className="flex justify-between border-b py-3">
-              <div>
-                <p className="font-medium">Product ID: {item.productId}</p>
-                <p className="text-sm text-gray-500">
-                  Quantity: {item.quantity}
-                </p>
-                {item.discountAmount > 0 && (
-                  <p className="text-sm text-green-600">
-                    Discount: - ₹ {Number(item.discountAmount).toFixed(2)}
-                  </p>
-                )}
-              </div>
-              <p className="font-medium">
-                ₹ {Number(item.productPrice).toFixed(2)}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Order Summary */}
-        <div className="bg-white shadow rounded-xl p-6 space-y-2">
-          <h2 className="text-lg font-semibold mb-3">Order Summary</h2>
-
-          <div className="flex justify-between">
-            <span>Subtotal</span>
-            <span>₹ {Number(data.subTotal).toFixed(2)}</span>
           </div>
 
-          {data.couponCode && (
-            <div className="flex justify-between text-green-600">
-              <span className="flex items-center gap-1">
-                <Tag className="w-4 h-4" />
-                Coupon ({data.couponCode})
-              </span>
-              <span>- ₹ {Number(data.discountAmount).toFixed(2)}</span>
-            </div>
-          )}
-
-          <div className="flex justify-between">
-            <span className="flex items-center">
-              Tax
-              {taxPercent !== null && <span>@{taxPercent}%</span>}
-            </span>
-            <span>₹ {Number(data.taxAmount).toFixed(2)}</span>
-          </div>
-
-          <div className="flex justify-between">
-            <span>Shipping</span>
-            <span>{data.shippingMethod}</span>
-          </div>
-
-          <div className="flex justify-between font-semibold text-lg pt-2 border-t">
-            <span>Total</span>
-            <span>₹ {Number(data.orderTotal).toFixed(2)}</span>
-          </div>
         </div>
 
-        {/* Shipping Address */}
-        <div className="bg-white shadow rounded-xl p-6 overflow-hidden">
-          <h2 className="text-lg font-semibold mb-3">Delivery Address</h2>
-
-          <p className="break-words">{data.shippingAddress.contactName}</p>
-          <p className="break-words">{data.shippingAddress.phone}</p>
-
-          <p className="break-words">
-            {data.shippingAddress.addressLine1},{" "}
-            {data.shippingAddress.addressLine2}
-          </p>
-
-          <p className="break-words">
-            {data.shippingAddress.city} - {data.shippingAddress.zipCode}
-          </p>
+        {/* PRINT */}
+        <div className="hidden">
+          <Invoice ref={invoiceRef} order={data} />
         </div>
 
-        {/* Payment */}
-        <div className="bg-white shadow rounded-xl p-6">
-          <h2 className="text-lg font-semibold mb-2">Payment Method</h2>
-          <p>{data.paymentMethod}</p>
-        </div>
-
-        {/* Actions */}
-        <div className="flex justify-center gap-4">
-          <button
-            onClick={() => navigate(`/order`)}
-            className="px-6 py-2 bg-black text-white rounded-lg"
-          >
-            View Orders
-          </button>
-          <button
-            onClick={() => navigate("/")}
-            className="px-6 py-2 border rounded-lg"
-          >
-            Continue Shopping
-          </button>
-        </div>
       </div>
     </ContentWrapper>
   );
