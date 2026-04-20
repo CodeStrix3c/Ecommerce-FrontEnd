@@ -286,8 +286,8 @@ const ManageAddress = () => {
 
       {showForm && (
         <div className="fixed inset-0 bg-black/40 z-50 flex justify-center items-center">
-          <div className="bg-white w-full sm:max-w-lg rounded-lg p-6 max-h-[90vh] overflow-y-auto relative">
-            <div className="flex justify-between mb-4">
+          <div className="bg-white w-full sm:max-w-lg rounded-lg max-h-[90vh] flex flex-col relative">
+            <div className="flex justify-between px-6 py-4 border-b flex-shrink-0">
               <h3 className="text-lg font-semibold">
                 {editId ? "Edit Address" : "Add New Address"}
               </h3>
@@ -305,50 +305,58 @@ const ManageAddress = () => {
               <p className="text-center py-10">Loading address...</p>
             ) : (
               <FormProvider {...methods}>
-                <div className="grid gap-3">
-                  <Inputs name="name" label="Full Name" required />
-                  <Inputs name="phone" label="Phone" required type="phone" />
-                  <FormTextArea
-                    name="addressLine1"
-                    label="Address Line 1"
-                    register={register}
-                    errors={errors.addressLine1}
-                    required
-                  />
-                  <FormTextArea
-                    name="addressLine2"
-                    label="Address Line 2"
-                    register={register}
-                    required={false}
-                    errors={errors.addressLine2}
-                  />
-                  <SelectInputs
-                    name="country"
-                    label="Country"
-                    options={countryOptions}
-                  />
-                  <SelectInputs
-                    name="state"
-                    label="State"
-                    options={stateOptions}
-                    disabled={!countryId}
-                  />
-                  <SelectInputs
-                    name="district"
-                    label="District"
-                    options={districtOptions}
-                    disabled={!stateId}
-                  />
-                  <Inputs name="city" label="City" required />
-                  <Inputs
-                    name="pincode"
-                    label="Pincode"
-                    type="pincode"
-                    required
-                    errors={errors.pincode}
-                  />
+                <div className="flex flex-col flex-1 min-h-0">
+                  {/* Scrollable fields */}
+                  <div
+                    className="px-6 py-4 flex-1 overflow-y-auto grid gap-3"
+                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                  >
+                    <style>{`div::-webkit-scrollbar { display: none; }`}</style>
+                    <Inputs name="name" label="Full Name" required />
+                    <Inputs name="phone" label="Phone" required type="phone" />
+                    <FormTextArea
+                      name="addressLine1"
+                      label="Address Line 1"
+                      register={register}
+                      errors={errors.addressLine1}
+                      required
+                    />
+                    <FormTextArea
+                      name="addressLine2"
+                      label="Address Line 2"
+                      register={register}
+                      required={false}
+                      errors={errors.addressLine2}
+                    />
+                    <SelectInputs
+                      name="country"
+                      label="Country"
+                      options={countryOptions}
+                    />
+                    <SelectInputs
+                      name="state"
+                      label="State"
+                      options={stateOptions}
+                      disabled={!countryId}
+                    />
+                    <SelectInputs
+                      name="district"
+                      label="District"
+                      options={districtOptions}
+                      disabled={!stateId}
+                    />
+                    <Inputs name="city" label="City" required />
+                    <Inputs
+                      name="pincode"
+                      label="Pincode"
+                      type="pincode"
+                      required
+                      errors={errors.pincode}
+                    />
+                  </div>
 
-                  <div className="flex gap-3 mt-4 justify-end">
+                  {/* Sticky footer */}
+                  <div className="flex gap-3 px-6 py-4 justify-end border-t flex-shrink-0">
                     <button
                       type="button"
                       onClick={() => {
