@@ -7,8 +7,7 @@ import {
   Map,
   Tag,
 } from "lucide-react";
-import leftLeaf from "/assets/images/left-leaf.png";
-import rightLeaf from "/assets/images/right-leaf.png";
+
 import RatingSummary from "./Ratings";
 
 export default function LeftPanel() {
@@ -97,7 +96,7 @@ export default function LeftPanel() {
       </div>
 
       {/* ---------- Mobile View ---------- */}
-      <div className="block p-5 md:hidden">
+      {/* <div className="block p-5 md:hidden">
         <div className="mb-6 text-center">
           <div className="flex items-center justify-center gap-2">
             <img src={leftLeaf} alt="left leaf" className="h-8 w-8" />
@@ -126,7 +125,7 @@ export default function LeftPanel() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
