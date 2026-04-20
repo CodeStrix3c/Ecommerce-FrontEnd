@@ -36,7 +36,7 @@ const TrendingProducts = ({ data, isLoading }) => {
           <h2 className="text-3xl md:text-4xl font-serif text-[var(--color-black)] mb-3">
             Trending Now
           </h2>
-          <p className="text-[var(--color-primary)] font-light italic text-sm md:text-base">
+          <p className="text-[var(--color-black)] text-lg  pb-10">
             The most coveted artisanal creations from the heart of the valley.
           </p>
         </div>
