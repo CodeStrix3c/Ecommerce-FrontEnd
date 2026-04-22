@@ -9,7 +9,7 @@ const BestDeals = ({ data, isLoading }) => {
   const scroll = (direction) => {
     const { current } = scrollRef;
     if (current) {
-      const scrollAmount = 400; // Adjust based on card width
+      const scrollAmount = 400;
       current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -19,35 +19,35 @@ const BestDeals = ({ data, isLoading }) => {
 
   if (isLoading)
     return (
-      <div className="py-10 text-center text-stone-500 font-serif">
+      <div className="py-10 text-center text-stone-500 font-serif animate-pulse">
         Curating Best Deals...
       </div>
     );
   if (!data?.deals || data.deals.length === 0) return null;
 
   return (
-    <section className="pt-16 bg-white relative group">
+    <section className="pt-16 bg-white relative">
       <div className="mb-2 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="text-left">
           <h2 className="text-3xl md:text-4xl font-serif text-[var(--color-black)] mb-2">
             Timeless Treasures
           </h2>
-          <p className=" text-[var(--color-black)] text-lg pb-10">
+          <p className="text-[var(--color-black)] text-lg pb-10">
             Exquisite hand-crafted pieces at exceptional value.
           </p>
         </div>
 
         {/* Navigation Arrows for Desktop */}
-        <div className="hidden md:flex gap-3">
+        <div className="hidden md:flex gap-3 mb-2">
           <button
             onClick={() => scroll("left")}
-            className="p-3 rounded-full border border-stone-200 text-stone-600 hover:bg-[var(--color-primary)] hover:text-white transition-all"
+            className="p-3 rounded-full border border-stone-200 text-stone-600 hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-sm"
           >
             <ChevronLeft size={20} />
           </button>
           <button
             onClick={() => scroll("right")}
-            className="p-3 rounded-full border border-stone-200 text-stone-600 hover:bg-[var(--color-primary)] hover:text-white transition-all"
+            className="p-3 rounded-full border border-stone-200 text-stone-600 hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-sm"
           >
             <ChevronRight size={20} />
           </button>
@@ -64,33 +64,36 @@ const BestDeals = ({ data, isLoading }) => {
           <div
             key={item.vendorProductId}
             onClick={() => navigate(`/place/${item.productId}`)}
-            className="min-w-[280px] md:min-w-[320px] group cursor-pointer"
+            className="min-w-[280px] md:min-w-[320px] group cursor-pointer flex flex-col"
           >
             {/* Image Container */}
-            <div className="relative h-[400px] overflow-hidden bg-stone-100 mb-4 rounded-lg">
-              <div className="absolute top-3 right-3 z-10 bg-[var(--color-secondary)] text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider">
+            <div
+              className="relative w-full overflow-hidden bg-stone-100 mb-4 rounded-sm"
+              style={{ aspectRatio: "3/4" }}
+            >
+              <div className="absolute top-3 right-3 z-10 bg-[var(--color-secondary)] text-white text-[9px] font-bold px-2 py-1 uppercase tracking-[0.1em]">
                 {Math.round(item.savingsPercentage)}% Off
               </div>
               <img
                 src={item.thumbnail}
                 alt={item.productName}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
             </div>
 
             {/* Product Info */}
-            <div className="space-y-1">
-              <h3 className="text-sm font-medium text-stone-800 uppercase tracking-tight transition-colors group-hover:text-[var(--color-primary)] line-clamp-1">
+            <div className="flex flex-col flex-grow">
+              <h3 className="text-xs md:text-sm font-medium text-stone-800 uppercase tracking-wide mb-2 line-clamp-1 group-hover:text-[var(--color-primary)] transition-colors duration-300">
                 {item.productName}
               </h3>
-              <div className="flex items-center gap-3">
-                <span className="text-lg font-bold text-[var(--color-primary)]">
+              {/* <div className="mt-auto flex items-baseline gap-3">
+                <span className="text-base md:text-lg font-bold text-[var(--color-primary)]">
                   ₹{item.discountedPrice.toLocaleString()}
                 </span>
-                <span className="text-sm text-stone-400 line-through">
+                <span className="text-xs md:text-sm text-stone-400 line-through">
                   ₹{item.originalPrice.toLocaleString()}
                 </span>
-              </div>
+              </div> */}
             </div>
           </div>
         ))}
