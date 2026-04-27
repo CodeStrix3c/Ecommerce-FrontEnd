@@ -7,7 +7,7 @@ const PACKS = [
     name: "Royal Nikah Velvet",
     price: "850",
     ribbon: "#FFD700", // Gold
-    img: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=500&q=80",
+    img: "https://i.etsystatic.com/46240082/r/il/2cb0ad/6048710508/il_800x800.6048710508_gp9t.jpg",
     texture: "https://www.transparenttextures.com/patterns/natural-paper.png",
     accent: "#b22222",
     occasion: "Wedding & Nikah",
@@ -28,7 +28,7 @@ const PACKS = [
     name: "Festive Chinar Red",
     price: "350",
     ribbon: "#ffffff",
-    img: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=600&q=80",
+    img: "https://i.etsystatic.com/15513349/r/il/85510b/5975739618/il_1588xN.5975739618_rit2.jpg",
     texture: "https://www.transparenttextures.com/patterns/pinstripe.png",
     accent: "#e63946",
     occasion: "Birthday Special",
@@ -62,7 +62,7 @@ const Face = memo(
           height: S,
           transform: styleTransform,
           opacity: xray ? 0.15 : assembled ? 1 : 0,
-          backgroundColor: pkg.accent || "#111",
+          // backgroundColor: pkg.accent || "#111",
           backgroundImage: `
           linear-gradient(rgba(0,0,0,${1 - brightness}), rgba(0,0,0,${1 - brightness})), 
           url(${pkg.img}), 
