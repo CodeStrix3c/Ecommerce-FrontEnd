@@ -33,13 +33,13 @@ export default function OrderDetails() {
 
   const taxPercent = order?.orderItems?.[0]?.taxPercent ?? null;
 
+  console.log(order, "order is...");
+
   return (
     <ContentWrapper>
       <div className="pt-12 lg:pt-28 max-w-5xl mx-auto px-4">
-
         {/* SINGLE MAIN CONTAINER */}
         <div className="bg-white rounded-xl shadow-md p-6 space-y-6">
-
           {/* HEADER */}
           <div className="flex justify-between items-start border-b pb-4">
             <div className="flex items-center gap-3">
@@ -48,9 +48,7 @@ export default function OrderDetails() {
                 <h2 className="text-lg font-semibold text-gray-800">
                   Order Placed
                 </h2>
-                <p className="text-sm text-gray-500">
-                  Order ID: #{orderId}
-                </p>
+                <p className="text-sm text-gray-500">Order ID: #{orderId}</p>
               </div>
             </div>
 
@@ -75,23 +73,16 @@ export default function OrderDetails() {
 
             <div>
               <p className="text-gray-500">Payment</p>
-              <p className="font-medium text-gray-800">
-                {order.paymentMethod}
-              </p>
+              <p className="font-medium text-gray-800">{order.paymentMethod}</p>
             </div>
           </div>
 
           {/* ITEMS */}
           <div className="border-t pt-4 space-y-4">
-            <h3 className="font-semibold text-gray-800">
-              Items
-            </h3>
+            <h3 className="font-semibold text-gray-800">Items</h3>
 
             {order.orderItems.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center gap-4"
-              >
+              <div key={item.id} className="flex items-center gap-4">
                 <img
                   src={item.productImage}
                   alt={item.productName}
@@ -102,9 +93,7 @@ export default function OrderDetails() {
                   <p className="text-sm font-medium text-gray-800">
                     {item.productName}
                   </p>
-                  <p className="text-xs text-gray-500">
-                    Qty: {item.quantity}
-                  </p>
+                  <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
                 </div>
 
                 <p className="text-sm font-semibold text-gray-800">
@@ -116,9 +105,7 @@ export default function OrderDetails() {
 
           {/* SUMMARY */}
           <div className="border-t pt-4 text-sm space-y-2">
-            <h3 className="font-semibold text-gray-800">
-              Summary
-            </h3>
+            <h3 className="font-semibold text-gray-800">Summary</h3>
 
             <div className="flex justify-between text-gray-600">
               <span>Subtotal</span>
@@ -131,9 +118,7 @@ export default function OrderDetails() {
             </div>
 
             <div className="flex justify-between text-gray-600">
-              <span>
-                Tax {taxPercent !== null && `(@${taxPercent}%)`}
-              </span>
+              <span>Tax {taxPercent !== null && `(@${taxPercent}%)`}</span>
               <span>₹{order.taxAmount.toFixed(2)}</span>
             </div>
 
@@ -154,12 +139,8 @@ export default function OrderDetails() {
               Delivery Address
             </h3>
 
-            <p className="font-medium">
-              {order.shippingAddress.contactName}
-            </p>
-            <p className="text-gray-600">
-              {order.shippingAddress.phone}
-            </p>
+            <p className="font-medium">{order.shippingAddress.contactName}</p>
+            <p className="text-gray-600">{order.shippingAddress.phone}</p>
 
             <p className="mt-1 text-gray-700">
               {order.shippingAddress.addressLine1}
@@ -171,9 +152,7 @@ export default function OrderDetails() {
               {order.shippingAddress.cityName},{" "}
               {order.shippingAddress.stateOrProvinceName}
             </p>
-            <p className="text-gray-700">
-              {order.shippingAddress.zipCode}
-            </p>
+            <p className="text-gray-700">{order.shippingAddress.zipCode}</p>
           </div>
 
           {/* ACTIONS */}
@@ -195,7 +174,6 @@ export default function OrderDetails() {
         <div className="hidden print:block">
           <Invoice ref={invoiceRef} order={order} />
         </div>
-
       </div>
     </ContentWrapper>
   );
