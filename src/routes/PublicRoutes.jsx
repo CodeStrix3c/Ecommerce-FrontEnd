@@ -17,6 +17,8 @@ import Sitemap from "@/features/privacy-policies/pages/Sitemap";
 import ForgotPasswordPage from "@/features/auth/pages/ForgotPassword";
 import LandingPage from "@/features/landingpage/landingPage";
 import Heritage from "@/features/heritage/Heritage";
+import ProductlandingPage from "@/features/vendorsProductPages/productlandingPage";
+
 
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
@@ -64,6 +66,7 @@ export default [
       <Route index element={<LandingPage />} />
       <Route index element={<Navigate to="/home" replace />} />
       <Route path="/home" element={<IndexPage />} />
+      <Route path="/vendorslandingpage" element={<ProductlandingPage />} />
       <Route path="/woodcraft" element={<WoodcraftPage />} />
       <Route path="/metals" element={<MetalsCraftPage />} />
       <Route path="/about-us" element={<AboutUs />} />
@@ -74,7 +77,7 @@ export default [
       <Route path="/terms" element={<Terms />} />
       <Route path="/sitemap" element={<Sitemap />} />
       <Route path="/company-details" element={<CompanyDetails />} />
-       <Route path="/heritage" element={<Heritage/>} />
+      <Route path="/heritage" element={<Heritage />} />
 
       {/* Resources */}
       <Route
