@@ -267,8 +267,8 @@ const UserHome = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {isLoading && currentPage === 1
               ? Array.from({ length: 8 }).map((_, i) => (
-                <ProductSkeleton key={i} />
-              ))
+                  <ProductSkeleton key={i} />
+                ))
               : allProducts.length > 0
                 ? allProducts.map((product) => (
                     <PlaceCard
@@ -279,18 +279,11 @@ const UserHome = () => {
                       onToggleWishlist={() => toggleWishlist(product)}
                     />
                   ))
-                  <PlaceCard
-                    key={product.id}
-                    place={product}
-                    loading={false}
-                    onToggleWishlist={() => toggleWishlist(product)}
-                  />
-                ))
                 : !isLoading && (
-                  <div className="col-span-full py-20 text-center text-gray-700 text-sm  font-medium">
-                    No products found...
-                  </div>
-                )}
+                    <div className="col-span-full py-20 text-center text-gray-700 text-sm  font-medium">
+                      No products found...
+                    </div>
+                  )}
           </div>
 
           {isLoadingMore && (
@@ -324,7 +317,7 @@ const UserHome = () => {
               <div className="flex flex-col items-center gap-2">
                 <div className="w-16 h-0.5 bg-gray-200 rounded-full" />
                 <p className="text-sm text-gray-400 font-medium">
-                  You've reached the end.
+                  You've reached the end
                 </p>
               </div>
             </div>
