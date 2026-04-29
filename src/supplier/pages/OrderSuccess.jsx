@@ -10,7 +10,8 @@ export default function OrderSuccessPage() {
   const location = useLocation();
 
   const order = location?.state?.order;
-  console.log(order, "order in ordersucess");
+  console.log(order.value.id, "order in ordersucess");
+  localStorage.setItem("livePayOrderId", order?.value?.id);
 
   const data = order?.value;
 

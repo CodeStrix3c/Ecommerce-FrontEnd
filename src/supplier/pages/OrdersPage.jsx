@@ -16,15 +16,21 @@ export default function OrdersPage() {
   console.log("orders page...");
 
   useEffect(() => {
-    // if (!orders.length) return;
+    const transferId = localStorage.getItem("transferId");
+    const livePayOrderId = localStorage.getItem("livePayOrderId");
+
+    if (!orders.length || !transferId || !livePayOrderId) return;
 
     orders.forEach((order) => {
-      const transferId = localStorage.getItem("transferId");
-
-      if (order.orderStatusString === "Complete" && transferId) {
+      if (
+        order.orderStatusString === "Complete" &&
+        String(order.id) === String(livePayOrderId)
+      ) {
         handleReleasePayment(transferId);
 
-        // localStorage.removeItem("transferId");
+        // Optional cleanup (recommended to prevent duplicate calls)
+        localStorage.removeItem("transferId");
+        localStorage.removeItem("livePayOrderId");
       }
     });
   }, [orders]);
