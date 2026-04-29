@@ -274,6 +274,7 @@ const UserHome = () => {
                     <PlaceCard
                       key={product.id}
                       place={product}
+                      pm
                       loading={false}
                       onToggleWishlist={() => toggleWishlist(product)}
                     />

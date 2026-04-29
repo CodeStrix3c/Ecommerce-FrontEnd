@@ -133,12 +133,18 @@ const DropdownPanel = ({ open, onClose }) => {
           <span>Help & Support</span>
         </div>
 
+<<<<<<< HEAD
      
      
 
       
 
         
+=======
+       
+
+  
+>>>>>>> 01d758771759e6a4e4a445c8bfde2a2c38877034
 
         {/* Mobile Extra Options */}
         {isMobile && (
@@ -148,7 +154,10 @@ const DropdownPanel = ({ open, onClose }) => {
               <span>Handicraft Categories</span>
             </div>
 
+<<<<<<< HEAD
             
+=======
+>>>>>>> 01d758771759e6a4e4a445c8bfde2a2c38877034
 
             {/* Settings in mobile only shown when logged in */}
             {isAuthenticated && (

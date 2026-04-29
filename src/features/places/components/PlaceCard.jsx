@@ -54,9 +54,8 @@ const PlaceCard = ({ place, loading }) => {
               src={image}
               alt={title}
               loading="lazy"
-              className={`h-full w-full object-cover transition-transform hover:scale-105 ${
-                isOutOfStock ? "grayscale-[0.5]" : ""
-              }`}
+              className={`h-full w-full object-fill transition-transform hover:scale-105 ${isOutOfStock ? "grayscale-[0.5]" : ""
+                }`}
             />
           </div>
 
@@ -75,9 +74,8 @@ const PlaceCard = ({ place, loading }) => {
             aria-label="Toggle Wishlist"
           >
             <Heart
-              className={`h-5 w-5 transition-colors ${
-                isWishlisted ? "fill-red-500 stroke-red-500" : "stroke-gray-700"
-              }`}
+              className={`h-5 w-5 transition-colors ${isWishlisted ? "fill-red-500 stroke-red-500" : "stroke-gray-700"
+                }`}
             />
           </button>
         </div>
