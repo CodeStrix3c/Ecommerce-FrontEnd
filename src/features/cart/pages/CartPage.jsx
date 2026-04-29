@@ -9,7 +9,6 @@ import EmptyState from "@/components/shared/EmptyState";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "react-toastify";
-import ShippingSelector from "../components/ShippingSelector";
 
 const CartPage = () => {
   const {
@@ -163,8 +162,6 @@ const CartPage = () => {
             </div>
           )}
         </div>
-
-        {/* <ShippingSelector /> */}
       </ContentWrapper>
 
       {/* MOBILE BAR */}
