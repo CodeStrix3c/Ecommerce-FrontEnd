@@ -182,7 +182,7 @@ const NavBar = () => {
                 <div
                   className="
                   absolute left-0 top-full mt-3
-                  min-w-[14rem]
+                  min-w-[18rem]
                   bg-white border rounded-lg shadow-lg
                   opacity-0 invisible translate-y-2
                   transition-all duration-200
