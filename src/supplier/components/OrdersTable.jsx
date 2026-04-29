@@ -34,7 +34,7 @@ export default function OrdersTable({
     const matchesSearch =
       order.id.toString().includes(searchLower) ||
       order.orderItems.some((item) =>
-        item.productName.toLowerCase().includes(searchLower)
+        item.productName.toLowerCase().includes(searchLower),
       );
 
     let matchesDate = true;
