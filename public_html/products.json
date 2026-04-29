@@ -1,0 +1,640 @@
+[
+  {
+    "_id": "101",
+    "title": "Kashmiri Samawar",
+    "category": "Metal Craft",
+    "address": "Srinagar, Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/Samawar/Samavar-1.webp",
+      "/assets/images/handiCraftImages/Samawar/Samavar-2.webp",
+      "/assets/images/handiCraftImages/Samawar/Samavar-4.webp",
+      "/assets/images/handiCraftImages/Samawar/samavar-5.webp"
+    ],
+    "description": "Traditional hand-carved copper Samawar used for brewing authentic Kashmiri Kahwa. Featuring intricate floral engravings and a classic tinned inner lining for safety and durability.",
+    "price": 4500,
+    "inStock": true,
+    "perks": [
+      "Pure Copper",
+      "Hand-Engraved",
+      "Heritage Design"
+    ],
+    "extraInfo": "Best for home decor and traditional tea serving.",
+    "rating": 4.2
+  },
+  {
+    "_id": "102",
+    "title": "Papier Mache jewellery Box",
+    "category": "Home Decor",
+    "address": "Kashmir, India",
+    "photos": [
+      "/assets/images/handiCraftImages/Paper-mache/paper-machie-1.webp",
+      "/assets/images/handiCraftImages/Paper-mache/paper-machie-2.webp",
+      "/assets/images/handiCraftImages/Paper-mache/paper-machie-3.webp",
+      "/assets/images/handiCraftImages/Paper-mache/paper-machie-4.webp"
+    ],
+    "description": "Exquisite hand-painted Papier Mache box with 'Gul-e-Wilayat' motifs. Made using recycled paper pulp and organic colors by master artisans.",
+    "price": 1200,
+    "inStock": true,
+    "perks": [
+      "Hand-Painted",
+      "Eco-Friendly",
+      "Intricate Art"
+    ],
+    "extraInfo": "Perfect for storing small jewellery and trinkets.",
+    "rating": 3.7
+  },
+  {
+    "_id": "103",
+    "title": "Walnut Wood Bowl",
+    "category": "Woodcraft",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/Hand-made things/walnut-wood.webp",
+      "/assets/images/handiCraftImages/Hand-made things/kashmiri-walnut-items.webp",
+      "/assets/images/handiCraftImages/Hand-made things/walnut-items-4.webp",
+      "/assets/images/handiCraftImages/Hand-made things/walnut-wood.webp"
+    ],
+    "description": "Crafted from a single piece of seasoned Walnut wood. This bowl features a beautiful natural grain and deep brown hue, characteristic of authentic Kashmiri woodcraft.",
+    "price": 1800,
+    "inStock": true,
+    "perks": [
+      "Seasoned Wood",
+      "No Joints",
+      "Durable"
+    ],
+    "extraInfo": "Food safe; polished with natural beeswax.",
+    "rating": 4.1
+  },
+  {
+    "_id": "104",
+    "title": "Pashmina Shawl - Hand Embroidered",
+    "category": "Textiles",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/pashminaShawl/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/pashminaShawl/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/pashminaShawl/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/pashminaShawl/img4.webp"
+    ],
+    "description": "Luxuriously soft and warm Pashmina shawl featuring Sozni hand-embroidery. A masterpiece of patience and skill, taking months to complete by hand.",
+    "price": 15000,
+    "inStock": true,
+    "perks": [
+      "100% Pashmina",
+      "Hand-Spun",
+      "Authentic GI Tag"
+    ],
+    "extraInfo": "Dry clean only. Keeps you warm in sub-zero temperatures.",
+    "rating": 4.0
+  },
+  {
+    "_id": "105",
+    "title": "Crewel Embroidered Cushion Cover",
+    "category": "Hand Embroidery",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/cushionCover/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/cushionCover/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/cushionCover/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/cushionCover/img4.webp"
+    ],
+    "description": "Hand-embroidered wool yarn on heavy cotton canvas. Features traditional floral chain-stitch patterns that add a vibrant touch to any living room.",
+    "price": 850,
+    "inStock": true,
+    "perks": [
+      "Chain Stitch",
+      "Wool Embroidery",
+      "Long-Lasting"
+    ],
+    "extraInfo": "Zipper closure at the back. Size 16x16 inches.",
+    "rating": 3.6
+  },
+  {
+    "_id": "106",
+    "title": "Tweed Jacket - Handwoven",
+    "category": "Textiles",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/jacket/img4.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jacket/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jacket/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jacket/img1.webp"
+    ],
+    "description": "Handwoven wool tweed jacket. Merges traditional warmth with contemporary style. Breathable, durable, and naturally water-resistant.",
+    "price": 4500,
+    "inStock": true,
+    "perks": [
+      "Pure Wool",
+      "Hand-Woven",
+      "Sustainable"
+    ],
+    "extraInfo": "Available in various sizes and natural earth tones.",
+    "rating": 4.7
+  },
+  {
+    "_id": "107",
+    "title": "Copper Serving Platter",
+    "category": "Metal Craft",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/servingCopperPlate/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/servingCopperPlate/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/servingCopperPlate/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/servingCopperPlate/img4.webp"
+    ],
+    "description": "Classic hammered copper platter with a silver-tin coating on the surface. Ideal for serving traditional meals or as a decorative wall piece.",
+    "price": 2200,
+    "inStock": true,
+    "perks": [
+      "Hammered Texture",
+      "Food Safe",
+      "Artisanal"
+    ],
+    "extraInfo": "Authentic 'Naqashi' work around the edges.",
+    "rating": 4.5
+  },
+  {
+    "_id": "108",
+    "title": "Willow Wicker Basket",
+    "category": "Basketry",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/willowBasket/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/willowBasket/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/willowBasket/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/willowBasket/img4.webp"
+    ],
+    "description": "Sturdy and elegant basket woven from the finest willow twigs. Perfect for picnics, storage, or as a sustainable gift hamper base.",
+    "price": 950,
+    "inStock": true,
+    "perks": [
+      "Eco-Friendly",
+      "Lightweight",
+      "Handcrafted"
+    ],
+    "extraInfo": "Locally known as 'Keani' craft.",
+    "rating": 4.4
+  },
+  {
+    "_id": "122",
+    "title": "Pure Silk Stole - Hand Painted",
+    "category": "Textiles",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/silkStole/img2.webp",
+      "/assets/images/handiCraftImages/silkStole/img1.webp",
+      "/assets/images/handiCraftImages/silkStole/img3.webp",
+      "/assets/images/handiCraftImages/silkStole/img4.webp"
+    ],
+    "description": "Soft mulberry silk stole with hand-painted floral borders.",
+    "price": 2200,
+    "inStock": true,
+    "perks": [
+      "Pure Silk",
+      "Artistic",
+      "Lightweight"
+    ],
+    "extraInfo": "Can be worn as a scarf or head wrap.",
+    "rating": 4.7
+  },
+  {
+    "_id": "124",
+    "title": "Woolen Kani Shawl",
+    "category": "Textiles",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/woolenKaniShawl/kanishawl.webp",
+      "/assets/images/handiCraftImages/woolenKaniShawl/img1.webp",
+      "/assets/images/handiCraftImages/woolenKaniShawl/img2.webp",
+      "/assets/images/handiCraftImages/woolenKaniShawl/img3.webp"
+    ],
+    "description": "Richly woven shawl using the Kani loom technique, featuring a full-body multicolored pattern.",
+    "price": 8500,
+    "inStock": true,
+    "perks": [
+      "Warm",
+      "Complex Design",
+      "Timeless"
+    ],
+    "extraInfo": "Reversible design with different color depth.",
+    "rating": 4.9
+  },
+  {
+    "_id": "109",
+    "title": "Kani Weave Scarf",
+    "category": "Textiles",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/kaniScarf/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/kaniScarf/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/kaniScarf/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/kaniScarf/img4.webp"
+    ],
+    "description": "Woven on a traditional loom using small wooden needles called 'Kani'. This scarf features a complex interlocking pattern of colors.",
+    "price": 3200,
+    "inStock": true,
+    "perks": [
+      "Complex Weave",
+      "Soft Texture",
+      "Traditional Art"
+    ],
+    "extraInfo": "Inspired by the designs of the Mughal era.",
+    "rating": 4.9
+  },
+  {
+    "_id": "110",
+    "title": "Terracotta Flower Pot",
+    "category": "Pottery",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/flowerPots/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/flowerPots/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/flowerPots/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/flowerPots/img4.webp"
+    ],
+    "description": "Hand-thrown clay pot with traditional engravings. Breathable material that promotes healthy plant growth and adds an earthy vibe to your garden.",
+    "price": 500,
+    "inStock": true,
+    "perks": [
+      "Natural Clay",
+      "Breathable",
+      "Eco-Friendly"
+    ],
+    "extraInfo": "Suitable for both indoor and outdoor placement.",
+    "rating": 4.3
+  },
+  {
+    "_id": "111",
+    "title": "Namda Felted Rug",
+    "category": "Textiles",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/namda/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/namda/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/namda/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/namda/img4.webp"
+    ],
+    "description": "Traditional felted wool rug embroidered with colorful floral patterns using chain-stitch.",
+    "price": 2800,
+    "inStock": true,
+    "perks": [
+      "Insulating",
+      "Hand-Felted",
+      "Cultural"
+    ],
+    "extraInfo": "Great for cold floors in winter.",
+    "rating": 4.6
+  },
+  {
+    "_id": "112",
+    "title": "Kashmiri Pheran - Men",
+    "category": "Textiles",
+    "address": "Srinagar",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/menPheran/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/menPheran/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/menPheran/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/menPheran/img4.webp"
+    ],
+    "description": "Traditional loose cloak made of heavy wool, featuring elegant embroidery on the neckline and sleeves.",
+    "price": 3500,
+    "inStock": true,
+    "perks": [
+      "Winter Essential",
+      "Handmade",
+      "Traditional"
+    ],
+    "extraInfo": "Designed for maximum warmth and comfort.",
+    "rating": 4.8
+  },
+  {
+    "_id": "113",
+    "title": "Walnut Wood  Box",
+    "category": "Woodcraft",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/jewellryBox/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jewellryBox/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jewellryBox/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/jewellryBox/img4.webp"
+    ],
+    "description": "Luxurious velvet-lined jewellery box made from high-quality seasoned walnut wood with velvet interiors.",
+    "price": 2500,
+    "inStock": true,
+    "perks": [
+      "Deep Carving",
+      "Security Lock",
+      "Elegant"
+    ],
+    "extraInfo": "Includes a hidden sliding compartment.",
+    "rating": 4.9
+  },
+  {
+    "_id": "114",
+    "title": "Papier Mache Christmas Bell",
+    "category": "Home Decor",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/104 t0 114/bell/img1.webp",
+      "/assets/images/handiCraftImages/104 t0 114/bell/img2.webp",
+      "/assets/images/handiCraftImages/104 t0 114/bell/img3.webp",
+      "/assets/images/handiCraftImages/104 t0 114/bell/img4.webp"
+    ],
+    "description": "Hand-painted decorative bell for festive decor. Features miniature landscape paintings.",
+    "price": 300,
+    "inStock": true,
+    "perks": [
+      "Festive",
+      "Handmade",
+      "Lightweight"
+    ],
+    "extraInfo": "Ideal for tree decorations.",
+    "rating": 4.5
+  },
+  {
+    "_id": "121",
+    "title": "Papier Mache Vase - Tall",
+    "category": "Home Decor",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/paperMacheVse/img1.webp",
+      "/assets/images/handiCraftImages/paperMacheVse/img2.webp",
+      "/assets/images/handiCraftImages/paperMacheVse/img3.webp",
+      "/assets/images/handiCraftImages/paperMacheVse/img4.webp"
+    ],
+    "description": "Floor-standing decorative vase featuring a midnight blue base with golden leaf patterns.",
+    "price": 3800,
+    "inStock": true,
+    "perks": [
+      "Elegant",
+      "Gold Leafing",
+      "Lightweight"
+    ],
+    "extraInfo": "Use for dry flower arrangements only.",
+    "rating": 4.8
+  },
+  {
+    "_id": "116",
+    "title": "Copper Jug - Hammered",
+    "category": "Metal Craft",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/copper jug/jug2.webp",
+      "/assets/images/handiCraftImages/copper jug/jug1.webp",
+      "/assets/images/handiCraftImages/copper jug/jug3.webp",
+      "/assets/images/handiCraftImages/copper jug/jug4.webp"
+    ],
+    "description": "A health-focused hammered copper water jug. Storing water overnight in this jug offers numerous health benefits.",
+    "price": 1600,
+    "inStock": true,
+    "perks": [
+      "Ayurvedic Benefits",
+      "Pure Copper",
+      "Classic Look"
+    ],
+    "extraInfo": "Naturally antimicrobial.",
+    "rating": 4.7
+  },
+  {
+    "_id": "117",
+    "title": "Chainstitch Wall Hanging",
+    "category": "Hand Embroidery",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/chain sticthed/chain2.webp",
+      "/assets/images/handiCraftImages/chain sticthed/chain1.webp",
+      "/assets/images/handiCraftImages/chain sticthed/chain3.webp",
+      "/assets/images/handiCraftImages/chain sticthed/chain3.webp"
+    ],
+    "description": "Vibrant wall art created with fine chainstitch embroidery on a linen background.",
+    "price": 4200,
+    "inStock": true,
+    "perks": [
+      "Decorative",
+      "Hand-Stitched",
+      "Vibrant"
+    ],
+    "extraInfo": "Features nature-inspired bird motifs.",
+    "rating": 4.8
+  },
+  {
+    "_id": "118",
+    "title": "Willow Wicker Picnic Basket",
+    "category": "Basketry",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/picnic basket/img2.webp",
+      "/assets/images/handiCraftImages/picnic basket/img1.webp",
+      "/assets/images/handiCraftImages/picnic basket/img3.webp",
+      "/assets/images/handiCraftImages/picnic basket/img4.webp"
+    ],
+    "description": "Large willow basket with dual handles and a lid, designed specifically for outdoor picnics.",
+    "price": 1500,
+    "inStock": true,
+    "perks": [
+      "Eco-Conscious",
+      "Spacious",
+      "Sturdy"
+    ],
+    "extraInfo": "Strong enough to carry 10kg weight.",
+    "rating": 4.4
+  },
+  {
+    "_id": "119",
+    "title": "Tweed Pheran - Modern Fit",
+    "category": "Textiles",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/tweedPheran/img2.webp",
+      "/assets/images/handiCraftImages/tweedPheran/img1.webp",
+      "/assets/images/handiCraftImages/tweedPheran/img3.webp",
+      "/assets/images/handiCraftImages/tweedPheran/img4.webp"
+    ],
+    "description": "A fusion of traditional Pheran cut with modern high-quality wool tweed fabric.",
+    "price": 4800,
+    "inStock": true,
+    "perks": [
+      "Modern Style",
+      "Premium Wool",
+      "Comfortable"
+    ],
+    "extraInfo": "Perfect for office and formal wear in winter.",
+    "rating": 4.7
+  },
+  {
+    "_id": "120",
+    "title": "Walnut Wood Bookends",
+    "category": "Woodcraft",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/walnutWoodBookends/img1.webp",
+      "/assets/images/handiCraftImages/walnutWoodBookends/img2.webp",
+      "/assets/images/handiCraftImages/walnutWoodBookends/img3.webp",
+      "/assets/images/handiCraftImages/walnutWoodBookends/img4.webp"
+    ],
+    "description": "Hand-carved bookends in the shape of Chinar leaves, made from seasoned walnut wood.",
+    "price": 1400,
+    "inStock": true,
+    "perks": [
+      "Heavy Base",
+      "Artistic",
+      "Gift Item"
+    ],
+    "extraInfo": "Prevents books from sliding; rubber pads attached.",
+    "rating": 4.6
+  },
+  {
+    "_id": "115",
+    "title": "Silk Carpet - Hand Knotted",
+    "category": "Textiles",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/silk carpet/carpet.webp",
+      "/assets/images/handiCraftImages/silk carpet/Shahbaz-2.webp",
+      "/assets/images/handiCraftImages/silk carpet/Shahbaz2-1.webp",
+      "/assets/images/handiCraftImages/silk carpet/Shahbaz3-1.webp"
+    ],
+    "description": "Intricate hand-knotted silk on silk carpet. Features 600 knots per square inch for extreme detail.",
+    "price": 85000,
+    "inStock": true,
+    "perks": [
+      "Investment Piece",
+      "High Density",
+      "Pure Silk"
+    ],
+    "extraInfo": "Comes with a certificate of authenticity.",
+    "rating": 5.0
+  },
+  {
+    "_id": "127",
+    "title": "Walnut Wood Serving Tray",
+    "category": "Woodcraft",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/walnutServingTray/img1.webp",
+      "/assets/images/handiCraftImages/walnutServingTray/img2.webp",
+      "/assets/images/handiCraftImages/walnutServingTray/img3.webp",
+      "/assets/images/handiCraftImages/walnutServingTray/img4.webp"
+    ],
+    "description": "Solid walnut wood tray with side handles and fine leaf engravings.",
+    "price": 2900,
+    "inStock": true,
+    "perks": [
+      "Premium Wood",
+      "Heat Resistant",
+      "Classy"
+    ],
+    "extraInfo": "Polished with food-grade oil.",
+    "rating": 4.8
+  },
+  {
+    "_id": "123",
+    "title": "Copper Wall Clock",
+    "category": "Metal Craft",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/copperWallClocks/img1.webp",
+      "/assets/images/handiCraftImages/copperWallClocks/img2.webp",
+      "/assets/images/handiCraftImages/copperWallClocks/img3.webp",
+      "/assets/images/handiCraftImages/copperWallClocks/img4.webp"
+    ],
+    "description": "Unique hand-hammered copper wall clock with vintage roman numerals.",
+    "price": 3100,
+    "inStock": true,
+    "perks": [
+      "Silent Movement",
+      "Rustic Finish",
+      "Handmade"
+    ],
+    "extraInfo": "Requires 1 AA battery.",
+    "rating": 4.5
+  },
+  {
+    "_id": "125",
+    "title": "Willow Wicker Lamp Shade",
+    "category": "Basketry",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/willowWickerLampShade/img1.webp",
+      "/assets/images/handiCraftImages/willowWickerLampShade/img2.webp",
+      "/assets/images/handiCraftImages/willowWickerLampShade/img3.webp",
+      "/assets/images/handiCraftImages/willowWickerLampShade/img1.webp"
+    ],
+    "description": "Woven wicker lampshade that creates beautiful light patterns on walls when lit.",
+    "price": 1200,
+    "inStock": true,
+    "perks": [
+      "Boho Style",
+      "Sustainable",
+      "Unique"
+    ],
+    "extraInfo": "Comes with a light fixture holder.",
+    "rating": 4.6
+  },
+  {
+    "_id": "126",
+    "title": "Aari Embroidered Bag",
+    "category": "Hand Embroidery",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/ariEmbidoryBags/img1.webp",
+      "/assets/images/handiCraftImages/ariEmbidoryBags/img2.webp",
+      "/assets/images/handiCraftImages/ariEmbidoryBags/img1.webp",
+      "/assets/images/handiCraftImages/ariEmbidoryBags/img2.webp"
+    ],
+    "description": "Canvas tote bag with elaborate Aari hook-work embroidery on both sides.",
+    "price": 1100,
+    "inStock": true,
+    "perks": [
+      "Everyday Use",
+      "Washable",
+      "Spacious"
+    ],
+    "extraInfo": "Internal zip pocket included.",
+    "rating": 4.4
+  },
+  {
+    "_id": "128",
+    "title": "Papier Mache Tissue Box",
+    "category": "Home Decor",
+    "address": "Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/paperMacheTissueBox/img1.webp",
+      "/assets/images/handiCraftImages/paperMacheTissueBox/img2.webp",
+      "/assets/images/handiCraftImages/paperMacheTissueBox/img3.webp",
+      "/assets/images/handiCraftImages/paperMacheTissueBox/img4.webp"
+    ],
+    "description": "Hand-painted tissue box holder with a lacquer finish for easy cleaning.",
+    "price": 900,
+    "inStock": true,
+    "perks": [
+      "Handmade",
+      "Water Resistant",
+      "Home Decor"
+    ],
+    "extraInfo": "Standard size for most tissue brands.",
+    "rating": 4.7
+  },
+  {
+    "_id": "129",
+    "title": "Copper Fruit Bowl - Engraved",
+    "category": "Metal Craft",
+    "address": "India",
+    "photos": [
+      "/assets/images/handiCraftImages/copperFruitBowl/img1.webp",
+      "/assets/images/handiCraftImages/copperFruitBowl/img2.webp",
+      "/assets/images/handiCraftImages/copperFruitBowl/img3.webp",
+      "/assets/images/handiCraftImages/copperFruitBowl/img4.webp"
+    ],
+    "description": "Elegant copper fruit bowl with wide edges and deep 'Naqashi' engravings of grapevine motifs.",
+    "price": 2600,
+    "inStock": true,
+    "perks": [
+      "Artisanal",
+      "Pure Material",
+      "Decorative"
+    ],
+    "extraInfo": "Adds a vintage touch to dining tables.",
+    "rating": 4.8
+  }
+]
