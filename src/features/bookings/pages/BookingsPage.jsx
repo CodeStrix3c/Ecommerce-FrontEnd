@@ -5,7 +5,7 @@ import AccountNav from "@/components/ui/AccountNav";
 import PlaceImg from "@/features/places/components/PlaceImg";
 import BookingDates from "@/features/bookings/components/BookingDates";
 import Spinner from "@/components/ui/Spinner";
-import axiosInstance from "@/api/axiosInstance";
+import axiosInstance from "@/api/client/axiosInstance";
 
 const BookingsPage = () => {
   const [bookings, setBookings] = useState([]);
