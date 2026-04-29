@@ -271,6 +271,14 @@ const UserHome = () => {
               ))
               : allProducts.length > 0
                 ? allProducts.map((product) => (
+                    <PlaceCard
+                      key={product.id}
+                      place={product}
+                      pm
+                      loading={false}
+                      onToggleWishlist={() => toggleWishlist(product)}
+                    />
+                  ))
                   <PlaceCard
                     key={product.id}
                     place={product}
