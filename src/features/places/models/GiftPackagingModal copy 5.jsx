@@ -120,7 +120,6 @@ export default function EcommerceGiftModal({ isOpen, onClose, place }) {
   return (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center p-5 bg-black/60 backdrop-blur-xl">
       <div className="relative w-full max-w-[1150px] h-[85vh] bg-white rounded-[40px] overflow-hidden flex shadow-2xl border border-white/10">
-        {/* LEFT PANEL: SELECTION */}
         <div className="w-[380px] flex flex-col border-r border-gray-100 bg-white">
           <div className="flex-1 overflow-y-auto p-10 scrollbar-hide">
             <header className="mb-10">
