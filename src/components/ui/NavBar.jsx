@@ -4,7 +4,6 @@ import ContentWrapper from "../shared/ContentWrapper";
 import { Home, Shirt, Hammer, HardHat, Package } from "lucide-react";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
 import NavBarSkeleton from "./NavBarSkeleton";
-import { useRef, useState } from "react";
 
 const CATEGORY_ICON_MAP = {
   textiles: Shirt,
@@ -33,13 +32,12 @@ const NavBar = () => {
   const { pathname } = useLocation();
   const [params] = useSearchParams();
   const categoryFromURL = params.get("category");
-  const navRef = useRef(null);
-  const [suppressDropdown, setSuppressDropdown] = useState(false);
 
   const below600 = useIsMobile(600);
 
   const { data: searchData, isLoading } = useProductsQuery({});
 
+  // ✅ Show Skeleton while loading
   if (isLoading) {
     return <NavBarSkeleton />;
   }
@@ -83,15 +81,12 @@ const NavBar = () => {
   const hoverMobileColor = "hover:text-[var(--color-black)]";
 
   const isTabActive = (tabSlug) => {
+    // Home active when no category is selected
     if (tabSlug === "home") {
       return pathname === "/home" && !params.get("category");
     }
-    return params.get("category")?.toLowerCase() === tabSlug;
-  };
 
-  const closeDropdown = () => {
-    setSuppressDropdown(true);
-    setTimeout(() => setSuppressDropdown(false), 300);
+    return params.get("category")?.toLowerCase() === tabSlug;
   };
 
   // ✅ Mobile Navbar
@@ -138,7 +133,7 @@ const NavBar = () => {
 
   // ✅ Desktop Navbar
   return (
-    <div className="relative" ref={navRef}>
+    <div className="relative">
       <nav className="flex items-center gap-4 lg:gap-8">
         {NAVBAR_TABS.map((tab) => {
           const active = isTabActive(tab.slug);
@@ -168,10 +163,10 @@ const NavBar = () => {
               </NavLink>
 
               {/* Sub Categories */}
-              {tab.children && !suppressDropdown && (
+              {tab.children && (
                 <div
                   className="
-                  absolute left-0 top-full mt-2 w-max min-w-[12rem]
+                  absolute left-0 top-full mt-2 w-48
                   bg-white shadow-lg border border-gray-100 rounded-md
                   opacity-0 invisible translate-y-2
                   transition-all duration-300
@@ -183,8 +178,7 @@ const NavBar = () => {
                     <NavLink
                       key={child.id}
                       to={`${tab.path}?category=${child.slug}`}
-                      onClick={closeDropdown}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black transition-colors whitespace-nowrap"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black transition-colors"
                     >
                       {child.name}
                     </NavLink>
