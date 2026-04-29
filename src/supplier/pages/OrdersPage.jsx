@@ -5,6 +5,7 @@ import OrdersTable from "../components/OrdersTable";
 import { ShoppingCart } from "lucide-react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import { useGetOrders } from "@/hooks/Orders/useOrders";
+import { useEffect } from "react";
 
 export default function OrdersPage() {
   const [search, setSearch] = useState("");
@@ -12,6 +13,47 @@ export default function OrdersPage() {
   const [dateRange, setDateRange] = useState(null);
 
   const { data: orders = [], isLoading, error } = useGetOrders();
+  console.log("orders page...");
+
+  useEffect(() => {
+    const transferId = localStorage.getItem("transferId");
+    const livePayOrderId = localStorage.getItem("livePayOrderId");
+
+    if (!orders.length || !transferId || !livePayOrderId) return;
+
+    orders.forEach((order) => {
+      if (
+        order.orderStatusString === "Complete" &&
+        String(order.id) === String(livePayOrderId)
+      ) {
+        handleReleasePayment(transferId);
+
+        // Optional cleanup (recommended to prevent duplicate calls)
+        localStorage.removeItem("transferId");
+        localStorage.removeItem("livePayOrderId");
+      }
+    });
+  }, [orders]);
+  const handleReleasePayment = async (transferId) => {
+    try {
+      const res = await fetch("http://localhost:4000/release-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ transferId }),
+      });
+
+      const data = await res.json();
+
+      if (!data.success) {
+        console.error(data.error);
+        return;
+      }
+
+      toast.success(`Payment released for ${transferId}`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (error) {
     return (
