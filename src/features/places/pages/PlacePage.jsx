@@ -244,7 +244,6 @@ const PlacePage = () => {
         <ListingHeader place={place} />
 
         <div className="mt-10 flex flex-col gap-8 lg:flex-row relative">
-          {/* LEFT — gallery */}
           <div className="lg:w-4/7 w-full ps-2 relative">
             <PlaceGallery
               place={place}
