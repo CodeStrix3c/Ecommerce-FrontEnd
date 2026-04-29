@@ -258,8 +258,8 @@ const PlacePage = () => {
               }}
             />
           </div>
-
-          {/* RIGHT */}
+          {/* 
+          it is the right cloumn  */}
           <div ref={rightColRef} className="lg:w-2/7 w-full relative z-10">
             <div
               ref={rightPanelRef}
