@@ -1,0 +1,211 @@
+[
+  {
+    "_id": "201",
+    "title": "Kashmir Pashmina Weaves",
+    "category": "Textiles",
+    "address": "Srinagar, Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/textiles/pashmina/img1.webp",
+      "/assets/images/handiCraftImages/textiles/pashmina/pashmina-1.webp",
+      "/assets/images/handiCraftImages/textiles/pashmina/pashmina-2.webp",
+      "/assets/images/handiCraftImages/textiles/pashmina/pashmina-3.webp",
+      "/assets/images/handiCraftImages/textiles/pashmina/pashmina-4.webp",
+      "/assets/images/handiCraftImages/textiles/pashmina/pashmina-5.webp",
+      "/assets/images/handiCraftImages/textiles/pashmina/pashmina-6.webp"
+    ],
+    "description": "Traditional Pashmina weaving cluster producing authentic hand-spun and handwoven cashmere textiles using age-old techniques.",
+    "price": 25000,
+    "inStock": true,
+    "perks": ["Hand-spun", "Pure Cashmere", "GI Certified"],
+    "extraInfo": "Operates on 2.5 traditional looms.",
+    "rating": 4.9
+  },
+  {
+    "_id": "202",
+    "title": "Traditional Kani Shawls",
+    "category": "Textiles",
+    "address": "Budgam, Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/textiles/kani shawl/img1.webp",
+      "/assets/images/handiCraftImages/textiles/kani shawl/kani-1.jpg",
+      "/assets/images/handiCraftImages/textiles/kani shawl/kani-2.jpg",
+      "/assets/images/handiCraftImages/textiles/kani shawl/kani-3.jpg",
+      "/assets/images/handiCraftImages/textiles/kani shawl/kani-4.jpg",
+      "/assets/images/handiCraftImages/textiles/kani shawl/kani-5.jpg",
+      "/assets/images/handiCraftImages/textiles/kani shawl/kani-6.jpg"
+    ],
+    "description": "Renowned Kani shawl weaving hub using wooden needles to create complex multicolor patterns.",
+    "price": 18000,
+    "inStock": true,
+    "perks": ["Kani Weave", "Floral Motifs", "Heritage Craft"],
+    "extraInfo": "Operates across 1.8 active looms.",
+    "rating": 4.8
+  },
+  {
+    "_id": "203",
+    "title": "Handloom Woolen Rugs",
+    "category": "Textiles",
+    "address": "Anantnag, Kashmir",
+    "photos": [
+      "/assets/images/handiCraftImages/textiles/woolen rugs/img1.jpg",
+      "/assets/images/handiCraftImages/textiles/woolen rugs/rug-item-1.webp",
+      "/assets/images/handiCraftImages/textiles/woolen rugs/rug-item-2.webp",
+      "/assets/images/handiCraftImages/textiles/woolen rugs/rug-item-3.webp",
+      "/assets/images/handiCraftImages/textiles/woolen rugs/rug-item-4.webp",
+      "/assets/images/handiCraftImages/textiles/woolen rugs/rug-item-5.webp"
+    ],
+    "description": "Handloom unit producing durable wool rugs inspired by Gabbeh and Namda traditions.",
+    "price": 9000,
+    "inStock": false,
+    "perks": ["Wool Rugs", "Handloom", "Cold Climate Friendly"],
+    "extraInfo": "Currently in production phase.",
+    "rating": 4.6
+  },
+  {
+    "_id": "204",
+    "title": "Silk Ikat Studio",
+    "category": "Textiles",
+    "address": "Hyderabad, India",
+    "photos": [
+      "/assets/images/handiCraftImages/textiles/silk ekat/img1.webp",
+      "/assets/images/handiCraftImages/textiles/silk ekat/img2.webp",
+      "/assets/images/handiCraftImages/textiles/silk ekat/img3.webp",
+      "/assets/images/handiCraftImages/textiles/silk ekat/img4.webp",
+      "/assets/images/handiCraftImages/textiles/silk ekat/img4.webp"
+    ],
+    "description": "Specialized studio producing vibrant single and double Ikat silk fabrics.",
+    "price": 15000,
+    "inStock": true,
+    "perks": ["Single Ikat", "Double Ikat", "Colorfast Dyes"],
+    "extraInfo": "Operates on 4 looms.",
+    "rating": 4.7
+  },
+  {
+    "_id": "205",
+    "title": "Banarasi Silk House",
+    "category": "Textiles",
+    "address": "Varanasi, India",
+    "photos": [
+      "/assets/images/handiCraftImages/textiles/Banarasi silk/img1.jpg",
+      "/assets/images/handiCraftImages/textiles/Banarasi silk/img2.jpg",
+      "/assets/images/handiCraftImages/textiles/Banarasi silk/img3.webp",
+      "/assets/images/handiCraftImages/textiles/Banarasi silk/img4.webp",
+      "/assets/images/handiCraftImages/textiles/Banarasi silk/img5.webp",
+      "/assets/images/handiCraftImages/textiles/Banarasi silk/img6.webp",
+      "/assets/images/handiCraftImages/textiles/Banarasi silk/img7.webp"
+    ],
+    "description": "Famous Banarasi weaving house known for luxurious silk sarees and Jamawar patterns.",
+    "price": 22000,
+    "inStock": true,
+    "perks": ["Katan Silk", "Jamawar", "Organza"],
+    "extraInfo": "Operates on 6 looms.",
+    "rating": 4.9
+  },
+  {
+    "_id": "206",
+    "title": "Kutch Ajrakh Prints",
+    "category": "Textiles",
+    "address": "Kutch, Gujarat",
+    "photos": [
+      "/assets/images/handiCraftImages/textiles/ajrakh print/img1.jpg",
+      "/assets/images/handiCraftImages/textiles/ajrakh print/img2.jpg",
+      "/assets/images/handiCraftImages/textiles/ajrakh print/img3.jpg",
+      "/assets/images/handiCraftImages/textiles/ajrakh print/img4.jpg",
+      "/assets/images/handiCraftImages/textiles/ajrakh print/img5.jpg",
+      "/assets/images/handiCraftImages/textiles/ajrakh print/img6.jpg",
+      "/assets/images/handiCraftImages/textiles/ajrakh print/img7.jpg",
+      "/assets/images/handiCraftImages/textiles/ajrakh print/img8.jpg",
+      "/assets/images/handiCraftImages/textiles/ajrakh print/img9.jpg"
+    ],
+    "description": "Traditional Ajrakh block printing workshops using natural dyes and resist printing techniques.",
+    "price": 7000,
+    "inStock": true,
+    "perks": ["Indigo Dye", "Natural Colors", "Block Print"],
+    "extraInfo": "Operates through 2 workshops.",
+    "rating": 4.7
+  },
+  {
+    "_id": "207",
+    "title": "Bagru Block Prints",
+    "category": "Textiles",
+    "address": "Jaipur, Rajasthan",
+    "photos": [
+      "/assets/images/handiCraftImages/textiles/Bagru prints/img1.webp",
+      "/assets/images/handiCraftImages/textiles/Bagru prints/img2.webp",
+      "/assets/images/handiCraftImages/textiles/Bagru prints/img3.webp",
+      "/assets/images/handiCraftImages/textiles/Bagru prints/img4.webp",
+      "/assets/images/handiCraftImages/textiles/Bagru prints/img5.webp",
+      "/assets/images/handiCraftImages/textiles/Bagru prints/img6.webp",
+      "/assets/images/handiCraftImages/textiles/Bagru prints/img7.webp"
+    ],
+    "description": "Eco-friendly Bagru printing cluster producing floral and ethnic block prints.",
+    "price": 6000,
+    "inStock": false,
+    "perks": ["Vegetable Dyes", "Block Printing", "Heritage Art"],
+    "extraInfo": "Currently in production.",
+    "rating": 4.6
+  },
+  {
+    "_id": "208",
+    "title": "Chanderi Looms",
+    "category": "Textiles",
+    "address": "Madhya Pradesh, India",
+    "photos": [
+      "/assets/images/handiCraftImages/textiles/chandrina loom/img1.webp",
+      "/assets/images/handiCraftImages/textiles/chandrina loom/img2.webp",
+      "/assets/images/handiCraftImages/textiles/chandrina loom/img3.webp",
+      "/assets/images/handiCraftImages/textiles/chandrina loom/img4.webp",
+      "/assets/images/handiCraftImages/textiles/chandrina loom/img5.webp"
+    ],
+    "description": "Chanderi weaving cluster producing fine silk cotton and pure silk textiles.",
+    "price": 12000,
+    "inStock": true,
+    "perks": ["Lightweight Fabric", "Sheer Texture", "Traditional"],
+    "extraInfo": "Operates on 5 looms.",
+    "rating": 4.8
+  },
+  {
+    "_id": "209",
+    "title": "Bhagalpuri Silk Cluster",
+    "category": "Textiles",
+    "address": "Bhagalpur, Bihar",
+    "photos": [
+      "/assets/images/handiCraftImages/textiles/bagalpuri silk/img1.webp",
+      "/assets/images/handiCraftImages/textiles/bagalpuri silk/img2.webp",
+      "/assets/images/handiCraftImages/textiles/bagalpuri silk/img3.webp",
+      "/assets/images/handiCraftImages/textiles/bagalpuri silk/img4.webp",
+      "/assets/images/handiCraftImages/textiles/bagalpuri silk/img5.webp",
+      "/assets/images/handiCraftImages/textiles/bagalpuri silk/img6.webp",
+      "/assets/images/handiCraftImages/textiles/bagalpuri silk/img7.webp"
+    ],
+    "description": "Well-known cluster for Raw and Matka Tussar silk weaving.",
+    "price": 14000,
+    "inStock": true,
+    "perks": ["Tussar Silk", "Natural Texture", "Handwoven"],
+    "extraInfo": "Operates on 4.5 looms.",
+    "rating": 4.7
+  },
+  {
+    "_id": "210",
+    "title": "Lambani Embroidery Hub",
+    "category": "Hand Embroidery",
+    "address": "Karnataka, India",
+    "photos": [
+      "/assets/images/handiCraftImages/textiles/lambani emboidery/img1.webp",
+      "/assets/images/handiCraftImages/textiles/lambani emboidery/img2.webp",
+      "/assets/images/handiCraftImages/textiles/lambani emboidery/img3.webp",
+      "/assets/images/handiCraftImages/textiles/lambani emboidery/img4.webp",
+      "/assets/images/handiCraftImages/textiles/lambani emboidery/img5.webp",
+      "/assets/images/handiCraftImages/textiles/lambani emboidery/img6.webp",
+      "/assets/images/handiCraftImages/textiles/lambani emboidery/img7.webp",
+      "/assets/images/handiCraftImages/textiles/lambani emboidery/img8.webp",
+      "/assets/images/handiCraftImages/textiles/lambani emboidery/img9.webp"
+    ],
+    "description": "Vibrant embroidery hub known for mirror work and bold thread patterns.",
+    "price": 5000,
+    "inStock": true,
+    "perks": ["Mirror Work", "Bold Colors", "Tribal Art"],
+    "extraInfo": "Operates through 2 embroidery units.",
+    "rating": 4.6
+  }
+]
