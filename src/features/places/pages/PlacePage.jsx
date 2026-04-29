@@ -19,6 +19,7 @@ import ProductInfoPanel from "../components/ProductInfoPanel";
 import Testimonials from "@/features/reviews/pages/Testimonials";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import CrossSellProducts from "../components/CrossSellProducts";
+import GiftPackagingModal from "../models/GiftPackagingModal";
 
 const ZOOM_LEVEL = 3;
 
@@ -28,8 +29,10 @@ const PlacePage = () => {
 
   const { data: product, isLoading } = useProductDetailsQuery(id);
   const { data: productsData } = useProductsQuery({ page: 1 });
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
   const [place, setPlace] = useState(null);
+  const [giftModalOpen, setGiftModalOpen] = useState(false);
 
   const { toggleCartList } = useCartList();
 
@@ -80,7 +83,6 @@ const PlacePage = () => {
     if (window.innerWidth < 1024) return;
     hasMovedRef.current = false;
     setZoomImage(selectedPhoto || place.photos[0]);
-    // Do NOT show zoom yet — wait for first mousemove
   };
 
   const handleMouseLeave = () => {
@@ -209,15 +211,8 @@ const PlacePage = () => {
       rating: product.ratingAverage ?? 0,
       reviewsCount: product.reviewsCount ?? 0,
       stock: product.stockQuantity ?? 0,
-
-      // --- UPDATED LOGIC HERE ---
-      // If quantity is 0, it's out of stock NO MATTER WHAT.
-      // If tracking is enabled, check quantity.
-      // Otherwise, if tracking is off, we only trust the quantity isn't 0.
       inStock: product.stockQuantity > 0,
-      stockQuantity: product.stockQuantity, // Pass this to use in ProductInfoPanel logic
-      // --------------------------
-
+      stockQuantity: product.stockQuantity,
       brand: product.brand?.name || null,
       perks: product.attributes ?? [],
       attributes: product.attributes ?? [],
@@ -276,11 +271,73 @@ const PlacePage = () => {
                 openSections={openSections}
                 toggleSection={toggleSection}
               />
+              <div className="relative">
+                <button
+                  onClick={() => setGiftModalOpen(true)}
+                  className="group flex items-center justify-between w-full p-4 text-sm border rounded-xl bg-gray-50/50 border-gray-100 hover:border-black hover:bg-white transition-all duration-300"
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${selectedPackage ? "bg-black text-white" : "bg-white text-gray-400 border border-dashed border-gray-300"}`}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M20 12v10H4V12" />
+                        <path d="M2 7h20v5H2z" />
+                        <path d="M12 22V7" />
+                        <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                        <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                      </svg>
+                    </div>
+
+                    <div className="text-left">
+                      <p className="font-bold text-gray-900">
+                        {selectedPackage
+                          ? selectedPackage.name
+                          : "Add Gift Packaging"}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {selectedPackage
+                          ? `${selectedPackage.occasion} • +₹${selectedPackage.price}`
+                          : "Make it special with premium wrapping"}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    {/* THE REMOVE BUTTON */}
+                    {selectedPackage && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevents opening the modal
+                          setSelectedPackage(null);
+                        }}
+                        className="px-3 py-1 text-[10px] font-bold uppercase tracking-tighter text-red-500 hover:bg-red-50 rounded-md transition-colors"
+                      >
+                        Remove
+                      </button>
+                    )}
+
+                    <span className="text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-black transition-colors">
+                      {selectedPackage ? "Edit" : "Add"}
+                    </span>
+                  </div>
+                </button>
+              </div>
               <BookingWidget place={place} />
             </div>
           </div>
 
-          {/* ZOOM PANEL — position/size set via ref, never stale */}
+          {/* ZOOM PANEL */}
           {showZoom && zoomImage && (
             <div
               ref={zoomPanelRef}
@@ -346,6 +403,14 @@ const PlacePage = () => {
 
         <Testimonials />
       </div>
+
+      <GiftPackagingModal
+        isOpen={giftModalOpen}
+        onClose={() => setGiftModalOpen(false)}
+        place={place}
+        onSelectPackage={setSelectedPackage} // New Prop
+        currentSelection={selectedPackage} // To keep the radio highlighted
+      />
     </ContentWrapper>
   );
 };

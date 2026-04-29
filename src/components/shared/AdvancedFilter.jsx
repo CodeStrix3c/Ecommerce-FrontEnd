@@ -29,9 +29,8 @@ const FilterSection = ({ title, onClear, children, defaultOpen = true }) => {
         >
           <ChevronDown
             size={14}
-            className={`transition-all duration-500 ${
-              isOpen ? "rotate-0 text-black" : "-rotate-90 text-gray-400"
-            }`}
+            className={`transition-all duration-500 ${isOpen ? "rotate-0 text-black" : "-rotate-90 text-gray-400"
+              }`}
           />
           <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-black">
             {title}
@@ -282,10 +281,9 @@ const RatingFilterSection = ({ selectedRating, onChange }) => {
           key={star}
           onClick={() => onChange(star === selectedRating ? 0 : star)}
           className={`flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-all w-full text-left
-            ${
-              selectedRating === star
-                ? "bg-yellow-50 border border-yellow-300"
-                : "hover:bg-gray-50 border border-transparent"
+            ${selectedRating === star
+              ? "bg-yellow-50 border border-yellow-300"
+              : "hover:bg-gray-50 border border-transparent"
             }`}
         >
           <div className="flex items-center gap-0.5">
@@ -523,11 +521,10 @@ const AdvancedFilter = ({
       )}
 
       <div
-        className={`fixed lg:relative h-full w-[260px] bg-white transition-all ${
-          mobileOpen
+        className={`fixed lg:relative h-full w-[260px] bg-white transition-all ${mobileOpen
             ? "translate-x-0 z-[80]"
             : "-translate-x-full lg:translate-x-0"
-        } top-0 left-0 flex flex-col border-r border-gray-100`}
+          } top-0 left-0 flex flex-col border-r border-gray-100`}
       >
         {/* HEADER */}
         <div className="flex justify-between items-end px-8 pt-4 pb-6 border-b border-gray-100">
@@ -599,11 +596,10 @@ const AdvancedFilter = ({
                             );
                             updateFilter("category", parent.slug);
                           }}
-                          className={`text-[13px] cursor-pointer py-2 flex justify-between items-center w-full text-left ${
-                            isParentActive(parent)
+                          className={`text-[13px] cursor-pointer py-2 flex justify-between items-center w-full text-left ${isParentActive(parent)
                               ? "text-black font-semibold"
                               : "text-gray-600 hover:text-black"
-                          }`}
+                            }`}
                         >
                           <span>{parent.name}</span>
                           <div className="flex items-center gap-2">
@@ -628,11 +624,10 @@ const AdvancedFilter = ({
                                   onClick={() =>
                                     updateFilter("category", child.slug)
                                   }
-                                  className={`text-[12px] cursor-pointer py-1 flex justify-between w-full text-left ${
-                                    filters.category === child.slug
+                                  className={`text-[12px] cursor-pointer py-1 flex justify-between w-full text-left ${filters.category === child.slug
                                       ? "text-black font-semibold"
                                       : "text-gray-500 hover:text-black"
-                                  }`}
+                                    }`}
                                 >
                                   <span>{child.name}</span>
                                   <span className="text-[10px] opacity-40">
@@ -689,11 +684,10 @@ const AdvancedFilter = ({
                               filters.brand === b.slug ? "" : b.slug,
                             )
                           }
-                          className={`text-[13px] cursor-pointer py-2 flex justify-between w-full text-left ${
-                            filters.brand === b.slug
+                          className={`text-[13px] cursor-pointer py-2 flex justify-between w-full text-left ${filters.brand === b.slug
                               ? "text-black font-semibold"
                               : "text-gray-500 hover:text-black"
-                          }`}
+                            }`}
                         >
                           <span>{b.name}</span>
                           <span className="text-[11px] opacity-40">
