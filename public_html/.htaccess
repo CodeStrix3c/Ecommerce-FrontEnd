@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -11,3 +12,15 @@
   # Redirect everything to index.html
   RewriteRule ^ index.html [L]
 </IfModule>
+=======
+RewriteEngine On
+RewriteBase /
+
+# If file or folder exists, load it directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Otherwise route everything to index.html
+RewriteRule ^ index.html [L]
+>>>>>>> 01d758771759e6a4e4a445c8bfde2a2c38877034
