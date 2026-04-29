@@ -13,7 +13,11 @@
     "description": "Traditional hand-carved copper Samawar used for brewing authentic Kashmiri Kahwa. Featuring intricate floral engravings and a classic tinned inner lining for safety and durability.",
     "price": 4500,
     "inStock": true,
-    "perks": ["Pure Copper", "Hand-Engraved", "Heritage Design"],
+    "perks": [
+      "Pure Copper",
+      "Hand-Engraved",
+      "Heritage Design"
+    ],
     "extraInfo": "Best for home decor and traditional tea serving.",
     "rating": 4.2
   },
@@ -31,7 +35,11 @@
     "description": "Exquisite hand-painted Papier Mache box with 'Gul-e-Wilayat' motifs. Made using recycled paper pulp and organic colors by master artisans.",
     "price": 1200,
     "inStock": true,
-    "perks": ["Hand-Painted", "Eco-Friendly", "Intricate Art"],
+    "perks": [
+      "Hand-Painted",
+      "Eco-Friendly",
+      "Intricate Art"
+    ],
     "extraInfo": "Perfect for storing small jewellery and trinkets.",
     "rating": 3.7
   },
@@ -49,7 +57,11 @@
     "description": "Crafted from a single piece of seasoned Walnut wood. This bowl features a beautiful natural grain and deep brown hue, characteristic of authentic Kashmiri woodcraft.",
     "price": 1800,
     "inStock": true,
-    "perks": ["Seasoned Wood", "No Joints", "Durable"],
+    "perks": [
+      "Seasoned Wood",
+      "No Joints",
+      "Durable"
+    ],
     "extraInfo": "Food safe; polished with natural beeswax.",
     "rating": 4.1
   },
@@ -67,7 +79,11 @@
     "description": "Luxuriously soft and warm Pashmina shawl featuring Sozni hand-embroidery. A masterpiece of patience and skill, taking months to complete by hand.",
     "price": 15000,
     "inStock": true,
-    "perks": ["100% Pashmina", "Hand-Spun", "Authentic GI Tag"],
+    "perks": [
+      "100% Pashmina",
+      "Hand-Spun",
+      "Authentic GI Tag"
+    ],
     "extraInfo": "Dry clean only. Keeps you warm in sub-zero temperatures.",
     "rating": 4.0
   },
@@ -85,7 +101,11 @@
     "description": "Hand-embroidered wool yarn on heavy cotton canvas. Features traditional floral chain-stitch patterns that add a vibrant touch to any living room.",
     "price": 850,
     "inStock": true,
-    "perks": ["Chain Stitch", "Wool Embroidery", "Long-Lasting"],
+    "perks": [
+      "Chain Stitch",
+      "Wool Embroidery",
+      "Long-Lasting"
+    ],
     "extraInfo": "Zipper closure at the back. Size 16x16 inches.",
     "rating": 3.6
   },
@@ -103,7 +123,11 @@
     "description": "Handwoven wool tweed jacket. Merges traditional warmth with contemporary style. Breathable, durable, and naturally water-resistant.",
     "price": 4500,
     "inStock": true,
-    "perks": ["Pure Wool", "Hand-Woven", "Sustainable"],
+    "perks": [
+      "Pure Wool",
+      "Hand-Woven",
+      "Sustainable"
+    ],
     "extraInfo": "Available in various sizes and natural earth tones.",
     "rating": 4.7
   },
@@ -121,7 +145,11 @@
     "description": "Classic hammered copper platter with a silver-tin coating on the surface. Ideal for serving traditional meals or as a decorative wall piece.",
     "price": 2200,
     "inStock": true,
-    "perks": ["Hammered Texture", "Food Safe", "Artisanal"],
+    "perks": [
+      "Hammered Texture",
+      "Food Safe",
+      "Artisanal"
+    ],
     "extraInfo": "Authentic 'Naqashi' work around the edges.",
     "rating": 4.5
   },
@@ -139,7 +167,11 @@
     "description": "Sturdy and elegant basket woven from the finest willow twigs. Perfect for picnics, storage, or as a sustainable gift hamper base.",
     "price": 950,
     "inStock": true,
-    "perks": ["Eco-Friendly", "Lightweight", "Handcrafted"],
+    "perks": [
+      "Eco-Friendly",
+      "Lightweight",
+      "Handcrafted"
+    ],
     "extraInfo": "Locally known as 'Keani' craft.",
     "rating": 4.4
   },
@@ -157,7 +189,11 @@
     "description": "Soft mulberry silk stole with hand-painted floral borders.",
     "price": 2200,
     "inStock": true,
-    "perks": ["Pure Silk", "Artistic", "Lightweight"],
+    "perks": [
+      "Pure Silk",
+      "Artistic",
+      "Lightweight"
+    ],
     "extraInfo": "Can be worn as a scarf or head wrap.",
     "rating": 4.7
   },
@@ -175,7 +211,11 @@
     "description": "Richly woven shawl using the Kani loom technique, featuring a full-body multicolored pattern.",
     "price": 8500,
     "inStock": true,
-    "perks": ["Warm", "Complex Design", "Timeless"],
+    "perks": [
+      "Warm",
+      "Complex Design",
+      "Timeless"
+    ],
     "extraInfo": "Reversible design with different color depth.",
     "rating": 4.9
   },
@@ -193,7 +233,11 @@
     "description": "Woven on a traditional loom using small wooden needles called 'Kani'. This scarf features a complex interlocking pattern of colors.",
     "price": 3200,
     "inStock": true,
-    "perks": ["Complex Weave", "Soft Texture", "Traditional Art"],
+    "perks": [
+      "Complex Weave",
+      "Soft Texture",
+      "Traditional Art"
+    ],
     "extraInfo": "Inspired by the designs of the Mughal era.",
     "rating": 4.9
   },
@@ -211,7 +255,11 @@
     "description": "Hand-thrown clay pot with traditional engravings. Breathable material that promotes healthy plant growth and adds an earthy vibe to your garden.",
     "price": 500,
     "inStock": true,
-    "perks": ["Natural Clay", "Breathable", "Eco-Friendly"],
+    "perks": [
+      "Natural Clay",
+      "Breathable",
+      "Eco-Friendly"
+    ],
     "extraInfo": "Suitable for both indoor and outdoor placement.",
     "rating": 4.3
   },
@@ -229,7 +277,11 @@
     "description": "Traditional felted wool rug embroidered with colorful floral patterns using chain-stitch.",
     "price": 2800,
     "inStock": true,
-    "perks": ["Insulating", "Hand-Felted", "Cultural"],
+    "perks": [
+      "Insulating",
+      "Hand-Felted",
+      "Cultural"
+    ],
     "extraInfo": "Great for cold floors in winter.",
     "rating": 4.6
   },
@@ -247,7 +299,11 @@
     "description": "Traditional loose cloak made of heavy wool, featuring elegant embroidery on the neckline and sleeves.",
     "price": 3500,
     "inStock": true,
-    "perks": ["Winter Essential", "Handmade", "Traditional"],
+    "perks": [
+      "Winter Essential",
+      "Handmade",
+      "Traditional"
+    ],
     "extraInfo": "Designed for maximum warmth and comfort.",
     "rating": 4.8
   },
@@ -265,7 +321,11 @@
     "description": "Luxurious velvet-lined jewellery box made from high-quality seasoned walnut wood with velvet interiors.",
     "price": 2500,
     "inStock": true,
-    "perks": ["Deep Carving", "Security Lock", "Elegant"],
+    "perks": [
+      "Deep Carving",
+      "Security Lock",
+      "Elegant"
+    ],
     "extraInfo": "Includes a hidden sliding compartment.",
     "rating": 4.9
   },
@@ -283,7 +343,11 @@
     "description": "Hand-painted decorative bell for festive decor. Features miniature landscape paintings.",
     "price": 300,
     "inStock": true,
-    "perks": ["Festive", "Handmade", "Lightweight"],
+    "perks": [
+      "Festive",
+      "Handmade",
+      "Lightweight"
+    ],
     "extraInfo": "Ideal for tree decorations.",
     "rating": 4.5
   },
@@ -301,7 +365,11 @@
     "description": "Floor-standing decorative vase featuring a midnight blue base with golden leaf patterns.",
     "price": 3800,
     "inStock": true,
-    "perks": ["Elegant", "Gold Leafing", "Lightweight"],
+    "perks": [
+      "Elegant",
+      "Gold Leafing",
+      "Lightweight"
+    ],
     "extraInfo": "Use for dry flower arrangements only.",
     "rating": 4.8
   },
@@ -319,7 +387,11 @@
     "description": "A health-focused hammered copper water jug. Storing water overnight in this jug offers numerous health benefits.",
     "price": 1600,
     "inStock": true,
-    "perks": ["Ayurvedic Benefits", "Pure Copper", "Classic Look"],
+    "perks": [
+      "Ayurvedic Benefits",
+      "Pure Copper",
+      "Classic Look"
+    ],
     "extraInfo": "Naturally antimicrobial.",
     "rating": 4.7
   },
@@ -337,7 +409,11 @@
     "description": "Vibrant wall art created with fine chainstitch embroidery on a linen background.",
     "price": 4200,
     "inStock": true,
-    "perks": ["Decorative", "Hand-Stitched", "Vibrant"],
+    "perks": [
+      "Decorative",
+      "Hand-Stitched",
+      "Vibrant"
+    ],
     "extraInfo": "Features nature-inspired bird motifs.",
     "rating": 4.8
   },
@@ -355,7 +431,11 @@
     "description": "Large willow basket with dual handles and a lid, designed specifically for outdoor picnics.",
     "price": 1500,
     "inStock": true,
-    "perks": ["Eco-Conscious", "Spacious", "Sturdy"],
+    "perks": [
+      "Eco-Conscious",
+      "Spacious",
+      "Sturdy"
+    ],
     "extraInfo": "Strong enough to carry 10kg weight.",
     "rating": 4.4
   },
@@ -373,7 +453,11 @@
     "description": "A fusion of traditional Pheran cut with modern high-quality wool tweed fabric.",
     "price": 4800,
     "inStock": true,
-    "perks": ["Modern Style", "Premium Wool", "Comfortable"],
+    "perks": [
+      "Modern Style",
+      "Premium Wool",
+      "Comfortable"
+    ],
     "extraInfo": "Perfect for office and formal wear in winter.",
     "rating": 4.7
   },
@@ -391,7 +475,11 @@
     "description": "Hand-carved bookends in the shape of Chinar leaves, made from seasoned walnut wood.",
     "price": 1400,
     "inStock": true,
-    "perks": ["Heavy Base", "Artistic", "Gift Item"],
+    "perks": [
+      "Heavy Base",
+      "Artistic",
+      "Gift Item"
+    ],
     "extraInfo": "Prevents books from sliding; rubber pads attached.",
     "rating": 4.6
   },
@@ -409,7 +497,11 @@
     "description": "Intricate hand-knotted silk on silk carpet. Features 600 knots per square inch for extreme detail.",
     "price": 85000,
     "inStock": true,
-    "perks": ["Investment Piece", "High Density", "Pure Silk"],
+    "perks": [
+      "Investment Piece",
+      "High Density",
+      "Pure Silk"
+    ],
     "extraInfo": "Comes with a certificate of authenticity.",
     "rating": 5.0
   },
@@ -427,7 +519,11 @@
     "description": "Solid walnut wood tray with side handles and fine leaf engravings.",
     "price": 2900,
     "inStock": true,
-    "perks": ["Premium Wood", "Heat Resistant", "Classy"],
+    "perks": [
+      "Premium Wood",
+      "Heat Resistant",
+      "Classy"
+    ],
     "extraInfo": "Polished with food-grade oil.",
     "rating": 4.8
   },
@@ -445,7 +541,11 @@
     "description": "Unique hand-hammered copper wall clock with vintage roman numerals.",
     "price": 3100,
     "inStock": true,
-    "perks": ["Silent Movement", "Rustic Finish", "Handmade"],
+    "perks": [
+      "Silent Movement",
+      "Rustic Finish",
+      "Handmade"
+    ],
     "extraInfo": "Requires 1 AA battery.",
     "rating": 4.5
   },
@@ -463,7 +563,11 @@
     "description": "Woven wicker lampshade that creates beautiful light patterns on walls when lit.",
     "price": 1200,
     "inStock": true,
-    "perks": ["Boho Style", "Sustainable", "Unique"],
+    "perks": [
+      "Boho Style",
+      "Sustainable",
+      "Unique"
+    ],
     "extraInfo": "Comes with a light fixture holder.",
     "rating": 4.6
   },
@@ -481,7 +585,11 @@
     "description": "Canvas tote bag with elaborate Aari hook-work embroidery on both sides.",
     "price": 1100,
     "inStock": true,
-    "perks": ["Everyday Use", "Washable", "Spacious"],
+    "perks": [
+      "Everyday Use",
+      "Washable",
+      "Spacious"
+    ],
     "extraInfo": "Internal zip pocket included.",
     "rating": 4.4
   },
@@ -499,7 +607,11 @@
     "description": "Hand-painted tissue box holder with a lacquer finish for easy cleaning.",
     "price": 900,
     "inStock": true,
-    "perks": ["Handmade", "Water Resistant", "Home Decor"],
+    "perks": [
+      "Handmade",
+      "Water Resistant",
+      "Home Decor"
+    ],
     "extraInfo": "Standard size for most tissue brands.",
     "rating": 4.7
   },
@@ -517,7 +629,11 @@
     "description": "Elegant copper fruit bowl with wide edges and deep 'Naqashi' engravings of grapevine motifs.",
     "price": 2600,
     "inStock": true,
-    "perks": ["Artisanal", "Pure Material", "Decorative"],
+    "perks": [
+      "Artisanal",
+      "Pure Material",
+      "Decorative"
+    ],
     "extraInfo": "Adds a vintage touch to dining tables.",
     "rating": 4.8
   }
