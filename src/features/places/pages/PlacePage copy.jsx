@@ -42,9 +42,9 @@ const [openSections, setOpenSections] = useState({
   const [showZoom, setShowZoom]     = useState(false);
   const [zoomImage, setZoomImage]   = useState(null);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-
+ 
   const scrollRef = useRef(null);
-
+ 
   useEffect(() => {
     const handleScroll = () => {
       setShowZoom(false);
@@ -57,25 +57,25 @@ const [openSections, setOpenSections] = useState({
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+ 
   const scroll = (direction) => {
     const container = scrollRef.current;
     if (!container) return;
     container.scrollBy({ left: direction === "left" ? -300 : 300, behavior: "smooth" });
   };
-
+ 
   const handleMouseEnter = () => {
     if (!place?.photos?.length) return;
     if (window.innerWidth < 1024) return;
     hasMovedRef.current = false;
     setZoomImage(selectedPhoto || place.photos[0]);
   };
-
+ 
   const handleMouseLeave = () => {
     hasMovedRef.current = false;
     setShowZoom(false);
   };
-
+ 
   const handleMouseMove = (e) => {
     if (!imageRef.current || !rightColRef.current) return;
     const imgRect = imageRef.current.getBoundingClientRect();
@@ -87,7 +87,7 @@ const [openSections, setOpenSections] = useState({
     const rightRect  = rightColRef.current.getBoundingClientRect();
     const panelWidth  = rightRect.width;
     const panelHeight = imgRect.height;
-
+ 
     const x = Math.max(0, Math.min(e.clientX - imgRect.left, imgRect.width));
     const y = Math.max(0, Math.min(e.clientY - imgRect.top,  imgRect.height));
 
@@ -111,7 +111,7 @@ const [openSections, setOpenSections] = useState({
   const [popularRef, popularInstanceRef] = useKeenSlider({
     slides: { perView: 2.2, spacing: 10 },
   });
-
+ 
   useEffect(() => {
     popularInstanceRef.current?.update();
   }, [productsData]);
@@ -129,7 +129,7 @@ const [openSections, setOpenSections] = useState({
     setSelectedPhoto(null);
   
   }, [product]);
-
+ 
   if (isLoading || !place) return <Spinner />;
 
   return (

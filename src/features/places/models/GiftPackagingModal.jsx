@@ -1,51 +1,9 @@
 import { useState, useRef, useEffect, memo } from "react";
+import { usePackagingOptions } from "./hooks/usePackaging";
 
-/** * PACKS CONFIGURATION */
-const PACKS = [
-  {
-    id: "wedding",
-    name: "Royal Nikah Velvet",
-    price: "30",
-    ribbon: "#FFD700", // Gold
-    img: "https://i.etsystatic.com/46240082/r/il/2cb0ad/6048710508/il_800x800.6048710508_gp9t.jpg",
-    texture: "https://www.transparenttextures.com/patterns/natural-paper.png",
-    accent: "#b22222",
-    occasion: "Wedding & Nikah",
-  },
-  {
-    id: "gift",
-    name: "Classic Heritage Teal",
-    price: "40",
-    ribbon: "#f3f4f6", // Silver
-    img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80",
-    texture:
-      "https://www.transparenttextures.com/patterns/fabric-of-squares.png",
-    accent: "#008080",
-    occasion: "General Gifting",
-  },
-  {
-    id: "birthday",
-    name: "Festive Chinar Red",
-    price: "45",
-    ribbon: "#ffffff",
-    img: "https://i.etsystatic.com/15513349/r/il/85510b/5975739618/il_1588xN.5975739618_rit2.jpg",
-    texture: "https://www.transparenttextures.com/patterns/pinstripe.png",
-    accent: "#e63946",
-    occasion: "Birthday Special",
-  },
-  {
-    id: "anniversary",
-    name: "Midnight Rose Gold",
-    price: "50",
-    ribbon: "#E0B0FF", // Mauve
-    img: "https://lachi.in/cdn/shop/files/Gift_Wraps_1.png?crop=center&height=3001&v=1775820589&width=2401https://www.bbassets.com/media/uploads/p/l/40282114_3-dp-printed-paper-gift-wrapping-paper-for-birthdays-baby-showers-weddings.jpg",
-    texture: "https://www.transparenttextures.com/patterns/black-linen.png",
-    accent: "#D4AF37",
-    occasion: "Anniversary & VIP",
-  },
-];
 
-const S = 240; // Box Size
+
+const S = 240;
 const H = S / 2;
 
 const Face = memo(
@@ -62,37 +20,33 @@ const Face = memo(
           height: S,
           transform: styleTransform,
           opacity: xray ? 0.15 : assembled ? 1 : 0,
-          // backgroundColor: pkg.accent || "#111",
           backgroundImage: `
           linear-gradient(rgba(0,0,0,${1 - brightness}), rgba(0,0,0,${1 - brightness})), 
-          url(${pkg.img}), 
-          url(${pkg.texture})
+          url(${pkg?.img}), 
+          url(${pkg?.texture})
         `,
           backgroundSize: "cover, cover, auto",
           backgroundBlendMode: "multiply",
           border: "1px solid rgba(255,255,255,0.1)",
-          willChange: "transform, opacity",
         }}
       >
-        {/* RIBBON LAYER */}
         {!isBottom && (
           <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
             <div
               className="absolute w-full h-[40px] opacity-90 shadow-sm"
-              style={{ background: pkg.ribbon }}
+              style={{ background: pkg?.ribbon }}
             />
             <div
               className="absolute h-full w-[40px] opacity-90 shadow-sm"
-              style={{ background: pkg.ribbon }}
+              style={{ background: pkg?.ribbon }}
             />
           </div>
         )}
 
-        {/* TOP BOX BOW */}
         {isTop && (
           <div
             className="absolute top-1/2 left-1/2 w-16 h-16 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-white/30 flex items-center justify-center z-20 shadow-lg"
-            style={{ background: pkg.ribbon }}
+            style={{ background: pkg?.ribbon }}
           >
             <div className="w-px h-full bg-black/10 absolute rotate-90" />
             <div className="w-px h-full bg-black/10 absolute" />
@@ -100,7 +54,7 @@ const Face = memo(
         )}
       </div>
     );
-  },
+  }
 );
 
 export default function EcommerceGiftModal({
@@ -110,18 +64,42 @@ export default function EcommerceGiftModal({
   onSelectPackage,
   currentSelection,
 }) {
-  const [selId, setSelId] = useState("wedding");
+  
+  const { data = [], isLoading } = usePackagingOptions();
+
+  const PACKS = data.map((item) => ({
+    id: item.id,
+    packagingId: item.packagingId, 
+    name: item.name,
+    price: item.price,
+    ribbon: item.ribbonColor,
+    img: item.image,
+    texture: item.texture,
+    accent: item.accentColor,
+    occasion: item.occasion,
+  }));
+
+  const [selId, setSelId] = useState(null);
+
+  console.log(PACKS,"selid.....");
+  
+
+  /** ✅ DEFAULT SELECTION */
   useEffect(() => {
-  if (currentSelection?.id) {
-    setSelId(currentSelection.id);
-  }
-}, [currentSelection]);
+    if (PACKS.length > 0 && !selId) {
+      setSelId(PACKS[0].id);
+    }
+  }, [PACKS]);
+
+  useEffect(() => {
+    if (currentSelection?.id) {
+      setSelId(currentSelection.id);
+    }
+  }, [currentSelection]);
 
   const [assemblyStage, setAssemblyStage] = useState(0);
   const [isPeekInside, setIsPeekInside] = useState(false);
   const [isAiCrafting, setIsAiCrafting] = useState(false);
-
-  // Find the full package object
 
   const sceneRef = useRef(null);
   const rotationRef = useRef({ x: -20, y: 40 });
@@ -134,9 +112,9 @@ export default function EcommerceGiftModal({
 
   const handleConfirm = () => {
     if (onSelectPackage) {
-      onSelectPackage(pkg); 
+      onSelectPackage(pkg);
     }
-    onClose(); // Close the modal
+    onClose();
   };
 
   const updateSceneTransform = () => {
@@ -179,6 +157,11 @@ export default function EcommerceGiftModal({
 
   if (!isOpen) return null;
 
+  
+  if (isLoading) {
+    return <div className="p-10 text-center">Loading...</div>;
+  }
+
   const handleMouseDown = (e) => {
     isDragging.current = true;
     lastMouse.current = { x: e.clientX, y: e.clientY };
@@ -198,6 +181,8 @@ export default function EcommerceGiftModal({
   return (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl transition-opacity">
       <div className="relative w-full max-w-[1000px] h-[85vh] bg-white rounded-[40px] overflow-hidden flex flex-col md:flex-row shadow-2xl">
+
+
         {/* LEFT SIDEBAR */}
         <aside className="w-full md:w-[350px] flex flex-col border-r border-gray-100 bg-white z-20">
           <div className="flex-1 overflow-y-auto p-8">
@@ -296,10 +281,11 @@ export default function EcommerceGiftModal({
               ref={sceneRef}
               className="relative w-[240px] h-[240px] preserve-3d"
             >
-              {/* Product inside */}
+              
               <div className="absolute inset-8 preserve-3d flex items-center justify-center">
                 <img
-                  src="https://www.hamiast.com/cdn/shop/files/Kandkaari_Copper_Craft_Glass_-_Hand_Engraved_Kashmiri_Artisanal_Piece_-_Hamiast-61689_1680x.jpg?v=1740486501"
+                src={place?.photos?.[0]}
+                  // src="https://www.hamiast.com/cdn/shop/files/Kandkaari_Copper_Craft_Glass_-_Hand_Engraved_Kashmiri_Artisanal_Piece_-_Hamiast-61689_1680x.jpg?v=1740486501"
                   className="w-full h-full object-contain pointer-events-none"
                   style={{
                     opacity: assemblyStage > 0 ? 1 : 0,
@@ -388,6 +374,8 @@ export default function EcommerceGiftModal({
             </span>
           </button>
         </main>
+
+
       </div>
 
       <style
