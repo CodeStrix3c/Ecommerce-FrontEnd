@@ -122,6 +122,7 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
     }
   };
 
+  
   return (
     <div className="w-full md:mx-auto md:max-w-3xl">
       <div className="hidden md:flex flex-col border rounded-xl p-6 bg-white shadow-lg">
@@ -165,6 +166,7 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
               />
             </div>
           </div>
+        )}
 
           <div className="text-sm font-semibold text-right space-y-1">
             <p>
@@ -192,11 +194,9 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
           <button
             onClick={handleWishlist}
             disabled={isWishlistProcessing}
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-gray-800 rounded-lg text-sm font-medium hover:bg-gray-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-gray-800 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors disabled:opacity-50"
           >
-            {isWishlistProcessing ? (
-              <Spinner />
-            ) : (
+            {isWishlistProcessing ? <Spinner /> : (
               <>
                 <Heart
                   size={18}
@@ -217,7 +217,7 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
           <button
             onClick={handleCartAction}
             disabled={isCartProcessing}
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-gray-800 rounded-lg text-sm font-medium hover:bg-gray-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-gray-800 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors disabled:opacity-50"
           >
             {isCartProcessing ? (
               <Spinner />
