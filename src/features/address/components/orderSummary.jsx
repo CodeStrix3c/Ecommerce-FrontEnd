@@ -1,24 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Tag, AlertCircle, Truck } from "lucide-react";
-import { usePayment } from "../hooks/usePayment";
 import { toast } from "react-toastify";
+import { usePaymentFlow } from "@/transactions/flows/usePaymentFlow";
+import { PAYMENT_METHODS } from "@/transactions/constants/transactionConstants";
 
 export const OrderSummary = ({
   checkoutData,
-  paymentMethods = [],
   selectedPayment,
   setSelectedPayment,
   onPlaceOrder,
   placingOrder,
-  orderError,
 }) => {
   const queryClient = useQueryClient();
-  const { payWithUPI } = usePayment();
-
-  const [releasing, setReleasing] = useState(false);
-  const [released, setReleased] = useState(false);
-  const [pTransferId, setpTransferId] = useState(null);
+  const { startPayment } = usePaymentFlow();
 
   if (!checkoutData) return null;
 
@@ -34,11 +28,8 @@ export const OrderSummary = ({
     taxAmount = 0,
     discount = 0,
     orderTotal = 0,
-    couponCode = null,
     subTotalWithDiscount = 0,
     user,
-    transferId, // ✅ coming from backend
-    orderStatus, // ✅ e.g. PLACED / DELIVERED
   } = vm;
 
   const vendorAccountId = import.meta.env.VITE_VENDOR_ACCOUNT_ID;
@@ -48,9 +39,7 @@ export const OrderSummary = ({
       (p) => p.name === rootData?.selectedShippingMethodName,
     )?.price ?? shippingAmount;
 
-  // ─────────────────────────────────────────
-  // PLACE ORDER + PAYMENT
-  // ─────────────────────────────────────────
+  // 🔥 CLEAN HANDLER
   const handlePlaceOrder = async () => {
     try {
       if (!selectedPayment) {
@@ -58,63 +47,17 @@ export const OrderSummary = ({
         return;
       }
 
-      if (selectedPayment === "RAZORPAY_UPI") {
-        // 1. Create order
-        const orderRes = await fetch("http://localhost:4000/create-order", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ amount: orderTotal }),
-        });
-
-        const orderData = await orderRes.json();
-
-        if (!orderData.id) {
-          toast.error("Failed to create payment order");
-          return;
-        }
-
-        // 2. Open Razorpay
-        const result = await payWithUPI({
+      if (selectedPayment === PAYMENT_METHODS.UPI) {
+        const res = await startPayment({
           amount: orderTotal,
-          orderId: orderData.id,
-          description: "Order Payment",
-          user: {
-            name: user?.name || "Guest",
-            email: user?.email || "guest@example.com",
-            contact: user?.phone || "9999999999",
-          },
+          user,
+          vendorAccountId,
         });
-
-        if (!result.success) {
-          toast.error(result.error.description);
-          return;
-        }
-
-        // 3. Verify + create HOLD transfer
-        const verifyRes = await fetch("http://localhost:4000/verify-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            razorpay_order_id: orderData.id,
-            razorpay_payment_id: result.data.razorpay_payment_id,
-            razorpay_signature: result.data.razorpay_signature,
-            amount: orderTotal,
-            vendorAccountId,
-          }),
-        });
-
-        const verifyData = await verifyRes.json();
-
-        if (!verifyData.success) {
-          toast.error("Payment verification failed");
-          return;
-        }
-
-        toast.success("🔒 Payment held securely");
 
         await onPlaceOrder();
-        setpTransferId(verifyData.transferId);
-        localStorage.setItem("transferId", verifyData.transferId);
+
+        // ⚠️ still temporary (should move to backend)
+        localStorage.setItem("transferId", res.transferId);
       } else {
         await onPlaceOrder({ paymentMethod: selectedPayment });
       }
@@ -122,7 +65,6 @@ export const OrderSummary = ({
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     } catch (err) {
       console.error(err);
-      toast.error("Something went wrong");
     }
   };
 
@@ -132,9 +74,6 @@ export const OrderSummary = ({
       ? Math.round((taxAmount / taxBase) * 100)
       : null;
 
-  // ─────────────────────────────────────────
-  // UI
-  // ─────────────────────────────────────────
   return (
     <div className="bg-white shadow-lg rounded-xl p-6 border max-w-xl">
       <h2 className="text-xl font-semibold mb-5">Order Summary</h2>
@@ -200,8 +139,8 @@ export const OrderSummary = ({
         className="w-full border rounded-md p-2 mt-4"
       >
         <option value="">Select Payment</option>
-        <option value="RAZORPAY_UPI">UPI / Razorpay</option>
-        <option value="COD">Cash on delivery</option>
+        <option value={PAYMENT_METHODS.UPI}>UPI / Razorpay</option>
+        <option value={PAYMENT_METHODS.COD}>Cash on delivery</option>
       </select>
 
       <button
