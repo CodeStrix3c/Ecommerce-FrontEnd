@@ -36,7 +36,6 @@ const CartSummary = ({
   const { mutate: applyCoupon, isPending: isCouponPending } = useApplyCoupon();
   const { mutate: checkout, isPending: isCheckoutPending } = usecheckout();
 
-  // ✅ Only fetch when panel is opened
   const { data: couponsData, isLoading: couponsLoading } = useGetCoupons({
     enabled: panelOpen,
   });
@@ -51,7 +50,6 @@ const CartSummary = ({
     }
     applyCoupon(couponCode.trim(), {
       onSuccess: (data) => {
-        // Handle case where request succeeds (2xx) but coupon application failed
         if (data?.succeeded === false) {
           setAppliedCoupon(null);
           toast.error(data?.errorMessage || "Coupon could not be applied");
@@ -62,7 +60,6 @@ const CartSummary = ({
       },
       onError: (error) => {
         setAppliedCoupon(null);
-        // Check all possible error message locations
         const message =
           error?.response?.data?.errorMessage ||
           error?.response?.data?.message ||
@@ -74,14 +71,13 @@ const CartSummary = ({
   };
 
   const handleSelectCoupon = (code) => {
-    // Clicking an already selected coupon deselects it
     if (couponCode === code) {
       setCouponCode("");
       setAppliedCoupon(null);
       return;
     }
     setCouponCode(code);
-    setAppliedCoupon(null); // reset — requires re-apply or direct checkout
+    setAppliedCoupon(null);
   };
 
   const handleCheckout = () => {
@@ -94,7 +90,6 @@ const CartSummary = ({
       },
       onError: (error) => {
         const data = error?.response?.data;
-        // Handle plain string response, object with errorMessage, or object with message
         const message =
           (typeof data === "string" && data) ||
           data?.errorMessage ||
@@ -105,6 +100,19 @@ const CartSummary = ({
       },
     });
   };
+
+  // ✅ ADDED: packaging total calculation (safe fallback for all cases)
+  const packagingTotal = cart?.reduce(
+    (sum, item) =>
+      sum +
+      Number(
+        item.packagingPrice ??        // direct field
+        item.packaging?.price ??      // nested field
+        item.packagingAmount ??       // fallback
+        0
+      ),
+    0
+  );
 
   return (
     <div className="sticky top-36 border rounded-sm p-6 bg-[var(--color-white)] flex flex-col gap-4 shadow-sm">
@@ -122,16 +130,27 @@ const CartSummary = ({
           <span>Subtotal</span>
           <span>₹{Number(subTotal ?? 0).toFixed(2)}</span>
         </div>
+
+        {/* ✅ ADDED: Packaging row (only shows if exists) */}
+        {packagingTotal > 0 && (
+          <div className="flex justify-between text-sm">
+            <span>Packaging</span>
+            <span>₹{packagingTotal.toFixed(2)}</span>
+          </div>
+        )}
+
         {discount > 0 && (
           <div className="flex justify-between text-sm text-green-600">
             <span>Discount</span>
             <span>- ₹{Number(discount).toFixed(2)}</span>
           </div>
         )}
+
+        
         <div className="flex justify-between text-base font-semibold border-t pt-3">
           <span>Total</span>
           <span className="text-[var(--color-primary)]">
-            ₹{Number(total ?? 0).toFixed(2)}
+            ₹{(Number(total ?? 0) + packagingTotal).toFixed(2)}
           </span>
         </div>
       </div>
@@ -165,7 +184,6 @@ const CartSummary = ({
           </p>
         )}
 
-        {/* Toggle available coupons */}
         <button
           type="button"
           onClick={() => setPanelOpen((p) => !p)}
@@ -176,79 +194,6 @@ const CartSummary = ({
           />
           View available coupons {coupons.length > 0 && `(${coupons.length})`}
         </button>
-
-        {/* Coupons Panel */}
-        {panelOpen && (
-          <div className="flex flex-col gap-2 pt-1">
-            {couponsLoading ? (
-              // Skeleton
-              <div className="h-20 rounded-md bg-gray-100 animate-pulse" />
-            ) : coupons.length === 0 ? (
-              <p className="text-xs text-gray-400 text-center py-3">
-                No coupons available
-              </p>
-            ) : (
-              coupons.map((c) => {
-                const isSelected = couponCode === c.code;
-                return (
-                  <div
-                    key={c.code}
-                    onClick={() => handleSelectCoupon(c.code)}
-                    className={`border-2 border-dashed rounded-md px-3 py-2.5 cursor-pointer transition-all flex items-start gap-3
-                      ${
-                        isSelected
-                          ? "border-green-500 bg-green-50"
-                          : "border-gray-200 hover:border-blue-400 hover:bg-blue-50"
-                      }`}
-                  >
-                    {/* Left */}
-                    <div className="flex flex-col gap-0.5 flex-1 min-w-0">
-                      <span className="font-mono text-sm font-semibold text-gray-900 tracking-wide">
-                        {c.code}
-                      </span>
-                      <span className="text-[11px] font-medium text-gray-500">
-                        {c.ruleName}
-                      </span>
-                      {/* <span className="text-[10px] text-blue-500">
-                        Applies to {c.appliesTo}
-                      </span> */}
-                      <span className="text-[10px] text-gray-400">
-                        Valid till {formatExpiry(c.endDate)}
-                      </span>
-                    </div>
-
-                    {/* Right */}
-                    <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                      <span
-                        className={`text-[11px] font-semibold px-2 py-0.5 rounded-full
-                          ${isSelected ? "bg-green-100 text-green-700" : "bg-orange-50 text-orange-600"}`}
-                      >
-                        ₹{c.maxDiscountAmount}
-                      </span>
-
-                      {/* Check circle */}
-                      <div
-                        className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all
-                          ${
-                            isSelected
-                              ? "bg-green-500 border-green-500"
-                              : "border-gray-300"
-                          }`}
-                      >
-                        {isSelected && (
-                          <Check
-                            className="w-2.5 h-2.5 text-white"
-                            strokeWidth={3}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
-        )}
       </div>
 
       {/* Checkout */}
@@ -257,14 +202,7 @@ const CartSummary = ({
         disabled={isCheckoutPending || cart.length === 0}
         className="w-full px-4 py-3 bg-[var(--color-primary)] text-white rounded-full font-medium shadow-md hover:opacity-90 transition flex justify-center items-center gap-2 disabled:bg-gray-300 disabled:shadow-none"
       >
-        {isCheckoutPending ? (
-          <>
-            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            Processing...
-          </>
-        ) : (
-          "Checkout"
-        )}
+        {isCheckoutPending ? "Processing..." : "Checkout"}
       </button>
     </div>
   );

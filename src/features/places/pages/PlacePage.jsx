@@ -333,7 +333,7 @@ const PlacePage = () => {
                   </div>
                 </button>
               </div>
-              <BookingWidget place={place} />
+              <BookingWidget place={place} selectedPackage={selectedPackage} />
             </div>
           </div>
 
@@ -404,13 +404,13 @@ const PlacePage = () => {
         <Testimonials />
       </div>
 
-      <GiftPackagingModal
-        isOpen={giftModalOpen}
-        onClose={() => setGiftModalOpen(false)}
-        place={place}
-        onSelectPackage={setSelectedPackage} // New Prop
-        currentSelection={selectedPackage} // To keep the radio highlighted
-      />
+   <GiftPackagingModal
+  isOpen={giftModalOpen}
+  onClose={() => setGiftModalOpen(false)}
+  place={product}
+  currentSelection={selectedPackage}
+  onSelectPackage={setSelectedPackage}
+/>
     </ContentWrapper>
   );
 };

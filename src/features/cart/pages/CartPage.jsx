@@ -116,6 +116,7 @@ const CartPage = () => {
                   <CartItem
                     product={{
                       cartItemId: product.id,
+                      productId: product.productId,
                       title: product.productName,
                       photos: product.productImage
                         ? [product.productImage]
@@ -131,6 +132,7 @@ const CartPage = () => {
                       quantity: Number(product.quantity ?? 1),
                       rating: 0,
                       inStock: product.isProductAvailabeToOrder,
+                      packagingPrice: Number(product.packagingPrice ?? 0),
                     }}
                     onRemove={() => handleRemoveClick(product.id)}
                     onQuantityChange={updateQuantity}
@@ -154,6 +156,7 @@ const CartPage = () => {
                   discount={discount}
                   total={subTotalWithDiscount}
                   onCheckout={checkoutAll}
+                
                   onClear={clearCart}
                   selectedPayment={selectedPayment}
                   onPaymentChange={setSelectedPayment}
