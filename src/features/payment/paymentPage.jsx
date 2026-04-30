@@ -113,7 +113,6 @@ const PaymentPage = () => {
             </button>
           </div>
 
-          {/* Order Summary */}
           <div className="lg:sticky lg:top-24 h-fit">
             <OrderSummary checkoutData={checkoutData} />
           </div>
