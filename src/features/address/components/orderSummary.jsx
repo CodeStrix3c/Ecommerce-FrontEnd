@@ -133,9 +133,6 @@ export const OrderSummary = ({
       ? Math.round((taxAmount / taxBase) * 100)
       : null;
 
-  // ─────────────────────────────────────────
-  // UI
-  // ─────────────────────────────────────────
   return (
     <div className="bg-white shadow-lg rounded-xl p-6 border max-w-xl">
       <h2 className="text-xl font-semibold mb-5">Order Summary</h2>
