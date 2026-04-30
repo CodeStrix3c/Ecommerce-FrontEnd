@@ -11,6 +11,8 @@ export const OrderSummary = ({
   setSelectedPayment,
   onPlaceOrder,
   placingOrder,
+  packagingTotal,
+  finalTotal,
   orderError,
 }) => {
   const queryClient = useQueryClient();
@@ -61,11 +63,14 @@ export const OrderSummary = ({
 
       if (selectedPayment === "RAZORPAY_UPI") {
         // 1. Create order
-        const orderRes = await fetch("http://localhost:4000/create-order", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ amount: orderTotal }),
-        });
+        const orderRes = await fetch(
+          "https://ai-ecomintegration-c2ffbzcxg0a9dtdj.centralindia-01.azurewebsites.net/create-order",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ amount: orderTotal }),
+          },
+        );
 
         const orderData = await orderRes.json();
 
@@ -92,17 +97,20 @@ export const OrderSummary = ({
         }
 
         // 3. Verify + create HOLD transfer
-        const verifyRes = await fetch("http://localhost:4000/verify-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            razorpay_order_id: orderData.id,
-            razorpay_payment_id: result.data.razorpay_payment_id,
-            razorpay_signature: result.data.razorpay_signature,
-            amount: orderTotal,
-            vendorAccountId,
-          }),
-        });
+        const verifyRes = await fetch(
+          "https://ai-ecomintegration-c2ffbzcxg0a9dtdj.centralindia-01.azurewebsites.net/verify-payment",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_order_id: orderData.id,
+              razorpay_payment_id: result.data.razorpay_payment_id,
+              razorpay_signature: result.data.razorpay_signature,
+              amount: orderTotal,
+              vendorAccountId,
+            }),
+          },
+        );
 
         const verifyData = await verifyRes.json();
 
@@ -176,7 +184,7 @@ export const OrderSummary = ({
         </div>
         <div className="flex justify-between">
           <span className="text-gray-600">Packaging</span>
-          <span>₹{Number(packagingAmount).toLocaleString()}</span>
+          <span>₹{packagingTotal}</span>
         </div>
 
         {discount > 0 && (
@@ -190,7 +198,7 @@ export const OrderSummary = ({
 
         <div className="flex justify-between font-semibold text-lg">
           <span>Total</span>
-          <span>₹{orderTotal}</span>
+          <span>₹{orderTotal + packagingTotal}</span>
         </div>
       </div>
 

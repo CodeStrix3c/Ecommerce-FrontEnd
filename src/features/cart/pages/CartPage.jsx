@@ -156,7 +156,6 @@ const CartPage = () => {
                   discount={discount}
                   total={subTotalWithDiscount}
                   onCheckout={checkoutAll}
-                
                   onClear={clearCart}
                   selectedPayment={selectedPayment}
                   onPaymentChange={setSelectedPayment}

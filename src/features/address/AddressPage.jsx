@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import { AddressModal } from "./components/addressModal";
@@ -81,6 +81,7 @@ const AddressPage = () => {
   const { mutateAsync: editAddress } = useEditUserAddress();
 
   const { data: existingAddress } = useExistingAddress(editId);
+  const location = useLocation();
 
   const { data: countries = [] } = useCountries();
   const { data: states = [] } = useStates(selectedCountry);
@@ -92,6 +93,12 @@ const AddressPage = () => {
     useUpdateShippingPrices();
 
   const rootData = updatedCheckoutData || checkoutData;
+  const packagingTotal = location.state?.packagingTotal || 0;
+
+  const finalTotal =
+    (rootData?.subTotalWithDiscount || 0) +
+    (rootData?.shippingTotal || 0) +
+    packagingTotal;
   const shippingPrices = rootData?.shippingPrices || [];
 
   /* ---------------- INITIALIZE ADDRESS LIST ---------------- */
@@ -440,6 +447,8 @@ const AddressPage = () => {
             <div className="lg:sticky lg:top-24 h-fit">
               <OrderSummary
                 checkoutData={rootData}
+                packagingTotal={packagingTotal} // ✅ NEW
+                finalTotal={finalTotal} // ✅ OPTIONAL
                 isUpdating={updatingPrices}
                 paymentMethods={paymentMethods}
                 selectedPayment={selectedPayment}
