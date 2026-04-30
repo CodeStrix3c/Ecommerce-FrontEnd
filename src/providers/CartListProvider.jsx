@@ -42,6 +42,11 @@ export const CartListProvider = ({ children }) => {
       return;
     }
 
+    // ✅ CRITICAL FIX: do NOT call normal API if packaging exists
+    if (payload?.packagingId) {
+      return;
+    }
+
     await addItem({
       productId: payload.productId,
       quantity: payload.quantity || 1,
@@ -55,14 +60,17 @@ export const CartListProvider = ({ children }) => {
   };
 
   /* -------------------- UPDATE QUANTITY -------------------- */
-  const updateQuantity = async (cartItemId, quantity) => {
+  const updateQuantity = async (cartItemId, quantity, packagingId) => {
+    // ✅ CRITICAL FIX: skip update for packaging items
+    if (packagingId) return;
+
     await updateItemQuantity({ cartItemId, quantity });
   };
 
   /* -------------------- CLEAR CART -------------------- */
   const clearCart = async () => {
     await Promise.all(
-      cartItems.map((item) => removeItem({ cartItemId: item.id })),
+      cartItems.map((item) => removeItem({ cartItemId: item.id }))
     );
   };
 

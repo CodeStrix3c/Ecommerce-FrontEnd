@@ -32,6 +32,7 @@ export const OrderSummary = ({
     subTotal = 0,
     shippingAmount = 0,
     taxAmount = 0,
+    packagingAmount = 0,
     discount = 0,
     orderTotal = 0,
     couponCode = null,
@@ -161,7 +162,7 @@ export const OrderSummary = ({
 
       <hr className="my-5" />
 
-      {/* TOTAL */}
+     
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
           <span>Subtotal</span>
@@ -177,6 +178,10 @@ export const OrderSummary = ({
           <span>Tax {taxPercent ? `@${taxPercent}%` : ""}</span>
           <span>₹{taxAmount}</span>
         </div>
+        <div className="flex justify-between">
+          <span className="text-gray-600">Packaging</span>
+          <span>₹{Number(packagingAmount).toLocaleString()}</span>
+        </div>  
 
         {discount > 0 && (
           <div className="flex justify-between text-green-600">

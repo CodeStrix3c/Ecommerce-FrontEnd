@@ -31,10 +31,8 @@ const PlacePage = () => {
   const { data: productsData } = useProductsQuery({ page: 1 });
 
   const [place, setPlace] = useState(null);
-
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [giftModalOpen, setGiftModalOpen] = useState(false);
-
   const [tryOnOpen, setTryOnOpen] = useState(false);
 
   const [openSections, setOpenSections] = useState({
@@ -143,12 +141,12 @@ const PlacePage = () => {
         <ListingHeader place={place} />
 
         <div className="mt-10 flex flex-col gap-8 lg:flex-row">
-          {/* LEFT SIDE */}
+          {/* LEFT */}
           <div className="lg:w-4/7 w-full">
             <PlaceGallery place={place} />
           </div>
 
-          {/* RIGHT SIDE */}
+          {/* RIGHT */}
           <div className="lg:w-2/7 w-full space-y-4">
             <ProductInfoPanel
               place={place}
@@ -156,53 +154,50 @@ const PlacePage = () => {
               toggleSection={toggleSection}
             />
 
-            {/* ===== ACTION BLOCK ===== */}
-            <div className="space-y-3">
-              {/* 🎁 GIFT PACKAGING */}
-              <button
-                onClick={() => setGiftModalOpen(true)}
-                className="w-full flex items-center justify-between p-4 text-sm border rounded-xl 
-                           bg-gray-50 hover:bg-white hover:border-black transition"
-              >
-                <div className="flex items-center gap-3">
-                  <span>🎁</span>
-                  <div className="text-left">
-                    <p className="font-semibold">
-                      {selectedPackage
-                        ? selectedPackage.name
-                        : "Add Gift Packaging"}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {selectedPackage
-                        ? `${selectedPackage.occasion} • +₹${selectedPackage.price}`
-                        : "Make it special with premium wrapping"}
-                    </p>
-                  </div>
+            {/* 🎁 Gift Packaging */}
+            <button
+              onClick={() => setGiftModalOpen(true)}
+              className="w-full flex items-center justify-between p-4 text-sm border rounded-xl 
+                         bg-gray-50 hover:bg-white hover:border-black transition"
+            >
+              <div className="flex items-center gap-3">
+                <span>🎁</span>
+                <div className="text-left">
+                  <p className="font-semibold">
+                    {selectedPackage
+                      ? selectedPackage.name
+                      : "Add Gift Packaging"}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {selectedPackage
+                      ? `${selectedPackage.occasion} • +₹${selectedPackage.price}`
+                      : "Make it special with premium wrapping"}
+                  </p>
                 </div>
+              </div>
 
-                {selectedPackage && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedPackage(null);
-                    }}
-                    className="text-xs text-red-500"
-                  >
-                    Remove
-                  </button>
-                )}
-              </button>
+              {selectedPackage && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedPackage(null);
+                  }}
+                  className="text-xs text-red-500"
+                >
+                  Remove
+                </button>
+              )}
+            </button>
 
-              {/* 👕 VIRTUAL TRY ON */}
-              <button
-                onClick={() => setTryOnOpen(true)}
-                className="w-full flex items-center justify-center gap-2 
-                           bg-[var(--color-primary)] text-white font-semibold 
-                           py-3 rounded-xl hover:opacity-90 transition"
-              >
-                👕 Virtual Try-On
-              </button>
-            </div>
+            {/* 👕 Virtual Try-On */}
+            <button
+              onClick={() => setTryOnOpen(true)}
+              className="w-full flex items-center justify-center gap-2 
+                         bg-[var(--color-primary)] text-white font-semibold 
+                         py-3 rounded-xl hover:opacity-90 transition"
+            >
+              👕 Virtual Try-On
+            </button>
 
             <BookingWidget place={place} selectedPackage={selectedPackage} />
           </div>
@@ -247,6 +242,7 @@ const PlacePage = () => {
         <Testimonials />
       </div>
 
+      {/* MODALS */}
       <VirtualTryOnModal
         isOpen={tryOnOpen}
         onClose={() => setTryOnOpen(false)}
