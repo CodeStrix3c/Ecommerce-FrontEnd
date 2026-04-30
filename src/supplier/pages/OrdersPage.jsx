@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { ShoppingCart } from "lucide-react";
+import ContentWrapper from "@/components/shared/ContentWrapper";
 import OrderStats from "../components/OrderStats";
 import OrdersFilters from "../components/OrdersFilters";
 import OrdersTable from "../components/OrdersTable";
-import { ShoppingCart } from "lucide-react";
-import ContentWrapper from "@/components/shared/ContentWrapper";
 import { useGetOrders } from "@/hooks/Orders/useOrders";
-import { useEffect } from "react";
+import { useReleasePayment } from "@/transactions/hooks/useReleasePayment";
+import { toast } from "react-toastify";
 
 export default function OrdersPage() {
   const [search, setSearch] = useState("");
@@ -13,7 +14,7 @@ export default function OrdersPage() {
   const [dateRange, setDateRange] = useState(null);
 
   const { data: orders = [], isLoading, error } = useGetOrders();
-  console.log("orders page...");
+  const { mutate: releasePayment } = useReleasePayment();
 
   useEffect(() => {
     const transferId = localStorage.getItem("transferId");
@@ -21,39 +22,25 @@ export default function OrdersPage() {
 
     if (!orders.length || !transferId || !livePayOrderId) return;
 
-    orders.forEach((order) => {
-      if (
+    const matchedOrder = orders.find(
+      (order) =>
         order.orderStatusString === "Complete" &&
-        String(order.id) === String(livePayOrderId)
-      ) {
-        handleReleasePayment(transferId);
+        String(order.id) === String(livePayOrderId),
+    );
 
-        // Optional cleanup (recommended to prevent duplicate calls)
+    if (!matchedOrder) return;
+
+    releasePayment(transferId, {
+      onSuccess: () => {
+        toast.success("Payment released");
         localStorage.removeItem("transferId");
         localStorage.removeItem("livePayOrderId");
-      }
+      },
+      onError: () => {
+        toast.error("Release failed");
+      },
     });
-  }, [orders]);
-  const handleReleasePayment = async (transferId) => {
-    try {
-      const res = await fetch("http://localhost:4000/release-payment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ transferId }),
-      });
-
-      const data = await res.json();
-
-      if (!data.success) {
-        console.error(data.error);
-        return;
-      }
-
-      toast.success(`Payment released for ${transferId}`);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  }, [orders, releasePayment]);
 
   if (error) {
     return (
