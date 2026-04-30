@@ -41,7 +41,6 @@ const PaymentPage = () => {
     return <div className="flex justify-center p-20">Loading...</div>;
   }
 
-  /* ✅ Always use selected shippingAddressId */
   const shipping = checkoutData?.existingShippingAddresses?.find(
     (a) => a.userAddressId === checkoutData?.shippingAddressId,
   );
