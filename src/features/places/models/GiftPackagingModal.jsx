@@ -5,7 +5,7 @@ const PACKS = [
   {
     id: "wedding",
     name: "Royal Nikah Velvet",
-    price: "850",
+    price: "30",
     ribbon: "#FFD700", // Gold
     img: "https://i.etsystatic.com/46240082/r/il/2cb0ad/6048710508/il_800x800.6048710508_gp9t.jpg",
     texture: "https://www.transparenttextures.com/patterns/natural-paper.png",
@@ -15,7 +15,7 @@ const PACKS = [
   {
     id: "gift",
     name: "Classic Heritage Teal",
-    price: "450",
+    price: "40",
     ribbon: "#f3f4f6", // Silver
     img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80",
     texture:
@@ -26,7 +26,7 @@ const PACKS = [
   {
     id: "birthday",
     name: "Festive Chinar Red",
-    price: "350",
+    price: "45",
     ribbon: "#ffffff",
     img: "https://i.etsystatic.com/15513349/r/il/85510b/5975739618/il_1588xN.5975739618_rit2.jpg",
     texture: "https://www.transparenttextures.com/patterns/pinstripe.png",
@@ -36,9 +36,9 @@ const PACKS = [
   {
     id: "anniversary",
     name: "Midnight Rose Gold",
-    price: "600",
+    price: "50",
     ribbon: "#E0B0FF", // Mauve
-    img: "https://images.unsplash.com/photo-1577083165350-16c9f88b4a26?w=500&q=80",
+    img: "https://lachi.in/cdn/shop/files/Gift_Wraps_1.png?crop=center&height=3001&v=1775820589&width=2401https://www.bbassets.com/media/uploads/p/l/40282114_3-dp-printed-paper-gift-wrapping-paper-for-birthdays-baby-showers-weddings.jpg",
     texture: "https://www.transparenttextures.com/patterns/black-linen.png",
     accent: "#D4AF37",
     occasion: "Anniversary & VIP",
@@ -111,6 +111,12 @@ export default function EcommerceGiftModal({
   currentSelection,
 }) {
   const [selId, setSelId] = useState("wedding");
+  useEffect(() => {
+  if (currentSelection?.id) {
+    setSelId(currentSelection.id);
+  }
+}, [currentSelection]);
+
   const [assemblyStage, setAssemblyStage] = useState(0);
   const [isPeekInside, setIsPeekInside] = useState(false);
   const [isAiCrafting, setIsAiCrafting] = useState(false);
@@ -128,7 +134,7 @@ export default function EcommerceGiftModal({
 
   const handleConfirm = () => {
     if (onSelectPackage) {
-      onSelectPackage(pkg); // Send the whole object back
+      onSelectPackage(pkg); 
     }
     onClose(); // Close the modal
   };
@@ -191,12 +197,12 @@ export default function EcommerceGiftModal({
 
   return (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl transition-opacity">
-      <div className="relative w-full max-w-[1200px] h-[85vh] bg-white rounded-[40px] overflow-hidden flex flex-col md:flex-row shadow-2xl">
+      <div className="relative w-full max-w-[1000px] h-[85vh] bg-white rounded-[40px] overflow-hidden flex flex-col md:flex-row shadow-2xl">
         {/* LEFT SIDEBAR */}
-        <aside className="w-full md:w-[380px] flex flex-col border-r border-gray-100 bg-white z-20">
+        <aside className="w-full md:w-[350px] flex flex-col border-r border-gray-100 bg-white z-20">
           <div className="flex-1 overflow-y-auto p-8">
             <header className="mb-8">
-              <div className="flex items-center gap-2 mb-2 text-amber-600 font-bold text-[10px] uppercase tracking-[3px]">
+              <div className="flex items-center gap-4 mb-2 text-amber-800 font-bold text-[10px] uppercase tracking-[3px]">
                 <span className="w-2 h-2 rounded-full bg-current animate-pulse" />
                 Artisanal Wrapping
               </div>
@@ -204,7 +210,7 @@ export default function EcommerceGiftModal({
                 {place?.title || "Kashmiri Masterpiece"}
               </h2>
             </header>
-            <div className="space-y-3">
+            <div className="space-y-5">
               {PACKS.map((p) => (
                 <button
                   key={p.id}
@@ -232,16 +238,25 @@ export default function EcommerceGiftModal({
                     <p className="font-bold text-sm leading-tight">{p.name}</p>
                   </div>
 
-                  {/* PRICE TAG */}
-                  <div className="text-right">
-                    <p
-                      className={`text-xs font-black ${
-                        selId === p.id ? "text-white" : "text-gray-900"
-                      }`}
-                    >
-                      +₹{p.price}
-                    </p>
-                  </div>
+              
+                 {/* PRICE TAG */}
+<div className="text-right leading-tight">
+  <p
+    className={`text-xs font-black ${
+      selId === p.id ? "text-white" : "text-gray-900"
+    }`}
+  >
+    +₹{p.price}
+  </p>
+
+  <p
+    className={`text-[12px] ${
+      selId === p.id ? "text-white/70" : "text-gray-500"
+    }`}
+  >
+    incl. packaging & material
+  </p>
+</div>
                 </button>
               ))}
             </div>
@@ -249,7 +264,7 @@ export default function EcommerceGiftModal({
 
           <div className="p-8 border-t border-gray-50 bg-gray-50/50">
             <button
-              onClick={handleConfirm} // Call the selection handler
+              onClick={handleConfirm} 
               className="w-full py-4 rounded-full font-bold text-[11px] uppercase tracking-[2px] bg-black text-white hover:bg-amber-800 transition-all shadow-lg active:scale-95"
             >
               Confirm & Update Selection
@@ -257,7 +272,7 @@ export default function EcommerceGiftModal({
           </div>
         </aside>
 
-        {/* RIGHT SIDE: 3D VIEWPORT */}
+    
         <main
           className="flex-1 relative bg-[#fafafa] overflow-hidden cursor-grab active:cursor-grabbing"
           onMouseDown={handleMouseDown}
