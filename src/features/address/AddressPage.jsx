@@ -229,13 +229,12 @@ const AddressPage = () => {
     }
   };
 
-  /* ---------------- PLACE ORDER ---------------- */
   const handlePlaceOrder = async () => {
     // Clear any previous order error
     setOrderError(null);
 
     if (!selectedPayment) {
-      toast.error("Please select payment method");
+      toast.error("Please select payment mefffthod");
       return;
     }
 
