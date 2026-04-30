@@ -162,10 +162,9 @@ export const OrderSummary = ({
 
       <hr className="my-5" />
 
-     
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
-          <span>Subtotal</span>
+          <span>Original Price</span>
           <span>₹{subTotal}</span>
         </div>
 
@@ -181,7 +180,7 @@ export const OrderSummary = ({
         <div className="flex justify-between">
           <span className="text-gray-600">Packaging</span>
           <span>₹{Number(packagingAmount).toLocaleString()}</span>
-        </div>  
+        </div>
 
         {discount > 0 && (
           <div className="flex justify-between text-green-600">
