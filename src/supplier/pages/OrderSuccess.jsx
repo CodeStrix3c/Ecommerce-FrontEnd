@@ -10,6 +10,9 @@ export default function OrderSuccessPage() {
   const location = useLocation();
 
   const order = location?.state?.order;
+  console.log(order.value.id, "order in ordersucess");
+  localStorage.setItem("livePayOrderId", order?.value?.id);
+
   const data = order?.value;
 
   const invoiceRef = useRef();
@@ -25,14 +28,10 @@ export default function OrderSuccessPage() {
   return (
     <ContentWrapper>
       <div className="lg:mt-28 max-w-5xl mx-auto px-4 pt-8">
-
-    
         <div className="bg-white border rounded-md shadow-sm">
-
           {/* HEADER */}
           <div className="p-6 border-b">
             <div className="flex flex-col sm:flex-row justify-between gap-4">
-
               <div className="flex items-start gap-3">
                 <CheckCircle className="text-green-600 w-7 h-7 mt-1" />
                 <div>
@@ -70,15 +69,12 @@ export default function OrderSuccessPage() {
                   Invoice
                 </button>
               </div>
-
             </div>
           </div>
 
           {/* ITEMS */}
           <div className="p-6 border-b">
-            <h2 className="font-semibold mb-4 text-gray-800">
-              Order Items
-            </h2>
+            <h2 className="font-semibold mb-4 text-gray-800">Order Items</h2>
 
             {data.orderItems.map((item) => (
               <div
@@ -89,9 +85,7 @@ export default function OrderSuccessPage() {
                   <p className="text-sm font-medium text-gray-800">
                     Product ID: {item.productId}
                   </p>
-                  <p className="text-xs text-gray-500">
-                    Qty: {item.quantity}
-                  </p>
+                  <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
                 </div>
 
                 <p className="text-sm font-medium text-gray-800">
@@ -103,12 +97,9 @@ export default function OrderSuccessPage() {
 
           {/* SUMMARY */}
           <div className="p-6 border-b">
-            <h2 className="font-semibold mb-3 text-gray-800">
-              Order Summary
-            </h2>
+            <h2 className="font-semibold mb-3 text-gray-800">Order Summary</h2>
 
             <div className="space-y-2 text-sm">
-
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span>₹{Number(data.subTotal).toFixed(2)}</span>
@@ -122,9 +113,7 @@ export default function OrderSuccessPage() {
               )}
 
               <div className="flex justify-between">
-                <span>
-                  Tax {taxPercent && `(${taxPercent}%)`}
-                </span>
+                <span>Tax {taxPercent && `(${taxPercent}%)`}</span>
                 <span>₹{Number(data.taxAmount).toFixed(2)}</span>
               </div>
 
@@ -137,13 +126,11 @@ export default function OrderSuccessPage() {
                 <span>Total</span>
                 <span>₹{Number(data.orderTotal).toFixed(2)}</span>
               </div>
-
             </div>
           </div>
 
           {/* ADDRESS + PAYMENT */}
           <div className="p-6 grid md:grid-cols-2 gap-6 border-b">
-
             <div>
               <h3 className="font-semibold text-gray-800 mb-2">
                 Delivery Address
@@ -156,8 +143,7 @@ export default function OrderSuccessPage() {
                 {data.shippingAddress.addressLine1}
               </p>
               <p className="text-sm text-gray-700">
-                {data.shippingAddress.city} -{" "}
-                {data.shippingAddress.zipCode}
+                {data.shippingAddress.city} - {data.shippingAddress.zipCode}
               </p>
             </div>
 
@@ -167,7 +153,6 @@ export default function OrderSuccessPage() {
               </h3>
               <p className="text-sm">{data.paymentMethod}</p>
             </div>
-
           </div>
 
           {/* ACTIONS */}
@@ -186,14 +171,12 @@ export default function OrderSuccessPage() {
               Your Orders
             </button>
           </div>
-
         </div>
 
         {/* PRINT */}
         <div className="hidden">
           <Invoice ref={invoiceRef} order={data} />
         </div>
-
       </div>
     </ContentWrapper>
   );

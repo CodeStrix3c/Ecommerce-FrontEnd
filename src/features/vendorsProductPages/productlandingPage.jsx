@@ -1,4 +1,3 @@
-// ProductLandingPage.jsx
 import { useState, useEffect, useRef, useMemo } from "react";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import SearchBar from "@/components/shared/SearchBar";
@@ -38,7 +37,7 @@ const ProductLandingPage = () => {
     const { toggleWishlist } = useWishlist();
 
     const vendor = {
-        vendorName: "Kani Weaves Kashmir",
+        vendorName: "Gulam Mohammad Kani",
         occupation: "Traditional Kashmiri Artisan",
         address: "Zaina Kadal, Srinagar, Jammu & Kashmir, India",
         phone: "+91 98765 43210",
@@ -137,11 +136,9 @@ const ProductLandingPage = () => {
                 <VendorSidebar vendor={vendor} />
 
                 <div>
-                    {/* HERO */}
-                    <section className="mt-0">
-                        <div className="relative overflow-hidden rounded-[32px] border border-amber-200/80 bg-white shadow-[0_24px_80px_rgba(120,53,15,0.14)]">
 
-                            {/* Background Image */}
+                    <section className="mt-0">
+                        <div className="relative overflow-hidden rounded-[32px] border bg-[var(--color-white)]">
                             <div className="absolute inset-0">
                                 <img
                                     src="/assets/images/vendorbanner.jpg"
@@ -149,22 +146,22 @@ const ProductLandingPage = () => {
                                     className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/20" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                                {/* <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" /> */}
                             </div>
 
                             {/* Content */}
                             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.12fr_0.88fr]">
                                 {/* LEFT */}
-                                <div className="px-6 py-8 md:px-8 md:py-10 xl:px-10 xl:py-12 text-white">
-                                    <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-black shadow-sm backdrop-blur-md">
+                                <div className="px-6 py-8 md:px-8 md:py-10 xl:px-10 xl:py-12 text-[var(--color-white)]">
+                                    <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-[var(--color-white)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--color-black)] shadow-sm backdrop-blur-md">
                                         <ShieldCheck size={14} className="text-[var(--color-secondary)]" />
                                         Authentic Handicraft Marketplace
                                     </div>
 
                                     <div className="mt-6 max-w-2xl">
-                                        <h1 className="text-2xl md:text-3xl xl:text-4xl font-semibold tracking-tight leading-[1.05] text-white">
+                                        <h1 className="text-2xl md:text-3xl xl:text-4xl font-semibold tracking-tight leading-[1.05] text-[var(--color-white)]">
                                             Discover timeless handcrafted treasures
-                                            <span className="mt-1 block text-white/90">
+                                            <span className="mt-1 block text-[var(--color-white)]">
                                                 from skilled artisans & trusted local vendors
                                             </span>
                                         </h1>
@@ -179,40 +176,40 @@ const ProductLandingPage = () => {
 
                                     <div className="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl">
                                         <div className="rounded-2xl border border-white/20 bg-white/95 px-4 py-4 shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-                                            <div className="flex items-start gap-2 text-sm font-medium text-black leading-tight">
+                                            <div className="flex items-start gap-2 text-sm font-medium text-[var(--color-black)] leading-tight">
                                                 <BadgeCheck
-                                                    size={16}
+                                                    size={20}
                                                     className="mt-0.5 shrink-0 text-[var(--color-secondary)]"
                                                 />
                                                 <span>Artisan Verified</span>
                                             </div>
-                                            <p className="mt-1 text-xs leading-5 text-black/70">
+                                            <p className="mt-1 text-xs text-center leading-5 text-[var(--color-black)]">
                                                 Trusted handmade sellers
                                             </p>
                                         </div>
 
-                                        <div className="rounded-2xl border border-white/20 bg-white/95 px-4 py-4 shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-                                            <div className="flex items-start gap-2 text-sm font-medium text-black leading-tight">
+                                        <div className="rounded-2xl border border-white/20 bg-[var(--color-white)] px-4 py-4 shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                                            <div className="flex items-start gap-2 text-sm font-medium text-[var(--color-black)] leading-tight">
                                                 <Package
-                                                    size={16}
+                                                    size={20}
                                                     className="mt-0.5 shrink-0 text-[var(--color-secondary)]"
                                                 />
                                                 <span>Handmade Collection</span>
                                             </div>
-                                            <p className="mt-1 text-xs leading-5 text-black/70">
+                                            <p className="mt-1 text-xs text-center leading-5 text-[var(--color-black)]">
                                                 Curated artisan products
                                             </p>
                                         </div>
 
-                                        <div className="rounded-2xl border border-white/20 bg-white/95 px-4 py-4 shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-                                            <div className="flex items-start gap-2 text-sm font-medium text-black leading-tight">
+                                        <div className="rounded-2xl border border-white/20 bg-[var(--color-white)] px-4 py-4 shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                                            <div className="flex items-start gap-2 text-sm font-medium text-[var(--color-black)] leading-tight">
                                                 <Store
-                                                    size={16}
+                                                    size={20}
                                                     className="mt-0.5 shrink-0 text-[var(--color-secondary)]"
                                                 />
                                                 <span>Cultural Craft</span>
                                             </div>
-                                            <p className="mt-1 text-xs leading-5 text-black/70">
+                                            <p className="mt-1 text-xs text-center leading-5 text-[var(--color-black)]">
                                                 Heritage-inspired sourcing
                                             </p>
                                         </div>
@@ -223,33 +220,33 @@ const ProductLandingPage = () => {
                                 <div className="px-6 py-8 md:px-8 md:py-10 xl:px-10 xl:py-12">
                                     <div className="flex h-full flex-col justify-between">
                                         <div className="grid grid-cols-2 gap-4">
-                                            <div className="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-lg backdrop-blur-md">
+                                            <div className="rounded-3xl border border-white/70 bg-[var(--color-white)] p-5 shadow-lg backdrop-blur-md">
                                                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-black)]">
                                                     Collection
                                                 </p>
-                                                <h3 className="mt-3 text-3xl font-semibold text-[var(--color-primary)]">
+                                                <h3 className="mt-3 text-3xl font-semibold text-[var(--color-error)]">
                                                     {data?.totalProduct ?? 0}
                                                 </h3>
-                                                <p className="mt-1 text-sm text-[var(--color-black)]">
+                                                <p className="mt-1 text-xs text-[var(--color-black)]">
                                                     Crafted products
                                                 </p>
                                             </div>
 
-                                            <div className="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-lg backdrop-blur-md">
+                                            <div className="rounded-3xl border border-white/70 bg-[var(--color-white)] p-5 shadow-lg backdrop-blur-md">
                                                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-black)]">
                                                     Authentic
                                                 </p>
                                                 <h3 className="mt-3 text-3xl font-semibold text-[var(--color-primary)]">
                                                     100%
                                                 </h3>
-                                                <p className="mt-1 text-sm text-[var(--color-black)]">
+                                                <p className="mt-1 text-xs text-[var(--color-black)]">
                                                     Handmade verified
                                                 </p>
                                             </div>
                                         </div>
 
-                                        <div className="mt-5 rounded-3xl border border-white/70 bg-white/95 p-6 shadow-xl backdrop-blur-md">
-                                            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-black)]">
+                                        <div className="mt-5 rounded-3xl border border-white/70 bg-[var(--color-white)] p-6 shadow-xl backdrop-blur-md">
+                                            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-black)]">
                                                 Artisan Network
                                             </p>
 
@@ -263,15 +260,15 @@ const ProductLandingPage = () => {
                                                 confidence from trusted cultural creators.
                                             </p>
 
-                                            <div className="mt-5 flex items-center gap-3">
-                                                <button className="inline-flex items-center gap-2 rounded-2xl bg-[var(--color-secondary)] px-5 py-3 text-sm font-medium text-black transition hover:translate-x-1">
+                                            <div className="mt-5 items-center gap-3">
+                                                <button className="inline-flex items-center gap-2 rounded-2xl bg-[var(--color-secondary)] px-5 py-3 text-sm font-medium text-[var(--color-white)] transition hover:translate-x-1">
                                                     Explore Handicrafts
-                                                    <ArrowRight size={15} className="text-[var(--color-black)]" />
+                                                    <ArrowRight size={20} className="text-[var(--color-white)] font-semibold" />
                                                 </button>
 
-                                                <span className="text-xs font-medium text-[var(--color-black)]">
-                                                    Curated • Trusted • Handmade
-                                                </span>
+                                                {/* <span className="text-xs font-medium text-[var(--color-black)]">
+                                                   Curated • Trusted • Handmade
+                                                </span> */}
                                             </div>
                                         </div>
                                     </div>
@@ -301,7 +298,7 @@ const ProductLandingPage = () => {
                                 <select
                                     value={sortBy}
                                     onChange={(e) => setSortBy(e.target.value)}
-                                    className="w-full md:w-auto appearance-none bg-white border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-pointer shadow-sm"
+                                    className="w-full md:w-auto appearance-none bg-[var(--color-white)] border border-gray-200 rounded-full px-6 py-2.5 pr-10 text-xs font-bold uppercase tracking-wider text-gray-700 outline-none focus:ring-2 focus:ring-black/5 transition-all cursor-pointer shadow-sm"
                                 >
                                     <option value="">Sort By: Price</option>
                                     <option value="price-asc">Sort By: Low to High</option>
@@ -376,7 +373,7 @@ const ProductLandingPage = () => {
                             {!hasMore && allProducts.length > 0 && (
                                 <div className="flex justify-center items-center py-12">
                                     <div className="flex flex-col items-center gap-2">
-                                        <div className="w-16 h-0.5 bg-white/10 rounded-full" />
+                                        <div className="w-16 h-0.5 bg-gray-200 rounded-full" />
                                         <p className="text-sm text-[var(--color-black)] font-medium">
                                             You've reached the end
                                         </p>
