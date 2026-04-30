@@ -275,7 +275,6 @@ export default function EcommerceGiftModal({
               <div className="absolute inset-8 preserve-3d flex items-center justify-center">
                 <img
                   src={place?.photos?.[0]}
-                  // src="/assets/images/gifts/test.glb"
                   className="w-full h-full object-contain pointer-events-none"
                   style={{
                     opacity: assemblyStage > 0 ? 1 : 0,
