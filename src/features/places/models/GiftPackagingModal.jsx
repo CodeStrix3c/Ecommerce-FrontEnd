@@ -67,9 +67,9 @@ export default function EcommerceGiftModal({
   
   const { data = [], isLoading } = usePackagingOptions();
 
-  
   const PACKS = data.map((item) => ({
     id: item.id,
+    packagingId: item.packagingId, 
     name: item.name,
     price: item.price,
     ribbon: item.ribbonColor,
@@ -80,6 +80,9 @@ export default function EcommerceGiftModal({
   }));
 
   const [selId, setSelId] = useState(null);
+
+  console.log(PACKS,"selid.....");
+  
 
   /** ✅ DEFAULT SELECTION */
   useEffect(() => {

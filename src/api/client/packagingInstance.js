@@ -2,7 +2,7 @@ import axios from "axios";
 import { USE_MOCK_API } from "@/api/config/apiMode";
 
 const PackInstance = axios.create({
-  baseURL: "https://localhost:44388",
+  baseURL: "https://handicraftkashmirapi-gharascaengxdhg8.centralindia-01.azurewebsites.net/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -16,8 +16,6 @@ PackInstance.interceptors.request.use(
         new Error(`Mock API Enabled: ${config?.url || ""}`)
       );
     }
-
-  
 
     return config;
   },

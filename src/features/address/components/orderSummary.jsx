@@ -10,7 +10,6 @@ export const OrderSummary = ({
   setSelectedPayment,
   onPlaceOrder,
   placingOrder,
-  // Inline error message passed down from AddressPage (e.g. "This product is currently out of stock")
   orderError,
 }) => {
   const queryClient = useQueryClient();
@@ -27,6 +26,7 @@ export const OrderSummary = ({
     subTotal = 0,
     shippingAmount = 0,
     taxAmount = 0,
+    packagingAmount = 0,
     discount = 0,
     orderTotal = 0,
     couponCode = null,
@@ -94,7 +94,7 @@ export const OrderSummary = ({
 
       <hr className="my-5" />
 
-      {/* Pricing Breakdown */}
+     
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
           <span className="text-gray-600">Subtotal</span>
@@ -119,6 +119,10 @@ export const OrderSummary = ({
           </span>
           <span>₹{Number(taxAmount).toLocaleString()}</span>
         </div>
+        <div className="flex justify-between">
+          <span className="text-gray-600">Packaging</span>
+          <span>₹{Number(packagingAmount).toLocaleString()}</span>
+        </div>  
 
         {discount > 0 && (
           <div className="flex justify-between text-green-600">
@@ -179,7 +183,7 @@ export const OrderSummary = ({
         </select>
       </div>
 
-      {/* Inline order error — shown directly below payment, above the button */}
+      
       {orderError && (
         <div className="mt-4 flex items-start gap-2 bg-red-50 border border-red-200 rounded-lg px-3 py-2.5">
           <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
