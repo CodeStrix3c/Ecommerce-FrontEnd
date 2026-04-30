@@ -39,8 +39,7 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
   const { wishlist, toggleWishlist } = useWishlist();
 
   const { mutateAsync: addToCartMutate } = useAddToCart();
-  const { mutateAsync: addToCartPackagingMutate } =
-    useAddToCartWithPackaging();
+  const { mutateAsync: addToCartPackagingMutate } = useAddToCartWithPackaging();
 
   const price = Number(place?.price || 0);
   const packagingPrice = Number(selectedPackage?.price || 0);
@@ -54,7 +53,7 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
   const cartItem = cartList?.find(
     (item) =>
       item.productId === place._id &&
-      (item.packagingId || null) === (safePackagingId || null)
+      (item.packagingId || null) === (safePackagingId || null),
   );
 
   const isCartListed = !!cartItem;
@@ -108,9 +107,7 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
     }
   }, [selectedPackage]);
 
-  const isWishlisted = wishlist?.some(
-    (item) => item.productId === place._id
-  );
+  const isWishlisted = wishlist?.some((item) => item.productId === place._id);
 
   const handleWishlist = async () => {
     if (isWishlistProcessing) return;
@@ -122,24 +119,18 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
     }
   };
 
-  
   return (
     <div className="w-full md:mx-auto md:max-w-3xl">
       <div className="hidden md:flex flex-col border rounded-xl p-6 bg-white shadow-lg">
-        
         {/* Banner */}
         <div className="flex items-center border rounded-lg p-3 mb-4 bg-gray-50">
           <Tag className="text-[var(--color-secondary)]" size={18} />
-          <p className="ms-3 text-sm font-semibold">
-            Prices include all fees
-          </p>
+          <p className="ms-3 text-sm font-semibold">Prices include all fees</p>
         </div>
 
         {/* Price */}
         <div className="flex items-center mb-4">
-          <span className="font-bold text-2xl">
-            ₹{formatINR(price)}
-          </span>
+          <span className="font-bold text-2xl">₹{formatINR(price)}</span>
           <span className="px-2 text-sm font-medium text-gray-600">
             per item
           </span>
@@ -166,7 +157,6 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
               />
             </div>
           </div>
-        )}
 
           <div className="text-sm font-semibold text-right space-y-1">
             <p>
@@ -180,35 +170,30 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
             )}
 
             <div className="border-t pt-1">
-              <p className="font-bold">
-                Total: ₹{formatINR(totalPrice)}
-              </p>
+              <p className="font-bold">Total: ₹{formatINR(totalPrice)}</p>
             </div>
           </div>
         </div>
 
         {/* Buttons */}
         <div className="grid grid-cols-2 gap-3">
-          
           {/* Wishlist */}
           <button
             onClick={handleWishlist}
             disabled={isWishlistProcessing}
             className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-gray-800 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors disabled:opacity-50"
           >
-            {isWishlistProcessing ? <Spinner /> : (
+            {isWishlistProcessing ? (
+              <Spinner />
+            ) : (
               <>
                 <Heart
                   size={18}
                   className={`transition ${
-                    isWishlisted
-                      ? "fill-red-500 text-red-500"
-                      : "text-gray-700"
+                    isWishlisted ? "fill-red-500 text-red-500" : "text-gray-700"
                   }`}
                 />
-                {isWishlisted
-                  ? "Wishlisted"
-                  : "Add to wishlist"}
+                {isWishlisted ? "Wishlisted" : "Add to wishlist"}
               </>
             )}
           </button>
@@ -224,9 +209,7 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
             ) : (
               <>
                 <ShoppingCart size={18} />
-                {isCartListed
-                  ? "Remove from cart"
-                  : "Add to cart"}
+                {isCartListed ? "Remove from cart" : "Add to cart"}
               </>
             )}
           </button>
@@ -238,12 +221,7 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
 
 const BookingWidget = ({ place, selectedPackage }) => {
   if (!place) return null;
-  return (
-    <BookingWidgetInner
-      place={place}
-      selectedPackage={selectedPackage}
-    />
-  );
+  return <BookingWidgetInner place={place} selectedPackage={selectedPackage} />;
 };
 
 export default BookingWidget;

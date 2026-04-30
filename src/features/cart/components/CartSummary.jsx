@@ -79,29 +79,6 @@ const CartSummary = ({
     setCouponCode(code);
     setAppliedCoupon(null);
   };
-
-  const handleCheckout = () => {
-    const couponToSend = appliedCoupon ?? couponCode.trim() ?? null;
-    checkout(couponToSend || null, {
-      onSuccess: (data) => {
-        if (data?.checkoutId)
-          localStorage.setItem("checkoutId", data.checkoutId);
-        navigate("/address");
-      },
-      onError: (error) => {
-        const data = error?.response?.data;
-        const message =
-          (typeof data === "string" && data) ||
-          data?.errorMessage ||
-          data?.message ||
-          error?.message ||
-          "Checkout failed";
-        toast.error(message);
-      },
-    });
-  };
-
-  // ✅ ADDED: packaging total calculation (safe fallback for all cases)
   const packagingTotal = cart?.reduce(
     (sum, item) =>
       sum +
@@ -113,6 +90,36 @@ const CartSummary = ({
       ),
     0,
   );
+
+  const handleCheckout = () => {
+    const couponToSend = appliedCoupon ?? couponCode.trim() ?? null;
+
+    checkout(couponToSend || null, {
+      onSuccess: (data) => {
+        if (data?.checkoutId) {
+          localStorage.setItem("checkoutId", data.checkoutId);
+        }
+
+        navigate("/address", {
+          state: {
+            packagingTotal, // ✅ PASS HERE
+          },
+        });
+      },
+      onError: (error) => {
+        const data = error?.response?.data;
+        const message =
+          (typeof data === "string" && data) ||
+          data?.errorMessage ||
+          data?.message ||
+          error?.message ||
+          "Checkout failed";
+
+        toast.error(message);
+      },
+    });
+  };
+  // ✅ ADDED: packaging total calculation (safe fallback for all cases)
 
   return (
     <div className="sticky top-36 border rounded-sm p-6 bg-[var(--color-white)] flex flex-col gap-4 shadow-sm">

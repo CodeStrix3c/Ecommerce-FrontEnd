@@ -36,11 +36,14 @@ export default function OrdersPage() {
   }, [orders]);
   const handleReleasePayment = async (transferId) => {
     try {
-      const res = await fetch("http://localhost:4000/release-payment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ transferId }),
-      });
+      const res = await fetch(
+        "https://ai-ecomintegration-c2ffbzcxg0a9dtdj.centralindia-01.azurewebsites.net/release-payment",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ transferId }),
+        },
+      );
 
       const data = await res.json();
 

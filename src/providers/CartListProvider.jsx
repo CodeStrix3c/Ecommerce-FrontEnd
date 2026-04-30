@@ -28,6 +28,8 @@ export const CartListProvider = ({ children }) => {
   const discount = data?.discount || 0;
   const subTotalWithDiscount = data?.subTotalWithDiscount || 0;
 
+  console.log(cartItems, "cartitems....");
+
   /* -------------------- CLEAR CACHE ON LOGOUT -------------------- */
   useEffect(() => {
     if (!token) {
@@ -70,7 +72,7 @@ export const CartListProvider = ({ children }) => {
   /* -------------------- CLEAR CART -------------------- */
   const clearCart = async () => {
     await Promise.all(
-      cartItems.map((item) => removeItem({ cartItemId: item.id }))
+      cartItems.map((item) => removeItem({ cartItemId: item.id })),
     );
   };
 
