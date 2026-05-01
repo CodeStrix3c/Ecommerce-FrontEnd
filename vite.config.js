@@ -27,7 +27,8 @@ function imageProxyPlugin() {
         return;
       }
 
-      const contentType = upstream.headers.get("content-type") || "application/octet-stream";
+      const contentType =
+        upstream.headers.get("content-type") || "application/octet-stream";
       const buffer = Buffer.from(await upstream.arrayBuffer());
 
       res.setHeader("Access-Control-Allow-Origin", "*");
@@ -47,7 +48,7 @@ function imageProxyPlugin() {
     },
     configurePreviewServer(server) {
       server.middlewares.use(handleImageProxy);
-    }
+    },
   };
 }
 
@@ -61,5 +62,9 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  server: {
+    host: true,
+    allowedHosts: "all",
   },
 });
