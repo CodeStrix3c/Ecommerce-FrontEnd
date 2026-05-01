@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Smartphone } from "lucide-react";
+import QRCode from "react-qr-code";
 
 import Spinner from "@/components/ui/Spinner";
 import BookingWidget from "@/features/bookings/components/BookingWidget";
@@ -251,23 +252,39 @@ const PlacePage = () => {
               )}
             </button>
 
-            {/* Try On SAME */}
-
-
-            {/* <button
-              onClick={() => setTryOnOpen(true)}
-              className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white font-semibold py-3 rounded-xl hover:opacity-90 transition"
-            >
-            Virtual Try-On
-            </button> */}
-
-
-           <Link
-  to="/account/Try-on"
-  className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white font-semibold py-3 rounded-xl hover:opacity-90 transition"
->
-  Virtual Try-On
-</Link>
+            {/* QR + Try-On card */}
+            {(() => {
+              const tryOnParams = new URLSearchParams({
+                productId: String(place._id),
+                name: place.title || "",
+              });
+              const tryOnPath = `/virtual-try-on?${tryOnParams.toString()}`;
+              const tryOnQrUrl = `${window.location.origin}${tryOnPath}`;
+              return (
+                <div className="rounded-xl border border-gray-200 bg-white p-4">
+                  <div className="flex items-center gap-4">
+                    <div className="shrink-0 rounded-lg bg-white p-2 shadow-sm">
+                      <QRCode value={tryOnQrUrl} size={86} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <Smartphone size={17} className="text-[var(--color-primary)]" />
+                        <p className="font-semibold">Try on phone</p>
+                      </div>
+                      <p className="mt-1 text-xs leading-relaxed text-gray-500">
+                        Scan the QR on your phone — upload from gallery or take a photo, and the product loads automatically.
+                      </p>
+                    </div>
+                  </div>
+                  <Link
+                    to={tryOnPath}
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-primary)] py-3 font-semibold text-white transition hover:opacity-90"
+                  >
+                    Virtual Try-On
+                  </Link>
+                </div>
+              );
+            })()}
 
             <BookingWidget place={place} selectedPackage={selectedPackage} />
           </div>

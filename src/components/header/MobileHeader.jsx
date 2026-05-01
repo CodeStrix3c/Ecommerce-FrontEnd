@@ -13,7 +13,7 @@ const MobileHeader = ({ location }) => {
       <div className="sticky top-0 z-50 flex items-center justify-between px-4 py-2 bg-[var(--color-white)]">
         <NavLink to="/" className="flex items-center gap-2">
           <img
-            src="/assets/images/logo6.png"
+            src="/assets/images/logoG.png"
             alt="ziraat"
             width={120}
             height={60}

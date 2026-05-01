@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "title": "Regenerative farming",
+    "img": "/assets/images/FarmingTechniques/regenerative-farming.jpg",
+    "summary": "Focuses on improving farmland and productivity by increasing biodiversity, enriching the soil and regenerating the land.",
+    "details": "As the climate crisis accelerates, regenerative farming offers a sustainable approach that improves soil health, sequesters carbon and reduces input costs. Healthier soil supports beneficial bacteria and fungi which increase fertility and reduce reliance on artificial fertilisers. Benefits include reduced emissions, lower costs and improved crop and feed quality."
+  },
+  {
+    "id": 2,
+    "title": "Data-powered decision-making",
+    "img": "/assets/images/FarmingTechniques/ag_farmer-with-tablet-smart-farming_blog-header_1121.webp",
+    "summary": "Use farm data to gain insights, evaluate profitability and make informed operational choices.",
+    "details": "Modern farm management apps let you map your land, manage medicine distribution, weigh animals and trade livestock. Capturing and analysing this data gives you control and helps meet sustainability goals as farming becomes more complex."
+  },
+  {
+    "id": 3,
+    "title": "Precision farming",
+    "img": "/assets/images/FarmingTechniques/full.jpg",
+    "summary": "Apply the right input at the right time and place to boost productivity and reduce waste.",
+    "details": "Precision farming pairs technology with livestock and crop science to increase yields and lower environmental impact. Many farms have adopted precision methods to improve productivity and animal welfare while cutting emissions. The market for precision farming in Europe is projected to grow significantly, reflecting its importance."
+  },
+  {
+    "id": 4,
+    "title": "Vertical farming",
+    "img": "/assets/images/FarmingTechniques/GVM-E-Series-cab.jpg",
+    "summary": "Grow in controlled, layered environments to maximise output per square metre and conserve resources.",
+    "details": "Vertical farms use soil-free systems and precise control of light, water and climate to grow year-round with lower water use and fewer chemicals. This approach saves space and can reduce carbon emissions, while enabling consistent production."
+  },
+  {
+    "id": 5,
+    "title": "Micro farming",
+    "img": "/assets/images/FarmingTechniques/precision-agriculture-machines-in-field.jpg",
+    "summary": "High-yield small plots using tech like aquaponics, LEDs and automated irrigation—ideal for urban or diversified operations.",
+    "details": "Micro farms pack advanced tech into small footprints. They pair smart crop choices (fast-turnover or repeatedly sowable crops) with automation to produce high yields on minimal land. Great for urban settings and diversification, but not always the best fit for large established farms."
+  },
+  {
+    "id": 6,
+    "title": "Autonomous tractors",
+    "img": "/assets/images/FarmingTechniques/eden-green-vertical-farm-facility.webp",
+    "summary": "Self-driving tractors automate labour-intensive tasks, often electric and more eco-friendly.",
+    "details": "Autonomous tractors and robotic equipment reduce routine labour and let you redeploy staff to higher-value work. With electrification, they can also lower greenhouse gas emissions while maintaining or increasing productivity."
+  },
+  {
+    "id": 7,
+    "title": "Invest in technology",
+    "img": "/assets/images/FarmingTechniques/smallfarm_leanmicro_book-panorama-ecf76405df8f98c05296ee40df46104e-5a8351871d42d.png",
+    "summary": "Technology underpins sustainability, productivity and welfare across modern farms.",
+    "details": "Investing in the right technology—whether for monitoring, automation, or data analysis—helps you diversify, cut costs, save time and improve animal welfare. Tech is the backbone that makes the other techniques scalable and actionable."
+  }
+]

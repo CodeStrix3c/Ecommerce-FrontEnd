@@ -19,7 +19,6 @@ import LandingPage from "@/features/landingpage/landingPage";
 import Heritage from "@/features/heritage/Heritage";
 import ProductlandingPage from "@/features/vendorsProductPages/productlandingPage";
 
-
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
 const SignUpPage = lazy(
@@ -46,6 +45,7 @@ const WeatherPage = lazy(
 );
 
 const PlacePage = lazy(() => import("@/features/places/pages/PlacePage"));
+const TryOn = lazy(() => import("@/features/places/pages/VirtualTryOn/Try-on"));
 
 const NotFoundPage = lazy(() => import("@/features/errors/NotFoundPage"));
 
@@ -94,6 +94,7 @@ export default [
       <Route path="/textiles" element={<TextilesPage />} />
 
       <Route path="/place/:id" element={<PlacePage />} />
+      <Route path="/virtual-try-on" element={<TryOn />} />
       <Route path="*" element={<NotFoundPage />} />
 
       <Route path="/gi-details/:giTag" element={<GiDetails />} />
