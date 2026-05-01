@@ -85,7 +85,7 @@ function FilePicker({ id, label, hint, file, sourceUrl, sourceLabel, capture = f
             </div>
             {sourceLabel && !file && (
               <div className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)] shadow-sm">
-                {sourceLabel}
+                Using {sourceLabel}
               </div>
             )}
           </div>
@@ -473,7 +473,13 @@ function GarmentWorkspace({ productContext }) {
     setForm((prev) => ({ ...prev, humanImage: file }));
   });
 
-  const isSubmitDisabled = !form.humanImage || (!form.garmentImage && !productImageUrl) || loading;
+  const hasGarmentImage = Boolean(form.garmentImage || productImageUrl);
+  const isSubmitDisabled = !form.humanImage || !hasGarmentImage || loading;
+  const missingMessage = !form.humanImage
+    ? "Add your photo to generate."
+    : !hasGarmentImage
+      ? "Product image is still loading. You can upload one manually."
+      : "";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -524,9 +530,31 @@ function GarmentWorkspace({ productContext }) {
 
           {error && <div className="mb-8 rounded-2xl border border-red-100 bg-red-50 p-5 text-[11px] font-black uppercase tracking-tight text-[var(--color-error)]">{error}</div>}
 
-          <button type="submit" disabled={isSubmitDisabled} style={{ backgroundColor: isSubmitDisabled ? "var(--color-gray)" : "var(--color-secondary)" }} className="group flex w-full items-center justify-center gap-3 rounded-[2rem] py-5 text-xs font-black uppercase tracking-[0.2em] text-white shadow-xl shadow-[var(--color-primary)]/10 transition-all duration-500 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-70">
+          {missingMessage && !loading && (
+            <p className="mb-3 text-center text-[10px] font-black uppercase tracking-widest text-gray-400">
+              {missingMessage}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={isSubmitDisabled}
+            style={{
+              backgroundColor: loading
+                ? "var(--color-secondary)"
+                : isSubmitDisabled
+                  ? "var(--color-gray)"
+                  : "var(--color-secondary)"
+            }}
+            className={`group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-[2rem] py-5 text-xs font-black uppercase tracking-[0.2em] text-white shadow-xl shadow-[var(--color-primary)]/10 transition-all duration-500 active:scale-[0.97] ${
+              loading ? "opacity-100" : "disabled:cursor-not-allowed disabled:opacity-70"
+            }`}
+          >
+            {loading && <span className="absolute inset-0 animate-pulse bg-white/15" />}
+            <span className="relative flex items-center gap-3">
             {loading ? <Loader2 className="animate-spin" size={18} /> : <FaWandSparkles size={18} className="transition-transform duration-500 group-hover:rotate-45" />}
             {loading ? "Processing Assets..." : "Generate Transformation"}
+            </span>
           </button>
         </div>
       </form>
@@ -550,7 +578,13 @@ function RoomWorkspace({ productContext }) {
     setForm((prev) => ({ ...prev, roomPhoto: file }));
   });
 
-  const isSubmitDisabled = !form.roomPhoto || (!form.itemPhoto && !productImageUrl) || loading;
+  const hasItemImage = Boolean(form.itemPhoto || productImageUrl);
+  const isSubmitDisabled = !form.roomPhoto || !hasItemImage || loading;
+  const missingMessage = !form.roomPhoto
+    ? "Add your room photo to visualize."
+    : !hasItemImage
+      ? "Product image is still loading. You can upload one manually."
+      : "";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -602,9 +636,31 @@ function RoomWorkspace({ productContext }) {
 
           {error && <div className="mb-8 rounded-2xl border border-red-100 bg-red-50 p-5 text-[11px] font-black uppercase tracking-tight text-[var(--color-error)]">{error}</div>}
 
-          <button type="submit" disabled={isSubmitDisabled} style={{ backgroundColor: isSubmitDisabled ? "var(--color-gray)" : "var(--color-secondary)" }} className="group flex w-full items-center justify-center gap-3 rounded-[2rem] py-5 text-xs font-black uppercase tracking-[0.2em] text-white shadow-xl shadow-[var(--color-primary)]/10 transition-all duration-500 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-70">
+          {missingMessage && !loading && (
+            <p className="mb-3 text-center text-[10px] font-black uppercase tracking-widest text-gray-400">
+              {missingMessage}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={isSubmitDisabled}
+            style={{
+              backgroundColor: loading
+                ? "var(--color-secondary)"
+                : isSubmitDisabled
+                  ? "var(--color-gray)"
+                  : "var(--color-secondary)"
+            }}
+            className={`group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-[2rem] py-5 text-xs font-black uppercase tracking-[0.2em] text-white shadow-xl shadow-[var(--color-primary)]/10 transition-all duration-500 active:scale-[0.97] ${
+              loading ? "opacity-100" : "disabled:cursor-not-allowed disabled:opacity-70"
+            }`}
+          >
+            {loading && <span className="absolute inset-0 animate-pulse bg-white/15" />}
+            <span className="relative flex items-center gap-3">
             {loading ? <Loader2 className="animate-spin" size={18} /> : <Warehouse size={18} className="transition-transform duration-500 group-hover:scale-110" />}
             {loading ? "Calculating Perspectives..." : "Visualize Space"}
+            </span>
           </button>
         </div>
       </form>
