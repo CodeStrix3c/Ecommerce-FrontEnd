@@ -237,11 +237,10 @@ const AddressPage = () => {
   };
 
   const handlePlaceOrder = async () => {
-    // Clear any previous order error
     setOrderError(null);
 
     if (!selectedPayment) {
-      toast.error("Please select payment mefffthod");
+      toast.error("Please select payment method");
       return;
     }
 
@@ -257,8 +256,6 @@ const AddressPage = () => {
     } catch (err) {
       const data = err?.response?.data;
 
-      // API returns { value, success, error } — extract the "error" field first,
-      // then fall back to other common shapes, then a generic message.
       const message =
         data?.error ||
         data?.message ||
@@ -266,7 +263,6 @@ const AddressPage = () => {
         err?.message ||
         "Failed to place order";
 
-      // Show inline in the UI instead of (or in addition to) a toast
       setOrderError(message);
     }
   };
@@ -279,7 +275,6 @@ const AddressPage = () => {
     );
   }
 
-  /* ---------------- NO ADDRESS — INLINE FORM ---------------- */
   if (addressList.length === 0) {
     return (
       <ContentWrapper>
@@ -334,7 +329,6 @@ const AddressPage = () => {
     );
   }
 
-  /* ---------------- NORMAL CHECKOUT LAYOUT ---------------- */
   return (
     <ContentWrapper>
       <div className="min-h-screen py-8 lg:mt-28 sm:py-12">

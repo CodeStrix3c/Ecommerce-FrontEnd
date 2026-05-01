@@ -33,7 +33,13 @@ export default function OrderDetails() {
 
   const taxPercent = order?.orderItems?.[0]?.taxPercent ?? null;
 
-  console.log(order, "order is...");
+  const packagingAmount =
+    order.orderTotal -
+    (order.subtotal -
+      order.discountAmount +
+      order.taxAmount +
+      order.shippingAmount);
+  const date = new Date(order.createdOn);
 
   return (
     <ContentWrapper>
@@ -73,7 +79,15 @@ export default function OrderDetails() {
 
             <div>
               <p className="text-gray-500">Payment</p>
-              <p className="font-medium text-gray-800">{order.paymentMethod}</p>
+              <p className="font-medium text-gray-800">
+                {date.toLocaleString("en-IN", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </p>
             </div>
           </div>
 
@@ -82,23 +96,27 @@ export default function OrderDetails() {
             <h3 className="font-semibold text-gray-800">Items</h3>
 
             {order.orderItems.map((item) => (
-              <div key={item.id} className="flex items-center gap-4">
-                <img
-                  src={item.productImage}
-                  alt={item.productName}
-                  className="w-16 h-16 object-cover rounded-md border"
-                />
+              <div>
+                <div key={item.id} className="flex items-center gap-4">
+                  <img
+                    src={item.productImage}
+                    alt={item.productName}
+                    className="w-16 h-16 object-cover rounded-md border"
+                  />
 
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-800">
-                    {item.productName}
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-gray-800">
+                      {item.productName}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Qty: {item.quantity}
+                    </p>
+                  </div>
+
+                  <p className="text-sm font-semibold text-gray-800">
+                    ₹{item.rowTotal.toFixed(2)}
                   </p>
-                  <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
                 </div>
-
-                <p className="text-sm font-semibold text-gray-800">
-                  ₹{item.rowTotal.toFixed(2)}
-                </p>
               </div>
             ))}
           </div>
@@ -115,6 +133,11 @@ export default function OrderDetails() {
             <div className="flex justify-between text-gray-600">
               <span>Discount</span>
               <span>- ₹{order.discountAmount.toFixed(2)}</span>
+            </div>
+
+            <div className=" flex justify-between text-gray-600">
+              <span>Packaging</span>
+              <span>₹{packagingAmount.toFixed(2)}</span>
             </div>
 
             <div className="flex justify-between text-gray-600">
@@ -157,9 +180,9 @@ export default function OrderDetails() {
 
           {/* ACTIONS */}
           <div className="border-t pt-4 flex justify-between items-center">
-            <button className="text-red-500 text-sm hover:underline">
+            {/* <button className="text-red-500 text-sm hover:underline">
               Cancel Order
-            </button>
+            </button> */}
 
             <button
               onClick={() => navigate("/")}

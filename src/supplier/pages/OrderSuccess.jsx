@@ -24,6 +24,7 @@ export default function OrderSuccessPage() {
   if (!data) return null;
 
   const taxPercent = data.orderItems?.[0]?.taxPercent ?? null;
+  const isOnlineOrder = localStorage.getItem("livePayOrderId");
 
   const totalPackaging = data.orderItems?.reduce(
     (acc, item) => acc + (item.packagingAmount || 0),
@@ -161,7 +162,9 @@ export default function OrderSuccessPage() {
               <h3 className="font-semibold text-gray-800 mb-2">
                 Payment Method
               </h3>
-              <p className="text-sm">{data.paymentMethod}</p>
+              <p className="text-sm">
+                {isOnlineOrder ? "Upi" : data.paymentMethod}
+              </p>
             </div>
           </div>
 

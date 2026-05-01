@@ -122,6 +122,8 @@ export const OrderSummary = ({
         toast.success("🔒 Payment held securely");
 
         await onPlaceOrder();
+        localStorage.setItem("onlineOrder", "onlineOrder");
+
         setpTransferId(verifyData.transferId);
         localStorage.setItem("transferId", verifyData.transferId);
       } else {
