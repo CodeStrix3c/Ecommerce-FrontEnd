@@ -32,7 +32,7 @@ const DesktopHeader = ({ location }) => {
             ? "inset 0px -60px 60px -10px rgba(0, 0, 0, 0.03)"
             : "inset 0px -60px 60px -10px rgba(0, 0, 0, 0.03)",
       }}
-      className="fixed top-0 z-50 w-full py-5 transition-shadow duration-500 bg-[var(--color-white)] border-b border-[var(--color-black-hover)]"
+      className="fixed top-0 z-50 w-full py-0 transition-shadow duration-500 bg-[var(--color-white)] border-b border-[var(--color-black-hover)]"
     >
       <ContentWrapper>
         <motion.div

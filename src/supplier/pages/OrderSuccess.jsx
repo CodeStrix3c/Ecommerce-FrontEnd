@@ -25,6 +25,11 @@ export default function OrderSuccessPage() {
 
   const taxPercent = data.orderItems?.[0]?.taxPercent ?? null;
 
+  const totalPackaging = data.orderItems?.reduce(
+    (acc, item) => acc + (item.packagingAmount || 0),
+    0,
+  );
+
   return (
     <ContentWrapper>
       <div className="lg:mt-28 max-w-5xl mx-auto px-4 pt-8">
@@ -111,6 +116,11 @@ export default function OrderSuccessPage() {
                   <span>- ₹{Number(data.discountAmount).toFixed(2)}</span>
                 </div>
               )}
+
+              <div className="flex justify-between">
+                <span>Packaging</span>
+                <span>₹{totalPackaging.toFixed(2)}</span>
+              </div>
 
               <div className="flex justify-between">
                 <span>Tax {taxPercent && `(${taxPercent}%)`}</span>

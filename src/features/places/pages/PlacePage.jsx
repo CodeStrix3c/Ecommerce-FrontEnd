@@ -99,7 +99,18 @@ const PlacePage = () => {
       zoomPanelRef.current.style.backgroundPosition = `-${bgX}px -${bgY}px`;
     }
   };
+  // ✅ Close zoom on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (showZoom) {
+        setShowZoom(false);
+        hasMovedRef.current = false;
+      }
+    };
 
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [showZoom]);
   /* ========================= */
   /* SCROLL */
   /* ========================= */
