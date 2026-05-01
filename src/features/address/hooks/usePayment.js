@@ -32,7 +32,7 @@ export const usePayment = () => {
           key: import.meta.env.VITE_RAZORPAY_KEY_ID || "",
           currency: "INR",
           amount: String(amount * 100),
-          name: "Ziraat",
+          name: "Kashmir Gi e-Mart",
           description,
           image,
           order_id: orderId, // optional — omit if you don't create orders server-side

@@ -34,6 +34,10 @@ const OrderDetailsPage = lazy(
 
 /* ================= ACCOUNT ================= */
 const PlacesPage = lazy(() => import("@/features/places/pages/PlacesPage"));
+
+const TryOn = lazy(() => import("@/features/places/pages/VirtualTryOn/try-on"));
+
+
 const PlacesFormPage = lazy(
   () => import("@/features/places/pages/PlacesFormPage"),
 );
@@ -106,6 +110,11 @@ export default [
 
       {/* Account */}
       <Route path="/account/places" element={<PlacesPage />} />
+      {/* AR-Try-on Page */}
+
+      <Route path="/account/Try-on" element={<TryOn />} />
+
+
       <Route path="/account/places/new" element={<PlacesFormPage />} />
       <Route path="/account/places/:id" element={<PlacesFormPage />} />
       <Route path="/account/bookings" element={<BookingsPage />} />

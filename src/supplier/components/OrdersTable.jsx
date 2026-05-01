@@ -69,7 +69,7 @@ export default function OrdersTable({
             <th className="p-4 text-left w-[350px]">Products</th>
             <th className="p-4 text-center w-[120px]">Quantity</th>
             <th className="p-4 text-center w-[140px]">Date</th>
-            <th className="p-4 text-center w-[140px]">Amount</th>
+            {/* <th className="p-4 text-center w-[140px]">Amount</th> */}
             <th className="p-4 text-center w-[140px]">Status</th>
             <th className="p-4 text-center w-[160px]">Actions</th>
           </tr>
@@ -116,9 +116,9 @@ export default function OrdersTable({
                     {new Date(order.createdOn).toLocaleDateString("en-IN")}
                   </td>
 
-                  <td className="p-4 text-center font-semibold text-gray-900 align-top">
+                  {/* <td className="p-4 text-center font-semibold text-gray-900 align-top">
                     ₹{order.subTotal}
-                  </td>
+                  </td> */}
 
                   <td className="p-4 text-center align-top">
                     <span

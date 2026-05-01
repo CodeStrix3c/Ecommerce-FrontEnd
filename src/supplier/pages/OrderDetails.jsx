@@ -137,7 +137,7 @@ export default function OrderDetails() {
 
             <div className=" flex justify-between text-gray-600">
               <span>Packaging</span>
-              <span>₹{packagingAmount.toFixed(2)}</span>
+              <span>₹{packagingAmount.toFixed(2).replace("-", " ")}</span>
             </div>
 
             <div className="flex justify-between text-gray-600">

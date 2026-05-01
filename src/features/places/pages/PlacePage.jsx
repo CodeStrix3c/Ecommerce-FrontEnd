@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import Spinner from "@/components/ui/Spinner";
@@ -252,12 +252,22 @@ const PlacePage = () => {
             </button>
 
             {/* Try On SAME */}
-            <button
+
+
+            {/* <button
               onClick={() => setTryOnOpen(true)}
               className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white font-semibold py-3 rounded-xl hover:opacity-90 transition"
             >
-              👕 Virtual Try-On
-            </button>
+            Virtual Try-On
+            </button> */}
+
+
+           <Link
+  to="/account/Try-on"
+  className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white font-semibold py-3 rounded-xl hover:opacity-90 transition"
+>
+  Virtual Try-On
+</Link>
 
             <BookingWidget place={place} selectedPackage={selectedPackage} />
           </div>
