@@ -4,7 +4,7 @@ import ContentWrapper from "@/components/shared/ContentWrapper";
 import { useGetOrderDetails } from "@/hooks/Orders/useOrders";
 import { CheckCircle, Printer } from "lucide-react";
 import Spinner from "@/components/ui/Spinner";
-import { useReactToPrint } from "react-to-print";
+// import { useReactToPrint } from "react-to-print";
 import Invoice from "@/components/shared/Invoice";
 
 export default function OrderDetails() {
