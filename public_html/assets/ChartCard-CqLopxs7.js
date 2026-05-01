@@ -1,0 +1,1 @@
+import{j as r}from"./index-C2SDaOpY.js";function l({title:e,children:o}){return r.jsxs("div",{className:"bg-[var(--color-hover)]  rounded-2xl flex flex-col gap-3",children:[r.jsx("h3",{className:"py-5 text-xl  font-extrabold text-[var(--color-black)] ",children:e}),r.jsx("div",{children:o})]})}export{l as C};
