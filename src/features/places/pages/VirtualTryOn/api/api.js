@@ -1,3 +1,5 @@
+import { urlToFile } from "./imageUtils";
+
 const DEFAULT_API_BASE_URL = "https://ai-ecomintegration-c2ffbzcxg0a9dtdj.centralindia-01.azurewebsites.net";
 
 export const API_BASE_URL = (
@@ -23,12 +25,15 @@ async function readError(response) {
 
 export async function generateGarmentTryOn({ humanImage, garmentImage, garmentImageUrl, style, category }) {
   const form = new FormData();
-  form.append("humanImage", humanImage);
-  if (garmentImage) {
-    form.append("garmentImage", garmentImage);
-  } else if (garmentImageUrl) {
-    form.append("garmentImageUrl", garmentImageUrl);
+  const resolvedGarmentImage =
+    garmentImage || (garmentImageUrl ? await urlToFile(garmentImageUrl) : null);
+
+  if (!resolvedGarmentImage) {
+    throw new Error("Garment image is required.");
   }
+
+  form.append("humanImage", humanImage);
+  form.append("garmentImage", resolvedGarmentImage);
   form.append("style", style || "");
   form.append("category", category || "");
 

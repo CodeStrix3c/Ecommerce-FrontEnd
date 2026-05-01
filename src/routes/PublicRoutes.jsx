@@ -19,7 +19,6 @@ import LandingPage from "@/features/landingpage/landingPage";
 import Heritage from "@/features/heritage/Heritage";
 import ProductlandingPage from "@/features/vendorsProductPages/productlandingPage";
 
-
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
 const SignUpPage = lazy(
