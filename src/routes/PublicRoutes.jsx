@@ -46,6 +46,7 @@ const WeatherPage = lazy(
 );
 
 const PlacePage = lazy(() => import("@/features/places/pages/PlacePage"));
+const TryOn = lazy(() => import("@/features/places/pages/VirtualTryOn/Try-on"));
 
 const NotFoundPage = lazy(() => import("@/features/errors/NotFoundPage"));
 
@@ -94,6 +95,7 @@ export default [
       <Route path="/textiles" element={<TextilesPage />} />
 
       <Route path="/place/:id" element={<PlacePage />} />
+      <Route path="/virtual-try-on" element={<TryOn />} />
       <Route path="*" element={<NotFoundPage />} />
 
       <Route path="/gi-details/:giTag" element={<GiDetails />} />

@@ -21,10 +21,14 @@ async function readError(response) {
   return (await response.text()) || `Request failed with ${response.status}`;
 }
 
-export async function generateGarmentTryOn({ humanImage, garmentImage, style, category }) {
+export async function generateGarmentTryOn({ humanImage, garmentImage, garmentImageUrl, style, category }) {
   const form = new FormData();
   form.append("humanImage", humanImage);
-  form.append("garmentImage", garmentImage);
+  if (garmentImage) {
+    form.append("garmentImage", garmentImage);
+  } else if (garmentImageUrl) {
+    form.append("garmentImageUrl", garmentImageUrl);
+  }
   form.append("style", style || "");
   form.append("category", category || "");
 
