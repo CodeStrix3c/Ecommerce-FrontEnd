@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { CheckCircle, Printer } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useReactToPrint } from "react-to-print";
+// import { useReactToPrint } from "react-to-print";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import Invoice from "@/components/shared/Invoice";
 
