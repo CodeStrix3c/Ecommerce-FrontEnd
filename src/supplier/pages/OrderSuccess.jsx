@@ -157,7 +157,7 @@ export default function OrderSuccessPage() {
                 {data.shippingAddress.city} - {data.shippingAddress.zipCode}
               </p>
             </div>
-
+            {/* 
             <div>
               <h3 className="font-semibold text-gray-800 mb-2">
                 Payment Method
@@ -165,7 +165,7 @@ export default function OrderSuccessPage() {
               <p className="text-sm">
                 {isOnlineOrder ? "Upi" : data.paymentMethod}
               </p>
-            </div>
+            </div> */}
           </div>
 
           {/* ACTIONS */}

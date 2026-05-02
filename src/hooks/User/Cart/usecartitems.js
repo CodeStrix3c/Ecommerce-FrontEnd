@@ -29,7 +29,7 @@ export const useAddToCart = () => {
     mutationFn: addToCart,
     onSuccess: () => {
       // Refetch cart after adding
-      toast.success("Product added to cart");
+      // toast.success("Product added to cart");
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });
@@ -67,7 +67,7 @@ export const useRemoveFromCart = () => {
 
     onSuccess: () => {
       // ✅ Show success message
-      toast.success("Product removed from cart");
+      // toast.success("Product removed from cart");
 
       // ✅ Refetch cart after removing
       queryClient.invalidateQueries({ queryKey: ["cart"] });

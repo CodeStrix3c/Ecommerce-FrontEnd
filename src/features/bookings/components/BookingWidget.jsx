@@ -9,6 +9,7 @@ import {
   useAddToCart,
   useAddToCartWithPackaging,
 } from "@/hooks/User/Cart/usecartitems";
+import { toast } from "react-toastify";
 
 const formatINR = (value) => Number(value).toLocaleString("en-IN");
 
@@ -59,6 +60,8 @@ const BookingWidgetInner = ({ place, selectedPackage }) => {
   const isCartListed = !!cartItem;
 
   const handleCartAction = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return toast.error("Please login");
     if (isCartProcessing) return;
     setIsCartProcessing(true);
 
