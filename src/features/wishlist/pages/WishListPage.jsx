@@ -13,13 +13,14 @@ const IMAGE_BASE_URL =
   "https://zirat-adminapp-gfd0hmfwefc3gmgc.centralindia-01.azurewebsites.net/";
 
 const WishlistPage = () => {
-  const navigate = useNavigate(); // ✅ MUST BE INSIDE COMPONENT
+  const navigate = useNavigate();
 
   const { addToCartList } = useCartList();
   const { wishlist, removeFromWishlist } = useWishlist();
 
   const [addingToCart, setAddingToCart] = useState(new Set());
 
+  // ✅ FIXED FUNCTION
   const handleAddToCart = async (product, quantity) => {
     try {
       setAddingToCart((prev) => new Set([...prev, product.wishlistItemId]));
@@ -28,6 +29,7 @@ const WishlistPage = () => {
         productId: product.productId,
         quantity: quantity,
         variationName: "",
+        packagingId: null, // ✅ IMPORTANT FIX (explicitly non-packaging)
       };
 
       await addToCartList(payload);
@@ -35,8 +37,7 @@ const WishlistPage = () => {
       // remove from wishlist WITHOUT toast
       await removeFromWishlist(product.wishlistItemId, { showToast: false });
 
-      // ✅ Navigate AFTER success
-      // navigate("/cart", { replace: true });
+      // navigate("/cart", { replace: true }); // optional
     } catch (error) {
       console.error("Error adding to cart:", error);
       toast.error("Failed to add product to cart. Please try again.");
@@ -68,7 +69,6 @@ const WishlistPage = () => {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-3">
-            {/* Heart Icon */}
             <div className="bg-[var(--color-secondary)] p-2 rounded-full">
               <Heart className="w-6 h-6 text-white fill-white" />
             </div>
@@ -98,7 +98,6 @@ const WishlistPage = () => {
                   title: item.productName,
                   image: imageUrl,
                   price: item.price ?? 0,
-                  // CHANGED: Use the quantity from your API response
                   inStock: item.quantity > 0,
                   photos: [imageUrl],
                 }}

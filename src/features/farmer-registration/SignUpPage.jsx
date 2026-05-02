@@ -165,7 +165,7 @@ export default function SupplierSignUp() {
               <div className="relative mb-6">
                 <div className="flex flex-col items-center gap-2">
                   <img
-                    src="/assets/images/logo6.png"
+                    src="/assets/images/logoG.png"
                     alt="App Logo"
                     className="h-14 sm:h-12 object-contain"
                   />

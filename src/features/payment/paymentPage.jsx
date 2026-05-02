@@ -41,7 +41,6 @@ const PaymentPage = () => {
     return <div className="flex justify-center p-20">Loading...</div>;
   }
 
-  /* ✅ Always use selected shippingAddressId */
   const shipping = checkoutData?.existingShippingAddresses?.find(
     (a) => a.userAddressId === checkoutData?.shippingAddressId,
   );
@@ -83,7 +82,6 @@ const PaymentPage = () => {
               </button>
             </div>
 
-            {/* Payment Methods */}
             <div className="bg-white p-6 rounded-2xl shadow">
               <h2 className="text-lg font-semibold mb-4">Payment Method</h2>
 
@@ -114,7 +112,6 @@ const PaymentPage = () => {
             </button>
           </div>
 
-          {/* Order Summary */}
           <div className="lg:sticky lg:top-24 h-fit">
             <OrderSummary checkoutData={checkoutData} />
           </div>

@@ -28,6 +28,8 @@ export const CartListProvider = ({ children }) => {
   const discount = data?.discount || 0;
   const subTotalWithDiscount = data?.subTotalWithDiscount || 0;
 
+  console.log(cartItems, "cartitems....");
+
   /* -------------------- CLEAR CACHE ON LOGOUT -------------------- */
   useEffect(() => {
     if (!token) {
@@ -39,6 +41,11 @@ export const CartListProvider = ({ children }) => {
   const addToCartList = async (payload) => {
     if (!token) {
       toast.error("Please login first");
+      return;
+    }
+
+    // ✅ CRITICAL FIX: do NOT call normal API if packaging exists
+    if (payload?.packagingId) {
       return;
     }
 
@@ -55,7 +62,10 @@ export const CartListProvider = ({ children }) => {
   };
 
   /* -------------------- UPDATE QUANTITY -------------------- */
-  const updateQuantity = async (cartItemId, quantity) => {
+  const updateQuantity = async (cartItemId, quantity, packagingId) => {
+    // ✅ CRITICAL FIX: skip update for packaging items
+    if (packagingId) return;
+
     await updateItemQuantity({ cartItemId, quantity });
   };
 

@@ -144,7 +144,28 @@ const ProductInfoPanel = ({ place, openSections, toggleSection }) => {
         </Accordion>
 
         <Accordion
-          title="Attributes"
+          title={
+            <span className="flex items-center gap-2">
+              Attributes
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-xs font-medium border border-green-200">
+                <svg
+                  className="w-3 h-3 text-green-600"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 6L5 9L10 3"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                GI Certified
+              </span>
+            </span>
+          }
           sectionKey="attributes"
           show={place.perks && place.perks.length > 0}
         >

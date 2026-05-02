@@ -9,7 +9,7 @@ const TrendingProducts = ({ data, isLoading }) => {
   const scroll = (direction) => {
     const { current } = scrollRef;
     if (current) {
-      const scrollAmount = 400; // Consistent with Best Deals
+      const scrollAmount = 400;
       current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -36,7 +36,7 @@ const TrendingProducts = ({ data, isLoading }) => {
           <h2 className="text-3xl md:text-4xl font-serif text-[var(--color-black)] mb-3">
             Trending Now
           </h2>
-          <p className="text-[var(--color-black)] text-lg  pb-10">
+          <p className="text-[var(--color-black)] text-lg pb-10">
             The most coveted artisanal creations from the heart of the valley.
           </p>
         </div>
@@ -71,15 +71,18 @@ const TrendingProducts = ({ data, isLoading }) => {
             className="min-w-[280px] md:min-w-[320px] group cursor-pointer flex flex-col"
           >
             {/* Image Container with Trending Badge */}
-            <div className="relative aspect-[3/4] overflow-hidden bg-stone-100 mb-4 rounded-sm">
+            <div
+              className="relative w-full overflow-hidden bg-stone-100 mb-4 rounded-sm"
+              style={{ aspectRatio: "3/4" }}
+            >
               <div className="absolute top-3 right-3 z-10 bg-[var(--color-black)] text-white text-[9px] font-bold px-2 py-1 uppercase tracking-[0.1em]">
                 Trending
               </div>
 
               <img
-                src={`https://placehold.co/600x800?text=${encodeURIComponent(product.productName)}`}
+                src={product.thumbnail}
                 alt={product.productName}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
 
               {product.totalStock > 0 && product.totalStock < 10 && (
@@ -95,7 +98,7 @@ const TrendingProducts = ({ data, isLoading }) => {
                 {product.productName}
               </h3>
 
-              <div className="mt-auto flex items-baseline gap-3">
+              {/* <div className="mt-auto flex items-baseline gap-3">
                 <span className="text-base md:text-lg font-bold text-[var(--color-primary)]">
                   ₹
                   {product.lowestPrice > 0
@@ -108,12 +111,7 @@ const TrendingProducts = ({ data, isLoading }) => {
                       ₹{product.originalPrice.toLocaleString()}
                     </span>
                   )}
-              </div>
-
-              <div className="mt-2 text-[10px] text-stone-400 uppercase tracking-widest font-semibold">
-                {product.vendorCount}{" "}
-                {product.vendorCount === 1 ? "Vendor" : "Vendors"} Available
-              </div>
+              </div> */}
             </div>
           </div>
         ))}

@@ -5,6 +5,7 @@ import {
   removeFromCart,
   getAllCartProducts,
   updateCartQuantity,
+  addToCartPackaging,
 } from "@/services/User/Cart/cartitems";
 
 /* -------------------- GET CART ITEMS -------------------- */
@@ -29,6 +30,17 @@ export const useAddToCart = () => {
     onSuccess: () => {
       // Refetch cart after adding
       toast.success("Product added to cart");
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+  });
+};
+
+export const useAddToCartWithPackaging = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: addToCartPackaging,
+    onSuccess: () => {
+      toast.success("Product with packaging added to cart");
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });

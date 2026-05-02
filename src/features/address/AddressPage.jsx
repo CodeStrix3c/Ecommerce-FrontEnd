@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import { AddressModal } from "./components/addressModal";
@@ -81,6 +81,7 @@ const AddressPage = () => {
   const { mutateAsync: editAddress } = useEditUserAddress();
 
   const { data: existingAddress } = useExistingAddress(editId);
+  const location = useLocation();
 
   const { data: countries = [] } = useCountries();
   const { data: states = [] } = useStates(selectedCountry);
@@ -92,6 +93,12 @@ const AddressPage = () => {
     useUpdateShippingPrices();
 
   const rootData = updatedCheckoutData || checkoutData;
+  const packagingTotal = location.state?.packagingTotal || 0;
+
+  const finalTotal =
+    (rootData?.subTotalWithDiscount || 0) +
+    (rootData?.shippingTotal || 0) +
+    packagingTotal;
   const shippingPrices = rootData?.shippingPrices || [];
 
   /* ---------------- INITIALIZE ADDRESS LIST ---------------- */
@@ -229,9 +236,7 @@ const AddressPage = () => {
     }
   };
 
-  /* ---------------- PLACE ORDER ---------------- */
   const handlePlaceOrder = async () => {
-    // Clear any previous order error
     setOrderError(null);
 
     if (!selectedPayment) {
@@ -251,8 +256,6 @@ const AddressPage = () => {
     } catch (err) {
       const data = err?.response?.data;
 
-      // API returns { value, success, error } — extract the "error" field first,
-      // then fall back to other common shapes, then a generic message.
       const message =
         data?.error ||
         data?.message ||
@@ -260,7 +263,6 @@ const AddressPage = () => {
         err?.message ||
         "Failed to place order";
 
-      // Show inline in the UI instead of (or in addition to) a toast
       setOrderError(message);
     }
   };
@@ -273,7 +275,6 @@ const AddressPage = () => {
     );
   }
 
-  /* ---------------- NO ADDRESS — INLINE FORM ---------------- */
   if (addressList.length === 0) {
     return (
       <ContentWrapper>
@@ -328,7 +329,6 @@ const AddressPage = () => {
     );
   }
 
-  /* ---------------- NORMAL CHECKOUT LAYOUT ---------------- */
   return (
     <ContentWrapper>
       <div className="min-h-screen py-8 lg:mt-28 sm:py-12">
@@ -441,6 +441,8 @@ const AddressPage = () => {
             <div className="lg:sticky lg:top-24 h-fit">
               <OrderSummary
                 checkoutData={rootData}
+                packagingTotal={packagingTotal} // ✅ NEW
+                finalTotal={finalTotal} // ✅ OPTIONAL
                 isUpdating={updatingPrices}
                 paymentMethods={paymentMethods}
                 selectedPayment={selectedPayment}

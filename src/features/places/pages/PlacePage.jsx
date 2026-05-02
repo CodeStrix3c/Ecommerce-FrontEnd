@@ -1,16 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-import "keen-slider/keen-slider.min.css";
-import { useKeenSlider } from "keen-slider/react";
 
 import Spinner from "@/components/ui/Spinner";
 import BookingWidget from "@/features/bookings/components/BookingWidget";
 import PlaceGallery from "@/features/places/components/PlaceGallery";
 import ListingHeader from "@/components/shared/ListingHeader";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import { useCartList } from "@/providers/CartListProvider";
 import {
   useProductDetailsQuery,
   useProductsQuery,
@@ -19,6 +15,8 @@ import ProductInfoPanel from "../components/ProductInfoPanel";
 import Testimonials from "@/features/reviews/pages/Testimonials";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import CrossSellProducts from "../components/CrossSellProducts";
+import GiftPackagingModal from "../models/GiftPackagingModal";
+import VirtualTryOnModal from "./VirtualTryOn/Try-onModal";
 
 const ZOOM_LEVEL = 3;
 
@@ -30,8 +28,9 @@ const PlacePage = () => {
   const { data: productsData } = useProductsQuery({ page: 1 });
 
   const [place, setPlace] = useState(null);
-
-  const { toggleCartList } = useCartList();
+  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [giftModalOpen, setGiftModalOpen] = useState(false);
+  const [tryOnOpen, setTryOnOpen] = useState(false);
 
   const [openSections, setOpenSections] = useState({
     shortDesc: false,
@@ -41,55 +40,27 @@ const PlacePage = () => {
     stock: false,
   });
 
+  /* ========================= */
+  /* ZOOM */
+  /* ========================= */
   const imageRef = useRef(null);
   const rightColRef = useRef(null);
-  const hasMovedRef = useRef(false);
   const zoomPanelRef = useRef(null);
-  const rightPanelRef = useRef(null);
+  const hasMovedRef = useRef(false);
 
   const [showZoom, setShowZoom] = useState(false);
   const [zoomImage, setZoomImage] = useState(null);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowZoom(false);
-      hasMovedRef.current = false;
-      if (rightPanelRef.current) {
-        rightPanelRef.current.style.opacity = "1";
-        rightPanelRef.current.style.pointerEvents = "auto";
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scroll = (direction) => {
-    const container = scrollRef.current;
-    if (!container) return;
-    container.scrollBy({
-      left: direction === "left" ? -300 : 300,
-      behavior: "smooth",
-    });
-  };
-
   const handleMouseEnter = () => {
-    if (!place?.photos?.length) return;
-    if (window.innerWidth < 1024) return;
+    if (!place?.photos?.length || window.innerWidth < 1024) return;
     hasMovedRef.current = false;
     setZoomImage(selectedPhoto || place.photos[0]);
-    // Do NOT show zoom yet — wait for first mousemove
   };
 
   const handleMouseLeave = () => {
     hasMovedRef.current = false;
     setShowZoom(false);
-    if (rightPanelRef.current) {
-      rightPanelRef.current.style.opacity = "1";
-      rightPanelRef.current.style.pointerEvents = "auto";
-    }
   };
 
   const handleMouseMove = (e) => {
@@ -97,66 +68,57 @@ const PlacePage = () => {
 
     const imgRect = imageRef.current.getBoundingClientRect();
 
-    if (
-      e.clientX < imgRect.left ||
-      e.clientX > imgRect.right ||
-      e.clientY < imgRect.top ||
-      e.clientY > imgRect.bottom
-    ) {
+    const x = e.clientX - imgRect.left;
+    const y = e.clientY - imgRect.top;
+
+    if (x < 0 || y < 0 || x > imgRect.width || y > imgRect.height) {
       setShowZoom(false);
-      if (rightPanelRef.current) {
-        rightPanelRef.current.style.opacity = "1";
-        rightPanelRef.current.style.pointerEvents = "auto";
-      }
       return;
     }
 
     const rightRect = rightColRef.current.getBoundingClientRect();
 
-    const panelTop = imgRect.top;
-    const panelLeft = rightRect.left;
-    const panelWidth = rightRect.width;
-    const panelHeight = imgRect.height;
-
-    const x = Math.max(0, Math.min(e.clientX - imgRect.left, imgRect.width));
-    const y = Math.max(0, Math.min(e.clientY - imgRect.top, imgRect.height));
-
-    const bgX = (x / imgRect.width) * (imgRect.width * ZOOM_LEVEL - panelWidth);
+    const bgX =
+      (x / imgRect.width) * (imgRect.width * ZOOM_LEVEL - rightRect.width);
     const bgY =
-      (y / imgRect.height) * (imgRect.height * ZOOM_LEVEL - panelHeight);
-
-    const bgPos = `-${bgX}px -${bgY}px`;
-    const bgSize = `${imgRect.width * ZOOM_LEVEL}px ${imgRect.height * ZOOM_LEVEL}px`;
+      (y / imgRect.height) * (imgRect.height * ZOOM_LEVEL - imgRect.height);
 
     if (!hasMovedRef.current) {
       hasMovedRef.current = true;
-
-      if (zoomPanelRef.current) {
-        zoomPanelRef.current.style.top = `${panelTop}px`;
-        zoomPanelRef.current.style.left = `${panelLeft}px`;
-        zoomPanelRef.current.style.width = `${panelWidth}px`;
-        zoomPanelRef.current.style.height = `${panelHeight}px`;
-        zoomPanelRef.current.style.backgroundSize = bgSize;
-        zoomPanelRef.current.style.backgroundPosition = bgPos;
-      }
-
       setShowZoom(true);
-
-      if (rightPanelRef.current) {
-        rightPanelRef.current.style.opacity = "0";
-        rightPanelRef.current.style.pointerEvents = "none";
-      }
-      return;
     }
 
     if (zoomPanelRef.current) {
-      zoomPanelRef.current.style.top = `${panelTop}px`;
-      zoomPanelRef.current.style.left = `${panelLeft}px`;
-      zoomPanelRef.current.style.width = `${panelWidth}px`;
-      zoomPanelRef.current.style.height = `${panelHeight}px`;
-      zoomPanelRef.current.style.backgroundSize = bgSize;
-      zoomPanelRef.current.style.backgroundPosition = bgPos;
+      zoomPanelRef.current.style.top = `${imgRect.top}px`;
+      zoomPanelRef.current.style.left = `${rightRect.left}px`;
+      zoomPanelRef.current.style.width = `${rightRect.width}px`;
+      zoomPanelRef.current.style.height = `${imgRect.height}px`;
+      zoomPanelRef.current.style.backgroundSize = `${imgRect.width * ZOOM_LEVEL}px ${imgRect.height * ZOOM_LEVEL}px`;
+      zoomPanelRef.current.style.backgroundPosition = `-${bgX}px -${bgY}px`;
     }
+  };
+  // ✅ Close zoom on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (showZoom) {
+        setShowZoom(false);
+        hasMovedRef.current = false;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [showZoom]);
+  /* ========================= */
+  /* SCROLL */
+  /* ========================= */
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    scrollRef.current?.scrollBy({
+      left: direction === "left" ? -300 : 300,
+      behavior: "smooth",
+    });
   };
 
   const toggleSection = (key) => {
@@ -166,34 +128,18 @@ const PlacePage = () => {
     }));
   };
 
-  const [popularRef, popularInstanceRef] = useKeenSlider({
-    mode: "free",
-    rubberband: false,
-    slides: {
-      perView: 2.2,
-      spacing: 10,
-    },
-    breakpoints: {
-      "(min-width: 640px)": {
-        slides: { perView: 3.2, spacing: 12 },
-      },
-      "(min-width: 1024px)": {
-        slides: { perView: 4.2, spacing: 14 },
-      },
-    },
-  });
-
-  useEffect(() => {
-    popularInstanceRef.current?.update();
-  }, [productsData]);
-
   useEffect(() => {
     if (!product) return;
 
     const images =
-      product.images
-        ?.map((img) => img.url || img.thumbnailUrl)
-        .filter(Boolean) ?? [];
+      product.images?.map((img) => img.url || img.thumbnailUrl) || [];
+
+    // 🔥 normalize attributes → perks
+    const normalizedAttributes =
+      product.attributes?.map((attr) => ({
+        name: attr.name || attr.key,
+        value: attr.value || attr.option || attr.label,
+      })) || [];
 
     setPlace({
       _id: product.id,
@@ -209,23 +155,17 @@ const PlacePage = () => {
       rating: product.ratingAverage ?? 0,
       reviewsCount: product.reviewsCount ?? 0,
       stock: product.stockQuantity ?? 0,
-
-      // --- UPDATED LOGIC HERE ---
-      // If quantity is 0, it's out of stock NO MATTER WHAT.
-      // If tracking is enabled, check quantity.
-      // Otherwise, if tracking is off, we only trust the quantity isn't 0.
       inStock: product.stockQuantity > 0,
-      stockQuantity: product.stockQuantity, // Pass this to use in ProductInfoPanel logic
-      // --------------------------
-
+      stockQuantity: product.stockQuantity,
       brand: product.brand?.name || null,
-      perks: product.attributes ?? [],
-      attributes: product.attributes ?? [],
+
+      // ✅ keep both (safe)
+      attributes: normalizedAttributes,
+      perks: normalizedAttributes, // 🔥 THIS FIXES YOUR UI
+
       photos: images,
       images: product.images ?? [],
     });
-
-    setSelectedPhoto(null);
   }, [product]);
 
   if (isLoading || !place) return <Spinner />;
@@ -235,22 +175,25 @@ const PlacePage = () => {
   const popularItems = productsList
     .filter((p) => String(p.id) !== String(id))
     .slice(0, 10)
-    .map((p) => {
-      const imgPath =
-        p.thumbnailUrl || p.images?.[0]?.thumbnailUrl || p.images?.[0]?.url;
-      if (!imgPath) return null;
-      return { id: p.id, title: p.name, image: imgPath };
-    })
-    .filter(Boolean);
+    .map((p) => ({
+      id: p.id,
+      title: p.name,
+      image:
+        p.thumbnailUrl || p.images?.[0]?.thumbnailUrl || p.images?.[0]?.url,
+    }))
+    .filter((p) => p.image);
 
+  /* ========================= */
+  /* UI */
+  /* ========================= */
   return (
     <ContentWrapper>
       <div className="pt-6 lg:pt-10 pb-6 lg:pb-8 relative">
         <ListingHeader place={place} />
 
-        <div className="mt-10 flex flex-col gap-8 lg:flex-row relative">
-          {/* LEFT — gallery */}
-          <div className="lg:w-4/7 w-full ps-2 relative">
+        <div className="mt-10 flex flex-col gap-8 lg:flex-row">
+          {/* LEFT */}
+          <div className="lg:w-4/7 w-full relative">
             <PlaceGallery
               place={place}
               zoomRef={imageRef}
@@ -265,40 +208,83 @@ const PlacePage = () => {
           </div>
 
           {/* RIGHT */}
-          <div ref={rightColRef} className="lg:w-2/7 w-full relative z-10">
-            <div
-              ref={rightPanelRef}
-              className="space-y-4 transition-opacity duration-200"
-              style={{ opacity: 1 }}
-            >
-              <ProductInfoPanel
-                place={place}
-                openSections={openSections}
-                toggleSection={toggleSection}
-              />
-              <BookingWidget place={place} />
-            </div>
-          </div>
-
-          {/* ZOOM PANEL — position/size set via ref, never stale */}
-          {showZoom && zoomImage && (
-            <div
-              ref={zoomPanelRef}
-              className="hidden lg:block fixed z-30 bg-white border shadow-2xl rounded-lg overflow-hidden pointer-events-none"
-              style={{
-                backgroundImage: `url(${zoomImage})`,
-                backgroundRepeat: "no-repeat",
-              }}
+          <div ref={rightColRef} className="lg:w-2/7 w-full space-y-4">
+            <ProductInfoPanel
+              place={place}
+              openSections={openSections}
+              toggleSection={toggleSection}
             />
-          )}
+
+            {/* Gift UI SAME */}
+            <button
+              onClick={() => setGiftModalOpen(true)}
+              className="w-full flex items-center justify-between p-4 text-sm border rounded-xl bg-gray-50 hover:bg-white hover:border-black transition"
+            >
+              <div className="flex items-center gap-3">
+                <span>🎁</span>
+                <div className="text-left">
+                  <p className="font-semibold">
+                    {selectedPackage
+                      ? selectedPackage.name
+                      : "Add Gift Packaging"}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {selectedPackage
+                      ? `${selectedPackage.occasion} • +₹${selectedPackage.price}`
+                      : "Make it special with premium wrapping"}
+                  </p>
+                </div>
+              </div>
+
+              {selectedPackage && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedPackage(null);
+                  }}
+                  className="text-xs text-red-500"
+                >
+                  Remove
+                </button>
+              )}
+            </button>
+
+            {/* Try On SAME */}
+
+            {/* <button
+              onClick={() => setTryOnOpen(true)}
+              className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white font-semibold py-3 rounded-xl hover:opacity-90 transition"
+            >
+            Virtual Try-On
+            </button> */}
+
+            <Link
+              to="/account/Try-on"
+              className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white font-semibold py-3 rounded-xl hover:opacity-90 transition"
+            >
+              Virtual Try-On
+            </Link>
+
+            <BookingWidget place={place} selectedPackage={selectedPackage} />
+          </div>
         </div>
+
+        {/* ZOOM PANEL */}
+        {showZoom && zoomImage && (
+          <div
+            ref={zoomPanelRef}
+            className="hidden lg:block fixed z-30 bg-white border shadow-2xl rounded-lg pointer-events-none"
+            style={{
+              backgroundImage: `url(${zoomImage})`,
+              backgroundRepeat: "no-repeat",
+            }}
+          />
+        )}
 
         <YouMayAlsoLike
           products={product.relatedProducts?.filter((p) => p.id !== product.id)}
         />
-
         <CrossSellProducts products={product.crossSellProducts} />
-
         <div className="mt-10">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-xl font-semibold">Recently Viewed Products</h2>
@@ -346,6 +332,21 @@ const PlacePage = () => {
 
         <Testimonials />
       </div>
+
+      {/* MODALS */}
+      <VirtualTryOnModal
+        isOpen={tryOnOpen}
+        onClose={() => setTryOnOpen(false)}
+        garmentImageUrl={place?.photos?.[0]}
+      />
+
+      <GiftPackagingModal
+        isOpen={giftModalOpen}
+        onClose={() => setGiftModalOpen(false)}
+        place={place}
+        onSelectPackage={setSelectedPackage}
+        currentSelection={selectedPackage}
+      />
     </ContentWrapper>
   );
 };

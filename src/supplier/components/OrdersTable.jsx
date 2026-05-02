@@ -69,9 +69,9 @@ export default function OrdersTable({
             <th className="p-4 text-left w-[350px]">Products</th>
             <th className="p-4 text-center w-[120px]">Quantity</th>
             <th className="p-4 text-center w-[140px]">Date</th>
-            <th className="p-4 text-center w-[140px]">Amount</th>
+            {/* <th className="p-4 text-center w-[140px]">Amount</th> */}
             <th className="p-4 text-center w-[140px]">Status</th>
-            <th className="p-4 text-center w-[140px]">Order Details</th>
+            <th className="p-4 text-center w-[160px]">Actions</th>
           </tr>
         </thead>
 
@@ -96,7 +96,6 @@ export default function OrdersTable({
                             alt={item.productName}
                             className="w-10 h-10 rounded-md object-cover border"
                           />
-
                           <span className="text-sm text-gray-700">
                             {item.productName}
                           </span>
@@ -117,9 +116,9 @@ export default function OrdersTable({
                     {new Date(order.createdOn).toLocaleDateString("en-IN")}
                   </td>
 
-                  <td className="p-4 text-center font-semibold text-gray-900 align-top">
+                  {/* <td className="p-4 text-center font-semibold text-gray-900 align-top">
                     ₹{order.subTotal}
-                  </td>
+                  </td> */}
 
                   <td className="p-4 text-center align-top">
                     <span
@@ -129,7 +128,7 @@ export default function OrdersTable({
                     </span>
                   </td>
 
-                  {/* ✅ Order Details Column */}
+                  {/* ✅ ONLY VIEW BUTTON LEFT */}
                   <td className="p-4 text-center align-top">
                     <button
                       onClick={() => navigate(`/orderdetails/${order.id}`)}

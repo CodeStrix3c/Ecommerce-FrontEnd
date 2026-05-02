@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Tag, AlertCircle } from "lucide-react";
+import { Tag, AlertCircle, Truck } from "lucide-react";
+import { usePayment } from "../hooks/usePayment";
+import { toast } from "react-toastify";
 
 export const OrderSummary = ({
   checkoutData,
-  isUpdating,
   paymentMethods = [],
   selectedPayment,
   setSelectedPayment,
   onPlaceOrder,
   placingOrder,
-  // Inline error message passed down from AddressPage (e.g. "This product is currently out of stock")
+  packagingTotal,
+  finalTotal,
   orderError,
 }) => {
   const queryClient = useQueryClient();
+  const { payWithUPI } = usePayment();
+
+  const [releasing, setReleasing] = useState(false);
+  const [released, setReleased] = useState(false);
+  const [pTransferId, setpTransferId] = useState(null);
 
   if (!checkoutData) return null;
 
@@ -27,22 +34,107 @@ export const OrderSummary = ({
     subTotal = 0,
     shippingAmount = 0,
     taxAmount = 0,
+    packagingAmount = 0,
     discount = 0,
     orderTotal = 0,
     couponCode = null,
     subTotalWithDiscount = 0,
+    user,
+    transferId, // ✅ coming from backend
+    orderStatus, // ✅ e.g. PLACED / DELIVERED
   } = vm;
+
+  const vendorAccountId = import.meta.env.VITE_VENDOR_ACCOUNT_ID;
 
   const shippingPrice =
     rootData?.shippingPrices?.find(
       (p) => p.name === rootData?.selectedShippingMethodName,
     )?.price ?? shippingAmount;
 
+  // ─────────────────────────────────────────
+  // PLACE ORDER + PAYMENT
+  // ─────────────────────────────────────────
   const handlePlaceOrder = async () => {
     try {
-      await onPlaceOrder();
+      if (!selectedPayment) {
+        toast.error("Please select a payment method");
+        return;
+      }
+
+      if (selectedPayment === "RAZORPAY_UPI") {
+        // 1. Create order
+        const orderRes = await fetch(
+          "https://ai-ecomintegration-c2ffbzcxg0a9dtdj.centralindia-01.azurewebsites.net/create-order",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ amount: orderTotal }),
+          },
+        );
+
+        const orderData = await orderRes.json();
+
+        if (!orderData.id) {
+          toast.error("Failed to create payment order");
+          return;
+        }
+
+        // 2. Open Razorpay
+        const result = await payWithUPI({
+          amount: orderTotal,
+          orderId: orderData.id,
+          description: "Order Payment",
+          user: {
+            name: user?.name || "Guest",
+            email: user?.email || "guest@example.com",
+            contact: user?.phone || "9999999999",
+          },
+        });
+
+        if (!result.success) {
+          toast.error(result.error.description);
+          return;
+        }
+
+        // 3. Verify + create HOLD transfer
+        const verifyRes = await fetch(
+          "https://ai-ecomintegration-c2ffbzcxg0a9dtdj.centralindia-01.azurewebsites.net/verify-payment",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_order_id: orderData.id,
+              razorpay_payment_id: result.data.razorpay_payment_id,
+              razorpay_signature: result.data.razorpay_signature,
+              amount: orderTotal,
+              vendorAccountId,
+            }),
+          },
+        );
+
+        const verifyData = await verifyRes.json();
+
+        if (!verifyData.success) {
+          toast.error("Payment verification failed");
+          return;
+        }
+
+        toast.success("🔒 Payment held securely");
+
+        await onPlaceOrder();
+        localStorage.setItem("onlineOrder", "onlineOrder");
+
+        setpTransferId(verifyData.transferId);
+        localStorage.setItem("transferId", verifyData.transferId);
+      } else {
+        await onPlaceOrder({ paymentMethod: selectedPayment });
+      }
+
       queryClient.invalidateQueries({ queryKey: ["cart"] });
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong");
+    }
   };
 
   const taxBase = discount > 0 ? subTotalWithDiscount : subTotal;
@@ -55,7 +147,7 @@ export const OrderSummary = ({
     <div className="bg-white shadow-lg rounded-xl p-6 border max-w-xl">
       <h2 className="text-xl font-semibold mb-5">Order Summary</h2>
 
-      {/* Items List */}
+      {/* ITEMS */}
       <div className="space-y-4 max-h-64 overflow-y-auto">
         {items.map((item) => (
           <div key={item.id} className="flex gap-3 items-center">
@@ -67,132 +159,68 @@ export const OrderSummary = ({
             <div className="flex-1">
               <p className="font-medium text-sm">{item.productName}</p>
               <p className="text-gray-500 text-xs">Qty: {item.quantity}</p>
-              {item.calculatedProductPrice?.oldPrice >
-                item.calculatedProductPrice?.price && (
-                <p className="text-xs text-green-600">
-                  {item.calculatedProductPrice.percentOfSaving}% off
-                </p>
-              )}
             </div>
-            <div className="text-right">
-              <p className="font-semibold text-sm">
-                ₹{Number(item.total).toLocaleString()}
-              </p>
-              {item.calculatedProductPrice?.oldPrice >
-                item.calculatedProductPrice?.price && (
-                <p className="text-xs text-gray-400 line-through">
-                  ₹
-                  {Number(
-                    item.calculatedProductPrice.oldPrice,
-                  ).toLocaleString()}
-                </p>
-              )}
-            </div>
+            <p className="font-semibold text-sm">
+              ₹{Number(item.total).toLocaleString()}
+            </p>
           </div>
         ))}
       </div>
 
       <hr className="my-5" />
 
-      {/* Pricing Breakdown */}
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
-          <span className="text-gray-600">Subtotal</span>
-          <span>₹{Number(subTotal).toLocaleString()}</span>
+          <span>Original Price</span>
+          <span>₹{subTotal}</span>
         </div>
 
         <div className="flex justify-between">
-          <span className="text-gray-600">Shipping</span>
-          <span>
-            {!shippingPrice || shippingPrice === 0
-              ? "Free"
-              : `₹${shippingPrice}`}
-          </span>
+          <span>Shipping</span>
+          <span>{shippingPrice || "Free"}</span>
         </div>
 
         <div className="flex justify-between">
-          <span className="text-gray-600 flex items-center">
-            Tax
-            {taxPercent !== null && (
-              <span className="text-gray-600 text-l">@{taxPercent}%</span>
-            )}
-          </span>
-          <span>₹{Number(taxAmount).toLocaleString()}</span>
+          <span>Tax {taxPercent ? `@${taxPercent}%` : ""}</span>
+          <span>₹{taxAmount}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-gray-600">Packaging</span>
+          <span>₹{packagingTotal}</span>
         </div>
 
         {discount > 0 && (
           <div className="flex justify-between text-green-600">
             <span>Discount</span>
-            <span>− ₹{Number(discount).toLocaleString()}</span>
+            <span>-₹{discount}</span>
           </div>
         )}
 
-        {couponCode && (
-          <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg px-3 py-2 mt-1">
-            <div className="flex items-center gap-2">
-              <Tag className="w-4 h-4 text-green-600 shrink-0" />
-              <div>
-                <p className="text-green-700 font-medium text-xs leading-tight">
-                  Coupon Applied
-                </p>
-                <p className="text-green-600 font-bold text-sm tracking-wide">
-                  {couponCode}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
+        <hr />
 
-        <hr className="my-2" />
-
-        {discount > 0 && (
-          <div className="flex justify-between text-gray-500 text-xs">
-            <span>Subtotal after discount</span>
-            <span>₹{Number(subTotalWithDiscount).toLocaleString()}</span>
-          </div>
-        )}
-
-        <div className="flex justify-between font-semibold text-base pt-1">
+        <div className="flex justify-between font-semibold text-lg">
           <span>Total</span>
-          <span>₹{Number(orderTotal).toLocaleString()}</span>
+          <span>₹{orderTotal + packagingTotal}</span>
         </div>
       </div>
 
-      {/* Payment Method */}
-      <div className="mt-5">
-        <label className="block text-sm font-medium mb-2">
-          Select Payment Method
-        </label>
-        <select
-          value={selectedPayment || ""}
-          onChange={(e) => setSelectedPayment(e.target.value)}
-          className="w-full border rounded-md p-2 text-sm"
-        >
-          <option value="">Select</option>
-          {paymentMethods
-            ?.filter((m) => m.isEnabled)
-            .map((method) => (
-              <option key={method.id} value={method.id}>
-                {method.name}
-              </option>
-            ))}
-        </select>
-      </div>
-
-      {/* Inline order error — shown directly below payment, above the button */}
-      {orderError && (
-        <div className="mt-4 flex items-start gap-2 bg-red-50 border border-red-200 rounded-lg px-3 py-2.5">
-          <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-          <p className="text-sm text-red-600">{orderError}</p>
-        </div>
-      )}
+      {/* PAYMENT */}
+      <select
+        value={selectedPayment || ""}
+        onChange={(e) => setSelectedPayment(e.target.value)}
+        className="w-full border rounded-md p-2 mt-4"
+      >
+        <option value="">Select Payment</option>
+        <option value="RAZORPAY_UPI">UPI / Razorpay</option>
+        <option value="COD">Cash on delivery</option>
+      </select>
 
       <button
         onClick={handlePlaceOrder}
         disabled={placingOrder}
-        className="w-full mt-5 bg-[var(--color-primary)] text-white py-3 rounded-lg font-medium disabled:opacity-50"
+        className="w-full mt-4 bg-blue-600 text-white py-3 rounded-lg"
       >
-        {placingOrder ? "Placing Order..." : "Place Order"}
+        {placingOrder ? "Processing..." : "Place Order"}
       </button>
     </div>
   );
