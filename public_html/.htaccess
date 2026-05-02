@@ -1,7 +1,7 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
->>>>>>> 3fedf30210668b1deb5837804e284ca5276b50d6
+<<<<<<< HEAD
+>>>>>>> 26e8947573efce2501d1865e83760fd8ec4b3438
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -17,6 +17,8 @@
 <<<<<<< HEAD
 </IfModule>
 =======
+</IfModule>
+=======
 RewriteEngine On
 RewriteBase /
 
@@ -28,6 +30,4 @@ RewriteRule ^ - [L]
 # Otherwise route everything to index.html
 RewriteRule ^ index.html [L]
 >>>>>>> 01d758771759e6a4e4a445c8bfde2a2c38877034
-=======
-</IfModule>
->>>>>>> 3fedf30210668b1deb5837804e284ca5276b50d6
+>>>>>>> 26e8947573efce2501d1865e83760fd8ec4b3438
