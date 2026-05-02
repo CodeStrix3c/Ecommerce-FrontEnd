@@ -114,7 +114,6 @@ const CartSummary = ({
           data?.message ||
           error?.message ||
           "Checkout failed";
-
         toast.error(message);
       },
     });

@@ -120,9 +120,10 @@ const DropdownPanel = ({ open, onClose }) => {
           </>
         )}
 
-       
-        <div     onClick={handleHeritage}
-              className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors">
+        <div
+          onClick={handleHeritage}
+          className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-[var(--color-black-hover)] transition-colors"
+        >
           <Info size={16} />
           <span>About Our Heritage</span>
         </div>
@@ -133,10 +134,6 @@ const DropdownPanel = ({ open, onClose }) => {
           <span>Help & Support</span>
         </div>
 
-       
-
-  
-
         {/* Mobile Extra Options */}
         {isMobile && (
           <>
@@ -144,7 +141,6 @@ const DropdownPanel = ({ open, onClose }) => {
               <Palette size={16} />
               <span>Handicraft Categories</span>
             </div>
-
 
             {/* Settings in mobile only shown when logged in */}
             {isAuthenticated && (

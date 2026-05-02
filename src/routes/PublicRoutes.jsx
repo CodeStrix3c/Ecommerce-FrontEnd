@@ -66,7 +66,7 @@ export default [
       <Route index element={<LandingPage />} />
       <Route index element={<Navigate to="/home" replace />} />
       <Route path="/home" element={<IndexPage />} />
-      <Route path="/vendorslandingpage" element={<ProductlandingPage />} />
+      <Route path="/vendorsl andingpage" element={<ProductlandingPage />} />
       <Route path="/woodcraft" element={<WoodcraftPage />} />
       <Route path="/metals" element={<MetalsCraftPage />} />
       <Route path="/about-us" element={<AboutUs />} />

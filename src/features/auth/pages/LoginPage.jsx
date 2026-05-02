@@ -104,7 +104,7 @@ const LoginPage = () => {
         >
           <div className="flex flex-col items-center mb-5 sm:mb-6">
             <img
-              src="/assets/images/logo6.png"
+              src="/assets/images/logoG.png"
               alt="App Logo"
               className="
               object-contain

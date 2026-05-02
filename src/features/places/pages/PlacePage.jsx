@@ -8,12 +8,10 @@ import BookingWidget from "@/features/bookings/components/BookingWidget";
 import PlaceGallery from "@/features/places/components/PlaceGallery";
 import ListingHeader from "@/components/shared/ListingHeader";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-
 import {
   useProductDetailsQuery,
   useProductsQuery,
 } from "@/hooks/useProductsQuery";
-
 import ProductInfoPanel from "../components/ProductInfoPanel";
 import Testimonials from "@/features/reviews/pages/Testimonials";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
@@ -262,20 +260,24 @@ const PlacePage = () => {
               const tryOnQrUrl = `${window.location.origin}${tryOnPath}`;
               return (
                 <div className="rounded-xl border border-gray-200 bg-white p-4">
-                  <div className="flex items-center gap-4">
+                  {/* <div className="flex items-center gap-4">
                     <div className="shrink-0 rounded-lg bg-white p-2 shadow-sm">
                       <QRCode value={tryOnQrUrl} size={86} />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <Smartphone size={17} className="text-[var(--color-primary)]" />
+                        <Smartphone
+                          size={17}
+                          className="text-[var(--color-primary)]"
+                        />
                         <p className="font-semibold">Try on phone</p>
                       </div>
                       <p className="mt-1 text-xs leading-relaxed text-gray-500">
-                        Scan the QR on your phone — upload from gallery or take a photo, and the product loads automatically.
+                        Scan the QR on your phone — upload from gallery or take
+                        a photo, and the product loads automatically.
                       </p>
                     </div>
-                  </div>
+                  </div> */}
                   <Link
                     to={tryOnPath}
                     className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-primary)] py-3 font-semibold text-white transition hover:opacity-90"

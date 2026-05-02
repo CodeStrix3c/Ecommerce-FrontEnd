@@ -66,11 +66,9 @@ const WishlistPage = () => {
   return (
     <ContentWrapper compactScreen>
       <div className="py-10 lg:mt-24 md:mt-24">
-
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-3">
-
             <div className="bg-[var(--color-secondary)] p-2 rounded-full">
               <Heart className="w-6 h-6 text-white fill-white" />
             </div>
@@ -81,7 +79,6 @@ const WishlistPage = () => {
                 {wishlist.length} item{wishlist.length > 1 ? "s" : ""} saved
               </p>
             </div>
-
           </div>
         </div>
 
@@ -111,7 +108,6 @@ const WishlistPage = () => {
             );
           })}
         </div>
-
       </div>
     </ContentWrapper>
   );

@@ -37,7 +37,6 @@ const PlacesPage = lazy(() => import("@/features/places/pages/PlacesPage"));
 
 const TryOn = lazy(() => import("@/features/places/pages/VirtualTryOn/try-on"));
 
-
 const PlacesFormPage = lazy(
   () => import("@/features/places/pages/PlacesFormPage"),
 );
@@ -114,14 +113,13 @@ export default [
 
       <Route path="/account/Try-on" element={<TryOn />} />
 
-
       <Route path="/account/places/new" element={<PlacesFormPage />} />
       <Route path="/account/places/:id" element={<PlacesFormPage />} />
       <Route path="/account/bookings" element={<BookingsPage />} />
       <Route path="/account/bookings/:id" element={<SingleBookedPlace />} />
       <Route path="/profile" element={<UserProfile />} />
       <Route path="/settings/" element={<SettingsPage />} />
-     
+
       <Route path="/order" element={<OrdersPage />} />
       <Route path="/success" element={<OrderSuccess />} />
       <Route path="/orderdetails/:orderId" element={<OrderDetails />} />
