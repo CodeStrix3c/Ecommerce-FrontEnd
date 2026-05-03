@@ -216,39 +216,64 @@ const PlacePage = () => {
               toggleSection={toggleSection}
             />
 
-            {/* Gift UI SAME */}
-            <button
-              onClick={() => setGiftModalOpen(true)}
-              className="w-full flex items-center justify-between p-4 text-sm border rounded-xl bg-gray-50 hover:bg-white hover:border-black transition"
-            >
-              <div className="flex items-center gap-3">
-                <span>🎁</span>
-                <div className="text-left">
-                  <p className="font-semibold">
-                    {selectedPackage
-                      ? selectedPackage.name
-                      : "Add Gift Packaging"}
-                  </p>
-                  <p className="text-xs text-gray-500">
+            <div className="w-full border border-slate-200 rounded-lg bg-white overflow-hidden transition-all hover:border-slate-300">
+              <div
+                onClick={() => setGiftModalOpen(true)}
+                className="flex items-center gap-5 p-5 cursor-pointer"
+              >
+                {/* SERVICE ICON: SIMPLE LINEWORK */}
+                <div
+                  className={`flex-shrink-0 w-5 h-5 ${selectedPackage ? "text-blue-600" : "text-slate-400"}`}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                  </svg>
+                </div>
+
+                {/* CONTENT: DATA-DRIVEN TYPOGRAPHY */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-0.5">
+                    <p className="text-[11px] font-bold text-slate-900 uppercase tracking-wider">
+                      {selectedPackage
+                        ? selectedPackage.name
+                        : "Packaging Service"}
+                    </p>
+                  </div>
+
+                  <p className="text-[12px] text-slate-500 leading-none">
                     {selectedPackage
                       ? `${selectedPackage.occasion} • +₹${selectedPackage.price}`
-                      : "Make it special with premium wrapping"}
+                      : "Professional finishing and 3D preview available"}
                   </p>
                 </div>
-              </div>
 
-              {selectedPackage && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedPackage(null);
-                  }}
-                  className="text-xs text-red-500"
-                >
-                  Remove
-                </button>
-              )}
-            </button>
+                {/* ACTIONS */}
+                <div className="flex items-center gap-6">
+                  <span className="text-[11px] font-bold text-blue-600 uppercase tracking-widest hover:underline decoration-2 underline-offset-4">
+                    {selectedPackage ? "Edit" : "Configure"}
+                  </span>
+
+                  {selectedPackage && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedPackage(null);
+                      }}
+                      className="text-[11px] font-bold text-slate-400 hover:text-red-600 uppercase tracking-widest transition-colors"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
 
             {/* QR + Try-On card */}
             {(() => {
@@ -257,27 +282,8 @@ const PlacePage = () => {
                 name: place.title || "",
               });
               const tryOnPath = `/virtual-try-on?${tryOnParams.toString()}`;
-              const tryOnQrUrl = `${window.location.origin}${tryOnPath}`;
               return (
                 <div className="rounded-xl border border-gray-200 bg-white p-4">
-                  {/* <div className="flex items-center gap-4">
-                    <div className="shrink-0 rounded-lg bg-white p-2 shadow-sm">
-                      <QRCode value={tryOnQrUrl} size={86} />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <Smartphone
-                          size={17}
-                          className="text-[var(--color-primary)]"
-                        />
-                        <p className="font-semibold">Try on phone</p>
-                      </div>
-                      <p className="mt-1 text-xs leading-relaxed text-gray-500">
-                        Scan the QR on your phone — upload from gallery or take
-                        a photo, and the product loads automatically.
-                      </p>
-                    </div>
-                  </div> */}
                   <Link
                     to={tryOnPath}
                     className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-primary)] py-3 font-semibold text-white transition hover:opacity-90"
