@@ -18,6 +18,8 @@ import LandingPage from "@/features/landingpage/landingPage";
 import Heritage from "@/features/heritage/Heritage";
 import ProductlandingPage from "@/features/vendorsProductPages/productlandingPage";
 import WoodcraftPage from "@/features/woodcraft/Pages/WoodcraftPage";
+import AboutUs from "@/features/about-us/pages/AboutUs";
+import TryOn from "@/features/places/pages/VirtualTryOn/Try-on";
 
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
@@ -29,7 +31,6 @@ const SupplierRegistration = lazy(
   () => import("@/features/supplier-registration/SupplierRegistration"),
 );
 
-const AboutUs = lazy(() => import("@/features/about-us/pages/AboutUs"));
 const Faq = lazy(() => import("@/features/FAQ/Faq"));
 const FarmingTechniques = lazy(
   () => import("@/features/farming-techniques/FarmingTechniques"),
@@ -45,7 +46,6 @@ const WeatherPage = lazy(
 );
 
 const PlacePage = lazy(() => import("@/features/places/pages/PlacePage"));
-const TryOn = lazy(() => import("@/features/places/pages/VirtualTryOn/Try-on"));
 
 const NotFoundPage = lazy(() => import("@/features/errors/NotFoundPage"));
 
