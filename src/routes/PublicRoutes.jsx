@@ -7,7 +7,6 @@ import CartPage from "@/features/cart/pages/CartPage";
 import WishlistPage from "@/features/wishlist/pages/WishListPage";
 import SupplierSignUp from "@/features/supplier-registration/SupplierSignup";
 import GiDetails from "@/features/places/pages/GiDetails";
-import WoodcraftPage from "@/features/woodcraft/pages/WoodcraftPage";
 import TextilesPage from "@/features/textiles/pages/Textiles";
 import MetalsCraftPage from "@/features/metals/pages/Metalstone";
 import PrivacyPolicy from "@/features/privacy-policies/pages/Privacy";
@@ -18,6 +17,7 @@ import ForgotPasswordPage from "@/features/auth/pages/ForgotPassword";
 import LandingPage from "@/features/landingpage/landingPage";
 import Heritage from "@/features/heritage/Heritage";
 import ProductlandingPage from "@/features/vendorsProductPages/productlandingPage";
+import WoodcraftPage from "@/features/woodcraft/Pages/WoodcraftPage";
 
 const IndexPage = lazy(() => import("@/features/IndexPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
