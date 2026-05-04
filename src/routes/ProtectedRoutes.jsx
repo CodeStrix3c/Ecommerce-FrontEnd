@@ -6,16 +6,14 @@ import ProtectedLayout from "@/app/layouts/ProtectedLayout";
 import DashboardLayout from "@/app/layouts/DashboardLayout";
 import VendorSettings from "@/supplier/pages/VendorSettings";
 import AboutUs from "@/features/about-us/pages/AboutUs";
-import { HelpCenter } from "@mui/icons-material";
-import VendorHelpCenter from "@/supplier/pages/VendorHelpCenter";
 import AgricultureHelpCenter from "@/features/help-center/pages/HelpCenter";
 import SettingsPage from "@/features/settings/SettingsPage";
-import AddressPage from "@/features/address/addressPage";
 import OrdersPage from "@/supplier/pages/OrdersPage";
 
 import PaymentPage from "@/features/payment/paymentPage";
 import OrderSuccess from "@/supplier/pages/OrderSuccess";
 import OrderDetails from "@/supplier/pages/OrderDetails";
+import AddressPage from "@/features/address/AddressPage";
 
 /* ================= AUTH / COMMON ================= */
 const TalkWithExpert = lazy(
