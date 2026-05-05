@@ -10,8 +10,8 @@ import {
   Package,
 } from "lucide-react";
 import { useProductsQuery } from "@/hooks/useProductsQuery";
-import NavBarSkeleton from "./NavBarSkeleton";
 import { useRef, useState } from "react";
+import NavBarSkeleton from "./NavbarSkeleton";
 
 const CATEGORY_PATH_MAP = {
   textiles: "/textiles",
