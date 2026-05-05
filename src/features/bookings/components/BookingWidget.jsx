@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Tag, Heart, ShoppingCart, Package } from "lucide-react";
-import { useCartList } from "@/providers/CartListProvider";
-import { useWishlist } from "@/providers/WishlistProvider";
-import QuantitySelector from "@/components/shared/QuantitySelector";
-
-// ✅ USE HOOKS (NOT DIRECT API)
 import {
   useAddToCart,
   useAddToCartWithPackaging,
 } from "@/hooks/User/Cart/usecartitems";
 import { toast } from "react-toastify";
-
+import { useCartList } from "@/providers/CartListProvider";
+import { useWishlist } from "@/providers/WishListProvider";
+import QuantitySelector from "@/components/shared/QuantitySelector";
 const formatINR = (value) => Number(value).toLocaleString("en-IN");
 
 const Spinner = () => (
