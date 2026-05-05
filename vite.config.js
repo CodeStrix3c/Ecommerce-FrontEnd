@@ -55,9 +55,6 @@ function imageProxyPlugin() {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), imageProxyPlugin()],
-  build: {
-    outDir: "public_html",
-  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
