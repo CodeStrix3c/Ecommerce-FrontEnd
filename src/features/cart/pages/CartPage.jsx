@@ -7,8 +7,9 @@ import CartSummary from "../components/CartSummary";
 import CartBottomBar from "../components/CartBottomBar";
 import EmptyState from "@/components/shared/EmptyState";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import ConfirmDialog from "@/components/shared/ConfirmDialog";
+
 import { toast } from "react-toastify";
+import ConfirmDialog from "@/components/shared/confirmDialog";
 
 const CartPage = () => {
   const {
@@ -132,7 +133,10 @@ const CartPage = () => {
                       quantity: Number(product.quantity ?? 1),
                       rating: 0,
                       inStock: product.isProductAvailabeToOrder,
+<<<<<<< HEAD
+=======
                       packagingPrice: Number(product.packagingPrice ?? 0),
+>>>>>>> 26e8947573efce2501d1865e83760fd8ec4b3438
                     }}
                     onRemove={() => handleRemoveClick(product.id)}
                     onQuantityChange={updateQuantity}
