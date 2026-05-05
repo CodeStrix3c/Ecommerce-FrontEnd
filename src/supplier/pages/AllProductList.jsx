@@ -16,7 +16,7 @@ import ProductTable from "../components/productCard";
 import Pagination from "../components/paginationComponent";
 import ProductModal from "@/modals/vendorProductModal";
 import AssignProductModal from "@/modals/AssignProductModal";
-import ConfirmDialog from "@/components/shared/ConfirmDialog";
+import ConfirmDialog from "@/components/shared/confirmDialog";
 import ProductSearchBar from "@/components/shared/productSearchBar";
 
 const AllProductList = () => {

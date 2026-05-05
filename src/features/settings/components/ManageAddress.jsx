@@ -8,7 +8,7 @@ import { X, Pencil, Trash2 } from "lucide-react";
 import Inputs from "@/components/shared/Inputs";
 import SelectInputs from "@/components/shared/SelectInput";
 import FormTextArea from "@/components/shared/custom-inputs/FormTextArea";
-import ConfirmDialog from "@/components/shared/ConfirmDialog";
+import ConfirmDialog from "@/components/shared/confirmDialog";
 
 import { useCountries } from "@/hooks/addresshooks/useCountry";
 import { useStates } from "@/hooks/addresshooks/useState";
