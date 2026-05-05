@@ -12,13 +12,12 @@ import {
 } from "@/hooks/Vendor/useVedorProducts";
 import LoadingSpinner from "../components/loadingSpinner";
 import { toast } from "react-toastify";
-import ProductTable from "../components/productCard";
-import Pagination from "../components/paginationComponent";
 import ProductModal from "@/modals/vendorProductModal";
-
-import ConfirmDialog from "@/components/shared/confirmDialog";
-import ProductSearchBar from "@/components/shared/productSearchBar";
 import AssignProductModal from "@/modals/assignProductModal";
+import ProductSearchBar from "@/components/shared/ProductSearchBar";
+import ConfirmDialog from "@/components/shared/confirmDialog";
+import Pagination from "../components/paginationComponent";
+import ProductTable from "../components/productCard";
 
 const AllProductList = () => {
   const PAGE_SIZE = 10;
