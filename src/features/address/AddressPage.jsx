@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ContentWrapper from "@/components/shared/ContentWrapper";
 import { AddressModal } from "./components/addressModal";
-import { OrderSummary } from "./components/OrderSummary";
 import { Plus, Pencil, MapPin } from "lucide-react";
 import { useCountries } from "@/hooks/addresshooks/useCountry";
 import { useStates } from "@/hooks/addresshooks/useState";
@@ -25,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { addressSchema } from "../farmer-registration/schemas/addressSchema";
 import { ShippingForm } from "./components/addressForm";
 import Spinner from "@/components/ui/Spinner";
+import { OrderSummary } from "./components/orderSummary";
 
 const defaultValues = {
   contactName: "",

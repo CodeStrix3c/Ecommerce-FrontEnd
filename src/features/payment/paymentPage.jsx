@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import { OrderSummary } from "../address/components/OrderSummary";
 
 import { useCheckoutShipping } from "@/hooks/addresshooks/useaddress";
 import { usePaymentProviders } from "@/services/User/paymenthooks/getPaymentProviders";
+import { OrderSummary } from "../address/components/orderSummary";
 
 const PaymentPage = () => {
   const navigate = useNavigate();
