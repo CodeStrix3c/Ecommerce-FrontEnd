@@ -7,8 +7,8 @@ import CartSummary from "../components/CartSummary";
 import CartBottomBar from "../components/CartBottomBar";
 import EmptyState from "@/components/shared/EmptyState";
 import ContentWrapper from "@/components/shared/ContentWrapper";
-import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "react-toastify";
+import ConfirmDialog from "@/components/shared/confirmDialog";
 
 const CartPage = () => {
   const {

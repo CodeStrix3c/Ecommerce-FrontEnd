@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 import { useMutation } from "@tanstack/react-query";
 import {
   useVendorProducts,
@@ -6,12 +12,12 @@ import {
 } from "@/hooks/Vendor/useVedorProducts";
 import LoadingSpinner from "../components/loadingSpinner";
 import { toast } from "react-toastify";
-import ProductTable from "../components/productCard";
-import Pagination from "../components/paginationComponent";
 import ProductModal from "@/modals/vendorProductModal";
-import AssignProductModal from "@/modals/AssignProductModal";
+import AssignProductModal from "@/modals/assignProductModal";
+import ProductSearchBar from "@/components/shared/ProductSearchBar";
 import ConfirmDialog from "@/components/shared/confirmDialog";
-import ProductSearchBar from "@/components/shared/productSearchBar";
+import Pagination from "../components/paginationComponent";
+import ProductTable from "../components/productCard";
 
 const AllProductList = () => {
   const PAGE_SIZE = 10;
@@ -87,7 +93,7 @@ const AllProductList = () => {
         reverse: sortReverse,
       },
     }),
-    [currentPage, searchParams.query, sortBy, sortReverse]
+    [currentPage, searchParams.query, sortBy, sortReverse],
   );
 
   // Stable fetch function that prevents duplicate calls
@@ -146,7 +152,11 @@ const AllProductList = () => {
 
   const handleAssignSuccess = useCallback(() => {
     const isUpdate = !!editProduct;
-    toast.success(isUpdate ? "Product updated successfully" : "Product assigned successfully");
+    toast.success(
+      isUpdate
+        ? "Product updated successfully"
+        : "Product assigned successfully",
+    );
     setAssignModalOpen(false);
     setEditProduct(null);
     setSelectedProductId(null);
@@ -168,7 +178,7 @@ const AllProductList = () => {
       }
       setCurrentPage(1);
     },
-    [sortBy]
+    [sortBy],
   );
 
   const handleCloseAssignModal = useCallback(() => {
@@ -184,7 +194,7 @@ const AllProductList = () => {
 
   const assignedProductIds = useMemo(
     () => products.map((p) => p.productId),
-    [products]
+    [products],
   );
 
   // Early return if vendor not found
@@ -283,7 +293,6 @@ const AllProductList = () => {
         />
       </div>
     </div>
-    
   );
 };
 

@@ -12,7 +12,6 @@ const ConfirmDialog = ({
   loading = false,
   variant = "danger",
 }) => {
-
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -25,7 +24,6 @@ const ConfirmDialog = ({
     };
   }, [isOpen]);
 
-
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape" && !loading) {
@@ -37,28 +35,23 @@ const ConfirmDialog = ({
       document.addEventListener("keydown", handleEscape);
     }
 
-    return () =>
-      document.removeEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, loading, onCancel]);
 
   if (!isOpen) return null;
 
-
   const variantStyles = {
     danger: {
       icon: "bg-red-50 text-red-600",
-      button:
-        "bg-red-600 hover:bg-red-700 focus:ring-red-500",
+      button: "bg-red-600 hover:bg-red-700 focus:ring-red-500",
     },
     warning: {
       icon: "bg-amber-50 text-amber-600",
-      button:
-        "bg-amber-600 hover:bg-amber-700 focus:ring-amber-500",
+      button: "bg-amber-600 hover:bg-amber-700 focus:ring-amber-500",
     },
     info: {
       icon: "bg-gray-100 text-gray-700",
-      button:
-        "bg-gray-900 hover:bg-black focus:ring-gray-500",
+      button: "bg-gray-900 hover:bg-black focus:ring-gray-500",
     },
   };
 
@@ -77,11 +70,9 @@ const ConfirmDialog = ({
       aria-labelledby="dialog-title"
       aria-describedby="dialog-description"
     >
-
       <div className="absolute inset-0 bg-black/70" />
 
       <div className="relative bg-[var(--color-white)] rounded-2xl w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-200">
-
         <button
           onClick={onCancel}
           disabled={loading}
@@ -92,13 +83,11 @@ const ConfirmDialog = ({
         </button>
 
         <div className="p-6">
-
           <div
             className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${styles.icon}`}
           >
             <AlertTriangle className="w-6 h-6" />
           </div>
-
 
           <h3
             id="dialog-title"
@@ -114,7 +103,6 @@ const ConfirmDialog = ({
             {message}
           </p>
 
-
           <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
             <button
               onClick={onCancel}
@@ -127,8 +115,9 @@ const ConfirmDialog = ({
             <button
               onClick={onConfirm}
               disabled={loading}
-              className={`px-4 py-2.5 text-sm font-medium rounded-lg text-[var(--color-white)] transition-all disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 ${styles.button} ${loading ? "cursor-wait" : ""
-                }`}
+              className={`px-4 py-2.5 text-sm font-medium rounded-lg text-[var(--color-white)] transition-all disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 ${styles.button} ${
+                loading ? "cursor-wait" : ""
+              }`}
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
