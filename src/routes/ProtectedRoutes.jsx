@@ -104,9 +104,7 @@ export default [
       <Route path="/address" element={<AddressPage />} />
       <Route path="payment" element={<PaymentPage />} />
 
-      {/* Account */}
       <Route path="/account/places" element={<PlacesPage />} />
-      {/* AR-Try-on Page */}
 
       <Route path="/account/Try-on" element={<TryOn />} />
 
