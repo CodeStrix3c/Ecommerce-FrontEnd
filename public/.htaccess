@@ -1,33 +1,8 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 26e8947573efce2501d1865e83760fd8ec4b3438
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # If the request is not an existing file
   RewriteCond %{REQUEST_FILENAME} !-f
-
-  # If the request is not an existing directory
   RewriteCond %{REQUEST_FILENAME} !-d
-
-  # Redirect everything to index.html
   RewriteRule ^ index.html [L]
-<<<<<<< HEAD
 </IfModule>
-=======
-</IfModule>
-=======
-RewriteEngine On
-RewriteBase /
-
-# If file or folder exists, load it directly
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-# Otherwise route everything to index.html
-RewriteRule ^ index.html [L]
->>>>>>> 01d758771759e6a4e4a445c8bfde2a2c38877034
->>>>>>> 26e8947573efce2501d1865e83760fd8ec4b3438
