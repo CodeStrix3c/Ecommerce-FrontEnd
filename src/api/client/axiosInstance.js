@@ -3,7 +3,7 @@ import { USE_MOCK_API } from "@/api/config/apiMode";
 import { getItemFromLocalStorage } from "@/utils/localStorage";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_ZIRAAT_BASE_URL, // no ending slash in env
+  baseURL: import.meta.env.VITE_API_BASE_URL, // no ending slash in env
   headers: {
     "Content-Type": "application/json",
   },
@@ -14,7 +14,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     if (USE_MOCK_API) {
       return Promise.reject(
-        new Error(`Mock API Enabled: ${config?.url || ""}`)
+        new Error(`Mock API Enabled: ${config?.url || ""}`),
       );
     }
 
